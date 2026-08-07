@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EFAM U02 — Teacher Deck · Reading and signing off a task card</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace;
+  --warn:#ff5667;--caut:#fbbf24;--note:#38b6ff}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:21px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:28px}
+.center{align-items:center;text-align:center}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.cols,.cols3{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:680px;min-height:300px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:300px;
+  border:1px dashed var(--line);border-radius:14px}
+b.acc{color:var(--accent)} b.gd{color:var(--good)} b.am{color:var(--amber)} b.pu{color:var(--purple)} b.ht{color:var(--hot)}
+.dlg{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.turn{display:flex;gap:10px;align-items:flex-start;max-width:94%}
+.turn .who{flex:none;min-width:34px;font-family:var(--mono);font-size:12px;font-weight:800;color:var(--accent);padding-top:6px}
+.turn .said{background:#0f1726;border:1px solid var(--line);border-radius:12px;padding:8px 13px;font-size:17px;color:#d6e3f1}
+.turn.b{flex-direction:row-reverse;align-self:flex-end;text-align:right}
+.turn.b .who{color:var(--amber)} .turn.b .said{background:#1b1710;border-color:#4a3b16}
+/* widget skin */
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%;height:auto;border:1px solid #26384e}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:56px;font-size:15px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+/* triage chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chip{font-size:14px;border:1px solid #314865;background:#16263a;color:#cfe5ff;border-radius:18px;padding:6px 13px;cursor:pointer}
+.chip:hover{border-color:#38b6ff}.chip.active{background:#16324c;color:#fff;border-color:#38b6ff;font-weight:600}
+.bins{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+.bin{border:1px solid #314865;border-radius:11px;padding:10px 12px;background:#0c1622;min-height:70px}
+.bin h5{margin:0 0 6px;font-size:13px;font-weight:800;letter-spacing:.05em}
+.bin.warn{border-top:3px solid var(--warn)} .bin.warn h5{color:var(--warn)}
+.bin.caut{border-top:3px solid var(--caut)} .bin.caut h5{color:var(--caut)}
+.bin.note{border-top:3px solid var(--note)} .bin.note h5{color:var(--note)}
+.bin span{display:inline-block;font-size:13px;background:#16263a;border:1px solid #314865;border-radius:6px;padding:2px 8px;margin:2px}
+/* imperative builder rows */
+.imp{display:grid;gap:8px;margin-top:6px}
+.improw{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;border:1px solid #314865;border-radius:9px;padding:7px 12px;background:#0c1622;font-size:15.5px}
+.improw .x{color:#ff9aa2;font-family:var(--mono)} .improw .ok{color:#9af0c8;font-family:var(--mono)}
+.improw .arrow{color:#7fd0ff;font-weight:700}
+.improw .ok{display:none}
+.improw.shown .x{display:none}.improw.shown .ok{display:inline}
+.timing{width:100%;border-collapse:collapse;font-size:16px}
+.timing td,.timing th{border:1px solid var(--line);padding:8px 12px;text-align:left}
+.timing th{background:#0f1726;color:var(--accent);font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+.timing td:first-child{font-family:var(--mono);color:var(--amber);white-space:nowrap}
+.box{border-radius:10px;padding:10px 14px;margin:6px 0;font-size:16.5px}
+.box.warn{background:#241316;border:1px solid #7a3030;color:#ffb4ba} .box.warn b{color:var(--warn)}
+.box.caut{background:#2c2410;border:1px solid #6b5a1f;color:#f3d27a} .box.caut b{color:var(--amber)}
+.box.note{background:#0c2033;border:1px solid #2a557e;color:#9ec9ff} .box.note b{color:var(--note)}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--amber));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="Open the class. This is Unit 2 of the English for Aviation Maintenance course, taught in one 90-minute session. Set the frame in one sentence: today the class learns to READ a task card, follow its steps in order, decode its WARNING / CAUTION / NOTE boxes, and state the conditions that must be met before a step is signed off. Tell the room why the language matters — the certifying signature carries legal weight, so a misread instruction or a missing article is not a small mistake, it is a safety event. Name the spine of the lesson: the imperative is the grammar of every procedural step, and Simplified Technical English is the writing habit we build toward in the final task. Keep the energy practical, not academic — these are working mechanics and avionics technicians. Preview the arc on the pill: listen to three walkthroughs, build the vocabulary and grammar, drill it in the exercises, then perform the pair walkthrough and write a tech-log entry. The whole class is a rehearsal for one real behaviour: read a step, confirm it, query anything unclear BEFORE you stamp.">
+    <div class="kick">English for Aviation Maintenance · Unit 2 of 32 · CEFR B2 · 90 minutes</div>
+    <h1>Reading and signing off a task card</h1>
+    <p class="big muted">Follow the steps in order · decode WARNING, CAUTION and NOTE · state the conditions before you sign — the imperative is the grammar of every procedural step.</p>
+    <p class="pill">Listen ▸ vocabulary ▸ grammar ▸ practice ▸ pair walkthrough ▸ write a tech-log entry &nbsp;·&nbsp; "read it, confirm it, query it — then stamp"</p>
+  </section>
+
+  <!-- 2 · OUTCOMES + HOW THE 90 MIN RUNS -->
+  <section class="slide" data-notes="Share the three can-do outcomes and the shape of the 90 minutes so the class knows where it is going. The outcomes are behavioural, not knowledge — students will DO these by the end: (1) follow the sequential steps and confirm each is complete; (2) interpret the three warning conventions accurately; (3) state the conditions that must be met before signing off. Point at the timing column and say the class is balanced across listening, speaking, reading and writing — no single skill dominates. Reassure the room that the specialist words are the only hard words, each glossed on first use, so nobody should feel lost in vocabulary. Stress the one rule that governs the whole lesson: you never sign off work you cannot personally guarantee. Everything else is technique in service of that rule. Keep this slide to about two minutes — it is orientation, not content.">
+    <div class="kick">By the end · how the class runs</div>
+    <h2>Three outcomes, four skills, ninety minutes</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="acc">Outcome 1.</b> Follow the sequential steps of a task card and confirm each one is complete.</p>
+        <p><b class="am">Outcome 2.</b> Interpret WARNING, CAUTION and NOTE conventions accurately.</p>
+        <p><b class="gd">Outcome 3.</b> State the conditions that must be met before you sign a task off.</p>
+      </div>
+      <div>
+        <table class="timing">
+          <tr><th>Time</th><th>Stage</th></tr>
+          <tr><td>0–10</td><td>Opener + scenario</td></tr>
+          <tr><td>10–30</td><td>Three walkthroughs (listening)</td></tr>
+          <tr><td>30–45</td><td>Vocabulary + warning boxes</td></tr>
+          <tr><td>45–60</td><td>Grammar: the imperative</td></tr>
+          <tr><td>60–75</td><td>Exercises E1–E8</td></tr>
+          <tr><td>75–90</td><td>Role-play + writing</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SCENARIO -->
+  <section class="slide" data-center data-notes="Set the scene the whole class lives inside. Two mechanics on a Part-145 line, working as a pair: one reads the task card aloud, the other performs the work and confirms each step out loud. This is a real hangar behaviour, not a classroom invention — it is how a critical job is cross-checked so a single person's error is caught. Draw out why it is a LANGUAGE skill: reading the card means interpreting a sequence, decoding warning conventions, and confirming each action in precise, unambiguous English. Then land the four conditions before sign-off — put them on the board and keep them visible, because the class returns to them at the end. Ask the room a quick question to activate prior knowledge: 'What is the difference between a work order and a task card?' Take two answers, then move on. Roughly three minutes.">
+    <div class="kick">§1 · the situation</div>
+    <h2>A pair walkthrough on a Part-145 line</h2>
+    <p class="big">One mechanic reads the card aloud. The other does the work and confirms each step out loud. A single person's slip gets caught.</p>
+    <div class="card" style="max-width:760px;text-align:left">
+      <p style="margin:.2em 0"><b class="acc">Four conditions before you sign off:</b></p>
+      <p style="margin:.2em 0">① every step complete, and done <b>in order</b> · ② the work <b>matches the reference</b> (AMM) · ③ any defect is <b>recorded in the tech log</b> and not signed off · ④ your entry is <b>legible, dated and stamped</b>.</p>
+    </div>
+  </section>
+
+  <!-- 4 · DIALOGUE 1 -->
+  <section class="slide" data-notes="First listening. Play Dialogue 1 (audio is in the student page) with books closed — the class listens once for the gist, transcript hidden. Ask one gist question before the second play: 'How many steps did they complete?' (five, plus the WARNING). Then play again and let them open the transcript. The teaching point on this slide: notice the confirmation loop — A issues an imperative ('Remove the access panel'), B confirms with a full statement ('The access panel is removed'). That two-part rhythm IS the target behaviour. Highlight B's query in the middle: 'which inspection lamp should I select?' — praise it, because querying an unclear step is exactly what we want, never guessing. Numbers to catch by ear: eight fasteners, 25 newton metres. Drill 'torque to 25 newton metres' chorally. About five minutes including both plays.">
+    <div class="kick">§2 · Dialogue 1 · at the bench</div>
+    <h2>Read a step → confirm it → query if unclear</h2>
+    <div class="cols">
+      <div class="dlg">
+        <div class="turn"><span class="who">A</span><span class="said">Step two: remove the access panel carefully, because eight fasteners secure it.</span></div>
+        <div class="turn b"><span class="who">B</span><span class="said">The access panel is removed, and all eight fasteners are collected in the tray.</span></div>
+        <div class="turn"><span class="who">A</span><span class="said">Step three: inspect the bracket for cracks…</span></div>
+        <div class="turn b"><span class="who">B</span><span class="said">One question, though. Which inspection lamp should I select?</span></div>
+      </div>
+      <div>
+        <p><b class="acc">The rhythm:</b> command → confirmation → query.</p>
+        <p class="muted">A commands with the imperative. B confirms with a full statement. When a step is unclear, B <b>queries it</b> — never guesses.</p>
+        <p><small>Listen for the numbers: <b class="am">8</b> fasteners · <b class="am">25</b> newton metres.</small></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · DIALOGUE 2 -->
+  <section class="slide" data-notes="Second listening, Dialogue 2 — the heart of Outcome 2. Play it, then use the dialogue lines on screen to elicit the three definitions from the class rather than telling them. Ask: 'What does a WARNING protect?' (people) — 'a CAUTION?' (the component/equipment) — 'a NOTE?' (nothing; it only helps). Write the three-word rule on the board: WARNING = people, CAUTION = part, NOTE = advice. Then push on the second half of the dialogue: a defect is found, and the rule is DO NOT sign off the step until it is recorded — in the tech log, not the work order — and the entry must be legible. This connects the warning conventions to the sign-off conditions from slide 3. Anticipate the L1 issue early: Latvian and Russian speakers often drop 'the' and mis-form negatives — flag it, we drill it in the grammar section. About five minutes.">
+    <div class="kick">§2 · Dialogue 2 · WARNING, CAUTION or NOTE?</div>
+    <h2>Three boxes, three levels of risk</h2>
+    <div class="cols3">
+      <div class="box warn"><b>WARNING</b> — risk to <b>people</b>. Ignore it and someone can be injured.</div>
+      <div class="box caut"><b>CAUTION</b> — risk to the <b>component</b>. Ignore it and you damage equipment.</div>
+      <div class="box note"><b>NOTE</b> — helpful <b>advice</b> only. Never a safety instruction.</div>
+    </div>
+    <p class="muted" style="margin-top:14px">Second half: a defect is found → <b class="ht">do not sign off</b> the step until it is recorded in the <b>tech log</b> (not the work order), and the entry must be <b>legible</b>.</p>
+  </section>
+
+  <!-- 6 · WIDGET: W/C/N triage -->
+  <section class="slide" data-notes="Interactive check for Outcome 2. Read each task-card line aloud and ask the class to vote — WARNING, CAUTION or NOTE — before you click the button to sort it. This is a commit-then-reveal drill: get a hand up for each box first, THEN reveal. The load-bearing distinction students confuse is CAUTION versus WARNING — both feel 'serious', but the test is simple: is a PERSON at risk, or only the PART? If a person can be hurt, it is always a WARNING. Use the miss-cases: 'This task needs two mechanics' is a NOTE, not a WARNING, even though it sounds safety-ish — it is manpower information. 'Do not use a metal tool near the seal' is a CAUTION — the seal (part) is at risk, not a person. Spend real time here; it is the most common exam error. Around four minutes.">
+    <div class="kick">§2 · Interactive · triage the boxes</div>
+    <h2>People, part, or just advice?</h2>
+    <div class="cols">
+      <div class="dw" data-widget="triage"></div>
+      <div><p>Click a line, then place it. The test is one question:</p>
+        <p class="big"><b class="ht">Is a person at risk</b> → WARNING.<br><b class="am">Only the part</b> → CAUTION.<br><b class="acc">Nobody, just help</b> → NOTE.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · DIALOGUE 3 -->
+  <section class="slide" data-notes="Third listening, Dialogue 3 — the avionics job, so the course covers both mechanics and avionics work. Play it. The teaching points: the same read-confirm rhythm transfers from a mechanical panel job to an avionics unit installation. New authentic details to notice — 'seat it fully', torque 'in the specified cross pattern' to 8 newton metres, and a NOTE requiring a functional test (the built-in test / BITE) BEFORE closing the access panel. Draw the sign-off chain at the end: functional test passes → refit panel → verify the seal → sign off each task → date and stamp → update the tech log. Contrast the torque values across the three jobs (25 Nm on the bracket, 8 Nm on the avionics unit) to show that the exact value always comes from the card and the AMM, never from memory. About five minutes.">
+    <div class="kick">§2 · Dialogue 3 · line station, avionics unit</div>
+    <h2>Same rhythm — a different specialism</h2>
+    <div class="cols">
+      <div class="dlg">
+        <div class="turn"><span class="who">A</span><span class="said">Step two: install the new unit. Seat it fully, then fit the four fasteners.</span></div>
+        <div class="turn b"><span class="who">B</span><span class="said">Installed, all four fasteners hand-tight, so it is ready for torque.</span></div>
+        <div class="turn"><span class="who">A</span><span class="said">Observe the NOTE: a functional test is required before we close the panel.</span></div>
+        <div class="turn b"><span class="who">B</span><span class="said">Running the built-in test — the screen reports no defect, so it is serviceable.</span></div>
+      </div>
+      <div>
+        <p><b class="acc">Sign-off chain:</b> test passes → refit panel → verify seal → sign off each task → date + stamp → update tech log.</p>
+        <p class="muted">Torque here is <b class="am">8 Nm</b> in a cross pattern. The value always comes from the card and the AMM — never from memory.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · DIALOGUE 4 voicemail -->
+  <section class="slide" data-notes="Fourth listening — the shift-handover voicemail. This is a focused NUMBERS-and-facts listening, the kind avionics and line staff really do at shift change. Play it twice. Set a listening grid on the board and have students catch the spoken figures: which stand (12), the tech-log reference for the defect (4471), the torque value to set (25 newton metres), and the AMM tab (32-41). Comprehension of spoken numbers is a genuine language skill and it is tested in the quiz, so drill it. Draw the safety behaviour: the outgoing shift found a defect near the weld and explicitly said DO NOT sign off that step yet — the handover carries the open item forward so nothing is lost between shifts. Point out the closing line — keep every entry legible, call immediately if any step is unclear — the same two habits the whole unit trains. About four minutes.">
+    <div class="kick">§2 · Dialogue 4 · shift-handover voicemail</div>
+    <h2>Catch the numbers by ear</h2>
+    <div class="cols">
+      <div class="card">
+        <p style="margin:.3em 0">🎧 <b>Listen for:</b></p>
+        <p style="margin:.3em 0">Stand number → <b class="am">12</b></p>
+        <p style="margin:.3em 0">Tech-log reference → <b class="am">4471</b></p>
+        <p style="margin:.3em 0">Torque to set → <b class="am">25 newton metres</b></p>
+        <p style="margin:.3em 0">AMM tab → <b class="am">32-41</b></p>
+      </div>
+      <div>
+        <p>The outgoing shift found a defect near the weld and said: <b class="ht">do not sign off that step yet</b>.</p>
+        <p class="muted">The handover carries the open item forward, so nothing is lost between shifts. Keep every entry legible; call if any step is unclear.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · VOCABULARY overview -->
+  <section class="slide" data-notes="Move into vocabulary. There are twenty terms in the student bank; do not read the whole table aloud — that kills the energy. Instead group them into four families on the board and elicit examples: DOCUMENTS (task card, work order, AMM, reference, tech log), ACTIONS (inspect, torque, remove, install, sign off), THINGS (fastener, access panel, torque wrench, lockwire, bracket), and CONVENTIONS (WARNING, CAUTION, NOTE, defect, step, legible). Model the three headline actions with the standard collocations, because these are the vocabulary field for the unit: inspect FOR cracks, torque TO a value, fit new lockwire. Each specialist word has a plain-words gloss in the student bank, so send them there for anything unfamiliar. Keep this to about three minutes, then run the matching widget on the next slide.">
+    <div class="kick">§3 · vocabulary bank · 20 terms</div>
+    <h2>Four families of task-card language</h2>
+    <div class="cols">
+      <div class="card">
+        <p style="margin:.25em 0"><b class="acc">Documents:</b> task card · work order · AMM · reference · tech log</p>
+        <p style="margin:.25em 0"><b class="am">Actions:</b> inspect · torque · remove · install · sign off</p>
+        <p style="margin:.25em 0"><b class="gd">Things:</b> fastener · access panel · torque wrench · lockwire · bracket</p>
+        <p style="margin:.25em 0"><b class="pu">Conventions:</b> WARNING · CAUTION · NOTE · defect · step · legible</p>
+      </div>
+      <div>
+        <p><b>The headline collocations:</b></p>
+        <p class="big">inspect <b class="am">for</b> cracks · torque <b class="am">to</b> a value · <b class="am">fit new</b> lockwire</p>
+        <p class="muted"><small>Every specialist word is glossed in the student bank — send learners there for anything new.</small></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · WIDGET: term match -->
+  <section class="slide" data-notes="Interactive vocabulary check. Read the plain-words meaning aloud and have the class call out the term before you click to reveal the match. This mirrors quiz task VOCABULARY and exercise E2, so it is direct practice. Push for the collocation, not just the bare word: not 'torque' but 'torque TO the value'; not 'lockwire' but 'fit NEW lockwire'. If a Latvian or Russian speaker gives the word without the article or preposition, recast it gently and move on — do not over-correct here, the grammar section handles that. Use the wrong-answer feedback to reinforce the plain gloss. Keep it brisk — about four minutes — the drill matters more than any single item.">
+    <div class="kick">§3 · Interactive · match meaning → term</div>
+    <h2>Say the term before the reveal</h2>
+    <div class="cols">
+      <div class="dw" data-widget="match"></div>
+      <div><p>Click a meaning, then click the term you think it defines.</p>
+        <p class="muted">Green = matched. Push for the whole collocation, not just the bare word — <b class="am">torque to</b>, <b class="am">inspect for</b>, <b class="am">fit new</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · GRAMMAR: the imperative -->
+  <section class="slide" data-notes="The grammar focus — the imperative. Make the core claim explicit: a task card commands one discrete action at a time, so it uses the imperative — the verb comes first and the subject disappears. Contrast the two registers on screen: documentation NEVER says 'you should remove' or 'you must torque'; it says 'Remove the access panel.' For a negative step it is 'do not + base verb'. For order it adds first / then / next or a step number. For a condition it fronts if/when + clause, then the command. Reassure the class that the imperative sounds efficient, not rude — the situation is professional and the priority is clarity. Have the class transform two 'you must…' sentences into card steps chorally. Then connect it forward: the imperative pairs with Simplified Technical English, which we use in the writing task — one instruction per sentence, an approved verb, no extra words. About four minutes.">
+    <div class="kick">§4 · grammar in context</div>
+    <h2>The imperative — the grammar of a step</h2>
+    <div class="cols">
+      <div class="card">
+        <table class="timing">
+          <tr><th>Purpose</th><th>Form</th><th>Example</th></tr>
+          <tr><td>Command</td><td>base verb + object</td><td>Remove the access panel.</td></tr>
+          <tr><td>Negative</td><td>do not + base verb</td><td>Do not reuse the lockwire.</td></tr>
+          <tr><td>Order</td><td>first / then / next</td><td>First disconnect the plugs.</td></tr>
+          <tr><td>Condition</td><td>if / when + clause</td><td>If the play is excessive, record a defect.</td></tr>
+        </table>
+      </div>
+      <div>
+        <p>The card <b class="ht">never</b> says "you should remove" or "you must torque".</p>
+        <p class="big">It says: <b class="gd">"Remove the access panel."</b></p>
+        <p class="muted"><small>Efficient, not rude — the priority is clarity. Pairs with Simplified Technical English for the writing task.</small></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · WIDGET: fix the imperative (L1 interference) -->
+  <section class="slide" data-notes="This is the interference slide — the three errors Latvian and Russian speakers make most, and why. Neither language uses articles, so 'the' is dropped: 'Remove access panel' instead of 'Remove the access panel'. Both build the negative differently, so learners produce 'Not touch the connector' instead of 'Do not touch the connector'. And Russian speakers over-import an infinitive marker, producing 'You should to inspect' — a double error (extra subject + 'to'). Run the widget as commit-then-reveal: read the wrong line, ask the class to fix it aloud, THEN click to show the correction. Do not just show the fixes — make them produce the article and the 'do not' with their own mouths, because that is where the habit forms. Explicitly name the L1 cause each time; adult learners fix errors faster when they understand the source. About five minutes.">
+    <div class="kick">§4 · Interactive · fix the L1 errors</div>
+    <h2>Three mistakes to drill out</h2>
+    <div class="cols">
+      <div class="dw" data-widget="imperative"></div>
+      <div><p>Read the wrong line. Fix it aloud. Then reveal.</p>
+        <p class="muted">Latvian and Russian have <b>no articles</b> and build negatives differently — so <b class="am">the</b> is dropped and <b class="am">do not</b> is missing. Name the cause every time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · WIDGET: torque gauge -->
+  <section class="slide" data-notes="A short, memorable interactive to fix the meaning of 'torque to a value'. Press the button and the needle climbs to 25 newton metres and the wrench clicks — the click is the calibrated tool telling you the exact value is reached. Then press overtighten and show the needle sailing past into the red: that is what a CAUTION 'do not overtighten' prevents, and it damages the fitting. Tie it to the language: 'torque TO 25 newton metres' (preposition to), 'stop at the value', 'never estimate'. This connects the vocabulary (torque, torque wrench) to a warning convention (CAUTION protects the part) in one picture. Keep it light — about two minutes — it is a hook, not a lecture.">
+    <div class="kick">§4 · Interactive · torque to the value</div>
+    <h2>Stop at the click — never estimate</h2>
+    <div class="cols">
+      <div class="dw" data-widget="torque"></div>
+      <div><p>The calibrated <b>torque wrench</b> clicks at the set value. That click is your confirmation.</p>
+        <p class="muted">Overtighten and the needle sails into the red — exactly what a <b class="am">CAUTION: do not overtighten</b> prevents. Language: torque <b>to</b> the value, stop <b>at</b> the value.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 · WIDGET: lockwire -->
+  <section class="slide" data-notes="One more quick interactive, on lockwire — a term some avionics students meet less often than mechanics do, so make it concrete. Press wind and watch the wire twist between the two bolt heads. The teaching point beyond vocabulary: lockwire must always pull in the TIGHTENING direction, so if a bolt tries to loosen, the wire resists it. And the card rule from Dialogue 1 — always fit NEW lockwire, never reuse the old wire, because used wire is work-hardened and can fail. Keep the language tight: 'fit new lockwire', 'discard the old wire'. Two minutes, then move to staging the exercises.">
+    <div class="kick">§4 · Interactive · fit new lockwire</div>
+    <h2>Always new — never the old wire</h2>
+    <div class="cols">
+      <div class="dw" data-widget="lockwire"></div>
+      <div><p>The wire twists between the bolt heads and pulls in the <b>tightening</b> direction, so a loosening bolt is resisted.</p>
+        <p class="muted">Card rule from Dialogue 1: <b class="am">fit new lockwire</b>, <b class="ht">never reuse</b> the old wire — used wire is work-hardened and can fail.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · EXERCISE staging E1-E4 -->
+  <section class="slide" data-notes="Stage the first four exercises in the student page. These are the controlled-practice block. Give clear, short instructions and set a pace. E1 gap-fill (10 items) — vocabulary recall, do it solo, two minutes, then check. E2 matching (10 items) — meaning to term, solo, then peer-compare. E3 put-the-steps-in-order (8 items) — this rehearses Outcome 1 directly; do it in pairs and have one pair read their order aloud. E4 grammar transformation (8 items) — turn 'you must…' sentences into imperative steps; this is the core grammar drill, so circulate and catch dropped articles. Tell students the Check button marks automatically and Show answers reveals the key, so they can self-correct. Full solutions with a one-line why per item are in the gated solutions file for you. Budget about eight minutes for these four.">
+    <div class="kick">§5 · exercises · controlled practice</div>
+    <h2>E1–E4 · vocabulary + the imperative</h2>
+    <div class="cols">
+      <div class="card">
+        <p style="margin:.3em 0"><b class="acc">E1 · Gap-fill</b> — 10 items, vocabulary recall. Solo → check.</p>
+        <p style="margin:.3em 0"><b class="acc">E2 · Matching</b> — 10 items, meaning → term. Solo → peer-compare.</p>
+        <p style="margin:.3em 0"><b class="acc">E3 · Order the steps</b> — 8 items. Pairs (Outcome 1).</p>
+        <p style="margin:.3em 0"><b class="acc">E4 · Transform</b> — 8 items, "you must…" → imperative.</p>
+      </div>
+      <div>
+        <p><b>Run it:</b> short and timed. <em>Check</em> marks automatically; <em>Show answers</em> reveals the key.</p>
+        <p class="muted">On E4, circulate and catch <b class="am">dropped articles</b>. Full solutions with a why-line each are in the gated solutions file.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · EXERCISE staging E5-E8 -->
+  <section class="slide" data-notes="Stage the reading and listening exercises. E5 Reading 1 is an authentic task card (flap-track inspection, 27-51-11) with six questions — set it as skim-then-scan: first find the reference and the warning boxes, then answer. E6 error-spotting (8 items) targets the same L1 errors from the grammar section — do it solo, then reveal, and name each error type. E7 Reading 2 is a Service Bulletin (SB-32-0142) with six questions — a new documentation genre, so point out the standard SB fields: effectivity, compliance, manpower, parts. E8 is the listening review — replay Dialogue 3 and the voicemail, seven questions, many of them numbers. These four are the assessment-style block, so keep them quieter and individual. About seven minutes; then move to speaking.">
+    <div class="kick">§5 · exercises · reading + listening</div>
+    <h2>E5–E8 · authentic documents</h2>
+    <div class="cols">
+      <div class="card">
+        <p style="margin:.3em 0"><b class="am">E5 · Reading 1</b> — a task card (27-51-11), 6 Qs. Skim → scan.</p>
+        <p style="margin:.3em 0"><b class="am">E6 · Error-spotting</b> — 8 items, the same L1 errors.</p>
+        <p style="margin:.3em 0"><b class="am">E7 · Reading 2</b> — a Service Bulletin (SB-32-0142), 6 Qs.</p>
+        <p style="margin:.3em 0"><b class="am">E8 · Listening review</b> — Dialogue 3 + voicemail, 7 Qs.</p>
+      </div>
+      <div>
+        <p><b>New genre on E7:</b> the SB fields — effectivity · compliance · manpower · parts.</p>
+        <p class="muted">Keep E5–E8 individual and quiet — this is the assessment-style block. Numbers matter on E8.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · ROLE-PLAY management -->
+  <section class="slide" data-notes="Set up and manage the speaking. There are four role-play cards in the student page; pair the class and rotate roles so everyone both reads and confirms. Card 1 the reader reads steps aloud; Card 2 the confirming mechanic confirms or queries; Card 3 report a defect and refuse to sign off; Card 4 explain the three warning boxes to a trainee. Give each pair the useful phrases on their card and insist on the confirmation loop — a bare 'yes' is not a confirmation, 'Step two is complete' is. Your job while they talk is to circulate with the speaking rubric in the teacher key (range, accuracy, fluency, interaction, coherence) and note two things each pair does well and one to fix. If a learner has no partner, the AI conversation-partner prompts (A, B, C) let them rehearse alone. Reserve about eight minutes and protect the writing time after it. Use the caption translator (press L) if a learner needs first-language support while a pair performs at the front.">
+    <div class="kick">§6 · speaking · role-play</div>
+    <h2>Four cards · rotate every role</h2>
+    <div class="cols3">
+      <div class="card"><b class="acc">Card 1</b><p style="font-size:16px">Read the steps aloud, one at a time. Wait for confirmation.</p></div>
+      <div class="card"><b class="acc">Card 2</b><p style="font-size:16px">Confirm each step — or query it immediately.</p></div>
+      <div class="card"><b class="acc">Card 3</b><p style="font-size:16px">Report a defect. Explain why you cannot sign off.</p></div>
+    </div>
+    <p class="muted" style="margin-top:12px"><b>Card 4:</b> explain WARNING / CAUTION / NOTE to a trainee. Insist on the loop — a bare "yes" is not a confirmation; <b class="gd">"Step two is complete"</b> is. Circulate with the B2 speaking rubric (teacher key). No partner? Use the AI-partner prompts A/B/C.</p>
+  </section>
+
+  <!-- 18 · WRITING + WRAP -->
+  <section class="slide" data-notes="Close the class with the writing task and a tight wrap-up. The task: during Step 3 of task card 27-51-11 a mechanic finds a 4 mm crack on the flap track — write a tech-log defect entry of four to six lines. Enforce Simplified Technical English: short sentences, one instruction each, the base verb, approved words, and always the article. Put the STE self-check on the board: name the card, the step and the reference; state what was found and where; state that the step is NOT signed off and why. A model answer is in the student page and a fully annotated one is in the gated solutions file. For the exit ticket, return to slide 3's four conditions and have each student say ONE condition that must be met before sign-off — a fast round-the-room check of Outcome 3. Set homework: finish any unfinished exercises and take the quiz. End on the unit's one line: read it, confirm it, query it — then stamp.">
+    <div class="kick">§7 · writing + wrap-up</div>
+    <h2>Write the defect · then the exit ticket</h2>
+    <div class="cols">
+      <div class="card">
+        <p style="margin:.25em 0"><b class="am">Task:</b> a 4 mm crack on the flap track at Step 3 of card 27-51-11. Write a 4–6 line tech-log entry.</p>
+        <p style="margin:.25em 0"><b class="acc">STE rules:</b> short sentences · one instruction each · base verb · always the article.</p>
+        <p style="margin:.25em 0"><b class="gd">Must state:</b> card + step + reference · what & where · that the step is <b class="ht">not</b> signed off, and why.</p>
+      </div>
+      <div>
+        <p><b>Exit ticket:</b> each learner names <b>one</b> condition that must be met before sign-off (Outcome 3).</p>
+        <p class="muted"><b>Homework:</b> finish the exercises · take the quiz.</p>
+        <p class="big" style="color:var(--amber)">"Read it, confirm it, query it — then stamp."</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS ===================== -->
+<script>
+(function(){
+  window.DeckW = window.DeckW || {};
+
+  /* ---- triage: WARNING / CAUTION / NOTE sorter ---- */
+  window.DeckW.triage=function(el){
+    var items=[
+      {t:"Do not stand under the flap. It can move without warning.",k:"warn"},
+      {t:"Do not use a metal tool near the seal.",k:"caut"},
+      {t:"This task needs two mechanics.",k:"note"},
+      {t:"Isolate power before touching the connector.",k:"warn"},
+      {t:"Do not overtighten the fitting.",k:"caut"},
+      {t:"The torque value is listed in the AMM.",k:"note"}
+    ];
+    var chips=items.map(function(it,i){return '<span class="chip" data-i="'+i+'">'+it.t+'</span>';}).join('');
+    el.innerHTML='<div class="wk"><div class="chips">'+chips+'</div>'+
+      '<div class="bins">'+
+      '<div class="bin warn" data-bin="warn"><h5>WARNING · people</h5></div>'+
+      '<div class="bin caut" data-bin="caut"><h5>CAUTION · part</h5></div>'+
+      '<div class="bin note" data-bin="note"><h5>NOTE · advice</h5></div>'+
+      '</div><div class="info"><h4>Pick a line, then a box</h4><span data-msg>The test: is a person at risk (WARNING), only the part (CAUTION), or nobody (NOTE)?</span></div></div>';
+    var sel=null, msg=el.querySelector('[data-msg]'), placed=0;
+    el.querySelectorAll('.chip').forEach(function(c){
+      c.addEventListener('click',function(){
+        el.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});
+        c.classList.add('active'); sel=c;
+      });
+    });
+    el.querySelectorAll('.bin').forEach(function(b){
+      b.addEventListener('click',function(){
+        if(!sel){ msg.textContent="Click a line first, then the box you think it belongs in."; return; }
+        var it=items[+sel.dataset.i], correct=it.k===b.dataset.bin;
+        if(correct){
+          b.appendChild(sel); sel.classList.remove('active'); sel.style.cursor='default';
+          sel.onclick=null; sel=null; placed++;
+          msg.innerHTML="✓ Correct — a "+(b.dataset.bin==='warn'?'WARNING protects <b>people</b>':b.dataset.bin==='caut'?'CAUTION protects the <b>part</b>':'NOTE is only <b>advice</b>')+".";
+          if(placed===items.length) msg.innerHTML="✓ All sorted. Remember: if a <b>person</b> can be hurt, it is always a WARNING.";
+        } else {
+          msg.innerHTML="✗ Not there. Ask again: is a <b>person</b> at risk, or only the <b>part</b>?";
+        }
+      });
+    });
+  };
+
+  /* ---- match: meaning -> term ---- */
+  window.DeckW.match=function(el){
+    var pairs=[
+      {m:"tighten a fastener to an exact turning force",t:"torque"},
+      {m:"examine a component closely to find damage",t:"inspect"},
+      {m:"thin wire that stops a fastener turning loose",t:"lockwire"},
+      {m:"a removable cover that lets you reach inside",t:"access panel"},
+      {m:"the book where defects are recorded",t:"tech log"},
+      {m:"add your signature to confirm a step is done",t:"sign off"}
+    ];
+    var terms=pairs.map(function(p){return p.t;}).slice().sort();
+    var mHtml=pairs.map(function(p,i){return '<span class="chip" data-m="'+i+'">'+p.m+'</span>';}).join('');
+    var tHtml=terms.map(function(t){return '<span class="chip" data-t="'+t+'">'+t+'</span>';}).join('');
+    el.innerHTML='<div class="wk"><p class="note" style="margin:0 0 6px">Meanings</p><div class="chips">'+mHtml+'</div>'+
+      '<p class="note" style="margin:8px 0 6px">Terms</p><div class="chips">'+tHtml+'</div>'+
+      '<div class="info"><h4>Match meaning → term</h4><span data-msg>Click a meaning, then the term it defines.</span></div></div>';
+    var selM=null, msg=el.querySelector('[data-msg]'), done=0;
+    el.querySelectorAll('[data-m]').forEach(function(c){
+      c.addEventListener('click',function(){ if(c.classList.contains('gone'))return;
+        el.querySelectorAll('[data-m]').forEach(function(x){x.classList.remove('active');});
+        c.classList.add('active'); selM=c; });
+    });
+    el.querySelectorAll('[data-t]').forEach(function(c){
+      c.addEventListener('click',function(){ if(c.classList.contains('gone'))return;
+        if(!selM){ msg.textContent="Click a meaning first."; return; }
+        var want=pairs[+selM.dataset.m].t;
+        if(c.dataset.t===want){
+          selM.classList.add('gone'); c.classList.add('gone');
+          selM.style.opacity=.3; c.style.opacity=.3; selM.classList.remove('active');
+          done++; msg.innerHTML="✓ "+want+" — matched. Say the whole collocation: <b>torque to</b>, <b>inspect for</b>, <b>fit new</b>.";
+          selM=null; if(done===pairs.length) msg.innerHTML="✓ All matched. Now push every term into a full task-card sentence.";
+        } else { msg.textContent="✗ Not that one — read the meaning again and try another term."; }
+      });
+    });
+  };
+
+  /* ---- imperative: fix the L1 errors (commit-then-reveal) ---- */
+  window.DeckW.imperative=function(el){
+    var rows=[
+      {x:"Remove access panel first.",ok:"Remove the access panel first.",why:"needs the article the"},
+      {x:"Not touch the connector.",ok:"Do not touch the connector.",why:"negative needs do not"},
+      {x:"You should to inspect the seal.",ok:"Inspect the seal.",why:"bare verb, no subject, no to"},
+      {x:"Torque bolt to 25 Nm.",ok:"Torque the bolt to 25 Nm.",why:"needs the article the"},
+      {x:"You must reuse not the wire.",ok:"Do not reuse the wire.",why:"do not comes before the verb"}
+    ];
+    el.innerHTML='<div class="wk"><div class="bar"><button class="prim" data-all>Reveal all ▸</button><span class="note">Fix each line aloud first, then reveal.</span></div>'+
+      '<div class="imp">'+rows.map(function(r,i){
+        return '<div class="improw" data-i="'+i+'"><span class="x">✗ '+r.x+'</span><span class="arrow">→</span>'+
+               '<span class="ok">✓ '+r.ok+' <small class="note">('+r.why+')</small></span></div>';
+      }).join('')+'</div></div>';
+    el.querySelectorAll('.improw').forEach(function(row){
+      row.addEventListener('click',function(){ row.classList.add('shown'); });
+    });
+    el.querySelector('[data-all]').addEventListener('click',function(){
+      el.querySelectorAll('.improw').forEach(function(r){ r.classList.add('shown'); });
+    });
+  };
+
+  /* ---- torque: canvas gauge + requestAnimationFrame ---- */
+  window.DeckW.torque=function(el){
+    el.innerHTML='<div class="wk"><div class="bar"><button class="prim" data-ok>Torque to 25 Nm ▸</button><button data-over>Overtighten ✗</button><button data-reset>Reset</button></div>'+
+      '<canvas width="640" height="260"></canvas>'+
+      '<div class="info"><h4 data-h>The calibrated wrench</h4><span data-msg>Press a button. Watch the needle rise and the wrench click at the set value.</span></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),msg=el.querySelector('[data-msg]'),h=el.querySelector('[data-h]');
+    var W=640,H=260,cx=320,cy=225,R=175,MAX=40,target=25,cur=0,goal=0,anim=null,clicked=false;
+    function ang(v){ return Math.PI + (v/MAX)*Math.PI; } // 180deg..360deg sweep
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      // arc track
+      ctx.lineWidth=16; ctx.lineCap='round';
+      // green zone up to target, red beyond
+      ctx.strokeStyle='#1d3a2c'; ctx.beginPath(); ctx.arc(cx,cy,R,Math.PI,2*Math.PI); ctx.stroke();
+      ctx.strokeStyle='#2f6b4e'; ctx.beginPath(); ctx.arc(cx,cy,R,ang(0),ang(target)); ctx.stroke();
+      ctx.strokeStyle='#7a3030'; ctx.beginPath(); ctx.arc(cx,cy,R,ang(target),ang(MAX)); ctx.stroke();
+      // ticks
+      ctx.strokeStyle='#5a7695'; ctx.lineWidth=2;
+      for(var v=0; v<=MAX; v+=5){ var a=ang(v); ctx.beginPath();
+        ctx.moveTo(cx+Math.cos(a)*(R-12),cy+Math.sin(a)*(R-12));
+        ctx.lineTo(cx+Math.cos(a)*(R+2),cy+Math.sin(a)*(R+2)); ctx.stroke(); }
+      // target marker
+      var ta=ang(target);
+      ctx.strokeStyle='#fbbf24'; ctx.lineWidth=3; ctx.beginPath();
+      ctx.moveTo(cx+Math.cos(ta)*(R-20),cy+Math.sin(ta)*(R-20));
+      ctx.lineTo(cx+Math.cos(ta)*(R+8),cy+Math.sin(ta)*(R+8)); ctx.stroke();
+      // needle
+      var na=ang(cur);
+      ctx.strokeStyle= cur>target+0.4 ? '#ff5667' : '#38b6ff';
+      ctx.lineWidth=4; ctx.beginPath(); ctx.moveTo(cx,cy);
+      ctx.lineTo(cx+Math.cos(na)*(R-22),cy+Math.sin(na)*(R-22)); ctx.stroke();
+      ctx.fillStyle='#cfe5ff'; ctx.beginPath(); ctx.arc(cx,cy,7,0,2*Math.PI); ctx.fill();
+      // readout
+      ctx.fillStyle= cur>target+0.4 ? '#ff9aa2' : '#7fd0ff';
+      ctx.font='700 34px ui-monospace,Consolas,monospace'; ctx.textAlign='center';
+      ctx.fillText(cur.toFixed(1)+' Nm', cx, cy-40);
+      ctx.fillStyle='#7e98ad'; ctx.font='13px sans-serif';
+      ctx.fillText('target 25 Nm', cx, cy-16);
+      if(clicked){ ctx.fillStyle='#fbbf24'; ctx.font='700 18px sans-serif'; ctx.fillText('CLICK', cx+Math.cos(ta)*(R+30), cy+Math.sin(ta)*(R+30)); }
+    }
+    function run(g){ goal=g; clicked=false; cancelAnimationFrame(anim);
+      function step(){ var d=goal-cur; cur += d*0.12;
+        if(!clicked && cur>=target-0.15 && goal>=target){ clicked=true;
+          if(goal<=target+0.1){ h.textContent="Correct torque"; msg.innerHTML="✓ The wrench <b>clicks</b> at 25 Nm — that click is your confirmation. Language: torque <b>to</b> the value, stop <b>at</b> the value."; } }
+        if(Math.abs(d)<0.05){ cur=goal; draw();
+          if(goal>target){ h.textContent="Overtightened"; msg.innerHTML="✗ The needle sailed into the <b>red</b> — the fitting is damaged. This is exactly what a <b>CAUTION: do not overtighten</b> prevents."; }
+          return; }
+        draw(); anim=requestAnimationFrame(step); }
+      anim=requestAnimationFrame(step);
+    }
+    el.querySelector('[data-ok]').addEventListener('click',function(){ run(target); });
+    el.querySelector('[data-over]').addEventListener('click',function(){ run(37); });
+    el.querySelector('[data-reset]').addEventListener('click',function(){ cancelAnimationFrame(anim); cur=0; clicked=false; h.textContent="The calibrated wrench"; msg.textContent="Press a button. Watch the needle rise and the wrench click at the set value."; draw(); });
+    draw();
+  };
+
+  /* ---- sequence: reveal the 8 steps in order, canvas + rAF glow ---- */
+  window.DeckW.sequence=function(el){
+    var steps=["Open work order","Remove panel","Inspect bracket","Torque bolts","Fit lockwire","Functional test","Refit panel","Sign off"];
+    el.innerHTML='<div class="wk"><div class="bar"><button class="prim" data-next>Reveal next step ▸</button><button data-reset>Reset</button></div>'+
+      '<canvas width="640" height="240"></canvas>'+
+      '<div class="info"><h4>The order is the safety</h4><span data-msg>Reveal the steps one at a time — a card is always done in sequence.</span></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),msg=el.querySelector('[data-msg]');
+    var W=640,H=240,shown=0,glow=0,anim=null;
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<steps.length;i++){
+        var col=i%4, row=Math.floor(i/4), x=20+col*152, y=30+row*105;
+        var on=i<shown, active=(i===shown-1);
+        ctx.fillStyle= on ? '#16324c' : '#0c1622';
+        ctx.strokeStyle= active ? 'rgba(56,182,255,'+(0.5+0.5*Math.sin(glow))+')' : (on?'#2a557e':'#26384e');
+        ctx.lineWidth= active?3:1.5;
+        ctx.beginPath(); ctx.roundRect(x,y,138,80,10); ctx.fill(); ctx.stroke();
+        ctx.fillStyle= on ? '#7fd0ff' : '#3f566e';
+        ctx.font='700 22px ui-monospace,Consolas,monospace'; ctx.textAlign='left';
+        ctx.fillText((i+1), x+12, y+30);
+        ctx.fillStyle= on ? '#d6e3f1' : '#3f566e'; ctx.font='13px sans-serif';
+        wrap(steps[i], x+12, y+50, 116, 15);
+      }
+    }
+    function wrap(t,x,y,w,lh){ var ws=t.split(' '),line='',yy=y;
+      for(var n=0;n<ws.length;n++){ var test=line+ws[n]+' ';
+        if(ctx.measureText(test).width>w && line){ ctx.fillText(line,x,yy); line=ws[n]+' '; yy+=lh; } else line=test; }
+      ctx.fillText(line,x,yy); }
+    function loop(){ glow+=0.15; draw(); anim=requestAnimationFrame(loop); }
+    el.querySelector('[data-next]').addEventListener('click',function(){
+      if(shown<steps.length){ shown++; msg.innerHTML="Step "+shown+": <b>"+steps[shown-1]+"</b>.";
+        if(shown===steps.length) msg.innerHTML="✓ Full sequence. You may only sign off <b>after</b> every step is complete and in order."; } });
+    el.querySelector('[data-reset]').addEventListener('click',function(){ shown=0; msg.textContent="Reveal the steps one at a time — a card is always done in sequence."; });
+    loop();
+  };
+
+  /* ---- lockwire: canvas wire winding + rAF ---- */
+  window.DeckW.lockwire=function(el){
+    el.innerHTML='<div class="wk"><div class="bar"><button class="prim" data-wind>Wind new lockwire ▸</button><button data-reset>Reset</button></div>'+
+      '<canvas width="640" height="220"></canvas>'+
+      '<div class="info"><h4>Locks the fastener</h4><span data-msg>Wind the wire. It pulls in the tightening direction, so a loosening bolt is resisted.</span></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),msg=el.querySelector('[data-msg]');
+    var W=640,H=220,prog=0,anim=null,ax=180,bx=460,by=110,r=34;
+    function bolt(x){ ctx.fillStyle='#22364e'; ctx.strokeStyle='#4a7bc4'; ctx.lineWidth=2;
+      ctx.beginPath();
+      for(var k=0;k<6;k++){ var a=Math.PI/6 + k*Math.PI/3; var px=x+Math.cos(a)*r, py=by+Math.sin(a)*r;
+        if(k===0)ctx.moveTo(px,py); else ctx.lineTo(px,py); }
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle='#0a0f18'; ctx.beginPath(); ctx.arc(x,by,10,0,2*Math.PI); ctx.fill(); }
+    function draw(){
+      ctx.clearRect(0,0,W,H); bolt(ax); bolt(bx);
+      // twisted wire between the two bolts, drawn up to prog (0..1)
+      ctx.strokeStyle='#e0e6ee'; ctx.lineWidth=2.4;
+      var span=bx-ax, twists=8, end=ax+span*prog;
+      ctx.beginPath();
+      for(var x=ax; x<=end; x+=3){ var t=(x-ax)/span; var yy=by-18+Math.sin(t*twists*Math.PI)*8;
+        if(x===ax)ctx.moveTo(x,yy); else ctx.lineTo(x,yy); }
+      ctx.stroke();
+      ctx.beginPath();
+      for(var x2=ax; x2<=end; x2+=3){ var t2=(x2-ax)/span; var yy2=by-18-Math.sin(t2*twists*Math.PI)*8;
+        if(x2===ax)ctx.moveTo(x2,yy2); else ctx.lineTo(x2,yy2); }
+      ctx.stroke();
+      ctx.fillStyle='#7e98ad'; ctx.font='13px sans-serif'; ctx.textAlign='center';
+      ctx.fillText('tightening direction →', W/2, 190);
+    }
+    function wind(){ cancelAnimationFrame(anim);
+      function step(){ prog+=0.02; if(prog>=1){ prog=1; draw();
+          msg.innerHTML="✓ New lockwire fitted. Card rule: <b>fit new lockwire</b>, <b>never reuse</b> the old wire — used wire is work-hardened and can fail."; return; }
+        draw(); anim=requestAnimationFrame(step); }
+      anim=requestAnimationFrame(step); }
+    el.querySelector('[data-wind]').addEventListener('click',wind);
+    el.querySelector('[data-reset]').addEventListener('click',function(){ cancelAnimationFrame(anim); prog=0; msg.textContent="Wind the wire. It pulls in the tightening direction, so a loosening bolt is resisted."; draw(); });
+    draw();
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('efam_u02_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')||e.target.closest('.chip')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','efam_u02_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — EFAM U02</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:24px;color:#9db0c6;font-size:17px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("efam_u02_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("efam_u02_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="efam_u02_deck_state")render();});',
+'render();',
+'<\/scr'+'ipt></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='efam_u02_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,80); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left;
+            pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;
+            font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB;
+            background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto;
+            width:50px; height:50px; border-radius:50%; cursor:pointer;
+            background:#F7C22D; color:#020E27; border:2px solid #F7C22D;
+            font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px;
+            box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051;
+               font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em;
+               text-transform:uppercase; color:#020E27; background:#F7C22D;
+               border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto;
+             width:42px; height:42px; border-radius:50%; cursor:pointer;
+             background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4);
+             font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052;
+                display:none; align-items:center; gap:8px;
+                background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px;
+                padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px;
+                       font-weight:700; color:#E8EDF5; background:#162030;
+                       border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="it-IT">Italiano</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capQueueB=[], capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<script>(function(){try{
+  var KEY='tsiCapScale', root=document.documentElement;
+  function apply(v){ root.style.setProperty('--cap-scale', v); }
+  var saved=parseFloat(localStorage.getItem(KEY))||1; saved=Math.max(0.6,Math.min(1.9,saved)); apply(saved);
+  var st=document.createElement('style'); st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}.cap-fs-slider::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:#FFD24D;cursor:pointer}'; document.head.appendChild(st);
+  function mount(){ var lb=document.getElementById('lctLangBar'); if(!lb||lb.querySelector('.cap-fs-slider')) return;
+    var w=document.createElement('span'); w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w); var sl=w.querySelector('.cap-fs-slider'); sl.value=saved;
+    var stop=function(e){ e.stopPropagation(); };
+    sl.addEventListener('input',function(){ var v=parseFloat(sl.value)||1; apply(v); try{ localStorage.setItem(KEY,v); }catch(e){} });
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){ sl.addEventListener(ev,stop); });
+  }
+  if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>

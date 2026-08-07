@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U02-r1</text></category>
+    <info format="html"><text><![CDATA[English for Aviation Maintenance · Unit 2 — Reading and signing off a task card. Items split by skill: listening, reading, use of English, vocabulary.]]></text></info>
+  </question>
+
+  <!-- ══════════════════ LISTENING (9) ══════════════════ -->
+
+  <question type="multichoice">
+    <name><text>L01 · Dialogue 1 · inspection lamp</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> B asks which inspection lamp to select. Which lamp does A tell B to use?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[A says: "Use the borescope lamp, because the AMM note specifies a high-intensity light source." The choice comes from the AMM note, not from the mechanic's preference.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>The borescope lamp</text><feedback format="html"><text><![CDATA[Correct — the AMM note specifies a high-intensity source.]]></text></feedback></answer>
+    <answer fraction="0"><text>A standard hand torch</text><feedback format="html"><text><![CDATA[No — a hand torch is not high-intensity enough for a weld check.]]></text></feedback></answer>
+    <answer fraction="0"><text>An ultraviolet crack lamp</text><feedback format="html"><text><![CDATA[No — the dialogue does not mention an ultraviolet lamp.]]></text></feedback></answer>
+    <answer fraction="0"><text>The overhead bay light</text><feedback format="html"><text><![CDATA[No — the AMM note requires a directed high-intensity source.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L02 · Dialogue 1 · lockwire</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Say whether this is true or false:</p><p><i>The mechanics refit the original lockwire that they removed.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[False. Step five is "fit new lockwire on the bolts, and never reuse the original wire." Used lockwire is work-hardened and can fail, so it is always discarded.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — new lockwire is fitted and the old wire is discarded.]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[Not true — the card says never reuse the original wire.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L03 · Dialogue 1 · torque value</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> To how many newton metres are the two bolts torqued? (Enter the number only.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[25. A says "torque the two bolts to 25 newton metres", and B confirms the wrench "clicked twice, confirming the value".]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>25</text><feedback format="html"><text><![CDATA[Correct — 25 newton metres.]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0"><text>8</text><feedback format="html"><text><![CDATA[That is the avionics-unit value in Dialogue 3, not this job.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L04 · Dialogue 1 · fasteners</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> How many fasteners secure the access panel? (Enter the number only.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[8. A warns "eight fasteners secure it", and B confirms "all eight fasteners are collected safely in the tray". Counting fasteners out is how you make sure none is left inside the aircraft.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>8</text><feedback format="html"><text><![CDATA[Correct — eight fasteners.]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0"><text>12</text><feedback format="html"><text><![CDATA[Twelve is the flap-track card in the reading, not Dialogue 1.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L05 · Dialogue 2 · where to record</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> A finds a small crack in the hydraulic line. Where does B say the defect must be raised?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[B says: "Raise it in the tech log; afterwards we open a separate task card for the repair." The defect is recorded in the tech log, and the repair is a separate job.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>In the tech log</text><feedback format="html"><text><![CDATA[Correct — the defect is raised in the tech log.]]></text></feedback></answer>
+    <answer fraction="0"><text>On the work order</text><feedback format="html"><text><![CDATA[No — the work order authorises the job; the defect goes in the tech log.]]></text></feedback></answer>
+    <answer fraction="0"><text>Inside the AMM book</text><feedback format="html"><text><![CDATA[No — the AMM is a reference manual, not a defect record.]]></text></feedback></answer>
+    <answer fraction="0"><text>On the access panel</text><feedback format="html"><text><![CDATA[No — that is a physical cover, not a document.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L06 · Dialogue 2 · CAUTION meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> Say whether this is true or false:</p><p><i>A CAUTION box warns of a risk to a person.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[False. B explains a CAUTION "indicates a risk to the component". A WARNING protects people; a CAUTION protects the part; a NOTE is advice only.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — a CAUTION protects the part; a WARNING protects people.]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[Not true — that describes a WARNING, not a CAUTION.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L07 · Dialogue 3 · torque value</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> To how many newton metres are the avionics-unit fasteners torqued? (Enter the number only.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[8. A says "torque the fasteners to 8 newton metres, following the specified cross pattern." The value is lower than the 25 Nm bracket job — each card gives its own value.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>8</text><feedback format="html"><text><![CDATA[Correct — 8 newton metres, in a cross pattern.]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0"><text>25</text><feedback format="html"><text><![CDATA[25 is the bracket job in Dialogue 1, not the avionics unit.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L08 · Dialogue 3 · functional test</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> Say whether this is true or false:</p><p><i>A functional test must be run before the access panel is closed.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[True. The NOTE says "a functional test is required before we close the access panel." B runs the built-in test and the screen reports no defect, so the unit is serviceable.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — the NOTE requires the test before the panel is closed.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Not false — the NOTE clearly requires the test first.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L09 · Voicemail · tech-log reference</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to the shift-handover voicemail again.</b> Under which tech-log reference number was the defect raised? (Enter the number only.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[4471. The late-shift lead says "I raised it in the tech log under reference number 4471, for traceability." A reference number lets the next shift find the open item.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>4471</text><feedback format="html"><text><![CDATA[Correct — reference number 4471.]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0"><text>12</text><feedback format="html"><text><![CDATA[12 is the stand number, not the tech-log reference.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <!-- ══════════════════ READING (5) ══════════════════ -->
+
+  <question type="multichoice">
+    <name><text>R01 · MEL</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this MEL entry, then answer.</b></p><p style="border-left:3px solid #999;padding-left:10px"><b>MEL item 25-11:</b> One of the two cabin reading lights may be inoperative for up to 10 days, provided the light is deactivated and the switch is placarded "INOP".</p><p>For how long may the reading light stay inoperative under this MEL?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The MEL (Minimum Equipment List) allows the item to be inoperative for up to 10 days, but only if it is deactivated and placarded. A relief is always conditional.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Up to 10 days</text><feedback format="html"><text><![CDATA[Correct — up to 10 days, if deactivated and placarded.]]></text></feedback></answer>
+    <answer fraction="0"><text>Up to 3 days</text><feedback format="html"><text><![CDATA[No — the entry states 10 days.]]></text></feedback></answer>
+    <answer fraction="0"><text>Until the next flight</text><feedback format="html"><text><![CDATA[No — the relief is a fixed 10-day period.]]></text></feedback></answer>
+    <answer fraction="0"><text>Up to 30 days</text><feedback format="html"><text><![CDATA[No — misreading the number; it is 10 days.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R02 · Airworthiness Directive</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this Airworthiness Directive, then answer.</b></p><p style="border-left:3px solid #999;padding-left:10px"><b>AD 2024-07:</b> Mandatory. Inspect the rudder hinge for cracks within the next 100 flight hours. Compliance is not optional.</p><p>Say whether this is true or false:</p><p><i>An operator may choose to ignore this Airworthiness Directive.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[False. An Airworthiness Directive (AD) is mandatory — it is issued by the regulator and compliance is required by law. A Service Bulletin may be recommended, but an AD must be done.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — an AD is mandatory and cannot be ignored.]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[Not true — "mandatory" means compliance is required.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R03 · IPC</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this IPC extract, then answer.</b></p><p style="border-left:3px solid #999;padding-left:10px">In the IPC (Illustrated Parts Catalogue), the bracket assembly is item 40 on figure 5. It comprises two bolts (item 45) and one lockwire kit (item 50).</p><p>Which item number is the lockwire kit?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Item 50. The IPC lists each part with a figure and item number so you order the exact component. The bracket is 40, the bolts are 45, the lockwire kit is 50.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Item 50</text><feedback format="html"><text><![CDATA[Correct — the lockwire kit is item 50.]]></text></feedback></answer>
+    <answer fraction="0"><text>Item 40</text><feedback format="html"><text><![CDATA[No — item 40 is the whole bracket assembly.]]></text></feedback></answer>
+    <answer fraction="0"><text>Item 45</text><feedback format="html"><text><![CDATA[No — item 45 is the two bolts.]]></text></feedback></answer>
+    <answer fraction="0"><text>Item 55</text><feedback format="html"><text><![CDATA[No — item 55 is not listed in the extract.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R04 · Work order</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this work order, then answer.</b></p><p style="border-left:3px solid #999;padding-left:10px"><b>Work order WO-88231:</b> Authorises the removal and replacement of the No. 2 static inverter. Refer to AMM 24-21-00 for the procedure.</p><p>Say whether this is true or false:</p><p><i>The work order lists each detailed step of the procedure.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[False. A work order authorises the job and points to the reference; the detailed steps live in the AMM procedure and on the task card. The two documents do different work.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — it authorises the job and refers you to the AMM for the steps.]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[Not true — the steps are in the AMM, not on the work order.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R05 · BITE readout</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this BITE readout, then answer.</b></p><p style="border-left:3px solid #999;padding-left:10px;font-family:monospace">FAULT 21-3 · AIR DATA MODULE · INTERMITTENT · LAST LEG · NO CURRENT FAULT</p><p>What does the readout say about the fault right now?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The BITE (Built-In Test Equipment) shows the fault was intermittent on the last leg but reports NO CURRENT FAULT — so nothing is failing at this moment. An intermittent, non-current fault is monitored, not automatically replaced.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>There is no current fault</text><feedback format="html"><text><![CDATA[Correct — the readout ends "NO CURRENT FAULT".]]></text></feedback></answer>
+    <answer fraction="0"><text>The module has failed</text><feedback format="html"><text><![CDATA[No — the fault was intermittent, not a hard failure.]]></text></feedback></answer>
+    <answer fraction="0"><text>The fault is active now</text><feedback format="html"><text><![CDATA[No — "NO CURRENT FAULT" means it is not active now.]]></text></feedback></answer>
+    <answer fraction="0"><text>The module must be replaced</text><feedback format="html"><text><![CDATA[No — an intermittent, non-current fault is monitored first.]]></text></feedback></answer>
+  </question>
+
+  <!-- ══════════════════ USE OF ENGLISH (6) ══════════════════ -->
+
+  <question type="shortanswer">
+    <name><text>U01 · imperative transform (positive)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Rewrite the line as one task-card step.</b> Use the imperative — start with the base verb.</p><p>"You must remove the access panel." &rarr; ______</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Remove the access panel. Drop the subject and the modal "must"; begin with the base verb and keep the article <em>the</em>.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100"><text>Remove the access panel.</text><feedback format="html"><text><![CDATA[Correct — base verb + the.]]></text></feedback></answer>
+    <answer fraction="100"><text>Remove the access panel</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Start with "Remove" and keep the article: "Remove the access panel."]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U02 · imperative transform (negative)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Rewrite the line as one task-card step.</b> It is a negative command.</p><p>"You must not touch the connector." &rarr; ______</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Do not touch the connector. A negative step uses "do not" + the base verb — not "not touch" and not "touch not".]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100"><text>Do not touch the connector.</text><feedback format="html"><text><![CDATA[Correct — do not + base verb.]]></text></feedback></answer>
+    <answer fraction="100"><text>Do not touch the connector</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>Don't touch the connector.</text><feedback format="html"><text><![CDATA[Correct — the contraction is fine in speech; a card writes it in full.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use "Do not" before the base verb: "Do not touch the connector."]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U03 · article gap</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Write the one missing word.</b></p><p>"Torque ______ bolt to 25 newton metres."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[the. English needs the definite article before a specific, known noun. Latvian and Russian have no articles, so this word is often dropped.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100"><text>the</text><feedback format="html"><text><![CDATA[Correct — the definite article.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The missing word is the article "the".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U04 · imperative transform (modal)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Rewrite the line as one task-card step.</b></p><p>"You should inspect the weld." &rarr; ______</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Inspect the weld. Drop the subject and "should"; a procedural step uses the bare verb with no modal.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100"><text>Inspect the weld.</text><feedback format="html"><text><![CDATA[Correct — bare imperative.]]></text></feedback></answer>
+    <answer fraction="100"><text>Inspect the weld</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Start with the base verb only: "Inspect the weld."]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U05 · collocation gap (inspect)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Write the one missing preposition.</b></p><p>"Inspect the bracket ______ cracks."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[for. The fixed collocation is "inspect (something) for (a fault)" — inspect for cracks, inspect for wear, inspect for damage.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100"><text>for</text><feedback format="html"><text><![CDATA[Correct — inspect for cracks.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The collocation is "inspect for": you inspect a part for a fault.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U06 · collocation gap (torque)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Write the one missing preposition.</b></p><p>"Torque the fastener ______ 8 newton metres."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[to. You torque a fastener "to" a value — the preposition marks the target figure. Torque to 8 Nm, torque to 25 Nm.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100"><text>to</text><feedback format="html"><text><![CDATA[Correct — torque to a value.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The collocation is "torque to": you torque a fastener to a value.]]></text></feedback></answer>
+  </question>
+
+  <!-- ══════════════════ VOCABULARY (4 · matching) ══════════════════ -->
+
+  <question type="matching">
+    <name><text>V01 · term → meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Match each term with its plain meaning.</b></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[task card = the list of steps for one job · AMM = the master reference manual · tech log = the book where defects are recorded · reference = the manual number the card points to.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[Correct — every term is matched to its meaning.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some pairs are right. Re-read the meanings and try the rest.]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Check the pairs again — start with the documents you know best.]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[task card]]></text><answer><text>the list of steps for one job</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[AMM]]></text><answer><text>the master reference manual</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[tech log]]></text><answer><text>the book where defects are recorded</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[reference]]></text><answer><text>the manual number the card points to</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V02 · action → object</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Match each action verb with the object it goes with on a task card.</b></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[inspect → the bracket for cracks · torque → the bolt to a value · fit → new lockwire · remove → the access panel. Learning the verb with its object fixes the collocation.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[Correct — each verb is with its natural object.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some are right. Say each pair aloud as a step and try again.]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Check the pairs — think what you actually do to each object.]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[inspect]]></text><answer><text>the bracket for cracks</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[torque]]></text><answer><text>the bolt to a value</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[fit]]></text><answer><text>new lockwire</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[remove]]></text><answer><text>the access panel</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V03 · box → what it protects</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Match each warning box with what it protects.</b></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[WARNING → a person · CAUTION → the component · NOTE → nothing; it is only advice. If a person can be hurt, it is always a WARNING.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[Correct — people, part, advice.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some are right. Remember: WARNING is always about a person.]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Check again — ask who or what is at risk.]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[WARNING]]></text><answer><text>a risk to a person</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[CAUTION]]></text><answer><text>a risk to the component</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[NOTE]]></text><answer><text>helpful advice, no risk</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[defect]]></text><answer><text>a fault found on a part</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V04 · document → purpose</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Match each maintenance document with its purpose.</b></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[work order → authorises the job · task card → lists the steps · Service Bulletin → recommends a modification · Airworthiness Directive → mandates a required action. Knowing which document does what tells you what is optional and what is law.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[Correct — each document matched to its job.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some are right. The AD is the mandatory one — start there.]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Check again — which one is required by law?]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[work order]]></text><answer><text>authorises the job</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[task card]]></text><answer><text>lists the steps</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[Service Bulletin]]></text><answer><text>recommends a modification</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[Airworthiness Directive]]></text><answer><text>mandates a required action</text></answer></subquestion>
+  </question>
+
+</quiz>

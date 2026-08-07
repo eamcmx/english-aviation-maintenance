@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 1 · Solutions — full answers E1–E8 + model writing</title>
+<style>
+:root{--navy:#0f2942;--brand:#2F5496;--amber:#e0a53d;--ink:#1b2733;--ink-2:#5a6b7d;--line:#e2e6ec;
+  --paper:#fbfaf7;--card:#fff;--ok:#2e9e6b;--radius:14px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.6 'Inter','Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:900px;margin:0 auto;padding:0 22px 90px}
+header.mast{background:linear-gradient(135deg,var(--navy),var(--brand));color:#fff;padding:40px 0 32px;margin-bottom:26px}
+header.mast .in{max-width:900px;margin:0 auto;padding:0 22px}
+header.mast .eye{font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.85;font-weight:600}
+header.mast h1{font-family:Georgia,serif;font-size:33px;margin:8px 0 6px}
+header.mast p{margin:0;opacity:.92;font-size:15px}
+.gate{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:4px 13px;font-size:12.5px;margin-top:12px}
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;margin:20px 0;box-shadow:0 8px 26px rgba(16,32,54,.06)}
+h2{font-family:Georgia,serif;color:var(--navy);font-size:23px;margin:0 0 4px;display:flex;align-items:center;gap:11px}
+h2 .lbl{font-family:ui-monospace,Consolas,monospace;font-size:13px;font-weight:700;color:#fff;background:var(--brand);border-radius:7px;padding:3px 9px}
+h2 .sub{font-size:15px;font-weight:400;color:var(--ink-2);font-family:'Inter',sans-serif}
+table{width:100%;border-collapse:collapse;margin-top:14px;font-size:15px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid #eef1f5;vertical-align:top}
+th{background:#f1f5fa;color:var(--navy);font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+td.n{font-family:ui-monospace,Consolas,monospace;color:var(--ink-2);width:36px;white-space:nowrap}
+td.a{font-weight:700;color:var(--ok);white-space:nowrap;width:190px}
+td.why{color:var(--ink-2)}
+.note{background:#fff8e6;border:1px solid #f0e6c8;border-radius:10px;padding:11px 15px;margin:14px 0 0;font-size:14.5px;color:#5a4a1e}
+.model{background:#f7faff;border:1px solid #d7e4f7;border-left:4px solid var(--brand);border-radius:10px;padding:16px 20px;margin-top:14px}
+.model p.txt{font-family:ui-monospace,Consolas,monospace;font-size:14px;line-height:1.75;color:#22303f}
+.ann{list-style:none;padding:0;margin:14px 0 0}
+.ann li{padding:8px 12px;border-left:3px solid var(--amber);background:#fdf7ea;border-radius:6px;margin:7px 0;font-size:14px}
+.ann b{color:var(--navy)}
+.tag{display:inline-block;background:#eaf5ec;color:#1e6b43;border:1px solid #c7e3cd;border-radius:5px;font-size:11px;font-weight:700;padding:1px 7px;margin-right:6px;font-family:ui-monospace,Consolas,monospace}
+footer{color:var(--ink-2);font-size:13px;border-top:1px solid var(--line);margin-top:30px;padding-top:16px}
+</style>
+</head>
+<body>
+<header class="mast"><div class="in">
+  <div class="eye">English for Aviation Maintenance · EASA Part-66/145 · CEFR B2</div>
+  <h1>Unit 1 · Solutions — full answers &amp; model writing</h1>
+  <p>Navigating maintenance documentation by ATA chapter. Full worked answers for E1–E8, one line of reasoning per item, and the annotated model handover note.</p>
+  <span class="gate">Gated file · teacher / self-study key · not shown before the exercise is attempted</span>
+</div></header>
+
+<main>
+
+  <section id="e1">
+    <h2><span class="lbl">E1</span> Gap-fill <span class="sub">— put the right term in the gap</span></h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td class="a">AMM</td><td class="why">The Aircraft Maintenance Manual is the publication that lists every approved task.</td></tr>
+        <tr><td class="n">2</td><td class="a">page block</td><td class="why">A page block groups one type of work; block 401 is removal and installation.</td></tr>
+        <tr><td class="n">3</td><td class="a">effectivity</td><td class="why">The effectivity line tells you which aircraft the task fits.</td></tr>
+        <tr><td class="n">4</td><td class="a">warning</td><td class="why">A warning is the safety box that protects people from injury or death.</td></tr>
+        <tr><td class="n">5</td><td class="a">caution</td><td class="why">A caution protects the aircraft or the tools from damage, not people.</td></tr>
+        <tr><td class="n">6</td><td class="a">IPC</td><td class="why">The Illustrated Parts Catalogue is where you find the part number before ordering.</td></tr>
+        <tr><td class="n">7</td><td class="a">ATA chapter</td><td class="why">The ATA chapter names the system; landing gear is chapter 32 on every type.</td></tr>
+        <tr><td class="n">8</td><td class="a">airworthiness directive</td><td class="why">An airworthiness directive is a mandatory order you must obey.</td></tr>
+        <tr><td class="n">9</td><td class="a">MEL</td><td class="why">The Minimum Equipment List says whether the aircraft may still fly.</td></tr>
+        <tr><td class="n">10</td><td class="a">work order</td><td class="why">The work order tells you what to do, but not how — it points to the AMM.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="e2">
+    <h2><span class="lbl">E2</span> Matching <span class="sub">— term to meaning</span></h2>
+    <table>
+      <thead><tr><th>#</th><th>Term → letter</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td class="a">task card → C</td><td class="why">A task card is a single printed job taken from the AMM.</td></tr>
+        <tr><td class="n">2</td><td class="a">subtask → F</td><td class="why">A subtask is one numbered step inside an AMM task.</td></tr>
+        <tr><td class="n">3</td><td class="a">revision → E</td><td class="why">A revision is an update that changes the manual; it carries a number and date.</td></tr>
+        <tr><td class="n">4</td><td class="a">service bulletin → H</td><td class="why">A service bulletin is the manufacturer's notice of a fix or improvement.</td></tr>
+        <tr><td class="n">5</td><td class="a">tech log → I</td><td class="why">The tech log is the aircraft's record of defects and completed work.</td></tr>
+        <tr><td class="n">6</td><td class="a">applicability → D</td><td class="why">Applicability states who or what a document applies to — the same idea as effectivity.</td></tr>
+        <tr><td class="n">7</td><td class="a">cross-reference → A</td><td class="why">A cross-reference is a link from one document to the matching part of another.</td></tr>
+        <tr><td class="n">8</td><td class="a">note → J</td><td class="why">A note adds extra helpful information; it is not a safety order.</td></tr>
+        <tr><td class="n">9</td><td class="a">warning → B</td><td class="why">A warning is the safety box that protects people.</td></tr>
+        <tr><td class="n">10</td><td class="a">caution → G</td><td class="why">A caution is the safety box that protects the aircraft.</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>Trap watch:</b> B (warning, people) vs G (caution, aircraft), and D (applicability) = effectivity. These are the pairs learners most often swap.</div>
+  </section>
+
+  <section id="e3">
+    <h2><span class="lbl">E3</span> Dialogue completion <span class="sub">— write the mentor's answer</span></h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td class="a">chapter</td><td class="why">The landing gear sits in ATA chapter 32.</td></tr>
+        <tr><td class="n">2</td><td class="a">page block</td><td class="why">Removal and installation live in page block 401.</td></tr>
+        <tr><td class="n">3</td><td class="a">effectivity (or applicability)</td><td class="why">The effectivity line tells you which aircraft the task fits.</td></tr>
+        <tr><td class="n">4</td><td class="a">warning</td><td class="why">The box that protects people is a warning.</td></tr>
+        <tr><td class="n">5</td><td class="a">caution</td><td class="why">The box that protects the aircraft is a caution.</td></tr>
+        <tr><td class="n">6</td><td class="a">IPC</td><td class="why">Part numbers are found in the Illustrated Parts Catalogue.</td></tr>
+        <tr><td class="n">7</td><td class="a">airworthiness directive</td><td class="why">An airworthiness directive is mandatory — you must never ignore it.</td></tr>
+        <tr><td class="n">8</td><td class="a">tech log</td><td class="why">The finished job is recorded in the tech log for the crew.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="e4">
+    <h2><span class="lbl">E4</span> Grammar <span class="sub">— present simple, correct the verb</span></h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td class="a">lists</td><td class="why">"The AMM" = it (singular), so add -s: lists.</td></tr>
+        <tr><td class="n">2</td><td class="a">cover</td><td class="why">"The two manuals" = they (plural), so no -s: cover.</td></tr>
+        <tr><td class="n">3</td><td class="a">protects</td><td class="why">"A caution" = it, so protects.</td></tr>
+        <tr><td class="n">4</td><td class="a">read</td><td class="why">"We" never takes the third-person -s: read.</td></tr>
+        <tr><td class="n">5</td><td class="a">shows</td><td class="why">"The IPC" = it, so shows.</td></tr>
+        <tr><td class="n">6</td><td class="a">is</td><td class="why">A singular subject takes is, the present-simple form of "be".</td></tr>
+        <tr><td class="n">7</td><td class="a">sits</td><td class="why">"The tyre task" = it, so sits.</td></tr>
+        <tr><td class="n">8</td><td class="a">list</td><td class="why">"The chapters" = they (plural), so no -s: list.</td></tr>
+        <tr><td class="n">9</td><td class="a">does not add</td><td class="why">Negative present simple: does not + base verb (the -s moves to "does").</td></tr>
+        <tr><td class="n">10</td><td class="a">Does</td><td class="why">Question present simple: Does + subject + base verb.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="e5">
+    <h2><span class="lbl">E5</span> Reading 1 <span class="sub">— an AMM task card (32-41-01)</span></h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td class="a">32</td><td class="why">The header reads "Chapter 32 (Landing Gear)".</td></tr>
+        <tr><td class="n">2</td><td class="a">401</td><td class="why">The header reads "Page Block 401" — removal and installation.</td></tr>
+        <tr><td class="n">3</td><td class="a">47</td><td class="why">The header reads "Revision 47, dated 01 AUG".</td></tr>
+        <tr><td class="n">4</td><td class="a">release the tyre pressure</td><td class="why">The WARNING says release the pressure fully before removing the wheel.</td></tr>
+        <tr><td class="n">5</td><td class="a">in the IPC</td><td class="why">Subtask 030 refers you to the IPC, figure 32-41-05, for the axle-nut part number.</td></tr>
+        <tr><td class="n">6</td><td class="a">in the tech log</td><td class="why">The NOTE tells you to record the tyre pressure in the tech log before removal.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="e6">
+    <h2><span class="lbl">E6</span> Error-spotting <span class="sub">— fix the handover note</span></h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td class="a">lists</td><td class="why">"AMM list" → the singular subject needs the -s: lists.</td></tr>
+        <tr><td class="n">2</td><td class="a">is</td><td class="why">"The manual are" → a singular subject takes is, not are.</td></tr>
+        <tr><td class="n">3</td><td class="a">people</td><td class="why">A warning protects people; a caution protects the aircraft.</td></tr>
+        <tr><td class="n">4</td><td class="a">the</td><td class="why">"read effectivity" → the noun needs the article: read the effectivity.</td></tr>
+        <tr><td class="n">5</td><td class="a">covers</td><td class="why">A permanent fact takes the present simple, not the continuous: covers, not is covering.</td></tr>
+        <tr><td class="n">6</td><td class="a">has</td><td class="why">"This task card have" → the singular subject takes has, not have.</td></tr>
+        <tr><td class="n">7</td><td class="a">gives</td><td class="why">"The IPC give" → the singular subject needs the -s: gives.</td></tr>
+        <tr><td class="n">8</td><td class="a">sign</td><td class="why">"We signs" → "we" never takes the -s: sign.</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>Pattern:</b> lines 1, 2, 6, 7 are the missing third-person -s; line 8 is an over-applied -s; line 4 is a dropped article; line 5 is the continuous used for a permanent fact — the three predictable first-language errors together.</div>
+  </section>
+
+  <section id="e7">
+    <h2><span class="lbl">E7</span> Reading 2 <span class="sub">— a Service Bulletin summary (SB 32-115)</span></h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td class="a">recommended</td><td class="why">Status is "Recommended"; the text says it is not an airworthiness directive, so it is not mandatory.</td></tr>
+        <tr><td class="n">2</td><td class="a">aircraft with the old wheel (A-2200)</td><td class="why">Applicability: "All aircraft still fitted with the old wheel, part number A-2200."</td></tr>
+        <tr><td class="n">3</td><td class="a">A-2260</td><td class="why">The new wheel is part number A-2260, which holds pressure better.</td></tr>
+        <tr><td class="n">4</td><td class="a">32-41-01</td><td class="why">Manual effect: the bulletin changes AMM task 32-41-01.</td></tr>
+        <tr><td class="n">5</td><td class="a">in the IPC</td><td class="why">The cross-reference points to the IPC, figure 32-41-05, for the new part number.</td></tr>
+        <tr><td class="n">6</td><td class="a">the tech log and the work order</td><td class="why">Records: note the change in the tech log and close the work order.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="e8">
+    <h2><span class="lbl">E8</span> Listening review <span class="sub">— Dialogue 3 and the announcement</span></h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td class="a">what to do (not how)</td><td class="why">The work order gives the instruction; the AMM gives the method.</td></tr>
+        <tr><td class="n">2</td><td class="a">they cross-reference</td><td class="why">The AMM and IPC share the same chapter numbers, so they link to each other.</td></tr>
+        <tr><td class="n">3</td><td class="a">the authority</td><td class="why">An airworthiness directive is a mandatory order issued by the authority.</td></tr>
+        <tr><td class="n">4</td><td class="a">in the tech log</td><td class="why">The finished job is recorded in the tech log for the crew.</td></tr>
+        <tr><td class="n">5</td><td class="a">whether the aircraft may fly</td><td class="why">The MEL decides if the aircraft may fly with an item unserviceable.</td></tr>
+        <tr><td class="n">6</td><td class="a">revision 47</td><td class="why">The announcement says AMM revision 47 went live overnight.</td></tr>
+        <tr><td class="n">7</td><td class="a">a service bulletin</td><td class="why">A new service bulletin arrived for the nose-wheel assembly.</td></tr>
+        <tr><td class="n">8</td><td class="a">cautions</td><td class="why">The order is warnings before cautions, and cautions before you lift a tool.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="writing">
+    <h2><span class="lbl">✍</span> Writing <span class="sub">— model handover note, annotated</span></h2>
+    <p>Task: MSN 0451 needs a nose-wheel tyre change. Write a 60–80 word handover note in Simplified Technical English (ASD-STE100): short sentences, one idea each, present simple, approved terms only.</p>
+    <div class="model">
+      <p class="txt">Handover, Bay 3. Aircraft MSN 0451 needs a nose-wheel tyre change. The task is AMM 32-41-01, page block 401. Use revision 47. Check the effectivity first; MSN 0451 is on the list. Read the warning: release the tyre pressure before you remove the wheel. For the part number, see the IPC. Note the tyre pressure in the tech log. Then raise the work order and sign it at the end.</p>
+    </div>
+    <ul class="ann">
+      <li><span class="tag">STE</span><b>Short sentences, one idea each.</b> Every sentence carries a single instruction — easy to follow under time pressure and easy for a non-native reader.</li>
+      <li><span class="tag">TASK</span><b>Names the exact location.</b> "AMM 32-41-01, page block 401" — the ATA number and page block, so the next shift goes straight to the job (outcome 1).</li>
+      <li><span class="tag">REV</span><b>States the revision.</b> "Use revision 47" prevents anyone working from a superseded printout.</li>
+      <li><span class="tag">SAFE</span><b>Effectivity then warning.</b> Checks the effectivity before the work, then gives the warning that protects people — the correct reading order (outcome 2).</li>
+      <li><span class="tag">GRAM</span><b>Present simple, correct -s.</b> "The task <b>is</b>…", "MSN 0451 <b>is</b> on the list" — facts in the present simple; imperatives ("Check", "Read", "Note") for instructions.</li>
+      <li><span class="tag">DOCS</span><b>Links the documents.</b> IPC for the part, tech log for the record, work order raised and signed — the paperwork web from Dialogue 3 (outcome 3).</li>
+      <li><span class="tag">TERMS</span><b>Approved terms only.</b> No synonyms for the specialist words; STE requires one word for one meaning.</li>
+    </ul>
+    <div class="note"><b>Band guide:</b> a strong B2 answer names the task number, the page block and the revision, checks the effectivity and gives at least one warning, and holds the present simple throughout. A weaker answer drops the revision or the effectivity, or slips into the continuous ("is changing") for a fact.</div>
+  </section>
+
+  <footer>English for Aviation Maintenance · Unit 1 · Solutions. Answers accept the equivalents listed in each exercise's built-in key (e.g. "the IPC" / "IPC" / "in the IPC").</footer>
+</main>
+</body>
+</html>

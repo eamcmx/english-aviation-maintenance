@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English for Aviation Maintenance · Unit 1 · Navigating maintenance documentation by ATA chapter
+     Moodle XML · 25 items · 5 types (multichoice, truefalse, numerical, shortanswer, matching)
+     Split by skill: Listening (8) · Reading (5) · Use of English (8) · Vocabulary (4). No cloze. -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U01-r1</text></category>
+    <info format="html"><text><![CDATA[Unit 1 — Navigating maintenance documentation by ATA chapter. CEFR B2. Listening, reading, use of English and vocabulary.]]></text></info>
+  </question>
+
+  <!-- ================= LISTENING (8) ================= -->
+
+  <question type="truefalse">
+    <name><text>L1 · Dialogue 1 · AMM lists tasks</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Rita says the AMM lists every task the manufacturer approves for this aircraft.</p><p>True or false?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The AMM (Aircraft Maintenance Manual) lists every approved task and gives the steps. That is exactly what Rita tells the new technician.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — the AMM is the manual that holds all the approved tasks.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Listen again — Rita says the AMM lists every task the manufacturer approves.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L2 · Dialogue 1 · page block 401</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> What does page block 401 always mean?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Each page block holds one type of work. Block 401 always means removal and installation — that is why the tyre-change task sits there.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text><![CDATA[Removal and installation]]></text><feedback format="html"><text><![CDATA[Correct — block 401 is removal and installation.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Adjustment, test and functional check]]></text><feedback format="html"><text><![CDATA[No — that kind of work sits in a different page block, not 401.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Trouble-shooting and repair work]]></text><feedback format="html"><text><![CDATA[No — block 401 is removal and installation, not fault finding.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Inspection, cleaning and lubrication]]></text><feedback format="html"><text><![CDATA[No — block 401 is removal and installation.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L3 · Dialogue 1 · the chapter number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> The full task number is "thirty-two, forty-one, oh-one". Write the ATA <b>chapter</b> number as a figure.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The landing gear is ATA chapter 32 on every aircraft type. It is the first pair of digits in 32-41-01.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>32</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — chapter 32 is the landing gear.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L4 · Dialogue 2 · read first</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> What does the lead say you must read first, before the warnings and cautions?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Always read the effectivity first — it tells you which aircraft the task applies to. If it does not match your tail number, you stop.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text><![CDATA[The effectivity]]></text><feedback format="html"><text><![CDATA[Correct — the effectivity comes first, before warnings and cautions.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The revision number in the header]]></text><feedback format="html"><text><![CDATA[You do check the revision, but the lead says the effectivity comes first.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The list of numbered subtasks]]></text><feedback format="html"><text><![CDATA[No — you read the whole task after the effectivity, warnings and cautions.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The illustrated parts catalogue]]></text><feedback format="html"><text><![CDATA[No — the IPC is for part numbers, not the first thing to read on a task.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L5 · Dialogue 2 · caution protects</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> A caution protects people from injury.</p><p>True or false?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[A caution protects the aircraft or the equipment from damage. A warning protects people. People first, hardware second.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — a caution protects the aircraft; a warning protects people.]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[Listen again — the box that protects people is the warning, not the caution.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L6 · Dialogue 4 · revision number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 4 (the announcement) again.</b> Which AMM revision went live overnight? Write the number as a figure.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[AMM revision 47 went live overnight, so the team must pull the current task cards from the terminal and close last week's printouts.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>47</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — revision 47.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L7 · Dialogue 4 · aircraft affected</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 4 (the announcement) again.</b> For how many of the team's aircraft has the effectivity on chapter 32 changed? Write the number as a figure.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The lead says the effectivity on chapter 32 has changed for two of the team's aircraft, so the technicians must check before they start.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>2</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — two aircraft.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L8 · Dialogue 3 · service bulletin embodied</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> According to the mentor, what happens once a service bulletin is embodied?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[A service bulletin can change an AMM task. As soon as it is embodied, you follow the new instructions in the manual.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text><![CDATA[It changes the steps you follow in the AMM]]></text><feedback format="html"><text><![CDATA[Correct — once embodied, you follow the new AMM instructions.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[It becomes a mandatory order from the aviation authority]]></text><feedback format="html"><text><![CDATA[No — that describes an airworthiness directive, not a service bulletin.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[It cancels the aircraft technical log record entirely]]></text><feedback format="html"><text><![CDATA[No — the tech log record is not cancelled by a service bulletin.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[It replaces every airworthiness directive on the type]]></text><feedback format="html"><text><![CDATA[No — a service bulletin does not replace airworthiness directives.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= READING (5) ================= -->
+
+  <question type="multichoice">
+    <name><text>R1 · MEL extract</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the MEL extract.</b></p><blockquote><b>MEL item 33-51</b> — One cabin reading light may be inoperative for <b>up to 3 days</b> (Category C), provided the item is placarded and the defect is recorded in the tech log.</blockquote><p>For how long may the reading light stay inoperative?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The MEL (Minimum Equipment List) says whether the aircraft may fly with an item unserviceable, and for how long. Here the limit is up to 3 days.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text><![CDATA[Up to three days]]></text><feedback format="html"><text><![CDATA[Correct — the extract gives a limit of up to 3 days.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Until the next scheduled maintenance check]]></text><feedback format="html"><text><![CDATA[No — the extract gives a fixed limit of 3 days, not the next check.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[For an unlimited period, with no time limit]]></text><feedback format="html"><text><![CDATA[No — the MEL always sets a time limit; here it is 3 days.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Only until the end of the current flight]]></text><feedback format="html"><text><![CDATA[No — the limit is up to 3 days, not a single flight.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R2 · tech log entry</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the tech log entry.</b></p><blockquote><b>TECH LOG — 07 AUG.</b> Defect: nose-wheel tyre worn beyond limit. Action: tyre replaced per AMM 32-41-01. Work order WO-4471 raised and signed.</blockquote><p>The tech log entry records both the defect and the action taken. True or false?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The tech log is the aircraft's record of defects and completed work. This entry states the defect (worn tyre) and the action (tyre replaced), with the work order.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — it records the defect and the action.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Read again — the entry gives the defect and the action taken.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R3 · work order</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the work order.</b></p><blockquote><b>WORK ORDER WO-4471</b> — Replace nose-wheel tyre, aircraft MSN 0451. Refer to AMM 32-41-01. Return parts data to stores.</blockquote><p>What does the work order tell the technician to do?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The work order gives the instruction (what to do) and points to the AMM task for the method (how). It does not contain the steps itself.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text><![CDATA[Carry out the tyre replacement, using the AMM task]]></text><feedback format="html"><text><![CDATA[Correct — do the job and follow AMM 32-41-01 for the method.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Design a brand-new tyre-change procedure from scratch]]></text><feedback format="html"><text><![CDATA[No — the method already exists in the AMM task the order points to.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Decide whether the aircraft is airworthy enough to fly]]></text><feedback format="html"><text><![CDATA[No — that is the MEL's job, not the work order's.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Write the maintenance manual for the whole landing gear]]></text><feedback format="html"><text><![CDATA[No — the AMM already exists; the work order just points to a task in it.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 · BITE readout (avionics)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the BITE readout.</b></p><blockquote><b>BITE READOUT — ATA 34 (Navigation).</b> Fault code 34-11: NAV display, no data. Recommended action: refer to AMM 34-11-00; wiring check per IPC figure 34-11-07.</blockquote><p>The BITE readout points the avionics technician to a task in ATA chapter 34. True or false?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Navigation is ATA chapter 34. The readout gives the fault code and sends the technician to AMM 34-11-00 and to the IPC — the same cross-reference habit as chapter 32.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — chapter 34 is navigation, and the readout points to AMM 34-11-00.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Read again — the fault code and the AMM reference are both in chapter 34.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R5 · service bulletin applicability</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the service bulletin summary.</b></p><blockquote><b>SB 24-089</b> — Electrical Power. Status: Recommended. Applicability: aircraft MSN 0460 to 0475. Reason: improved generator control unit.</blockquote><p>Which aircraft does SB 24-089 apply to?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Always read the applicability (effectivity). This bulletin applies only to aircraft MSN 0460 to 0475, not to the whole fleet.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text><![CDATA[MSN 0460 to 0475]]></text><feedback format="html"><text><![CDATA[Correct — the applicability line names MSN 0460 to 0475.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Every aircraft in the fleet without any exception]]></text><feedback format="html"><text><![CDATA[No — the applicability limits it to a range of MSNs.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Only aircraft still fitted with the old nose wheel]]></text><feedback format="html"><text><![CDATA[No — that was SB 32-115; this bulletin is about electrical power.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[All aircraft listed under ATA chapter 32 only]]></text><feedback format="html"><text><![CDATA[No — SB 24-089 is chapter 24 (electrical power), and it names MSNs.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= USE OF ENGLISH (8) ================= -->
+
+  <question type="shortanswer">
+    <name><text>U1 · present simple · lists</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete with the present simple. Type one word.</p><p>The AMM ______ (list) every approved task.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA["The AMM" is one thing (it), so the verb takes the third-person -s: lists.]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>lists</text><feedback format="html"><text><![CDATA[Correct — a singular subject takes the -s.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use the present simple with the -s: lists.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 · present simple · cover</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete with the present simple. Type one word.</p><p>The two manuals ______ (cover) different systems.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA["The two manuals" is plural (they), so the verb takes no -s: cover.]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>cover</text><feedback format="html"><text><![CDATA[Correct — a plural subject takes no -s.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[A plural subject takes no -s: cover.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 · question form · Does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Make it a question. Type one word for the gap.</p><p>Statement: The effectivity matches your aircraft.</p><p>Question: ______ the effectivity match your aircraft?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[A present-simple question with a singular subject uses "Does" + subject + base verb: Does the effectivity match...?]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>Does</text><feedback format="html"><text><![CDATA[Correct — Does + subject + base verb.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use the auxiliary for a singular subject: Does.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 · negative form</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the negative present simple. Type the missing verb phrase.</p><p>A note ______ (not / order) you to stop.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The negative present simple is does not + base verb: does not order. The -s moves onto "does".]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>does not order</text><feedback format="html"><text><![CDATA[Correct — does not + base verb.]]></text></feedback></answer>
+    <answer fraction="100"><text>doesn't order</text><feedback format="html"><text><![CDATA[Correct — the contracted form is fine.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use does not + base verb: does not order.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 · missing article</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Add the missing word. Type one word.</p><p>Read ______ effectivity before you start.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[English needs the article here: read the effectivity. Latvian and Russian have no articles, so it is easy to drop.]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>the</text><feedback format="html"><text><![CDATA[Correct — read the effectivity.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The noun needs an article: the.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 · term · mandatory order</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the term from the unit.</p><p>The mandatory order from the authority, which you must obey, is the ______ .</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[An airworthiness directive (AD) is a mandatory order from the authority. A service bulletin, by contrast, is usually only recommended.]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>airworthiness directive</text><feedback format="html"><text><![CDATA[Correct — an airworthiness directive is mandatory.]]></text></feedback></answer>
+    <answer fraction="100"><text>AD</text><feedback format="html"><text><![CDATA[Correct — AD is the airworthiness directive.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The mandatory order is the airworthiness directive (AD).]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U7 · term · parts catalogue</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the term (or its abbreviation) from the unit.</p><p>The publication that shows and numbers every part is the ______ .</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The IPC (Illustrated Parts Catalogue) shows and numbers every part. It shares chapter numbers with the AMM, so the two cross-reference.]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>IPC</text><feedback format="html"><text><![CDATA[Correct — the IPC.]]></text></feedback></answer>
+    <answer fraction="100"><text>Illustrated Parts Catalogue</text><feedback format="html"><text><![CDATA[Correct — the Illustrated Parts Catalogue (IPC).]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[It is the IPC, the Illustrated Parts Catalogue.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U8 · transformation · present simple</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Rewrite the verb in the present simple (a permanent fact, not the continuous). Type one word.</p><p>Wrong: The chapter is covering the landing gear.</p><p>Right: The chapter ______ the landing gear.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[A permanent fact takes the present simple, not the continuous: the chapter covers the landing gear.]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade>
+    <answer fraction="100"><text>covers</text><feedback format="html"><text><![CDATA[Correct — a fact takes the present simple: covers.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use the present simple for a fact: covers.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= VOCABULARY (4) ================= -->
+
+  <question type="matching">
+    <name><text>V1 · document to purpose</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each document to what it does.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Each publication has one clear job: the AMM gives the method, the IPC the parts, the MEL the go/no-go decision, the tech log the record, and the work order the instruction.]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers><defaultgrade>1</defaultgrade>
+    <subquestion format="html"><text><![CDATA[AMM]]></text><answer><text><![CDATA[lists the approved tasks and the steps]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[IPC]]></text><answer><text><![CDATA[shows and numbers every part]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[MEL]]></text><answer><text><![CDATA[says whether the aircraft may fly]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[tech log]]></text><answer><text><![CDATA[records the defects and the work done]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[work order]]></text><answer><text><![CDATA[is the instruction to do a job]]></text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 · term to role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its role.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Warnings protect people; cautions protect the aircraft; notes only inform. An airworthiness directive is mandatory; a service bulletin is usually recommended.]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers><defaultgrade>1</defaultgrade>
+    <subquestion format="html"><text><![CDATA[warning]]></text><answer><text><![CDATA[protects people from injury or death]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[caution]]></text><answer><text><![CDATA[protects the aircraft from damage]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[note]]></text><answer><text><![CDATA[adds helpful information only]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[airworthiness directive]]></text><answer><text><![CDATA[a mandatory order you must obey]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[service bulletin]]></text><answer><text><![CDATA[a recommended change from the maker]]></text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V3 · term to collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the verb it goes with.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[At B2 the word's company matters: you raise a work order, embody a service bulletin, comply with an airworthiness directive, follow a cross-reference and consult the MEL.]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers><defaultgrade>1</defaultgrade>
+    <subquestion format="html"><text><![CDATA[work order]]></text><answer><text><![CDATA[raise a ...]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[service bulletin]]></text><answer><text><![CDATA[embody a ...]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[airworthiness directive]]></text><answer><text><![CDATA[comply with an ...]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[cross-reference]]></text><answer><text><![CDATA[follow a ...]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[MEL]]></text><answer><text><![CDATA[consult the ...]]></text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V4 · number to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each part of the numbering system to its meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The number reads left to right: chapter 32 is the landing gear, page block 401 is removal and installation, and 32-41-01 is the nose-wheel tyre task. Effectivity says which aircraft; a revision is a dated update.]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers><defaultgrade>1</defaultgrade>
+    <subquestion format="html"><text><![CDATA[ATA chapter 32]]></text><answer><text><![CDATA[the landing gear]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[page block 401]]></text><answer><text><![CDATA[removal and installation]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[32-41-01]]></text><answer><text><![CDATA[the nose-wheel tyre task]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[effectivity]]></text><answer><text><![CDATA[which aircraft a task applies to]]></text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[revision]]></text><answer><text><![CDATA[a dated update to the manual]]></text></answer></subquestion>
+  </question>
+
+</quiz>

@@ -1,0 +1,765 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Navigating maintenance documentation by ATA chapter</title><!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 1 of 32 · Navigating maintenance documentation by ATA chapter</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 documentation structure - ATA chapter, effectivity, page blo</span></div></div></header><meta charset="utf-8">
+<title>Unit 1 · Navigating maintenance documentation by ATA chapter</title>
+<style>
+  :root{
+    --brand:#2F5496; --brand-soft:#4a6fb0; --brand-dark:#1f3a6b;
+    --good:#2e7d32; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbf9f3; --paper:#ffffff; --sunken:#f2efe6; --margin:#fff8e6;
+    --border:#e6e1d4; --border-soft:#efe9dc;
+    --ink:#20242f; --ink-soft:#454b59; --ink-muted:#6d7382;
+    --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'JetBrains Mono','SF Mono',Consolas,monospace;
+    --radius:10px; --radius-sm:6px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased}
+  article{max-width:1000px;margin:0 auto;padding:0 24px 90px}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;line-height:1.2;margin:0 0 .6rem}
+  a{color:var(--brand)}
+  p{max-width:74ch}
+  .mast{padding:56px 0 30px;border-bottom:1px solid var(--border);margin-bottom:2rem}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--brand);
+    margin:0 0 16px;display:flex;align-items:center;gap:10px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--brand)}
+  .mast h1{font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.08;max-width:22ch}
+  .mast .sub{font-size:19px;color:var(--ink-soft);max-width:60ch;font-weight:450}
+  .cando{background:var(--paper);border:1px solid var(--border);border-left:4px solid var(--brand);
+    border-radius:var(--radius);padding:18px 22px;margin:24px 0 0;box-shadow:var(--shadow-sm)}
+  .cando h4{margin:0 0 10px;color:var(--brand-dark);font-size:1rem}
+  .cando ul{margin:0;padding-left:1.1em}
+  .cando li{margin:6px 0;color:var(--ink-soft)}
+  section{margin:0 0 2.6rem;scroll-margin-top:20px}
+  section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:.5rem;border-bottom:1px solid var(--border);
+    display:flex;align-items:baseline;gap:12px}
+  section>h2 .n{font-family:var(--mono);font-size:.95rem;color:var(--brand);font-weight:600}
+  h3{font-size:1.15rem;margin:1.6rem 0 .5rem}
+  .lede{font-size:18px;color:#3a3f4d}
+  .instr{background:var(--margin);border:1px solid #f0e6c8;border-radius:var(--radius-sm);
+    padding:10px 15px;margin:12px 0;font-size:15.5px;color:#5a4a1e}
+  .instr b{color:#7a5a12}
+  /* dialogues */
+  .dlg{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);
+    padding:16px 20px;margin:16px 0;box-shadow:var(--shadow-sm)}
+  .dlg h3{margin-top:0}
+  .lang-audio-slot{display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;
+    background:var(--sunken);border:1px dashed var(--brand-soft);border-radius:var(--radius-sm);
+    color:var(--brand-dark);font-family:var(--mono);font-size:13px;margin:8px 0}
+  .lang-audio-slot:before{content:"\25B6";color:var(--brand)}
+  details.transcript{margin-top:8px;border-top:1px solid var(--border-soft);padding-top:6px}
+  details.transcript summary{cursor:pointer;font-family:var(--mono);font-size:12.5px;color:var(--brand);
+    text-transform:uppercase;letter-spacing:.08em}
+  .turn{margin:5px 0;max-width:74ch}
+  .turn b{display:inline-block;min-width:1.4em;color:var(--brand-dark);font-family:var(--mono);font-size:.85em}
+  .said{color:var(--ink)}
+  /* vocab */
+  table.vocab{border-collapse:collapse;width:100%;margin-top:10px;font-size:14.5px}
+  table.vocab th,table.vocab td{border:1px solid var(--border);padding:7px 11px;text-align:left;vertical-align:top}
+  table.vocab th{background:var(--sunken);font-weight:600;color:var(--ink-soft);font-family:var(--mono);
+    font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  dfn{font-style:normal;font-weight:700;color:var(--brand-dark);font-family:var(--mono);font-size:13.5px}
+  td.coll{color:var(--ink-muted);font-family:var(--mono);font-size:12.5px}
+  /* grammar */
+  table.gr{border-collapse:collapse;width:100%;margin-top:10px;font-size:14.5px}
+  table.gr th,table.gr td{border:1px solid var(--border);padding:7px 11px;text-align:left}
+  table.gr th{background:var(--sunken);font-weight:600;font-family:var(--mono);font-size:12px;text-transform:uppercase}
+  .wrongright{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+  @media(max-width:620px){.wrongright{grid-template-columns:1fr}}
+  .wrongright .w,.wrongright .r{border-radius:var(--radius-sm);padding:9px 13px;font-size:14.5px}
+  .wrongright .w{background:#fbecea;border:1px solid #eecaca}
+  .wrongright .r{background:#eaf5ec;border:1px solid #c7e3cd}
+  .wrongright .tag{font-family:var(--mono);font-size:11px;font-weight:700;display:block;margin-bottom:3px}
+  .wrongright .w .tag{color:var(--bad)} .wrongright .r .tag{color:var(--good)}
+  /* exercises */
+  .ex{border:1px solid var(--border);border-left:4px solid var(--brand);border-radius:var(--radius-sm);
+    padding:14px 18px;margin:16px 0;background:var(--paper);box-shadow:var(--shadow-sm)}
+  .ex>h3{margin-top:0;display:flex;align-items:baseline;gap:10px}
+  .ex .lbl{font-family:var(--mono);font-size:12px;color:var(--brand);font-weight:700;letter-spacing:.06em}
+  .ex ol{padding-left:1.4em;margin:8px 0}
+  .ex li{margin:8px 0}
+  .ex input[type=text]{font-family:var(--sans);font-size:15px;padding:5px 9px;border:1px solid var(--border);
+    border-radius:6px;min-width:150px;background:#fff}
+  .ex select{font-family:var(--sans);font-size:14.5px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;background:#fff}
+  .ex input.ok,.ex select.ok{border-color:var(--good);background:#eef7ef}
+  .ex input.bad,.ex select.bad{border-color:var(--bad);background:#fbecea}
+  .btn{font-family:var(--sans);font-size:14px;background:var(--brand);color:#fff;border:none;border-radius:7px;
+    padding:7px 15px;cursor:pointer;font-weight:600;margin-right:8px}
+  .btn.ghost{background:var(--sunken);color:var(--ink);border:1px solid var(--border)}
+  .btn:hover{background:var(--brand-dark)}
+  .score{font-family:var(--mono);font-size:13px;font-weight:700;margin-left:6px}
+  details.key{margin-top:10px;background:var(--sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:6px 12px}
+  details.key summary{cursor:pointer;font-family:var(--mono);font-size:12.5px;color:var(--brand-dark);font-weight:700}
+  details.key li{font-size:14px}
+  .reading{background:#fdfcf8;border:1px solid var(--border);border-left:3px solid var(--gold);
+    border-radius:var(--radius-sm);padding:14px 18px;margin:10px 0;font-family:var(--mono);font-size:13.5px;
+    line-height:1.7;color:#33384a;white-space:normal}
+  .reading .rt{font-weight:700;color:var(--brand-dark);letter-spacing:.03em}
+  .flaw{background:#fffaf2;border:1px dashed #d3a26a;border-radius:var(--radius-sm);padding:12px 16px;margin:10px 0;
+    font-family:var(--mono);font-size:13.5px;line-height:1.8;color:#4a3a1e}
+  /* speaking + writing */
+  .roleplay{background:var(--paper);border:1px solid var(--border);border-top:4px solid var(--brand-soft);
+    border-radius:var(--radius-sm);padding:14px 18px;margin:12px 0;box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;color:var(--brand-dark)}
+  .roleplay .fld{margin:6px 0;font-size:14.5px}
+  .roleplay .fld b{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--brand);display:block}
+  .rp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:640px){.rp-grid{grid-template-columns:1fr}}
+  .aibox{background:#eef3fb;border:1px solid #d3e0f1;border-radius:var(--radius);padding:16px 20px;margin:18px 0}
+  .aibox h4{margin:0 0 6px;color:var(--brand-dark)}
+  .prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;margin:8px 0;
+    font-size:14px;position:relative}
+  .prompt .copy{position:absolute;top:8px;right:8px;font-size:11px;padding:3px 9px}
+  .selfcheck{background:var(--margin);border:1px solid #f0e6c8;border-radius:var(--radius-sm);padding:10px 16px;margin:12px 0}
+  .selfcheck li{margin:4px 0;font-size:14.5px}
+  footer{margin-top:2.6rem;color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:1.2rem}
+</style>
+<article>
+
+  <header class="mast">
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 1</p>
+    <h1>Navigating maintenance documentation by ATA chapter</h1>
+    <p class="sub">Find any task in the manual set the way a working technician does &mdash; by its ATA number, page block and effectivity.</p>
+    <div class="cando">
+      <h4>By the end of this unit you can &hellip;</h4>
+      <ul>
+        <li>Can locate a specific procedure in the AMM using the ATA chapter and page-block system.</li>
+        <li>Can identify the effectivity, warnings and cautions in a documentation extract.</li>
+        <li>Can explain to a colleague where a task is documented and why.</li>
+      </ul>
+    </div>
+  </header>
+
+  <section id="scenario">
+    <h2><span class="n">00</span>The situation</h2>
+    <p class="lede">It is a normal shift in the hangar. A new technician has a nose-gear tyre to change, but the manual set feels huge.</p>
+    <p>Where does the tyre-change procedure live? Which ATA chapter, which page block, which task card? Before any tool comes out, you must find the right task, read its effectivity, and obey its warnings and cautions. In this unit you learn to move through the documentation the way an experienced mechanic does. You follow the number, and the manual leads you to the job.</p>
+
+    <h3>Why documentation discipline matters</h3>
+    <p>Maintenance documentation is the technician's most important instrument. Before any physical work begins, the correct procedure must be identified and confirmed. The manufacturer publishes this information in a controlled library of connected publications. Because these documents are revised frequently, an outdated procedure becomes a genuine hazard. Professional discipline means locating the current, applicable instruction every single time.</p>
+    <p>The organisation of this documentation follows one international convention. Every manufacturer numbers the aircraft systems in an identical way. This shared arrangement is the ATA numbering system, and it never varies between types. Consequently, an experienced technician recognises the chapters immediately, whatever the aircraft. Familiarity with the numbering transforms an intimidating library into a predictable, navigable structure.</p>
+
+    <h3>The publications, and how they differ</h3>
+    <p>The maintenance library contains several distinct publications, each with a defined purpose. The Aircraft Maintenance Manual describes approved procedures; the Illustrated Parts Catalogue identifies every component. Additional publications communicate modifications, mandatory instructions, and operational limitations. Understanding which publication governs a particular situation is fundamental professional knowledge. Confusing one document with another can invalidate an entire maintenance action.</p>
+    <p>Applicability, frequently called effectivity, determines whether a procedure concerns your particular aircraft. Because a single manual supports numerous individual aircraft, the applicability information is critically important. A procedure that appears relevant may actually exclude the specific aircraft in front of you. Verifying applicability before commencing work prevents unnecessary, invalid, and potentially dangerous interventions.</p>
+    <p>Safety instructions within a procedure follow an internationally recognised hierarchy of importance. Warnings address the protection of personnel from injury or fatality. Cautions address the protection of expensive equipment from accidental damage. Notes contribute supplementary information without imposing a mandatory safety obligation. Recognising this distinction instantly is an essential professional reflex.</p>
+    <p>Documentation is continuously updated, and every update carries a revision number and date. Manufacturers distribute revisions whenever procedures change or errors require correction. Working from a superseded revision reintroduces problems that a newer revision eliminated. Confirming the revision status is therefore an unavoidable preliminary step.</p>
+  </section>
+
+  <section id="dialogues">
+    <h2><span class="n">01</span>Model dialogues</h2>
+    <div class="instr"><b>Listen first, then read.</b> Play each track once with the transcript closed. Then open the transcript and listen again.</div>
+
+    <div class="dlg">
+      <h3>Dialogue 1 &mdash; Finding the task by ATA chapter</h3>
+      <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u01-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:42 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><b>A</b> <span class="said">Rita, I have to change a nose-gear tyre, but I can't find the procedure anywhere.</span></p>
+        <p class="turn"><b>B</b> <span class="said">No problem. In the AMM, every task hides behind an ATA chapter number.</span></p>
+        <p class="turn"><b>A</b> <span class="said">So which chapter covers the landing gear on this aircraft?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Chapter thirty-two, always. The ATA system gives landing gear the same number on every type.</span></p>
+        <p class="turn"><b>A</b> <span class="said">And the AMM is the manual that holds all the approved tasks?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Exactly. The AMM lists every task the manufacturer approves for this aircraft.</span></p>
+        <p class="turn"><b>A</b> <span class="said">The manual is enormous, though. How do I reach the tyre section quickly?</span></p>
+        <p class="turn"><b>B</b> <span class="said">You narrow the number down. First chapter thirty-two, then the subject, then the page block.</span></p>
+        <p class="turn"><b>A</b> <span class="said">What does a page block actually tell me?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Each page block holds one type of work. Block four-oh-one always means removal and installation.</span></p>
+        <p class="turn"><b>A</b> <span class="said">So my tyre change should sit in page block four-oh-one?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Yes. The full number reads thirty-two, forty-one, oh-one, and the task opens at page four-oh-one.</span></p>
+        <p class="turn"><b>A</b> <span class="said">That's neat. The number names the system, then the subject, then the exact job.</span></p>
+        <p class="turn"><b>B</b> <span class="said">Right. Once you learn the chapters, you can locate almost any task in minutes.</span></p>
+        <p class="turn"><b>A</b> <span class="said">Should I also open the IPC while I'm there?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Good instinct. The IPC gives you the part numbers, although it never gives the steps.</span></p>
+        <p class="turn"><b>A</b> <span class="said">Understood. Let me pull the AMM up on the terminal and we'll walk through it.</span></p>
+        <p class="turn"><b>B</b> <span class="said">Perfect. Follow the number, and the manual does the rest of the work for you.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 2 &mdash; Reading the effectivity, warnings and cautions</h3>
+      <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u01-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:39 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><b>A</b> <span class="said">Before I start the tyre change, what should I check at the top of the task?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Always read the effectivity first. It tells you which aircraft the task applies to.</span></p>
+        <p class="turn"><b>A</b> <span class="said">Why does effectivity matter if the chapter is already thirty-two?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Because one manual covers many aircraft. The applicability line filters the task to your tail number.</span></p>
+        <p class="turn"><b>A</b> <span class="said">So if my aircraft isn't listed, the procedure isn't valid for me?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Correct. If the effectivity doesn't match, you stop and find the right task card.</span></p>
+        <p class="turn"><b>A</b> <span class="said">Got it. And these boxes marked warning and caution, are they the same thing?</span></p>
+        <p class="turn"><b>B</b> <span class="said">No, and the difference is important. A warning protects people from injury or death.</span></p>
+        <p class="turn"><b>A</b> <span class="said">And a caution?</span></p>
+        <p class="turn"><b>B</b> <span class="said">A caution protects the aircraft or the equipment from damage. People first, hardware second.</span></p>
+        <p class="turn"><b>A</b> <span class="said">There's also a grey box marked note. Does that carry the same weight?</span></p>
+        <p class="turn"><b>B</b> <span class="said">A note only adds helpful information. You should read it, but it isn't a safety order.</span></p>
+        <p class="turn"><b>A</b> <span class="said">This task card looks slightly different from the one online. Why is that?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Check the revision date. The manual changes often, so an old revision can mislead you.</span></p>
+        <p class="turn"><b>A</b> <span class="said">How do I know I'm on the latest revision?</span></p>
+        <p class="turn"><b>B</b> <span class="said">The header records the revision number. Never trust a printout unless the date is current.</span></p>
+        <p class="turn"><b>A</b> <span class="said">So the order is effectivity, then warnings, then cautions, then the subtasks themselves?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Exactly. Read the whole task through once before you lift a single tool.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 3 &mdash; Explaining where a task is documented, and why</h3>
+      <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u01-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:47 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><b>A</b> <span class="said">A trainee asked me where the tyre task is documented. I froze. Can you help me explain it?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Sure. Start simple. The work order tells you what to do, but not how to do it.</span></p>
+        <p class="turn"><b>A</b> <span class="said">So the work order is just the instruction to carry out the job?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Right. For the method, the work order points you to the AMM task by its ATA number.</span></p>
+        <p class="turn"><b>A</b> <span class="said">And where does the IPC come in again?</span></p>
+        <p class="turn"><b>B</b> <span class="said">The AMM and the IPC share the same chapter numbers, so they cross-reference each other.</span></p>
+        <p class="turn"><b>A</b> <span class="said">So a cross-reference just links one document to the matching part of another?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Exactly. You read the step in the AMM, then jump to the IPC for the correct part.</span></p>
+        <p class="turn"><b>A</b> <span class="said">What if a service bulletin has changed the tyre or the wheel?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Good thinking. A service bulletin is the manufacturer's notice of an improvement or a fix.</span></p>
+        <p class="turn"><b>A</b> <span class="said">And that can actually change the steps in the AMM?</span></p>
+        <p class="turn"><b>B</b> <span class="said">It can. As soon as a service bulletin is embodied, you follow the new instructions.</span></p>
+        <p class="turn"><b>A</b> <span class="said">Is an airworthiness directive the same kind of document?</span></p>
+        <p class="turn"><b>B</b> <span class="said">No. An airworthiness directive is a mandatory order from the authority. You cannot ignore it.</span></p>
+        <p class="turn"><b>A</b> <span class="said">Where do I record that the job is finished?</span></p>
+        <p class="turn"><b>B</b> <span class="said">You sign the work order, and the aircraft tech log carries the record for the crew.</span></p>
+        <p class="turn"><b>A</b> <span class="said">And if the tyre is worn but we still need to fly?</span></p>
+        <p class="turn"><b>B</b> <span class="said">Then you check the MEL. The MEL says whether the aircraft may fly with that item unserviceable.</span></p>
+        <p class="turn"><b>A</b> <span class="said">That's a lot of documents talking to each other.</span></p>
+        <p class="turn"><b>B</b> <span class="said">It is, but each one has a clear job. Learn the links, and the paperwork guides you.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Track 4 &mdash; Hangar announcement (shift handover)</h3>
+      <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u01-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:52 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><b>PA</b> <span class="said">Good morning, team. This is the shift handover for Bay three. Two quick documentation points before you start. First, AMM revision forty-seven went live overnight. So please close any printout from last week, and pull the current task cards from the terminal. The effectivity on chapter thirty-two has changed for two of our aircraft. Second, a new service bulletin has arrived for the nose-wheel assembly. It is not mandatory yet, but read the applicability before you touch that job. If your aircraft is on the list, raise a fresh work order, and note it in the tech log. As always, warnings before cautions, and cautions before you lift a tool. Any questions, find me at the documentation desk. Have a safe shift.</span></p>
+      </details>
+    </div>
+  </section>
+
+  <section id="vocabulary">
+    <h2><span class="n">02</span>Vocabulary bank</h2>
+    <div class="instr"><b>Study the words.</b> These are the specialist terms for this unit. You will hear them in the dialogues and use them in the exercises.</div>
+    <p>Understanding this terminology precisely is essential, because approximate understanding produces expensive mistakes. Each specialist term identifies a specific document, category, or safety instruction. Although several terms appear similar, their consequences for the operator differ significantly. Study the definitions carefully, and notice the collocations that accompany each term naturally.</p>
+    <table class="vocab">
+      <thead><tr><th>Term</th><th>Plain meaning</th><th>Example</th><th>Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="ATA chapter">ATA chapter</dfn></td><td>A number that names an aircraft system in every manual.</td><td>The landing gear always sits in ATA chapter thirty-two.</td><td class="coll">ATA chapter number</td></tr>
+        <tr><td><dfn data-term="AMM">AMM</dfn></td><td>Aircraft Maintenance Manual; it lists every approved task.</td><td>The AMM tells you how to remove the wheel, step by step.</td><td class="coll">open the AMM</td></tr>
+        <tr><td><dfn data-term="IPC">IPC</dfn></td><td>Illustrated Parts Catalogue; it shows and numbers every part.</td><td>Find the part number in the IPC before you order it.</td><td class="coll">check the IPC</td></tr>
+        <tr><td><dfn data-term="page block">page block</dfn></td><td>A range of pages for one type of work, like removal.</td><td>Removal and installation sit in page block four-oh-one.</td><td class="coll">page block 401</td></tr>
+        <tr><td><dfn data-term="effectivity">effectivity</dfn></td><td>The list of aircraft a task or note applies to.</td><td>The effectivity shows this task fits only two of our aircraft.</td><td class="coll">check the effectivity</td></tr>
+        <tr><td><dfn data-term="applicability">applicability</dfn></td><td>Another word for effectivity: who or what a document applies to.</td><td>Read the applicability before you order the new part.</td><td class="coll">check the applicability</td></tr>
+        <tr><td><dfn data-term="warning">warning</dfn></td><td>A safety box that protects people from injury or death.</td><td>The warning tells you to release the pressure first.</td><td class="coll">read the warning</td></tr>
+        <tr><td><dfn data-term="caution">caution</dfn></td><td>A safety box that protects the aircraft or tools from damage.</td><td>The caution says do not over-tighten the nut.</td><td class="coll">obey the caution</td></tr>
+        <tr><td><dfn data-term="note">note</dfn></td><td>A box that adds helpful information, but not a safety order.</td><td>The note reminds you to record the tyre pressure.</td><td class="coll">a helpful note</td></tr>
+        <tr><td><dfn data-term="revision">revision</dfn></td><td>An update to the manual. Each one has a number and a date.</td><td>The task card is on revision forty-seven, dated 1 August.</td><td class="coll">check the revision</td></tr>
+        <tr><td><dfn data-term="task card">task card</dfn></td><td>A single printed job taken from the AMM.</td><td>Sign the task card once the tyre change is complete.</td><td class="coll">close the task card</td></tr>
+        <tr><td><dfn data-term="subtask">subtask</dfn></td><td>One numbered step inside an AMM task.</td><td>Subtask 32-41-01-020 lifts the nose gear on the jack.</td><td class="coll">the next subtask</td></tr>
+        <tr><td><dfn data-term="service bulletin">service bulletin</dfn></td><td>The manufacturer's notice of an improvement or a fix.</td><td>The service bulletin changes the wheel to a stronger type.</td><td class="coll">embody a service bulletin</td></tr>
+        <tr><td><dfn data-term="airworthiness directive">airworthiness directive</dfn></td><td>A mandatory order from the authority; you must obey it.</td><td>An airworthiness directive is never optional for the operator.</td><td class="coll">comply with an airworthiness directive</td></tr>
+        <tr><td><dfn data-term="MEL">MEL</dfn></td><td>Minimum Equipment List; what may be broken and still fly.</td><td>The MEL allows one light to fail for three days.</td><td class="coll">consult the MEL</td></tr>
+        <tr><td><dfn data-term="tech log">tech log</dfn></td><td>The aircraft technical log; the record of defects and work.</td><td>Write the finished job in the tech log for the crew.</td><td class="coll">sign the tech log</td></tr>
+        <tr><td><dfn data-term="work order">work order</dfn></td><td>The instruction to carry out a job; it points to the AMM.</td><td>The work order sends you to the correct AMM task.</td><td class="coll">raise a work order</td></tr>
+        <tr><td><dfn data-term="cross-reference">cross-reference</dfn></td><td>A link from one document to the matching part of another.</td><td>The AMM cross-reference sends you to the IPC figure.</td><td class="coll">follow the cross-reference</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="grammar">
+    <h2><span class="n">03</span>Grammar in context &mdash; present simple for systems and facts</h2>
+    <p class="lede">When we describe how the manual set works, we use the present simple. It states a fact that is always true.</p>
+    <p>Listen again to Rita in Dialogue 1: <em>&ldquo;The AMM lists every task.&rdquo;</em> She does not say &ldquo;is listing&rdquo;. The manual always lists the tasks, so we use the simple form. In Dialogue 2 the lead says <em>&ldquo;A warning protects people.&rdquo;</em> Again, this is a general truth. In Dialogue 1 we also hear <em>&ldquo;Chapter thirty-two covers the landing gear.&rdquo;</em> The system does this every time, on every aircraft.</p>
+    <p>The tricky part is the little <b>-s</b> on the verb. We add it when the subject is <em>it</em>, or one thing: the AMM, the chapter, a warning. We do not add it for <em>I</em>, <em>you</em>, <em>we</em>, or for more than one thing.</p>
+    <p>Technicians describe documentation using consistent, factual language, which explains the grammatical priority of this unit. Descriptions of permanent organisation require the present simple, not the continuous. A manufacturer's manual permanently performs its function; therefore we say it lists, covers, or identifies. This apparently minor distinction communicates professional accuracy to every colleague who reads your notes.</p>
+    <table class="gr">
+      <thead><tr><th>Subject</th><th>Verb (present simple)</th><th>Example at level</th></tr></thead>
+      <tbody>
+        <tr><td>The AMM / chapter (it)</td><td>lists, covers, shows (<b>+s</b>)</td><td>The chapter covers the landing gear.</td></tr>
+        <tr><td>The manuals / chapters (they)</td><td>list, cover, show (no s)</td><td>The two manuals cover different systems.</td></tr>
+        <tr><td>I / you / we</td><td>check, read, follow</td><td>We read the warning first.</td></tr>
+        <tr><td>Negative / question</td><td>does not + verb / does &hellip; ?</td><td>The note does not order you to stop.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Three common mistakes (Latvian and Russian speakers)</h3>
+    <div class="wrongright">
+      <div class="w"><span class="tag">&#10007; No article</span>AMM lists every task.</div>
+      <div class="r"><span class="tag">&#10003; Add &ldquo;the&rdquo;</span>The AMM lists every task.</div>
+    </div>
+    <p style="font-size:14px;color:var(--ink-muted);margin:2px 0 12px">Latvian and Russian have no articles, so learners drop <em>the</em>. In English the manual names need <em>the</em>.</p>
+    <div class="wrongright">
+      <div class="w"><span class="tag">&#10007; Missing -s</span>The manual list every task.</div>
+      <div class="r"><span class="tag">&#10003; Add -s</span>The manual lists every task.</div>
+    </div>
+    <p style="font-size:14px;color:var(--ink-muted);margin:2px 0 12px">Russian and Latvian verbs do not agree in this way, so the <b>-s</b> is easy to forget.</p>
+    <div class="wrongright">
+      <div class="w"><span class="tag">&#10007; Continuous for a fact</span>The chapter is covering the landing gear.</div>
+      <div class="r"><span class="tag">&#10003; Simple for a fact</span>The chapter covers the landing gear.</div>
+    </div>
+    <p style="font-size:14px;color:var(--ink-muted);margin:2px 0 0">Use the simple form for a permanent fact. Keep the continuous for an action happening right now.</p>
+  </section>
+
+  <section id="exercises">
+    <h2><span class="n">04</span>Exercises</h2>
+    <div class="instr"><b>How to work.</b> Do each exercise. Press <b>Check</b> to test your answers. Green is right, red is wrong. Open <b>Answer key</b> only when you are stuck.</div>
+    <p>These activities gradually consolidate the terminology, the grammatical focus, and the navigation procedure together. Complete them individually, because independent retrieval strengthens memory far more effectively than recognition. Difficulty increases progressively, from controlled vocabulary practice towards authentic documentation comprehension.</p>
+
+    <div class="ex" id="e1">
+      <h3><span class="lbl">E1</span>Gap-fill &mdash; put the right term in the gap</h3>
+      <p class="hintline" style="font-size:14px;color:var(--ink-muted)">Write one term from the vocabulary bank in each gap.</p>
+      <ol>
+        <li>The <input type="text" data-answer="amm|the amm"> lists every approved maintenance task.</li>
+        <li>Removal and installation live in <input type="text" data-answer="page block|page block 401"> four-oh-one.</li>
+        <li>Read the <input type="text" data-answer="effectivity"> to see which aircraft the task fits.</li>
+        <li>A <input type="text" data-answer="warning"> protects people from injury or death.</li>
+        <li>A <input type="text" data-answer="caution"> protects the aircraft from damage.</li>
+        <li>Find the part number in the <input type="text" data-answer="ipc|the ipc"> before you order.</li>
+        <li>The landing gear sits in <input type="text" data-answer="ata chapter|ata chapter 32|chapter"> thirty-two.</li>
+        <li>An <input type="text" data-answer="airworthiness directive|ad"> is a mandatory order you must obey.</li>
+        <li>The <input type="text" data-answer="mel"> says whether the aircraft may still fly.</li>
+        <li>The <input type="text" data-answer="work order"> tells you what to do, not how.</li>
+      </ol>
+      <button class="btn" data-check="e1">Check</button><span class="score" id="s-e1"></span>
+      <details class="key"><summary>Answer key</summary>
+        <ol><li>AMM</li><li>page block</li><li>effectivity</li><li>warning</li><li>caution</li><li>IPC</li><li>ATA chapter</li><li>airworthiness directive</li><li>MEL</li><li>work order</li></ol>
+      </details>
+    </div>
+
+    <div class="ex" id="e2">
+      <h3><span class="lbl">E2</span>Matching &mdash; term to meaning</h3>
+      <p style="font-size:14px;color:var(--ink-muted)">Choose the letter of the correct meaning for each term.</p>
+      <ol>
+        <li>task card &mdash; <select data-answer="C"><option value="">?</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></li>
+        <li>subtask &mdash; <select data-answer="F"><option value="">?</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></li>
+        <li>revision &mdash; <select data-answer="E"><option value="">?</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></li>
+        <li>service bulletin &mdash; <select data-answer="H"><option value="">?</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></li>
+        <li>tech log &mdash; <select data-answer="I"><option value="">?</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></li>
+        <li>applicability &mdash; <select data-answer="D"><option value="">?</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></li>
+        <li>cross-reference &mdash; <select data-answer="A"><option value="">?</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></li>
+        <li>note &mdash; <select data-answer="J"><option value="">?</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></li>
+        <li>warning &mdash; <select data-answer="B"><option value="">?</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></li>
+        <li>caution &mdash; <select data-answer="G"><option value="">?</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></li>
+      </ol>
+      <p style="font-size:14px"><b>Meanings:</b> A. a link from one document to another &middot; B. a safety box that protects people &middot; C. a single printed job from the AMM &middot; D. who or what a document applies to &middot; E. an update that changes the manual &middot; F. one numbered step inside a task &middot; G. a safety box that protects the aircraft &middot; H. the maker's notice of a fix &middot; I. the aircraft record of defects and work &middot; J. extra helpful information, not an order</p>
+      <button class="btn" data-check="e2">Check</button><span class="score" id="s-e2"></span>
+      <details class="key"><summary>Answer key</summary><p>1-C, 2-F, 3-E, 4-H, 5-I, 6-D, 7-A, 8-J, 9-B, 10-G</p></details>
+    </div>
+
+    <div class="ex" id="e3">
+      <h3><span class="lbl">E3</span>Dialogue completion &mdash; write the mentor's answer</h3>
+      <p style="font-size:14px;color:var(--ink-muted)">Read each question. Write one or two words in the gap.</p>
+      <ol>
+        <li>Which chapter covers the landing gear? &mdash; ATA <input type="text" data-answer="chapter|chapter 32"> thirty-two.</li>
+        <li>Where is removal and installation? &mdash; In <input type="text" data-answer="page block|page block 401"> four-oh-one.</li>
+        <li>Which aircraft does this task fit? &mdash; Read the <input type="text" data-answer="effectivity|applicability">.</li>
+        <li>This box protects people. What is it? &mdash; A <input type="text" data-answer="warning">.</li>
+        <li>This box protects the aircraft. What is it? &mdash; A <input type="text" data-answer="caution">.</li>
+        <li>Where do I find part numbers? &mdash; In the <input type="text" data-answer="ipc">.</li>
+        <li>What must I never ignore? &mdash; An <input type="text" data-answer="airworthiness directive|ad">.</li>
+        <li>Where do I record the finished job? &mdash; In the <input type="text" data-answer="tech log">.</li>
+      </ol>
+      <button class="btn" data-check="e3">Check</button><span class="score" id="s-e3"></span>
+      <details class="key"><summary>Answer key</summary><ol><li>chapter</li><li>page block</li><li>effectivity (or applicability)</li><li>warning</li><li>caution</li><li>IPC</li><li>airworthiness directive</li><li>tech log</li></ol></details>
+    </div>
+
+    <div class="ex" id="e4">
+      <h3><span class="lbl">E4</span>Grammar &mdash; present simple, correct the verb</h3>
+      <p style="font-size:14px;color:var(--ink-muted)">Write the verb in the present simple. Watch the little <b>-s</b>.</p>
+      <ol>
+        <li>The AMM <input type="text" data-answer="lists"> (list) every task.</li>
+        <li>The two manuals <input type="text" data-answer="cover"> (cover) different systems.</li>
+        <li>A caution <input type="text" data-answer="protects"> (protect) the aircraft.</li>
+        <li>We always <input type="text" data-answer="read"> (read) the warning first.</li>
+        <li>The IPC <input type="text" data-answer="shows"> (show) every part number.</li>
+        <li>An airworthiness directive <input type="text" data-answer="is"> (be) mandatory.</li>
+        <li>The tyre task <input type="text" data-answer="sits"> (sit) in page block four-oh-one.</li>
+        <li>The chapters <input type="text" data-answer="list"> (list) the systems in order.</li>
+        <li>A note <input type="text" data-answer="does not add|doesn't add|does not give|doesn't give"> (not add) a safety order.</li>
+        <li><input type="text" data-answer="does"> (do) the effectivity match your aircraft?</li>
+      </ol>
+      <button class="btn" data-check="e4">Check</button><span class="score" id="s-e4"></span>
+      <details class="key"><summary>Answer key</summary><ol><li>lists</li><li>cover</li><li>protects</li><li>read</li><li>shows</li><li>is</li><li>sits</li><li>list</li><li>does not add</li><li>Does</li></ol></details>
+    </div>
+
+    <div class="ex" id="e5">
+      <h3><span class="lbl">E5</span>Reading 1 &mdash; an AMM task card</h3>
+      <p style="font-size:14px;color:var(--ink-muted)">Read the extract. Then answer the questions below.</p>
+      <div class="reading">
+        <span class="rt">AMM TASK 32-41-01 &mdash; NOSE WHEEL / TYRE &mdash; REMOVAL &amp; INSTALLATION</span><br>
+        Chapter 32 (Landing Gear) &nbsp;&middot;&nbsp; Page Block 401 &nbsp;&middot;&nbsp; Revision 47, dated 01 AUG<br>
+        Effectivity: MSN 0451, 0452 only. For MSN 0453, refer to task 32-41-02.<br><br>
+        <b>WARNING:</b> Release the tyre pressure fully before you remove the wheel. A charged tyre can burst and cause serious injury or death.<br>
+        <b>CAUTION:</b> Do not let the wheel drop onto the floor. A fall can damage the wheel flange and the bearing.<br>
+        <b>NOTE:</b> This task is affected by service bulletin SB 32-115. Record the tyre pressure in the tech log before removal.<br><br>
+        <b>Subtask 32-41-01-010</b> &mdash; Position the aircraft and put a warning placard in the flight deck.<br>
+        <b>Subtask 32-41-01-020</b> &mdash; Lift the nose gear on the approved jack until the tyre is clear of the floor.<br>
+        <b>Subtask 32-41-01-030</b> &mdash; Remove the axle nut. For the correct part number, refer to the IPC, figure 32-41-05.<br>
+        <b>Subtask 32-41-01-040</b> &mdash; Pull the wheel straight off the axle. Do not turn it on the thread.<br>
+        <b>Subtask 32-41-01-050</b> &mdash; Fit the new wheel. Torque the axle nut to the value in table 401.<br>
+        <b>Subtask 32-41-01-060</b> &mdash; Lower the jack. Sign the task card and close the work order.<br>
+      </div>
+      <ol>
+        <li>Which ATA chapter is this task in? <input type="text" data-answer="32|thirty-two|ata 32"></li>
+        <li>Which page block? <input type="text" data-answer="401|page block 401|four-oh-one"></li>
+        <li>Which revision is the card? <input type="text" data-answer="47|revision 47|forty-seven"></li>
+        <li>What must you do before you remove the wheel? <input type="text" data-answer="release the pressure|release pressure|release the tyre pressure"></li>
+        <li>Where do you find the axle nut part number? <input type="text" data-answer="ipc|the ipc|in the ipc"></li>
+        <li>Where do you record the tyre pressure? <input type="text" data-answer="tech log|the tech log|in the tech log"></li>
+      </ol>
+      <button class="btn" data-check="e5">Check</button><span class="score" id="s-e5"></span>
+      <details class="key"><summary>Answer key</summary><ol><li>32</li><li>401</li><li>47</li><li>release the tyre pressure</li><li>in the IPC</li><li>in the tech log</li></ol></details>
+    </div>
+
+    <div class="ex" id="e6">
+      <h3><span class="lbl">E6</span>Error-spotting &mdash; fix the handover note</h3>
+      <p style="font-size:14px;color:var(--ink-muted)">A technician wrote this note quickly. Each line has one language error. Write the correction in the gap.</p>
+      <div class="flaw">
+        1. AMM list every task for chapter 32.<br>
+        2. The manual are on revision 47 now.<br>
+        3. A warning protect the aircraft, not people.<br>
+        4. Please read effectivity before you start.<br>
+        5. The chapter is covering the landing gear.<br>
+        6. This task card have no cautions.<br>
+        7. The IPC give the part numbers.<br>
+        8. We signs the work order at the end.<br>
+      </div>
+      <ol>
+        <li>Line 1 &mdash; correct the verb: AMM <input type="text" data-answer="lists"> every task.</li>
+        <li>Line 2 &mdash; correct the verb: The manual <input type="text" data-answer="is"> on revision 47.</li>
+        <li>Line 3 &mdash; a warning protects <input type="text" data-answer="people">, not the aircraft.</li>
+        <li>Line 4 &mdash; add the missing word: read <input type="text" data-answer="the"> effectivity.</li>
+        <li>Line 5 &mdash; use the present simple: the chapter <input type="text" data-answer="covers"> the landing gear.</li>
+        <li>Line 6 &mdash; correct the verb: this task card <input type="text" data-answer="has"> no cautions.</li>
+        <li>Line 7 &mdash; correct the verb: the IPC <input type="text" data-answer="gives"> the part numbers.</li>
+        <li>Line 8 &mdash; correct the verb: we <input type="text" data-answer="sign"> the work order.</li>
+      </ol>
+      <button class="btn" data-check="e6">Check</button><span class="score" id="s-e6"></span>
+      <details class="key"><summary>Answer key</summary><ol><li>lists</li><li>is</li><li>people</li><li>the</li><li>covers</li><li>has</li><li>gives</li><li>sign</li></ol></details>
+    </div>
+
+    <div class="ex" id="e7">
+      <h3><span class="lbl">E7</span>Reading 2 &mdash; a Service Bulletin summary</h3>
+      <p style="font-size:14px;color:var(--ink-muted)">Read the extract. Then answer the questions below.</p>
+      <div class="reading">
+        <span class="rt">SERVICE BULLETIN SB 32-115 &mdash; NOSE-WHEEL ASSEMBLY</span><br>
+        ATA Chapter 32 &nbsp;&middot;&nbsp; Status: Recommended &nbsp;&middot;&nbsp; Category: Improvement<br>
+        Applicability: All aircraft still fitted with the old wheel, part number A-2200.<br>
+        Compliance: At the next scheduled tyre change, or within twelve months.<br><br>
+        <b>Reason:</b> The old wheel, part number A-2200, loses pressure faster than planned. The new wheel, part number A-2260, lasts longer and holds pressure better.<br>
+        <b>Action:</b> Replace the old nose wheel with the new type. This is not an airworthiness directive, so it is not mandatory. However, the manufacturer recommends the change.<br>
+        <b>Manual effect:</b> This service bulletin changes AMM task 32-41-01. Once you embody it, use revision 47 or later, and follow the new subtasks.<br>
+        <b>Cross-reference:</b> For the new part number, see the IPC, figure 32-41-05. Check the effectivity before you order the part.<br>
+        <b>Manpower:</b> One technician, about two hours. No special tools are needed.<br>
+        <b>Records:</b> After the work, note the change in the tech log and close the work order.<br>
+      </div>
+      <ol>
+        <li>Is this bulletin mandatory or recommended? <input type="text" data-answer="recommended"></li>
+        <li>Which aircraft does it apply to? <input type="text" data-answer="old wheel|aircraft with the old wheel|a-2200|old wheel a-2200"></li>
+        <li>What is the new part number? <input type="text" data-answer="a-2260|a2260"></li>
+        <li>Which AMM task does it change? <input type="text" data-answer="32-41-01|324101"></li>
+        <li>Where do you find the new part number? <input type="text" data-answer="ipc|the ipc|in the ipc"></li>
+        <li>Which two records do you update at the end? <input type="text" data-answer="tech log and work order|the tech log and the work order|tech log, work order"></li>
+      </ol>
+      <button class="btn" data-check="e7">Check</button><span class="score" id="s-e7"></span>
+      <details class="key"><summary>Answer key</summary><ol><li>recommended</li><li>aircraft with the old wheel (A-2200)</li><li>A-2260</li><li>32-41-01</li><li>in the IPC</li><li>the tech log and the work order</li></ol></details>
+    </div>
+
+    <div class="ex" id="e8">
+      <h3><span class="lbl">E8</span>Listening review &mdash; Dialogue 3 and the announcement</h3>
+      <p style="font-size:14px;color:var(--ink-muted)">Play Track 3 and Track 4 again. Then answer the questions.</p>
+      <ol>
+        <li>What does the work order tell you &mdash; what to do, or how? <input type="text" data-answer="what to do|what|what to do, not how"></li>
+        <li>How do the AMM and the IPC connect? <input type="text" data-answer="cross-reference|they cross-reference|same chapter numbers|cross reference"></li>
+        <li>Who issues an airworthiness directive? <input type="text" data-answer="the authority|authority"></li>
+        <li>Where do you record the finished job for the crew? <input type="text" data-answer="tech log|the tech log|in the tech log"></li>
+        <li>What does the MEL decide? <input type="text" data-answer="whether the aircraft may fly|if the aircraft can fly|whether it may fly"></li>
+        <li>Which AMM revision went live overnight? <input type="text" data-answer="47|revision 47|forty-seven"></li>
+        <li>What arrived for the nose-wheel assembly? <input type="text" data-answer="service bulletin|a service bulletin|new service bulletin"></li>
+        <li>What order does the announcement give &mdash; warnings before &hellip;? <input type="text" data-answer="cautions|caution"></li>
+      </ol>
+      <button class="btn" data-check="e8">Check</button><span class="score" id="s-e8"></span>
+      <details class="key"><summary>Answer key</summary><ol><li>what to do (not how)</li><li>they cross-reference (share the same chapter numbers)</li><li>the authority</li><li>in the tech log</li><li>whether the aircraft may fly with the item unserviceable</li><li>revision 47</li><li>a new service bulletin</li><li>cautions</li></ol></details>
+    </div>
+  </section>
+
+  <section id="speaking">
+    <h2><span class="n">05</span>Speaking &mdash; role-plays</h2>
+    <div class="instr"><b>Work in pairs.</b> Take a card each. Use the useful phrases. Then swap roles and try again.</div>
+    <p>Communication about documentation is itself a professional competence, particularly when instructing inexperienced colleagues. Practise explaining the organisation clearly, confidently, and economically, using the vocabulary accurately. Anticipate the questions a trainee might reasonably ask, and rehearse your explanations aloud beforehand.</p>
+
+    <div class="rp-grid">
+      <div class="roleplay">
+        <h4>Card 1 &mdash; Find the brake task (mechanic)</h4>
+        <div class="fld"><b>Situation</b>You are at the aircraft. A brake unit needs changing.</div>
+        <div class="fld"><b>Your role</b>New technician. You do not know the ATA chapter.</div>
+        <div class="fld"><b>Your goal</b>Ask your mentor for the chapter and the page block.</div>
+        <div class="fld"><b>Useful phrases</b>&ldquo;Which ATA chapter &hellip;?&rdquo; &middot; &ldquo;Where is the removal task?&rdquo; &middot; &ldquo;Which page block?&rdquo;</div>
+      </div>
+      <div class="roleplay">
+        <h4>Card 2 &mdash; Find a wiring task (avionics)</h4>
+        <div class="fld"><b>Situation</b>A navigation display has a fault. You need the wiring task.</div>
+        <div class="fld"><b>Your role</b>Avionics technician. You explain the ATA chapter to a trainee.</div>
+        <div class="fld"><b>Your goal</b>Show the trainee how to reach the task in the AMM and the IPC.</div>
+        <div class="fld"><b>Useful phrases</b>&ldquo;The AMM and the IPC cross-reference &hellip;&rdquo; &middot; &ldquo;Follow the ATA number.&rdquo;</div>
+      </div>
+      <div class="roleplay">
+        <h4>Card 3 &mdash; Check before you start (lead)</h4>
+        <div class="fld"><b>Situation</b>A technician wants to start a job at once.</div>
+        <div class="fld"><b>Your role</b>Team lead. You slow them down.</div>
+        <div class="fld"><b>Your goal</b>Make them check the effectivity, the warnings and the cautions first.</div>
+        <div class="fld"><b>Useful phrases</b>&ldquo;Read the effectivity first.&rdquo; &middot; &ldquo;What does the warning say?&rdquo; &middot; &ldquo;Check the revision.&rdquo;</div>
+      </div>
+      <div class="roleplay">
+        <h4>Card 4 &mdash; Explain the paperwork (mentor)</h4>
+        <div class="fld"><b>Situation</b>A trainee is confused by all the documents.</div>
+        <div class="fld"><b>Your role</b>Mentor. You explain the links clearly.</div>
+        <div class="fld"><b>Your goal</b>Explain how the work order, AMM, IPC and tech log fit together.</div>
+        <div class="fld"><b>Useful phrases</b>&ldquo;The work order points to the AMM.&rdquo; &middot; &ldquo;You sign the tech log at the end.&rdquo;</div>
+      </div>
+    </div>
+
+    <div class="aibox">
+      <h4>AI conversation partner</h4>
+      <p style="font-size:14.5px;margin:0 0 6px">Copy a prompt below into your chat buddy. Speak in English. The partner will keep the scenario and gently correct you.</p>
+      <div class="prompt"><button class="btn ghost copy" data-copy="p1">Copy</button><span id="p1">You are my mentor in an aircraft hangar. I am a new technician. I need to find the nose-gear tyre-change task in the AMM. Ask me questions about the ATA chapter and the page block. Speak at CEFR B2 level. Keep your answers short. When I make an English mistake, gently repeat the correct sentence before you continue.</span></div>
+      <div class="prompt"><button class="btn ghost copy" data-copy="p2">Copy</button><span id="p2">You are a team lead. I am about to start a task. Before I begin, make me check the effectivity, the warnings and the cautions on the task card. Ask one question at a time. Speak at CEFR B2 level, in short sentences. If I use the wrong word, say the correct word kindly and move on.</span></div>
+      <div class="prompt"><button class="btn ghost copy" data-copy="p3">Copy</button><span id="p3">You are a colleague. Ask me to explain where the tyre task is documented and why. Let me talk about the work order, the AMM, the IPC and the tech log. Speak at CEFR B2 level. Keep it short. Recast my errors gently and ask one follow-up question each turn.</span></div>
+    </div>
+  </section>
+
+  <section id="writing">
+    <h2><span class="n">06</span>Writing &mdash; a shift-handover note</h2>
+    <div class="instr"><b>Write a short handover note</b> (about 60&ndash;80 words) for the next shift. Use Simplified Technical English: short sentences, one idea each, present simple, and the terms from this unit.</div>
+    <p>Your task: the nose wheel on aircraft MSN 0451 needs a tyre change. Tell the next shift where the task is, which revision to use, and what to check first. Mention the effectivity, the warning, and the tech log.</p>
+    <p>Aviation organisations increasingly require documentation written in Simplified Technical English, an internationally standardised writing specification. This controlled language eliminates ambiguity through approved vocabulary, short sentences, and consistent grammatical structures. Consequently, colleagues from different linguistic backgrounds interpret every instruction identically, which measurably improves operational safety. Ultimately, navigating documentation efficiently distinguishes a competent technician from a hesitant one. Once the numbering, the publications, and the safety hierarchy become familiar, retrieval becomes rapid and automatic.</p>
+    <details class="key"><summary>Model answer</summary>
+      <p style="font-family:var(--mono);font-size:13.5px;line-height:1.7">Handover, Bay 3. Aircraft MSN 0451 needs a nose-wheel tyre change. The task is AMM 32-41-01, page block 401. Use revision 47. Check the effectivity first; MSN 0451 is on the list. Read the warning: release the tyre pressure before you remove the wheel. For the part number, see the IPC. Note the tyre pressure in the tech log. Then raise the work order and sign it at the end.</p>
+    </details>
+    <div class="selfcheck">
+      <b style="font-size:14px">Self-check &mdash; tick each line</b>
+      <ul>
+        <li>Are my sentences short (one idea each)?</li>
+        <li>Did I use the present simple correctly, with the <b>-s</b>?</li>
+        <li>Did I name the ATA task, the page block and the revision?</li>
+        <li>Did I mention the effectivity, the warning and the tech log?</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    English for Aviation Maintenance &middot; Unit 1 &middot; CEFR B2 &middot; Self-study language unit. Listen first, then read; check your own answers.
+  </footer>
+</article>
+
+<script>
+(function(){
+  function norm(s){return (s||"").trim().toLowerCase().replace(/[.’']/g,"").replace(/\s+/g," ");}
+  document.querySelectorAll("[data-check]").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      var box=document.getElementById(btn.getAttribute("data-check"));
+      var fields=box.querySelectorAll("input[data-answer],select[data-answer]");
+      var right=0,total=0;
+      fields.forEach(function(f){
+        total++;
+        var ans=(f.getAttribute("data-answer")||"").split("|").map(norm);
+        var val=norm(f.value);
+        var ok = val!=="" && ans.indexOf(val)>-1;
+        f.classList.remove("ok","bad");
+        f.classList.add(ok?"ok":"bad");
+        if(ok)right++;
+      });
+      var s=document.getElementById("s-"+btn.getAttribute("data-check"));
+      if(s)s.textContent=right+" / "+total+(right===total?"  ✓":"");
+    });
+  });
+  document.querySelectorAll(".copy").forEach(function(b){
+    b.addEventListener("click",function(){
+      var t=document.getElementById(b.getAttribute("data-copy")).textContent;
+      if(navigator.clipboard){navigator.clipboard.writeText(t);}
+      var old=b.textContent;b.textContent="Copied";setTimeout(function(){b.textContent=old;},1200);
+    });
+  });
+})();
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 1 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body></html>
