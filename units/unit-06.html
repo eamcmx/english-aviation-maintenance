@@ -1,0 +1,999 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Toolbox talk and the Dirty Dozen</title>
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  article{max-width:1000px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 30px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:26ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:66ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:14px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:74ch}
+  code{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  a{color:var(--color-primary)}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .card h4{font-size:.98rem;margin:0 0 var(--space-3);color:var(--color-primary-dark)}
+  .card ul{margin:0;padding-left:1.1em}
+  .card li{margin:6px 0;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .scenario-box{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius);padding:var(--space-4) var(--space-5);font-family:var(--font-serif);font-size:18px;line-height:1.6;color:#33384a}
+  .dialogue{border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-elevated);box-shadow:var(--shadow-sm);margin:var(--space-4) 0 var(--space-5);overflow:hidden}
+  .dialogue h3{margin:0;padding:13px 18px;background:var(--bg-sunken);border-bottom:1px solid var(--border);font-size:1.02rem;display:flex;align-items:center;gap:10px}
+  .dialogue h3 .badge{font-family:var(--font-mono);font-size:11px;font-weight:700;color:#fff;background:var(--color-primary);padding:2px 9px;border-radius:20px;letter-spacing:.04em}
+  .lang-audio-slot{margin:0;padding:14px 18px;background:#eef2f9;border-bottom:1px dashed #cfdcef;font-family:var(--font-mono);font-size:12px;color:var(--color-primary-dark)}
+  .lang-audio-slot:before{content:"AUDIO \25BA track "attr(data-audio)" \2014 press play, listen first"}
+  details.transcript{padding:6px 18px 14px}
+  details.transcript summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary);font-weight:700;padding:8px 0}
+  .turn{margin:6px 0;max-width:76ch}
+  .turn .spk{display:inline-block;min-width:1.4em;font-family:var(--font-mono);font-weight:700;color:var(--color-primary);margin-right:6px}
+  .turn.b .spk{color:var(--accent)}
+  .said{color:#262b38}
+  table.vt{border-collapse:collapse;width:100%;font-size:14px;margin-top:10px}
+  table.vt th,table.vt td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  .vt td.col{color:var(--ink-muted);font-family:var(--font-mono);font-size:12.5px}
+  table.gt{border-collapse:collapse;width:100%;font-size:14.5px;margin:12px 0}
+  table.gt th,table.gt td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.gt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  .quote{border-left:4px solid var(--gold);background:var(--bg-margin);padding:10px 16px;margin:10px 0;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-family:var(--font-serif);font-size:16px}
+  .mistake{display:grid;grid-template-columns:1fr;gap:6px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 15px;margin:10px 0;background:var(--bg-elevated)}
+  .mistake .wrong{color:var(--bad)}.mistake .right{color:var(--good)}
+  .mistake .why{font-size:13.5px;color:var(--ink-muted)}
+  .x{color:var(--bad);font-weight:700}.tick{color:var(--good);font-weight:700}
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex h3{margin:0 0 4px;font-size:1.06rem}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex .instr{font-weight:600;color:var(--ink-soft);margin:2px 0 10px;max-width:72ch}
+  .ex ol{margin:6px 0;padding-left:1.4em}
+  .ex ol li{margin:8px 0}
+  .wordbank{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 12px}
+  .wordbank span{font-family:var(--font-mono);font-size:12.5px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:20px;padding:4px 11px}
+  input.gap,select.gap{font-family:var(--font-sans);font-size:14px;border:1px solid var(--border);border-radius:6px;padding:5px 9px;background:#fff;min-width:120px}
+  input.gap:focus,select.gap:focus{outline:2px solid var(--color-primary-soft);border-color:var(--color-primary)}
+  input.gap.right,select.gap.right{border-color:var(--good);background:#eaf5ec}
+  input.gap.wrong,select.gap.wrong{border-color:var(--bad);background:#fbecea}
+  .reading-text{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;margin:10px 0;font-family:var(--font-mono);font-size:13.5px;line-height:1.6}
+  .reading-text p{max-width:none;margin:6px 0}
+  .reading-text .doc-head{font-weight:700;color:var(--color-primary-dark);letter-spacing:.03em;border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:8px}
+  .btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  .btn:hover{border-color:var(--color-primary)}
+  .btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .score{font-family:var(--font-mono);font-weight:700;margin-left:12px;color:var(--color-primary-dark)}
+  details.reveal{margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken);padding:0 14px}
+  details.reveal summary{cursor:pointer;font-weight:700;color:var(--color-primary);padding:10px 0;font-size:14px}
+  details.reveal ol{margin:0 0 12px}
+  .selfcheck .opt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 14px;border-radius:9px;border:1px solid var(--border);background:#fff;color:var(--ink);cursor:pointer;font-size:15px;font-family:var(--font-sans)}
+  .selfcheck .opt:hover{border-color:var(--color-primary)}
+  .selfcheck .opt.right{border-color:var(--good);background:#eaf5ec}
+  .selfcheck .opt.wrong{border-color:var(--bad);background:#fbecea}
+  .roleplay{border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:var(--radius-sm);padding:14px 18px;margin:12px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.02rem}
+  .roleplay .field{margin:7px 0}
+  .roleplay .flab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:700;display:block}
+  .roleplay .phr{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .roleplay .phr span{font-size:13px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:6px;padding:3px 9px}
+  .ai-box{background:linear-gradient(180deg,#f4eefb,#fbfaf6);border:1px solid #e0d2f1;border-radius:var(--radius-lg);padding:20px 22px;margin:var(--space-5) 0}
+  .ai-box h3{margin:0 0 4px}
+  .prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin:10px 0;font-size:14px;position:relative}
+  .prompt code{background:none;padding:0;display:block;white-space:pre-wrap;line-height:1.55;color:#33384a}
+  .copybtn{position:absolute;top:10px;right:10px}
+  .checklist{list-style:none;padding:0;margin:10px 0}
+  .checklist li{padding:7px 0 7px 30px;position:relative}
+  .checklist li:before{content:"\2610";position:absolute;left:4px;font-size:18px;color:var(--color-primary)}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 6 of 32 · Toolbox talk and the Dirty Dozen (human factors)</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 human factors — complacency, fatigue, distraction</span></div></div></header>
+<article>
+
+<header class="lec-hero">
+  <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance &middot; EASA Part-66/145 &middot; Unit 6 &middot; CEFR B2</p>
+  <h1 class="lecture-title">Toolbox talk and the Dirty Dozen.</h1>
+  <p class="subtitle">A near-miss happened on the late shift. Now you must lead a five-minute toolbox talk on distraction, name the human factor, and agree a fix. This unit gives you the language to run that briefing well.</p>
+  <div class="hero-meta">
+    <span>Unit<strong>6 &mdash; Toolbox talk &amp; the Dirty Dozen</strong></span>
+    <span>Function<strong>Describe, agree, recommend</strong></span>
+    <span>Grammar<strong>Modals of advice and obligation</strong></span>
+    <span>Vocabulary<strong>Human factors: complacency, fatigue, distraction</strong></span>
+  </div>
+</header>
+
+<div class="card" style="margin-bottom:var(--space-6)">
+  <h4>By the end of this unit you can &hellip;</h4>
+  <ul>
+    <li>Can describe common human-factors errors and their likely consequences.</li>
+    <li>Can participate in a safety briefing, agreeing with and adding to points.</li>
+    <li>Can recommend a preventive measure using appropriate modal verbs.</li>
+  </ul>
+</div>
+
+<section class="lecture-section" id="scenario">
+  <h2><span class="secnum">01</span>The situation</h2>
+  <div class="scenario-box">
+    <p>It is 07:00 in a Part-145 hangar. Yesterday, on the late shift, a technician took a phone call during a flap inspection. He was distracted, and he left a spanner near a control cable. A colleague found it during a cross-check, so no damage occurred. It was a near-miss, not an accident. This morning you must lead a short toolbox talk on distraction, and invite the team to add their own examples.</p>
+  </div>
+  <p>A toolbox talk is a short safety briefing before work. It is a high-value five minutes, because most maintenance errors come from people, not from tools. You describe the near-miss in plain words, and you name the human factor behind it. Then you invite your colleagues to agree and to add their own examples, since a good briefing is a conversation and not a lecture. Finally, you recommend a clear preventive measure, using modal verbs such as <i>should</i> and <i>must</i>. Listen to three briefings, and then practise the language yourself.</p>
+</section>
+
+<section class="lecture-section" id="dialogues">
+  <h2><span class="secnum">02</span>Model dialogues</h2>
+  <p>Listen first with the transcript closed, and only open it to read afterwards. <b>A</b> is J&#257;nis, the team lead who runs the toolbox talk, while <b>B</b> is Elena, an experienced technician who adds her own points. Notice how each speaker keeps sentences short, although they still use natural connectors such as although, because and unless to link their ideas.</p>
+
+  <div class="dialogue">
+    <h3><span class="badge">Dialogue 1</span>The near-miss and the human factor</h3>
+    <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u06-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:35 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn a"><span class="spk">A</span><span class="said">Good morning, everyone. Before we start work, let us hold a short toolbox talk.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good idea. I heard there was a near-miss on the late shift yesterday.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Yes, exactly. A technician almost left a spanner beside a control cable.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">That is frightening. What actually distracted him during the flap inspection?</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">A phone call distracted him, so his attention left the job completely.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">So distraction was the main human factor behind this near-miss?</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Correct. Distraction is one of the twelve items in the Dirty Dozen.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">I agree, and I would add that complacency also played a part.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Good point. He had done that task many times, so he felt over-confident.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">That is classic complacency, because routine work quietly lowers our awareness.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Well said. When awareness drops, small mistakes begin to link together.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">You mean an error chain, where one slip leads straight to the next?</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Exactly. The phone call, the routine, and the noise formed an error chain.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">So human factors, not a technical fault, nearly caused the accident?</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Yes. That is why every toolbox talk should start with people, not tools.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Understood. Please carry on, because I want to hear the full story.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">Dialogue 2</span>The Dirty Dozen around the table</h3>
+    <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u06-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:41 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn a"><span class="spk">A</span><span class="said">Let us open the floor now, so please add your own examples.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">For me, fatigue is the biggest risk on a long night shift.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">That is very true. Fatigue slows your thinking and hides simple errors.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">And pressure makes it worse, because we must release the aircraft on time.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Agreed. Time pressure pushes people to skip a step or two.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">I would also add that some unsafe norms have crept into our team.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Which norms do you mean? Please be specific for everyone here.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">We sometimes sign the checklist first, and then finish the task afterwards.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">That is a dangerous norm, and I am really glad you raised it.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">It was not easy to say, but assertiveness is part of safety.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Absolutely. Assertiveness means you speak up, even when it feels awkward.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">So a checklist only helps if we tick each step honestly.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Correct. The checklist is a defence, unless we treat it as mere paperwork.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Should we hold a short debrief after every big job?</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Yes, a debrief helps us catch the human factors while they are still fresh.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Communication matters too, because a rushed handover can easily hide an open defect.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Very true. Poor communication is another common item on the Dirty Dozen list.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">So we should brief clearly, and never assume the next person already knows.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Exactly. A calm, clear briefing protects the whole team from a silent error.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Thank you. That gives me several points for my own toolbox talk.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">Dialogue 3</span>Agreeing the preventive measures</h3>
+    <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u06-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:37 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn a"><span class="spk">A</span><span class="said">Now let us agree the preventive measures, so this near-miss never repeats.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">My first rule is simple. We should double-check every torque setting.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">I agree. You should double-check the torque, and then record the value.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">We must also cross-check any safety-critical task with a second technician.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Yes, a cross-check is essential, because two people rarely miss the same fault.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">What about the lockwire on the fuel line? Should we inspect it twice?</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">We must inspect the lockwire carefully, since a loose fitting is safety-critical.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Understood. And we ought to switch off our phones near an open panel.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Exactly. You must not take a call while your hands are inside the aircraft.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Should I raise an incident report about yesterday's near-miss?</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Yes, you must file an incident report, so we can study the error chain.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good. We do not have to blame anyone, but we should learn from it.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Well said. A report should describe the facts, and never point a finger.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">And we had better repeat this toolbox talk next week, to keep it fresh.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Agreed. We should hold it weekly, because good habits fade very quickly.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">And what about stress? A stressed technician can miss an obvious safety-critical step.</span></p>
+      <p class="turn a"><span class="spk">A</span><span class="said">Good addition. Under stress, you should slow down, and ask for a cross-check.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Perfect. I will double-check my torque, and cross-check the lockwire today.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">Dialogue 4</span>Safety stand-down announcement (monologue)</h3>
+    <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u06-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:37 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn a"><span class="spk">PA</span><span class="said">Attention all maintenance staff. Please stop work now for a two-minute safety stand-down.</span></p>
+      <p class="turn a"><span class="spk">PA</span><span class="said">Yesterday's near-miss reminds us that distraction remains our most common human factor.</span></p>
+      <p class="turn a"><span class="spk">PA</span><span class="said">From today, you must switch off your phone before you open any panel.</span></p>
+      <p class="turn a"><span class="spk">PA</span><span class="said">You should also double-check every torque, and cross-check each safety-critical task.</span></p>
+      <p class="turn a"><span class="spk">PA</span><span class="said">Fatigue and time pressure are real, so tell your team lead if you feel tired.</span></p>
+      <p class="turn a"><span class="spk">PA</span><span class="said">Remember the Dirty Dozen, and file an incident report for every near-miss.</span></p>
+      <p class="turn a"><span class="spk">PA</span><span class="said">Thank you for your attention, and please work safely during today's shift.</span></p>
+    </details>
+  </div>
+</section>
+
+<section class="lecture-section" id="vocabulary">
+  <h2><span class="secnum">03</span>Vocabulary bank</h2>
+  <p>These are the specialist terms you heard in the briefings, and every one of them appears again in the exercises below. Each entry gives a plain-English meaning, an example sentence at your level, and a common partner word. Study them before you begin, because the whole unit depends on this vocabulary.</p>
+  <table class="vt">
+    <thead><tr><th>Term</th><th>Plain meaning</th><th>Example sentence</th><th>Goes with</th></tr></thead>
+    <tbody>
+      <tr><td><dfn data-term="human factors">human factors</dfn></td><td>the things about people that affect safe work</td><td>Most errors come from human factors, not tools.</td><td class="col">human-factors training</td></tr>
+      <tr><td><dfn data-term="Dirty Dozen">Dirty Dozen</dfn></td><td>the twelve common causes of maintenance error</td><td>Distraction is one item in the Dirty Dozen.</td><td class="col">the Dirty Dozen list</td></tr>
+      <tr><td><dfn data-term="toolbox talk">toolbox talk</dfn></td><td>a short safety briefing before a job</td><td>We hold a toolbox talk every morning.</td><td class="col">hold a toolbox talk</td></tr>
+      <tr><td><dfn data-term="near-miss">near-miss</dfn></td><td>an event that almost caused harm</td><td>A colleague reported a near-miss last night.</td><td class="col">report a near-miss</td></tr>
+      <tr><td><dfn data-term="complacency">complacency</dfn></td><td>over-confidence from routine; you stop checking</td><td>Complacency grows when a task feels easy.</td><td class="col">guard against complacency</td></tr>
+      <tr><td><dfn data-term="fatigue">fatigue</dfn></td><td>being very tired, so you make mistakes</td><td>Fatigue is a real risk on a night shift.</td><td class="col">fatigue risk; combat fatigue</td></tr>
+      <tr><td><dfn data-term="distraction">distraction</dfn></td><td>something that takes your attention off the task</td><td>A phone call is a common distraction.</td><td class="col">a source of distraction</td></tr>
+      <tr><td><dfn data-term="pressure">pressure</dfn></td><td>being pushed to work fast, often by time</td><td>Time pressure makes people skip a step.</td><td class="col">time pressure; under pressure</td></tr>
+      <tr><td><dfn data-term="norms">norms</dfn></td><td>the unsafe habits a team quietly accepts</td><td>Unsafe norms crept into the team over time.</td><td class="col">unsafe norms; a bad norm</td></tr>
+      <tr><td><dfn data-term="assertiveness">assertiveness</dfn></td><td>speaking up firmly about a safety concern</td><td>Assertiveness means you raise a worry at once.</td><td class="col">show assertiveness</td></tr>
+      <tr><td><dfn data-term="awareness">awareness</dfn></td><td>knowing what is going on around you</td><td>Good situational awareness keeps you safe.</td><td class="col">situational awareness</td></tr>
+      <tr><td><dfn data-term="checklist">checklist</dfn></td><td>a list of steps you tick off in order</td><td>Tick every step on the checklist honestly.</td><td class="col">follow the checklist</td></tr>
+      <tr><td><dfn data-term="cross-check">cross-check</dfn></td><td>a check of your work by a second person</td><td>A cross-check catches a fault you missed.</td><td class="col">do a cross-check</td></tr>
+      <tr><td><dfn data-term="double-check">double-check</dfn></td><td>to check something a second time yourself</td><td>Please double-check the torque before you sign.</td><td class="col">double-check the value</td></tr>
+      <tr><td><dfn data-term="torque">torque</dfn></td><td>the tightness set on a bolt with a wrench</td><td>Record the torque value in the log.</td><td class="col">torque setting; torque wrench</td></tr>
+      <tr><td><dfn data-term="lockwire">lockwire</dfn></td><td>thin wire that stops a bolt turning loose</td><td>Fit lockwire on the fuel-line fitting.</td><td class="col">fit lockwire; check the lockwire</td></tr>
+      <tr><td><dfn data-term="safety-critical">safety-critical</dfn></td><td>able to affect flight safety directly</td><td>A loose fuel fitting is safety-critical.</td><td class="col">a safety-critical task</td></tr>
+      <tr><td><dfn data-term="incident report">incident report</dfn></td><td>a written record of an unsafe event</td><td>File an incident report for every near-miss.</td><td class="col">raise an incident report</td></tr>
+      <tr><td><dfn data-term="debrief">debrief</dfn></td><td>a short review talk after a job</td><td>We hold a debrief after every big job.</td><td class="col">hold a debrief</td></tr>
+      <tr><td><dfn data-term="error chain">error chain</dfn></td><td>the series of small errors that lead to harm</td><td>One slip started the whole error chain.</td><td class="col">break the error chain</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="lecture-section" id="grammar">
+  <h2><span class="secnum">04</span>Grammar in context: modals of advice and obligation</h2>
+  <p>In a toolbox talk, you recommend safe actions. You use modal verbs to do this. You use <b>should</b> and <b>ought to</b> for advice. You use <b>must</b> and <b>have to</b> for a strong rule. You use <b>must not</b> for something that is not allowed. Look at these lines from the dialogues.</p>
+  <div class="quote">"We <b>should</b> double-check every torque setting." &mdash; advice: this is a good, safe habit.</div>
+  <div class="quote">"You <b>must not</b> take a call while your hands are inside the aircraft." &mdash; a firm rule you cannot break.</div>
+  <div class="quote">"We <b>do not have to</b> blame anyone, but we should learn from it." &mdash; no obligation; blame is not needed.</div>
+  <p>The rule is simple. A modal verb is followed by the base verb, with no <i>to</i> and no <i>-s</i>. So we say <i>should check</i>, never <i>should to check</i> and never <i>should checks</i>. The one exception is <i>ought to</i>, which keeps its <i>to</i>. Choose the modal by strength. Advice is soft, a rule is strong, and a prohibition is a hard stop. Getting this right is exactly what makes your recommendation sound clear and professional.</p>
+  <table class="gt">
+    <thead><tr><th>Use</th><th>Form</th><th>Signal</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Advice (soft)</td><td>should / ought to + base verb</td><td>it is a good idea</td><td>You should report the near-miss.</td></tr>
+      <tr><td>Strong obligation</td><td>must / have to + base verb</td><td>it is a rule</td><td>You must file an incident report.</td></tr>
+      <tr><td>Prohibition</td><td>must not + base verb</td><td>it is not allowed</td><td>You must not skip a step.</td></tr>
+      <tr><td>No obligation</td><td>do not have to / need not + base verb</td><td>it is not needed</td><td>We do not have to blame anyone.</td></tr>
+    </tbody>
+  </table>
+  <h3>Three common mistakes (Latvian and Russian speakers)</h3>
+  <div class="mistake">
+    <div><span class="x">&#10007;</span> <span class="wrong">We must to check the torque.</span></div>
+    <div><span class="tick">&#10003;</span> <span class="right">We must check the torque.</span></div>
+    <div class="why">Latvian and Russian add a word like <i>to</i> after the modal. In English, most modals take the base verb with no <i>to</i>. Only <i>ought to</i> keeps it.</div>
+  </div>
+  <div class="mistake">
+    <div><span class="x">&#10007;</span> <span class="wrong">You not should take a call near the panel.</span></div>
+    <div><span class="tick">&#10003;</span> <span class="right">You should not take a call near the panel.</span></div>
+    <div class="why">The word <i>not</i> comes after the modal, not before it. Speakers copy their first-language word order and place <i>not</i> too early.</div>
+  </div>
+  <div class="mistake">
+    <div><span class="x">&#10007;</span> <span class="wrong">He should checks the lockwire twice.</span></div>
+    <div><span class="tick">&#10003;</span> <span class="right">He should check the lockwire twice.</span></div>
+    <div class="why">A modal never takes a third-person <i>-s</i>. We say <i>he should check</i>, not <i>he should checks</i>, because the modal already carries the person.</div>
+  </div>
+</section>
+
+<section class="lecture-section" id="exercises">
+  <h2><span class="secnum">05</span>Exercises</h2>
+  <p>Do each exercise in order, because they move from controlled practice towards freer, more realistic tasks. Type your answers into the gaps, then press <b>Check</b>, and the page will mark them for you at once. Open the <b>Answers</b> panel only after you have genuinely tried, since the value comes from making and then correcting your own mistakes.</p>
+
+  <div class="ex" id="e1">
+    <span class="tag">E1 &middot; Gap-fill</span>
+    <h3>Put the right term in each gap</h3>
+    <p class="instr">Read each sentence. Write one term from the word bank in the gap.</p>
+    <div class="wordbank"><span>toolbox talk</span><span>near-miss</span><span>distraction</span><span>complacency</span><span>error chain</span><span>awareness</span><span>fatigue</span><span>pressure</span><span>checklist</span><span>incident report</span></div>
+    <ol>
+      <li>Every safe shift begins with a short <input class="gap" size="14" data-answer="toolbox talk">.</li>
+      <li>An event that almost caused harm is a <input class="gap" size="12" data-answer="near-miss">.</li>
+      <li>A phone call is a very common <input class="gap" size="12" data-answer="distraction"> in the hangar.</li>
+      <li>Over-confidence from routine work is called <input class="gap" size="13" data-answer="complacency">.</li>
+      <li>When small errors link together, we call it an <input class="gap" size="12" data-answer="error chain">.</li>
+      <li>Good situational <input class="gap" size="11" data-answer="awareness"> means you know what is around you.</li>
+      <li>Long night shifts often cause <input class="gap" size="10" data-answer="fatigue">.</li>
+      <li>Time <input class="gap" size="10" data-answer="pressure"> pushes people to rush the job.</li>
+      <li>Tick every step on the <input class="gap" size="11" data-answer="checklist"> honestly.</li>
+      <li>Write the unsafe event in an <input class="gap" size="16" data-answer="incident report">.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>toolbox talk</li><li>near-miss</li><li>distraction</li><li>complacency</li><li>error chain</li><li>awareness</li><li>fatigue</li><li>pressure</li><li>checklist</li><li>incident report</li></ol></details>
+  </div>
+
+  <div class="ex" id="e2">
+    <span class="tag">E2 &middot; Matching</span>
+    <h3>Match each term to its meaning</h3>
+    <p class="instr">Choose the correct meaning for each term from the drop-down list.</p>
+    <ol>
+      <li><dfn>human factors</dfn> &rarr; <select class="gap" data-answer="the things about people that affect safe work"><option value="">choose&hellip;</option><option>the things about people that affect safe work</option><option>a thin locking wire</option><option>a written safety record</option><option>the tightness of a bolt</option></select></li>
+      <li><dfn>Dirty Dozen</dfn> &rarr; <select class="gap" data-answer="the twelve common causes of maintenance error"><option value="">choose&hellip;</option><option>the twelve common causes of maintenance error</option><option>a second person's check</option><option>a short review after a job</option><option>a warning label</option></select></li>
+      <li><dfn>norms</dfn> &rarr; <select class="gap" data-answer="unsafe habits a team quietly accepts"><option value="">choose&hellip;</option><option>unsafe habits a team quietly accepts</option><option>the tightness of a bolt</option><option>a camera probe</option><option>a fixed work period</option></select></li>
+      <li><dfn>assertiveness</dfn> &rarr; <select class="gap" data-answer="speaking up firmly about a safety concern"><option value="">choose&hellip;</option><option>speaking up firmly about a safety concern</option><option>a thin locking wire</option><option>a written safety record</option><option>being very tired</option></select></li>
+      <li><dfn>cross-check</dfn> &rarr; <select class="gap" data-answer="a check of your work by a second person"><option value="">choose&hellip;</option><option>a check of your work by a second person</option><option>a short safety briefing</option><option>the tightness of a bolt</option><option>a bad team habit</option></select></li>
+      <li><dfn>double-check</dfn> &rarr; <select class="gap" data-answer="to check something a second time yourself"><option value="">choose&hellip;</option><option>to check something a second time yourself</option><option>to blame a colleague</option><option>a fixed work period</option><option>a camera probe</option></select></li>
+      <li><dfn>torque</dfn> &rarr; <select class="gap" data-answer="the tightness set on a bolt"><option value="">choose&hellip;</option><option>the tightness set on a bolt</option><option>a written safety record</option><option>a short review after a job</option><option>speaking up firmly</option></select></li>
+      <li><dfn>lockwire</dfn> &rarr; <select class="gap" data-answer="thin wire that stops a bolt turning loose"><option value="">choose&hellip;</option><option>thin wire that stops a bolt turning loose</option><option>a second person's check</option><option>being very tired</option><option>a warning label</option></select></li>
+      <li><dfn>safety-critical</dfn> &rarr; <select class="gap" data-answer="able to affect flight safety directly"><option value="">choose&hellip;</option><option>able to affect flight safety directly</option><option>a bad team habit</option><option>the tightness of a bolt</option><option>a short safety briefing</option></select></li>
+      <li><dfn>debrief</dfn> &rarr; <select class="gap" data-answer="a short review talk after a job"><option value="">choose&hellip;</option><option>a short review talk after a job</option><option>a thin locking wire</option><option>the twelve common causes of error</option><option>the tightness of a bolt</option></select></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>the things about people that affect safe work</li><li>the twelve common causes of maintenance error</li><li>unsafe habits a team quietly accepts</li><li>speaking up firmly about a safety concern</li><li>a check of your work by a second person</li><li>to check something a second time yourself</li><li>the tightness set on a bolt</li><li>thin wire that stops a bolt turning loose</li><li>able to affect flight safety directly</li><li>a short review talk after a job</li></ol></details>
+  </div>
+
+  <div class="ex" id="e3">
+    <span class="tag">E3 &middot; Dialogue completion</span>
+    <h3>Complete the toolbox-talk lines</h3>
+    <p class="instr">Write one or two words in each gap. Use the dialogues to help you.</p>
+    <ol>
+      <li>A: Before we start, let us hold a short <input class="gap" size="12" data-answer="toolbox"> talk.</li>
+      <li>B: There was a <input class="gap" size="12" data-answer="near-miss"> on the late shift yesterday.</li>
+      <li>A: A phone call <input class="gap" size="12" data-answer="distracted"> him during the task.</li>
+      <li>B: Routine work quietly lowers our situational <input class="gap" size="11" data-answer="awareness">.</li>
+      <li>A: One slip leads to the next, so it becomes an <input class="gap" size="10" data-answer="error"> chain.</li>
+      <li>B: For me, <input class="gap" size="10" data-answer="fatigue"> is the biggest risk on a night shift.</li>
+      <li>A: Time <input class="gap" size="10" data-answer="pressure"> pushes people to skip a step.</li>
+      <li>B: We should <input class="gap" size="14" data-answer="double-check"> every torque before we sign.</li>
+      <li>A: We must <input class="gap" size="12" data-answer="cross-check"> safety-critical work with a second person.</li>
+      <li>B: I will file an <input class="gap" size="10" data-answer="incident"> report about the near-miss.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>toolbox</li><li>near-miss</li><li>distracted</li><li>awareness</li><li>error</li><li>fatigue</li><li>pressure</li><li>double-check</li><li>cross-check</li><li>incident</li></ol></details>
+  </div>
+
+  <div class="ex" id="e4">
+    <span class="tag">E4 &middot; Grammar transformation</span>
+    <h3>Choose the right modal verb</h3>
+    <p class="instr">Write one modal in each gap. Use should, ought to, must, must not, or do not have to. The label in brackets tells you the strength.</p>
+    <ol>
+      <li>(advice) We <input class="gap" size="12" data-answer="should|ought to"> double-check the torque.</li>
+      <li>(not allowed) You <input class="gap" size="12" data-answer="must not|mustn't"> take a call near an open panel.</li>
+      <li>(strong rule) We <input class="gap" size="12" data-answer="must|have to"> cross-check safety-critical work.</li>
+      <li>(not needed) We <input class="gap" size="16" data-answer="do not have to|don't have to|need not|needn't"> blame anyone.</li>
+      <li>(advice) You <input class="gap" size="14" data-answer="should|ought to|had better"> report the near-miss now.</li>
+      <li>(strong rule) You <input class="gap" size="12" data-answer="must|have to"> file an incident report.</li>
+      <li>(not allowed) You <input class="gap" size="12" data-answer="must not|mustn't"> sign before the task is done.</li>
+      <li>(advice) We <input class="gap" size="12" data-answer="should|ought to"> hold a debrief after a big job.</li>
+      <li>(advice) He is very tired, so he <input class="gap" size="14" data-answer="should|ought to|had better|must"> tell the team lead.</li>
+      <li>(not needed) You <input class="gap" size="16" data-answer="do not have to|don't have to|need not|needn't"> switch off the light, but it is tidy.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>should (or ought to)</li><li>must not</li><li>must (or have to)</li><li>do not have to (or need not)</li><li>should (or had better)</li><li>must (or have to)</li><li>must not</li><li>should (or ought to)</li><li>should / had better / must</li><li>do not have to (or need not)</li></ol></details>
+  </div>
+
+  <div class="ex" id="e5">
+    <span class="tag">E5 &middot; Reading 1</span>
+    <h3>Read an occurrence report</h3>
+    <p class="instr">Read the occurrence report. Then answer the six questions. Write short answers.</p>
+    <div class="reading-text reading">
+      <p class="doc-head">OCCURRENCE REPORT &mdash; HF-2026-014 &mdash; LINE STATION RIX</p>
+      <p>Date: 7 August 2026. Shift: late. Aircraft: A320, reg YL-AAB.</p>
+      <p>Summary: During a routine flap inspection, a technician received a phone call. The call distracted him for about three minutes. When he returned to the task, he left a spanner on the flap track. A colleague found the spanner during a cross-check. No damage occurred, so this event is recorded as a near-miss.</p>
+      <p>Human factors: distraction was the main factor. Complacency also contributed, because the technician had done this task many times. Situational awareness was low at the moment of the call.</p>
+      <p>Immediate action: the area was cleared and all tools were counted. The tool count was correct after the spanner was found.</p>
+      <p>Preventive measures: phones must be switched off near an open panel. Every safety-critical task should be cross-checked. A toolbox talk on distraction will be held for all staff.</p>
+      <p>Reported by: J. Berzins, Cat B1. Status: open, pending toolbox talk.</p>
+    </div>
+    <ol>
+      <li>What distracted the technician? <input class="gap" size="16" data-answer="a phone call|phone call|the phone call"></li>
+      <li>What did he leave on the flap track? <input class="gap" size="12" data-answer="a spanner|spanner|the spanner"></li>
+      <li>Who found it? <input class="gap" size="12" data-answer="a colleague|colleague|his colleague"></li>
+      <li>Which human factor was the main one? <input class="gap" size="12" data-answer="distraction"></li>
+      <li>Was there any damage? <input class="gap" size="6" data-answer="no"></li>
+      <li>What must staff switch off near an open panel? <input class="gap" size="12" data-answer="phones|their phones|the phone|phone"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>a phone call</li><li>a spanner</li><li>a colleague</li><li>distraction</li><li>no</li><li>phones</li></ol></details>
+  </div>
+
+  <div class="ex" id="e6">
+    <span class="tag">E6 &middot; Error-spotting</span>
+    <h3>Fix the toolbox-talk note</h3>
+    <p class="instr">This toolbox-talk note has eight mistakes. All of them are modal-verb mistakes. Write the correct words for each number.</p>
+    <div class="reading-text">
+      <p>Toolbox talk note (draft).</p>
+      <p>(1) We <b>must to check</b> every torque before we sign. (2) You <b>not should</b> take a phone call near an open panel. (3) He <b>should checks</b> the lockwire twice. (4) We <b>has held</b> a toolbox talk yesterday. (5) You <b>must not to</b> skip a step under pressure. (6) The team <b>should reports</b> every near-miss. (7) We <b>ought double-check</b> the safety-critical tasks. (8) You <b>had better to</b> switch off your phone.</p>
+    </div>
+    <ol>
+      <li>(1) &rarr; <input class="gap" size="14" data-answer="must check"></li>
+      <li>(2) &rarr; <input class="gap" size="14" data-answer="should not|you should not"></li>
+      <li>(3) &rarr; <input class="gap" size="14" data-answer="should check"></li>
+      <li>(4) &rarr; <input class="gap" size="12" data-answer="held|we held"></li>
+      <li>(5) &rarr; <input class="gap" size="14" data-answer="must not skip"></li>
+      <li>(6) &rarr; <input class="gap" size="14" data-answer="should report"></li>
+      <li>(7) &rarr; <input class="gap" size="18" data-answer="ought to double-check|ought to"></li>
+      <li>(8) &rarr; <input class="gap" size="18" data-answer="had better switch|better switch"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>must check (no "to" after must)</li><li>should not (not comes after the modal)</li><li>should check (no "-s" after a modal)</li><li>held (yesterday &rarr; past simple)</li><li>must not skip (no "to" after must not)</li><li>should report (no "-s" after a modal)</li><li>ought to double-check (ought keeps "to")</li><li>had better switch (no "to" after had better)</li></ol></details>
+  </div>
+
+  <div class="ex" id="e7">
+    <span class="tag">E7 &middot; Reading 2</span>
+    <h3>Read a safety bulletin</h3>
+    <p class="instr">Read the safety bulletin. Then answer the six questions. Write short answers.</p>
+    <div class="reading-text reading">
+      <p class="doc-head">SAFETY BULLETIN 06/2026 &mdash; THE DIRTY DOZEN &mdash; MAINTENANCE HUMAN FACTORS</p>
+      <p>Purpose: this bulletin reminds all Part-145 staff about the Dirty Dozen. These are twelve human factors that often lead to maintenance error.</p>
+      <p>Background: most incidents are not caused by a technical fault. They are caused by people under pressure, fatigue or distraction. A single slip can start an error chain.</p>
+      <p>Key points: You should never sign a checklist before the task is finished, because this is a dangerous norm. You must report every near-miss with an incident report, since small events warn us early. You ought to double-check every torque, and cross-check safety-critical work. If you feel too tired, you must tell your team lead, because fatigue is not a weakness. Assertiveness matters, so if something looks wrong, you should speak up at once.</p>
+      <p>Action: each team must hold a weekly toolbox talk, and the team lead should record it.</p>
+      <p>Issued by: Quality and Safety Office. Review date: 1 December 2026.</p>
+    </div>
+    <ol>
+      <li>How many human factors are in the Dirty Dozen? <input class="gap" size="10" data-answer="twelve|12"></li>
+      <li>What causes most incidents? <input class="gap" size="20" data-answer="people|human factors|not a technical fault"></li>
+      <li>What should you never sign before the task is finished? <input class="gap" size="14" data-answer="the checklist|checklist|a checklist"></li>
+      <li>What must you file for every near-miss? <input class="gap" size="18" data-answer="an incident report|incident report"></li>
+      <li>Who should you tell if you feel too tired? <input class="gap" size="16" data-answer="your team lead|team lead|the team lead"></li>
+      <li>How often must each team hold a toolbox talk? <input class="gap" size="14" data-answer="weekly|every week|once a week"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>twelve</li><li>people (human factors)</li><li>the checklist</li><li>an incident report</li><li>your team lead</li><li>weekly</li></ol></details>
+  </div>
+
+  <div class="ex" id="e8">
+    <span class="tag">E8 &middot; Listening review</span>
+    <h3>Questions on Dialogue 3</h3>
+    <p class="instr">Play Dialogue 3 again. Then answer. Write short answers.</p>
+    <ol>
+      <li>What should you double-check every time? <input class="gap" size="14" data-answer="the torque|torque|every torque|the torque setting"></li>
+      <li>What must you cross-check with a second technician? <input class="gap" size="20" data-answer="safety-critical work|safety-critical tasks|any safety-critical task|safety-critical task"></li>
+      <li>Which part is on the fuel line? <input class="gap" size="12" data-answer="the lockwire|lockwire"></li>
+      <li>When must you not take a call? <input class="gap" size="24" data-answer="inside the aircraft|when your hands are inside the aircraft|hands inside the aircraft|near an open panel"></li>
+      <li>What must you file about the near-miss? <input class="gap" size="18" data-answer="an incident report|incident report"></li>
+      <li>How often should the team repeat the toolbox talk? <input class="gap" size="12" data-answer="weekly|every week|once a week|next week"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>the torque (every torque setting)</li><li>safety-critical work</li><li>the lockwire</li><li>while your hands are inside the aircraft</li><li>an incident report</li><li>weekly</li></ol></details>
+  </div>
+</section>
+
+<section class="lecture-section" id="speaking">
+  <h2><span class="secnum">06</span>Speaking: run the toolbox talk</h2>
+  <p>Work in pairs. One person leads the toolbox talk. The other agrees and adds an example. Use the useful phrases. Swap roles after each card.</p>
+
+  <div class="roleplay">
+    <h4>Role-play card 1 &mdash; Lead the talk on distraction</h4>
+    <div class="field"><span class="flab">Situation</span> It is 07:00. Yesterday there was a near-miss caused by distraction.</div>
+    <div class="field"><span class="flab">Your role</span> Team lead running the five-minute toolbox talk.</div>
+    <div class="field"><span class="flab">Your goal</span> Describe the near-miss, name the human factor, and recommend one preventive measure.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>Before we start&hellip;</span><span>There was a near-miss&hellip;</span><span>The main human factor was&hellip;</span><span>We should&hellip;</span><span>You must not&hellip;</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 2 &mdash; Agree and add an example</h4>
+    <div class="field"><span class="flab">Situation</span> Your colleague has just described the distraction near-miss.</div>
+    <div class="field"><span class="flab">Your role</span> Technician adding your own example to the briefing.</div>
+    <div class="field"><span class="flab">Your goal</span> Agree with the point, then add a fatigue or pressure example of your own.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>I agree, and I would add&hellip;</span><span>Good point.</span><span>For me, fatigue is&hellip;</span><span>That is very true.</span><span>We ought to&hellip;</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 3 &mdash; Speak up about a norm</h4>
+    <div class="field"><span class="flab">Situation</span> The team sometimes signs the checklist before the task is finished.</div>
+    <div class="field"><span class="flab">Your role</span> Junior technician using assertiveness to raise a concern.</div>
+    <div class="field"><span class="flab">Your goal</span> Name the unsafe norm politely but firmly, and suggest a safer habit.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>It is not easy to say, but&hellip;</span><span>We sometimes&hellip;</span><span>That is a dangerous norm.</span><span>We should not&hellip;</span><span>Could we instead&hellip;?</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 4 &mdash; Recommend the preventive measures</h4>
+    <div class="field"><span class="flab">Situation</span> The talk is ending. You must agree the actions for the team.</div>
+    <div class="field"><span class="flab">Your role</span> Supervisor recommending clear preventive measures.</div>
+    <div class="field"><span class="flab">Your goal</span> Recommend three measures, using a modal verb in each one.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>We must cross-check&hellip;</span><span>You should double-check&hellip;</span><span>You must not&hellip;</span><span>We had better&hellip;</span><span>We do not have to, but&hellip;</span></div>
+    </div>
+  </div>
+
+  <div class="ai-box">
+    <h3>AI conversation partner</h3>
+    <p>Copy one prompt into the chat buddy. Speak your part out loud. The AI plays a colleague in the toolbox talk and gently corrects your English.</p>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are Elena, an experienced technician in my toolbox talk at a Part-145 hangar. I am the team lead, and I will describe a near-miss caused by distraction. Speak only at CEFR B2, with short sentences. Each turn, agree with my point and add one human-factors example of your own (for example fatigue or pressure). If I make an English mistake, gently repeat my sentence the correct way, then continue. Ask me one follow-up question each turn. Stay in the toolbox-talk scenario.</code></div>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are my team lead running a toolbox talk. I am a technician. Speak only at CEFR B2 and keep answers short. I will recommend preventive measures using modal verbs, such as "We should double-check every torque." If I use a modal wrongly (for example "we must to check" or "he should checks"), recast my sentence correctly, then carry on. Ask me one follow-up question each turn about a preventive measure. Stay in the toolbox-talk scenario.</code></div>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are a maintenance supervisor listening to my safety briefing. I will describe the Dirty Dozen human factor behind yesterday's near-miss. Speak only at CEFR B2 with short sentences. After I speak, ask me one follow-up question about the consequence or the fix. Gently correct any modal-verb or vocabulary error by repeating it the right way. Do not lecture me. Ask exactly one question each turn. Stay in the toolbox-talk scenario.</code></div>
+  </div>
+</section>
+
+<section class="lecture-section" id="writing">
+  <h2><span class="secnum">07</span>Writing: a toolbox-talk record</h2>
+  <p>Write a short toolbox-talk record for the safety file. Use Simplified Technical English: short sentences, one idea per line, simple words. Describe the near-miss, name the human factor, and list the preventive measures with modal verbs. Follow the checklist.</p>
+  <div class="callout">
+    <h4>Your task</h4>
+    <p>Write 90&ndash;120 words. Describe yesterday's distraction near-miss. Name the human factor and its likely consequence. Then list two or three preventive measures. Use <i>should</i> for advice and <i>must</i> or <i>must not</i> for firm rules. Keep every sentence short and clear.</p>
+  </div>
+  <details class="reveal"><summary>Show model answer</summary>
+    <div class="reading-text">
+      <p class="doc-head">TOOLBOX TALK RECORD &mdash; DISTRACTION &mdash; 8 AUGUST 2026</p>
+      <p>Topic: a near-miss on the late shift.</p>
+      <p>Event: a technician took a phone call during a flap inspection. He was distracted. He left a spanner near a control cable. A colleague found it during a cross-check.</p>
+      <p>Human factor: distraction. Complacency also played a part, because the task felt routine. Low awareness can start an error chain, and the likely consequence is a trapped or damaged cable.</p>
+      <p>Preventive measures: You must switch off your phone near an open panel. You must not take a call with your hands inside the aircraft. We should double-check every torque and cross-check each safety-critical task. We had better repeat this talk weekly.</p>
+      <p>Recorded by: team lead. Action: file an incident report.</p>
+    </div>
+  </details>
+  <h3>Self-check</h3>
+  <ul class="checklist">
+    <li>Did I use short sentences and simple words (Simplified Technical English)?</li>
+    <li>Did I name the human factor and its likely consequence?</li>
+    <li>Did I use should for advice, and must or must not for firm rules?</li>
+    <li>Did I write the modal plus the base verb, with no "to" and no "-s"?</li>
+  </ul>
+</section>
+
+<section class="lecture-section" id="worked">
+  <h2><span class="secnum">08</span>Worked examples: fix the modal</h2>
+  <p>Study these six short fixes before you drill. Each one shows a wrong line from a real toolbox-talk note, then the correct line, then a one-line reason. Read the wrong line, cover the fix, and say the correct line out loud. Then open your hand and check yourself. These are the exact patterns that Latvian and Russian speakers repeat, so learn them by heart.</p>
+  <pre class="worked viz-card">WRONG:   We must to check the torque before we sign.
+RIGHT:   We must check the torque before we sign.
+WHY:     A modal takes the base verb. Drop "to" after must.</pre>
+  <pre class="worked viz-card">WRONG:   You not should take a call near an open panel.
+RIGHT:   You should not take a call near an open panel.
+WHY:     Put "not" AFTER the modal, never before it.</pre>
+  <pre class="worked viz-card">WRONG:   He should checks the lockwire on the fuel line.
+RIGHT:   He should check the lockwire on the fuel line.
+WHY:     No third-person "-s" after a modal. Use the base verb.</pre>
+  <pre class="worked viz-card">WRONG:   We ought double-check every safety-critical task.
+RIGHT:   We ought to double-check every safety-critical task.
+WHY:     "ought" is the one modal that keeps its "to".</pre>
+  <pre class="worked viz-card">WRONG:   You had better to switch off your phone.
+RIGHT:   You had better switch off your phone.
+WHY:     "had better" takes the base verb, with no "to".</pre>
+  <pre class="worked viz-card">WRONG:   We must not to skip a step under pressure.
+RIGHT:   We must not skip a step under pressure.
+WHY:     "must not" + base verb. Never add "to" after it.</pre>
+</section>
+
+<section class="lecture-section" id="practice-lab">
+  <h2><span class="secnum">09</span>Interactive practice lab</h2>
+  <p>Now drive the language yourself. Each tool below reacts when you drag, click or type. Nothing moves on its own, so you stay in control and set your own pace. Use these to warm up before the speaking task.</p>
+
+  <div class="widget viz-card" id="w-strength">
+    <h4>1 &middot; Modal strength meter</h4>
+    <p class="instr">Drag the slider from soft advice to a firm rule. The bar and the sample sentence change with your choice.</p>
+    <input type="range" id="ms-range" min="0" max="3" step="1" value="0" style="width:100%">
+    <canvas id="ms-canvas" width="600" height="60" style="width:100%;height:60px;border:1px solid var(--border);border-radius:8px;margin:8px 0"></canvas>
+    <p id="ms-out" style="font-weight:600;color:var(--color-primary-dark)">You <b>do not have to</b> stay late. &mdash; no obligation</p>
+  </div>
+
+  <div class="widget viz-card" id="w-spot">
+    <h4>2 &middot; Spot the modal error</h4>
+    <p class="instr">Click the ONE wrong word in each line. A green pulse means correct; a red pulse means try again.</p>
+    <p class="spotline" data-bad="to">We must <span class="tok">to</span> <span class="tok">check</span> the <span class="tok">torque</span>.</p>
+    <p class="spotline" data-bad="checks">He should <span class="tok">checks</span> the <span class="tok">lockwire</span> <span class="tok">twice</span>.</p>
+    <p class="spotline" data-bad="not">You <span class="tok">not</span> <span class="tok">should</span> <span class="tok">take</span> a call.</p>
+    <canvas id="sp-canvas" width="600" height="10" style="width:100%;height:10px"></canvas>
+    <p id="sp-out" class="note" style="font-size:13px;color:var(--ink-muted)">Score: 0 / 3</p>
+  </div>
+
+  <div class="widget viz-card" id="w-tally">
+    <h4>3 &middot; Double-check tally</h4>
+    <p class="instr">Press the button once for every torque you double-check on your shift. The ring fills as you count to ten.</p>
+    <button class="btn primary" id="ty-btn">Double-checked one</button>
+    <button class="btn" id="ty-reset">Reset</button>
+    <canvas id="ty-canvas" width="120" height="120" style="width:120px;height:120px;display:block;margin:8px 0"></canvas>
+    <p id="ty-out" class="note">0 of 10 checked</p>
+  </div>
+
+  <div class="widget viz-card" id="w-aware">
+    <h4>4 &middot; Situational-awareness meter</h4>
+    <p class="instr">Click each distraction to remove it. As distractions drop, your awareness bar rises.</p>
+    <div id="aw-chips">
+      <button class="btn aw-chip" data-w="20">phone call</button>
+      <button class="btn aw-chip" data-w="20">loud radio</button>
+      <button class="btn aw-chip" data-w="20">tired eyes</button>
+      <button class="btn aw-chip" data-w="20">time pressure</button>
+    </div>
+    <canvas id="aw-canvas" width="600" height="40" style="width:100%;height:40px;border:1px solid var(--border);border-radius:8px;margin:8px 0"></canvas>
+    <p id="aw-out" class="note">Awareness: 20%. Remove distractions to raise it.</p>
+  </div>
+
+  <div class="widget viz-card" id="w-chain">
+    <h4>5 &middot; Error-chain builder</h4>
+    <p class="instr">Click the links in order to build the error chain, then click <i>Break it</i> to see how one cross-check stops the accident.</p>
+    <div id="ch-links">
+      <button class="btn ch-link" data-i="1">phone call</button>
+      <button class="btn ch-link" data-i="2">distraction</button>
+      <button class="btn ch-link" data-i="3">spanner left</button>
+      <button class="btn ch-link" data-i="4">near-miss</button>
+    </div>
+    <button class="btn primary" id="ch-break">Break it</button>
+    <canvas id="ch-canvas" width="600" height="70" style="width:100%;height:70px;margin:8px 0"></canvas>
+    <p id="ch-out" class="note">Build the chain link by link.</p>
+  </div>
+</section>
+
+<section class="lecture-section" id="buddy">
+  <h2><span class="secnum">10</span>Talk it through with your practice partner</h2>
+  <p>A chat partner is ready in the corner of this page. It plays a colleague in the toolbox talk. Speak your part, and it will agree, add one example, and gently correct any modal-verb slip. Open it, choose your role, and run a two-minute briefing before class.</p>
+  <div class="callout">
+    <h4>How to start</h4>
+    <p>Click the round button, then type or paste: <i>"You are Elena, a technician in my toolbox talk. I am the team lead. Agree with me, add one human-factors example, and correct my modal verbs."</i> Keep every sentence short.</p>
+  </div>
+</section>
+
+<footer>
+  English for Aviation Maintenance &middot; Unit 6 &middot; Toolbox talk and the Dirty Dozen &middot; CEFR B2 &middot; EASA Part-66/145. Self-study language unit.
+</footer>
+
+</article>
+<script>
+(function(){
+  // gap-fill and matching check
+  document.querySelectorAll('.check-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var ex=btn.closest('.ex');
+      var fields=ex.querySelectorAll('[data-answer]');
+      var ok=0,tot=0;
+      fields.forEach(function(f){
+        tot++;
+        var val=(f.value||'').trim().toLowerCase().replace(/\s+/g,' ');
+        var answers=f.getAttribute('data-answer').toLowerCase().split('|').map(function(s){return s.trim();});
+        if(val!=='' && answers.indexOf(val)!==-1){f.classList.add('right');f.classList.remove('wrong');ok++;}
+        else{f.classList.add('wrong');f.classList.remove('right');}
+      });
+      var sc=ex.querySelector('.score');
+      if(sc){sc.textContent=ok+' / '+tot+' correct';}
+    });
+  });
+  // copy prompt
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var code=btn.parentElement.querySelector('code');
+      var text=code?code.textContent:'';
+      if(navigator.clipboard){navigator.clipboard.writeText(text);}
+      var old=btn.textContent;btn.textContent='Copied';
+      setTimeout(function(){btn.textContent=old;},1200);
+    });
+  });
+  // self-check MCQ (if any)
+  document.querySelectorAll('.selfcheck .opt').forEach(function(opt){
+    opt.addEventListener('click',function(){
+      var ok=opt.getAttribute('data-ok')==='1';
+      opt.classList.add(ok?'right':'wrong');
+    });
+  });
+})();
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 6 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI-->
+<script>
+/* ===== Unit 6 practice-lab widgets — all student-driven, nothing self-running ===== */
+(function(){
+  function ease(a,b,t){ return a+(b-a)*t; }
+
+  // 1 · Modal strength meter
+  (function(){
+    var r=document.getElementById('ms-range'), c=document.getElementById('ms-canvas'),
+        out=document.getElementById('ms-out'); if(!r||!c) return;
+    var g=c.getContext('2d'), cur=0, tgt=0;
+    var data=[
+      {p:0.15,col:'#43a047',txt:'You <b>do not have to</b> stay late. &mdash; no obligation'},
+      {p:0.45,col:'#c8821a',txt:'We <b>should</b> double-check every torque. &mdash; advice'},
+      {p:0.72,col:'#b1551f',txt:'We <b>ought to</b> cross-check the lockwire. &mdash; strong advice'},
+      {p:1.0, col:'#c0392b',txt:'You <b>must not</b> take a call. &mdash; a firm rule'}
+    ];
+    function draw(){
+      cur=ease(cur,tgt,0.2); var d=data[r.value];
+      g.clearRect(0,0,c.width,c.height);
+      g.fillStyle='#f3f1ea'; g.fillRect(0,20,c.width,20);
+      g.fillStyle=d.col; g.fillRect(0,20,c.width*cur,20);
+      if(Math.abs(cur-tgt)>0.005) requestAnimationFrame(draw);
+    }
+    function upd(){ var d=data[r.value]; tgt=d.p; out.innerHTML=d.txt; requestAnimationFrame(draw); }
+    r.addEventListener('input',upd); upd();
+  })();
+
+  // 2 · Spot the modal error
+  (function(){
+    var c=document.getElementById('sp-canvas'), out=document.getElementById('sp-out'); if(!c) return;
+    var g=c.getContext('2d'), score=0, flash=0, good=false;
+    function pulse(ok){ good=ok; flash=1; requestAnimationFrame(draw); }
+    function draw(){
+      g.clearRect(0,0,c.width,c.height);
+      g.fillStyle=good?'rgba(67,160,71,'+flash+')':'rgba(192,57,43,'+flash+')';
+      g.fillRect(0,0,c.width,c.height);
+      flash-=0.04; if(flash>0) requestAnimationFrame(draw);
+    }
+    document.querySelectorAll('#w-spot .spotline').forEach(function(line){
+      var bad=line.getAttribute('data-bad');
+      line.querySelectorAll('.tok').forEach(function(t){
+        t.style.cursor='pointer'; t.style.padding='0 3px'; t.style.borderRadius='4px';
+        t.addEventListener('click',function(){
+          if(line.dataset.done) return;
+          if(t.textContent.trim()===bad){ t.style.background='#eaf5ec'; line.dataset.done='1';
+            score++; out.textContent='Score: '+score+' / 3'; pulse(true); }
+          else { t.style.background='#fbecea'; pulse(false); }
+        });
+      });
+    });
+  })();
+
+  // 3 · Double-check tally
+  (function(){
+    var b=document.getElementById('ty-btn'), rs=document.getElementById('ty-reset'),
+        c=document.getElementById('ty-canvas'), out=document.getElementById('ty-out'); if(!b||!c) return;
+    var g=c.getContext('2d'), n=0, shown=0;
+    function draw(){
+      shown=ease(shown,n,0.25);
+      g.clearRect(0,0,120,120);
+      g.lineWidth=12; g.strokeStyle='#f3f1ea'; g.beginPath(); g.arc(60,60,48,0,Math.PI*2); g.stroke();
+      g.strokeStyle='#2F5496'; g.beginPath(); g.arc(60,60,48,-Math.PI/2,-Math.PI/2+Math.PI*2*(shown/10)); g.stroke();
+      g.fillStyle='#1f3a6b'; g.font='700 22px sans-serif'; g.textAlign='center'; g.textBaseline='middle';
+      g.fillText(Math.round(shown),60,60);
+      if(Math.abs(shown-n)>0.02) requestAnimationFrame(draw);
+    }
+    b.addEventListener('click',function(){ if(n<10) n++; out.textContent=n+' of 10 checked'; requestAnimationFrame(draw); });
+    rs.addEventListener('click',function(){ n=0; out.textContent='0 of 10 checked'; requestAnimationFrame(draw); });
+    draw();
+  })();
+
+  // 4 · Situational-awareness meter
+  (function(){
+    var c=document.getElementById('aw-canvas'), out=document.getElementById('aw-out'); if(!c) return;
+    var g=c.getContext('2d'), aware=20, shown=20;
+    function draw(){
+      shown=ease(shown,aware,0.2);
+      g.clearRect(0,0,c.width,c.height);
+      g.fillStyle='#f3f1ea'; g.fillRect(0,10,c.width,20);
+      var col= shown<40?'#c0392b':(shown<75?'#c8821a':'#43a047');
+      g.fillStyle=col; g.fillRect(0,10,c.width*(shown/100),20);
+      if(Math.abs(shown-aware)>0.1) requestAnimationFrame(draw);
+    }
+    document.querySelectorAll('#aw-chips .aw-chip').forEach(function(ch){
+      ch.addEventListener('click',function(){
+        if(ch.disabled) return; ch.disabled=true; ch.style.opacity='0.4'; ch.style.textDecoration='line-through';
+        aware=Math.min(100,aware+parseInt(ch.getAttribute('data-w'),10));
+        out.textContent='Awareness: '+aware+'%.'+(aware>=100?' Fully focused on the task.':' Remove distractions to raise it.');
+        requestAnimationFrame(draw);
+      });
+    });
+    draw();
+  })();
+
+  // 5 · Error-chain builder
+  (function(){
+    var c=document.getElementById('ch-canvas'), out=document.getElementById('ch-out'),
+        brk=document.getElementById('ch-break'); if(!c) return;
+    var g=c.getContext('2d'), built=[], broken=false, t=0;
+    function draw(){
+      g.clearRect(0,0,c.width,c.height);
+      var step=c.width/5;
+      for(var k=0;k<built.length;k++){
+        var x=step*(k+0.5), on=!(broken&&k>=2);
+        g.fillStyle=on?'#2F5496':'#d0cdc2';
+        g.beginPath(); g.arc(x,35,16,0,Math.PI*2); g.fill();
+        if(k>0){ g.strokeStyle=(broken&&k>=2)?'#c0392b':'#4a6fb0'; g.lineWidth=3;
+          g.beginPath(); g.moveTo(step*(k-0.5)+16,35); g.lineTo(x-16,35); g.stroke(); }
+      }
+      if(broken){ t+=0.05; if(t<1) requestAnimationFrame(draw); }
+    }
+    document.querySelectorAll('#ch-links .ch-link').forEach(function(l){
+      l.addEventListener('click',function(){
+        if(l.disabled) return; l.disabled=true; l.style.opacity='0.5';
+        built.push(1); out.textContent=built.length<4?'Link added. Keep going.':'Chain complete. Now break it.';
+        requestAnimationFrame(draw);
+      });
+    });
+    brk.addEventListener('click',function(){ broken=true; t=0;
+      out.textContent='A cross-check breaks the chain: the near-miss never becomes an accident.';
+      requestAnimationFrame(draw); });
+    draw();
+  })();
+})();
+</script>
+<script src="tsi-buddy.js"></script>
+<script>
+if(window.TSIBuddy){ TSIBuddy.mount({
+  temperature: 0.4,
+  title: "Toolbox-talk partner",
+  systemPrompt: "You are a conversation partner for a CEFR B2 English lesson for aircraft maintenance technicians. The unit is a toolbox talk about the Dirty Dozen human factors, after a distraction near-miss. Play the colleague, team lead or supervisor the learner assigns. Speak only at CEFR B2: short sentences, common words plus the unit terms (human factors, Dirty Dozen, toolbox talk, near-miss, complacency, fatigue, distraction, pressure, norms, assertiveness, awareness, checklist, cross-check, double-check, torque, lockwire, safety-critical, incident report, debrief, error chain). Each turn, agree with the learner and add one human-factors example, then ask exactly one follow-up question. When the learner makes a modal-verb error (for example 'we must to check', 'he should checks', 'you not should take'), gently recast the sentence the correct way, then continue. Never lecture. Use English only."
+}); }
+</script>
+</body></html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 6 — Teacher Deck · Toolbox talk and the Dirty Dozen</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:40px;margin:.2em 0;line-height:1.12}
+h2{font-size:30px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:ui-monospace,Consolas,monospace;background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tag{display:inline-block;font-family:ui-monospace,Consolas,monospace;font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.good{color:var(--good)} .hot{color:var(--hot)} .amberc{color:var(--amber)}
+.wrong{color:#ff9aa2}.wrong::before{content:"✗ ";font-weight:700}
+.right{color:#9af0c8}.right::before{content:"✓ ";font-weight:700}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px;margin-top:8px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:48px;font-size:15px;color:#cfe0ee}
+.timing{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:#7fd0ff;border:1px solid #2a557e;border-radius:6px;padding:2px 8px;display:inline-block}
+table{width:100%;border-collapse:collapse;font-size:16px;margin-top:8px}
+th,td{border:1px solid var(--line);padding:7px 11px;text-align:left}
+th{background:#12233a;color:#cfe5ff;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:ui-monospace,Consolas,monospace;font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:ui-monospace,Consolas,monospace}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="TIMING 0:00–0:03. Open the class. This is a 90-minute B2 lesson built around one job: lead a five-minute toolbox talk on distraction after a near-miss. Set the frame in one line — most maintenance errors come from people, not tools, and the Dirty Dozen names the twelve people-factors behind them. Tell the group the three things they will be able to DO by the end (describe a human factor, join a briefing and add to it, recommend a fix with a modal verb). Say the shape of the lesson out loud: listen, learn the words, drill the grammar, then run the talk in pairs. Press L any time to switch on the live translated captions for Latvian and Russian speakers.">
+    <div class="kick">English for Aviation Maintenance · EASA Part-66/145 · Unit 6 of 32 · CEFR B2</div>
+    <h1>Toolbox talk and the Dirty Dozen</h1>
+    <p class="big muted">Human factors — complacency, fatigue, distraction. Describe the error, agree in the briefing, recommend the fix with a modal verb.</p>
+    <p class="pill">90-minute class · listening · speaking · writing · grammar: modals of advice &amp; obligation</p>
+  </section>
+
+  <!-- 2 · OUTCOMES + RUN OF THE LESSON -->
+  <section class="slide" data-notes="TIMING 0:03–0:07. Read the three can-do outcomes; these are the exit test, not decoration. Then walk the run-sheet on the right so the group knows the pace: a short scenario, four listenings, the word bank, the grammar, eight exercises, then the paired toolbox talk and a short written record. Stress that the talking at the end is the point — everything before it is preparation. Ask: who has ever run or sat in a real toolbox talk? Take two quick answers to warm the room.">
+    <div class="kick">By the end · how the 90 minutes runs</div>
+    <h2>Three things you will be able to do</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="good">1.</b> Describe common human-factors errors and their likely consequences.</p>
+        <p><b class="good">2.</b> Take part in a safety briefing — agree with points and add your own.</p>
+        <p><b class="good">3.</b> Recommend a preventive measure with the right modal verb.</p>
+      </div>
+      <div class="card">
+        <p class="amberc"><b>Run of the lesson</b></p>
+        <p><span class="timing">10'</span> scenario + listening &nbsp; <span class="timing">15'</span> vocabulary</p>
+        <p><span class="timing">15'</span> grammar &nbsp; <span class="timing">25'</span> exercises</p>
+        <p><span class="timing">20'</span> role-play &nbsp; <span class="timing">5'</span> writing + wrap</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SCENARIO -->
+  <section class="slide" data-notes="TIMING 0:07–0:10. Tell the story simply, then let the room react. It is 07:00 in a Part-145 hangar. On the late shift a technician took a phone call during a flap inspection, was distracted, and left a spanner near a control cable. A colleague found it during a cross-check, so it was a near-miss, not an accident. Draw out the key word: near-miss — almost harm, no harm. Ask the group to name, in one word each, what went wrong. Write their words on the board; you will match them to the Dirty Dozen next.">
+    <div class="kick">The situation · 07:00, Part-145 hangar</div>
+    <h2>A near-miss on the late shift</h2>
+    <div class="card">
+      <p>A technician took a <b class="amberc">phone call</b> during a flap inspection. He was distracted. He left a <b class="amberc">spanner</b> near a control cable.</p>
+      <p>A colleague found it during a <b class="good">cross-check</b>. No damage. It was a <b>near-miss</b>, not an accident.</p>
+    </div>
+    <p class="muted">Your job today: lead the five-minute talk that stops it happening again.</p>
+  </section>
+
+  <!-- 4 · DIRTY DOZEN -->
+  <section class="slide" data-notes="TIMING 0:10–0:13. Introduce the Dirty Dozen: twelve common human factors behind maintenance error. Do not drill all twelve — name them once, then narrow to the six this unit uses: distraction, complacency, fatigue, pressure, norms, assertiveness. Match the words the group put on the board to these six. Elicit a plain meaning for distraction, complacency and fatigue before you show the glosses; only give the gloss if nobody gets it.">
+    <div class="kick">Background · the Dirty Dozen</div>
+    <h2>Twelve people-factors — we focus on six</h2>
+    <div class="cols">
+      <div class="card">
+        <p class="muted">The full list (name once):</p>
+        <p>communication · complacency · knowledge · <b class="amberc">distraction</b> · teamwork · <b class="amberc">fatigue</b> · resources · <b class="amberc">pressure</b> · assertiveness · stress · awareness · <b class="amberc">norms</b></p>
+      </div>
+      <div class="card">
+        <p class="amberc"><b>Today's six</b></p>
+        <p><b>distraction</b> — attention leaves the task<br>
+        <b>complacency</b> — over-confidence from routine<br>
+        <b>fatigue</b> — too tired to catch errors<br>
+        <b>pressure</b> · <b>norms</b> · <b>assertiveness</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · LISTEN D1 -->
+  <section class="slide" data-notes="TIMING 0:13–0:18. Play Dialogue 1 (1:35) with transcripts closed. Set one gist task before you press play: 'What was the main human factor, and what added to it?' Take the answer (distraction; complacency added). Play again if needed. Then open the transcript on the student page and read three turns chorally to fix the rhythm of the short sentences. Point out the connectors — so, because, when — inside short lines; that is the B2 target.">
+    <div class="kick">Listening · Dialogue 1 (1:35)</div>
+    <h2>The near-miss and the human factor</h2>
+    <div class="card">
+      <p><b>Before you play:</b> "What is the main human factor? What adds to it?"</p>
+      <p class="muted">Answer: distraction is the main factor; complacency adds to it, because the task felt routine. Low awareness lets an <b>error chain</b> form.</p>
+    </div>
+    <p class="muted">Listen first with the transcript closed. Open it only to read afterwards.</p>
+  </section>
+
+  <!-- 6 · VOCAB SPOTLIGHT 1 -->
+  <section class="slide" data-notes="TIMING 0:18–0:25 (vocabulary block, part 1). Teach the three headline words with the meaning-then-example routine. For each: say the word, give the plain meaning, give a hangar example, drill the collocation. Distraction — a phone call is a common distraction. Complacency — guard against complacency. Fatigue — fatigue risk on a night shift. Ask for one personal example of each from the group. Keep the pace fast; the word bank has all twenty terms for reference.">
+    <div class="kick">Vocabulary · the three headline words</div>
+    <h2>Distraction · complacency · fatigue</h2>
+    <div class="three">
+      <div class="card"><p class="amberc"><b>distraction</b></p><p>something that takes your attention off the task.</p><small>a source of distraction</small></div>
+      <div class="card"><p class="amberc"><b>complacency</b></p><p>over-confidence from routine — you stop checking.</p><small>guard against complacency</small></div>
+      <div class="card"><p class="amberc"><b>fatigue</b></p><p>being so tired that you make mistakes.</p><small>fatigue risk</small></div>
+    </div>
+    <p class="muted">Elicit a personal example of each before you move on.</p>
+  </section>
+
+  <!-- 7 · VOCAB SPOTLIGHT 2 + widget -->
+  <section class="slide" data-notes="TIMING 0:25–0:30 (vocabulary block, part 2). Teach the safety-action words the fixes need: cross-check, double-check, torque, lockwire, safety-critical, incident report, debrief. Then use the matching widget as a whole-class check: click a term, read its meaning aloud, click the meaning to confirm. Do three or four together, then let pairs finish E2 on their own page. Correct pronunciation of 'torque' (rhymes with fork) and 'lockwire'.">
+    <div class="kick">Vocabulary · the action words</div>
+    <h2>The words the fixes need</h2>
+    <div class="wk" data-widget="match">
+      <div class="bar"><span class="muted">Click a term, then click its meaning. Green = match.</span><button id="mt-reset">Reset</button></div>
+      <div class="two">
+        <div id="mt-terms"></div>
+        <div id="mt-means"></div>
+      </div>
+      <div class="info" id="mt-info">Matched: 0 / 5</div>
+    </div>
+  </section>
+
+  <!-- 8 · GRAMMAR INTRO + strength widget -->
+  <section class="slide" data-notes="TIMING 0:30–0:38 (grammar block, part 1). This is the heart of the lesson. Modals do the recommending in a toolbox talk. Should / ought to = advice. Must / have to = a rule. Must not = not allowed. Do not have to / need not = not needed. Drag the strength meter live so the group sees the jump from advice to rule to prohibition, and read the sample line at each stop. Ask the group to re-say each line with a different modal to feel the change in force.">
+    <div class="kick">Grammar · modals of advice &amp; obligation</div>
+    <h2>Choose the modal by strength</h2>
+    <div class="wk" data-widget="strength">
+      <div class="bar"><span class="muted">Drag from soft advice to a firm rule.</span></div>
+      <input type="range" id="st-range" min="0" max="3" step="1" value="1">
+      <canvas id="st-canvas" width="700" height="70"></canvas>
+      <div class="info" id="st-info"></div>
+    </div>
+  </section>
+
+  <!-- 9 · GRAMMAR RULE + L1 ERRORS -->
+  <section class="slide" data-notes="TIMING 0:38–0:45 (grammar block, part 2). Give the one rule that fixes most errors: a modal takes the BASE verb — no 'to', no third-person '-s'. The only exception is 'ought to'. Then show the three errors Latvian and Russian speakers make and why. Error 1: adding 'to' (their languages link verbs differently). Error 2: 'not' before the modal (first-language word order). Error 3: '-s' on the third person (they carry agreement onto the main verb). Drill the corrected form chorally three times each.">
+    <div class="kick">Grammar · the one rule + three traps</div>
+    <h2>Modal + base verb. No "to", no "-s".</h2>
+    <div class="two">
+      <div class="card">
+        <p class="wrong">We must to check the torque.</p><p class="right">We must check the torque.</p>
+        <p class="wrong">You not should take a call.</p><p class="right">You should not take a call.</p>
+        <p class="wrong">He should checks the lockwire.</p><p class="right">He should check the lockwire.</p>
+      </div>
+      <div class="card">
+        <p class="muted">Why these three?</p>
+        <p><b>+to</b> — Latvian/Russian link two verbs with a marker; English drops it.</p>
+        <p><b>not first</b> — first-language word order puts the negative early.</p>
+        <p><b>-s</b> — the modal already carries the person; the main verb stays bare.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · LISTEN D2 -->
+  <section class="slide" data-notes="TIMING 0:45–0:50. Play Dialogue 2 (1:41). Gist task first: 'Which unsafe norm does Elena raise, and why is it dangerous?' Answer: signing the checklist before the task is finished; a checklist is only a defence if each step is ticked honestly. Highlight the discourse moves the group will reuse — 'I agree, and I would add…', 'That is very true', 'It was not easy to say, but…'. These are the agree-and-add phrases for the role-play.">
+    <div class="kick">Listening · Dialogue 2 (1:41)</div>
+    <h2>The Dirty Dozen around the table</h2>
+    <div class="card">
+      <p><b>Before you play:</b> "Which unsafe norm does Elena raise? Why is it dangerous?"</p>
+      <p class="muted">Answer: signing the checklist before the task is done. A checklist only defends you if every step is ticked honestly.</p>
+      <p class="good">Catch the agree-and-add phrases: "I agree, and I would add…" · "That is very true."</p>
+    </div>
+  </section>
+
+  <!-- 11 · LISTEN D3 -->
+  <section class="slide" data-notes="TIMING 0:50–0:55. Play Dialogue 3 (1:37) — the preventive measures, packed with modals. Gist task: 'List three fixes and the modal used for each.' Answers: should double-check the torque; must cross-check safety-critical work; must not take a call with hands inside the aircraft; must file an incident report; should hold the talk weekly. This dialogue is the model for role-play card 4. You can also use Dialogue 4, the 37-second PA stand-down, as an optional dictation.">
+    <div class="kick">Listening · Dialogue 3 (1:37)</div>
+    <h2>Agreeing the preventive measures</h2>
+    <div class="card">
+      <p><b>Before you play:</b> "List three fixes and the modal used for each."</p>
+      <p class="muted">should double-check torque · must cross-check safety-critical work · must not take a call · must file an incident report · should meet weekly.</p>
+    </div>
+    <p class="muted">Optional: Dialogue 4 (0:37) PA stand-down — quick dictation of the numbers.</p>
+  </section>
+
+  <!-- 12 · EXERCISE STAGING 1 -->
+  <section class="slide" data-notes="TIMING 0:55–1:07 (exercise block, part 1). Set E1–E4 on the student page. E1 gap-fill and E2 matching are individual, three minutes each; take feedback with a show of hands. E3 dialogue completion checks recall of the listenings. E4 is the grammar transformation — this is the one that matters, so do the first item together, then let them finish and self-mark with the Check button. Circulate and watch for the +to and -s errors.">
+    <div class="kick">Exercises · controlled practice</div>
+    <h2>E1–E4 · words then grammar</h2>
+    <table>
+      <tr><th>Ex</th><th>Type</th><th>Focus</th><th>Time</th></tr>
+      <tr><td>E1</td><td>Gap-fill</td><td>the ten core terms</td><td>3'</td></tr>
+      <tr><td>E2</td><td>Matching</td><td>term ↔ meaning</td><td>3'</td></tr>
+      <tr><td>E3</td><td>Dialogue completion</td><td>recall the briefing</td><td>3'</td></tr>
+      <tr><td>E4</td><td>Modal transformation</td><td>advice / rule / prohibition</td><td>3'</td></tr>
+    </table>
+  </section>
+
+  <!-- 13 · EXERCISE STAGING 2 -->
+  <section class="slide" data-notes="TIMING 1:07–1:20 (exercise block, part 2). E5 and E7 are reading tasks — an occurrence report and a safety bulletin, authentic maintenance genres. Set them for skimming first, then close reading for the six answers. E6 is error-spotting on eight modal mistakes — the same three patterns from the grammar slide, so it doubles as consolidation. E8 replays Dialogue 3 for listening detail. If time is short, drop E5 and keep E6 and E8.">
+    <div class="kick">Exercises · reading + listening detail</div>
+    <h2>E5–E8 · authentic documents</h2>
+    <table>
+      <tr><th>Ex</th><th>Type</th><th>Focus</th><th>Time</th></tr>
+      <tr><td>E5</td><td>Reading 1</td><td>occurrence report — HF-2026-014</td><td>4'</td></tr>
+      <tr><td>E6</td><td>Error-spotting</td><td>eight modal fixes</td><td>4'</td></tr>
+      <tr><td>E7</td><td>Reading 2</td><td>safety bulletin 06/2026</td><td>3'</td></tr>
+      <tr><td>E8</td><td>Listening review</td><td>Dialogue 3 detail</td><td>3'</td></tr>
+    </table>
+  </section>
+
+  <!-- 14 · ERROR CHAIN widget -->
+  <section class="slide" data-notes="TIMING 1:20–1:22 (transition to speaking). Use this quick visual to reset attention before the role-play. Click the links to build the error chain from the near-miss, then click Break it to show that one cross-check stops the chain becoming an accident. Say the takeaway line the group will use in their talks: 'A cross-check breaks the error chain.' Then move to pairs.">
+    <div class="kick">Consolidation · the error chain</div>
+    <h2>One cross-check breaks the chain</h2>
+    <div class="wk" data-widget="chain">
+      <div class="bar"><span class="muted">Click each link, then Break it.</span>
+        <button id="ec-b1">phone call</button><button id="ec-b2">distraction</button>
+        <button id="ec-b3">spanner left</button><button id="ec-b4">near-miss</button>
+        <button id="ec-break" class="on">Break it</button></div>
+      <canvas id="ec-canvas" width="700" height="90"></canvas>
+      <div class="info" id="ec-info">Build the chain link by link.</div>
+    </div>
+  </section>
+
+  <!-- 15 · ROLE-PLAY MANAGEMENT -->
+  <section class="slide" data-notes="TIMING 1:22–1:42 (speaking block, 20 min — the main event). Put learners in pairs. There are four role-play cards on the student page. Run cards 1 and 2 first (lead the talk / agree and add), then swap and run cards 3 and 4 (speak up about a norm / recommend the measures). Give each speaker two minutes, then swap. Insist on one modal verb per recommendation. Circulate with the speaking rubric in the teacher key; note two strong lines and one modal error per pair for whole-class feedback. Point pairs to the on-page chat partner if one learner needs a partner.">
+    <div class="kick">Speaking · run the toolbox talk (20')</div>
+    <h2>Four cards, swap after each</h2>
+    <div class="two">
+      <div class="card"><p><span class="tag">CARD 1</span> <b>Lead the talk</b> — describe the near-miss, name the factor, recommend one fix.</p>
+      <p><span class="tag">CARD 2</span> <b>Agree &amp; add</b> — agree, then add a fatigue or pressure example.</p></div>
+      <div class="card"><p><span class="tag">CARD 3</span> <b>Speak up</b> — name the unsafe norm politely but firmly.</p>
+      <p><span class="tag">CARD 4</span> <b>Recommend</b> — three measures, one modal verb in each.</p></div>
+    </div>
+    <p class="muted">Rule of the room: every recommendation carries a modal verb.</p>
+  </section>
+
+  <!-- 16 · WRITING -->
+  <section class="slide" data-notes="TIMING 1:42–1:47 (writing, set here / finish for homework). Set the toolbox-talk record: 90–120 words in Simplified Technical English — short sentences, one idea per line, simple words. It must describe the near-miss, name the human factor and its likely consequence, and list two or three fixes with modals. Show the STE habits: one command per sentence, active voice, approved words. The model answer is behind the reveal on the student page; do not show it until they have drafted.">
+    <div class="kick">Writing · the toolbox-talk record</div>
+    <h2>Write it in Simplified Technical English</h2>
+    <div class="card">
+      <p>90–120 words. Describe the near-miss. Name the human factor and its likely consequence. List two or three fixes with modals.</p>
+      <p class="good">STE habits: short sentences · one idea per line · simple, approved words · active voice.</p>
+    </div>
+  </section>
+
+  <!-- 17 · WRAP -->
+  <section class="slide" data-center data-notes="TIMING 1:47–1:50 (wrap-up). Close the loop back to the outcomes. Cold-call three learners: one describes a human factor and its consequence, one adds a point in the briefing register, one recommends a fix with a modal. Give the one-line takeaway: in a toolbox talk you name the human factor and recommend the fix with the right modal — should for advice, must for a rule, must not for a stop. Preview that the quiz checks listening, reading, grammar and vocabulary.">
+    <div class="kick">Wrap-up</div>
+    <h2>Name the factor. Recommend the fix. Choose the modal.</h2>
+    <p class="big muted">should = advice &nbsp;·&nbsp; must = a rule &nbsp;·&nbsp; must not = a stop</p>
+    <p class="pill">Exit check: describe · add in the briefing · recommend with a modal</p>
+  </section>
+
+  <!-- 18 · HOMEWORK + EXIT -->
+  <section class="slide" data-notes="TIMING 1:50 onward / handout. Give the homework: finish the toolbox-talk record if not done, and run a two-minute talk with the on-page chat partner. Point to the quiz — twenty-plus items across listening, reading, grammar and vocabulary. Exit ticket: each learner writes one preventive measure with a modal on a slip and reads it at the door. Thank the group and remind them to work safely.">
+    <div class="kick">Homework &amp; exit ticket</div>
+    <h2>Before next class</h2>
+    <div class="two">
+      <div class="card"><p><b>Homework</b></p><p>1. Finish the toolbox-talk record (90–120 words, STE).</p><p>2. Run a two-minute talk with the on-page chat partner.</p></div>
+      <div class="card"><p><b>Exit ticket</b></p><p>Write one preventive measure with a modal verb. Read it at the door.</p><p class="muted">e.g. "We must cross-check every safety-critical task."</p></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS ===================== -->
+<script>
+(function(){
+  window.DeckW = {};
+  function ease(a,b,t){ return a+(b-a)*t; }
+
+  // matching widget (slide 7)
+  DeckW.match = function(holder){
+    var terms=[
+      ["cross-check","a check of your work by a second person"],
+      ["double-check","to check something a second time yourself"],
+      ["torque","the tightness set on a bolt"],
+      ["lockwire","thin wire that stops a bolt turning loose"],
+      ["incident report","a written record of an unsafe event"]
+    ];
+    var order=[0,1,2,3,4], mo=[3,0,4,1,2];
+    var tCol=holder.querySelector('#mt-terms'), mCol=holder.querySelector('#mt-means'),
+        info=holder.querySelector('#mt-info'), reset=holder.querySelector('#mt-reset');
+    var sel=null, done=0;
+    function build(){
+      tCol.innerHTML=''; mCol.innerHTML=''; sel=null; done=0; info.textContent='Matched: 0 / 5';
+      order.forEach(function(k){ var b=document.createElement('button'); b.textContent=terms[k][0];
+        b.style.display='block'; b.style.width='100%'; b.style.margin='5px 0'; b.dataset.k=k;
+        b.addEventListener('click',function(){ if(b.disabled) return;
+          tCol.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});
+          b.classList.add('on'); sel=k; }); tCol.appendChild(b); });
+      mo.forEach(function(k){ var b=document.createElement('button'); b.textContent=terms[k][1];
+        b.style.display='block'; b.style.width='100%'; b.style.margin='5px 0'; b.dataset.k=k;
+        b.addEventListener('click',function(){ if(b.disabled||sel===null) return;
+          if(sel===k){ b.disabled=true; var tb=tCol.querySelector('[data-k="'+k+'"]'); tb.disabled=true;
+            tb.classList.remove('on'); tb.style.borderColor='#34d399'; b.style.borderColor='#34d399';
+            done++; info.textContent='Matched: '+done+' / 5'+(done===5?' — all correct.':''); sel=null; }
+          else { info.textContent='Not a match — try another meaning.'; } }); mCol.appendChild(b); });
+    }
+    reset.addEventListener('click',build); build();
+  };
+
+  // modal strength meter (slide 8)
+  DeckW.strength = function(holder){
+    var r=holder.querySelector('#st-range'), c=holder.querySelector('#st-canvas'),
+        info=holder.querySelector('#st-info'); var g=c.getContext('2d'), cur=0.4, tgt=0.4;
+    var d=[
+      {p:0.18,col:'#34d399',t:'do not have to / need not',s:'You do not have to stay late. — no obligation'},
+      {p:0.45,col:'#fbbf24',t:'should / ought to',s:'We should double-check every torque. — advice'},
+      {p:0.72,col:'#38b6ff',t:'must / have to',s:'You must file an incident report. — a rule'},
+      {p:1.0, col:'#ff5667',t:'must not',s:'You must not take a call near the panel. — not allowed'}
+    ];
+    function draw(){ cur=ease(cur,tgt,0.2); var x=d[r.value];
+      g.clearRect(0,0,c.width,c.height); g.fillStyle='#0a0f18'; g.fillRect(0,0,c.width,c.height);
+      g.fillStyle='#1b2a40'; g.fillRect(0,26,c.width,18);
+      g.fillStyle=x.col; g.fillRect(0,26,c.width*cur,18);
+      if(Math.abs(cur-tgt)>0.005) requestAnimationFrame(draw); }
+    function upd(){ var x=d[r.value]; tgt=x.p; info.innerHTML='<b style="color:'+x.col+'">'+x.t+'</b><br>'+x.s; requestAnimationFrame(draw); }
+    r.addEventListener('input',upd); upd();
+  };
+
+  // error chain (slide 14)
+  DeckW.chain = function(holder){
+    var c=holder.querySelector('#ec-canvas'), info=holder.querySelector('#ec-info'),
+        g=c.getContext('2d'); var built=[], broken=false, t=0;
+    function draw(){ g.clearRect(0,0,c.width,c.height); var step=c.width/5;
+      for(var k=0;k<built.length;k++){ var x=step*(k+0.5), on=!(broken&&k>=2);
+        if(k>0){ g.strokeStyle=(broken&&k>=2)?'#ff5667':'#4a7bc4'; g.lineWidth=4;
+          g.beginPath(); g.moveTo(step*(k-0.5)+20,45); g.lineTo(x-20,45); g.stroke(); }
+        g.fillStyle=on?'#38b6ff':'#3a4b60'; g.beginPath(); g.arc(x,45,20,0,Math.PI*2); g.fill();
+        g.fillStyle='#020E27'; g.font='700 12px sans-serif'; g.textAlign='center'; g.textBaseline='middle';
+        g.fillText(k+1,x,45); }
+      if(broken){ t+=0.05; if(t<1) requestAnimationFrame(draw); } }
+    ['ec-b1','ec-b2','ec-b3','ec-b4'].forEach(function(id){ var b=holder.querySelector('#'+id);
+      b.addEventListener('click',function(){ if(b.disabled) return; b.disabled=true; b.style.opacity='0.5';
+        built.push(1); info.textContent=built.length<4?'Link added — keep going.':'Chain complete. Now break it.';
+        requestAnimationFrame(draw); }); });
+    holder.querySelector('#ec-break').addEventListener('click',function(){ broken=true; t=0;
+      info.textContent='A cross-check breaks the chain: the near-miss never becomes an accident.'; requestAnimationFrame(draw); });
+    draw();
+  };
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u06_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u06_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open(); presenter.document.write(PRES_HTML); presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 6</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:28px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u06_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u06_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u06_deck_state")render();});',
+'render();',
+'<\/script></body></html>'
+].join('');
+window.addEventListener('storage',function(e){
+  if(e.key==='u06_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════ LIVE CAPTION TRANSLATOR — speaker speech → live translated subtitle. Toggle: CC button / "L" key. ════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-src{ display:none; font-family:system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:monospace; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:monospace; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src" id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn" id="lctBtn" title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option><option value="lv-LV">Latviešu</option><option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option><option value="de-DE">Deutsch</option><option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option><option value="ru">Русский</option><option value="en">English</option>
+    <option value="uk">Українська</option><option value="pl">Polski</option><option value="lt">Lietuvių</option><option value="et">Eesti</option>
+  </select>
+</div>
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'), lineTop=document.getElementById('lctLineTop'), lineBot=document.getElementById('lctLineBot'),
+      srcEl=document.getElementById('lctSrc'), btn=document.getElementById('lctBtn'), gear=document.getElementById('lctGear'),
+      status=document.getElementById('lctStatus'), langBar=document.getElementById('lctLangBar'),
+      srcSel=document.getElementById('lctSrcSel'), tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var spoken='en-US', src='en', target='lv', rec=null, active=false;
+  var capTopB='', capBotB='', lastInterim='', pending='', finalTimer=null, silenceTimer=null;
+  var lastTrAt=0, lastTrText='', lastTrLen=0, netErrors=0, cache=new Map(), POLL_GAP_MS=700, lctIdeaTimer=null;
+  function setStatus(t){ status.textContent=t; status.classList.toggle('show', active||t==='mic blocked'||t==='use Chrome'); }
+  function tail(text,maxWords){ if(!text) return ''; var t=String(text).trim().replace(/\s+/g,' '); if(!t) return '';
+    var parts=t.split(' '); if(parts.length<=maxWords) return t; var s=parts.slice(-maxWords).join(' ');
+    var m=s.match(/[.!?…]\s+(.+)$/)||s.match(/[,;:]\s+(.+)$/); return m?m[1]:s; }
+  async function translateRemote(text){ try{ if(src===target) return text;
+      var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text);
+      var ctrl=new AbortController(), tmo=setTimeout(function(){ctrl.abort();},3000);
+      var r=await fetch(url,{signal:ctrl.signal}); clearTimeout(tmo); if(!r.ok) return null;
+      var j=await r.json(); if(Array.isArray(j)&&Array.isArray(j[0])){ var out=''; j[0].forEach(function(seg){if(seg&&seg[0])out+=seg[0];}); return out||null; }
+      return null; }catch(e){ return null; } }
+  async function translate(text){ if(!text||!text.trim()) return ''; var key=src+'|'+target+'|'+text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key); var out=await translateRemote(text); if(!out) out=text;
+    cache.set(key,out); if(cache.size>250){ cache.delete(cache.keys().next().value); } return out; }
+  function rowCap(){ var el=lineBot; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.9)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16,Math.floor(box/(fs*0.52))); }
+  function trim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=rowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0?s.slice(i+1):s; }
+  function wrap(){ var cap=rowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capBotB=capBotB.slice(cut).trim(); } }
+  function draw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=rowCap();
+    if(capBotB&&(capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capBotB=''; }
+    lineTop.textContent=trim(capTopB); lineBot.textContent=trim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail(pending||'',16); }
+  function commit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB=capBotB?(capBotB+' '+tr):tr; wrap(); if(/[.!?…]$/.test(capBotB)){ capTopB=capBotB; capBotB=''; } draw(); }
+  function render(){ draw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(function(){ if(capBotB){ capTopB=capBotB; capBotB=''; } draw(); },1500); }
+  function armSilence(){ cancelSilence(); silenceTimer=setTimeout(function(){ capTopB=''; capBotB=''; lastInterim=''; pending=''; render(); },30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer=null; } }
+  async function commitFinal(chunk){ chunk=chunk.trim(); if(!chunk) return; srcEl.textContent=tail(chunk,18); var tr=await translate(chunk); commit(tr); lastInterim=''; lastTrLen=0; render(); }
+  async function translateInterim(text){ var now=performance.now(); if(now-lastTrAt<POLL_GAP_MS) return; if(text.length-lastTrLen<10&&text.length>0) return; if(text===lastTrText) return;
+    lastTrAt=now; lastTrLen=text.length; lastTrText=text; try{ var tr=await translate(text); if(tr&&active){ lastInterim=tr; render(); } }catch(e){} }
+  function startRec(){ rec=new SR(); rec.continuous=true; rec.interimResults=true; rec.lang=spoken; if('maxAlternatives' in rec) rec.maxAlternatives=1;
+    rec.onresult=function(e){ netErrors=0; cancelSilence(); var interim='', fin='';
+      for(var i=e.resultIndex;i<e.results.length;i++){ var r=e.results[i]; if(r.isFinal) fin+=' '+r[0].transcript; else interim+=' '+r[0].transcript; }
+      if(fin){ pending+=' '+fin; if(finalTimer) clearTimeout(finalTimer); finalTimer=setTimeout(function(){ var c=pending; pending=''; commitFinal(c).then(armSilence); },120); }
+      if(interim){ srcEl.textContent=tail(interim.trim(),18); translateInterim(interim.trim()); }
+      render(); setStatus('live · '+src+'→'+target); };
+    rec.onerror=function(ev){ if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active=false; }
+      else if(ev.error==='no-speech'||ev.error==='aborted'){} else if(ev.error==='network'){ netErrors++; if(netErrors>=3){ active=false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect '+netErrors+'/3'); }
+      else setStatus(ev.error); };
+    rec.onend=function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active&&rec){ try{ rec.start(); }catch(_){} } },350); } } };
+    try{ rec.start(); }catch(e){} }
+  function toggle(){ if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){ active=false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); if(rec){ try{ rec.onend=null; rec.stop(); }catch(e){} rec=null; } capTopB=''; capBotB=''; lastInterim=''; pending=''; render(); }
+    else { active=true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on'); setStatus('starting…'); startRec(); } }
+  btn.addEventListener('click',function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click',function(e){ e.stopPropagation(); var open=langBar.classList.toggle('open'); gear.classList.toggle('on',open); });
+  document.addEventListener('keydown',function(e){ if((e.key==='l'||e.key==='L')&&!/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle(); });
+  srcSel.addEventListener('change',function(e){ e.stopPropagation(); spoken=srcSel.value; src=spoken.slice(0,2); cache.clear(); if(active&&rec){ rec.onend=null; try{ rec.stop(); }catch(_){} rec=null; startRec(); } if(active) setStatus('live · '+src+'→'+target); });
+  tgtSel.addEventListener('change',function(e){ e.stopPropagation(); target=tgtSel.value; cache.clear(); capTopB=''; capBotB=''; lastInterim=''; lastTrText=''; lastTrLen=0; render(); if(active) setStatus('live · '+src+'→'+target); });
+  [srcSel,tgtSel].forEach(function(s){ s.addEventListener('click',function(e){ e.stopPropagation(); }); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+<question type="category">
+  <category><text>$course$/top/CF/U06-r1</text></category>
+  <info format="html"><text><![CDATA[Unit 6 — Toolbox talk and the Dirty Dozen. Listening, Reading, Use of English, Vocabulary.]]></text></info>
+</question>
+
+<!-- ==================== LISTENING (6) ==================== -->
+
+<question type="multichoice">
+  <name><text>U06-L1 Dialogue 1 main factor</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Listening — Dialogue 1.</b> Listen to Dialogue 1 again. What was the main human factor behind the near-miss?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The team lead says a phone call took the technician's attention off the job, so <b>distraction</b> was the main factor. Complacency added to it, but it was not the main one.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[Distraction from a phone call]]></text><feedback format="html"><text><![CDATA[Correct — the call pulled his attention off the flap inspection.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[A worn or faulty control cable]]></text><feedback format="html"><text><![CDATA[No — it was a human factor, not a technical fault.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[A wrong torque on the flap bolts]]></text><feedback format="html"><text><![CDATA[No — torque is not mentioned in Dialogue 1.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Poor lighting near the flap track]]></text><feedback format="html"><text><![CDATA[No — lighting is not the factor named in the dialogue.]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>U06-L2 Dialogue 1 complacency</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Listening — Dialogue 1.</b> Listen again. The speakers agree that complacency also played a part, because the task felt routine.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Elena adds complacency, and the team lead agrees: "He had done that task many times, so he felt over-confident." So the statement is true.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+  <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[Correct — routine work quietly lowered his awareness.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[Listen again — both speakers name complacency as a second factor.]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>U06-L3 Dialogue 2 unsafe norm</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Listening — Dialogue 2.</b> Listen to Dialogue 2 again. Which unsafe norm does Elena raise?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Elena says the team "sometimes sign the checklist first, and then finish the task afterwards." Signing before the work is done is the unsafe norm.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[Signing the checklist before the task is done]]></text><feedback format="html"><text><![CDATA[Correct — the checklist only defends you if each step is ticked honestly.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Leaving loose hand tools uncounted on the hangar floor]]></text><feedback format="html"><text><![CDATA[No — this norm is not the one Elena raises.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Skipping the morning toolbox talk]]></text><feedback format="html"><text><![CDATA[No — the talk is happening; that is not the norm.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Working alone on a night shift]]></text><feedback format="html"><text><![CDATA[No — working alone is not the norm she names.]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>U06-L4 Dialogue 3 phone rule</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Listening — Dialogue 3.</b> Listen again. The rule agreed is that you must not take a call while your hands are inside the aircraft.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The team lead says: "You must not take a call while your hands are inside the aircraft." The statement matches the audio, so it is true.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+  <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[Correct — phones off near an open panel; no calls with hands inside.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[Listen again — this is stated as a firm rule with "must not".]]></text></feedback></answer>
+</question>
+
+<question type="numerical">
+  <name><text>U06-L5 Dialogue 4 stand-down minutes</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Listening — Dialogue 4 (PA announcement).</b> Listen again. How many minutes long is the safety stand-down? Write the number.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The announcement says "a two-minute safety stand-down", so the answer is 2.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+  <answer fraction="100" format="html"><text>2</text><feedback format="html"><text><![CDATA[Correct — a two-minute stand-down.]]></text></feedback><tolerance>0</tolerance></answer>
+</question>
+
+<question type="numerical">
+  <name><text>U06-L6 Dirty Dozen count</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Listening — Dialogue 1.</b> Listen again. How many items are there in the Dirty Dozen? Write the number.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The team lead says distraction is "one of the twelve items in the Dirty Dozen", so the answer is 12.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+  <answer fraction="100" format="html"><text>12</text><feedback format="html"><text><![CDATA[Correct — twelve human factors.]]></text></feedback><tolerance>0</tolerance></answer>
+</question>
+
+<!-- ==================== READING (4) ==================== -->
+
+<question type="multichoice">
+  <name><text>U06-R1 Task card</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Reading — task card.</b></p>
+<pre>TASK CARD 32-11-05 — Nose landing gear, daily check.
+Step 4: Torque the two access-panel bolts to 8 Nm.
+Step 5: Fit lockwire to both bolts.
+Step 6: A second technician must cross-check steps 4 and 5 and sign block 6B.</pre>
+<p>What must a second technician do?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Step 6 requires an independent cross-check of the torque (step 4) and the lockwire (step 5), with a signature in block 6B.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[Cross-check steps 4 and 5 and sign block 6B]]></text><feedback format="html"><text><![CDATA[Correct — an independent cross-check of the torque and the lockwire.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Re-torque both access-panel bolts to eight newton-metres]]></text><feedback format="html"><text><![CDATA[No — the first technician sets the torque; the second checks it.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Remove the lockwire and refit new wire]]></text><feedback format="html"><text><![CDATA[No — the card asks for a check, not a refit.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Defer the task to the next daily check]]></text><feedback format="html"><text><![CDATA[No — nothing on the card allows deferral.]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>U06-R2 Tech log MEL</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Reading — tech log entry.</b></p>
+<pre>TECH LOG — YL-BBC.
+Defect: right landing light inoperative.
+Crew ref MEL 33-40-01a: item may be deferred for 10 days.
+Action: light isolated and placarded; deferred per MEL.
+Cross-checked by B2 engineer.</pre>
+<p>Statement: The defect was fully repaired before the next flight.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The entry says the item was "deferred per MEL" — isolated and placarded, not repaired. So the statement is false.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+  <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[Correct — under the MEL the defect was deferred, not repaired.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[Re-read — the action was to isolate, placard and defer, not to repair.]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>U06-R3 Service bulletin</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Reading — service bulletin.</b></p>
+<pre>SERVICE BULLETIN SB A320-27-1189.
+Reason: reports of chafing on a flap-control cable near an access panel.
+Compliance: recommended within 600 flight hours.
+Action: inspect the cable run; if chafing is found, replace the cable.</pre>
+<p>When is compliance recommended?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The compliance line states "recommended within 600 flight hours." The action is to inspect, and replace only if chafing is found.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[Within 600 flight hours]]></text><feedback format="html"><text><![CDATA[Correct — the recommended compliance window.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Within 60 flight hours]]></text><feedback format="html"><text><![CDATA[No — check the figure again; it is 600.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Before the next daily check]]></text><feedback format="html"><text><![CDATA[No — the bulletin gives a flight-hours window.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[Only after chafing is reported]]></text><feedback format="html"><text><![CDATA[No — inspection is recommended within the window, not only after a report.]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>U06-R4 Work order</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Reading — work order.</b></p>
+<pre>WORK ORDER WO-5521.
+Task: replace cabin oxygen bottle.
+Note: safety-critical task — hold a toolbox talk before start and a debrief after.
+Sign-off requires an independent cross-check.</pre>
+<p>Statement: Sign-off of this task needs an independent cross-check.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The work order states sign-off "requires an independent cross-check", so the statement is true.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+  <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[Correct — a safety-critical task needs an independent cross-check.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[Re-read — the sign-off line requires a cross-check.]]></text></feedback></answer>
+</question>
+
+<!-- ==================== USE OF ENGLISH (7) ==================== -->
+
+<question type="shortanswer">
+  <name><text>U06-U1 prohibition modal</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Use of English.</b> Complete the rule. Write ONE word in the gap.</p>
+<p>You must ______ take a call near an open panel. (prohibition)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Prohibition is <b>must not</b> + base verb. The missing word after "must" is <b>not</b>.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+  <answer fraction="100" format="html"><text>not</text><feedback format="html"><text><![CDATA[Correct — "must not" marks a firm prohibition.]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U06-U2 base verb no -s</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Use of English.</b> Correct the verb. Write ONE word.</p>
+<p>He should <s>checks</s> ______ the lockwire twice.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[A modal takes the base verb with no third-person "-s". "should checks" becomes <b>should check</b>.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+  <answer fraction="100" format="html"><text>check</text><feedback format="html"><text><![CDATA[Correct — base verb after a modal, no "-s".]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U06-U3 ought to</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Use of English.</b> Write ONE word in the gap.</p>
+<p>We ______ to double-check every torque. (advice — the modal that keeps "to")</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA["ought to" is the one modal that keeps its "to". The missing word is <b>ought</b>.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+  <answer fraction="100" format="html"><text>ought</text><feedback format="html"><text><![CDATA[Correct — "ought to double-check".]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U06-U4 must + base verb</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Use of English.</b> Correct the error. Rewrite the modal phrase (two words).</p>
+<p>Wrong: "We <b>must to check</b> the torque."  →  Right: "We ______ ______ the torque."</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Drop the "to" after "must": <b>must check</b>. A modal is followed by the base verb.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+  <answer fraction="100" format="html"><text>must check</text><feedback format="html"><text><![CDATA[Correct — no "to" after "must".]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U06-U5 term cross-check</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Use of English — bank term.</b> Write the term (one hyphenated word).</p>
+<p>A check of your work by a second person is a ______.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[A second person checking your work is a <b>cross-check</b> (you checking again yourself is a double-check).]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+  <answer fraction="100" format="html"><text>cross-check</text><feedback format="html"><text><![CDATA[Correct — a second-person check.]]></text></feedback></answer>
+  <answer fraction="100" format="html"><text>crosscheck</text><feedback format="html"><text><![CDATA[Accepted — the usual spelling is "cross-check".]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U06-U6 term complacency</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Use of English — bank term.</b> Write the term (one word).</p>
+<p>Over-confidence that grows from routine work, so you stop checking, is ______.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Over-confidence from routine is <b>complacency</b> — a Dirty Dozen factor.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+  <answer fraction="100" format="html"><text>complacency</text><feedback format="html"><text><![CDATA[Correct — routine lowers your guard.]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U06-U7 no obligation</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Use of English — transformation.</b> Rewrite with a modal of NO obligation. Write the missing modal phrase (three words).</p>
+<p>"It is not necessary to blame anyone."  →  "We ______ ______ ______ blame anyone."</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA["Not necessary" = no obligation: <b>do not have to</b> (or "don't have to"). "need not" also works but is two words.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+  <answer fraction="100" format="html"><text>do not have</text><feedback format="html"><text><![CDATA[Correct — "do not have to blame anyone".]]></text></feedback></answer>
+  <answer fraction="100" format="html"><text>don't have to</text><feedback format="html"><text><![CDATA[Accepted — "don't have to blame anyone".]]></text></feedback></answer>
+  <answer fraction="100" format="html"><text>do not have to</text><feedback format="html"><text><![CDATA[Accepted — full form of the phrase.]]></text></feedback></answer>
+</question>
+
+<!-- ==================== VOCABULARY (4) ==================== -->
+
+<question type="matching">
+  <name><text>U06-V1 term to meaning</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Vocabulary.</b> Match each term to its plain meaning.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[near-miss = almost harm; fatigue = tiredness; norms = accepted habits; debrief = review after a job; assertiveness = speaking up.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+  <subquestion format="html"><text><![CDATA[near-miss]]></text><answer><text>an event that almost caused harm</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[fatigue]]></text><answer><text>being very tired, so you make mistakes</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[norms]]></text><answer><text>unsafe habits a team quietly accepts</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[debrief]]></text><answer><text>a short review talk after a job</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[assertiveness]]></text><answer><text>speaking up firmly about a safety concern</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[]]></text><answer><text>a written record of an unsafe event</text></answer></subquestion>
+</question>
+
+<question type="matching">
+  <name><text>U06-V2 collocations</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Vocabulary — collocations.</b> Match each word to the word it goes with.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Common partners: time + pressure; situational + awareness; incident + report; torque + setting; break + the error chain.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+  <subquestion format="html"><text><![CDATA[time]]></text><answer><text>pressure</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[situational]]></text><answer><text>awareness</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[incident]]></text><answer><text>report</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[torque]]></text><answer><text>setting</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[error]]></text><answer><text>chain</text></answer></subquestion>
+</question>
+
+<question type="multichoice">
+  <name><text>U06-V3 assertiveness</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Vocabulary.</b> Which word means "speaking up firmly about a safety concern"?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Speaking up firmly, even when it feels awkward, is <b>assertiveness</b> — a Dirty Dozen factor when it is missing.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[assertiveness]]></text><feedback format="html"><text><![CDATA[Correct — raising a worry firmly and early.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[complacency]]></text><feedback format="html"><text><![CDATA[No — that is over-confidence from routine.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[distraction]]></text><feedback format="html"><text><![CDATA[No — that is attention leaving the task.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[low situational awareness]]></text><feedback format="html"><text><![CDATA[No — that is not knowing what is going on around you.]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>U06-V4 lockwire</text></name>
+  <questiontext format="html"><text><![CDATA[<p><b>Vocabulary.</b> Which part is "thin wire that stops a bolt turning loose"?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<b>Lockwire</b> ties fasteners so vibration cannot back them off. Torque is the tightness; a checklist is a list of steps.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[lockwire]]></text><feedback format="html"><text><![CDATA[Correct — it physically locks a bolt against vibration.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[a checklist]]></text><feedback format="html"><text><![CDATA[No — that is a list of steps you tick off.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[the torque]]></text><feedback format="html"><text><![CDATA[No — that is the tightness set on the bolt.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[an incident report]]></text><feedback format="html"><text><![CDATA[No — that is a written record of an unsafe event.]]></text></feedback></answer>
+</question>
+
+</quiz>
