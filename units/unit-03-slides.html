@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 3 — Teacher Deck · Raising a defect in the tech log</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace;
+  --fact:#34d399;--assume:#ff8fc0;--ste:#7fd0ff}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:40px;margin:.2em 0;line-height:1.1}
+h2{font-size:29px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}li{margin:.15em 0}
+small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:660px}
+.gloss{font-family:var(--mono);font-size:13px;color:var(--amber)}
+.turnbox{background:#0c1622;border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:19px;line-height:1.55}
+.turnbox b{color:var(--accent)}
+.tag{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+table.g{border-collapse:collapse;width:100%;font-size:18px}
+table.g th,table.g td{border:1px solid var(--line);padding:6px 11px;text-align:left}
+table.g th{background:#0c1622;color:var(--muted);font-size:14px}
+.x{color:#ff9aa2}.ok{color:#9af0c8;font-weight:600}
+/* deck widget skin */
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk button.fact{color:#9af0c8}.wk button.assume{color:#ffb3d4}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:8px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:52px;font-size:15px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="0:00–0:04 — Open the unit. This is a taught 90-minute class inside English for Aviation Maintenance, aimed at EASA Part-66/145 mechanics and avionics technicians at CEFR B2. Say the one-line mission out loud: today the class turns a vague pilot snag — 'something feels wrong with the brakes' — into a precise, honest tech-log entry. Three skills carry the whole lesson and they are the three can-do outcomes on the next slide: write a clear defect (symptom, location, condition); tell an observed fact from an assumption; and rephrase a pilot report into technical terms. Keep the room in the hangar, not the classroom: every example is a real line-station or hangar situation. Point out the CC button (bottom-right, or key L): it gives a live Latvian or Russian subtitle of whatever is said, useful for the harder terms. Move on within four minutes — the energy comes from the role-play, not the opener.">
+    <div class="kick">English for Aviation Maintenance · Unit 3 of 32 · CEFR B2 · 90 min</div>
+    <h1>Raising a defect in the tech log</h1>
+    <p class="big muted">Turn a pilot's "something feels wrong with the brakes" into a precise tech-log entry — symptom, location and condition — and keep observed fact apart from assumption.</p>
+    <p class="pill">Vocabulary: leak · chafing · intermittent &nbsp;·&nbsp; Grammar: present perfect for a live defect &nbsp;·&nbsp; Writing in Simplified Technical English</p>
+  </section>
+
+  <!-- 2 · OUTCOMES + TIMING -->
+  <section class="slide" data-notes="0:04–0:07 — Read the three can-do outcomes as promises the students will be able to keep by the end. LO1 write a clear defect entry describing symptom, location and conditions. LO2 distinguish observed fact from assumption when recording a fault. LO3 rephrase a pilot-reported defect into precise technical terms. Then show the timing map on the right so the class knows the shape of the 90 minutes and does not rush the listening. Stress that the pack is balanced across skills — listening (four audio tracks), reading (a tech-log page and an MEL extract), speaking (four role-play cards), and writing (one tech-log entry). Tell them the exercises E1–E8 and the quiz are practice, not a graded test; the graded evidence is the written defect entry they produce and defend. Keep this slide short.">
+    <div class="kick">By the end · how the 90 minutes runs</div>
+    <h2>Three can-do outcomes</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">LO1 — write a clear defect.</b> Describe the <em>symptom</em>, the <em>location</em> and the <em>condition</em> in a tech-log entry.</p>
+        <p><b style="color:var(--purple)">LO2 — fact vs assumption.</b> Record only what you observed; keep any guess about the cause out of the entry.</p>
+        <p><b style="color:var(--good)">LO3 — rephrase the pilot.</b> Turn a vague pilot report into precise technical terms.</p>
+      </div>
+      <div>
+        <table class="g">
+          <tr><th>Stage</th><th>Min</th></tr>
+          <tr><td>Warm-up · vague snag</td><td>4</td></tr>
+          <tr><td>Listening · Dialogues 1–4</td><td>18</td></tr>
+          <tr><td>Vocabulary work</td><td>14</td></tr>
+          <tr><td>Grammar · present perfect</td><td>12</td></tr>
+          <tr><td>Exercises E1–E8</td><td>20</td></tr>
+          <tr><td>Role-play · 4 cards</td><td>14</td></tr>
+          <tr><td>Writing · start in class</td><td>8</td></tr>
+        </table>
+        <p class="muted" style="font-size:15px;margin-top:8px">Balanced skills · listen twice · finish the writing for homework.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · WARM-UP -->
+  <section class="slide" data-center data-notes="0:04–0:08 — Warm-up, books closed. Put the vague line on the board and ask the room: could you sign a tech-log entry from this? 'Something feels wrong with the brakes.' Let two or three students react. Draw out the problem: it has no symptom you can observe, no location, no condition. It is a feeling, not a defect. Introduce the fix the whole lesson trains: a mechanic questions the report until three things are clear — WHAT is the observable sign (symptom), WHERE is it (location), and WHEN does it happen (condition). Write those three words on the board and leave them up all lesson; every task comes back to them. Then start the first audio.">
+    <div class="kick">Warm-up · books closed</div>
+    <h2>Could you sign a tech log from this?</h2>
+    <p class="big">"Something feels wrong with the brakes."</p>
+    <p class="muted" style="max-width:60ch">No <b style="color:var(--good)">symptom</b> you can observe · no <b style="color:var(--good)">location</b> · no <b style="color:var(--good)">condition</b>. A feeling is not a defect. The mechanic's job today: question the report until those three are clear.</p>
+  </section>
+
+  <!-- 4 · DIALOGUE 1 -->
+  <section class="slide" data-notes="0:08–0:14 — Play Dialogue 1 (audio track 1 in the pack): 'Turning the pilot's snag into a tech-log entry.' First listen, books closed: the task is one question only — what three things does the entry need? (symptom, location, condition). Second listen, books open with the transcript: students underline the exact symptom ('the pedal feels soft during a normal landing'), the location ('the left main gear') and the condition ('during landing'). Highlight the pivotal line — 'The seal has failed is only an assumption, not an observation' — because that is LO2 in one sentence. Keep sentences short in your own speech; the audio is B2 but built from short lines. Elicit the finished entry the mechanic writes: 'The left brake pedal has felt soft during landing.' Note the present perfect already appearing — flag it, you return to it in the grammar block.">
+    <div class="kick">§1 · Listening · Dialogue 1 (track 1)</div>
+    <h2>From a vague snag to a clear entry</h2>
+    <div class="cols">
+      <div class="turnbox">
+        <p><b>A:</b> It only says "something feels wrong with the brakes." That is not a clear symptom.</p>
+        <p><b>B:</b> We cannot write that. We need the real symptom and the location.</p>
+        <p><b>A:</b> The pilot says the pedal feels soft during a normal landing.</p>
+        <p><b>A:</b> "The seal has failed" is only an assumption, not an observation.</p>
+      </div>
+      <div>
+        <p><b>Listen 1 (closed):</b> what three things must the entry have?</p>
+        <p><b>Listen 2 (open):</b> underline the <span style="color:var(--good)">symptom</span>, the <span style="color:var(--good)">location</span>, the <span style="color:var(--good)">condition</span>.</p>
+        <p class="muted">Final entry → <code>The left brake pedal has felt soft during landing.</code></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · WIDGET: fact vs assumption -->
+  <section class="slide" data-notes="0:14–0:19 — Interactive. This is the LO2 anchor. A defect entry records only what you OBSERVED — a fact you saw, felt, or measured. It must not record an ASSUMPTION — a guess about the cause. Run the widget with the whole class: read each line aloud, take a vote 'fact or assumption?', then click your bin and watch it fly and turn green (right) or red (wrong). The rule to leave on the board: 'The line shows chafing' is an observation; 'the seal has failed' is an assumption — you did not see the seal fail, you inferred it. Push the point: an assumption in the log sends the next shift chasing the wrong part. Write what you saw; let the inspection find the cause. Reset and let a student drive if time allows.">
+    <div class="kick">§1 · Interactive · fact or assumption?</div>
+    <h2>Record the observation — never the guess</h2>
+    <div class="cols">
+      <div class="dw" data-widget="sort"></div>
+      <div><p>An <b style="color:var(--fact)">observation</b> is what you saw or measured. An <b style="color:var(--assume)">assumption</b> is a guess about the cause.</p>
+        <p class="muted">"The line shows chafing" — observation. "The seal has failed" — assumption. Only observations belong in the entry.</p></div>
+    </div>
+  </section>
+
+  <!-- 6 · DIALOGUE 2 -->
+  <section class="slide" data-notes="0:14–0:18 (runs alongside the vocabulary block) — Play Dialogue 2 (track 2): 'Describing the defect precisely.' The mechanic has inspected the brake unit and reports three findings: a hydraulic leak at the brake line union, chafing where the line has rubbed a bracket, and play that the wheel bearing has developed. Task: students catch all THREE findings AND the exact location of each — precision of location is the professional habit. Draw the class's attention to how each finding is stated as an observation with a place, never a cause. Connect back: the soft pedal the pilot felt (Dialogue 1) is now explained by the leak — but notice they still write the leak as the observation, not 'the leak caused the soft pedal'. This dialogue seeds the three headline vocabulary terms: leak, chafing, and (in Dialogue 3) intermittent.">
+    <div class="kick">§1 · Listening · Dialogue 2 (track 2)</div>
+    <h2>Three findings — each with an exact location</h2>
+    <div class="cols">
+      <div class="turnbox">
+        <p><b>A:</b> I have found a <span class="gloss">leak</span> at the brake line union, near the wheel.</p>
+        <p><b>A:</b> The line shows <span class="gloss">chafing</span>. It has rubbed against a bracket.</p>
+        <p><b>A:</b> The bearing has developed <span class="gloss">play</span>. There is clear wear on the race.</p>
+      </div>
+      <div>
+        <p>Catch the <b>three findings</b> and the <b>location</b> of each.</p>
+        <ul class="muted"><li>leak → brake line union</li><li>chafing → line against the bracket</li><li>play → wheel bearing / race</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · VOCAB FIELD -->
+  <section class="slide" data-notes="0:18–0:26 — Vocabulary field: defect description. Teach the terms inside their word partner, because that is how a mechanic uses them — 'find a leak', 'chafing on a line', 'an intermittent fault'. Drill the three headline terms hard: LEAK = fluid escaping where it should not; CHAFING = rubbing damage where two parts touch; INTERMITTENT = a fault that comes and goes. Add the supporting field on the board: crack, corrosion, play, wear. Latvian and Russian speakers tend to over-generalise 'break/broken' for every fault — push them to the precise term instead ('the line shows chafing', not 'the line is broken'). Model pronunciation of chafing /ˈtʃeɪfɪŋ/ and intermittent /ˌɪntəˈmɪtənt/, which both cause trouble. The full 20-term bank is in the pack; this slide only fixes the field.">
+    <div class="kick">§2 · Vocabulary · defect description</div>
+    <h2>Learn the term inside its word partner</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="gloss">leak</b> — fluid escaping where it should not. <span class="muted">find a leak · a hydraulic leak</span></p>
+        <p><b class="gloss">chafing</b> — rubbing damage where two parts touch. <span class="muted">chafing on a line</span></p>
+        <p><b class="gloss">intermittent</b> — a fault that comes and goes. <span class="muted">an intermittent fault</span></p>
+      </div>
+      <div>
+        <p>Supporting field: <code>crack</code> · <code>corrosion</code> · <code>play</code> · <code>wear</code>.</p>
+        <p class="muted">Say the precise term, not "broken". "The line shows chafing" beats "the line is broken".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · VOCAB ACTIVITY -->
+  <section class="slide" data-notes="0:22–0:26 — Vocabulary activity staging. Two quick rounds. Round 1, meaning: read a plain meaning, the class calls the specialist term (this rehearses E2 matching). Round 2, collocation: give the term, the class supplies the word partner and a whole sentence ('leak' → 'I have found a hydraulic leak at the union'). Insist on a full sentence so the term is used, not just recognised. This is where the class earns the vocabulary for the exercises and the role-play, so keep it brisk and choral, then a few individuals. Signal that every bank term will come back in E1 and E2, so nothing is wasted.">
+    <div class="kick">§2 · Interactive · two quick rounds</div>
+    <h2>Meaning → term, then term → sentence</h2>
+    <div class="dw" data-widget="builder"></div>
+    <p class="note muted" style="max-width:64ch">Round 1: teacher says the plain meaning, class calls the term. Round 2: teacher says the term, class builds a full sentence with its word partner. Toggle the three parts of a good entry and watch the ring complete.</p>
+  </section>
+
+  <!-- 9 · GRAMMAR: present perfect -->
+  <section class="slide" data-notes="0:26–0:33 — Grammar in context: present perfect for a found, still-relevant defect. The rule that unlocks it: you use the present perfect BECAUSE the fault exists now. The past action ('developed cracks') has a present result ('the cracks are still there'). Read the three lines from the dialogues: 'The panel has developed cracks', 'I have found a hydraulic leak', 'The bearing has developed play' — in every case the defect is live and unrepaired, so the tense is present perfect, has/have + past participle. Contrast with the past simple, which you use for a CLOSED job ('I replaced the seal yesterday' — finished, done). Run the widget: toggle between 'still true now' (present perfect) and 'closed job' (past simple) and watch the marker either pulse at NOW or sit back in the past. This is the single most testable point in the quiz.">
+    <div class="kick">§3 · Grammar · the live defect</div>
+    <h2>Present perfect — the defect is still there now</h2>
+    <div class="cols">
+      <div class="dw" data-widget="ppf"></div>
+      <div><p><code>has / have</code> + past participle. The action is past; the <b>result is true now</b>.</p>
+        <p class="muted">"The panel <b>has developed</b> cracks." The cracks are still there → present perfect. A closed job ("I replaced the seal") → past simple.</p></div>
+    </div>
+  </section>
+
+  <!-- 10 · GRAMMAR FORM + for/since -->
+  <section class="slide" data-notes="0:30–0:34 — The form on one slide, so students can copy it. Positive: has/have + participle. Negative: has/have not + participle ('The technician has not rectified the leak'). Question: Has/Have + subject + participle ('Have you found the leak yet?'). Then the for/since split, which Latvian and Russian speakers get wrong constantly: FOR + a length of time ('for two flights'), SINCE + a start point ('since yesterday'). Drill three quick prompts. Warn against the two classic participle errors coming up in the error-spotting exercise: 'has develop' (base verb instead of participle) and 'has store' — after has/have you always need the participle, developed / stored / found / leaked.">
+    <div class="kick">§3 · Grammar · the form</div>
+    <h2>Form · negative · question · for / since</h2>
+    <table class="g">
+      <tr><th>Purpose</th><th>Form</th><th>Example</th></tr>
+      <tr><td>Positive</td><td>has / have + participle</td><td>The panel has developed cracks.</td></tr>
+      <tr><td>Negative</td><td>has / have not + participle</td><td>The technician has not rectified the leak.</td></tr>
+      <tr><td>Question</td><td>Has / Have + subject + participle</td><td>Have you found the leak yet?</td></tr>
+      <tr><td><code>for</code> / <code>since</code></td><td>+ length / + start point</td><td>leaked <b>for</b> two flights · <b>since</b> yesterday</td></tr>
+    </table>
+    <p class="muted" style="margin-top:10px">After <em>has / have</em> always use the participle: developed, stored, found, leaked — never the base verb.</p>
+  </section>
+
+  <!-- 11 · L1 INTERFERENCE -->
+  <section class="slide" data-notes="0:30–0:34 (teacher awareness — keep for the class but read only the corrections aloud) — Why these errors happen, so you can pre-empt them. Latvian and Russian have no present-perfect tense; the continuing-result idea is carried by aspect and context, not by a have + participle structure. So both groups reach for the past simple or even the present simple for a live defect: 'The line leaks since yesterday' or 'The line leaked since yesterday' instead of 'has leaked'. Second, neither language has articles, so 'a' and 'the' drop out — 'I have found leak' — nudge them toward 'a hydraulic leak'. Third, for/since maps to a single preposition in both L1s, so the choice feels arbitrary to them; teach it as a fixed rule, not a feel. Show the three corrections and move on; the error-spotting exercise E6 gives the real practice.">
+    <div class="kick">§3 · Teacher note · Latvian & Russian interference</div>
+    <h2>Anticipate the L1 errors</h2>
+    <table class="g">
+      <tr><th class="x">Wrong</th><th class="ok">Right</th><th>Why</th></tr>
+      <tr><td class="x">The line leaks since yesterday.</td><td class="ok">The line has leaked since yesterday.</td><td>No present perfect in LV/RU → past/present simple leaks in.</td></tr>
+      <tr><td class="x">I have find a leak.</td><td class="ok">I have found a hydraulic leak.</td><td>Participle dropped; article dropped (no articles in LV/RU).</td></tr>
+      <tr><td class="x">leaked since two flights</td><td class="ok">leaked for two flights</td><td>One L1 preposition covers both → for/since guessed.</td></tr>
+    </table>
+  </section>
+
+  <!-- 12 · DIALOGUE 3 -->
+  <section class="slide" data-notes="0:14–0:18 earlier, or replay here — Play Dialogue 3 (track 3): the avionics case, 'an intermittent fault and the BITE readout'. A display goes blank in flight; on the ground it works, so the symptom cannot be seen now — that is what INTERMITTENT means, it comes and goes. The move: run the BITE (built-in test equipment, the avionics self-test), which stored a fault code on the data bus during the last flight. Two teaching points. First, the BITE code is a real observation the crew can record even though the fault is not showing now. Second, keep LO2 alive — 'the unit has failed' is still an assumption at this stage; the likely cause is a loose plug or chafing on the connector loom, and that must be inspected, not assumed. Note this covers the avionics side of the trade, balancing the mechanical brake case.">
+    <div class="kick">§1 · Listening · Dialogue 3 (track 3) · avionics</div>
+    <h2>An intermittent fault — read the BITE</h2>
+    <div class="cols">
+      <div class="turnbox">
+        <p><b>A:</b> The display goes blank in flight. The fault is <span class="gloss">intermittent</span>.</p>
+        <p><b>B:</b> Let us run the <span class="gloss">BITE</span>. The self-test may have stored a fault code.</p>
+        <p><b>A:</b> The BITE shows a fault on the data bus, logged during the last flight.</p>
+        <p><b>A:</b> "The unit has failed" is still an assumption at this stage.</p>
+      </div>
+      <div>
+        <p><b>Intermittent</b> = comes and goes → cannot be seen on the ground.</p>
+        <p class="muted">The BITE code is an observation. The cause (loose plug, chafing on the loom) is still to be inspected — not assumed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · STE WRITING -->
+  <section class="slide" data-notes="0:33–0:36 — Simplified Technical English, the controlled writing standard of maintenance documents. The entry a mechanic writes is not free prose; it follows STE habits: one idea per sentence, an approved verb, no extra words, and the present tense/present perfect used precisely. Show the before/after: a rambling 'There seems to be some kind of soft feeling in the brakes which might possibly be a seal problem' becomes three clean lines — symptom, location, condition — each a short observation. Tie STE to safety: another mechanic or an inspector must read the entry months later, under pressure, in a second language, and understand it without asking you. Short, exact, honest. This sets up the writing task; the STE habit is what the writing self-check rewards.">
+    <div class="kick">§4 · Writing habit · Simplified Technical English</div>
+    <h2>One idea per line · exact · no extra words</h2>
+    <div class="cols">
+      <div class="card">
+        <p class="x">"There seems to be some kind of soft feeling in the brakes that might possibly be a seal problem."</p>
+        <p class="ok">Symptom: the left brake pedal has felt soft during landing.<br>Location: left main gear, at the brake line union.<br>Condition: during normal braking on the landing roll.</p>
+      </div>
+      <div><p>STE = one idea per sentence, an approved verb, no filler.</p>
+        <p class="muted">The reader is another mechanic or an inspector, months later, under pressure. Short, exact, honest.</p></div>
+    </div>
+  </section>
+
+  <!-- 14 · EXERCISES STAGING -->
+  <section class="slide" data-notes="0:36–0:56 — Exercise staging, twenty minutes, in the pack. Run them in order but do not do all eight as a lockstep class. Suggested handling: E1 gap-fill and E2 matching — individually, then check in pairs (5 min). E3 put-the-entry-in-order — pairs, because the sequence is worth arguing about (3 min). E4 grammar transformation and E6 error-spotting — the grammar core; do E4 together as a model, then E6 individually and check as a class, dwelling on the participle and for/since fixes (6 min). E5 reading (a tech-log page) and E7 reading (an MEL extract) — set as reading-for-detail, pairs race to the six answers each (4 min each; one may be homework). E8 listening review — replay Dialogue 3 and the voicemail, then the eight questions, several of which are numbers to catch: stand 9, three defects, reference 5182 (2 min). Circulate and feed the terms back in.">
+    <div class="kick">§5 · Practice · E1–E8 (20 min)</div>
+    <h2>Stage the exercises — don't lockstep them</h2>
+    <div class="cols">
+      <div class="card">
+        <table class="g">
+          <tr><th>Ex</th><th>Type</th><th>How</th></tr>
+          <tr><td>E1/E2</td><td>gap-fill · matching</td><td>solo → pair check</td></tr>
+          <tr><td>E3</td><td>order the entry</td><td>pairs</td></tr>
+          <tr><td>E4/E6</td><td>present perfect</td><td>model E4, solo E6</td></tr>
+          <tr><td>E5/E7</td><td>reading (tech log · MEL)</td><td>pairs, race the 6 Qs</td></tr>
+          <tr><td>E8</td><td>listening review</td><td>replay, catch the numbers</td></tr>
+        </table>
+      </div>
+      <div><p>Catch the spoken figures in E8: <b>stand 9</b> · <b>three</b> defects · reference <b>5182</b>.</p>
+        <p class="muted">Full answers with a one-line why are in the solutions file (unlocks at 80% on the quiz).</p></div>
+    </div>
+  </section>
+
+  <!-- 15 · ROLE-PLAY -->
+  <section class="slide" data-notes="0:56–1:10 — Role-play management, fourteen minutes, the heart of the lesson. Four cards in the pack, pairs, swap roles after each so everyone both asks and describes. Card 1: question the pilot report — the mechanic drills a vague 'the brakes feel wrong' down to symptom, location, condition. Card 2: describe the defect you found — report the leak, the chafing and the play, each with its exact location, to the certifying mechanic. Card 3: fact or assumption — the experienced mechanic stops a trainee writing 'the seal has failed' and explains observation vs assumption with an example of each. Card 4: an intermittent avionics fault — explain the symptom, run the BITE, justify 'unserviceable'. Set it up in 1 minute, run 3 minutes per card with a role swap, then spotlight one strong pair. Feed the useful phrases on each card. Insist on the present perfect for findings ('I have found a leak'). Use the speaking rubric in the key to give quick range/accuracy/interaction feedback.">
+    <div class="kick">§6 · Speaking · four role-play cards (14 min)</div>
+    <h2>Pairs · swap roles after each card</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>1 · Question the pilot.</b> Drill "the brakes feel wrong" → symptom, location, condition.</p>
+        <p><b>2 · Describe your findings.</b> Leak, chafing, play — each with its exact location.</p>
+        <p><b>3 · Fact or assumption?</b> Stop "the seal has failed"; explain observation vs guess.</p>
+        <p><b>4 · Intermittent avionics.</b> Symptom → run the BITE → why it is unserviceable.</p>
+      </div>
+      <div><p>1 min set-up · 3 min per card · swap roles · spotlight one pair.</p>
+        <p class="muted">Insist on the present perfect for findings: "I have found a leak at the union."</p></div>
+    </div>
+  </section>
+
+  <!-- 16 · AI PARTNER -->
+  <section class="slide" data-notes="1:04–1:10 (optional, or homework) — The AI conversation partner extends the role-play for students who want more reps at their own pace. The pack gives three ready prompts: Prompt A the AI is a pilot answering the mechanic's questions; Prompt B the AI is a certifying mechanic checking the student's description and present-perfect use; Prompt C the AI is a trainee whose 'the seal has failed' the student must correct. Each prompt fixes the level at B2, keeps replies short, gently recasts errors, and asks one question per turn — so the student always speaks. Frame it as speaking practice, never a source of answers to copy. Good for the fast finishers while you run the spotlight pairs, or as homework alongside the writing.">
+    <div class="kick">§6 · AI conversation partner</div>
+    <h2>More speaking reps, at the student's pace</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Prompt A</b> — the AI is a pilot; the student questions the vague snag.</p>
+        <p><b>Prompt B</b> — the AI is a certifying mechanic; it checks the description and the present perfect.</p>
+        <p><b>Prompt C</b> — the AI is a trainee; the student corrects "the seal has failed".</p>
+      </div>
+      <div><p>Each prompt: B2 level · short replies · one question per turn · gentle recasts.</p>
+        <p class="muted">A speaking partner, not an answer key. Good for fast finishers or homework.</p></div>
+    </div>
+  </section>
+
+  <!-- 17 · WRITING TASK -->
+  <section class="slide" data-notes="1:10–1:18 — Writing task, start in class, finish for homework. The brief: a pilot reports the number two engine oil pressure 'looks low sometimes'; on inspection you find a small oil leak at a pipe union with light chafing on the pipe. Write a five-to-seven-line tech-log defect entry. It must state the symptom, the location and the condition; separate the observation from any assumption (a worn seal is only an assumption); use the present perfect for the live fault; and mark the unit unserviceable, all in Simplified Technical English. Model the first two lines together, then let them draft. Point them at the self-check list before they submit. The model answer is in the pack, but hold it back until they have drafted. This written entry is the graded evidence for the three outcomes.">
+    <div class="kick">§7 · Writing · a tech-log defect entry (8 min + homework)</div>
+    <h2>Write the entry — symptom, location, condition</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Brief:</b> number two engine oil pressure "looks low sometimes". You find a small oil leak at a pipe union, with light chafing on the pipe.</p>
+        <p>Write 5–7 lines. Present perfect for the live fault. Separate observation from assumption. Mark it unserviceable. Simplified Technical English.</p>
+      </div>
+      <div><p>Self-check before submit:</p>
+        <ul class="muted"><li>symptom · location · condition named</li><li>present perfect used</li><li>observation kept apart from assumption</li><li>short, legible, marked unserviceable</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP-UP -->
+  <section class="slide" data-center data-notes="1:18–1:22 — Wrap-up and exit ticket. Five one-liners the class should leave with: a feeling is not a defect — question the report until the symptom, location and condition are clear; record only what you observed and keep any assumption out; a live, unrepaired defect takes the present perfect (has/have + participle) because it is still true now; leak, chafing and intermittent are the field's precise terms — use them, not 'broken'; and write in Simplified Technical English so the next shift and the inspector can read it under pressure. Exit ticket, on a slip: each student writes ONE present-perfect defect line about any part, with a symptom and a location. Collect at the door. Homework: finish the tech-log entry and, optionally, run one AI-partner prompt. Passing the quiz at 80% unlocks the worked solutions.">
+    <div class="kick">Recap · exit ticket</div>
+    <h2>Question · observe · write it live</h2>
+    <p class="big muted">A feeling is not a defect — get the <b style="color:var(--good)">symptom, location, condition</b> · record the <b style="color:var(--fact)">observation</b>, not the <b style="color:var(--assume)">assumption</b> · a live defect takes the <b style="color:var(--accent)">present perfect</b> · say <em>leak · chafing · intermittent</em>, not "broken" · write it in Simplified Technical English.</p>
+    <p><b>Exit ticket:</b> write one present-perfect defect line — a part, a symptom, a location. <span class="muted">Homework: finish the tech-log entry. Quiz at 80% unlocks the solutions.</span></p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS · canvas + rAF, student-driven) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function easeStep(cur,tgt,k){ return cur + (tgt-cur)*k; }
+
+  // ---- Widget 1: fact vs assumption sorter (canvas + rAF) ----
+  window.DeckW.sort = function(holder){
+    holder.innerHTML =
+      '<div class="wk"><div class="bar" id="sBar"></div>'+
+      '<canvas id="sCv" width="640" height="230"></canvas>'+
+      '<div class="info" id="sInfo"><h4>Fact or assumption?</h4>Click a line, then choose its bin. Green = right, red = wrong.</div>'+
+      '<p class="note">Reset and let a student drive.</p></div>';
+    var data=[
+      {t:"The line shows chafing on the bracket.", fact:true},
+      {t:"The seal has failed.", fact:false},
+      {t:"Fluid has pooled below the union.", fact:true},
+      {t:"The bearing is worn out from bad landings.", fact:false},
+      {t:"The BITE has stored a fault code.", fact:true},
+      {t:"The plug must be the problem.", fact:false}
+    ];
+    var chips=data.map(function(d,i){ return {d:d, x:320, y:40+i*0, tx:320, placed:false, right:false, alpha:1}; });
+    var bar=holder.querySelector('#sBar'); var info=holder.querySelector('#sInfo');
+    var sel=0;
+    data.forEach(function(d,i){ var b=document.createElement('button'); b.textContent=(i+1); b.title=d.t;
+      b.addEventListener('click',function(){ sel=i; setSelUI(); info.innerHTML='<h4>Line '+(i+1)+'</h4>"'+d.t+'"'; }); bar.appendChild(b); });
+    var fB=document.createElement('button'); fB.className='fact'; fB.textContent='→ Observation';
+    var aB=document.createElement('button'); aB.className='assume'; aB.textContent='→ Assumption';
+    var rB=document.createElement('button'); rB.textContent='Reset';
+    bar.appendChild(fB); bar.appendChild(aB); bar.appendChild(rB);
+    function setSelUI(){ [].forEach.call(bar.querySelectorAll('button'),function(b,k){ b.classList.toggle('on', k===sel); }); }
+    setSelUI();
+    function judge(guessFact){ var c=chips[sel]; c.placed=true; c.right=(guessFact===c.d.fact);
+      c.tx = guessFact? 150 : 490; info.innerHTML='<h4>'+(c.right?'Correct':'Not quite')+'</h4>"'+c.d.t+'" is an '+(c.d.fact?'<b style="color:#9af0c8">observation</b> — you can see it.':'<b style="color:#ffb3d4">assumption</b> — a guess about the cause.'); }
+    fB.addEventListener('click',function(){ judge(true); });
+    aB.addEventListener('click',function(){ judge(false); });
+    rB.addEventListener('click',function(){ chips.forEach(function(c){ c.placed=false; c.right=false; c.tx=320; }); sel=0; setSelUI(); info.innerHTML='<h4>Fact or assumption?</h4>Click a line, then choose its bin.'; });
+    var cv=holder.querySelector('#sCv'); var ctx=cv.getContext('2d');
+    function draw(){
+      ctx.clearRect(0,0,640,230);
+      // bins
+      ctx.font='13px ui-monospace,Consolas,monospace';
+      ctx.fillStyle='rgba(52,211,153,.10)'; ctx.fillRect(20,20,240,190);
+      ctx.fillStyle='rgba(255,143,192,.10)'; ctx.fillRect(380,20,240,190);
+      ctx.strokeStyle='#2f6b4e'; ctx.strokeRect(20,20,240,190);
+      ctx.strokeStyle='#7a3a55'; ctx.strokeRect(380,20,240,190);
+      ctx.fillStyle='#9af0c8'; ctx.fillText('OBSERVATION',95,38);
+      ctx.fillStyle='#ffb3d4'; ctx.fillText('ASSUMPTION',455,38);
+      chips.forEach(function(c,i){
+        c.x=easeStep(c.x,c.tx,0.16);
+        var y=(c.placed? (c.tx<320? 60+ (binCount(true,i)*26) : 60+ (binCount(false,i)*26)) : 56+i*26);
+        var col = c.placed? (c.right? '#183726':'#3a1622') : '#16263a';
+        var bd = c.placed? (c.right? '#34d399':'#ff5667') : (i===sel?'#38b6ff':'#314865');
+        ctx.fillStyle=col; ctx.strokeStyle=bd;
+        rr(ctx,c.x-70,y-11,140,22,6); ctx.fill(); ctx.stroke();
+        ctx.fillStyle='#cfe0ee'; ctx.font='11px -apple-system,Segoe UI,sans-serif';
+        ctx.textAlign='center'; ctx.fillText('#'+(i+1), c.x, y+4); ctx.textAlign='left';
+      });
+      requestAnimationFrame(draw);
+    }
+    function binCount(left,idx){ var n=0; for(var k=0;k<idx;k++){ if(chips[k].placed && (chips[k].tx<320)===left) n++; } return n; }
+    function rr(c,x,y,w,h,r){ c.beginPath(); c.moveTo(x+r,y); c.arcTo(x+w,y,x+w,y+h,r); c.arcTo(x+w,y+h,x,y+h,r); c.arcTo(x,y+h,x,y,r); c.arcTo(x,y,x+w,y,r); c.closePath(); }
+    requestAnimationFrame(draw);
+  };
+
+  // ---- Widget 2: present perfect timeline (canvas + rAF) ----
+  window.DeckW.ppf = function(holder){
+    holder.innerHTML =
+      '<div class="wk"><div class="bar" id="pBar"></div>'+
+      '<canvas id="pCv" width="640" height="200"></canvas>'+
+      '<div class="info" id="pInfo"><h4>Choose the situation</h4>Is the defect still true now, or is the job closed?</div></div>';
+    var bar=holder.querySelector('#pBar'); var info=holder.querySelector('#pInfo');
+    var mode='pp'; // pp = present perfect, past = past simple
+    var b1=document.createElement('button'); b1.textContent='Still true now'; b1.className='on';
+    var b2=document.createElement('button'); b2.textContent='Closed job';
+    bar.appendChild(b1); bar.appendChild(b2);
+    b1.addEventListener('click',function(){ mode='pp'; b1.classList.add('on'); b2.classList.remove('on');
+      info.innerHTML='<h4>Present perfect</h4><code>The panel has developed cracks.</code> The cracks are still there now → has/have + participle.'; });
+    b2.addEventListener('click',function(){ mode='past'; b2.classList.add('on'); b1.classList.remove('on');
+      info.innerHTML='<h4>Past simple</h4><code>I replaced the seal yesterday.</code> Finished, closed → past simple, not present perfect.'; });
+    b1.click();
+    var cv=holder.querySelector('#pCv'); var ctx=cv.getContext('2d'); var t=0, mx=120;
+    function draw(){
+      t+=0.05; ctx.clearRect(0,0,640,200);
+      ctx.strokeStyle='#314865'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(40,120); ctx.lineTo(600,120); ctx.stroke();
+      ctx.fillStyle='#7e98ad'; ctx.font='13px ui-monospace,Consolas,monospace';
+      ctx.fillText('PAST',48,150); ctx.fillText('NOW',560,150);
+      // NOW marker
+      ctx.strokeStyle='#4a5f78'; ctx.beginPath(); ctx.moveTo(560,90); ctx.lineTo(560,150); ctx.stroke();
+      var tgt = mode==='pp'? 560 : 150;
+      mx = easeStep(mx, tgt, 0.08);
+      // arc from past action to marker
+      ctx.strokeStyle=mode==='pp'? '#38b6ff':'#a78bfa'; ctx.lineWidth=3;
+      ctx.beginPath(); ctx.moveTo(150,120); ctx.quadraticCurveTo((150+mx)/2,60,mx,120); ctx.stroke();
+      // past action dot
+      ctx.fillStyle='#fbbf24'; ctx.beginPath(); ctx.arc(150,120,6,0,7); ctx.fill();
+      ctx.fillStyle='#fbbf24'; ctx.font='12px -apple-system,sans-serif'; ctx.fillText('developed',110,105);
+      // result pulse
+      var pr = mode==='pp'? (6+2.5*Math.sin(t*2)) : 5;
+      ctx.fillStyle=mode==='pp'? '#34d399':'#a78bfa'; ctx.beginPath(); ctx.arc(mx,120,pr,0,7); ctx.fill();
+      if(mode==='pp'){ ctx.fillStyle='rgba(52,211,153,.9)'; ctx.font='12px -apple-system,sans-serif'; ctx.fillText('still true',mx-24,105); }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  };
+
+  // ---- Widget 3: defect-entry builder ring (canvas + rAF) ----
+  window.DeckW.builder = function(holder){
+    holder.innerHTML =
+      '<div class="wk"><div class="bar" id="bBar"></div>'+
+      '<canvas id="bCv" width="640" height="200"></canvas>'+
+      '<div class="info" id="bInfo"><h4>Build a complete entry</h4>Toggle the three parts every good defect entry needs.</div></div>';
+    var parts=[{k:'Symptom',c:'#38b6ff',on:false},{k:'Location',c:'#fbbf24',on:false},{k:'Condition',c:'#34d399',on:false}];
+    var bar=holder.querySelector('#bBar'); var info=holder.querySelector('#bInfo');
+    parts.forEach(function(p){ var b=document.createElement('button'); b.textContent=p.k;
+      b.addEventListener('click',function(){ p.on=!p.on; b.classList.toggle('on',p.on);
+        var n=parts.filter(function(q){return q.on;}).length;
+        info.innerHTML = n===3? '<h4 style="color:#34d399">Ready to enter in the tech log</h4>Symptom + location + condition — a complete, honest entry.'
+          : '<h4>'+n+' / 3 parts</h4>Still missing: '+parts.filter(function(q){return !q.on;}).map(function(q){return q.k;}).join(', ')+'.'; }); bar.appendChild(b); });
+    var cv=holder.querySelector('#bCv'); var ctx=cv.getContext('2d'); var fill=[0,0,0];
+    function draw(){
+      ctx.clearRect(0,0,640,200); var cx=110,cy=100,R=70;
+      parts.forEach(function(p,i){ fill[i]=easeStep(fill[i], p.on?1:0, 0.12);
+        var a0=-Math.PI/2 + i*(Math.PI*2/3); var a1=a0 + (Math.PI*2/3)*fill[i] - 0.06;
+        ctx.strokeStyle='#22344a'; ctx.lineWidth=16; ctx.beginPath(); ctx.arc(cx,cy,R,a0,a0+(Math.PI*2/3)-0.06); ctx.stroke();
+        ctx.strokeStyle=p.c; ctx.lineWidth=16; ctx.beginPath(); ctx.arc(cx,cy,R,a0,a1); ctx.stroke();
+      });
+      var n=parts.filter(function(q){return q.on;}).length;
+      ctx.fillStyle= n===3?'#34d399':'#cfe0ee'; ctx.font='bold 26px -apple-system,sans-serif'; ctx.textAlign='center';
+      ctx.fillText(n+'/3',cx,cy+9); ctx.textAlign='left';
+      // labels
+      parts.forEach(function(p,i){ ctx.fillStyle=p.on?p.c:'#5b7189'; ctx.font='15px -apple-system,sans-serif';
+        ctx.fillText((p.on?'✓ ':'○ ')+p.k, 250, 70+i*38); });
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('cfu03_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','cfu03_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 3</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:28px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("cfu03_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("cfu03_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="cfu03_deck_state")render();});',
+'render();',
+'<\/script></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='cfu03_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left;
+            pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}.lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}.lct-row:empty{display:none}.lct-row-top{opacity:1}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;
+            font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB;
+            background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto;
+            width:50px; height:50px; border-radius:50%; cursor:pointer;
+            background:#F7C22D; color:#020E27; border:2px solid #F7C22D;
+            font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px;
+            box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051;
+               font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em;
+               text-transform:uppercase; color:#020E27; background:#F7C22D;
+               border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto;
+             width:42px; height:42px; border-radius:50%; cursor:pointer;
+             background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4);
+             font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052;
+                display:none; align-items:center; gap:8px;
+                background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px;
+                padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px;
+                       font-weight:700; color:#E8EDF5; background:#162030;
+                       border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="it-IT">Italiano</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capQueueB=[], capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } } function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<script>(function(){try{
+  var KEY='tsiCapScale', root=document.documentElement;
+  function apply(v){ root.style.setProperty('--cap-scale', v); }
+  var saved=parseFloat(localStorage.getItem(KEY))||1; saved=Math.max(0.6,Math.min(1.9,saved)); apply(saved);
+  var st=document.createElement('style'); st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}.cap-fs-slider::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:#FFD24D;cursor:pointer}'; document.head.appendChild(st);
+  function mount(){ var lb=document.getElementById('lctLangBar'); if(!lb||lb.querySelector('.cap-fs-slider')) return;
+    var w=document.createElement('span'); w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w); var sl=w.querySelector('.cap-fs-slider'); sl.value=saved;
+    var stop=function(e){ e.stopPropagation(); };
+    sl.addEventListener('input',function(){ var v=parseFloat(sl.value)||1; apply(v); try{ localStorage.setItem(KEY,v); }catch(e){} });
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){ sl.addEventListener(ev,stop); });
+  }
+  if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>

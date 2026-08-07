@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U03-r1</text></category>
+    <info format="html"><text><![CDATA[Unit 3 — Raising a defect in the tech log. B2. Listening, reading, use of English and vocabulary.]]></text></info>
+  </question>
+
+  <!-- ============================ LISTENING ============================ -->
+
+  <question type="multichoice">
+    <name><text>U03 L1 — Dialogue 1 final entry</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> The mechanic turns the vague pilot report into a clear tech-log entry. Which line does the mechanic finally write?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The entry records the observed symptom in the present perfect: <b>"The left brake pedal has felt soft during landing."</b> It names the symptom and avoids naming a cause.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The left brake pedal has felt soft during landing.]]></text><feedback format="html"><text><![CDATA[Correct — the observed symptom, in the present perfect.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The brake seal has failed and must be replaced now.]]></text><feedback format="html"><text><![CDATA[No — a failed seal is an assumption about the cause, not an observation.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Something feels wrong with the brakes in the flight.]]></text><feedback format="html"><text><![CDATA[No — that is the vague pilot report the mechanic replaced.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The left main gear brake has stopped working fully.]]></text><feedback format="html"><text><![CDATA[No — nobody observed a total loss of braking; the pedal only felt soft.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U03 L2 — Dialogue 1 observation vs assumption</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> The mechanic records "the seal has failed" as the observation in the tech log.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. "The seal has failed" is called an <b>assumption</b>, not an observation. Only what was seen — a soft pedal — is recorded.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No — the mechanic explicitly calls that an assumption.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — it is an assumption; only the observed symptom is recorded.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U03 L3 — Dialogue 2 three findings</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> The mechanic reports three findings on the brake unit. Which set is correct?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The three observed findings are a <b>hydraulic leak</b> at the union, <b>chafing</b> where the line rubs a bracket, and <b>play</b> in the wheel bearing.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[A hydraulic leak, chafing, and bearing play.]]></text><feedback format="html"><text><![CDATA[Correct — leak, chafing and play, each with a location.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A crack, light corrosion, and a soft brake pedal.]]></text><feedback format="html"><text><![CDATA[No — a soft pedal is the pilot's symptom, not a finding on the unit.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A leak, a blank display, and a stored code.]]></text><feedback format="html"><text><![CDATA[No — the blank display and stored code belong to Dialogue 3.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Corrosion, a loose plug, and low oil pressure.]]></text><feedback format="html"><text><![CDATA[No — those items do not all appear in Dialogue 2.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U03 L4 — Dialogue 3 why hard to find</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> Why is the display fault hard to find on the ground?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The fault is <b>intermittent</b> — it comes and goes — so it does not show on the ground. That is why they run the BITE for a stored code.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[It is intermittent, so it comes and goes.]]></text><feedback format="html"><text><![CDATA[Correct — an intermittent fault is not present all the time.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The BITE cannot store any fault code at all.]]></text><feedback format="html"><text><![CDATA[No — the BITE did store a code from the last flight.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The display is broken and never switches on.]]></text><feedback format="html"><text><![CDATA[No — on the ground the display works.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The data bus has been removed from the whole unit.]]></text><feedback format="html"><text><![CDATA[No — the bus is present; a fault was logged on it.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U03 L5 — voicemail defect count</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to the shift-handover voicemail (Dialogue 4) again.</b> How many defects were recorded in the tech log? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Three: the leak, the chafing, and the bearing play.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — leak, chafing and play.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Listen again — the lead lists three defects.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U03 L6 — voicemail reference number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to the voicemail (Dialogue 4) again.</b> What tech-log reference number is given for the recorded defects?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Reference <b>5182</b>. Catching spoken numbers exactly is a real line-station skill.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>5182</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — reference 5182.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Listen again for the four-digit reference number.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U03 L7 — voicemail stand number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to the voicemail (Dialogue 4) again.</b> Which stand is the handover for? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Stand <b>9</b>.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>9</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — stand 9.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Listen again — the handover names one stand.]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ READING ============================ -->
+
+  <question type="multichoice">
+    <name><text>U03 R1 — work order</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this work order.</p><blockquote>WORK ORDER 7731. Remove and replace the left brake line. Torque the union to the AMM value. Refill and bleed the hydraulic system. Function-test the brakes before release.</blockquote><p>What must be done before the aircraft is released?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The last step is a <b>function test of the brakes</b> before release.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Function-test the brakes first.]]></text><feedback format="html"><text><![CDATA[Correct — the brakes are function-tested before release.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Order a new borescope from stores.]]></text><feedback format="html"><text><![CDATA[No — the order does not mention a borescope.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Sign the aircraft into service at once.]]></text><feedback format="html"><text><![CDATA[No — release comes only after the function test.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Leave the union only finger-tight for now.]]></text><feedback format="html"><text><![CDATA[No — the union is torqued to the AMM value.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U03 R2 — AMM caution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this AMM caution.</p><blockquote>AMM 32-41 CAUTION: Do not exceed the torque value for the union. Over-torque can crack the fitting.</blockquote><p>The caution warns that over-torque can crack the fitting.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True — the caution states that over-torque can crack the fitting, so you must not exceed the value.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — that is exactly what the caution says.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Read again — the caution links over-torque to a cracked fitting.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U03 R3 — service bulletin</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this service bulletin extract.</p><blockquote>SB-32-118: Inspect the brake line for chafing where it passes the bracket. If chafing is found, install the protective sleeve. Chafing that has worn through the line requires line replacement.</blockquote><p>What do you install if chafing is found (but the line is not worn through)?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <b>protective sleeve</b>. The line is only replaced if the chafing has worn through it.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[A protective sleeve.]]></text><feedback format="html"><text><![CDATA[Correct — the sleeve protects the line from further chafing.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A new wheel bearing set.]]></text><feedback format="html"><text><![CDATA[No — the bulletin is about the brake line, not the bearing.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A complete new brake line.]]></text><feedback format="html"><text><![CDATA[No — a new line is needed only if the line is worn through.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A second borescope camera.]]></text><feedback format="html"><text><![CDATA[No — no borescope is fitted; the sleeve is installed.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U03 R4 — airworthiness directive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this airworthiness directive extract.</p><blockquote>AD-2026-07: A repetitive borescope inspection of the housing is required every 200 flight hours until the modified part is fitted.</blockquote><p>The AD requires the borescope inspection to be repeated.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True — "repetitive ... every 200 flight hours" means the inspection is repeated until the modified part is fitted.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — a repetitive inspection is repeated at set intervals.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Read again — "repetitive" means it must be repeated.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U03 R5 — AD interval</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read the AD extract again: "A repetitive borescope inspection of the housing is required every 200 flight hours." After how many flight hours must the inspection be repeated?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Every <b>200</b> flight hours.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>200</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — 200 flight hours.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Read the interval again — it is stated in flight hours.]]></text></feedback></answer>
+  </question>
+
+  <!-- ======================== USE OF ENGLISH ========================= -->
+
+  <question type="shortanswer">
+    <name><text>U03 U1 — present perfect (develop)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete with the <b>present perfect</b> of the verb in brackets. Write two words.</p><p>The panel ___ (develop) cracks.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>has developed</b> — the cracks are still there now, so use has/have + the past participle.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>has developed</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use has + the past participle: has developed.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U03 U2 — participle (find)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete with the correct past participle.</p><p>I have ___ (find) a hydraulic leak at the union.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>found</b> — "find" is irregular: find / found / found.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>found</text><feedback format="html"><text><![CDATA[Correct — the participle of find is found.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Irregular verb: find / found / found.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U03 U3 — for or since (length)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write <b>for</b> or <b>since</b>.</p><p>The valve has leaked ___ two flights.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>for</b> — use "for" with a length of time (two flights).</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>for</text><feedback format="html"><text><![CDATA[Correct — "for" + a length of time.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Two flights is a length of time, so use "for".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U03 U4 — for or since (start)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write <b>for</b> or <b>since</b>.</p><p>The line has leaked ___ yesterday.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>since</b> — use "since" with a start point (yesterday).</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>since</text><feedback format="html"><text><![CDATA[Correct — "since" + a start point.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Yesterday is a start point, so use "since".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U03 U5 — negative present perfect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Make the sentence negative in the present perfect. Write three words for the gap.</p><p>The technician ___ ___ ___ the leak yet. (not / rectify)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>has not rectified</b> — negative present perfect is has/have + not + past participle.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>has not rectified</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>hasn't rectified</text><feedback format="html"><text><![CDATA[Correct — the contracted form is fine.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use has + not + participle: has not rectified.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U03 U6 — rephrase the pilot (bank term)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete with one bank term. The pilot says the display "goes off, then comes back". In technical terms the fault is ___.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>intermittent</b> — a fault that comes and goes.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>intermittent</text><feedback format="html"><text><![CDATA[Correct — an intermittent fault comes and goes.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[A fault that comes and goes is intermittent.]]></text></feedback></answer>
+  </question>
+
+  <!-- ========================== VOCABULARY =========================== -->
+
+  <question type="matching">
+    <name><text>U03 V1 — term to plain meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each defect-description term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>leak = escaping fluid; chafing = rubbing damage; corrosion = chemical damage; play = loose movement; wear = loss of material from use.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[All matched correctly.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some matches are right — check the rest against the vocabulary bank.]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Review the vocabulary bank and try again.]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[leak]]></text><answer><text>fluid escaping where it should not</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[chafing]]></text><answer><text>rubbing damage where two parts touch</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[corrosion]]></text><answer><text>chemical damage that eats the metal</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[play]]></text><answer><text>loose free movement in a bearing</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[wear]]></text><answer><text>gradual loss of material from use</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U03 V2 — term to word partner</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the phrase it is normally used in.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Terms are learned inside their word partner: raise a snag, run the BITE, use a borescope, enter in the tech log, declare it unserviceable.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[All matched correctly.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some are right — check the collocations again.]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Review the word partners in the vocabulary bank.]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[snag]]></text><answer><text>raise a ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>run the ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[borescope]]></text><answer><text>use a ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[tech log]]></text><answer><text>enter it in the ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[unserviceable]]></text><answer><text>declare it ___</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U03 V3 — choose the term</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which term means "a fault that comes and goes"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>intermittent</b>. Corrosion, chafing and "unserviceable" describe other things.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[intermittent]]></text><feedback format="html"><text><![CDATA[Correct — it comes and goes.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[unserviceable]]></text><feedback format="html"><text><![CDATA[No — that means not safe or allowed to be used.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[corrosion]]></text><feedback format="html"><text><![CDATA[No — that is chemical damage to the metal.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[chafing]]></text><feedback format="html"><text><![CDATA[No — that is rubbing damage where two parts touch.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U03 V4 — collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which verb is normally used with "a defect" when the crew first reports it?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>You <b>raise</b> a defect (or a snag). You later rectify it; a borescope and a placard are tools and actions, not this verb.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[raise]]></text><feedback format="html"><text><![CDATA[Correct — raise a defect / raise a snag.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[rectify]]></text><feedback format="html"><text><![CDATA[No — you rectify a defect later, when you repair it.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[borescope]]></text><feedback format="html"><text><![CDATA[No — a borescope is an inspection tool, not this verb.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[placard]]></text><feedback format="html"><text><![CDATA[No — you placard an unserviceable unit; you do not "placard a defect" when reporting it.]]></text></feedback></answer>
+  </question>
+
+</quiz>
