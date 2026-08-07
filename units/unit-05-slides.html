@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 5 — Teacher Deck · Giving a shift handover briefing</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace;
+  --pp:#34d399;--ps:#fbbf24}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:21px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:28px}
+.center{align-items:center;text-align:center}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}li{margin:.15em 0}
+small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:660px;min-height:340px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:340px;
+  border:1px dashed var(--line);border-radius:14px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:5px 9px;font-size:14px}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:60px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.pp{color:var(--pp);font-weight:700}.ps{color:var(--ps);font-weight:700}
+table.gt{border-collapse:collapse;width:100%;font-size:17px}
+table.gt th,table.gt td{border:1px solid var(--line);padding:6px 11px;text-align:left}
+table.gt th{color:var(--muted);font-weight:700}
+.chip{display:inline-block;border:1px solid var(--line2);border-radius:8px;padding:4px 10px;margin:3px 4px 0 0;font-size:15px;color:#cfe5ff;background:#0f1726}
+.right{color:var(--good)}.wrong{color:var(--hot)}
+.gloss{font-size:15px;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){.two{grid-template-columns:1fr}}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="Open the unit. This is a 90-minute B2 class for aircraft mechanics and avionics technicians (EASA Part-66/145). The can-do is: give a clear end-of-shift handover — summarise completed, in-progress and outstanding work, flag open defects and safety-critical items, and answer the incoming technician's status questions. The whole lesson runs on ONE scenario: three aircraft at a Part-145 line station — an A320 finished and serviceable, a 737 with one deferred defect on the MEL, and an ATR 72 mid-task on a weather-radar BITE job. The grammar spine is present perfect vs past simple, because a handover contrasts done-and-relevant ('I have completed the left engine') with a finished detail ('I ran the leak check at 15:00'). Name the timing out loud so the room knows the shape: warm-up 8, listening 20, vocabulary 15, grammar 15, exercises 15, role-play 12, writing 5. Tell them captions are available on the CC button (key L) in the eight classroom languages, so nobody is lost.">
+    <div class="kick">English for Aviation Maintenance · Unit 5 · CEFR B2 · EASA Part-66/145</div>
+    <h1>Giving a shift handover briefing</h1>
+    <p class="big muted">Summarise done, in-progress and outstanding work · flag open defects and safety-critical items · answer the incoming technician accurately — three aircraft, one deferred defect, one mid-task.</p>
+    <p class="pill">90 minutes &nbsp;·&nbsp; work-status vocabulary &nbsp;·&nbsp; present perfect vs past simple &nbsp;·&nbsp; captions: CC / key L</p>
+  </section>
+
+  <!-- 2 · BY THE END -->
+  <section class="slide" data-notes="Set the outcomes and the timing honestly, because it tells the room why each activity is there. Three can-do outcomes drive the lesson: (1) summarise completed, in-progress and outstanding work concisely; (2) highlight open defects and safety-critical items for the incoming shift; (3) respond accurately to the incoming technician's questions about status. Point at the right-hand timetable and say the lesson moves from receptive to productive — first they LISTEN to four briefings, then they mine the language, drill the tense contrast, practise on controlled exercises, and finally PRODUCE a spoken handover (role-play) and a written one (STE note). Stress the writing habit early: every writing task in this course uses ASD-STE100 Simplified Technical English — short sentences, one idea per line, approved plain words. Reassure lower-confidence learners that the four dialogues are recorded, so they can replay any figure they miss.">
+    <div class="kick">By the end · how the 90 minutes runs</div>
+    <h2>Three can-do outcomes — receptive first, then produce</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">1 · Summarise</b> completed, in-progress and outstanding work — concisely, aircraft by aircraft.</p>
+        <p><b style="color:var(--purple)">2 · Highlight</b> every open defect and safety-critical item for the incoming shift.</p>
+        <p><b style="color:var(--good)">3 · Respond</b> accurately to the incoming technician's questions about status.</p>
+      </div>
+      <div class="card">
+        <table class="gt"><tr><th>Stage</th><th>Min</th></tr>
+        <tr><td>Warm-up · the board</td><td>8</td></tr>
+        <tr><td>Listening · Dialogues 1–4</td><td>20</td></tr>
+        <tr><td>Vocabulary · work status</td><td>15</td></tr>
+        <tr><td>Grammar · perfect vs past</td><td>15</td></tr>
+        <tr><td>Exercises E1–E8</td><td>15</td></tr>
+        <tr><td>Role-play · 4 cards</td><td>12</td></tr>
+        <tr><td>Writing · STE note</td><td>5</td></tr></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE SCENARIO / WARM-UP -->
+  <section class="slide" data-notes="Warm-up (8 min). Put the scenario on the board and get the room talking before any English is taught. Ask three quick questions in pairs: What do YOU say at the end of your shift? What must the next technician never miss? What happens if a defect is not written down? Elicit the word 'handover' and write the plain gloss beside it — passing your work and your news to the next shift. Then introduce the three aircraft on the board: aircraft one A320 on stand twelve (finished), aircraft two the 737 in bay three (one deferred defect), aircraft three the ATR 72 in the hangar (mid-task). Do not teach the specialist terms yet — just seed curiosity. Tell them the safety point that runs through the unit: you never release an aircraft with an open defect unless the MEL clearly allows it.">
+    <div class="kick">§0 · warm-up · 8 min</div>
+    <h2>The end-of-shift board — three aircraft</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Aircraft 1</b> — A320, stand 12. <span class="right">Finished.</span></p>
+        <p><b>Aircraft 2</b> — 737, bay 3. <span class="ps">One deferred defect (landing light).</span></p>
+        <p><b>Aircraft 3</b> — ATR 72, hangar. <span class="wrong">Mid-task (weather radar).</span></p>
+      </div>
+      <div>
+        <p>Talk in pairs — 2 minutes each:</p>
+        <ul><li>What do you say at the end of your shift?</li><li>What must the next technician never miss?</li><li>What happens if a defect is not written down?</li></ul>
+        <p class="muted">Rule of the unit: never release an aircraft with an open defect — <b>unless the MEL clearly allows it</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · DIALOGUE 1 -->
+  <section class="slide" data-notes="Listening, part 1 (of 20). Play Dialogue 1 — the board overview — once with books closed. Set one gist task on the board first: 'How many aircraft? Which one is finished?' Play again and let them check. Then focus on the target moves: A REPORTS completed work ('I have completed the left engine oil change'), and B ASKS status questions ('Did you run the leak check afterwards, or is it still outstanding?'). Draw out the tense contrast live: 'I HAVE completed' (result now) vs 'I RAN the leak check at fifteen hundred' (finished time). Pull three connectors off the transcript onto the board — because, although, and 'as soon as / immediately after' — these are the B2 glue. Concept-check 'serviceable' (fit to fly) and 'release to service' (certify it is fit to fly). Keep the register natural: short sentences, real hangar words.">
+    <div class="kick">§1 · Listening · Dialogue 1 · the board overview</div>
+    <h2>Report the finished aircraft</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>A:</b> Aircraft one is the A320 on stand twelve, and I <span class="pp">have completed</span> the left engine oil change.</p>
+        <p><b>B:</b> Did you run the leak check afterwards, or is it still <b>outstanding</b>?</p>
+        <p><b>A:</b> I <span class="ps">ran</span> the leak check at fifteen hundred, and it was dry, so the task is closed.</p>
+      </div>
+      <div>
+        <p><b>Gist first:</b> How many aircraft? Which one is finished?</p>
+        <p><b>Listen for the move:</b> A <em>reports</em>, B <em>asks status</em>.</p>
+        <p class="muted">Connectors to catch: <span class="chip">because</span><span class="chip">although</span><span class="chip">as soon as</span> — the B2 glue inside short sentences.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · DIALOGUE 2 -->
+  <section class="slide" data-notes="Listening, part 2. Play Dialogue 2 — the deferred defect in detail. Gist task: 'Can the aircraft still fly? Why?' The learning here is the whole life of a deferred defect: the light is unserviceable, there was no time to troubleshoot, so the technician applied the MEL, fitted a placard, raised a work order (logged at thirteen twenty) and left it OPEN — carried over to the next shift. Teach the key safety distinction: this is an OPEN DEFECT on paper but NOT safety-critical, because the MEL category C allows ten days to rectify. Concept-check 'deferred' (put off to fix later, with authority) vs 'outstanding' (simply not done yet). Highlight the crucial sentence B says: a deferred defect always stays open until somebody actually fixes it — you never sign it off just to make the paperwork look clean.">
+    <div class="kick">§1 · Listening · Dialogue 2 · the deferred defect</div>
+    <h2>One open defect — but the aircraft still flies</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>A:</b> I applied the <b>MEL</b> and fitted a <b>placard</b>, so the item is <b>carried over</b> to you.</p>
+        <p><b>B:</b> How long is the aircraft allowed to stay <b>deferred</b> like this?</p>
+        <p><b>A:</b> The MEL gives us a category C, so we have ten days to <b>rectify</b> it.</p>
+      </div>
+      <div>
+        <p><b>Gist first:</b> Can it still fly? Why?</p>
+        <ul><li><b>deferred</b> = put off to fix later, <em>with authority</em></li><li><b>outstanding</b> = simply not done yet</li></ul>
+        <p class="muted">A deferred defect stays <b>open</b> until somebody actually fixes it — you never sign it off to look tidy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · DIALOGUE 3 -->
+  <section class="slide" data-notes="Listening, part 3 — the avionics job, so both trades are covered. Play Dialogue 3, the ATR 72 mid-task on the weather radar. Gist task: 'What is finished? What is left?' This dialogue is the model for reporting IN-PROGRESS work: a BITE test keeps throwing a fault code, the technician has opened the AMM and started the fault isolation procedure, finished steps one to four of task card 34-41-05, but ran out of shift time — so steps five and six are outstanding and carried over. Note the precise, spoken figures the incoming tech must catch: task card thirty-four forty-one oh-five, connector inspected at sixteen thirty. Teach the hand-off of the NEXT STEP clearly: follow the AMM diagram, troubleshoot the wiring loom, then run the BITE test again — and the borescope is NOT needed, because the fault is purely electrical. This is where 'respond accurately to status questions' is modelled turn by turn.">
+    <div class="kick">§1 · Listening · Dialogue 3 · mid-task avionics</div>
+    <h2>Report work in progress — and the next step</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>A:</b> Task card thirty-four forty-one oh-five, and I <span class="pp">have finished</span> steps one to four already.</p>
+        <p><b>B:</b> So steps five and six are still <b>outstanding</b>, if I understand you correctly?</p>
+        <p><b>A:</b> Correct — I simply ran out of shift time. Follow the AMM diagram and <b>troubleshoot</b> the wiring loom, then run the <b>BITE</b> test again.</p>
+      </div>
+      <div>
+        <p><b>Gist first:</b> What is finished? What is left?</p>
+        <p><b>Catch the figures:</b> task card <code>34-41-05</code> · connector checked at <code>16:30</code>.</p>
+        <p class="muted">The <b>borescope</b> is not needed — the radar fault is purely electrical.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · WIDGET: figures from the announcement -->
+  <section class="slide" data-notes="Listening, part 4 — spoken figures (interactive). Play Dialogue 4, the shift-change PA announcement, twice. Understanding numbers and times said out loud is a real language skill and it is tested in the quiz, so drill it now. Use the widget: press 'Play a line', read the spoken figure aloud as a class, then click the number you heard — the widget confirms or corrects. The canvas ticker animates the figure so a weaker listener sees it settle. Cover the load-bearing figures across all four dialogues: leak check at 15:00, defect logged at 13:20, MEL category C = 10 days, connector at 16:30, steps 1–4 done / 5–6 outstanding, night shift begins in 10 minutes. Insist they say the times the aviation way — 'fifteen hundred', 'thirteen twenty' — not 'three o'clock'. This directly feeds the NUMERICAL quiz items.">
+    <div class="kick">§1 · Interactive · rAF · catch the spoken figure</div>
+    <h2>Numbers and times said out loud</h2>
+    <div class="cols">
+      <div class="dw" data-widget="figures"></div>
+      <div><p>Play a line, say the figure as a class, then click what you heard. The ticker settles on the answer.</p>
+        <p class="muted">Say times the aviation way — <em>"fifteen hundred"</em>, <em>"thirteen twenty"</em>. These feed the numerical quiz items.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · VOCAB intro + widget -->
+  <section class="slide" data-notes="Vocabulary (15 min). The field is work status — outstanding, deferred, carried-over — plus the documentation genres. There are nineteen taught terms in the bank; every one appears again in the exercises. Do not read the list aloud — that is dead time. Instead run the status-board widget: click each aircraft and the panel shows the term in use with its plain gloss. Then pair-test with the collocation game on the next slide. Concept-check the three that Latvian/Russian speakers confuse: 'deferred defect' (authorised, on the MEL) vs 'open defect' (any unfixed fault) vs 'outstanding' (a task not yet done). Keep every gloss in plain words: MEL = the list of what may be inoperative; sign off = certify a job is complete; unserviceable = not fit to use (u/s). Tell them the terms are the ONLY hard words allowed today — everything else stays simple.">
+    <div class="kick">§2 · Interactive · vocabulary · work status</div>
+    <h2>The status board — 19 terms in use</h2>
+    <div class="cols">
+      <div class="dw" data-widget="board"></div>
+      <div><p>Click an aircraft to see the work-status terms in a real sentence, each with a plain gloss.</p>
+        <p class="muted"><b>deferred defect</b> (on the MEL) · <b>open defect</b> (any unfixed fault) · <b>outstanding</b> (not yet done). These three are the ones to separate.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · VOCAB collocations -->
+  <section class="slide" data-notes="Vocabulary, part 2 — collocations, because B2 is about the partner words, not single terms. Run this as a quick whole-class or pairs game: show the verb, elicit the noun it 'goes with'. The natural pairs from the bank: RAISE a work order / a deferred defect; APPLY the MEL; FIT a placard; SIGN OFF a task card; RELEASE to service (the aircraft); RECTIFY a defect / the fault; TROUBLESHOOT a fault / the wiring; RUN a leak check / a BITE test; CARRY OVER a task. Drill the wrong-collocation trap: we do not *make a work order or *do the MEL. Then have them build one true sentence about their own last shift using two collocations. This sets up E1 (gap-fill) and E2 (matching) so those exercises run fast.">
+    <div class="kick">§2 · Vocabulary · the partner words</div>
+    <h2>Which noun goes with the verb?</h2>
+    <div class="card">
+      <table class="gt"><tr><th>Verb</th><th>Goes with…</th></tr>
+        <tr><td><b>raise</b></td><td>a work order · a deferred defect</td></tr>
+        <tr><td><b>apply</b></td><td>the MEL</td></tr>
+        <tr><td><b>fit</b></td><td>a placard</td></tr>
+        <tr><td><b>sign off</b></td><td>a task card · the work</td></tr>
+        <tr><td><b>release</b></td><td>to service (the aircraft)</td></tr>
+        <tr><td><b>rectify</b></td><td>a defect · the fault</td></tr>
+        <tr><td><b>run</b></td><td>a leak check · a BITE test</td></tr>
+      </table>
+      <p class="note">Trap: we do not <span class="wrong">make a work order</span> or <span class="wrong">do the MEL</span>. Build one true sentence about your last shift.</p>
+    </div>
+  </section>
+
+  <!-- 10 · GRAMMAR focus + widget -->
+  <section class="slide" data-notes="Grammar (15 min) — the heart of the unit. Present perfect vs past simple. State the one rule the whole handover turns on: use the PRESENT PERFECT for work that is done and still matters now ('I have completed the left engine'); use the PAST SIMPLE for a finished detail with a clear past time ('I ran the leak check at 15:00'). Run the timeline widget: pick a sentence and the marker slides to where the action sits — near NOW for the perfect (result still live), back on the line for the past simple (finished time). Make the signal words explicit: already, just, yet, so far -> present perfect; at 15:00, yesterday, then, this morning -> past simple. The professional payoff: the present perfect answers 'what is the situation right now?', the past simple answers 'what exactly happened, and when?'. Getting the contrast right is what makes a handover sound accurate, not vague.">
+    <div class="kick">§3 · Interactive · rAF · the tense timeline</div>
+    <h2>Present perfect vs past simple — where does it sit?</h2>
+    <div class="cols">
+      <div class="dw" data-widget="tense"></div>
+      <div><p><span class="pp">Present perfect</span> = done and it matters <em>now</em>. <span class="ps">Past simple</span> = a finished detail with a clear past time.</p>
+        <p class="muted">Signals: <b>already, just, yet, so far</b> → perfect · <b>at 15:00, yesterday, then</b> → past simple.</p></div>
+    </div>
+  </section>
+
+  <!-- 11 · GRAMMAR mistakes -->
+  <section class="slide" data-notes="Grammar, part 2 — the predictable L1 errors, named so learners can self-monitor. Latvian and Russian have no present perfect, so three errors recur. (1) Past simple with 'already': *'I already signed the card' -> 'I have already signed the card' — 'already' forces the perfect. (2) Present perfect with a finished time: *'I have closed the defect at 14:00' -> 'I closed the defect at 14:00' — a clear time forces the past simple; their L1 marks the result, not the time. (3) Dropped auxiliary in 'yet' questions: *'Did you finish the borescope yet?' -> 'Have you finished the borescope yet?' — 'yet' asks about now, and Russian/Latvian often drop 'have'. Drill by ear: read the wrong version, have the class recast it correctly in chorus, then move fast. Tell them you will recast, not lecture, when they slip in the role-play.">
+    <div class="kick">§3 · Grammar · the three L1 traps</div>
+    <h2>Latvian &amp; Russian: fix these three by ear</h2>
+    <div class="card">
+      <p><span class="wrong">✗ I already signed the card.</span> &nbsp;→&nbsp; <span class="right">✓ I <span class="pp">have</span> already signed the card.</span><br><span class="gloss">'already' needs the present perfect.</span></p>
+      <p><span class="wrong">✗ I have closed the defect at 14:00.</span> &nbsp;→&nbsp; <span class="right">✓ I <span class="ps">closed</span> the defect at 14:00.</span><br><span class="gloss">a clear past time needs the past simple.</span></p>
+      <p><span class="wrong">✗ Did you finish the borescope yet?</span> &nbsp;→&nbsp; <span class="right">✓ <span class="pp">Have</span> you finished the borescope yet?</span><br><span class="gloss">'yet' asks about now — don't drop 'have'.</span></p>
+    </div>
+  </section>
+
+  <!-- 12 · EXERCISE staging E1-E4 -->
+  <section class="slide" data-notes="Exercises (15 min), controlled first — E1 to E4 on the lecture page. Do not do these on the deck; set them on the learners' screens and circulate. E1 gap-fill (10 items) — put the right work-status term in each gap; E2 matching (10) — term to plain meaning; E3 dialogue completion (9) — one or two words from the dialogues; E4 grammar transformation (10) — perfect or past simple. Timing: about 3 minutes each, then a fast whole-class check. Tell them the value is making and correcting their own mistakes, so they should try before opening the Answers panel. Watch for the tense traps from the last slide surfacing in E4 items 1, 3, 6, 8. The full answer key with a one-line WHY per item is in the solutions file for you.">
+    <div class="kick">§4 · Exercises · controlled · ~12 min</div>
+    <h2>E1–E4 — set on screens, circulate</h2>
+    <div class="two">
+      <div class="card"><p><span class="tag">E1 · Gap-fill</span> 10 items — the right term in each gap.</p><p><span class="tag">E2 · Matching</span> 10 items — term → plain meaning.</p></div>
+      <div class="card"><p><span class="tag">E3 · Dialogue completion</span> 9 items — 1–2 words from the dialogues.</p><p><span class="tag">E4 · Grammar transformation</span> 10 items — perfect or past simple.</p></div>
+    </div>
+    <p class="note">~3 min each, then a fast whole-class check. Watch E4 items 1, 3, 6, 8 for the L1 tense traps.</p>
+  </section>
+
+  <!-- 13 · EXERCISE staging E5-E8 + widget -->
+  <section class="slide" data-notes="Exercises, part 2 — the documentation genres, E5 to E8. E5 Reading 1 is a real tech-log page (six short-answer questions); E7 Reading 2 is a task card (six questions); E6 is error-spotting — fix eight mistakes in a night-shift note, mostly wrong tenses, which recycles the grammar; E8 is a listening review on Dialogue 3. Use the MEL-countdown widget to make the category-C ten-day window concrete: drag the slider to a day and the bar animates how much rectification time is left, and flips to 'overdue' past day ten. Concept-check that the clock starts when the defect is deferred, not when it is noticed, and that 'not safety-critical' does not mean 'ignore it' — the placard must still be checked before every departure. Point them to the tech-log and task-card genres as models for their own writing task.">
+    <div class="kick">§4 · Interactive · rAF · the MEL clock</div>
+    <h2>E5–E8 · documentation genres — and the 10-day window</h2>
+    <div class="cols">
+      <div class="dw" data-widget="mel"></div>
+      <div><p><span class="tag">E5</span> tech-log page · <span class="tag">E6</span> fix 8 errors · <span class="tag">E7</span> task card · <span class="tag">E8</span> listen to Dialogue 3.</p>
+        <p class="muted">Category C = <b>10 days</b> to rectify. Drag the slider — the clock starts when the item is <em>deferred</em>. 'Not safety-critical' still means: check the placard before departure.</p></div>
+    </div>
+  </section>
+
+  <!-- 14 · ROLE-PLAY management -->
+  <section class="slide" data-notes="Role-play (12 min) — the productive speaking core, where outcome 3 (respond accurately) is assessed informally. Pairs: one is day-shift lead, one is incoming night technician; swap roles after each card. Card 1 the clean aircraft (report completed work, confirm serviceable); Card 2 the deferred defect (explain it, say what the night shift must watch); Card 3 the mid-task job (the night tech ASKS: how far, root cause found?, which steps outstanding, next step); Card 4 status questions on all three aircraft (answer accurately with the right tense). Run about 3 minutes per card. Use the caption translator (CC / key L) if a pair needs support. Do not interrupt for small slips — note the recurring tense errors and recast them at the end. Grade against the B2 speaking rubric in the teacher key: range, accuracy, fluency, interaction, coherence. If a pair finishes early, tell them to add one follow-up question the listener would really ask.">
+    <div class="kick">§5 · Role-play · 4 cards · ~12 min</div>
+    <h2>Practise the handover in pairs — swap after each card</h2>
+    <div class="two">
+      <div class="card"><p><b>Card 1 · The clean aircraft</b><br><span class="gloss">Lead reports completed work, confirms serviceable.</span></p>
+        <p><b>Card 2 · The deferred defect</b><br><span class="gloss">Lead explains the MEL item and what to watch.</span></p></div>
+      <div class="card"><p><b>Card 3 · The mid-task job</b><br><span class="gloss">Night tech asks: how far? cause? steps left? next step?</span></p>
+        <p><b>Card 4 · The status questions</b><br><span class="gloss">Lead answers on all three — with the right tense.</span></p></div>
+    </div>
+    <p class="note">~3 min per card. Recast recurring tense slips at the end, not mid-turn. Grade against the B2 rubric in the key.</p>
+  </section>
+
+  <!-- 15 · WRITING task -->
+  <section class="slide" data-notes="Writing (5 min to launch — finished as homework if time is short). The task: write a 90–120 word handover note for the night shift, covering all three aircraft, in ASD-STE100 Simplified Technical English. Put the STE rules on the board: short sentences (aim under 20 words), one idea per line, simple approved words, active voice, no synonyms for a term — call a placard a placard every time. Content checklist: aircraft one completed and serviceable; aircraft two a deferred defect on the MEL (not safety-critical, placard fitted); aircraft three mid-task with the outstanding steps and the next action. Insist on the tense contrast — present perfect for done-and-relevant ('I have completed…'), past simple for finished times ('I ran the leak check at 15:00'). The annotated model answer is in the solutions file; do not show it until they have drafted.">
+    <div class="kick">§6 · Writing · Simplified Technical English</div>
+    <h2>Write the handover note (90–120 words)</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>STE rules:</b> short sentences · one idea per line · simple approved words · active voice · one word for one thing.</p>
+        <p class="muted">Call a placard a <em>placard</em> every time — no synonyms.</p>
+      </div>
+      <div>
+        <p><b>Cover all three:</b></p>
+        <ul><li>A1 — completed &amp; serviceable</li><li>A2 — deferred defect on the MEL (not safety-critical)</li><li>A3 — mid-task, outstanding steps, next action</li></ul>
+        <p class="muted"><span class="pp">have completed…</span> (done, relevant) · <span class="ps">ran the check at 15:00</span> (finished time).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · RECAP / CLOSE -->
+  <section class="slide" data-center data-notes="Wrap-up. Six one-liners to close. A handover summarises done, in-progress and outstanding work — clearly, aircraft by aircraft. Flag every open defect and every safety-critical item; the incoming shift must never be surprised. A deferred defect is authorised (on the MEL) and stays open until fixed — you never sign it off to look tidy. Use the present perfect for done-and-relevant, the past simple for finished times — that contrast is what makes you sound accurate. The three L1 traps to self-monitor: 'already' + perfect, finished time + past simple, don't drop 'have' in 'yet' questions. Write it in Simplified Technical English — short, plain, one word for one thing. Set the homework: finish the STE handover note, and run one AI role-play from the lecture page. Thank the room and end on the safety line — never release an aircraft with an open defect unless the MEL clearly allows it.">
+    <div class="kick">Recap · close</div>
+    <h2>Say what's done, flag what's open, get the tense right</h2>
+    <p class="big muted">Summarise done · in-progress · outstanding — aircraft by aircraft · flag every open defect and safety-critical item · a deferred defect is authorised and stays open until fixed · <span class="pp">have completed</span> (done, relevant) vs <span class="ps">ran at 15:00</span> (finished time) · watch the three L1 traps · write it in Simplified Technical English.</p>
+    <p><b>Homework:</b> finish the STE handover note · run one AI role-play from the lecture page. <span class="muted">Never release an aircraft with an open defect — unless the MEL allows it.</span></p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS · canvas + rAF · student-driven) ===================== -->
+<script>
+window.DeckW={};
+(function(){
+  function E(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+
+  /* ---- W: TENSE TIMELINE (canvas + rAF) ---- */
+  window.DeckW.tense=function(host){
+    var cases=[
+      {t:"I have completed the oil change.",k:"pp",g:"done — and it matters NOW (engine ready).",x:0.86},
+      {t:"I ran the leak check at 15:00.",k:"ps",g:"a finished detail with a clear past time.",x:0.42},
+      {t:"We have not found the cause yet.",k:"pp",g:"up to NOW — 'yet' needs the present perfect.",x:0.9},
+      {t:"He placarded the switch at noon.",k:"ps",g:"finished past time (noon) → past simple.",x:0.38},
+      {t:"I have already signed the task card.",k:"pp",g:"'already' → present perfect.",x:0.83}
+    ];
+    host.innerHTML='<div class="wk"><div class="bar" data-btns></div>'+
+      '<canvas width="620" height="200"></canvas>'+
+      '<div class="info" data-info><h4>Pick a sentence</h4>Click a line above and watch where the action sits on the timeline.</div>'+
+      '<p class="note">Green = present perfect (near NOW) · amber = past simple (a finished point).</p></div>';
+    var btns=host.querySelector('[data-btns]'),cv=host.querySelector('canvas'),info=host.querySelector('[data-info]');
+    var ctx=cv.getContext('2d'),W=cv.width,H=cv.height,cur=-1,pos=0.5,target=0.5,raf=null;
+    cases.forEach(function(c,i){var b=E('button',null,'S'+(i+1));b.title=c.t;b.onclick=function(){pick(i);};btns.appendChild(b);});
+    function pick(i){cur=i;target=cases[i].x;
+      [].forEach.call(btns.children,function(b,k){b.classList.toggle('on',k===i);});
+      var c=cases[i];info.innerHTML='<h4 class="'+(c.k)+'">'+(c.k==='pp'?'Present perfect':'Past simple')+'</h4>"'+c.t+'"<br><span style="color:#9db0c6">'+c.g+'</span>';
+      if(!raf)loop();}
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      var y=120,x0=40,x1=W-40;
+      // line
+      ctx.strokeStyle='#314865';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.stroke();
+      // NOW marker
+      var nx=x1-6;ctx.strokeStyle='#38b6ff';ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(nx,30);ctx.lineTo(nx,y+30);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='#38b6ff';ctx.font='13px sans-serif';ctx.fillText('NOW',nx-24,26);
+      ctx.fillStyle='#7e98ad';ctx.fillText('PAST',x0-4,y+48);
+      // marker
+      var mx=x0+(x1-x0)*pos;
+      var col=cur>=0&&cases[cur].k==='pp'?'#34d399':'#fbbf24';
+      ctx.fillStyle=col;ctx.beginPath();ctx.arc(mx,y,11,0,7);ctx.fill();
+      ctx.strokeStyle='#0a0f18';ctx.lineWidth=2;ctx.stroke();
+      if(cur>=0){ctx.fillStyle=col;ctx.font='bold 14px sans-serif';var lab=cases[cur].k==='pp'?'have + done':'past simple';ctx.fillText(lab,clamp(mx-40,4,W-120),y-24);}
+    }
+    function loop(){pos+=(target-pos)*0.12;draw();if(Math.abs(target-pos)>0.002){raf=requestAnimationFrame(loop);}else{pos=target;draw();raf=null;}}
+    draw();
+  };
+
+  /* ---- W: STATUS BOARD (canvas) ---- */
+  window.DeckW.board=function(host){
+    var ac=[
+      {n:"A320 · stand 12",s:"SERVICEABLE",col:"#34d399",lines:[["serviceable","fit and approved to fly"],["release to service","certify the aircraft is fit to fly"],["sign off","certify a job is complete"]]},
+      {n:"737 · bay 3",s:"DEFERRED DEFECT",col:"#fbbf24",lines:[["deferred defect","a fault you may fix later, on the MEL"],["carried over","passed to the next shift to finish"],["placard","a warning label for an inoperative item"],["MEL","the list of what may be inoperative"]]},
+      {n:"ATR 72 · hangar",s:"MID-TASK",col:"#ff5667",lines:[["outstanding","still not done; waiting to be finished"],["task card","a sheet with one job and its steps"],["troubleshoot","to find the cause of a fault"],["AMM","the approved maintenance manual"]]}
+    ];
+    host.innerHTML='<div class="wk"><div class="bar" data-btns></div>'+
+      '<canvas width="620" height="150"></canvas>'+
+      '<div class="info" data-info><h4>Click an aircraft</h4>See the work-status terms in use, each with a plain gloss.</div></div>';
+    var btns=host.querySelector('[data-btns]'),cv=host.querySelector('canvas'),ctx=cv.getContext('2d'),info=host.querySelector('[data-info]'),cur=0;
+    ac.forEach(function(a,i){var b=E('button',null,a.n);b.onclick=function(){pick(i);};btns.appendChild(b);});
+    function draw(){
+      var W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+      var w=(W-40)/3;
+      ac.forEach(function(a,i){
+        var x=10+i*w+i*5;
+        ctx.fillStyle=i===cur?'#16324c':'#0f1726';ctx.strokeStyle=a.col;ctx.lineWidth=i===cur?3:1.5;
+        ctx.beginPath();ctx.roundRect(x,15,w-6,H-30,12);ctx.fill();ctx.stroke();
+        ctx.fillStyle='#e9f0f7';ctx.font='bold 14px sans-serif';ctx.fillText(a.n,x+14,45);
+        ctx.fillStyle=a.col;ctx.font='bold 15px sans-serif';ctx.fillText(a.s,x+14,80);
+        ctx.fillStyle='#7e98ad';ctx.font='12px sans-serif';ctx.fillText('aircraft '+(i+1),x+14,110);
+      });
+    }
+    function pick(i){cur=i;[].forEach.call(btns.children,function(b,k){b.classList.toggle('on',k===i);});
+      var a=ac[i],h='<h4 style="color:'+a.col+'">'+a.n+' — '+a.s+'</h4>';
+      a.lines.forEach(function(l){h+='<div style="margin:3px 0"><b>'+l[0]+'</b> — <span style="color:#9db0c6">'+l[1]+'</span></div>';});
+      info.innerHTML=h;draw();}
+    pick(0);
+  };
+
+  /* ---- W: FIGURES (rAF ticker) ---- */
+  window.DeckW.figures=function(host){
+    var lines=[
+      {q:"\"…the night shift begins in ___ minutes…\"",a:10,opts:[10,15,20]},
+      {q:"\"…I ran the leak check at ___…\"",a:1500,opts:[1300,1500,1600],fmt:"time"},
+      {q:"\"…logged the defect in the tech log at ___…\"",a:1320,opts:[1320,1330,1230],fmt:"time"},
+      {q:"\"…we have ___ days to rectify it.\"",a:10,opts:[7,10,14]},
+      {q:"\"…I inspected the connector at ___…\"",a:1630,opts:[1600,1630,1530],fmt:"time"},
+      {q:"\"…I have finished steps one to ___ already.\"",a:4,opts:[3,4,6]}
+    ];
+    function show(v,f){return f==="time"?(String(Math.floor(v/100)).padStart(2,'0')+":"+String(v%100).padStart(2,'0')):v;}
+    host.innerHTML='<div class="wk"><div class="bar"><button data-play class="prim">▶ Play a line</button><span class="note" data-cue></span></div>'+
+      '<canvas width="620" height="90"></canvas>'+
+      '<div class="bar" data-opts style="margin-top:10px"></div>'+
+      '<div class="info" data-info><h4>Listen for the figure</h4>Press play, say the figure aloud, then click what you heard.</div></div>';
+    var cv=host.querySelector('canvas'),ctx=cv.getContext('2d'),cue=host.querySelector('[data-cue]'),optbar=host.querySelector('[data-opts]'),info=host.querySelector('[data-info]');
+    var idx=-1,shown=0,target=0,raf=null,revealed=false;
+    host.querySelector('[data-play]').onclick=function(){idx=(idx+1)%lines.length;revealed=false;var l=lines[idx];
+      cue.textContent="Line "+(idx+1)+" / "+lines.length;target=l.a;shown=0;info.innerHTML='<h4>What did you hear?</h4>'+l.q;
+      optbar.innerHTML='';l.opts.forEach(function(o){var b=E('button',null,show(o,l.fmt));b.onclick=function(){guess(o,b);};optbar.appendChild(b);});
+      if(!raf)loop();};
+    function guess(o,b){var l=lines[idx];revealed=true;
+      [].forEach.call(optbar.children,function(x){x.classList.remove('on');});
+      if(o===l.a){b.classList.add('on');info.innerHTML='<h4 style="color:#34d399">Correct — '+show(l.a,l.fmt)+'</h4>'+l.q;}
+      else{b.style.borderColor='#ff5667';info.innerHTML='<h4 style="color:#ff5667">Not quite</h4>The answer is <b>'+show(l.a,l.fmt)+'</b>.';}
+      shown=l.a;draw();}
+    function draw(){var W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+      ctx.fillStyle=revealed?'#34d399':'#7fd0ff';ctx.font='bold 44px ui-monospace,Consolas,monospace';ctx.textAlign='center';
+      var l=idx>=0?lines[idx]:null;var disp=l&&l.fmt==='time'?(String(Math.floor(shown/100)).padStart(2,'0')+":"+String(Math.round(shown%100)).padStart(2,'0')):Math.round(shown);
+      ctx.fillText(idx<0?'—':disp,W/2,H/2+16);ctx.textAlign='left';}
+    function loop(){shown+=(target-shown)*0.18;draw();if(Math.abs(target-shown)>0.5){raf=requestAnimationFrame(loop);}else{shown=target;draw();raf=null;}}
+    draw();
+  };
+
+  /* ---- W: MEL COUNTDOWN (canvas + rAF) ---- */
+  window.DeckW.mel=function(host){
+    host.innerHTML='<div class="wk"><div class="bar"><span class="note">Days since the item was deferred:</span> <b data-d style="color:#7fd0ff">0</b></div>'+
+      '<input type="range" min="0" max="12" value="0" step="1">'+
+      '<canvas width="620" height="120"></canvas>'+
+      '<div class="info" data-info><h4>MEL category C = 10 days</h4>Drag the slider. The bar shows the rectification time left.</div></div>';
+    var sl=host.querySelector('input'),cv=host.querySelector('canvas'),ctx=cv.getContext('2d'),dv=host.querySelector('[data-d]'),info=host.querySelector('[data-info]');
+    var shown=0,target=0,raf=null;
+    sl.oninput=function(){target=+sl.value;dv.textContent=sl.value;
+      var left=10-target;
+      if(target<=10)info.innerHTML='<h4 style="color:#34d399">'+left+' day'+(left===1?'':'s')+' left</h4>Within the window — but still check the placard before every departure.';
+      else info.innerHTML='<h4 style="color:#ff5667">OVERDUE by '+(target-10)+' day'+(target-10===1?'':'s')+'</h4>The aircraft may no longer fly on this item — it must be rectified.';
+      if(!raf)loop();};
+    function draw(){var W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+      var x0=30,x1=W-30,y=60,frac=clamp(shown/10,0,1.2);
+      ctx.fillStyle='#0a0f18';ctx.strokeStyle='#314865';ctx.lineWidth=2;ctx.beginPath();ctx.roundRect(x0,y-18,x1-x0,36,8);ctx.fill();ctx.stroke();
+      var col=shown<=7?'#34d399':shown<=10?'#fbbf24':'#ff5667';
+      ctx.fillStyle=col;ctx.beginPath();ctx.roundRect(x0,y-18,(x1-x0)*Math.min(frac,1),36,8);ctx.fill();
+      // day 10 line
+      var dx=x0+(x1-x0)*1;ctx.strokeStyle='#ff5667';ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(dx-2,y-30);ctx.lineTo(dx-2,y+30);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='#9db0c6';ctx.font='12px sans-serif';ctx.fillText('day 0',x0,y+48);ctx.fillText('day 10 limit',dx-70,y-38);
+      ctx.fillStyle='#e9f0f7';ctx.font='bold 15px sans-serif';ctx.fillText('day '+Math.round(shown),x0+8,y+6);
+    }
+    function loop(){shown+=(target-shown)*0.18;draw();if(Math.abs(target-shown)>0.05){raf=requestAnimationFrame(loop);}else{shown=target;draw();raf=null;}}
+    draw();
+  };
+
+  window.DeckWReady=true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u05_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u05_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 5</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:21px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:28px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u05_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u05_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u05_deck_state")render();});',
+'setInterval(render,400);render();',
+'<\/script></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u05_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,80); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left;
+            pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}.lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}.lct-row:empty{display:none}.lct-row-top{opacity:1}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;
+            font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB;
+            background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto;
+            width:50px; height:50px; border-radius:50%; cursor:pointer;
+            background:#F7C22D; color:#020E27; border:2px solid #F7C22D;
+            font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px;
+            box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051;
+               font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em;
+               text-transform:uppercase; color:#020E27; background:#F7C22D;
+               border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto;
+             width:42px; height:42px; border-radius:50%; cursor:pointer;
+             background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4);
+             font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052;
+                display:none; align-items:center; gap:8px;
+                background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px;
+                padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px;
+                       font-weight:700; color:#E8EDF5; background:#162030;
+                       border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="it-IT">Italiano</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="en">English</option>
+    <option value="ru">Русский</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capQueueB=[], capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } } function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<script>(function(){try{
+  var KEY='tsiCapScale', root=document.documentElement;
+  function apply(v){ root.style.setProperty('--cap-scale', v); }
+  var saved=parseFloat(localStorage.getItem(KEY))||1; saved=Math.max(0.6,Math.min(1.9,saved)); apply(saved);
+  var st=document.createElement('style'); st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}.cap-fs-slider::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:#FFD24D;cursor:pointer}'; document.head.appendChild(st);
+  function mount(){ var lb=document.getElementById('lctLangBar'); if(!lb||lb.querySelector('.cap-fs-slider')) return;
+    var w=document.createElement('span'); w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w); var sl=w.querySelector('.cap-fs-slider'); sl.value=saved;
+    var stop=function(e){ e.stopPropagation(); };
+    sl.addEventListener('input',function(){ var v=parseFloat(sl.value)||1; apply(v); try{ localStorage.setItem(KEY,v); }catch(e){} });
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){ sl.addEventListener(ev,stop); });
+  }
+  if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>

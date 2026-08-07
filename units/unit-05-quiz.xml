@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U05-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 5 — Giving a shift handover briefing. CEFR B2 · EASA Part-66/145. Listening, reading, use of English and vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ============================ LISTENING (7) ============================ -->
+
+  <question type="multichoice">
+    <name><text>U05-L1 Dialogue 1 — completed work</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> What work did the technician finish on the A320 left engine?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The technician says: "I have completed the left engine oil change." Present perfect = done and relevant now.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The left engine oil change.]]></text><feedback format="html"><text><![CDATA[Correct — the oil change was completed and the leak check was dry.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A full replacement of the left engine.]]></text><feedback format="html"><text><![CDATA[No — only the oil was changed, not the engine.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A wash of the engine cowling.]]></text><feedback format="html"><text><![CDATA[No cowling wash is mentioned in the briefing.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Refuelling of the main tank.]]></text><feedback format="html"><text><![CDATA[Refuelling is not part of this task.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U05-L2 Dialogue 1 — clean tech log</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> The A320 has an open defect in the tech log.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The technician says the aircraft has no open defect anywhere and the tech log is completely clean.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[Incorrect — the tech log is completely clean.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — there is no open defect on aircraft one.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U05-L3 Dialogue 1 — leak check time</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> At what time did the technician run the leak check? Write the time in 24-hour form with no colon (for example, 0930 → <code>930</code>).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"I ran the leak check at fifteen hundred" = 15:00, written 1500.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>1500</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — fifteen hundred is 1500.]]></text></feedback></answer>
+    <units/>
+  </question>
+
+  <question type="numerical">
+    <name><text>U05-L4 Dialogue 2 — MEL days</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> How many days does the MEL category C give to rectify the defect?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"The MEL gives us a category C, so we have ten days to rectify it."</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>10</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — category C = ten days.]]></text></feedback></answer>
+    <units/>
+  </question>
+
+  <question type="numerical">
+    <name><text>U05-L5 Dialogue 3 — steps finished</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> How many steps of the task card had the technician finished?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"I have finished steps one to four already" — so four steps are done; five and six are outstanding.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>4</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — steps one to four were finished.]]></text></feedback></answer>
+    <units/>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U05-L6 Dialogue 4 — release rule</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 4 again.</b> You must not release an aircraft with an open defect unless…</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The announcement says: "Do not release any aircraft to service with an open defect, unless the MEL clearly allows it."</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[the MEL clearly allows it.]]></text><feedback format="html"><text><![CDATA[Correct — the MEL is the only authority to fly with the item.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the day shift supervisor says it is acceptable.]]></text><feedback format="html"><text><![CDATA[No — a spoken agreement does not authorise flight.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the tech log wallet has been signed.]]></text><feedback format="html"><text><![CDATA[A signature alone does not clear an open defect.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the placard has been removed first.]]></text><feedback format="html"><text><![CDATA[Removing the placard would not make the aircraft legal.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U05-L7 Dialogue 3 — borescope</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> The borescope is needed for the weather-radar job.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"No, the borescope is not needed at all, because this radar fault is purely electrical."</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[Incorrect — the fault is electrical, so no borescope is used.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — the borescope is not needed for an electrical fault.]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ READING (5) ============================ -->
+
+  <question type="multichoice">
+    <name><text>U05-R1 Service Bulletin</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this Service Bulletin, then answer.</b></p><blockquote>SB 32-1180. Operators must inspect the nose landing gear pin every 500 flight hours. Replace the pin if wear is more than 0.2 mm. This bulletin is recommended, not mandatory.</blockquote><p>How often must the pin be inspected?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The SB sets the interval at every 500 flight hours. Wear over 0.2 mm is the replacement limit, not the inspection interval.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Every 500 flight hours.]]></text><feedback format="html"><text><![CDATA[Correct — that is the stated inspection interval.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Only when the measured wear is above 0.2 mm.]]></text><feedback format="html"><text><![CDATA[No — 0.2 mm is the replacement limit, not the interval.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[At every daily inspection check.]]></text><feedback format="html"><text><![CDATA[The SB does not link the pin to the daily.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Once before the aircraft is sold.]]></text><feedback format="html"><text><![CDATA[Not stated in the bulletin.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U05-R2 MEL excerpt</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this MEL excerpt, then answer.</b></p><blockquote>MEL 33-45-01, category C. One landing light may be inoperative for up to 10 days. A placard is required. The item must be fixed within the interval.</blockquote><p>The aircraft may fly for up to ten days with this item inoperative.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Category C permits the item to be inoperative for up to 10 days, with a placard fitted.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — up to ten days, with a placard.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Incorrect — category C allows ten days.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U05-R3 Work order</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this work order, then answer.</b></p><blockquote>Work Order 8841. Task: rectify right landing light. Status: OPEN. Deferred under MEL. Do not sign off until the light works and the placard is removed.</blockquote><p>When can the work order be signed off?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The order stays open until the fault is rectified — the light works — and the placard is removed.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[After the light is repaired.]]></text><feedback format="html"><text><![CDATA[Correct — sign off only once it works and the placard is removed.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[As soon as the placard is first fitted to the switch.]]></text><feedback format="html"><text><![CDATA[No — fitting the placard opens the deferral, it does not close it.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[At the start of the next night shift.]]></text><feedback format="html"><text><![CDATA[The shift does not decide when a job is done.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Once ten days have passed by.]]></text><feedback format="html"><text><![CDATA[Time passing does not fix the fault.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U05-R4 BITE readout</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this BITE readout, then answer.</b></p><blockquote>BITE readout — Weather radar. FAULT 34-41 TRANSCEIVER INTERMITTENT. ANTENNA: PASS. WIRING: CHECK REQUIRED.</blockquote><p>The readout shows that the antenna passed its test.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The readout marks the antenna as PASS; the wiring still needs a check and the transceiver fault is intermittent.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — the antenna line reads PASS.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Incorrect — the antenna is marked PASS.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U05-R5 Airworthiness Directive</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this Airworthiness Directive, then answer.</b></p><blockquote>AD 2024-07. Mandatory. Inspect the fuel pump wiring for chafing before next flight. Non-compliance grounds the aircraft.</blockquote><p>What happens if the operator does not comply with this AD?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>An AD is mandatory. Here, non-compliance grounds the aircraft — it may not fly.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The aircraft is grounded.]]></text><feedback format="html"><text><![CDATA[Correct — the AD is mandatory and grounds the aircraft.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The inspection can be deferred for ten days.]]></text><feedback format="html"><text><![CDATA[No — an AD is mandatory, not deferrable like an MEL item.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A placard must be fitted instead.]]></text><feedback format="html"><text><![CDATA[A placard does not satisfy a mandatory AD.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The tech log is closed for review.]]></text><feedback format="html"><text><![CDATA[Not stated, and it would not make the aircraft legal.]]></text></feedback></answer>
+  </question>
+
+  <!-- ======================= USE OF ENGLISH (7) ======================= -->
+
+  <question type="shortanswer">
+    <name><text>U05-U1 Present perfect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Put the verb in the <b>present perfect</b>: "I ___ the daily inspection, so the aircraft is ready." (finish)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Done and relevant now → present perfect: <b>have finished</b>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>have finished</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>have completed</text><feedback format="html"><text><![CDATA[Also accepted.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U05-U2 Past simple</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Put the verb in the <b>past simple</b>: "I ___ the leak check at 15:00." (run)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A clear finished time (at 15:00) → past simple: <b>ran</b>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>ran</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U05-U3 Signal word</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing word: "We have not found the cause ___ ."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>yet</b> means "up to now" and goes with the present perfect.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>yet</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U05-U4 Missing auxiliary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Add the missing word: "I ___ already signed the task card."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"already" needs the present perfect, so the auxiliary <b>have</b> is missing. Latvian and Russian have no present perfect, so speakers often drop it.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>have</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U05-U5 Term recall</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which two-word term means a fault that is flown on the MEL and fixed later?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <b>deferred defect</b> is authorised on the MEL and rectified within the interval.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>deferred defect</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>a deferred defect</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U05-U6 Collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which verb goes with "a work order"? You ___ a work order.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The natural collocation is <b>raise</b> a work order (not "make" or "do").</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>raise</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>raised</text><feedback format="html"><text><![CDATA[Accepted.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U05-U7 Term recall</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write one word: the aircraft is fit and approved to fly, so it is ___ .</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>serviceable</b> = fit and approved to use. Its opposite is unserviceable (u/s).</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>serviceable</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ VOCABULARY (4) ============================ -->
+
+  <question type="matching">
+    <name><text>U05-V1 Terms and meanings</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each work-status term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>outstanding = not yet done · deferred defect = flown on the MEL, fixed later · carried over = passed to the next shift · open defect = any unfixed fault.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[outstanding]]></text><answer><text>still not done; waiting to be finished</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[deferred defect]]></text><answer><text>a fault flown on the MEL and fixed later</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[carried over]]></text><answer><text>work passed to the next shift to finish</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[open defect]]></text><answer><text>any fault that is still not fixed</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U05-V2 Verb and noun collocations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each verb to the noun it goes with.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>apply the MEL · fit a placard · raise a work order · run a BITE test. These are the natural partner words.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[apply]]></text><answer><text>the MEL</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[fit]]></text><answer><text>a placard</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[raise]]></text><answer><text>a work order</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[run]]></text><answer><text>a BITE test</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U05-V3 More terms and meanings</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>rectify = fix a defect properly · troubleshoot = find the cause · sign off = certify a job is complete · placard = warning label for an inoperative item.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[rectify]]></text><answer><text>to fix a defect properly</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[troubleshoot]]></text><answer><text>to find the cause of a fault</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[sign off]]></text><answer><text>to certify that a job is complete</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[placard]]></text><answer><text>a warning label for an inoperative item</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U05-V4 Abbreviations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each abbreviation to its meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>MEL = the list of what may be inoperative · AMM = the approved maintenance manual · BITE = the built-in self-test · u/s = unserviceable.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[MEL]]></text><answer><text>the list of what may be inoperative</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[AMM]]></text><answer><text>the approved maintenance manual</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>the built-in self-test</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[u/s]]></text><answer><text>not fit to use</text></answer></subquestion>
+  </question>
+
+</quiz>
