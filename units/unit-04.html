@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English for Aviation Maintenance · Unit 4 — Simulation: morning base-check start</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  article{max-width:940px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 32px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:26ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:64ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:15px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:72ch}
+  a{color:var(--color-primary)}
+  code{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .card.cando{border-left:4px solid var(--gold);background:var(--bg-margin)}
+  .card h4{font-size:.98rem;margin:0 0 var(--space-3);color:var(--color-primary-dark)}
+  .card ul{margin:0;padding-left:1.1em}
+  .card li{margin:6px 0;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .pill{display:inline-block;font-size:11px;font-weight:600;font-family:var(--font-mono);padding:2px 9px;border-radius:20px;border:1px solid var(--border);color:var(--ink-muted);background:var(--bg-sunken)}
+  /* dialogues */
+  .lang-audio-slot{margin:14px 0 6px;padding:12px 16px;border:1px dashed var(--color-primary-soft);border-radius:var(--radius-sm);background:#eef2f9;font-family:var(--font-mono);font-size:12px;color:var(--color-primary-dark)}
+  .lang-audio-slot:before{content:"🎧 audio ";font-weight:700}
+  details.transcript{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-elevated);margin:0 0 var(--space-5);box-shadow:var(--shadow-sm)}
+  details.transcript>summary{cursor:pointer;padding:10px 16px;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary);font-weight:700}
+  details.transcript[open]>summary{border-bottom:1px solid var(--border-soft)}
+  .dlg{padding:8px 18px 14px}
+  .dlg .dtitle{font-family:var(--font-serif);font-weight:600;font-size:1.05rem;margin:8px 0 10px}
+  p.turn{display:grid;grid-template-columns:30px 1fr;gap:12px;margin:7px 0;max-width:none}
+  p.turn .who{font-family:var(--font-mono);font-weight:700;color:var(--color-primary);font-size:13px}
+  p.turn.b .who{color:var(--accent)}
+  p.turn .said{color:#2a2e3b}
+  .gloss{font-size:13px;color:var(--ink-muted);font-style:italic}
+  /* vocab */
+  table.vocab{border-collapse:collapse;margin-top:12px;font-size:14.5px;width:100%}
+  table.vocab th,table.vocab td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vocab th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+  table.vocab dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  table.vocab td .col{color:var(--ink-muted);font-family:var(--font-mono);font-size:12.5px}
+  /* grammar */
+  table.form{border-collapse:collapse;margin:12px 0;font-size:14.5px;width:100%}
+  table.form th,table.form td{border:1px solid var(--border);padding:8px 11px;text-align:left}
+  table.form th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  .mistake{display:grid;grid-template-columns:1fr;gap:6px;border:1px solid var(--border);border-left:4px solid var(--signal);border-radius:var(--radius-sm);padding:11px 15px;margin:10px 0;background:var(--bg-elevated)}
+  .mistake .wrong{color:var(--bad);font-weight:600}
+  .mistake .wrong:before{content:"✗ ";font-weight:800}
+  .mistake .right{color:#256d36;font-weight:600}
+  .mistake .right:before{content:"✓ ";font-weight:800}
+  .mistake .why{font-size:13.5px;color:var(--ink-muted)}
+  /* exercises */
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:15px 19px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex h3{margin:2px 0 4px}
+  .ex .instr{font-size:15px;color:var(--ink-soft);margin:2px 0 10px}
+  .ex ol{margin:8px 0;padding-left:1.4em}
+  .ex li{margin:9px 0}
+  .ex .reading{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 16px;margin:8px 0;font-size:15px}
+  .ex .reading .doc-h{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--color-primary);font-weight:700;margin-bottom:6px}
+  .ex .reading p{max-width:none}
+  input.gap,select.gap{font-family:var(--font-sans);font-size:14px;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:#fff;min-width:120px;color:var(--ink)}
+  input.gap:focus,select.gap:focus{outline:none;border-color:var(--color-primary)}
+  input.gap.right,select.gap.right{border-color:var(--good);background:#eaf5ec}
+  input.gap.wrong,select.gap.wrong{border-color:var(--bad);background:#fbecea}
+  button.btn{font-family:var(--font-sans);background:var(--color-primary);color:#fff;border:1px solid var(--color-primary);border-radius:8px;padding:8px 15px;font-size:14px;font-weight:600;cursor:pointer;transition:.14s;margin-top:8px}
+  button.btn:hover{background:var(--color-primary-dark)}
+  button.btn.ghost{background:var(--bg-sunken);color:var(--ink);border-color:var(--border)}
+  .score{font-family:var(--font-mono);font-size:13px;font-weight:700;margin-left:12px;color:var(--color-primary-dark)}
+  details.key{margin-top:10px;border-top:1px dashed var(--border);padding-top:8px}
+  details.key>summary{cursor:pointer;font-size:13px;font-family:var(--font-mono);color:var(--color-primary);font-weight:700}
+  details.key ol{font-size:14px;color:#3a3f4d}
+  /* speaking */
+  .roleplay{border:1px solid var(--border);border-top:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:12px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.05rem;display:flex;align-items:center;gap:10px}
+  .roleplay .rc{font-family:var(--font-mono);font-size:11px;background:var(--color-primary);color:#fff;padding:2px 9px;border-radius:20px}
+  .roleplay .fld{margin:6px 0;font-size:14.5px}
+  .roleplay .fld b{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-primary);display:block}
+  .roleplay .phrases{background:var(--bg-sunken);border-radius:var(--radius-sm);padding:9px 13px;margin-top:6px;font-size:14px}
+  .aibox{background:linear-gradient(180deg,#f4eefb,#fbfaf6);border:1px solid #e0d2f1;border-radius:var(--radius);padding:18px 20px;margin:18px 0;box-shadow:var(--shadow-sm)}
+  .aibox h4{margin:0 0 4px;color:#5a3f8f}
+  .prompt{background:#fff;border:1px solid #e0d2f1;border-radius:var(--radius-sm);padding:11px 14px;margin:10px 0;font-size:14px;position:relative}
+  .prompt .lab{font-family:var(--font-mono);font-size:11px;color:#7a5aa8;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;display:block}
+  .prompt code{background:transparent;padding:0;color:#3a3f4d;font-family:var(--font-sans);font-size:14px}
+  button.copy{position:absolute;top:9px;right:9px;font-size:11px;padding:4px 10px;background:#5a3f8f;color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:var(--font-mono)}
+  /* writing */
+  .checklist{list-style:none;padding:0;margin:10px 0}
+  .checklist li{margin:6px 0;padding-left:26px;position:relative;color:#3a3f4d}
+  .checklist li:before{content:"☐";position:absolute;left:0;color:var(--color-primary);font-size:16px}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 4 of 32 · Simulation: morning base-check start</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 hangar workflow — access panel, jacking, safety cordon</span></div></div></header>
+<article>
+
+  <header class="lec-hero">
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 4 — Simulation Day</p>
+    <h1 class="lecture-title">Simulation: the morning base-check start.</h1>
+    <p class="subtitle">Two mechanics open a base check together. They read the work pack, split the task cards, jack the aircraft, and open the first access panels. Then one of them finds a defect that is not on any card — and the plan has to change.</p>
+    <div class="hero-meta">
+      <span>Unit<strong>4 — Simulation Day</strong></span>
+      <span>Vocabulary<strong>Hangar workflow</strong></span>
+      <span>Grammar<strong>Sequencers for workflow</strong></span>
+      <span>AI stage<strong>Consultant — conversation partner</strong></span>
+    </div>
+    <div class="card cando" style="margin-top:var(--space-5)">
+      <h4>By the end of this unit you can …</h4>
+      <ul>
+        <li>Combine documentation reading, task sign-off and defect reporting in one realistic sequence.</li>
+        <li>Prioritise tasks and communicate the plan to a partner.</li>
+        <li>Ask for clarification when documentation is ambiguous.</li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ============================ SCENARIO ============================ -->
+  <section class="lecture-section" id="scenario">
+    <h2><span class="secnum">01</span>The situation</h2>
+    <p>It is 07:00 in the hangar. An A320 is booked in for a scheduled base check. Two mechanics, Anna and Ravi, collect the work pack and position themselves at the aircraft. They must review the documentation, agree their responsibilities, and open the aircraft safely. Every operation follows a sequence, because you cannot remove a wheel before jacking the aircraft. As soon as they open the first panel, they discover something the cards did not anticipate. In this unit you listen to their morning, learn the vocabulary they use, and practise the identical procedure yourself.</p>
+    <div class="callout">
+      <h4>How to use this unit</h4>
+      <p style="margin:0">Listen to each recording first, before reading the transcript. Afterwards, open the transcript and read carefully. Study the vocabulary, then examine the grammar. Complete the eight exercises and verify your own answers. Finally, practise the speaking cards and the writing assignment.</p>
+    </div>
+  </section>
+
+  <!-- ============================ DIALOGUES ============================ -->
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">02</span>Model dialogues</h2>
+    <p>Three short dialogues follow the same morning from three angles: planning the work, opening the aircraft, and reporting the defect. Listen first, then read.</p>
+
+    <!-- DIALOGUE 1 -->
+    <h3>Dialogue 1 — Reading the work pack and splitting the cards</h3>
+    <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u04-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:57 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript">
+      <summary>Transcript — Dialogue 1</summary>
+      <div class="dlg">
+        <p class="turn a"><span class="who">A</span><span class="said">Morning, Ravi. Here is the A320 work pack. Let us review the documentation before we begin.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Good idea. First, we examine the work order. It authorises a scheduled base check, plus two additional task cards.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Correct. The work order is the legal authority. Nothing begins until it is properly signed and open.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Agreed. So, documentation first, then the aircraft. How many task cards are inside the pack?</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Six task cards. Each one is a separate job, with individual steps and its own sign-off box.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Let us divide them. I will handle the landing gear cards, because I completed this inspection recently.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Fine. I will manage the panel and inspection cards. Each card references a section of the AMM.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Good. Whenever we need a part number, we consult the IPC. It identifies the component and its position.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Exactly. Before we certify anything, we review the latest handover recorded in the tech log.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">The tech log is clear. The night shift reported one open item, although it does not affect our cards.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Let me confirm the priority. Safety and access first, then the inspections. The sign-off is always final.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Understood. Once a card is genuinely complete, we certify it. We never approve unfinished work.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Precisely. If a card is unclear, we consult the supervisor. We never assume anything on a base check.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">So the plan is agreed. I study my cards, you study yours, and we meet at the aircraft shortly.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Perfect. One final point — every defect we discover goes immediately into the tech log.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Understood. Documentation first, aircraft second. I will see you at the nose gear.</span></p>
+      </div>
+    </details>
+
+    <!-- DIALOGUE 2 -->
+    <h3>Dialogue 2 — Jacking the aircraft and opening the panels</h3>
+    <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u04-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 2:05 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript">
+      <summary>Transcript — Dialogue 2</summary>
+      <div class="dlg">
+        <p class="turn a"><span class="who">A</span><span class="said">Right, we are at the aircraft. Before we jack it, we establish the safety cordon around the bay.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">The safety cordon is complete. I have positioned a warning notice on each stand, so nobody enters.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Good. Are the wheel chocks fitted? We never begin jacking until the wheel chock secures every tyre.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Chocks are fitted. Now I attach the jack pads to each jack point beneath the wings and the nose.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Careful — the AMM instructs us to jack the nose last. First the wings, then the nose, unless the card differs.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Understood. Wings first. Jacking slowly now, and I monitor the level as the aircraft rises.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Nicely level. As soon as it is elevated, we install the lockout pins on every jack.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Lockout pins are installed. The aircraft is secure on jacks. Now we can open the access panel.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">My card covers panel 191AB. I count twenty panel fasteners. I will bag them, so nothing is misplaced.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Good habit. A loose fastener becomes FOD, and FOD can seriously damage an engine or a tyre.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Correct. The panel is removed. I record the torque value from the AMM, so we reassemble it correctly.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Sensible. Document the torque immediately, while you remember it. Then it is ready for closing.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Done. So, cordon established, chocks fitted, jacked, locked out, panel open. That is the correct sequence.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Textbook. Although we work quickly, we never skip a procedure. A skipped step endangers people.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Agreed. I will begin the inspection behind the panel. Can you verify my jack point on the left wing?</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Verifying now. The left jack point looks secure, the pad is seated, no movement. You may inspect.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Thanks. If anything appears abnormal inside, I will stop immediately and call you before I touch it.</span></p>
+      </div>
+    </details>
+
+    <!-- DIALOGUE 3 -->
+    <h3>Dialogue 3 — Reporting a defect and asking for clarification</h3>
+    <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u04-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 2:01 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript">
+      <summary>Transcript — Dialogue 3</summary>
+      <div class="dlg">
+        <p class="turn a"><span class="who">A</span><span class="said">Ravi, stop a second. Behind the access panel I can see a crack near a bracket. It is not on my card.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Let me examine it. Yes, I see it too. That is a defect, and it is completely absent from the work pack.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Exactly. So we suspend this task immediately. We report the defect before we continue anything here.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Agreed. First, we record it in the tech log. Then we raise a separate work order for the repair.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">The AMM is not clear here. It illustrates the bracket, but it provides no limit for this particular crack.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">You are right, it is ambiguous. Whenever the AMM is unclear, we never decide alone. We ask.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">So, can you clarify one thing for me? Do we measure the crack first, or contact the supervisor first?</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Measure it first, so we provide an accurate number. Then we call, so the supervisor receives the facts.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Good. The crack measures about twelve millimetres. I will photograph it beside a ruler for the record.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Excellent. And the part number, if required — do we obtain it from the IPC or from the panel label?</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">From the IPC, definitely. The panel label may be outdated. The IPC is the controlled source.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Understood. I will compose a clear defect entry now — location, dimensions, and our actions, in plain language.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Please retain the torque note for this panel too. We cannot close it until the defect is cleared.</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Correct. I will not certify the panel card, because the job remains incomplete. It stays open.</span></p>
+        <p class="turn a"><span class="who">A</span><span class="said">Sorry, one additional question — should the sign-off await the supervisor, or await the repair?</span></p>
+        <p class="turn b"><span class="who">B</span><span class="said">Await the repair. No sign-off until the defect is repaired and inspected. That is the rule, always.</span></p>
+      </div>
+    </details>
+
+    <!-- MONOLOGUE (4th audio slot) -->
+    <h3>Listening 4 — Shift-handover voicemail</h3>
+    <p>A short voicemail from the night-shift lead to the day shift. Listen, then read.</p>
+    <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u04-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:38 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript">
+      <summary>Transcript — Voicemail</summary>
+      <div class="dlg">
+        <p class="turn a"><span class="who">M</span><span class="said">Hi, day shift, this is Marek, the night-shift lead. Here is the handover for the A320 base check.</span></p>
+        <p class="turn a"><span class="who">M</span><span class="said">The work pack is prepared on the bench. The work order is open and authorised by the supervisor.</span></p>
+        <p class="turn a"><span class="who">M</span><span class="said">The safety cordon is already established around bay two, so please verify it before you begin jacking.</span></p>
+        <p class="turn a"><span class="who">M</span><span class="said">One open item remains in the tech log. It is a minor defect on a cabin panel, not urgent.</span></p>
+        <p class="turn a"><span class="who">M</span><span class="said">Please review the tech log first, then divide the task cards as usual. Have a safe shift. Goodbye.</span></p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================ VOCABULARY ============================ -->
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">03</span>Vocabulary bank</h2>
+    <p>These are the hangar-workflow words used in the dialogues. Each has a plain meaning, an example, and a common word partner (collocation). Learn them before the exercises.</p>
+    <table class="vocab">
+      <thead><tr><th>Term</th><th>Plain meaning</th><th>Example sentence</th><th>Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="base check">base check</dfn></td><td>A large, scheduled inspection performed inside the hangar.</td><td>The A320 is undergoing a base check this morning.</td><td class="col">open a base check</td></tr>
+        <tr><td><dfn data-term="work pack">work pack</dfn></td><td>The complete collection of documentation for one maintenance job.</td><td>The work pack contains the work order and every task card.</td><td class="col">pick up the work pack</td></tr>
+        <tr><td><dfn data-term="work order">work order</dfn></td><td>The document that authorises the mechanics to begin work.</td><td>No activity begins until the work order is authorised.</td><td class="col">raise a work order</td></tr>
+        <tr><td><dfn data-term="task card">task card</dfn></td><td>An individual job, with its own procedure and sign-off box.</td><td>Each task card references a particular section of the AMM.</td><td class="col">split the task cards</td></tr>
+        <tr><td><dfn data-term="AMM">AMM</dfn></td><td>Aircraft Maintenance Manual — the official maintenance instructions.</td><td>The AMM specifies the torque value for this access panel.</td><td class="col">refer to the AMM</td></tr>
+        <tr><td><dfn data-term="IPC">IPC</dfn></td><td>Illustrated Parts Catalogue — identifies parts and part numbers.</td><td>We obtain the part number from the IPC, never the label.</td><td class="col">check the IPC</td></tr>
+        <tr><td><dfn data-term="tech log">tech log</dfn></td><td>The technical log recording defects and completed maintenance.</td><td>Every defect is recorded immediately in the tech log.</td><td class="col">record in the tech log</td></tr>
+        <tr><td><dfn data-term="handover">handover</dfn></td><td>Transferring information from one shift to the following shift.</td><td>The night handover mentioned one item remaining for us.</td><td class="col">read the handover</td></tr>
+        <tr><td><dfn data-term="sign-off">sign-off</dfn></td><td>The certifying signature confirming a job is complete and correct.</td><td>The sign-off is delayed until the repair is finished.</td><td class="col">complete the sign-off</td></tr>
+        <tr><td><dfn data-term="defect">defect</dfn></td><td>A fault, damage, or discrepancy discovered on the aircraft.</td><td>We discovered a defect that appeared on no task card.</td><td class="col">report a defect</td></tr>
+        <tr><td><dfn data-term="safety cordon">safety cordon</dfn></td><td>A barrier that excludes people from the working area.</td><td>We establish the safety cordon before jacking the aircraft.</td><td class="col">set up a safety cordon</td></tr>
+        <tr><td><dfn data-term="warning notice">warning notice</dfn></td><td>A displayed sign warning people not to enter or operate.</td><td>A warning notice is positioned on every jack stand.</td><td class="col">place a warning notice</td></tr>
+        <tr><td><dfn data-term="wheel chock">wheel chock</dfn></td><td>A wedge placed against a tyre, preventing the aircraft rolling.</td><td>We never jack until each wheel chock is positioned correctly.</td><td class="col">set the wheel chock</td></tr>
+        <tr><td><dfn data-term="jacking">jacking</dfn></td><td>Raising the aircraft off the ground using hydraulic jacks.</td><td>Jacking commences with the wings, followed by the nose.</td><td class="col">start jacking</td></tr>
+        <tr><td><dfn data-term="jack point">jack point</dfn></td><td>The designated position where a jack pad must locate.</td><td>Attach the pad securely to each jack point beneath the wing.</td><td class="col">fit the jack point</td></tr>
+        <tr><td><dfn data-term="lockout">lockout</dfn></td><td>Pins or locks preventing a jack from lowering unexpectedly.</td><td>Immediately after elevation, we install the lockout pins.</td><td class="col">fit the lockout</td></tr>
+        <tr><td><dfn data-term="access panel">access panel</dfn></td><td>A removable cover providing access to an internal component.</td><td>Open the access panel to reach the bracket behind it.</td><td class="col">open the access panel</td></tr>
+        <tr><td><dfn data-term="panel fastener">panel fastener</dfn></td><td>A screw or clip securing a panel in the closed position.</td><td>I count and bag every panel fastener during removal.</td><td class="col">remove a panel fastener</td></tr>
+        <tr><td><dfn data-term="torque">torque</dfn></td><td>The specified tightness required for a bolt or fastener.</td><td>I record the torque from the AMM before reassembly.</td><td class="col">record the torque</td></tr>
+        <tr><td><dfn data-term="FOD">FOD</dfn></td><td>Foreign object debris — loose items capable of causing damage.</td><td>A misplaced fastener immediately becomes dangerous FOD.</td><td class="col">check for FOD</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============================ GRAMMAR ============================ -->
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">04</span>Grammar in context — sequencers for workflow</h2>
+    <p>A base-check opening must proceed in the correct order. We use <b>sequencers</b> to communicate that order. They inform your partner exactly what happens first, next, and finally. This discipline keeps the operation safe and unambiguous.</p>
+    <p>Look at these lines from the dialogues:</p>
+    <ul>
+      <li>"<b>First</b>, we check the work order. It says a scheduled base check." (Dialogue 1)</li>
+      <li>"<b>First</b> the wings, <b>then</b> the nose, unless the card says otherwise." (Dialogue 2)</li>
+      <li>"<b>As soon as</b> it is up, we fit the lockout pins." (Dialogue 2)</li>
+      <li>"<b>First</b>, we record it in the tech log. <b>Then</b> we raise a new work order." (Dialogue 3)</li>
+    </ul>
+    <p>Notice the pattern: <b>First jack the aircraft, then remove the wheel.</b> The order is fixed, so the words that mark the order matter.</p>
+
+    <h3>Form table</h3>
+    <table class="form">
+      <thead><tr><th>Sequencer</th><th>Use</th><th>Example at work</th></tr></thead>
+      <tbody>
+        <tr><td>First, … / First of all, …</td><td>The very first step.</td><td>First, we set up the safety cordon.</td></tr>
+        <tr><td>Then, … / Next, … / After that, …</td><td>The following step.</td><td>Then we fit the wheel chock on each tyre.</td></tr>
+        <tr><td>Before / After + -ing</td><td>Link two steps by time.</td><td>After removing the panel, we log the torque.</td></tr>
+        <tr><td>As soon as / Once …</td><td>One step starts right after another.</td><td>As soon as it is up, we fit the lockout pins.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Common mistakes (Latvian and Russian speakers)</h3>
+    <div class="mistake">
+      <span class="wrong">At first we jack the aircraft, then we remove the wheel.</span>
+      <span class="right">First, we jack the aircraft, then we remove the wheel.</span>
+      <span class="why">"At first" means "in the beginning, but later it changed". For step one, use "first". Latvian and Russian speakers often carry over "sākumā / сначала" as "at first".</span>
+    </div>
+    <div class="mistake">
+      <span class="wrong">After remove the panel, log the torque.</span>
+      <span class="right">After removing the panel, log the torque.</span>
+      <span class="why">After "before" and "after", use the -ing form of the verb. There is no gerund in Latvian or Russian, so learners drop the -ing.</span>
+    </div>
+    <div class="mistake">
+      <span class="wrong">First jack aircraft, then remove wheel.</span>
+      <span class="right">First, jack the aircraft; then remove the wheel.</span>
+      <span class="why">Latvian and Russian have no articles, so "the" is often dropped. In English we say "the aircraft" and "the wheel".</span>
+    </div>
+  </section>
+
+  <!-- ============================ EXERCISES ============================ -->
+  <section class="lecture-section" id="exercises">
+    <h2><span class="secnum">05</span>Exercises</h2>
+    <p>Complete all eight exercises. Enter your answers, then press <b>Check</b>. The page evaluates each answer and marks it green or red. Alternatively, you may open the answer key.</p>
+    <p class="note"><b>Word bank (for the whole set):</b> base check, work pack, work order, task card, AMM, IPC, tech log, handover, sign-off, defect, safety cordon, warning notice, wheel chock, jacking, jack point, lockout, access panel, panel fastener, torque, FOD.</p>
+
+    <!-- E1 -->
+    <div class="ex" id="e1">
+      <span class="tag">E1 · Gap-fill</span>
+      <h3>Put the right word in each gap</h3>
+      <p class="instr">Read each sentence. Write one word or term from the bank in the gap.</p>
+      <ol>
+        <li>No work starts until the <input class="gap" data-answer="work order" size="12"> is open and signed.</li>
+        <li>Each <input class="gap" data-answer="task card" size="12"> has its own steps and its own sign-off box.</li>
+        <li>We take the part number from the <input class="gap" data-answer="ipc" size="8">, not from the old label.</li>
+        <li>Every fault we find goes straight into the <input class="gap" data-answer="tech log" size="10">.</li>
+        <li>We set up the <input class="gap" data-answer="safety cordon" size="12"> before we lift the aircraft.</li>
+        <li>We never start jacking until the <input class="gap" data-answer="wheel chock" size="10"> is set on each tyre.</li>
+        <li>A loose fastener on the floor is <input class="gap" data-answer="fod" size="6">.</li>
+        <li>I note the <input class="gap" data-answer="torque" size="8"> value from the AMM before closing the panel.</li>
+        <li>As soon as the aircraft is up, we fit the <input class="gap" data-answer="lockout" size="9"> pins.</li>
+        <li>We open the <input class="gap" data-answer="access panel" size="12"> to reach the bracket behind it.</li>
+      </ol>
+      <button class="btn" data-check>Check</button><span class="score" data-score></span>
+      <details class="key"><summary>Answer key</summary>
+        <ol><li>work order</li><li>task card</li><li>IPC</li><li>tech log</li><li>safety cordon</li><li>wheel chock</li><li>FOD</li><li>torque</li><li>lockout</li><li>access panel</li></ol>
+      </details>
+    </div>
+
+    <!-- E2 -->
+    <div class="ex" id="e2">
+      <span class="tag">E2 · Matching</span>
+      <h3>Match the term to its meaning</h3>
+      <p class="instr">Choose the correct term for each meaning from the drop-down.</p>
+      <ol>
+        <li>The official how-to book for the aircraft:
+          <select class="gap" data-answer="amm"><option value="">— choose —</option><option>AMM</option><option>IPC</option><option>tech log</option><option>work pack</option></select></li>
+        <li>Shows parts and their part numbers:
+          <select class="gap" data-answer="ipc"><option value="">— choose —</option><option>AMM</option><option>IPC</option><option>defect</option><option>handover</option></select></li>
+        <li>The full set of paperwork for one job:
+          <select class="gap" data-answer="work pack"><option value="">— choose —</option><option>work pack</option><option>task card</option><option>sign-off</option><option>torque</option></select></li>
+        <li>The signature that says a job is complete:
+          <select class="gap" data-answer="sign-off"><option value="">— choose —</option><option>handover</option><option>sign-off</option><option>lockout</option><option>defect</option></select></li>
+        <li>A fault or damage found on the aircraft:
+          <select class="gap" data-answer="defect"><option value="">— choose —</option><option>FOD</option><option>defect</option><option>torque</option><option>jacking</option></select></li>
+        <li>Passing information from one shift to the next:
+          <select class="gap" data-answer="handover"><option value="">— choose —</option><option>handover</option><option>work order</option><option>sign-off</option><option>base check</option></select></li>
+        <li>A block that stops the aircraft rolling:
+          <select class="gap" data-answer="wheel chock"><option value="">— choose —</option><option>jack point</option><option>wheel chock</option><option>panel fastener</option><option>warning notice</option></select></li>
+        <li>A large, planned inspection in the hangar:
+          <select class="gap" data-answer="base check"><option value="">— choose —</option><option>handover</option><option>base check</option><option>work order</option><option>defect</option></select></li>
+        <li>A sign that warns people not to enter:
+          <select class="gap" data-answer="warning notice"><option value="">— choose —</option><option>warning notice</option><option>safety cordon</option><option>lockout</option><option>task card</option></select></li>
+        <li>The fixed spot where a jack pad must sit:
+          <select class="gap" data-answer="jack point"><option value="">— choose —</option><option>jack point</option><option>panel fastener</option><option>access panel</option><option>jacking</option></select></li>
+      </ol>
+      <button class="btn" data-check>Check</button><span class="score" data-score></span>
+      <details class="key"><summary>Answer key</summary>
+        <ol><li>AMM</li><li>IPC</li><li>work pack</li><li>sign-off</li><li>defect</li><li>handover</li><li>wheel chock</li><li>base check</li><li>warning notice</li><li>jack point</li></ol>
+      </details>
+    </div>
+
+    <!-- E3 -->
+    <div class="ex" id="e3">
+      <span class="tag">E3 · Dialogue completion</span>
+      <h3>Complete the planning dialogue</h3>
+      <p class="instr">Fill each gap with one sequencer or one bank term. Use the dialogues to help you.</p>
+      <ol>
+        <li>A: <input class="gap" data-answer="first" size="7">, we check the work order before we touch the aircraft.</li>
+        <li>B: Good. <input class="gap" data-answer="then" size="7"> we split the task cards between us.</li>
+        <li>A: I will read the last <input class="gap" data-answer="handover" size="9"> in the tech log.</li>
+        <li>B: Each card points to a section of the <input class="gap" data-answer="amm" size="6">.</li>
+        <li>A: If we need a part number, we check the <input class="gap" data-answer="ipc" size="6">.</li>
+        <li>B: We sign a card only <input class="gap" data-answer="after" size="7"> the job is complete.</li>
+        <li>A: Any <input class="gap" data-answer="defect" size="8"> we find goes into the tech log at once.</li>
+        <li>B: <input class="gap" data-answer="as soon as|once" size="10"> the paperwork is ready, we go to the aircraft.</li>
+      </ol>
+      <button class="btn" data-check>Check</button><span class="score" data-score></span>
+      <details class="key"><summary>Answer key</summary>
+        <ol><li>First</li><li>Then</li><li>handover</li><li>AMM</li><li>IPC</li><li>after</li><li>defect</li><li>As soon as / Once</li></ol>
+      </details>
+    </div>
+
+    <!-- E4 -->
+    <div class="ex" id="e4">
+      <span class="tag">E4 · Grammar transformation</span>
+      <h3>Rewrite with the correct sequencer form</h3>
+      <p class="instr">Fix one word in each line. Type only the corrected word or short phrase.</p>
+      <ol>
+        <li>"At first, set up the cordon." Step one should be: <input class="gap" data-answer="first" size="8"></li>
+        <li>"After remove the panel, log the torque." Correct verb form: <input class="gap" data-answer="removing" size="10"></li>
+        <li>"Before jack the aircraft, set the chocks." Correct verb form: <input class="gap" data-answer="jacking" size="9"></li>
+        <li>"First jack aircraft." Add the missing word before "aircraft": <input class="gap" data-answer="the" size="6"></li>
+        <li>"As soon the aircraft is up, fit the pins." Add the missing word: <input class="gap" data-answer="as" size="6"></li>
+        <li>"Then we removing the wheel." Correct verb form: <input class="gap" data-answer="remove" size="9"></li>
+        <li>"After that, we signs the card." Correct verb form: <input class="gap" data-answer="sign" size="8"></li>
+        <li>"Once the card complete, we sign." Add the missing word: <input class="gap" data-answer="is" size="6"></li>
+      </ol>
+      <button class="btn" data-check>Check</button><span class="score" data-score></span>
+      <details class="key"><summary>Answer key</summary>
+        <ol><li>First</li><li>removing</li><li>jacking</li><li>the</li><li>as</li><li>remove</li><li>sign</li><li>is</li></ol>
+      </details>
+    </div>
+
+    <!-- E5 -->
+    <div class="ex" id="e5">
+      <span class="tag">E5 · Reading 1</span>
+      <h3>Read the task card, then answer</h3>
+      <div class="reading">
+        <div class="doc-h">TASK CARD 04-A · A320 · Base Check · Panel 191AB inspection</div>
+        <p><b>Applicability:</b> A320 family. <b>Zone:</b> 190 (belly fairing, left). <b>Reference:</b> AMM 06-41-00.</p>
+        <p><b>Warning:</b> Do not begin this card until the aircraft is on jacks and the lockout pins are fitted. Confirm the safety cordon and warning notices are in place. Set wheel chocks before any jacking.</p>
+        <p><b>Steps:</b> 1. Confirm the work order is open. 2. Remove the twenty panel fasteners from access panel 191AB and bag them. 3. Record the closing torque value from the AMM on this card. 4. Inspect the bracket and structure behind the panel for cracks, corrosion, or loose fasteners. 5. If a defect is found, stop the task, record it in the tech log, and raise a new work order. 6. Do not close the panel or complete the sign-off until any defect is cleared and inspected. 7. Check the area for FOD before closing.</p>
+        <p><b>Note:</b> Part numbers for the panel and fasteners are in the IPC. Do not use the panel label as a source.</p>
+      </div>
+      <p class="instr">Choose the best answer for each question.</p>
+      <ol>
+        <li>What must be done before you begin this card?
+          <select class="gap" data-answer="the aircraft is on jacks with lockout pins fitted"><option value="">— choose —</option><option>the aircraft is on jacks with lockout pins fitted</option><option>the panel is already closed</option><option>the sign-off is complete</option></select></li>
+        <li>How many panel fasteners are removed?
+          <select class="gap" data-answer="twenty"><option value="">— choose —</option><option>ten</option><option>twenty</option><option>twelve</option></select></li>
+        <li>Where do you record the closing torque value?
+          <select class="gap" data-answer="on this card"><option value="">— choose —</option><option>on this card</option><option>on the panel label</option><option>in the IPC</option></select></li>
+        <li>What do you do first if you find a defect?
+          <select class="gap" data-answer="stop the task and record it"><option value="">— choose —</option><option>close the panel</option><option>stop the task and record it</option><option>complete the sign-off</option></select></li>
+        <li>When can you complete the sign-off?
+          <select class="gap" data-answer="after the defect is cleared and inspected"><option value="">— choose —</option><option>straight away</option><option>after the defect is cleared and inspected</option><option>before the inspection</option></select></li>
+        <li>Where do the part numbers come from?
+          <select class="gap" data-answer="the ipc"><option value="">— choose —</option><option>the panel label</option><option>the IPC</option><option>the tech log</option></select></li>
+      </ol>
+      <button class="btn" data-check>Check</button><span class="score" data-score></span>
+      <details class="key"><summary>Answer key</summary>
+        <ol><li>the aircraft is on jacks with lockout pins fitted</li><li>twenty</li><li>on this card</li><li>stop the task and record it</li><li>after the defect is cleared and inspected</li><li>the IPC</li></ol>
+      </details>
+    </div>
+
+    <!-- E6 -->
+    <div class="ex" id="e6">
+      <span class="tag">E6 · Error spotting</span>
+      <h3>Find and fix the errors in this handover note</h3>
+      <p class="instr">This short note has mistakes in sequencers, articles, and verb forms. For each line, type the corrected word.</p>
+      <div class="reading">
+        <div class="doc-h">HANDOVER NOTE (with errors)</div>
+        <p>(1) At first, read the tech log. (2) Then split task cards. (3) Before jack the aircraft, set the chocks. (4) After remove the panel, log the torque. (5) As soon the aircraft is up, fit the lockout. (6) We never signs a card we have not finished. (7) First jack aircraft, then remove the wheel. (8) Any defect go into the tech log at once.</p>
+      </div>
+      <ol>
+        <li>Line 1: "At first" → <input class="gap" data-answer="first" size="8"></li>
+        <li>Line 2: add the missing word before "task cards" → <input class="gap" data-answer="the" size="6"></li>
+        <li>Line 3: "jack" → <input class="gap" data-answer="jacking" size="9"></li>
+        <li>Line 4: "remove" → <input class="gap" data-answer="removing" size="10"></li>
+        <li>Line 5: "As soon" → <input class="gap" data-answer="as soon as" size="11"></li>
+        <li>Line 6: "signs" → <input class="gap" data-answer="sign" size="7"></li>
+        <li>Line 7: add the missing word before "aircraft" → <input class="gap" data-answer="the" size="6"></li>
+        <li>Line 8: "go" → <input class="gap" data-answer="goes" size="7"></li>
+      </ol>
+      <button class="btn" data-check>Check</button><span class="score" data-score></span>
+      <details class="key"><summary>Answer key</summary>
+        <ol><li>First</li><li>the</li><li>jacking</li><li>removing</li><li>as soon as</li><li>sign</li><li>the</li><li>goes</li></ol>
+      </details>
+    </div>
+
+    <!-- E7 -->
+    <div class="ex" id="e7">
+      <span class="tag">E7 · Reading 2</span>
+      <h3>Read the tech-log defect entry, then answer</h3>
+      <div class="reading">
+        <div class="doc-h">TECHNICAL LOG · DEFECT ENTRY · A320 · Reg: YL-ABC</div>
+        <p><b>Date/Time:</b> 08 AUG, 07:40. <b>Raised by:</b> A. Ozola / R. Nair. <b>Zone:</b> 190, left belly.</p>
+        <p><b>Defect:</b> Crack found on a bracket behind access panel 191AB during base check. Crack length about twelve millimetres. The defect is not listed in the work pack. Panel opened under Task Card 04-A. AMM 06-41-00 shows the bracket but gives no crack limit for this location, so the reference is ambiguous.</p>
+        <p><b>Action taken:</b> Task stopped. Defect photographed next to a ruler for the record. Supervisor informed after the crack was measured. New work order raised for assessment and repair. Panel left open; closing torque recorded on the card. Sign-off held until the repair is done and inspected. Area checked for FOD.</p>
+        <p><b>Status:</b> OPEN. Awaiting supervisor decision and repair instructions.</p>
+      </div>
+      <p class="instr">Choose the best answer for each question.</p>
+      <ol>
+        <li>Where was the crack found?
+          <select class="gap" data-answer="on a bracket behind access panel 191ab"><option value="">— choose —</option><option>on the wheel</option><option>on a bracket behind access panel 191AB</option><option>on the nose gear</option></select></li>
+        <li>How long is the crack?
+          <select class="gap" data-answer="about twelve millimetres"><option value="">— choose —</option><option>about twelve millimetres</option><option>about twenty millimetres</option><option>about two millimetres</option></select></li>
+        <li>Why is the AMM reference described as ambiguous?
+          <select class="gap" data-answer="it gives no crack limit for this location"><option value="">— choose —</option><option>it is written in another language</option><option>it gives no crack limit for this location</option><option>it is missing from the work pack</option></select></li>
+        <li>What was done before the supervisor was informed?
+          <select class="gap" data-answer="the crack was measured"><option value="">— choose —</option><option>the panel was closed</option><option>the crack was measured</option><option>the sign-off was completed</option></select></li>
+        <li>Why is the sign-off being held?
+          <select class="gap" data-answer="until the repair is done and inspected"><option value="">— choose —</option><option>until the next shift starts</option><option>until the repair is done and inspected</option><option>until the panel is painted</option></select></li>
+        <li>What is the status of the entry?
+          <select class="gap" data-answer="open"><option value="">— choose —</option><option>closed</option><option>open</option><option>signed off</option></select></li>
+      </ol>
+      <button class="btn" data-check>Check</button><span class="score" data-score></span>
+      <details class="key"><summary>Answer key</summary>
+        <ol><li>on a bracket behind access panel 191AB</li><li>about twelve millimetres</li><li>it gives no crack limit for this location</li><li>the crack was measured</li><li>until the repair is done and inspected</li><li>OPEN</li></ol>
+      </details>
+    </div>
+
+    <!-- E8 -->
+    <div class="ex" id="e8">
+      <span class="tag">E8 · Listening review</span>
+      <h3>Answer the questions on Dialogue 3</h3>
+      <p class="instr">Replay audio 3 (the defect report). Then answer. Type a short answer in each gap.</p>
+      <ol>
+        <li>What did Anna see behind the access panel? A <input class="gap" data-answer="crack" size="8"> near a bracket.</li>
+        <li>Was the defect on the work pack? Type yes or no: <input class="gap" data-answer="no" size="5"></li>
+        <li>Where do they record the defect first? In the <input class="gap" data-answer="tech log" size="9">.</li>
+        <li>What do they raise for the repair? A new <input class="gap" data-answer="work order" size="11">.</li>
+        <li>Why do they not decide alone? Because the AMM is <input class="gap" data-answer="ambiguous|unclear" size="11">.</li>
+        <li>Do they measure the crack before or after they call? <input class="gap" data-answer="before" size="8"></li>
+        <li>Where do they take the part number from? The <input class="gap" data-answer="ipc" size="6">.</li>
+        <li>When can the sign-off happen? After the <input class="gap" data-answer="repair" size="8"> is done and inspected.</li>
+      </ol>
+      <button class="btn" data-check>Check</button><span class="score" data-score></span>
+      <details class="key"><summary>Answer key</summary>
+        <ol><li>crack</li><li>no</li><li>tech log</li><li>work order</li><li>ambiguous / unclear</li><li>before</li><li>IPC</li><li>repair</li></ol>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================ SPEAKING ============================ -->
+  <section class="lecture-section" id="speaking">
+    <h2><span class="secnum">06</span>Speaking — role-play cards</h2>
+    <p>Work with a partner. Take one card each and act out the situation. Use the sequencers and the bank terms. Swap roles and try again.</p>
+
+    <div class="roleplay">
+      <h4><span class="rc">Card 1</span> Planning the morning</h4>
+      <div class="fld"><b>Situation</b>You and your partner pick up the work pack for a base check.</div>
+      <div class="fld"><b>Your role</b>Mechanic A, the lead for today.</div>
+      <div class="fld"><b>Your goal</b>Read the work order, split the task cards, and agree the order of work.</div>
+      <div class="phrases"><b>Useful phrases:</b> "First, we check the work order." · "I will take the landing gear cards." · "Then we meet at the aircraft." · "Any defect goes into the tech log."</div>
+    </div>
+
+    <div class="roleplay">
+      <h4><span class="rc">Card 2</span> Making the aircraft safe</h4>
+      <div class="fld"><b>Situation</b>You are ready to jack the aircraft.</div>
+      <div class="fld"><b>Your role</b>Mechanic B, doing the jacking.</div>
+      <div class="fld"><b>Your goal</b>Set up the safety cordon and wheel chocks, then jack in the right order.</div>
+      <div class="phrases"><b>Useful phrases:</b> "The safety cordon is up." · "We never jack until the wheel chock is set." · "First the wings, then the nose." · "As soon as it is up, we fit the lockout."</div>
+    </div>
+
+    <div class="roleplay">
+      <h4><span class="rc">Card 3</span> Reporting a defect</h4>
+      <div class="fld"><b>Situation</b>You find a crack behind an access panel. It is not on your card.</div>
+      <div class="fld"><b>Your role</b>Mechanic A, who found the defect.</div>
+      <div class="fld"><b>Your goal</b>Stop the task, report the defect clearly, and agree the next steps.</div>
+      <div class="phrases"><b>Useful phrases:</b> "Stop a second — this is a defect." · "First, we record it in the tech log." · "We do not sign the card." · "The job is not complete."</div>
+    </div>
+
+    <div class="roleplay">
+      <h4><span class="rc">Card 4</span> Asking for clarification</h4>
+      <div class="fld"><b>Situation</b>The AMM is ambiguous about the crack limit.</div>
+      <div class="fld"><b>Your role</b>Mechanic B, talking to the supervisor.</div>
+      <div class="fld"><b>Your goal</b>Explain the problem and ask a clear question, so you do not decide alone.</div>
+      <div class="phrases"><b>Useful phrases:</b> "Can you clarify one thing?" · "The AMM is unclear here." · "Do we measure first, or call first?" · "We do not guess on a base check."</div>
+    </div>
+
+    <div class="aibox">
+      <h4>AI conversation partner</h4>
+      <p style="margin:0 0 6px">Copy one prompt into your chat buddy. It will play a role at CEFR B2 and gently correct your English.</p>
+      <div class="prompt"><span class="lab">Prompt 1 — planning partner</span>
+        <button class="copy" data-copy>copy</button>
+        <code>You are Ravi, a B2-level aircraft mechanic. We are opening an A320 base check together. Play the partner who splits the task cards with me. Speak only at CEFR B2, keep your answers short, and ask me one question each turn. If I make an English mistake, repeat my sentence correctly in a friendly way, then continue. English only, with an optional one-word Latvian gloss in brackets for a hard term.</code></div>
+      <div class="prompt"><span class="lab">Prompt 2 — safety check partner</span>
+        <button class="copy" data-copy>copy</button>
+        <code>You are my mechanic partner. We are about to jack an A320. Ask me, step by step, whether the safety cordon, wheel chocks, jack points and lockout pins are ready. Speak only at CEFR B2 and keep answers short. Ask one question each turn. If I use a sequencer wrongly, recast my sentence correctly, then move on. English only, with an optional one-word Latvian gloss in brackets for a hard term.</code></div>
+      <div class="prompt"><span class="lab">Prompt 3 — supervisor</span>
+        <button class="copy" data-copy>copy</button>
+        <code>You are my shift supervisor. I have found a defect behind an access panel and the AMM is ambiguous. Let me report the defect and ask for clarification. Speak only at CEFR B2, keep answers short, and ask one follow-up question each turn. If my report is unclear, gently recast it in correct English, then reply. English only, with an optional one-word Latvian gloss in brackets for a hard term.</code></div>
+    </div>
+  </section>
+
+  <!-- ============================ WRITING ============================ -->
+  <section class="lecture-section" id="writing">
+    <h2><span class="secnum">07</span>Writing — a tech-log defect entry</h2>
+    <p>Compose a clear defect entry for the tech log. Use Simplified Technical English (ASD-STE100): short sentences, one instruction per sentence, and approved, unambiguous vocabulary. Describe the crack discovered behind access panel 191AB.</p>
+    <div class="callout">
+      <h4>Your task</h4>
+      <p style="margin:0">Write 60–90 words. Include: what the defect is, where it is, its size, what you did, and why the sign-off is held. Use sequencers to show the order of your actions.</p>
+    </div>
+    <details class="key" style="margin-top:14px">
+      <summary>Show a model answer</summary>
+      <div class="reading" style="margin-top:10px">
+        <div class="doc-h">MODEL — DEFECT ENTRY (Simplified Technical English)</div>
+        <p><b>Defect:</b> Crack on a bracket behind access panel 191AB. Length about 12 mm. The defect is not in the work pack.</p>
+        <p><b>Action:</b> First, we stopped the task. Then we measured the crack and took a photo. After that, we recorded the defect in the tech log. The AMM gives no crack limit here, so it is ambiguous. We told the supervisor and raised a new work order. The panel stays open. We recorded the closing torque on the card. Sign-off is held until the repair is done and inspected.</p>
+      </div>
+    </details>
+    <h3>Self-check</h3>
+    <ul class="checklist">
+      <li>Every sentence is short and gives one idea only.</li>
+      <li>I used sequencers (first, then, after that) to show the order.</li>
+      <li>I wrote what the defect is, where it is, and its size.</li>
+      <li>I said why the sign-off is held.</li>
+    </ul>
+  </section>
+
+  <!-- ============================ INTERACTIVE PRACTICE ============================ -->
+  <style>
+    .widget{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow-sm)}
+    .widget-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+    .widget-bar .lab{font-family:var(--font-mono);font-size:12px;color:var(--ink-muted);font-weight:700}
+    .widget button{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:14px;cursor:pointer}
+    .widget button:hover{border-color:var(--color-primary)}
+    .widget button.on{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
+    .widget button.ok{background:#eaf5ec;color:#256d36;border-color:var(--good)}
+    .widget button.no{background:#fbecea;color:var(--bad);border-color:var(--bad)}
+    .widget-canvas{display:block;width:100%;border-radius:var(--radius-sm);background:var(--bg-sunken);border:1px solid var(--border)}
+    .widget input[type=range]{accent-color:var(--color-primary);flex:1;min-width:120px}
+    .widget-info{margin-top:11px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 13px;font-size:14.5px;min-height:44px;color:#3a3f4d}
+    .widget-info b{color:var(--color-primary-dark)}
+    pre.worked{background:var(--bg-sunken);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:11px 14px;margin:10px 0;font-family:var(--font-mono);font-size:13px;white-space:pre-wrap;color:#2a2e3b;overflow-x:auto}
+    pre.worked .bad{color:var(--bad)}
+    .tsi-fab{position:fixed;bottom:18px;right:18px;z-index:9000;background:var(--color-primary);color:#fff;border:none;border-radius:50%;width:54px;height:54px;font-size:22px;cursor:pointer;box-shadow:var(--shadow)}
+    .tsi-panel{position:fixed;bottom:82px;right:18px;z-index:9000;width:340px;max-width:92vw;max-height:70vh;display:none;flex-direction:column;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}
+    .tsi-panel.open{display:flex}
+    .tsi-head{background:var(--color-primary);color:#fff;padding:10px 14px;font-weight:600;font-size:14.5px}
+    .tsi-log{flex:1;overflow-y:auto;padding:12px;font-size:14px;display:flex;flex-direction:column;gap:9px}
+    .tsi-msg{padding:8px 11px;border-radius:10px;max-width:85%;line-height:1.45}
+    .tsi-msg.u{align-self:flex-end;background:var(--color-primary);color:#fff}
+    .tsi-msg.a{align-self:flex-start;background:var(--bg-sunken);color:var(--ink)}
+    .tsi-in{display:flex;gap:6px;border-top:1px solid var(--border);padding:8px}
+    .tsi-in input{flex:1;border:1px solid var(--border);border-radius:8px;padding:8px;font-size:14px}
+    .tsi-in button{background:var(--color-primary);color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer}
+  </style>
+
+  <section class="lecture-section" id="practice-widgets">
+    <h2><span class="secnum">08</span>Interactive practice</h2>
+    <p>Use these three activities to practise the unit before the exercises. You click and drag; the page shows you at once whether the order is safe and whether the word is right. Work through them with your partner, and say each step out loud with a sequencer.</p>
+
+    <h3>1 · Build the base-check opening in order</h3>
+    <p>Click the eight steps in a safe order. The chain fills as you get each one right. A wrong step turns red and tells you which step is really next. Reset and try again until the whole opening is green.</p>
+    <div class="widget" data-w="seq">
+      <div class="widget-bar"><button data-reset>Reset</button><span class="lab">Click the steps in a safe order</span></div>
+      <canvas class="widget-canvas" height="80"></canvas>
+      <div class="widget-bar" data-opts style="margin-top:10px"></div>
+      <div class="widget-info">Which step comes first?</div>
+    </div>
+
+    <h3>2 · Make the aircraft safe</h3>
+    <p>The jack will not move until the safety cordon and the wheel chocks are set. Raise the wings first; the nose follows. Then fit the lockout pins and open the access panel. Narrate it as you go: "As soon as it is up, then we fit the lockout pins."</p>
+    <div class="widget" data-w="jack">
+      <div class="widget-bar">
+        <button data-b="cordon">1 · Safety cordon</button>
+        <button data-b="chocks">2 · Wheel chocks</button>
+        <button data-b="lockout" disabled>4 · Lockout pins</button>
+        <button data-b="panel" disabled>5 · Open panel</button>
+        <button data-reset>Reset</button>
+      </div>
+      <div class="widget-bar"><span class="lab">3 · Jack&nbsp;▾</span><input type="range" min="0" max="100" value="0" data-jack disabled></div>
+      <canvas class="widget-canvas" height="190"></canvas>
+      <div class="widget-info">Start with the safety cordon.</div>
+    </div>
+
+    <h3>3 · Test the vocabulary</h3>
+    <p>Read the plain meaning, then click the term that matches. The bar shows your running score, and each answer reminds you of the natural word partner (collocation). Keep going until you reach a full score.</p>
+    <div class="widget" data-w="gloss">
+      <div class="widget-bar"><span class="lab">MEANING</span></div>
+      <div data-q style="font-size:16px;color:var(--ink);min-height:42px;margin-bottom:8px"></div>
+      <div class="widget-bar" data-opts></div>
+      <canvas class="widget-canvas" height="26"></canvas>
+      <div class="widget-info">Read the meaning, then pick the matching term.</div>
+    </div>
+  </section>
+
+  <!-- ============================ STE WORKED EXAMPLES ============================ -->
+  <section class="lecture-section" id="ste-examples">
+    <h2><span class="secnum">09</span>Worked examples — Simplified Technical English</h2>
+    <p>Before you write your own defect entry, study these worked rewrites. Each one takes a wordy or unclear line and turns it into Simplified Technical English (ASD-STE100): short sentences, one idea each, and approved, unambiguous words. Read the "before" and the "after", and notice exactly what changed.</p>
+
+    <pre class="worked"><span class="bad">Before:</span>  Having removed the panel, and after having noted down the
+         relevant torque figures which are applicable, the task was
+         then subsequently halted by us pending further advice.
+<b>After:</b>   First, we removed the panel. Then we recorded the torque.
+         After that, we stopped the task. We wait for advice.</pre>
+
+    <pre class="worked"><span class="bad">Before:</span>  It would appear that there may possibly be some form of
+         crack-type damage in the general area behind the panel.
+<b>After:</b>   There is a crack behind access panel 191AB.
+         The length is about 12 mm.</pre>
+
+    <pre class="worked"><span class="bad">Before:</span>  Prior to the commencement of any jacking operations, it is
+         essential that the chocks are positioned appropriately.
+<b>After:</b>   Set the wheel chocks first.
+         Do not jack the aircraft until the chocks are fitted.</pre>
+
+    <pre class="worked"><span class="bad">Before:</span>  The sign-off procedure should not be effectuated until such
+         time as the rectification has been fully accomplished.
+<b>After:</b>   Do not sign off the card yet.
+         Sign off only after the repair is done and inspected.</pre>
+
+    <pre class="worked"><span class="bad">Before:</span>  Part number identification must be sourced by means of the
+         catalogue, and not from the label affixed to the panel.
+<b>After:</b>   Get the part number from the IPC.
+         Do not use the panel label.</pre>
+
+    <pre class="worked"><span class="bad">Before:</span>  Ensure the area is checked thoroughly for the presence of any
+         foreign objects before closure of the access panel occurs.
+<b>After:</b>   Check the area for FOD.
+         Then close the access panel.</pre>
+
+    <pre class="worked"><b>Model entry (put it together):</b>
+         Defect: There is a crack behind access panel 191AB.
+         The length is about 12 mm. It is not in the work pack.
+         Action: First, we stopped the task. Then we measured the
+         crack. After that, we recorded it in the tech log.
+         We raised a new work order. Sign-off is held.</pre>
+
+    <p>Now write your own entry in the Writing section above. Use these examples as a guide: keep every sentence short, put one idea in each, and use a sequencer to show the order of your actions.</p>
+  </section>
+
+  <!-- ============================ AI TUTOR ============================ -->
+  <section class="lecture-section" id="ai-tutor">
+    <h2><span class="secnum">10</span>Your aviation-English helper</h2>
+    <p>A small chat helper sits in the corner of this page. It answers questions about this unit only — the hangar-workflow words, the sequencers, and how to write a clear defect entry. It replies in simple English at your level, and it will detect and match the language you write in. It will not do your exercises for you; instead it explains, gives an example, and asks you to try. Tap the round button, add your own key once, and ask it anything about the base-check morning.</p>
+    <div class="callout">
+      <h4>Good things to ask</h4>
+      <ul>
+        <li>"What is the difference between <b>first</b> and <b>at first</b>?"</li>
+        <li>"Give me an example sentence with <b>as soon as</b>."</li>
+        <li>"Is my defect sentence clear enough? Here it is: …"</li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+  /* ===== Interactive practice widgets (vanilla JS · canvas + rAF) ===== */
+  (function(){
+    var CSS=getComputedStyle(document.documentElement);
+    function c(v,f){var x=CSS.getPropertyValue(v);return x?x.trim():f;}
+    var PRI=c('--color-primary','#2F5496'),GOOD=c('--good','#43a047'),BAD=c('--bad','#c0392b'),
+        SUNK=c('--bg-sunken','#f3f1ea'),LINE=c('--border','#e7e3d8'),MUT=c('--ink-muted','#707582');
+
+    /* --- W1: sequence builder --- */
+    (function(){
+      var host=document.querySelector('[data-w="seq"]'); if(!host) return;
+      var steps=[
+        {n:"Read the work order",r:"The work order is the legal authority."},
+        {n:"Split the task cards",r:"Agree who does what first."},
+        {n:"Set up the safety cordon",r:"Keep people out before any lifting."},
+        {n:"Fit the wheel chocks",r:"Never jack until every tyre is chocked."},
+        {n:"Jack the wings",r:"Wings first — the nose is jacked last."},
+        {n:"Jack the nose",r:"The nose is jacked LAST, after the wings."},
+        {n:"Fit the lockout pins",r:"As soon as it is up, lock every jack."},
+        {n:"Open the access panel",r:"Only now is it safe to open the panel."}
+      ];
+      var cv=host.querySelector('canvas'),ctx=cv.getContext('2d'),opts=host.querySelector('[data-opts]'),info=host.querySelector('.widget-info');
+      var next=0,glow=0,glowing=false;
+      function build(){
+        var sh=steps.map(function(_,k){return k;});
+        for(var i=sh.length-1;i>0;i--){var j=(Math.random()*(i+1))|0;var t=sh[i];sh[i]=sh[j];sh[j]=t;}
+        next=0;opts.innerHTML='';
+        sh.forEach(function(k){var b=document.createElement('button');b.textContent=steps[k].n;b.onclick=function(){pick(k,b);};opts.appendChild(b);});
+        info.textContent='Which step comes first?';draw();
+      }
+      function pick(k,b){
+        if(k===next){b.className='ok';b.disabled=true;info.innerHTML='<b>Correct.</b> '+steps[k].r;next++;glow=1;glowing=true;requestAnimationFrame(anim);
+          if(next===steps.length)info.innerHTML='<b>Correct order — the opening is complete and safe.</b>';}
+        else{b.className='no';setTimeout(function(){b.className='';},450);info.innerHTML='Not yet. Next you need: <b>'+steps[next].n+'</b>. '+steps[next].r;}
+      }
+      function anim(){draw();if(glowing){glow-=0.06;if(glow<=0){glow=0;glowing=false;}else requestAnimationFrame(anim);}}
+      function draw(){
+        cv.width=cv.clientWidth||600;ctx.clearRect(0,0,cv.width,cv.height);
+        var n=steps.length,gap=cv.width/n,y=40;
+        for(var i=0;i<n;i++){
+          var x=gap*i+gap/2,on=i<next;
+          if(i<n-1){ctx.strokeStyle=i<next-1?GOOD:LINE;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+gap,y);ctx.stroke();}
+          var rad=on?13:10;
+          if(i===next-1&&glow>0){ctx.fillStyle='rgba(67,160,71,'+(0.25*glow)+')';ctx.beginPath();ctx.arc(x,y,rad+9*glow,0,7);ctx.fill();}
+          ctx.fillStyle=on?GOOD:'#fff';ctx.strokeStyle=on?GOOD:LINE;ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y,rad,0,7);ctx.fill();ctx.stroke();
+          ctx.fillStyle=on?'#fff':MUT;ctx.font='bold 13px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(i+1),x,y);
+        }
+      }
+      host.querySelector('[data-reset]').onclick=build;build();window.addEventListener('resize',draw);
+    })();
+
+    /* --- W2: jacking simulator --- */
+    (function(){
+      var host=document.querySelector('[data-w="jack"]'); if(!host) return;
+      var cv=host.querySelector('canvas'),ctx=cv.getContext('2d'),info=host.querySelector('.widget-info'),sl=host.querySelector('[data-jack]');
+      var st={cordon:false,chocks:false,lockout:false,panel:false},raise=0,shown=0;
+      function safe(){return st.cordon&&st.chocks;}
+      function btn(n){return host.querySelector('[data-b="'+n+'"]');}
+      host.querySelectorAll('[data-b]').forEach(function(b){
+        b.addEventListener('click',function(){
+          var k=b.dataset.b;
+          if(k==='cordon'){st.cordon=true;b.className='ok';info.textContent='Cordon set. Now fit the wheel chocks.';}
+          else if(k==='chocks'){if(!st.cordon){b.className='no';setTimeout(function(){b.className='';},450);info.innerHTML='First set the <b>safety cordon</b>.';return;}st.chocks=true;b.className='ok';sl.disabled=false;info.innerHTML='Chocks fitted. Now <b>jack the wings first</b> with the slider.';}
+          else if(k==='lockout'){if(raise<100){b.className='no';setTimeout(function(){b.className='';},450);info.innerHTML='Raise it fully <b>first</b>, then fit the lockout.';return;}st.lockout=true;b.className='ok';btn('panel').disabled=false;info.innerHTML='Lockout pins fitted. As soon as it is locked, <b>open the panel</b>.';}
+          else if(k==='panel'){if(!st.lockout)return;st.panel=true;b.className='ok';info.innerHTML='<b>Panel open. The sequence is complete and safe.</b>';}
+          draw();
+        });
+      });
+      sl.addEventListener('input',function(){
+        if(!safe()){sl.value=0;info.innerHTML='Never jack until the <b>cordon and chocks</b> are set.';return;}
+        raise=+sl.value;btn('lockout').disabled=raise<100;
+        if(raise>0&&raise<100)info.textContent='Jacking… wings first, nose follows. Keep it level.';
+        requestAnimationFrame(tick);
+      });
+      function tick(){if(Math.abs(shown-raise)>0.5){shown+=(raise-shown)*0.25;draw();requestAnimationFrame(tick);}else{shown=raise;draw();}}
+      function draw(){
+        cv.width=cv.clientWidth||600;var W=cv.width,H=190;ctx.clearRect(0,0,W,H);
+        var ground=H-20;ctx.strokeStyle=LINE;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,ground);ctx.lineTo(W,ground);ctx.stroke();
+        var lift=(shown/100)*38,cx=W/2,bodyY=ground-32-lift;
+        ctx.fillStyle='#dce6f4';ctx.strokeStyle=PRI;ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(cx,bodyY,W*0.30,15,0,0,7);ctx.fill();ctx.stroke();
+        ctx.fillStyle='#c3d3ea';ctx.beginPath();ctx.moveTo(cx-10,bodyY);ctx.lineTo(cx-110,bodyY+11);ctx.lineTo(cx-70,bodyY+13);ctx.lineTo(cx+30,bodyY+2);ctx.closePath();ctx.fill();
+        ctx.beginPath();ctx.moveTo(cx+W*0.26,bodyY);ctx.lineTo(cx+W*0.30,bodyY-22);ctx.lineTo(cx+W*0.24,bodyY-2);ctx.closePath();ctx.fill();
+        function leg(x,topY){ctx.strokeStyle=lift>0?GOOD:MUT;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x,topY);ctx.lineTo(x,ground);ctx.stroke();if(st.lockout){ctx.fillStyle='#c8821a';ctx.fillRect(x-6,topY+8,12,4);}}
+        leg(cx-80,bodyY+11);leg(cx+15,bodyY+2);leg(cx-W*0.26,bodyY+2);
+        if(st.chocks){ctx.fillStyle=GOOD;ctx.fillRect(cx-6,ground-6,12,6);}
+        if(st.cordon){ctx.strokeStyle='#c8821a';ctx.setLineDash([6,5]);ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(8,ground+9);ctx.lineTo(W-8,ground+9);ctx.stroke();ctx.setLineDash([]);}
+        if(st.panel){ctx.fillStyle=BAD;ctx.fillRect(cx-40,bodyY-4,16,10);ctx.fillStyle=MUT;ctx.font='10px monospace';ctx.fillText('191AB',cx-58,bodyY+20);}
+        ctx.fillStyle=MUT;ctx.font='11px monospace';ctx.textAlign='left';ctx.fillText(st.cordon?'cordon OK':'cordon --',8,15);ctx.fillText(st.chocks?'chocks OK':'chocks --',82,15);ctx.fillText('lift '+Math.round(shown)+'%',W-72,15);
+      }
+      host.querySelector('[data-reset]').addEventListener('click',function(){st={cordon:false,chocks:false,lockout:false,panel:false};raise=0;shown=0;sl.value=0;sl.disabled=true;host.querySelectorAll('[data-b]').forEach(function(b){b.className='';b.disabled=(b.dataset.b==='lockout'||b.dataset.b==='panel');});info.textContent='Start with the safety cordon.';draw();});
+      draw();window.addEventListener('resize',draw);
+    })();
+
+    /* --- W3: vocabulary self-test --- */
+    (function(){
+      var host=document.querySelector('[data-w="gloss"]'); if(!host) return;
+      var items=[
+        {t:"work order",m:"The document that authorises the mechanics to begin work.",c:"raise a work order"},
+        {t:"task card",m:"An individual job, with its own steps and sign-off box.",c:"split the task cards"},
+        {t:"safety cordon",m:"A barrier that keeps people out of the working area.",c:"set up a safety cordon"},
+        {t:"wheel chock",m:"A wedge against a tyre that stops the aircraft rolling.",c:"set the wheel chock"},
+        {t:"lockout",m:"Pins that stop a jack from lowering unexpectedly.",c:"fit the lockout"},
+        {t:"access panel",m:"A removable cover that gives access to a component.",c:"open the access panel"},
+        {t:"torque",m:"The specified tightness required for a bolt or fastener.",c:"record the torque"},
+        {t:"FOD",m:"Foreign object debris — loose items that can cause damage.",c:"check for FOD"}
+      ];
+      var cv=host.querySelector('canvas'),ctx=cv.getContext('2d'),q=host.querySelector('[data-q]'),opts=host.querySelector('[data-opts]'),info=host.querySelector('.widget-info');
+      var qi=0,score=0,answered=0,anim=0,tgt=0;
+      function pool(cor){var a=[cor.t],u={};u[cor.t]=1;while(a.length<4){var r=items[(Math.random()*items.length)|0].t;if(!u[r]){u[r]=1;a.push(r);}}for(var i=a.length-1;i>0;i--){var j=(Math.random()*(i+1))|0;var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+      function draw(){cv.width=cv.clientWidth||600;ctx.clearRect(0,0,cv.width,26);var pct=answered?anim/answered:0;ctx.fillStyle=SUNK;ctx.fillRect(0,12,cv.width,10);ctx.fillStyle=GOOD;ctx.fillRect(0,12,cv.width*pct,10);ctx.fillStyle=MUT;ctx.font='12px monospace';ctx.textAlign='left';ctx.fillText(score+' / '+answered+' correct',2,9);}
+      function tick(){if(Math.abs(anim-tgt)>0.01){anim+=(tgt-anim)*0.2;draw();requestAnimationFrame(tick);}else{anim=tgt;draw();}}
+      function render(){var it=items[qi];q.textContent=it.m;opts.innerHTML='';pool(it).forEach(function(t){var b=document.createElement('button');b.textContent=t;b.onclick=function(){answered++;if(t===it.t){score++;b.className='ok';info.innerHTML='Correct. <b>'+it.t+'</b> — collocation: <b>'+it.c+'</b>';}else{b.className='no';info.innerHTML='That was <b>'+t+'</b>. The meaning matched <b>'+it.t+'</b> ('+it.c+').';}[].forEach.call(opts.children,function(x){x.disabled=true;});tgt=score;requestAnimationFrame(tick);setTimeout(function(){qi=(qi+1)%items.length;render();},1400);};opts.appendChild(b);});}
+      render();draw();window.addEventListener('resize',draw);
+    })();
+  })();
+  </script>
+
+  <!-- ===== TSI Buddy Lite (BYO-key, grounded in this unit, temperature 0.4) ===== -->
+  <script>
+  window.TSIBuddy=(function(){
+    var KEY='u04_tsi_key';
+    function mount(cfg){
+      cfg=cfg||{};
+      var temp=(typeof cfg.temperature==='number')?cfg.temperature:0.4;
+      var ctxNotes=cfg.context||'';
+      var fab=document.createElement('button');fab.className='tsi-fab';fab.title='Aviation-English helper';fab.textContent='💬';
+      var panel=document.createElement('div');panel.className='tsi-panel';
+      panel.innerHTML='<div class="tsi-head">'+(cfg.title||'Helper')+'</div>'+
+        '<div class="tsi-log"></div>'+
+        '<div class="tsi-in"><input type="text" placeholder="Ask about this unit…" aria-label="message"><button>Send</button></div>';
+      document.body.appendChild(fab);document.body.appendChild(panel);
+      var log=panel.querySelector('.tsi-log'),inp=panel.querySelector('input'),send=panel.querySelector('button');
+      fab.onclick=function(){panel.classList.toggle('open');if(panel.classList.contains('open'))inp.focus();};
+      function add(role,text){var m=document.createElement('div');m.className='tsi-msg '+(role==='user'?'u':'a');m.textContent=text;log.appendChild(m);log.scrollTop=log.scrollHeight;return m;}
+      var history=[{role:'system',content:
+        'You are a friendly aviation-English helper for a CEFR B2 maintenance unit about a morning base-check start. '+
+        'Answer ONLY about this unit: hangar-workflow vocabulary, sequencers (first, then, before/after + -ing, as soon as), and writing a clear defect entry in Simplified Technical English. '+
+        'Reply in short, simple English at B2 level. Detect the language the student writes in and reply in that language, but keep the example sentences in English. '+
+        'Never do the exercises or write the whole task for the student. Instead explain briefly, give one example, and ask them to try. '+
+        'Unit facts: '+ctxNotes}];
+      function key(){var k=localStorage.getItem(KEY);if(!k){k=prompt('Paste your Mistral API key once (it stays only in this browser):');if(k)localStorage.setItem(KEY,k);}return k;}
+      function ask(text){
+        add('user',text);history.push({role:'user',content:text});
+        var k=key();if(!k){add('assistant','I need an API key to answer. Tap Send again to add one.');return;}
+        var wait=add('assistant','…');
+        fetch('https://api.mistral.ai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+k},
+          body:JSON.stringify({model:'mistral-small-latest',temperature:temp,messages:history})})
+          .then(function(r){return r.json();})
+          .then(function(j){var a=(j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||'Sorry, I could not answer that.';wait.textContent=a;history.push({role:'assistant',content:a});})
+          .catch(function(){wait.textContent='Network problem — please try again.';});
+      }
+      function go(){var t=inp.value.trim();if(!t)return;inp.value='';ask(t);}
+      send.onclick=go;inp.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
+      add('assistant','Hi! I can help with the base-check words, the sequencers, and your defect entry. Ask me anything about this unit.');
+    }
+    return {mount:mount};
+  })();
+  TSIBuddy.mount({
+    temperature: 0.4,
+    title: "Aviation-English helper",
+    context: "Scenario: a two-person team opens an A320 base check. Order of the opening: read the work order, split the task cards, set up the safety cordon, fit the wheel chocks, jack the wings, jack the nose last, fit the lockout pins, open the access panel. A crack about 12 mm is found behind panel 191AB; it is not in the work pack; stop the task, record it in the tech log, raise a new work order, measure before calling the supervisor, and hold the sign-off until the repair is done and inspected. Key words: work order, work pack, task card, AMM, IPC, tech log, handover, sign-off, defect, safety cordon, warning notice, wheel chock, jacking, jack point, lockout, access panel, panel fastener, torque, FOD. Grammar: use First (not At first) for step one; before/after + verb-ing; as soon as / once; use the article the."
+  });
+  </script>
+
+  <footer>
+    English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 4 — Simulation: morning base-check start. Self-study language unit. Listen first, read after, and check your own answers.
+  </footer>
+
+</article>
+
+<script>
+(function(){
+  // self-checking gap-fills and matching
+  document.addEventListener('click',function(e){
+    var btn=e.target.closest('[data-check]');
+    if(btn){
+      var box=btn.closest('.ex');
+      var fields=box.querySelectorAll('[data-answer]');
+      var ok=0, done=0;
+      fields.forEach(function(f){
+        var val=(f.value||'').trim().toLowerCase().replace(/\s+/g,' ');
+        var raw=f.getAttribute('data-answer')||'';
+        var ans=raw.toLowerCase().split('|').map(function(s){return s.trim();});
+        f.classList.remove('right','wrong');
+        if(val===''){return;}
+        done++;
+        if(ans.indexOf(val)>-1){f.classList.add('right');ok++;}
+        else{f.classList.add('wrong');}
+      });
+      var out=box.querySelector('[data-score]');
+      if(out){out.textContent='Score: '+ok+' / '+fields.length+' correct.';}
+      return;
+    }
+    var cp=e.target.closest('[data-copy]');
+    if(cp){
+      var code=cp.parentNode.querySelector('code');
+      if(code&&navigator.clipboard){
+        navigator.clipboard.writeText(code.textContent).then(function(){
+          var t=cp.textContent;cp.textContent='copied!';setTimeout(function(){cp.textContent=t;},1200);
+        });
+      }
+      return;
+    }
+  });
+})();
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 4 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body>
+</html>

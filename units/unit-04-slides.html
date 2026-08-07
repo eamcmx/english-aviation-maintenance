@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English for Aviation Maintenance · Unit 4 — Teacher Deck · Simulation: morning base-check start</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:40px;margin:.2em 0;line-height:1.1}
+h2{font-size:30px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:660px;min-height:320px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:320px;
+  border:1px dashed var(--line);border-radius:14px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 12px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk button.done{background:#12271e;color:#9af0c8;border-color:#2f6b4e}
+.wk button.err{background:#241316;color:#ff9aa2;border-color:#7a3030}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:5px 9px;font-size:14px}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:56px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+table.dt{border-collapse:collapse;width:100%;font-size:17px}
+table.dt th,table.dt td{border:1px solid var(--line);padding:6px 11px;text-align:left}
+table.dt th{color:var(--muted);background:#0c1622;font-size:14px;text-transform:uppercase;letter-spacing:.05em}
+.turn{display:grid;grid-template-columns:34px 1fr;gap:10px;margin:8px 0;font-size:18px}
+.turn .who{font-family:var(--mono);font-weight:800;color:var(--accent)}
+.turn.b .who{color:var(--amber)}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.good{color:var(--good)}.hot{color:var(--hot)}.amber{color:var(--amber)}.purple{color:var(--purple)}
+.mist{border:1px solid var(--line);border-left:4px solid var(--hot);border-radius:9px;padding:8px 13px;margin:8px 0;background:#0f1726}
+.mist .w{color:#ff9aa2;font-weight:600}.mist .w:before{content:"✗ ";font-weight:800}
+.mist .r{color:#9af0c8;font-weight:600}.mist .r:before{content:"✓ ";font-weight:800}
+.mist .why{color:#9db0c6;font-size:14px}
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="TIMING 0:00–0:03 (3 min). Open the simulation day. Tell the room today is different: no new grammar list to memorise for its own sake — instead the whole 90 minutes rebuilds ONE realistic morning, in order. A two-person team opens an A320 base check: they read the work pack, split the task cards, make the aircraft safe, open a panel, and log a defect nobody expected. Every language item — the vocabulary, the sequencers, the STE writing — earns its place because the mechanics on the floor actually use it in that order. Say the three can-do outcomes plainly and promise the students that by the bell they will have DONE the sequence once themselves in the role-plays. Keep the energy of a shift briefing: short, clear, safety-first.">
+    <div class="kick">English for Aviation Maintenance · Unit 4 · Simulation Day · CEFR B2</div>
+    <h1>Simulation: morning base-check start</h1>
+    <p class="big muted">A two-person team opens a base check — read the work pack, split the task cards, make the aircraft safe, and log an unexpected defect found on panel removal.</p>
+    <p class="pill">90 minutes · EASA Part-66/145 · hangar workflow · sequencers for a safe opening · "First jack, then remove the wheel."</p>
+  </section>
+
+  <!-- 2 · BY THE END / AGENDA -->
+  <section class="slide" data-notes="TIMING 0:03–0:07 (4 min). Set the map for the lesson so students know where they are heading. Read the three can-do outcomes: (1) combine documentation reading, task sign-off and defect reporting in one sequence; (2) prioritise tasks and communicate the plan to a partner; (3) ask for clarification when documentation is ambiguous. Then show the running order on the right — this doubles as the teacher's timing plan for the 90 minutes. Stress that everything builds towards the role-plays and the written defect entry, which are where the outcomes are demonstrated. Keep this brief; do not read every cell aloud.">
+    <div class="kick">By the end · how the 90 minutes runs</div>
+    <h2>Three things you will be able to do</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="good">1 — Run the sequence.</b> Read the work pack, sign off a task, and report a defect, all in one realistic order.</p>
+        <p><b class="amber">2 — Plan with a partner.</b> Prioritise the task cards and tell your partner the plan, clearly and in order.</p>
+        <p><b class="purple">3 — Ask when unsure.</b> When the documentation is ambiguous, ask a clear question instead of guessing.</p>
+      </div>
+      <div>
+        <table class="dt">
+          <tr><th>Stage</th><th>Min</th></tr>
+          <tr><td>Warm-up + brief</td><td>7</td></tr>
+          <tr><td>Dialogues 1–4 (listening)</td><td>18</td></tr>
+          <tr><td>Vocabulary — hangar workflow</td><td>12</td></tr>
+          <tr><td>Grammar — sequencers</td><td>13</td></tr>
+          <tr><td>Exercises E1–E8</td><td>18</td></tr>
+          <tr><td>Role-plays (4 cards)</td><td>12</td></tr>
+          <tr><td>Writing — defect entry</td><td>8</td></tr>
+          <tr><td>Wrap-up + exit ticket</td><td>2</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · WARM-UP SCENE -->
+  <section class="slide" data-center data-notes="TIMING 0:07–0:10 (3 min). Warm-up discussion. Put the scene on the screen and ask two quick questions to the whole room, or in pairs for one minute: (1) 'What is the very FIRST thing you do before you touch the aircraft in the morning?' (target: read the paperwork — the work order and tech log). (2) 'What must be safe before you jack an aircraft?' (target: cordon, chocks). Collect two or three answers. The goal is to surface prior knowledge and the key word 'first' before the sequencers section. Do not correct English hard here — reward ideas. This primes both the vocabulary and the grammar focus.">
+    <div class="kick">Warm-up · think, then tell your partner</div>
+    <h2>It is 07:00. The hangar is cold and the A320 is waiting.</h2>
+    <p class="big">Before you touch the aircraft, what do you do <span class="amber">first</span>?</p>
+    <p class="muted" style="max-width:60ch">And before you jack it off the ground — what must be safe? Tell your partner in one or two short sentences. Use the word <b>first</b>.</p>
+  </section>
+
+  <!-- 4 · DIALOGUE 1 -->
+  <section class="slide" data-notes="TIMING 0:10–0:15 (part of the 18-min listening block). Dialogue 1 — reading the work pack and splitting the cards. Play the audio once for gist: 'How many task cards are in the pack, and who takes which?' (Answer: SIX cards; B/Ravi takes the landing-gear cards, A takes the panel and inspection cards.) Play a second time and have students catch the running order the pair agree: documentation FIRST, aircraft SECOND. Draw out the key professional habit on screen — the work order is the legal authority; nothing starts until it is signed and open. Elicit the sequencer 'First … then …'. Keep replays short; the full transcript is in the body page if a pair needs it.">
+    <div class="kick">§ Listening · Dialogue 1</div>
+    <h2>Reading the work pack, splitting the cards</h2>
+    <div class="cols">
+      <div>
+        <p class="turn a"><span class="who">A</span><span>Documentation first, then the aircraft. How many task cards are inside the pack?</span></p>
+        <p class="turn b"><span class="who">B</span><span>Six task cards. Each one is a separate job, with its own sign-off box.</span></p>
+        <p class="turn a"><span class="who">A</span><span>I will manage the panel and inspection cards. Each card references a section of the AMM.</span></p>
+      </div>
+      <div>
+        <p><b class="amber">Listen for:</b></p>
+        <ul>
+          <li>How many task cards? <span class="muted">(six)</span></li>
+          <li>Who takes the landing-gear cards? <span class="muted">(B — Ravi)</span></li>
+          <li>What comes first — paperwork or aircraft?</li>
+        </ul>
+        <p class="muted">The <b>work order</b> is the legal authority. Nothing begins until it is signed and open.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · DIALOGUE 2 -->
+  <section class="slide" data-notes="TIMING (listening block). Dialogue 2 — jacking the aircraft and opening the panels. This is the safety heart of the unit. Play once for the SEQUENCE: cordon → chocks → jack pads → wings first, nose last → lockout pins → open panel. Ask 'Why the nose LAST?' (the AMM instructs it; balance and safety). Highlight two numbers to catch: panel 191AB has TWENTY fasteners, and they are bagged so nothing becomes FOD. Elicit 'as soon as' from the lockout line. This dialogue feeds directly into the jacking-sequence widget two slides on and the role-play card 2.">
+    <div class="kick">§ Listening · Dialogue 2</div>
+    <h2>Jacking the aircraft, opening the panels</h2>
+    <div class="cols">
+      <div>
+        <p class="turn a"><span class="who">A</span><span>The AMM instructs us to jack the nose last. First the wings, then the nose, unless the card differs.</span></p>
+        <p class="turn b"><span class="who">B</span><span>As soon as it is elevated, we install the lockout pins on every jack.</span></p>
+        <p class="turn a"><span class="who">A</span><span>Twenty panel fasteners. I will bag them, so nothing is misplaced.</span></p>
+      </div>
+      <div>
+        <p><b class="amber">Listen for the order:</b></p>
+        <ol>
+          <li>Safety cordon</li><li>Wheel chocks</li><li>Jack the wings</li>
+          <li>Jack the nose <span class="muted">(last!)</span></li><li>Lockout pins</li><li>Open the access panel</li>
+        </ol>
+        <p class="muted">A loose fastener becomes <b>FOD</b> — foreign object debris. Bag every one.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · DIALOGUE 3 -->
+  <section class="slide" data-notes="TIMING (listening block). Dialogue 3 — reporting a defect and asking for clarification. The unexpected event: behind panel 191AB there is a crack near a bracket, and it is on NO task card. Play once for the actions in order: stop the task → record in the tech log → raise a new work order → measure the crack → then call the supervisor. Ask the key clarification question the pair debate: 'Do we measure first, or call first?' (Measure first, so you give an accurate number.) Numbers to catch: the crack measures about TWELVE millimetres. Also the professional rule: no sign-off until the defect is repaired and inspected. This sets up both the writing task and role-play cards 3 and 4.">
+    <div class="kick">§ Listening · Dialogue 3</div>
+    <h2>Reporting a defect, asking for clarification</h2>
+    <div class="cols">
+      <div>
+        <p class="turn a"><span class="who">A</span><span>Behind the access panel I can see a crack near a bracket. It is not on my card.</span></p>
+        <p class="turn b"><span class="who">B</span><span>Whenever the AMM is unclear, we never decide alone. We ask.</span></p>
+        <p class="turn a"><span class="who">A</span><span>Do we measure the crack first, or contact the supervisor first?</span></p>
+      </div>
+      <div>
+        <p><b class="amber">Listen for:</b></p>
+        <ul>
+          <li>What is behind the panel? <span class="muted">(a crack near a bracket)</span></li>
+          <li>How long is it? <span class="muted">(about 12 mm)</span></li>
+          <li>Measure first or call first? <span class="muted">(measure first)</span></li>
+        </ul>
+        <p class="muted">No <b>sign-off</b> until the defect is repaired and inspected. Always.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · DIALOGUE 4 (voicemail) -->
+  <section class="slide" data-notes="TIMING (listening block, gist). Listening 4 — the shift-handover voicemail from Marek, the night-shift lead. This is a short gist task and a change of pace: one speaker, natural workplace register, five sentences. Play once and ask three quick true/false checks (answers on screen). The teaching point: a handover carries the ONE open item to the next shift — here a minor cabin-panel defect, not urgent — and it tells the day shift what is already done (work order open, cordon up) and what to do first (read the tech log, then split the cards). Link it back to Dialogue 1: the plan the pair make is exactly what the voicemail asked for.">
+    <div class="kick">§ Listening · Dialogue 4 · voicemail</div>
+    <h2>The night-shift handover</h2>
+    <div class="cols">
+      <div>
+        <p class="turn a"><span class="who">M</span><span>The work order is open and authorised by the supervisor.</span></p>
+        <p class="turn a"><span class="who">M</span><span>One open item remains in the tech log. It is a minor defect on a cabin panel, not urgent.</span></p>
+        <p class="turn a"><span class="who">M</span><span>Please review the tech log first, then divide the task cards as usual.</span></p>
+      </div>
+      <div>
+        <p><b class="amber">True or false?</b></p>
+        <ul>
+          <li>The work order is still closed. <span class="hot">(false)</span></li>
+          <li>The cordon is already up. <span class="good">(true)</span></li>
+          <li>There is one open item in the tech log. <span class="good">(true)</span></li>
+        </ul>
+        <p class="muted">A good handover = what is done, what is open, what to do <b>first</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · VOCAB WIDGET (interactive) -->
+  <section class="slide" data-notes="TIMING 0:28–0:34 (part of the 12-min vocabulary block). Interactive vocabulary check. This is the hangar-workflow field: access panel, jacking, safety cordon and the rest of the twenty terms. Run the widget as a whole-class quick-fire: click a plain meaning, then click the term you think matches; the widget confirms or corrects and shows the collocation (the natural word partner). Do three or four together, then let pairs finish on their own devices or predict aloud. Emphasise the collocations — 'raise a work order', 'set up a safety cordon', 'record the torque' — because B2 learners know the nouns but pick the wrong verb. The full bank with examples is on the body page.">
+    <div class="kick">§ Vocabulary · Interactive · hangar workflow</div>
+    <h2>Match the term to its plain meaning</h2>
+    <div class="cols">
+      <div class="dw" data-widget="gloss"></div>
+      <div><p>Twenty hangar-workflow terms. Read the meaning, pick the term — and learn the <b>collocation</b>, the word partner that sounds natural.</p>
+        <p class="muted">B2 learners know the noun but choose the wrong verb: it is <em>raise</em> a work order, <em>set up</em> a cordon, <em>record</em> the torque.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · VOCAB STAGING -->
+  <section class="slide" data-notes="TIMING (vocabulary block). Stage the two vocabulary exercises E1 (gap-fill) and E2 (matching) from the body page. Set E1 as individual work for four minutes, then pair-check; it drills the terms in real sentences. E2 is a drop-down matching — good for a quick pair race. Model the FIRST item of each so the instruction is clear, then step back and monitor. Collect answers only for the two items you expect to trip them: FOD (they write 'rubbish' or 'debris' — accept FOD) and lockout (they add extra words). Solutions with a one-line why per item are in the gated solutions file.">
+    <div class="kick">§ Vocabulary · staging E1 &amp; E2</div>
+    <h2>Now drill it — E1 gap-fill, E2 matching</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>E1 · Gap-fill (individual, 4 min):</b> one bank term per gap, in real base-check sentences. Pair-check after.</p>
+        <p><b>E2 · Matching (pairs, 3 min):</b> term ↔ meaning drop-downs. Quick race — first correct pair reads their answers.</p>
+      </div>
+      <div>
+        <p class="amber">Watch for these two:</p>
+        <p><code>FOD</code> — foreign object debris. Not "rubbish".</p>
+        <p><code>lockout</code> — the pins that stop a jack lowering. One word.</p>
+        <p class="muted">Model item 1 of each, then monitor. Keep it moving.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · GRAMMAR FORM -->
+  <section class="slide" data-notes="TIMING 0:40–0:45 (part of the 13-min grammar block). Present the grammar focus: sequencers for workflow. The reason they matter is safety — a base-check opening must be ordered, and the words that mark the order carry real risk if they are wrong. Read the form table: First / First of all (step one); Then / Next / After that (following step); Before / After + -ing (link two steps by time); As soon as / Once (one step right after another). Give the anchor sentence they will reuse all lesson: 'First jack the aircraft, then remove the wheel.' Point out the two traps that the -ing rule and article rule set up — the next slides cover the L1 interference and the interactive builder.">
+    <div class="kick">§ Grammar · sequencers for workflow</div>
+    <h2>Words that put the steps in order</h2>
+    <div class="cols">
+      <div>
+        <table class="dt">
+          <tr><th>Sequencer</th><th>Use</th></tr>
+          <tr><td>First, … / First of all, …</td><td>the very first step</td></tr>
+          <tr><td>Then / Next / After that</td><td>the following step</td></tr>
+          <tr><td>Before / After + <b>-ing</b></td><td>link two steps by time</td></tr>
+          <tr><td>As soon as / Once …</td><td>one step right after another</td></tr>
+        </table>
+      </div>
+      <div>
+        <p class="big amber">"First jack the aircraft, then remove the wheel."</p>
+        <p class="muted">The order is fixed, so the words that mark the order matter. Get them wrong and the safety of the opening changes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · GRAMMAR WIDGET (interactive canvas/rAF) -->
+  <section class="slide" data-notes="TIMING (grammar block). Interactive sequence builder — the centrepiece of the grammar work. The eight steps of a base-check opening are shown scrambled. Students click them into the correct order; the canvas draws the workflow chain filling in, and each correct click animates a connector. A wrong click flashes red and the widget names the rule that was broken (for example, jack the wings before the nose). Run it once as a class, then reset and let a pair drive. As they click, insist they SAY the sentence with a sequencer — 'First we set up the cordon, then we fit the chocks.' This joins the grammar to the safety sequence and rehearses the role-play language.">
+    <div class="kick">§ Grammar · Interactive · order the opening</div>
+    <h2>Build the base-check opening in the right order</h2>
+    <div class="cols">
+      <div class="dw" data-widget="seq"></div>
+      <div><p>Click the eight steps into a safe order. The chain fills as you get each one right; a wrong step flashes and names the rule.</p>
+        <p class="muted">As you click, <b>say it</b>: "First we set up the cordon, then we fit the chocks…" — sequencer every time.</p></div>
+    </div>
+  </section>
+
+  <!-- 12 · L1 INTERFERENCE -->
+  <section class="slide" data-notes="TIMING (grammar block). The three high-frequency errors for Latvian and Russian speakers. (1) 'At first' for step one — carried over from 'sākumā / сначала'; 'at first' actually means 'in the beginning, but it changed later', so it is wrong for a first instruction; teach 'First,'. (2) Dropping the -ing after before/after — neither Latvian nor Russian has a gerund, so learners say 'after remove'; drill 'after removing'. (3) Dropping articles — neither L1 has articles, so 'jack aircraft' instead of 'jack the aircraft'; this is the hardest to fix, so over-correct it today. Do the three corrections on screen chorally, then they are the target of E4 and E6.">
+    <div class="kick">§ Grammar · first-language interference</div>
+    <h2>Three errors to expect — Latvian &amp; Russian</h2>
+    <div class="mist"><span class="w">At first, we jack the aircraft.</span><span class="r">First, we jack the aircraft.</span><span class="why">"At first" = in the beginning, but it later changed. From <em>sākumā / сначала</em>. For step one, use "First".</span></div>
+    <div class="mist"><span class="w">After remove the panel, log the torque.</span><span class="r">After removing the panel, log the torque.</span><span class="why">After before/after, use the -ing form. Neither language has a gerund, so learners drop -ing.</span></div>
+    <div class="mist"><span class="w">First jack aircraft, then remove wheel.</span><span class="r">First, jack the aircraft; then remove the wheel.</span><span class="why">Latvian and Russian have no articles, so "the" is dropped. Over-correct it today.</span></div>
+  </section>
+
+  <!-- 13 · JACKING WIDGET (interactive canvas/rAF) -->
+  <section class="slide" data-notes="TIMING (bridge into exercises / safety demonstration). Interactive jacking simulator. This makes the safety sequence physical. The prerequisite buttons — cordon, chocks — must be ON before the jack slider does anything; if a student tries to jack early, the widget refuses and explains why. Once safe, the slider raises the aircraft on the canvas (smooth rAF animation), wings first; the nose only rises after the wings; then lockout pins can be fitted and the panel opened. Use it to rehearse 'as soon as' and 'once': 'As soon as it is up, we fit the lockout pins.' It is also a strong visual for weaker students who need the sequence, not just the words.">
+    <div class="kick">§ Safety · Interactive · jack it safely</div>
+    <h2>Make the aircraft safe — in order</h2>
+    <div class="cols">
+      <div class="dw" data-widget="jack"></div>
+      <div><p>The jack will not move until the cordon and chocks are set. Raise the wings first; the nose follows; then fit the lockout and open the panel.</p>
+        <p class="muted">Narrate it with sequencers: "As soon as it is up, <b>then</b> we fit the lockout pins."</p></div>
+    </div>
+  </section>
+
+  <!-- 14 · EXERCISE STAGING -->
+  <section class="slide" data-notes="TIMING 0:52–0:70 (the 18-min exercise block). Stage exercises E3–E6 and the two readings E7–E8 from the body page; students self-check on the page (green/red) and can open the per-item key. Suggested management: E3 dialogue completion and E4 grammar transformation in pairs (8 min) — these target the sequencers and the L1 errors directly. E5 reading (task card) individually (5 min). E6 error-spotting as a class sprint (3 min) — it recycles all three interference errors. Keep E7 (tech-log reading) and E8 (Dialogue-3 listening review) as fast-finisher or homework if time is short. Full model answers with a one-line why are in the gated solutions file.">
+    <div class="kick">§ Exercises · staging E3–E8</div>
+    <h2>Practise — self-check on the page</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>E3</b> dialogue completion &amp; <b>E4</b> transformation — pairs, 8 min (sequencers + the -ing/article errors).</p>
+        <p><b>E5</b> reading a task card — solo, 5 min. <b>E6</b> error-spotting — class sprint, 3 min.</p>
+        <p><b>E7</b> tech-log reading &amp; <b>E8</b> Dialogue-3 review — fast finishers or homework.</p>
+      </div>
+      <div>
+        <p class="amber">How students check:</p>
+        <p>Type the answer → press <code>Check</code> → the gap turns <span class="good">green</span> or <span class="hot">red</span>.</p>
+        <p class="muted">Circulate. Note repeated errors for a 60-second class fix at the end.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · READINGS -->
+  <section class="slide" data-notes="TIMING (part of exercise block). Focus on the two authentic documentation genres the readings use: a TASK CARD (E5) and a TECH-LOG DEFECT ENTRY (E7). Point out the genre features on screen — a task card has applicability, zone, an AMM reference, a warning, numbered steps and a sign-off; a tech-log entry has date/time, who raised it, the defect, the action taken, and a status. These are the genres the students must READ accurately on the job and WRITE in the final task. Ask them to notice how the documents themselves use sequence (numbered steps, 'before', 'until'). This slide is the bridge from reading the genre to writing it.">
+    <div class="kick">§ Reading · authentic genres</div>
+    <h2>Two documents you must read — and write</h2>
+    <div class="cols">
+      <div class="card">
+        <p class="tag">TASK CARD 04-A</p>
+        <p class="muted" style="margin:6px 0 0">Applicability · zone · AMM reference · <b>warning</b> · numbered steps · sign-off box.</p>
+        <p style="margin:8px 0 0">"Do not begin until the aircraft is on jacks and the lockout pins are fitted."</p>
+      </div>
+      <div class="card">
+        <p class="tag">TECH LOG · DEFECT ENTRY</p>
+        <p class="muted" style="margin:6px 0 0">Date/time · raised by · <b>defect</b> · action taken · status.</p>
+        <p style="margin:8px 0 0">"Crack about 12 mm behind panel 191AB. Sign-off held until repair is done and inspected."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · ROLE-PLAY MANAGEMENT -->
+  <section class="slide" data-notes="TIMING 0:70–0:82 (the 12-min speaking block). This is where the can-do outcomes are demonstrated. Four role-play cards run the whole simulation in sequence: Card 1 plan the morning, Card 2 make the aircraft safe, Card 3 report the defect, Card 4 ask the supervisor for clarification. Management: put students in A/B pairs, give three minutes per card, then SWAP roles and repeat the two most useful cards. Insist on a sequencer in every planning turn and a clear question in Card 4. Circulate with the speaking rubric (in the teacher key) and note one strength and one fix per pair — feed those back at the wrap-up, not mid-flow. The AI conversation-partner prompts on the body page are a backup for an odd number of students.">
+    <div class="kick">§ Speaking · four role-play cards</div>
+    <h2>Run the whole morning — in pairs</h2>
+    <div class="cols">
+      <div>
+        <p class="turn a"><span class="who">1</span><span>Plan the morning — read the work order, split the cards, agree the order.</span></p>
+        <p class="turn b"><span class="who">2</span><span>Make it safe — cordon, chocks, jack in the right order.</span></p>
+        <p class="turn a"><span class="who">3</span><span>Report the defect — stop, report clearly, agree next steps.</span></p>
+        <p class="turn b"><span class="who">4</span><span>Ask for clarification — the AMM is ambiguous; ask a clear question.</span></p>
+      </div>
+      <div>
+        <p class="amber">Rules for the pairs:</p>
+        <ul><li>A sequencer in every planning turn.</li><li>One clear question in Card 4.</li><li>Swap roles and repeat two cards.</li></ul>
+        <p class="muted">Rubric in the teacher key. Note one strength + one fix per pair.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · WRITING (STE) -->
+  <section class="slide" data-notes="TIMING 0:82–0:90 (the 8-min writing block, may run as homework). The written outcome: a tech-log defect entry in Simplified Technical English (ASD-STE100). Teach the three STE habits on screen: short sentences (one idea each), one instruction per sentence, and approved, unambiguous words — no synonyms, no vague terms. The task: 60–90 words describing the crack behind panel 191AB — what it is, where, its size, what you did, and why the sign-off is held, using sequencers for the order of actions. Show the self-check list. The annotated model answer is in the gated solutions file; do not reveal it until pairs have drafted their own.">
+    <div class="kick">§ Writing · Simplified Technical English</div>
+    <h2>Write the defect entry — short, clear, one idea per line</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="amber">STE habits:</b></p>
+        <ul><li>Short sentences — one idea each.</li><li>One instruction per sentence.</li><li>Approved, unambiguous words — no synonyms.</li></ul>
+      </div>
+      <div>
+        <p><b>Task (60–90 words):</b> describe the crack behind panel 191AB — what, where, size, what you did, why the sign-off is held. Use sequencers.</p>
+        <p class="muted">"First, we stopped the task. Then we measured the crack and took a photo. After that, we recorded it in the tech log."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP-UP -->
+  <section class="slide" data-center data-notes="TIMING 0:88–0:90 (2 min). Close the simulation. Recap in one breath: today the pair ran a whole base-check morning in order — read the pack, split the cards, made the aircraft safe, opened the panel, found and logged a defect, and asked when the documentation was unclear. Name the language that carried it: the hangar-workflow vocabulary, the sequencers, and Simplified Technical English. Exit ticket (30 seconds, on a slip or aloud): each student says ONE full sentence about the base-check opening using a sequencer and one bank term — for example, 'First we set up the safety cordon, then we fit the wheel chocks.' Collect the common error you heard and preview that it becomes the starter next time. End on the safety note the whole unit rests on: we never skip a step, and we never sign off unfinished work.">
+    <div class="kick">Recap · exit ticket</div>
+    <h2>One morning, in the right order</h2>
+    <p class="big muted">Read the pack · split the cards · make it safe (cordon → chocks → wings → nose → lockout → panel) · find and log the defect · ask when it is unclear. The language that carried it: <b>hangar-workflow words</b>, <b>sequencers</b>, and <b>Simplified Technical English</b>.</p>
+    <p><b class="amber">Exit ticket:</b> one full sentence with a sequencer + a bank term — e.g. "First we set up the safety cordon, then we fit the wheel chocks." <span class="muted">We never skip a step; we never sign off unfinished work.</span></p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS · canvas + rAF) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+
+  /* ---- W: VOCAB GLOSS MATCH (interactive, canvas confidence bar + rAF) ---- */
+  window.DeckW.gloss=function(host){
+    var items=[
+      {t:"work order",m:"The document that authorises the mechanics to begin work.",c:"raise a work order"},
+      {t:"task card",m:"An individual job, with its own steps and sign-off box.",c:"split the task cards"},
+      {t:"safety cordon",m:"A barrier that keeps people out of the working area.",c:"set up a safety cordon"},
+      {t:"wheel chock",m:"A wedge against a tyre that stops the aircraft rolling.",c:"set the wheel chock"},
+      {t:"lockout",m:"Pins that stop a jack from lowering unexpectedly.",c:"fit the lockout"},
+      {t:"access panel",m:"A removable cover that gives access to a component.",c:"open the access panel"},
+      {t:"torque",m:"The specified tightness required for a bolt or fastener.",c:"record the torque"},
+      {t:"FOD",m:"Foreign object debris — loose items that can cause damage.",c:"check for FOD"}
+    ];
+    var wrap=el('div','wk');
+    wrap.innerHTML='<div class="bar"><span class="note" style="font-weight:700;color:#9db0c6">MEANING</span></div>'+
+      '<div class="qm" style="font-size:16px;color:#e9f0f7;min-height:44px;margin-bottom:8px"></div>'+
+      '<div class="opts" style="display:flex;flex-wrap:wrap;gap:8px"></div>'+
+      '<canvas height="30"></canvas>'+
+      '<div class="info"><h4>Score</h4><div class="msg">Read the meaning, then pick the matching term.</div></div>';
+    host.appendChild(wrap);
+    var qm=wrap.querySelector('.qm'),opts=wrap.querySelector('.opts'),msg=wrap.querySelector('.msg');
+    var cv=wrap.querySelector('canvas'),ctx=cv.getContext('2d');
+    var order=items.map(function(_,k){return k;}),qi=0,score=0,answered=0,anim=0,animTarget=0;
+    function resize(){cv.width=cv.clientWidth||600;}
+    function pool(correct){
+      var arr=[correct.t];var used={};used[correct.t]=1;
+      while(arr.length<4){var r=items[(Math.random()*items.length)|0].t;if(!used[r]){used[r]=1;arr.push(r);}}
+      for(var i=arr.length-1;i>0;i--){var j=(Math.random()*(i+1))|0;var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp;}
+      return arr;
+    }
+    function draw(){
+      resize();ctx.clearRect(0,0,cv.width,cv.height);
+      var pct=answered?anim/answered:0;
+      ctx.fillStyle='#16263a';ctx.fillRect(0,10,cv.width,10);
+      ctx.fillStyle='#34d399';ctx.fillRect(0,10,cv.width*pct,10);
+      ctx.fillStyle='#9db0c6';ctx.font='12px monospace';
+      ctx.fillText(score+' / '+answered+' correct',4,8);
+    }
+    function tick(){if(Math.abs(anim-animTarget)>0.01){anim+=(animTarget-anim)*0.2;draw();requestAnimationFrame(tick);}else{anim=animTarget;draw();}}
+    function render(){
+      var it=items[order[qi]];qm.textContent=it.m;opts.innerHTML='';
+      pool(it).forEach(function(t){
+        var b=el('button',null,t);
+        b.onclick=function(){
+          answered++;
+          if(t===it.t){score++;b.className='done';msg.innerHTML='✓ <b>'+it.t+'</b> — collocation: <b class="amber">'+it.c+'</b>';}
+          else{b.className='err';msg.innerHTML='✗ That was <b>'+t+'</b>. The meaning matched <b class="good">'+it.t+'</b> ('+it.c+').';}
+          [].forEach.call(opts.children,function(x){x.disabled=true;});
+          animTarget=score;requestAnimationFrame(tick);
+          setTimeout(function(){qi=(qi+1)%order.length;render();},1400);
+        };
+        opts.appendChild(b);
+      });
+    }
+    render();draw();window.addEventListener('resize',draw);
+  };
+
+  /* ---- W: SEQUENCE BUILDER (interactive, canvas chain + rAF) ---- */
+  window.DeckW.seq=function(host){
+    var steps=[
+      {n:"Read the work order",r:"The work order is the legal authority — nothing begins until it is open."},
+      {n:"Split the task cards",r:"Agree who does what before you touch the aircraft."},
+      {n:"Set up the safety cordon",r:"Keep people out before any lifting."},
+      {n:"Fit the wheel chocks",r:"Never jack until every tyre is chocked."},
+      {n:"Jack the wings",r:"Wings first — the AMM instructs the nose last."},
+      {n:"Jack the nose",r:"The nose is jacked LAST, after the wings."},
+      {n:"Fit the lockout pins",r:"As soon as it is up, lock every jack."},
+      {n:"Open the access panel",r:"Only now is it safe to open the panel."}
+    ];
+    var wrap=el('div','wk');
+    wrap.innerHTML='<div class="bar"><button data-reset>Reset</button><span class="note">Click the steps in a safe order</span></div>'+
+      '<canvas height="70"></canvas>'+
+      '<div class="opts" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"></div>'+
+      '<div class="info"><h4>Step</h4><div class="msg">Which step comes first?</div></div>';
+    host.appendChild(wrap);
+    var cv=wrap.querySelector('canvas'),ctx=cv.getContext('2d');
+    var opts=wrap.querySelector('.opts'),msg=wrap.querySelector('.msg');
+    var next=0,shuffle,glow=0,glowing=false;
+    function build(){
+      shuffle=steps.map(function(_,k){return k;});
+      for(var i=shuffle.length-1;i>0;i--){var j=(Math.random()*(i+1))|0;var t=shuffle[i];shuffle[i]=shuffle[j];shuffle[j]=t;}
+      next=0;opts.innerHTML='';
+      shuffle.forEach(function(k){var b=el('button',null,steps[k].n);b.dataset.k=k;b.onclick=function(){pick(k,b);};opts.appendChild(b);});
+      msg.textContent='Which step comes first?';draw();
+    }
+    function pick(k,b){
+      if(k===next){b.className='done';b.disabled=true;msg.innerHTML='✓ <b>'+steps[k].n+'</b> — '+steps[k].r;next++;glow=1;glowing=true;requestAnimationFrame(anim);
+        if(next===steps.length)msg.innerHTML='✓ <b class="good">Correct order — the opening is complete and safe.</b>';}
+      else{b.className='err';setTimeout(function(){b.className='';},500);msg.innerHTML='✗ Not yet. Next you need: <b class="amber">'+steps[next].n+'</b>. '+steps[next].r;}
+    }
+    function anim(){draw();if(glowing){glow-=0.05;if(glow<=0){glow=0;glowing=false;}else requestAnimationFrame(anim);}}
+    function draw(){
+      cv.width=cv.clientWidth||600;ctx.clearRect(0,0,cv.width,cv.height);
+      var n=steps.length,gap=cv.width/n,y=35;
+      for(var i=0;i<n;i++){
+        var x=gap*i+gap/2,on=i<next;
+        if(i<n-1){ctx.strokeStyle=i<next-1||(i===next-1)?'#34d399':'#26384e';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+gap,y);ctx.stroke();}
+        var rad=on?12:9;
+        if(i===next-1&&glow>0){ctx.fillStyle='rgba(52,211,153,'+(0.25*glow)+')';ctx.beginPath();ctx.arc(x,y,rad+8*glow,0,7);ctx.fill();}
+        ctx.fillStyle=on?'#34d399':'#16263a';ctx.strokeStyle=on?'#9af0c8':'#314865';ctx.lineWidth=2;
+        ctx.beginPath();ctx.arc(x,y,rad,0,7);ctx.fill();ctx.stroke();
+        ctx.fillStyle=on?'#020e27':'#7e98ad';ctx.font='bold 12px monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillText(String(i+1),x,y);
+      }
+    }
+    wrap.querySelector('[data-reset]').onclick=build;
+    build();window.addEventListener('resize',draw);
+  };
+
+  /* ---- W: JACKING SIMULATOR (interactive, canvas aircraft + rAF rise) ---- */
+  window.DeckW.jack=function(host){
+    var wrap=el('div','wk');
+    wrap.innerHTML='<div class="bar">'+
+      '<button data-b="cordon">1 · Safety cordon</button>'+
+      '<button data-b="chocks">2 · Wheel chocks</button>'+
+      '<button data-b="lockout" disabled>4 · Lockout pins</button>'+
+      '<button data-b="panel" disabled>5 · Open panel</button>'+
+      '<button data-reset class="prim">Reset</button></div>'+
+      '<div class="bar"><span class="note" style="min-width:90px">3 · Jack ▾</span><input type="range" min="0" max="100" value="0" data-jack disabled></div>'+
+      '<canvas height="180"></canvas>'+
+      '<div class="info"><h4>Status</h4><div class="msg">Start with the safety cordon.</div></div>';
+    host.appendChild(wrap);
+    var cv=wrap.querySelector('canvas'),ctx=cv.getContext('2d');
+    var msg=wrap.querySelector('.msg'),jackSl=wrap.querySelector('[data-jack]');
+    var state={cordon:false,chocks:false,lockout:false,panel:false},raise=0,shown=0;
+    function safe(){return state.cordon&&state.chocks;}
+    function btn(name){return wrap.querySelector('[data-b="'+name+'"]');}
+    wrap.querySelectorAll('[data-b]').forEach(function(b){
+      b.onclick=function(){
+        var k=b.dataset.b;
+        if(k==='cordon'){state.cordon=true;b.className='done';msg.textContent='Cordon set. Now fit the wheel chocks.';}
+        else if(k==='chocks'){if(!state.cordon){b.className='err';setTimeout(function(){b.className='';},500);msg.innerHTML='✗ First set the <b class="amber">safety cordon</b>.';return;}state.chocks=true;b.className='done';jackSl.disabled=false;msg.innerHTML='Chocks fitted. Now <b>jack the wings first</b> with the slider.';}
+        else if(k==='lockout'){if(raise<100){b.className='err';setTimeout(function(){b.className='';},500);msg.innerHTML='✗ Raise it fully <b>first</b>, then fit the lockout.';return;}state.lockout=true;b.className='done';btn('panel').disabled=false;msg.innerHTML='Lockout pins fitted. As soon as it is locked, you may <b>open the panel</b>.';}
+        else if(k==='panel'){if(!state.lockout){return;}state.panel=true;b.className='done';msg.innerHTML='✓ <b class="good">Panel open. Sequence complete and safe.</b>';}
+        draw();
+      };
+    });
+    jackSl.addEventListener('input',function(){
+      if(!safe()){jackSl.value=0;msg.innerHTML='✗ Never jack until the <b class="amber">cordon and chocks</b> are set.';return;}
+      raise=+jackSl.value;btn('lockout').disabled=raise<100;
+      if(raise>0&&raise<100)msg.innerHTML='Jacking… wings first, nose follows. Keep it level.';
+      requestAnimationFrame(tick);
+    });
+    function tick(){var target=raise;if(Math.abs(shown-target)>0.5){shown+=(target-shown)*0.25;draw();requestAnimationFrame(tick);}else{shown=target;draw();}}
+    function draw(){
+      cv.width=cv.clientWidth||600;var W=cv.width,H=180;ctx.clearRect(0,0,W,H);
+      var ground=H-18;ctx.strokeStyle='#26384e';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,ground);ctx.lineTo(W,ground);ctx.stroke();
+      var lift=(shown/100)*36,cx=W/2;
+      var bodyY=ground-30-lift;
+      // fuselage
+      ctx.fillStyle='#1b2b42';ctx.strokeStyle='#4a6fb0';ctx.lineWidth=2;
+      ctx.beginPath();ctx.ellipse(cx,bodyY,W*0.30,15,0,0,7);ctx.fill();ctx.stroke();
+      // wing
+      ctx.fillStyle='#25406a';ctx.beginPath();ctx.moveTo(cx-10,bodyY);ctx.lineTo(cx-110,bodyY+10);ctx.lineTo(cx-70,bodyY+12);ctx.lineTo(cx+30,bodyY+2);ctx.closePath();ctx.fill();
+      // tail
+      ctx.beginPath();ctx.moveTo(cx+W*0.26,bodyY);ctx.lineTo(cx+W*0.30,bodyY-22);ctx.lineTo(cx+W*0.24,bodyY-2);ctx.closePath();ctx.fill();
+      // jacks under wings + nose
+      function jackLeg(x,topY){ctx.strokeStyle=lift>0?'#34d399':'#5b6b86';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x,topY);ctx.lineTo(x,ground);ctx.stroke();
+        if(state.lockout){ctx.fillStyle='#fbbf24';ctx.fillRect(x-6,topY+8,12,4);}}
+      jackLeg(cx-80,bodyY+10);jackLeg(cx+15,bodyY+2);jackLeg(cx-W*0.26,bodyY+2);
+      // chocks + cordon markers
+      if(state.chocks){ctx.fillStyle='#9af0c8';ctx.fillRect(cx-6,ground-6,12,6);}
+      if(state.cordon){ctx.strokeStyle='#fbbf24';ctx.setLineDash([6,5]);ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(8,ground+8);ctx.lineTo(W-8,ground+8);ctx.stroke();ctx.setLineDash([]);}
+      if(state.panel){ctx.fillStyle='#ff5667';ctx.fillRect(cx-40,bodyY-4,16,10);ctx.fillStyle='#cfe0ee';ctx.font='10px monospace';ctx.fillText('191AB',cx-58,bodyY+18);}
+      ctx.fillStyle='#7e98ad';ctx.font='11px monospace';ctx.fillText(state.cordon?'cordon ✓':'cordon ✗',8,14);ctx.fillText(state.chocks?'chocks ✓':'chocks ✗',80,14);ctx.fillText('lift '+Math.round(shown)+'%',W-70,14);
+    }
+    wrap.querySelector('[data-reset]').onclick=function(){state={cordon:false,chocks:false,lockout:false,panel:false};raise=0;shown=0;jackSl.value=0;jackSl.disabled=true;wrap.querySelectorAll('[data-b]').forEach(function(b){b.className=b.dataset.b==='lockout'||b.dataset.b==='panel'?'':'';b.disabled=(b.dataset.b==='lockout'||b.dataset.b==='panel');});btn('reset');msg.textContent='Start with the safety cordon.';draw();};
+    draw();window.addEventListener('resize',draw);
+  };
+
+  window.DeckWReady=true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u04_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u04_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 4</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:24px;color:#9db0c6;font-size:17px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">&lsaquo; Prev</button><button onclick="post(1)">Next &rsaquo;</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u04_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u04_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u04_deck_state")render();});',
+'setInterval(render,500);render();',
+'<\/script></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u04_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}.lct-line:empty{ display:none; }
+  .lct-src{ display:none; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer;
+            background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:monospace; font-weight:700; font-size:16px;
+            box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+               color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer;
+             background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px;
+                background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:monospace; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'),lineTop=document.getElementById('lctLineTop'),lineBot=document.getElementById('lctLineBot');
+  var srcEl=document.getElementById('lctSrc'),btn=document.getElementById('lctBtn'),gear=document.getElementById('lctGear');
+  var status=document.getElementById('lctStatus'),langBar=document.getElementById('lctLangBar');
+  var srcSel=document.getElementById('lctSrcSel'),tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){__micStream=s;}).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{__micStream.getTracks().forEach(function(t){t.stop();});}catch(e){} __micStream=null; } }
+  var spoken='en-US',src='en',target='lv',rec=null,active=false;
+  var lastInterim='',pending='',capTopB='',capBotB='',lctIdeaTimer=null,finalTimer=null,silenceTimer=null;
+  var lastTrAt=0,lastTrText='',lastTrLen=0,netErrors=0,cache=new Map(),POLL_GAP_MS=700;
+  function setStatus(t){status.textContent=t;status.classList.toggle('show',active||t==='mic blocked'||t==='use Chrome');}
+  function tail(text,maxWords){if(!text)return '';var t=String(text).trim().replace(/\s+/g,' ');if(!t)return '';var parts=t.split(' ');if(parts.length<=maxWords)return t;var s=parts.slice(-maxWords).join(' ');var m=s.match(/[.!?…]\s+(.+)$/)||s.match(/[,;:]\s+(.+)$/);return m?m[1]:s;}
+  async function translateRemote(text){try{if(src===target)return text;var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text);var ctrl=new AbortController();var tmo=setTimeout(function(){ctrl.abort();},3000);var r=await fetch(url,{signal:ctrl.signal});clearTimeout(tmo);if(!r.ok)return null;var j=await r.json();if(Array.isArray(j)&&Array.isArray(j[0])){var out='';j[0].forEach(function(seg){if(seg&&seg[0])out+=seg[0];});return out||null;}return null;}catch(e){return null;}}
+  async function translate(text){if(!text||!text.trim())return '';var key=src+'|'+target+'|'+text.trim().toLowerCase();if(cache.has(key))return cache.get(key);var out=await translateRemote(text);if(!out)out=text;cache.set(key,out);if(cache.size>250){cache.delete(cache.keys().next().value);}return out;}
+  function lctRowCap(){var el=lineBot||lineTop;var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.9)||1000;var fs=parseFloat(getComputedStyle(el).fontSize)||26;return Math.max(16,Math.floor(box/(fs*0.52)));}
+  function lctTrim(t){t=(t||'').replace(/\s+/g,' ').trim();var cap=lctRowCap();if(t.length<=cap)return t;var s=t.slice(t.length-cap);var i=s.indexOf(' ');return i>0?s.slice(i+1):s;}
+  function lctWrap(){var cap=lctRowCap();while(capBotB.length>cap){var head=capBotB.slice(0,cap);var sp=head.lastIndexOf(' ');var cut=sp>0?sp:cap;capTopB=capBotB.slice(0,cut).trim();capBotB=capBotB.slice(cut).trim();}}
+  function lctDraw(){var iv=(lastInterim||'').replace(/\s+/g,' ').trim();var cap=lctRowCap();if(capBotB&&(capBotB.length+(iv?iv.length+1:0))>cap){capTopB=capBotB;capBotB='';}lineTop.textContent=lctTrim(capTopB);lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim());}
+  function lctCommit(tr){tr=(tr||'').replace(/\s+/g,' ').trim();if(!tr)return;capBotB=capBotB?(capBotB+' '+tr):tr;lctWrap();if(/[.!?…]$/.test(capBotB))lctEndIdea();lctDraw();}
+  function lctEndIdea(){if(capBotB){capTopB=capBotB;capBotB='';}lctDraw();}
+  function render(){lctDraw();if(lctIdeaTimer)clearTimeout(lctIdeaTimer);lctIdeaTimer=setTimeout(lctEndIdea,1500);}
+  function armSilence(){cancelSilence();silenceTimer=setTimeout(function(){capTopB='';capBotB='';lastInterim='';pending='';render();},30000);}
+  function cancelSilence(){if(silenceTimer){clearTimeout(silenceTimer);silenceTimer=null;}}
+  async function commitFinal(chunk){chunk=chunk.trim();if(!chunk)return;srcEl.textContent=tail(chunk,18);var tr=await translate(chunk);lctCommit(tr);lastInterim='';lastTrLen=0;render();}
+  async function translateInterim(text){var now=performance.now();if(now-lastTrAt<POLL_GAP_MS)return;if(text.length-lastTrLen<10&&text.length>0)return;if(text===lastTrText)return;lastTrAt=now;lastTrLen=text.length;lastTrText=text;try{var tr=await translate(text);if(tr&&active){lastInterim=tr;render();}}catch(e){}}
+  function startRec(){
+    rec=new SR();rec.continuous=true;rec.interimResults=true;rec.lang=spoken;if('maxAlternatives' in rec)rec.maxAlternatives=1;
+    rec.onresult=function(e){netErrors=0;cancelSilence();var interim='',fin='';for(var i=e.resultIndex;i<e.results.length;i++){var r=e.results[i];if(r.isFinal)fin+=' '+r[0].transcript;else interim+=' '+r[0].transcript;}
+      if(fin){pending+=' '+fin;if(finalTimer)clearTimeout(finalTimer);finalTimer=setTimeout(function(){var c=pending;pending='';commitFinal(c).then(armSilence);},120);}
+      if(interim){srcEl.textContent=tail(interim.trim(),18);translateInterim(interim.trim());}render();setStatus('live · '+src+'→'+target);};
+    rec.onerror=function(ev){if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){setStatus('mic blocked');btn.classList.add('err');active=false;}else if(ev.error==='no-speech'||ev.error==='aborted'){}else if(ev.error==='network'){netErrors++;if(netErrors>=3){active=false;btn.classList.remove('on');btn.classList.add('err');setStatus('offline');}else setStatus('reconnect '+netErrors+'/3');}else setStatus(ev.error);};
+    rec.onend=function(){if(active){try{rec.start();}catch(e){setTimeout(function(){if(active&&rec){try{rec.start();}catch(_){}}},350);}}};
+    try{rec.start();}catch(e){}
+  }
+  function toggle(){
+    if(!SR){setStatus('use Chrome');btn.classList.add('err');return;}
+    if(active){active=false;btn.classList.remove('on');bar.classList.remove('on');setStatus('off');__releaseMic();if(rec){try{rec.onend=null;rec.stop();}catch(e){}rec=null;}capTopB='';capBotB='';lastInterim='';pending='';render();}
+    else{active=true;btn.classList.add('on');btn.classList.remove('err');bar.classList.add('on');setStatus('starting…');__holdMic().then(startRec);}
+  }
+  btn.addEventListener('click',function(e){e.stopPropagation();toggle();});
+  gear.addEventListener('click',function(e){e.stopPropagation();var open=langBar.classList.toggle('open');gear.classList.toggle('on',open);});
+  document.addEventListener('keydown',function(e){if((e.key==='l'||e.key==='L')&&!/^(input|textarea|select)$/i.test((e.target.tagName||'')))toggle();});
+  srcSel.addEventListener('change',function(e){e.stopPropagation();spoken=srcSel.value;src=spoken.slice(0,2);cache.clear();if(active&&rec){rec.onend=null;try{rec.stop();}catch(_){}rec=null;__holdMic().then(startRec);}if(active)setStatus('live · '+src+'→'+target);});
+  tgtSel.addEventListener('change',function(e){e.stopPropagation();target=tgtSel.value;cache.clear();capTopB='';capBotB='';lastInterim='';lastTrText='';lastTrLen=0;render();if(active)setStatus('live · '+src+'→'+target);});
+  [srcSel,tgtSel].forEach(function(s){s.addEventListener('click',function(e){e.stopPropagation();});});
+})();
+</script>
+</body>
+</html>

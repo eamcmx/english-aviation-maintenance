@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U04-r1</text></category>
+    <info format="html"><text><![CDATA[<p>English for Aviation Maintenance — Unit 4 (Simulation Day): morning base-check start. Rich item bank split by skill: Listening, Reading, Use of English, Vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ============================================================ -->
+  <!-- LISTENING (7 items) — replay the dialogues from the unit audio -->
+  <!-- ============================================================ -->
+
+  <question type="multichoice">
+    <name><text>U04-L1 Dialogue 1 how many task cards</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again</b> (reading the work pack). How many task cards does the work pack contain?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Mechanic A says there are <b>six</b> task cards, each a separate job with its own sign-off box.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Six task cards.]]></text><feedback format="html"><text><![CDATA[<p>Correct — six separate task cards.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Four task cards.]]></text><feedback format="html"><text><![CDATA[<p>No — listen again to the count A gives.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Eight task cards.]]></text><feedback format="html"><text><![CDATA[<p>No — the pack holds fewer than eight.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Ten task cards.]]></text><feedback format="html"><text><![CDATA[<p>No — that is too many; check the number A states.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U04-L2 fasteners on panel 191AB</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again</b> (opening the panels). How many panel fasteners are on access panel 191AB? Write the number in figures.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Mechanic A counts <b>twenty</b> fasteners and bags them so none becomes FOD.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>20</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — twenty fasteners.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Not quite — A counts twenty fasteners on the panel.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U04-L3 crack length mm</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again</b> (reporting the defect). About how long is the crack, in millimetres? Write the number in figures.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Mechanic A says the crack measures about <b>twelve</b> millimetres and photographs it beside a ruler.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>12</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — about twelve millimetres.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Not quite — the crack is about twelve millimetres.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U04-L4 nose jacked before wings</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> True or false: the nose is jacked <i>before</i> the wings.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The AMM instructs the wings first and the nose <b>last</b>.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — the order is wings first, nose last.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — the nose is jacked last, after the wings.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U04-L5 measure before calling</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> True or false: the mechanics measure the crack before they call the supervisor.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. They measure first, so they can give the supervisor an accurate number.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — measure first, then call.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No — they measure the crack before calling.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U04-L6 what comes first in the plan</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> In the pair's agreed plan, what comes first?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Documentation first, aircraft second: they review the paperwork before they touch the aircraft.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The documentation.]]></text><feedback format="html"><text><![CDATA[<p>Correct — documentation first, aircraft second.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The jacking of the aircraft.]]></text><feedback format="html"><text><![CDATA[<p>No — that comes after the paperwork is reviewed.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The removal of the panel.]]></text><feedback format="html"><text><![CDATA[<p>No — the panel is opened much later in the sequence.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The inspection of the bracket.]]></text><feedback format="html"><text><![CDATA[<p>No — inspection is one of the last steps.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U04-L7 voicemail first action</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 4 again</b> (the night-shift voicemail). What does Marek ask the day shift to do first?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>He asks them to review the tech log first, then divide the task cards.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Read the tech log.]]></text><feedback format="html"><text><![CDATA[<p>Correct — review the tech log first.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Open the work order first.]]></text><feedback format="html"><text><![CDATA[<p>No — the work order is already open and authorised.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Set up the safety cordon.]]></text><feedback format="html"><text><![CDATA[<p>No — the cordon is already established; only verify it.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Split all the task cards.]]></text><feedback format="html"><text><![CDATA[<p>No — that comes after reading the tech log.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================ -->
+  <!-- READING (5 items) — short new-genre texts in the stem          -->
+  <!-- ============================================================ -->
+
+  <question type="multichoice">
+    <name><text>U04-R1 MEL meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this text, then answer.</b></p><p><i>A Minimum Equipment List (MEL) lets an aircraft be dispatched with certain items inoperative for a limited time, if set conditions are met. Each MEL item has a rectification interval, for example three days for a Category C item.</i></p><p>What does an MEL allow?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>An MEL permits dispatch with some items inoperative, but only for a limited time and under stated conditions.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[A limited, conditional dispatch.]]></text><feedback format="html"><text><![CDATA[<p>Correct — limited time, set conditions.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Permanent flight with any fault.]]></text><feedback format="html"><text><![CDATA[<p>No — the relief is time-limited, not permanent.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Dispatch with no conditions at all.]]></text><feedback format="html"><text><![CDATA[<p>No — conditions must be met.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[An immediate, unconditional repair.]]></text><feedback format="html"><text><![CDATA[<p>No — an MEL is about dispatch, not repair.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U04-R2 service bulletin mandatory</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this text, then answer.</b></p><p><i>A Service Bulletin (SB) is issued by the manufacturer to recommend an inspection or a modification. Unless an Airworthiness Directive makes it mandatory, an SB is normally advisory.</i></p><p>True or false: a Service Bulletin is always mandatory.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. An SB is normally advisory unless an Airworthiness Directive makes it mandatory.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — an SB is advisory unless an AD makes it mandatory.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — normally advisory, not always mandatory.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U04-R3 who issues an AD</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this text, then answer.</b></p><p><i>An Airworthiness Directive (AD) is issued by the aviation authority. Compliance is mandatory, and it must be completed by a stated deadline.</i></p><p>Who issues an Airworthiness Directive?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The aviation authority issues ADs, and compliance is mandatory by the deadline.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The aviation authority.]]></text><feedback format="html"><text><![CDATA[<p>Correct — the authority issues the AD.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The line-station mechanic.]]></text><feedback format="html"><text><![CDATA[<p>No — the mechanic complies with it, but does not issue it.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The aircraft flight crew.]]></text><feedback format="html"><text><![CDATA[<p>No — the crew do not issue ADs.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The spare-parts supplier.]]></text><feedback format="html"><text><![CDATA[<p>No — the supplier does not issue ADs.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U04-R4 BITE code meaning source</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this text, then answer.</b></p><p><i>A BITE (Built-In Test Equipment) readout lists fault codes stored by an aircraft system. The technician reads a code, then finds its meaning in the AMM fault table.</i></p><p>Where does the technician find the meaning of a BITE fault code?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The code is looked up in the AMM fault table, which explains what each code means.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[In the AMM fault table.]]></text><feedback format="html"><text><![CDATA[<p>Correct — the AMM fault table explains the code.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[On the IPC front cover.]]></text><feedback format="html"><text><![CDATA[<p>No — the IPC lists parts, not fault codes.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[In the aircraft tech log.]]></text><feedback format="html"><text><![CDATA[<p>No — the tech log records defects, not code meanings.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[On the access panel label.]]></text><feedback format="html"><text><![CDATA[<p>No — the label is not a fault-code source.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U04-R5 purpose of a work order</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this text, then answer.</b></p><p><i>A work order in a work pack is the legal authority to start a maintenance job. It is opened and authorised before any work, and it is signed off only when the job is complete.</i></p><p>A work order in a work pack mainly provides...</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The work order is the legal authority to begin; part numbers, torque values and crack limits come from other documents.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[the authority to start work.]]></text><feedback format="html"><text><![CDATA[<p>Correct — it authorises the job to begin.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the part numbers for the job.]]></text><feedback format="html"><text><![CDATA[<p>No — part numbers come from the IPC.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the torque values to record.]]></text><feedback format="html"><text><![CDATA[<p>No — torque values come from the AMM.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the crack limits for a bracket.]]></text><feedback format="html"><text><![CDATA[<p>No — limits (if any) are in the AMM.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================ -->
+  <!-- USE OF ENGLISH (7 items) — sequencers + bank terms            -->
+  <!-- ============================================================ -->
+
+  <question type="shortanswer">
+    <name><text>U04-U1 after removing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the sentence with the correct form of the verb <b>remove</b>:</p><p><i>After ______ the panel, log the torque.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>After <b>before</b> and <b>after</b>, use the <b>-ing</b> form: <i>after removing</i>. Latvian and Russian have no gerund, so the -ing is often dropped.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>removing</text><feedback format="html"><text><![CDATA[<p>Correct — after + -ing.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>remove</text><feedback format="html"><text><![CDATA[<p>Use the -ing form after "after": removing.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "removing" (after + -ing).</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U04-U2 first not at first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Correct the sequencer for step one. Write the correct single word:</p><p><i>______ , set up the safety cordon.</i> (not "At first")</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>For step one, use <b>First</b>. "At first" means "in the beginning, but it later changed" — a common carry-over from <i>sākumā / сначала</i>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>first</text><feedback format="html"><text><![CDATA[<p>Correct — "First," for step one.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>at first</text><feedback format="html"><text><![CDATA[<p>No — "at first" is for something that later changed. Use "First".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "First".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U04-U3 before jacking</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the sentence with the correct form of the verb <b>jack</b>:</p><p><i>Before ______ the aircraft, set the chocks.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>After <b>before</b>, use the <b>-ing</b> form: <i>before jacking</i>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>jacking</text><feedback format="html"><text><![CDATA[<p>Correct — before + -ing.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>jack</text><feedback format="html"><text><![CDATA[<p>Use the -ing form after "before": jacking.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "jacking".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U04-U4 as soon as connector</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Add the missing connector (three words) that means "immediately after":</p><p><i>______ the aircraft is up, we fit the lockout pins.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The three-word connector is <b>as soon as</b>. ("Once" also works, but it is one word.)</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>as soon as</text><feedback format="html"><text><![CDATA[<p>Correct — "as soon as" (three words).</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>once</text><feedback format="html"><text><![CDATA[<p>Also accepted — "once" carries the same meaning.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>as soon</text><feedback format="html"><text><![CDATA[<p>Incomplete — the full connector is "as soon as".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "as soon as".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U04-U5 work order term</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which document (two words) authorises the mechanics to begin work?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The <b>work order</b> is the legal authority to start. Nothing begins until it is open and signed.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>work order</text><feedback format="html"><text><![CDATA[<p>Correct — the work order.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>work pack</text><feedback format="html"><text><![CDATA[<p>No — the work pack is the whole set of paperwork; the work order authorises the job.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "work order".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U04-U6 FOD abbreviation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Loose items on the hangar floor that can damage an engine or a tyre are called ______ (a three-letter abbreviation).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>FOD</b> = foreign object debris. A misplaced fastener becomes FOD, so fasteners are bagged.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>FOD</text><feedback format="html"><text><![CDATA[<p>Correct — FOD (foreign object debris).</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>debris</text><feedback format="html"><text><![CDATA[<p>Close in meaning, but the required abbreviation is FOD.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "FOD".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U04-U7 missing article the</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Add the missing article (one word):</p><p><i>First, jack ______ aircraft, then remove the wheel.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>English needs the article: <i>jack <b>the</b> aircraft</i>. Latvian and Russian have no articles, so "the" is easily dropped.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>the</text><feedback format="html"><text><![CDATA[<p>Correct — "jack the aircraft".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>a</text><feedback format="html"><text><![CDATA[<p>No — the aircraft is a specific one, so use "the".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "the".</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================ -->
+  <!-- VOCABULARY (4 items) — matching term to meaning / collocation -->
+  <!-- ============================================================ -->
+
+  <question type="matching">
+    <name><text>U04-V1 term to meaning A</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each hangar-workflow term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>work order = authority to begin; task card = one job; tech log = record of defects; sign-off = certifying signature; defect = a fault found.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[<p>All correct.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some pairs are correct — check the rest against the vocabulary bank.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the vocabulary bank and try again.</p>]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[work order]]></text><answer><text>The document that authorises work to begin</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[task card]]></text><answer><text>One job, with its own steps and sign-off box</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[tech log]]></text><answer><text>The record of defects and completed work</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[sign-off]]></text><answer><text>The certifying signature that a job is complete</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[defect]]></text><answer><text>A fault or damage found on the aircraft</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U04-V2 term to meaning B safety</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each safety term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>safety cordon = a barrier keeping people out; wheel chock = a wedge against a tyre; lockout = pins stopping a jack lowering; jack point = the fixed spot for a jack pad; warning notice = a sign not to enter.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[<p>All correct.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some pairs are correct — check the rest against the vocabulary bank.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the vocabulary bank and try again.</p>]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[safety cordon]]></text><answer><text>A barrier that keeps people out of the area</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[wheel chock]]></text><answer><text>A wedge placed against a tyre</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[lockout]]></text><answer><text>Pins that stop a jack lowering unexpectedly</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[jack point]]></text><answer><text>The fixed spot where a jack pad must sit</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[warning notice]]></text><answer><text>A displayed sign not to enter or operate</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U04-V3 abbreviation to full name</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each abbreviation to its full name.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>AMM = Aircraft Maintenance Manual; IPC = Illustrated Parts Catalogue; MEL = Minimum Equipment List; AD = Airworthiness Directive; FOD = foreign object debris.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[<p>All correct.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some pairs are correct — check the rest.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the abbreviations and try again.</p>]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[AMM]]></text><answer><text>Aircraft Maintenance Manual</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[IPC]]></text><answer><text>Illustrated Parts Catalogue</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[MEL]]></text><answer><text>Minimum Equipment List</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[AD]]></text><answer><text>Airworthiness Directive</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[FOD]]></text><answer><text>Foreign object debris</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U04-V4 term to collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the verb it goes with (its natural collocation).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Natural partners: raise a work order; record the torque; set up a safety cordon; open the access panel; check for FOD.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[<p>All correct.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some pairs are correct — check the collocations again.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the collocations in the vocabulary bank.</p>]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[work order]]></text><answer><text>raise</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[torque]]></text><answer><text>record</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[safety cordon]]></text><answer><text>set up</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[access panel]]></text><answer><text>open</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[FOD]]></text><answer><text>check for</text></answer></subquestion>
+  </question>
+
+</quiz>
