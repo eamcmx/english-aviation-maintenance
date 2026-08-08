@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 13 · Solutions — Querying a Service Bulletin with the OEM</title>
+<style>
+  :root{--primary:#2F5496;--primary-dark:#1f3a6b;--good:#2e9e6b;--bad:#c0392b;--accent:#b1551f;
+    --bg:#fbfaf6;--card:#fff;--sunken:#f3f1ea;--border:#e7e3d8;--ink:#1f2230;--ink-soft:#4a4f5c;--ink-muted:#707582;
+    --serif:'Source Serif 4',Georgia,serif;--sans:Inter,-apple-system,BlinkMacSystemFont,sans-serif;--mono:'JetBrains Mono',Consolas,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+  article{max-width:900px;margin:0 auto;padding:0 26px 90px}
+  h1,h2,h3{font-family:var(--serif);line-height:1.2;color:var(--ink)}
+  .hero{padding:48px 0 24px;border-bottom:1px solid var(--border);margin-bottom:28px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+  h1{font-size:2rem;margin:0 0 10px}
+  .gate{background:#eef3fb;border:1px solid #d3e0f1;border-radius:8px;padding:10px 14px;font-size:14.5px;color:#33384a;margin-top:14px}
+  h2{font-size:1.4rem;border-bottom:1px solid var(--border);padding-bottom:8px;margin:36px 0 14px;display:flex;gap:12px;align-items:baseline}
+  h2 .tag{font-family:var(--mono);font-size:.8rem;color:var(--primary);font-weight:600}
+  ol.ans{margin:0;padding-left:1.5em}
+  ol.ans li{margin:9px 0}
+  .a{font-weight:700;color:var(--primary-dark)}
+  .why{display:block;font-size:13.5px;color:var(--ink-muted);margin-top:2px}
+  table.match{border-collapse:collapse;width:100%;font-size:14.5px;margin:8px 0}
+  table.match th,table.match td{border:1px solid var(--border);padding:7px 10px;text-align:left;vertical-align:top}
+  table.match th{background:var(--sunken);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft)}
+  code{font-family:var(--mono);font-size:.86em;background:var(--sunken);padding:1px 5px;border-radius:4px}
+  .model{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--good);border-radius:0 8px 8px 0;padding:16px 20px;margin:12px 0}
+  .model .em{font-family:var(--mono);font-size:14px;white-space:pre-line;line-height:1.55;color:#2a2e3a}
+  .anno{background:#fff8e1;border:1px solid #f0e6c8;border-radius:8px;padding:12px 16px;margin:12px 0;font-size:14.5px}
+  .anno li{margin:5px 0}
+  .wrong{color:var(--bad);font-weight:600}.right{color:var(--good);font-weight:600}
+  footer{margin-top:40px;color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:18px}
+</style>
+</head>
+<body>
+<article>
+  <div class="hero">
+    <div class="eyebrow">English for Aviation Maintenance · Unit 13 · Teacher solutions</div>
+    <h1>Solutions — Querying a Service Bulletin with the OEM</h1>
+    <p style="color:var(--ink-soft);max-width:66ch">Full model answers for E1–E8, one line of reasoning per item, and the annotated model email. This is a gated teacher file — complete answers are shown.</p>
+    <div class="gate">Accepted variants are shown with a slash (<code>serial number / serial</code>). For E4/E6, mark on statement order and <code>whether/if</code>, not on spelling alone.</div>
+  </div>
+
+  <h2><span class="tag">E1</span> Put the right term in the gap</h2>
+  <ol class="ans">
+    <li><span class="a">applicability</span><span class="why">The applicability table lists which aircraft the bulletin covers.</span></li>
+    <li><span class="a">serial number</span> <span class="why">The serial number names one exact aircraft — here 5127.</span></li>
+    <li><span class="a">superseded</span><span class="why">A newer revision replaces the old one; rev 2 is superseded by rev 3.</span></li>
+    <li><span class="a">mandatory</span><span class="why">An airworthiness directive makes the action a legal must, not a choice.</span></li>
+    <li><span class="a">lead time</span><span class="why">Lead time is the wait before parts arrive — about three weeks here.</span></li>
+    <li><span class="a">logbook entry</span><span class="why">The written record in the aircraft log; the collocation is "make a logbook entry".</span></li>
+    <li><span class="a">accomplishment instructions</span><span class="why">The step-by-step method to do the task, followed in order.</span></li>
+    <li><span class="a">compliance</span><span class="why">Compliance = doing what is required; the logbook entry proves it.</span></li>
+    <li><span class="a">part number</span><span class="why">The code that names one exact part in the kit.</span></li>
+    <li><span class="a">clarification</span><span class="why">A clear answer that removes doubt — what you ask the OEM for.</span></li>
+  </ol>
+
+  <h2><span class="tag">E2</span> Match the term to its meaning</h2>
+  <table class="match">
+    <tr><th>#</th><th>Meaning</th><th>Term</th><th>Why</th></tr>
+    <tr><td>1</td><td>a notice from the maker to change or check something</td><td class="a">service bulletin</td><td>The OEM's notice that starts the whole process.</td></tr>
+    <tr><td>2</td><td>the exact serial numbers a bulletin covers</td><td class="a">effectivity</td><td>Narrower than applicability — the precise serials.</td></tr>
+    <tr><td>3</td><td>doing what a bulletin or directive requires</td><td class="a">compliance</td><td>The act of meeting the requirement.</td></tr>
+    <tr><td>4</td><td>you must do it; it is not a choice</td><td class="a">mandatory</td><td>Opposite of recommended; forced by an AD.</td></tr>
+    <tr><td>5</td><td>replaced by a newer version</td><td class="a">superseded</td><td>An old revision no longer to be used.</td></tr>
+    <tr><td>6</td><td>the state of a modification once it is fitted</td><td class="a">embodiment</td><td>You "record the embodiment" after the work.</td></tr>
+    <tr><td>7</td><td>extra work to correct or redo something</td><td class="a">rework</td><td>Here the mod needs no rework of the wiring.</td></tr>
+    <tr><td>8</td><td>a numbered update of a document</td><td class="a">revision</td><td>Rev 1, 2, 3 — always use the current one.</td></tr>
+    <tr><td>9</td><td>on the list; covered by the bulletin</td><td class="a">affected</td><td>What you confirm about your serial number.</td></tr>
+    <tr><td>10</td><td>the original maker of the aircraft or part</td><td class="a">OEM</td><td>Original Equipment Manufacturer — who you call.</td></tr>
+  </table>
+
+  <h2><span class="tag">E3</span> Complete the call</h2>
+  <ol class="ans">
+    <li><span class="a">bulletin</span><span class="why">"a service bulletin" — the fixed collocation opens the call.</span></li>
+    <li><span class="a">serial</span><span class="why">"your serial number" — the OEM needs it to check effectivity.</span></li>
+    <li><span class="a">effectivity</span><span class="why">"which effectivity applies" — the indirect question of the unit.</span></li>
+    <li><span class="a">mandatory</span><span class="why">"mandatory or recommended" — the fixed pair for compliance level.</span></li>
+    <li><span class="a">directive</span><span class="why">"airworthiness directive" — an AD is what makes a task mandatory.</span></li>
+    <li><span class="a">affected</span><span class="why">The verdict: the aircraft is on the list.</span></li>
+    <li><span class="a">modification</span><span class="why">"the modification kit" — what you order.</span></li>
+    <li><span class="a">entry</span><span class="why">"a logbook entry" — the record made after the work.</span></li>
+  </ol>
+
+  <h2><span class="tag">E4</span> Build the indirect clause</h2>
+  <p style="font-size:14.5px;color:var(--ink-muted)">Rule: opener + <b>statement order</b> (subject before verb); no <code>do/does</code>; add <code>whether</code> for yes/no.</p>
+  <ol class="ans">
+    <li><span class="a">which revision is current</span><span class="why">Verb <em>is</em> stays after the subject — no inversion.</span></li>
+    <li><span class="a">whether the bulletin is mandatory</span><span class="why">Yes/no → <code>whether</code> + statement order.</span></li>
+    <li><span class="a">what the part number is</span><span class="why">"is" goes to the end; no "what is the…".</span></li>
+    <li><span class="a">whether our aircraft is affected</span><span class="why">Yes/no → <code>whether</code>; subject before verb.</span></li>
+    <li><span class="a">which serial numbers are affected</span><span class="why">Plural subject → <em>are</em>; still statement order.</span></li>
+    <li><span class="a">how the modification works</span><span class="why">No <code>does</code>; verb takes the -s: "works".</span></li>
+    <li><span class="a">whether revision 2 is superseded</span><span class="why">Yes/no → <code>whether</code>; passive kept in statement order.</span></li>
+    <li><span class="a">what the lead time is</span><span class="why">"is" to the end after "the lead time".</span></li>
+    <li><span class="a">whether compliance is mandatory</span><span class="why">Yes/no → <code>whether</code>; subject "compliance" first.</span></li>
+    <li><span class="a">where the effectivity is listed</span><span class="why">"is listed" after the subject; no inversion.</span></li>
+  </ol>
+
+  <h2><span class="tag">E5</span> Read the service bulletin</h2>
+  <ol class="ans">
+    <li><span class="a">the bracket</span><span class="why">Subject line: the pitot probe support bracket is replaced.</span></li>
+    <li><span class="a">recommended</span><span class="why">"Compliance: Recommended" — no AD is linked.</span></li>
+    <li><span class="a">5100 to 5140</span><span class="why">Effectivity: serial numbers 5100 through 5140.</span></li>
+    <li><span class="a">three weeks</span><span class="why">Parts line: lead time is about three weeks.</span></li>
+    <li><span class="a">revision 2</span><span class="why">The note states revision 2 is superseded (rev 3 is current).</span></li>
+    <li><span class="a">a logbook entry</span><span class="why">"Record the embodiment with a logbook entry."</span></li>
+  </ol>
+
+  <h2><span class="tag">E6</span> Find and fix the mistakes</h2>
+  <ol class="ans">
+    <li><span class="wrong">does apply</span> → <span class="a">which effectivity applies</span><span class="why">Remove <code>does</code>; the main verb carries the tense.</span></li>
+    <li><span class="wrong">what is the current revision</span> → <span class="a">what the current revision is</span><span class="why">Drop the question inversion inside the clause.</span></li>
+    <li><span class="wrong">is our aircraft affected</span> → <span class="a">whether our aircraft is affected</span><span class="why">Yes/no needs <code>whether</code>; then statement order.</span></li>
+    <li><span class="wrong">how does the kit arrive</span> → <span class="a">how the kit arrives</span><span class="why">Remove <code>does</code>; add -s to the verb.</span></li>
+    <li><span class="wrong">what is the lead time</span> → <span class="a">what the lead time is</span><span class="why">"is" moves to the end after the subject.</span></li>
+    <li><span class="wrong">is revision 2 superseded</span> → <span class="a">whether revision 2 is superseded</span><span class="why">Yes/no → <code>whether</code>; keep statement order.</span></li>
+    <li><span class="wrong">which parts do I need</span> → <span class="a">which parts I need</span><span class="why">Remove <code>do</code>; subject "I" before verb "need".</span></li>
+    <li><span class="wrong">where is the applicability listed</span> → <span class="a">where the applicability is listed</span><span class="why">No inversion; "is listed" after the subject.</span></li>
+  </ol>
+
+  <h2><span class="tag">E7</span> Read the work order</h2>
+  <ol class="ans">
+    <li><span class="a">5127</span><span class="why">Work Order 22-0987 is for aircraft YL-BAK, serial 5127.</span></li>
+    <li><span class="a">no, recommended</span><span class="why">"Compliance is recommended, not mandatory. No AD applies."</span></li>
+    <li><span class="a">no</span><span class="why">The order states there is no wiring rework.</span></li>
+    <li><span class="a">the modification kit</span><span class="why">"Order modification kit 34-2189-K3 … today."</span></li>
+    <li><span class="a">revision 3</span><span class="why">Task: embody SB 34-2189, revision 3.</span></li>
+    <li><span class="a">a logbook entry</span><span class="why">Sign-off: make a logbook entry and record the embodiment.</span></li>
+  </ol>
+
+  <h2><span class="tag">E8</span> Questions on Dialogue 3 and the voicemail</h2>
+  <ol class="ans">
+    <li><span class="a">a technician</span><span class="why">Rihards, the line technician, makes the call in Dialogue 3.</span></li>
+    <li><span class="a">the accomplishment instructions</span><span class="why">He has read them and wants to confirm the next step.</span></li>
+    <li><span class="a">no</span><span class="why">"No rework of the wiring" — only the bracket and fasteners change.</span></li>
+    <li><span class="a">three weeks</span><span class="why">The OEM gives the kit lead time as about three weeks.</span></li>
+    <li><span class="a">with a logbook entry</span><span class="why">Record the embodiment with a logbook entry quoting the SB and revision.</span></li>
+    <li><span class="a">revision 3</span><span class="why">The voicemail says revision 2 is superseded; revision 3 is current.</span></li>
+    <li><span class="a">no, recommended</span><span class="why">The voicemail keeps the modification recommended, not mandatory.</span></li>
+    <li><span class="a">the new effectivity</span><span class="why">Two more serials are affected — check the new effectivity first.</span></li>
+  </ol>
+
+  <h2><span class="tag">WRITING</span> Model answer — annotated</h2>
+  <p style="font-size:14.5px;color:var(--ink-muted)">Task: query the unclear effectivity of SB 34-2189 in 90–120 words; three indirect questions; state the serial; ask for the applicability in writing.</p>
+  <div class="model">
+    <div class="em">Subject: SB 34-2189 — effectivity query, serial 5127
+
+Dear OEM Support,
+
+We are reviewing service bulletin 34-2189, revision 2. The effectivity is not clear to us. Our aircraft serial number is 5127. Registration is YL-BAK.
+
+Could you tell me whether this serial number is affected?
+Could you confirm whether the bulletin is mandatory or recommended?
+Could you tell me which revision is current?
+
+Please send the applicability list in writing for our records. Please copy our engineering mailbox.
+
+Kind regards,
+R. Ozols
+Baltic Line Maintenance</div>
+  </div>
+  <div class="anno">
+    <b>Why this answer scores well (mark against these):</b>
+    <ul>
+      <li><b>Three indirect questions</b>, all in statement order: <code>whether this serial number is affected</code>, <code>whether the bulletin is mandatory</code>, <code>which revision is current</code> — no <code>do/does</code>, no inversion.</li>
+      <li><b>Serial number stated</b> early (5127) with the registration — the fastest route to a clear answer.</li>
+      <li><b>Applicability requested in writing</b> — closes the loop and creates a record.</li>
+      <li><b>STE habits:</b> one idea per sentence, short sentences, a clear subject line, active voice. ~95 words — inside 90–120.</li>
+      <li><b>Register:</b> polite opener and close; precise, not wordy.</li>
+    </ul>
+    <b>Common errors to deduct for:</b> <span class="wrong">"Could you tell me what is the current revision"</span> (inversion), <span class="wrong">"I want to know is our aircraft affected"</span> (missing <code>whether</code>), long run-on sentences, or no serial number given.
+  </div>
+
+  <footer>Unit 13 · English for Aviation Maintenance · CEFR B2 · teacher solutions (gated).</footer>
+</article>
+</body>
+</html>

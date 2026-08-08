@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U13-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 13 — Querying a Service Bulletin with the OEM. Listening · Reading · Use of English · Vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ================= LISTENING (8) ================= -->
+
+  <question type="multichoice">
+    <name><text>U13-L1 Dialogue 1 — is the aircraft affected?</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> The technician gives serial number 5127. Is the aircraft affected by the bulletin?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The OEM says: "Serial 5127 is inside the effectivity. Your aircraft is affected." Being inside the effectivity is exactly what "affected" means.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Yes, it is inside the effectivity.]]></text><feedback format="html"><text><![CDATA[<p>Correct — the serial is inside the effectivity, so the aircraft is affected.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[No, it is outside the effectivity.]]></text><feedback format="html"><text><![CDATA[<p>No — the OEM confirms 5127 is inside the effectivity.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Only once revision 3 is issued.]]></text><feedback format="html"><text><![CDATA[<p>No — the answer does not depend on a future revision.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The OEM could not confirm it.]]></text><feedback format="html"><text><![CDATA[<p>No — the OEM confirms it clearly on the call.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U13-L2 Dialogue 1 — mandatory?</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> True or false: the bulletin is mandatory.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The OEM says it is "recommended, not mandatory" and is "not linked to an airworthiness directive". Only an AD would make it mandatory.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — it is recommended, not mandatory.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — it is recommended; no AD is linked.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U13-L3 Dialogue 1 — serial number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Write the aircraft serial number the technician reads out (digits only).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The technician says "five-one-two-seven" — serial 5127.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>5127</text><feedback format="html"><text><![CDATA[<p>Correct — serial 5127.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U13-L4 Dialogue 2 — what makes it mandatory?</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> What makes the modification mandatory for the affected aircraft?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>An airworthiness directive (AD) makes the modification mandatory. A service bulletin on its own is only recommended unless an AD is linked to it.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[An airworthiness directive.]]></text><feedback format="html"><text><![CDATA[<p>Correct — the AD makes compliance mandatory.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The current revision number.]]></text><feedback format="html"><text><![CDATA[<p>No — a revision number does not set the compliance level.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The three-week parts lead time.]]></text><feedback format="html"><text><![CDATA[<p>No — lead time is about parts supply, not compliance.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The engineer's own decision.]]></text><feedback format="html"><text><![CDATA[<p>No — compliance level is not the engineer's choice.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U13-L5 Dialogue 2 — compliance deadline</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> Compliance is due within how many months of the airworthiness directive date? (number only)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The OEM says compliance is due "within twelve months of the airworthiness directive date" — 12 months.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>12</text><feedback format="html"><text><![CDATA[<p>Correct — twelve months.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U13-L6 Dialogue 2 — current revision</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> True or false: revision 3 is the current revision.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The OEM says "Revision three is current. Revision two is superseded, so please do not use it."</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — revision 3 is current; revision 2 is superseded.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No — revision 3 is current.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U13-L7 Dialogue 3 — lead time</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> The lead time for the modification kit is about how many weeks? (number only)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The OEM says the lead time is "about three weeks" and advises ordering the kit soon.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>3</text><feedback format="html"><text><![CDATA[<p>Correct — about three weeks.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U13-L8 Voicemail — the change</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to the OEM voicemail again.</b> Which revision is now current?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The voicemail says revision 2 is now superseded and revision 3 is current from today; two more serials are now affected, but the modification stays recommended.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Revision 3.]]></text><feedback format="html"><text><![CDATA[<p>Correct — revision 3 is current from today.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Revision 2, unchanged.]]></text><feedback format="html"><text><![CDATA[<p>No — revision 2 is now superseded.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Both 2 and 3 apply.]]></text><feedback format="html"><text><![CDATA[<p>No — only the current revision applies.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[No revision is current.]]></text><feedback format="html"><text><![CDATA[<p>No — revision 3 is clearly named as current.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= READING (4) ================= -->
+
+  <question type="multichoice">
+    <name><text>U13-R1 New SB excerpt — compliance</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this service bulletin excerpt.</b></p>
+    <blockquote>SERVICE BULLETIN 32-1150, REV 1. Subject: main landing gear door seal — replacement. Compliance: recommended. This bulletin is not linked to an airworthiness directive. The manufacturer advises action at the next scheduled check.</blockquote>
+    <p>According to the excerpt, compliance is:</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The text states "Compliance: recommended" and that no AD is linked, so the action is advised but not required by law.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[recommended, not mandatory.]]></text><feedback format="html"><text><![CDATA[<p>Correct — recommended, with no AD linked.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[mandatory within thirty days.]]></text><feedback format="html"><text><![CDATA[<p>No — no deadline or AD is stated.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[mandatory by an airworthiness directive.]]></text><feedback format="html"><text><![CDATA[<p>No — the text says no AD is linked.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[not stated anywhere in the excerpt.]]></text><feedback format="html"><text><![CDATA[<p>No — the compliance line states it clearly.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U13-R2 New AD notice</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this airworthiness directive notice.</b></p>
+    <blockquote>AD 2026-0142. Applies to all A320 aircraft, serials 5100–5200. Required action: inspect and replace the pitot bracket per SB 34-2189 rev 3. Compliance: mandatory within 12 months.</blockquote>
+    <p>True or false: this notice makes the inspection mandatory.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. An airworthiness directive states a legal requirement; here compliance is "mandatory within 12 months".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — an AD makes the action mandatory.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No — the AD states compliance is mandatory.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U13-R3 New work order — action</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this work order line.</b></p>
+    <blockquote>WORK ORDER 22-1043. Aircraft YL-BAP, serial 5133. Task: embody SB 34-2189 rev 3. Parts: order kit 34-2189-K3 (lead time 3 weeks). Note: no wiring rework.</blockquote>
+    <p>What must the technician order?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The Parts line says to order kit 34-2189-K3. The note confirms there is no wiring rework, so no wiring parts are needed.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The modification kit.]]></text><feedback format="html"><text><![CDATA[<p>Correct — kit 34-2189-K3.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A new wiring harness.]]></text><feedback format="html"><text><![CDATA[<p>No — the note says there is no wiring rework.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A replacement logbook.]]></text><feedback format="html"><text><![CDATA[<p>No — no logbook is ordered here.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A spare access panel.]]></text><feedback format="html"><text><![CDATA[<p>No — only the modification kit is listed.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U13-R4 New tech log entry</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this technical log entry.</b></p>
+    <blockquote>SB 34-2189 rev 3 embodied on aircraft YL-BAK, serial 5127. Bracket replaced; area inspected; panel closed. No defects found. Embodiment recorded.</blockquote>
+    <p>True or false: the entry records that the modification was completed and the embodiment logged.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The entry states the SB was embodied, the work steps were done, and the embodiment was recorded — the proof of compliance.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — the work is done and the embodiment recorded.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No — the entry clearly records the completed embodiment.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= USE OF ENGLISH (6) ================= -->
+
+  <question type="shortanswer">
+    <name><text>U13-U1 Indirect — which effectivity</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Make this an indirect question.</b> Complete the clause in statement order (no <em>do/does</em>).</p>
+    <p>Direct: "Which effectivity applies?"</p>
+    <p>Could you tell me ____________ ?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Keep the verb after the subject and drop any <em>do/does</em>: <b>which effectivity applies</b>. The verb "applies" carries the tense.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>which effectivity applies</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>which effectivity applies?</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U13-U2 Indirect — whether mandatory</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Make this an indirect question.</b> It is a yes/no question, so use <em>whether</em>.</p>
+    <p>Direct: "Is the bulletin mandatory?"</p>
+    <p>Could you clarify ____________ ?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A yes/no question needs <em>whether</em> (or <em>if</em>), then statement order: <b>whether the bulletin is mandatory</b>.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>whether the bulletin is mandatory</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>if the bulletin is mandatory</text><feedback format="html"><text><![CDATA[<p>Correct — <em>if</em> is also accepted.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>whether the bulletin is mandatory?</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U13-U3 Fix the word order</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Fix the clause.</b> Rewrite the embedded part in correct statement order.</p>
+    <p>Wrong: "Could you tell me what is the lead time?"</p>
+    <p>Could you tell me ____________ ?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Do not keep the question inversion inside the clause. The verb "is" goes to the end: <b>what the lead time is</b>.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>what the lead time is</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>what the lead time is?</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U13-U4 Term — applicability</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Write the one term.</b> The list of aircraft that a bulletin applies to is the ____________.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>applicability</b> — the general list of aircraft a bulletin applies to. (The exact serial numbers are the <em>effectivity</em>.)</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>applicability</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>the applicability</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U13-U5 Term — superseded</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Write the one term.</b> A revision that has been replaced by a newer one is ____________.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>superseded</b> — replaced by a newer version. Never use a superseded revision.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>superseded</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U13-U6 Term — embodiment</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Write the one term.</b> After the modification, you record the ____________ with a logbook entry.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>embodiment</b> — the state of a modification once it is fitted. You record it in the logbook, quoting the SB and revision.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>embodiment</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>the embodiment</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= VOCABULARY (4) ================= -->
+
+  <question type="matching">
+    <name><text>U13-V1 Match term to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Match each term to its plain meaning.</b></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>effectivity = exact serials · compliance = doing what is required · mandatory = you must · superseded = replaced · rework = extra work to redo.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[<p>effectivity</p>]]></text><answer><text>the exact serial numbers a bulletin covers</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>compliance</p>]]></text><answer><text>doing what a bulletin or directive requires</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>mandatory</p>]]></text><answer><text>you must do it; it is not a choice</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>superseded</p>]]></text><answer><text>replaced by a newer version</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>rework</p>]]></text><answer><text>extra work to correct or redo something</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U13-V2 Match term to collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Match each term to the word it goes with.</b></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Collocations to learn: applicability table · airworthiness directive · logbook entry · lead time.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[<p>applicability</p>]]></text><answer><text>table</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>airworthiness</p>]]></text><answer><text>directive</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>logbook</p>]]></text><answer><text>entry</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>lead</p>]]></text><answer><text>time</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U13-V3 Meaning to term</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which term means "the original maker of the aircraft or part"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>OEM = Original Equipment Manufacturer — the maker you call when the wording is unclear.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[OEM]]></text><feedback format="html"><text><![CDATA[<p>Correct — the original maker.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[AD]]></text><feedback format="html"><text><![CDATA[<p>No — an AD is a legal order.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[SB]]></text><feedback format="html"><text><![CDATA[<p>No — an SB is the maker's notice, not the maker.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[MEL]]></text><feedback format="html"><text><![CDATA[<p>No — the MEL is the minimum equipment list.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U13-V4 Collocation — embodiment</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Choose the natural collocation: "After the work, ____ the embodiment in the logbook."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The verb that goes with "embodiment" is <em>record</em>: "record the embodiment". "Embody the modification" is also correct, but here the object is "the embodiment".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[record]]></text><feedback format="html"><text><![CDATA[<p>Correct — "record the embodiment".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[supersede]]></text><feedback format="html"><text><![CDATA[<p>No — you supersede a revision, not an embodiment.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[clarify]]></text><feedback format="html"><text><![CDATA[<p>No — you clarify a question, not an embodiment.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[dispatch]]></text><feedback format="html"><text><![CDATA[<p>No — dispatch does not collocate with embodiment.</p>]]></text></feedback></answer>
+  </question>
+
+</quiz>

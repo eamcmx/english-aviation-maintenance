@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 13 · Teacher Deck — Querying a Service Bulletin with the OEM</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:21px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:28px}
+.center{align-items:center;text-align:center}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul,ol{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+b.acc{color:var(--accent)}b.pur{color:var(--purple)}b.good{color:var(--good)}b.amb{color:var(--amber)}
+table.tbl{border-collapse:collapse;width:100%;font-size:17px}
+table.tbl th,table.tbl td{text-align:left;padding:6px 11px;border-bottom:1px solid var(--line)}
+table.tbl th{color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em}
+.wrong{color:#ff9aa2}.right{color:#9af0c8}
+.turn{margin:6px 0;font-size:20px}.turn .spk{font-family:var(--mono);font-size:14px;color:var(--accent);font-weight:700;margin-right:8px}
+.stagebox{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+.stagebox .st{border:1px solid var(--line);border-radius:11px;padding:10px 12px;background:#0f1726;border-top:3px solid var(--accent)}
+.stagebox .st h5{margin:0 0 4px;font-size:13px;color:var(--accent);font-family:var(--mono)}
+.stagebox .st p{font-size:13.5px;margin:0;color:#bcccdd;line-height:1.35}
+/* widget skin */
+.dw{width:100%;max-width:680px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk select,.wk input[type=text]{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:6px 9px;font-size:14px;font-family:var(--mono)}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:52px;font-size:15px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.wk .note{color:#7e98ad;font-size:13px;margin:6px 0 0}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="TIMING 0:00–0:03 (3 min). Open the class. This unit trains one real job on the line: you get a service bulletin, the effectivity is unclear, and you must call the OEM to find out whether YOUR aircraft is affected — then confirm the next step. Set the frame: these students are Part-66/145 mechanics and avionics technicians, so keep every example inside real maintenance paperwork (SB, AD, work order, logbook). Tell the room the three can-do goals in plain words: summarise a bulletin, ask precise questions, confirm the answer. Say the grammar spine once: indirect questions ('Could you tell me which effectivity applies?') make you sound polite AND make you give the exact detail. End by naming the 90-minute shape so they know the plan. Press P now to open the presenter window; press L if a student needs live translated captions (Latvian / Russian).">
+    <div class="kick">English for Aviation Maintenance · Unit 13 · Teacher Deck · CEFR B2 · 90 min</div>
+    <h1>Querying a Service Bulletin with the OEM</h1>
+    <p class="big muted">The effectivity is unclear. Call the maker, ask the right question, understand the answer, and confirm whether your aircraft is affected — before you open the task.</p>
+    <p class="pill">Indirect questions &nbsp;·&nbsp; SB · AD · effectivity · compliance &nbsp;·&nbsp; email + follow-up call to OEM support</p>
+  </section>
+
+  <!-- 2 · OUTCOMES + MAP -->
+  <section class="slide" data-notes="TIMING 0:03–0:07 (4 min). Read the three can-do outcomes aloud and check the room understands each one. Then walk the lesson map so students know where the class is going and roughly how long each block takes — this lowers anxiety for lower-B2 learners. Stress that everything is practice: the dialogues, the drills, the role-plays and the writing all rehearse the SAME phone call. Point out the balance: listening (the three dialogues + voicemail), reading (the SB and the work order), speaking (four role-play cards) and writing (one STE email). Keep this slide short — the value is the shared plan, not the detail.">
+    <div class="kick">By the end · how the 90 minutes runs</div>
+    <h2>Three can-do outcomes — and the lesson map</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="acc">1 · Summarise.</b> Say an SB's applicability and required action accurately.</p>
+        <p><b class="pur">2 · Ask.</b> Formulate precise questions to the OEM about unclear instructions.</p>
+        <p><b class="good">3 · Confirm.</b> Check you understood the answer and agree the next step.</p>
+      </div>
+      <div>
+        <table class="tbl">
+          <tr><th>Block</th><th>Min</th></tr>
+          <tr><td>Warm-up · the situation</td><td>5</td></tr>
+          <tr><td>Dialogues 1–3 + voicemail</td><td>20</td></tr>
+          <tr><td>Vocabulary bank + drills</td><td>12</td></tr>
+          <tr><td>Grammar · indirect questions</td><td>13</td></tr>
+          <tr><td>Exercises E1–E8</td><td>18</td></tr>
+          <tr><td>Role-plays (4 cards)</td><td>14</td></tr>
+          <tr><td>Writing · STE email</td><td>6</td></tr>
+          <tr><td>Wrap-up</td><td>2</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SITUATION / WARM-UP -->
+  <section class="slide" data-center data-notes="TIMING 0:07–0:12 (5 min). Warm-up. Put the problem on the table and ask the room, in pairs for 60 seconds: 'A bulletin arrives, the effectivity wording is unclear — what do you do first?' Elicit answers, then reveal the four-step spine of a good query call. Insist on the safety logic: you must NOT open the task until you know your aircraft is affected — a wrong reading wastes hours, orders the wrong parts, or leaves a real fault open. This is the reason the language matters. Keep the four steps visible; you will return to them in the role-plays.">
+    <div class="kick">§0 · warm-up · the situation</div>
+    <h2>Do not open the task until you know</h2>
+    <p class="big">SB 34-2189 arrives. The effectivity wording is unclear. Is serial <b class="amb">5127</b> on the list? A wrong reading costs hours, orders parts you do not need, or leaves a fault open.</p>
+    <div class="stagebox" style="max-width:900px">
+      <div class="st"><h5>1 · NAME IT</h5><p>Give the bulletin and its revision.</p></div>
+      <div class="st"><h5>2 · IDENTIFY</h5><p>Read out your serial number.</p></div>
+      <div class="st"><h5>3 · ASK</h5><p>Ask your precise questions.</p></div>
+      <div class="st"><h5>4 · CONFIRM</h5><p>Repeat back, agree the next step.</p></div>
+    </div>
+  </section>
+
+  <!-- 4 · DIALOGUE 1 -->
+  <section class="slide" data-notes="TIMING 0:12–0:19 (7 min, shared across the three dialogue slides). Play or read Dialogue 1 (audio is in body.html). First listening: books closed, one task only — 'Is the aircraft affected? Is the bulletin mandatory?' Elicit: affected YES (serial 5127 is inside the effectivity), mandatory NO (recommended, not linked to an AD). Second listening: books open, hunt the indirect questions — underline 'Could you tell me which effectivity applies?' and 'Could you confirm whether this bulletin is mandatory?'. Drill the read-back move: 'So we should plan the modification.' Point out the register: calm, short, one idea per turn — that is the B2 target.">
+    <div class="kick">§1 · Dialogue 1 · listening</div>
+    <h2>"Is my aircraft affected?"</h2>
+    <div class="card">
+      <div class="turn"><span class="spk">TECH</span>It is SB 34-2189, revision 2. <span class="right">Could you tell me which effectivity applies?</span></div>
+      <div class="turn"><span class="spk">OEM</span>Do you have your serial number ready?</div>
+      <div class="turn"><span class="spk">TECH</span>Our serial number is 5127. <span class="right">Could you confirm whether this bulletin is mandatory?</span></div>
+      <div class="turn"><span class="spk">OEM</span>Recommended, not mandatory. Serial 5127 is inside the effectivity. Your aircraft is affected.</div>
+    </div>
+    <p class="note muted">Listen 1 (books closed): affected? mandatory? · Listen 2 (books open): underline the two indirect questions.</p>
+  </section>
+
+  <!-- 5 · DIALOGUE 2 -->
+  <section class="slide" data-notes="TIMING continues (~7 min block). Dialogue 2 raises the stakes: this bulletin IS linked to an airworthiness directive, so compliance is mandatory and there is a deadline. First listening task: 'Mandatory or recommended? Is there a deadline?' Elicit: mandatory (an AD makes it so), deadline within twelve months of the AD date. Highlight the numbers — 'four-four-zero-two' spoken as digits, 'revision three current, revision two superseded, twelve months'. This trains comprehension of spoken figures, which the quiz tests. Teach the phrase 'Revision two is superseded, so please do not use it' and the risk it names.">
+    <div class="kick">§1 · Dialogue 2 · listening for figures</div>
+    <h2>"Mandatory, and is there a deadline?"</h2>
+    <div class="card">
+      <div class="turn"><span class="spk">ENG</span><span class="right">Is this bulletin linked to an airworthiness directive?</span></div>
+      <div class="turn"><span class="spk">OEM</span>Yes. The AD makes the modification mandatory. Revision 3 is current; revision 2 is superseded.</div>
+      <div class="turn"><span class="spk">ENG</span>The first serial number is 4402. And is there a deadline for compliance?</div>
+      <div class="turn"><span class="spk">OEM</span>Serial 4402 is affected. Compliance is due within twelve months of the AD date.</div>
+    </div>
+    <p class="note muted">Catch the figures: <b class="amb">4402 · rev 3 current · rev 2 superseded · 12 months</b>. Spoken numbers are a real skill.</p>
+  </section>
+
+  <!-- 6 · DIALOGUE 3 + VOICEMAIL -->
+  <section class="slide" data-notes="TIMING 0:19–0:24 (last 5 min of the listening block). Dialogue 3 models the CONFIRM skill — the technician read-backs the steps and the OEM confirms. First listening: 'What are the steps? Any rework of the wiring? What is the lead time?' Elicit: remove bracket, install new part, inspect, close panel; NO wiring rework; lead time about three weeks. Then play the voicemail as EXTRA listening — it changes the picture: revision 2 is now superseded, revision 3 current, two more serials affected, still recommended. Ask: 'What must you check before you start?' — the new effectivity. This sets up the quiz listening items.">
+    <div class="kick">§1 · Dialogue 3 + voicemail · confirming</div>
+    <h2>"Let me confirm the next step"</h2>
+    <div class="cols">
+      <div class="card">
+        <div class="turn"><span class="spk">TECH</span>First we remove the bracket. Then we install the new part number. Is that right?</div>
+        <div class="turn"><span class="spk">OEM</span>Correct. Then inspect the area before you close the panel. No rework of the wiring.</div>
+        <div class="turn"><span class="spk">TECH</span>What is the lead time for the kit?</div>
+        <div class="turn"><span class="spk">OEM</span>About three weeks. Order the kit, embody the mod, then make the logbook entry.</div>
+      </div>
+      <div>
+        <p><b class="hot">Voicemail (extra):</b> revision 2 is now <span class="wrong">superseded</span>; revision 3 is current; two more serials are affected; still recommended.</p>
+        <p class="muted">Ask the room: what must you check before you start? → the new effectivity.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · VOCAB BANK -->
+  <section class="slide" data-notes="TIMING 0:24–0:30 (6 min of the 12-min vocab block). Do not read all 21 terms aloud — that kills the room. Instead teach the six that unlock the unit: effectivity, applicability, compliance, mandatory vs recommended, superseded, embodiment. Use the plain-word gloss each time (effectivity = the exact serial numbers a bulletin covers). Elicit a sentence for each from a student, using the collocation column. Point students to the full bank in the unit page for the rest. Latvian/Russian note: 'compliance' and 'embodiment' have no clean one-word equivalent, so drill the collocation, not the single word.">
+    <div class="kick">§2 · vocabulary bank · teach the load-bearing six</div>
+    <h2>Six terms that unlock the unit</h2>
+    <table class="tbl">
+      <tr><th>Term</th><th>Plain meaning</th><th>Collocation</th></tr>
+      <tr><td><b class="acc">effectivity</b></td><td>the exact serial numbers a bulletin covers</td><td>effectivity list</td></tr>
+      <tr><td><b class="acc">applicability</b></td><td>the list of aircraft a bulletin applies to</td><td>applicability table</td></tr>
+      <tr><td><b class="acc">compliance</b></td><td>doing what a bulletin or directive requires</td><td>due for compliance</td></tr>
+      <tr><td><b class="acc">mandatory / recommended</b></td><td>you must / you are advised to</td><td>mandatory action</td></tr>
+      <tr><td><b class="acc">superseded</b></td><td>replaced by a newer version</td><td>superseded revision</td></tr>
+      <tr><td><b class="acc">embodiment</b></td><td>the state of a mod once it is fitted</td><td>record the embodiment</td></tr>
+    </table>
+    <p class="note muted">Full 21-term bank + examples live in the unit page. Drill the collocation, not the single word.</p>
+  </section>
+
+  <!-- 8 · WIDGET: revision tracker -->
+  <section class="slide" data-notes="TIMING 0:30–0:36 (6 min). Interactive vocabulary check on the hardest pair: current vs superseded. Click each revision in the widget — the newest becomes CURRENT (green), the older ones are struck as SUPERSEDED. Ask a cold-call student to say the full sentence: 'Revision 2 is superseded by revision 3; always use the current revision.' Tie it back to Dialogue 2 and the voicemail, where an old revision in the paperwork was exactly the trap. This is a manipulate-and-see check, not a lecture — let students drive the buttons.">
+    <div class="kick">§2 · interactive · current vs superseded</div>
+    <h2>Which revision is current? Which is superseded?</h2>
+    <div class="cols">
+      <div class="dw" data-widget="revtrack"></div>
+      <div><p>Click a revision. The newest is <b class="good">current</b>; every older one is <b class="wrong">superseded</b> — do not use it.</p>
+        <p class="muted">This is the trap in Dialogue 2 and the voicemail: old paperwork shows a superseded revision.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · GRAMMAR RULE -->
+  <section class="slide" data-notes="TIMING 0:36–0:41 (5 min of the 13-min grammar block). Teach the rule, do not just show it. The opener ('Could you tell me…', 'May I ask…') is followed by STATEMENT order: subject then verb. Two red rules: (1) no do/does inside the clause; (2) for a yes/no question, add WHETHER or IF. Model on the board: 'Which effectivity applies?' → 'Could you tell me which effectivity applies?' — the verb does NOT invert. Then 'Is it mandatory?' → 'Could you confirm whether it is mandatory?' Drill three quick transformations orally before the interactive builder on the next slide. Say why it matters on the phone: polite AND precise.">
+    <div class="kick">§3 · grammar focus · indirect questions</div>
+    <h2>Opener + statement order (+ whether / if)</h2>
+    <table class="tbl">
+      <tr><th>Direct</th><th>Indirect (polite + precise)</th></tr>
+      <tr><td>Which effectivity applies?</td><td>Could you tell me <b class="good">which effectivity applies</b>?</td></tr>
+      <tr><td>Is the bulletin mandatory?</td><td>Could you clarify <b class="good">whether the bulletin is mandatory</b>?</td></tr>
+      <tr><td>What is the current revision?</td><td>Do you know <b class="good">what the current revision is</b>?</td></tr>
+    </table>
+    <p class="big" style="margin-top:14px">Two rules: <b class="acc">no do/does</b> inside the clause · <b class="acc">add whether/if</b> for a yes/no question.</p>
+  </section>
+
+  <!-- 10 · WIDGET: indirect-question builder -->
+  <section class="slide" data-notes="TIMING 0:41–0:47 (6 min). The centrepiece grammar tool. Pick a direct question in the widget and press Build — the words animate into statement order, the do/does is dropped, and whether/if is inserted for yes/no items. Run all four examples with the class, each time asking a student to predict the indirect form BEFORE you press Build. Then have pairs invent one of their own using an opener from the list. This rehearses the exact move the role-plays demand. Keep it student-driven — let them choose and predict.">
+    <div class="kick">§3 · interactive · build the indirect question</div>
+    <h2>From direct to polite — watch the word order</h2>
+    <div class="cols">
+      <div class="dw" data-widget="qbuilder"></div>
+      <div><p>Choose a direct question, predict the polite form, then press <b class="acc">Build</b>. Watch <code>do/does</code> disappear and the verb stay after the subject.</p>
+        <p class="muted">Yes/no questions gain <b class="good">whether</b>. This is the move every role-play needs.</p></div>
+    </div>
+  </section>
+
+  <!-- 11 · INTERFERENCE ERRORS -->
+  <section class="slide" data-notes="TIMING 0:47–0:49 (2 min). The three errors Latvian and Russian speakers make here — name WHY, not just what. (1) Adding does: 'which effectivity DOES apply' — Latvian and Russian have no do/does helper, so learners over-correct and insert one; kill it. (2) Keeping question inversion: 'what IS the current revision' inside the clause — both L1s keep verb-subject order in embedded clauses; force statement order. (3) Dropping whether/if: 'I want to know IS my aircraft affected' — Russian and Latvian often mark yes/no questions by intonation, so the conjunction gets dropped; insist on whether/if. Drill each correction chorally once. Full notes are in the teacher key.">
+    <div class="kick">§3 · Latvian / Russian interference</div>
+    <h2>Three errors — and why they happen</h2>
+    <div class="card">
+      <p><span class="wrong">✗ …which effectivity <u>does apply</u>?</span> → <span class="right">…which effectivity applies?</span><br><small>L1 has no do/does helper — learners over-insert one. Remove it.</small></p>
+      <p><span class="wrong">✗ …what <u>is the current revision</u>.</span> → <span class="right">…what the current revision is.</span><br><small>Both L1s keep question inversion in embedded clauses. Force statement order.</small></p>
+      <p><span class="wrong">✗ I want to know <u>is my aircraft affected</u>.</span> → <span class="right">…whether my aircraft is affected.</span><br><small>Yes/no marked by intonation in L1 — the conjunction is dropped. Add whether/if.</small></p>
+    </div>
+  </section>
+
+  <!-- 12 · EXERCISE STAGING E1-E4 -->
+  <section class="slide" data-notes="TIMING 0:49–0:58 (9 min of the 18-min exercise block). Stage the vocabulary and grammar exercises. E1 gap-fill and E2 match are quick individual work (4 min) — set a timer, then check answers with the class using mini-whiteboards or hands. E3 complete-the-call is a pair read-aloud (2 min). E4 build-the-indirect-clause is the key grammar output (3 min) — insist they write the WHOLE clause in statement order. Circulate and catch the three interference errors in real time. Answers and one-line rationales are in solutions.html — do not project them yet.">
+    <div class="kick">§4 · exercises · vocabulary + grammar</div>
+    <h2>E1–E4 · run these first</h2>
+    <div class="stagebox" style="max-width:960px">
+      <div class="st"><h5>E1 · gap-fill</h5><p>10 terms in context. Individual, 2 min, then whole-class check.</p></div>
+      <div class="st"><h5>E2 · match</h5><p>Term ↔ meaning, 10 items. Individual, 2 min.</p></div>
+      <div class="st"><h5>E3 · complete the call</h5><p>8 gaps in a dialogue. Pairs, read aloud.</p></div>
+      <div class="st"><h5>E4 · build the clause</h5><p>10 indirect questions. Write the WHOLE clause.</p></div>
+    </div>
+    <p class="note muted">E1 = 60 practice items across E1–E8. Circulate during E4 and catch <i>does / inversion / no whether</i>.</p>
+  </section>
+
+  <!-- 13 · READING E5 + E7 -->
+  <section class="slide" data-notes="TIMING 0:58–1:04 (6 min). The two authentic reading texts. E5 is a real Service Bulletin excerpt (SB 34-2189, rev 3, pitot probe support bracket) — set six comprehension questions; answers are literal, so this is scanning practice. E7 is the matching Work Order 22-0987 for serial 5127 — students cross-read the two genres and see how a bulletin becomes a task on the floor. Key teaching point: the same facts appear in both, but the register differs (SB = maker's notice; work order = local instruction). Ask students to find one fact that appears in BOTH. Keep the texts on screen while they answer.">
+    <div class="kick">§4 · reading · authentic genres</div>
+    <h2>E5 Service Bulletin · E7 Work Order</h2>
+    <div class="cols">
+      <div class="card" style="font-size:15px">
+        <p style="color:var(--amber);font-family:var(--mono);font-size:12px;margin:0 0 4px">SERVICE BULLETIN 34-2189, REV 3</p>
+        <p style="margin:3px 0">Subject: pitot probe support bracket — replacement.</p>
+        <p style="margin:3px 0">Applicability: A320, effectivity serials <b>5100–5140</b>.</p>
+        <p style="margin:3px 0">Compliance: <b>recommended</b>; no AD applies.</p>
+        <p style="margin:3px 0">Parts: kit 34-2189-K3, lead time ~3 weeks.</p>
+      </div>
+      <div class="card" style="font-size:15px">
+        <p style="color:var(--amber);font-family:var(--mono);font-size:12px;margin:0 0 4px">WORK ORDER 22-0987 · RIGA</p>
+        <p style="margin:3px 0">Aircraft YL-BAK · serial <b>5127</b>.</p>
+        <p style="margin:3px 0">Task: embody SB 34-2189, rev 3.</p>
+        <p style="margin:3px 0">No wiring rework. Order kit today.</p>
+        <p style="margin:3px 0">Sign-off: inspect, close panel, logbook entry.</p>
+      </div>
+    </div>
+    <p class="note muted">Ask: find one fact that appears in BOTH texts. (serial / SB number / rev 3 / recommended)</p>
+  </section>
+
+  <!-- 14 · WIDGET: effectivity checker -->
+  <section class="slide" data-notes="TIMING 1:04–1:07 (3 min). Interactive comprehension of the reading. Type a serial number and press Check — the widget animates a marker onto the number line 5100–5140 and reports AFFECTED or NOT AFFECTED. Test the room: 5127 (affected), 5099 (not), 5140 (affected — boundary), 5200 (not). Use it to drill the sentence: 'Serial 5127 is inside the effectivity, so it is affected.' Then link to the voicemail: when the effectivity CHANGES, two more serials come inside the band — this is why you re-check before every job. Student-driven: let them enter their own numbers.">
+    <div class="kick">§4 · interactive · read the effectivity</div>
+    <h2>Is this serial affected?</h2>
+    <div class="cols">
+      <div class="dw" data-widget="effcheck"></div>
+      <div><p>Type a serial number, press <b class="acc">Check</b>. The marker lands on the line and the verdict shows.</p>
+        <p class="muted">Try 5127, 5099, 5140, 5200. Boundary numbers are exactly where a wrong reading happens.</p></div>
+    </div>
+  </section>
+
+  <!-- 15 · EXERCISE STAGING E5-E8 -->
+  <section class="slide" data-notes="TIMING 1:07–1:07 quick hand-off (this overlaps the reading block; ~2 min). Stage the remaining exercises. E5 (SB questions) and E7 (work-order questions) are the reading checks students just started. E6 find-and-fix is the grammar error hunt — eight broken indirect questions to repair; this directly targets the three L1 errors. E8 is comprehension on Dialogue 3 and the voicemail, including the changed effectivity. Set E6 as the priority if time is short — it is the highest-value grammar output. Answers with one-line WHYs are in solutions.html.">
+    <div class="kick">§4 · exercises · reading + error-repair</div>
+    <h2>E5–E8 · reading, fixing, listening</h2>
+    <div class="stagebox" style="max-width:960px">
+      <div class="st"><h5>E5 · SB questions</h5><p>6 items, scan the bulletin.</p></div>
+      <div class="st"><h5>E6 · find &amp; fix</h5><p>8 broken indirect questions. Priority if short on time.</p></div>
+      <div class="st"><h5>E7 · work order</h5><p>6 items, cross-read the task card.</p></div>
+      <div class="st"><h5>E8 · listening</h5><p>8 items on Dialogue 3 + voicemail.</p></div>
+    </div>
+    <p class="note muted">E6 targets the three interference errors head-on. Project solutions only after they attempt it.</p>
+  </section>
+
+  <!-- 16 · ROLE-PLAYS -->
+  <section class="slide" data-notes="TIMING 1:07–1:21 (14 min). The speaking core. Four role-play cards, A/B pairs, swap roles after each. Card 1: query an unclear effectivity (goal: is 5127 affected?). Card 2: mandatory or recommended, and the deadline. Card 3: confirm the next step (rework? lead time? logbook?). Card 4: a superseded revision in the paperwork. Model Card 1 yourself with a strong student for 30 seconds first. Give each pair ~3 minutes per card; you will likely run two or three cards, not all four — pick by the group's needs. Use the CEFR B2 speaking rubric in the teacher key to give one piece of feedback per pair: range, accuracy, fluency, interaction or coherence. Insist on at least two indirect questions and one read-back per turn.">
+    <div class="kick">§5 · speaking · four role-play cards</div>
+    <h2>Call the OEM — A/B pairs, swap roles</h2>
+    <div class="stagebox" style="max-width:1000px">
+      <div class="st"><h5>CARD 1</h5><p>Query an unclear effectivity. Is serial 5127 affected?</p></div>
+      <div class="st"><h5>CARD 2</h5><p>Mandatory or recommended? Confirm the deadline.</p></div>
+      <div class="st"><h5>CARD 3</h5><p>Confirm the next step: rework, lead time, logbook.</p></div>
+      <div class="st"><h5>CARD 4</h5><p>A superseded revision. Find the current one.</p></div>
+    </div>
+    <p class="note muted">Model Card 1 first. Require ≥2 indirect questions + 1 read-back per turn. Score with the B2 rubric in the key.</p>
+  </section>
+
+  <!-- 17 · WRITING (STE) -->
+  <section class="slide" data-notes="TIMING 1:21–1:27 (6 min). The writing task, taught with Simplified Technical English habits. The email queries the unclear effectivity of SB 34-2189: three indirect questions, the serial number stated, and a request for the applicability in writing, 90–120 words. Teach the STE moves explicitly: one idea per sentence; short sentences; no wordy padding; a clear subject line; active where possible. Show the checklist. Students draft; if time is tight, set the draft as homework and mark it against the annotated model in solutions.html. Remind them a written query becomes part of the compliance record — precision is the point.">
+    <div class="kick">§6 · writing · Simplified Technical English</div>
+    <h2>A short, precise email to the OEM</h2>
+    <div class="cols">
+      <div class="card">
+        <p style="font-family:var(--mono);font-size:14px;color:var(--amber);margin:0 0 6px">Subject: SB 34-2189 — effectivity query, serial 5127</p>
+        <p style="margin:4px 0">Three indirect questions · state the serial · ask for the applicability in writing · 90–120 words.</p>
+      </div>
+      <div>
+        <p><b class="acc">STE habits:</b></p>
+        <ul>
+          <li>One idea per sentence.</li>
+          <li>Short sentences; no padding.</li>
+          <li>Clear subject line; active voice.</li>
+          <li>A written query joins the compliance record.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP-UP -->
+  <section class="slide" data-center data-notes="TIMING 1:27–1:29 (2 min). Close. Six one-liners the students take away: check applicability and effectivity before you plan; give your serial number early; find out mandatory vs recommended (an AD makes it mandatory); always use the current revision; ask the lead time so you order in good time; record the embodiment with a logbook entry that quotes the SB and revision. Name the language habit that carried the whole unit: indirect questions — polite AND precise. Last line: when in doubt, ask the OEM for a clarification, never guess. Set the writing email as homework if not finished, and point students to the quiz for self-check.">
+    <div class="kick">recap · close</div>
+    <h2>Ask well · listen well · confirm before you act</h2>
+    <p class="big muted">Check effectivity first · give your serial early · mandatory vs recommended (an AD decides) · always the current revision · ask the lead time · record the embodiment in the logbook — quoting the SB and revision. The habit that carried it all: <b class="acc">indirect questions</b> — polite and precise.</p>
+    <p>When in doubt, ask for a <b class="good">clarification</b>. Never guess. <span class="muted">Homework: finish the STE email · self-check with the unit quiz.</span></p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS + canvas + rAF) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+
+  /* ---- W1: REVISION TRACKER (canvas + rAF) ---- */
+  window.DeckW.revtrack=function(el){
+    el.innerHTML='<div class="wk">'+
+      '<div class="bar"><span class="note" style="font-weight:700;color:#9db0c6">CLICK A REVISION</span>'+
+      '<button data-r="1">Rev 1</button><button data-r="2">Rev 2</button><button data-r="3" class="on">Rev 3</button>'+
+      '<button data-r="4">Rev 4 issued</button></div>'+
+      '<canvas width="640" height="230"></canvas>'+
+      '<div class="info" id="rtInfo"><h4>Current: revision 3</h4>Revisions 1 and 2 are superseded. Always use the current revision.</div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),info=el.querySelector('#rtInfo');
+    var current=3, anim=null, sweep=0;
+    function labels(){return ['Rev 1','Rev 2','Rev 3','Rev 4'].slice(0,current);}
+    function draw(){
+      ctx.clearRect(0,0,cv.width,cv.height);
+      var arr=labels(), n=arr.length, w=cv.width, colW=w/4;
+      for(var k=0;k<n;k++){
+        var x=colW*k+18, cardW=colW-30, y=40, h=150;
+        var isCur=(k===current-1);
+        ctx.fillStyle=isCur?'#123a2b':'#241316';
+        if(!isCur && k>current-1) ctx.fillStyle='#0f1726';
+        ctx.strokeStyle=isCur?'#34d399':'#7a3030';
+        ctx.lineWidth=isCur?3:1.5;
+        ctx.beginPath();ctx.rect(x,y,cardW,h);ctx.fill();ctx.stroke();
+        ctx.fillStyle=isCur?'#9af0c8':'#ff9aa2';
+        ctx.font='700 18px ui-monospace,Consolas,monospace';
+        ctx.fillText(arr[k],x+14,y+34);
+        ctx.font='600 13px -apple-system,Segoe UI,sans-serif';
+        ctx.fillStyle=isCur?'#9af0c8':'#c98d92';
+        ctx.fillText(isCur?'CURRENT':'SUPERSEDED',x+14,y+62);
+        if(!isCur){ ctx.strokeStyle='#7a3030';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x+10,y+h/2);ctx.lineTo(x+cardW-10,y+h/2);ctx.stroke(); }
+        if(isCur){ // rAF sweep highlight
+          ctx.strokeStyle='rgba(52,211,153,'+(0.35+0.35*Math.sin(sweep))+')';
+          ctx.lineWidth=4;ctx.beginPath();ctx.rect(x-2,y-2,cardW+4,h+4);ctx.stroke();
+        }
+      }
+    }
+    function loop(){ sweep+=0.06; draw(); anim=requestAnimationFrame(loop); }
+    el.querySelectorAll('button[data-r]').forEach(function(b){
+      b.addEventListener('click',function(){
+        el.querySelectorAll('button[data-r]').forEach(function(x){x.classList.remove('on');});
+        b.classList.add('on');
+        current=parseInt(b.getAttribute('data-r'),10);
+        info.innerHTML='<h4>Current: revision '+current+'</h4>'+
+          (current>1?('Revision'+(current>2?'s 1–'+(current-1):' 1')+' '+(current>2?'are':'is')+' superseded. '):'')+
+          'Always use the current revision.';
+      });
+    });
+    loop();
+  };
+
+  /* ---- W2: INDIRECT-QUESTION BUILDER (canvas + rAF) ---- */
+  window.DeckW.qbuilder=function(el){
+    var EX=[
+      {d:['Which','effectivity','does','apply','?'], drop:[2], ind:['Could you tell me','which','effectivity','applies','?']},
+      {d:['Is','the','bulletin','mandatory','?'], drop:[], yn:true, ind:['Could you clarify','whether','the','bulletin','is','mandatory','?']},
+      {d:['What','is','the','revision','?'], drop:[], ind:['Do you know','what','the','revision','is','?']},
+      {d:['Is','our','aircraft','affected','?'], drop:[], yn:true, ind:['May I ask','whether','our','aircraft','is','affected','?']}
+    ];
+    el.innerHTML='<div class="wk">'+
+      '<div class="bar"><span class="note" style="font-weight:700;color:#9db0c6">DIRECT QUESTION</span>'+
+      '<select data-sel>'+EX.map(function(e,i){return '<option value="'+i+'">'+e.d.join(' ')+'</option>';}).join('')+'</select>'+
+      '<button data-build class="on">Build →</button></div>'+
+      '<canvas width="640" height="180"></canvas>'+
+      '<div class="info" id="qbInfo"><h4>Pick a direct question, then press Build</h4>The polite form keeps statement order (subject before verb). No <code>do/does</code>; add <b>whether</b> for yes/no.</div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),sel=el.querySelector('[data-sel]'),info=el.querySelector('#qbInfo');
+    var cur=0, t=0, anim=null;
+    function draw(){
+      ctx.clearRect(0,0,cv.width,cv.height);
+      var e=EX[cur];
+      // top row: direct
+      ctx.font='600 17px -apple-system,Segoe UI,sans-serif';
+      var x=16;
+      ctx.fillStyle='#9db0c6';ctx.font='700 11px ui-monospace';ctx.fillText('DIRECT',16,24);
+      ctx.font='600 17px -apple-system,Segoe UI,sans-serif';x=16;
+      for(var i=0;i<e.d.length;i++){
+        var isDrop=e.drop.indexOf(i)>=0;
+        ctx.fillStyle=isDrop?'#ff9aa2':'#cfe0ee';
+        ctx.fillText(e.d[i],x,52);
+        var w=ctx.measureText(e.d[i]).width;
+        if(isDrop && t>0.4){ ctx.strokeStyle='#ff5667';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x-2,46);ctx.lineTo(x+w+2,46);ctx.stroke(); }
+        x+=w+9;
+      }
+      // arrow / progress
+      ctx.strokeStyle='#38b6ff';ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(16,86);ctx.lineTo(16+(cv.width-32)*t,86);ctx.stroke();
+      // bottom row: indirect (fades in as t->1)
+      ctx.globalAlpha=clamp(t*1.4-0.2,0,1);
+      ctx.fillStyle='#9db0c6';ctx.font='700 11px ui-monospace';ctx.fillText('INDIRECT (POLITE)',16,116);
+      ctx.font='600 17px -apple-system,Segoe UI,sans-serif';x=16;
+      for(var j=0;j<e.ind.length;j++){
+        var newWord=(j===0)||(e.yn&&e.ind[j]==='whether')||(e.ind[j]==='applies');
+        ctx.fillStyle=newWord?'#9af0c8':'#cfe0ee';
+        ctx.fillText(e.ind[j],x,146);
+        x+=ctx.measureText(e.ind[j]).width+9;
+      }
+      ctx.globalAlpha=1;
+    }
+    function loop(){ if(t<1)t=clamp(t+0.03,0,1); draw(); anim=requestAnimationFrame(loop); }
+    function build(){ t=0;
+      var e=EX[cur];
+      info.innerHTML='<h4>'+e.ind.join(' ')+'</h4>'+
+        (e.yn?'Yes/no question → add <b>whether</b>. ':'')+
+        'No <code>do/does</code>; the verb stays after the subject.';
+    }
+    sel.addEventListener('change',function(){cur=parseInt(sel.value,10);t=0;info.innerHTML='<h4>Predict the polite form, then press Build</h4>Keep statement order; drop <code>do/does</code>.';});
+    el.querySelector('[data-build]').addEventListener('click',build);
+    loop();
+  };
+
+  /* ---- W3: EFFECTIVITY CHECKER (canvas + rAF) ---- */
+  window.DeckW.effcheck=function(el){
+    var LO=5100, HI=5140, MINX=5090, MAXX=5150;
+    el.innerHTML='<div class="wk">'+
+      '<div class="bar"><span class="note" style="font-weight:700;color:#9db0c6">SERIAL</span>'+
+      '<input type="text" data-ser value="5127" size="6"><button data-check class="on">Check</button>'+
+      '<button data-ex="5099">5099</button><button data-ex="5140">5140</button><button data-ex="5200">5200</button></div>'+
+      '<canvas width="640" height="150"></canvas>'+
+      '<div class="info" id="ecInfo"><h4>Effectivity: serials 5100–5140</h4>Enter a serial number and press Check.</div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),inp=el.querySelector('[data-ser]'),info=el.querySelector('#ecInfo');
+    var target=5127, marker=5090, anim=null;
+    function px(v){ return 40+(v-MINX)/(MAXX-MINX)*(cv.width-80); }
+    function draw(){
+      ctx.clearRect(0,0,cv.width,cv.height);
+      var y=80;
+      // base line
+      ctx.strokeStyle='#314865';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(px(MINX),y);ctx.lineTo(px(MAXX),y);ctx.stroke();
+      // affected band
+      ctx.fillStyle='rgba(52,211,153,.22)';ctx.fillRect(px(LO),y-16,px(HI)-px(LO),32);
+      ctx.strokeStyle='#34d399';ctx.lineWidth=2;ctx.strokeRect(px(LO),y-16,px(HI)-px(LO),32);
+      ctx.fillStyle='#9af0c8';ctx.font='700 12px ui-monospace';
+      ctx.fillText('5100',px(LO)-14,y+34);ctx.fillText('5140',px(HI)-14,y+34);
+      ctx.fillText('EFFECTIVITY',px(LO)+8,y-24);
+      // marker (rAF eases toward target)
+      var mx=px(marker);
+      var inside=(marker>=LO && marker<=HI);
+      ctx.fillStyle=inside?'#34d399':'#ff5667';
+      ctx.beginPath();ctx.moveTo(mx,y-22);ctx.lineTo(mx-7,y-34);ctx.lineTo(mx+7,y-34);ctx.closePath();ctx.fill();
+      ctx.beginPath();ctx.arc(mx,y,6,0,Math.PI*2);ctx.fill();
+      ctx.font='700 14px ui-monospace';ctx.fillText(Math.round(marker),mx-16,y-42);
+    }
+    function loop(){ marker+=(target-marker)*0.14; if(Math.abs(target-marker)<0.5)marker=target; draw(); anim=requestAnimationFrame(loop); }
+    function check(v){
+      v=parseInt(v,10); if(isNaN(v)){info.innerHTML='<h4>Enter a number</h4>Try 5127, 5099, 5140 or 5200.';return;}
+      target=clamp(v,MINX,MAXX);
+      var inside=(v>=LO && v<=HI);
+      info.innerHTML='<h4 style="color:'+(inside?'#9af0c8':'#ff9aa2')+'">Serial '+v+' — '+(inside?'AFFECTED':'NOT AFFECTED')+'</h4>'+
+        (inside?'It is inside the effectivity (5100–5140). Plan the modification.':'It is outside the effectivity (5100–5140). This bulletin does not apply.');
+    }
+    el.querySelector('[data-check]').addEventListener('click',function(){check(inp.value);});
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')check(inp.value);});
+    el.querySelectorAll('[data-ex]').forEach(function(b){b.addEventListener('click',function(){inp.value=b.getAttribute('data-ex');check(inp.value);});});
+    check(5127); loop();
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u13_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u13_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 13</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:24px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u13_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u13_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u13_deck_state")render();});',
+'render();',
+'<\/script></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u13_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,80); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left;
+            pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}.lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}.lct-row:empty{display:none}.lct-row-top{opacity:1}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;
+            font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB;
+            background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto;
+            width:50px; height:50px; border-radius:50%; cursor:pointer;
+            background:#F7C22D; color:#020E27; border:2px solid #F7C22D;
+            font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px;
+            box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051;
+               font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em;
+               text-transform:uppercase; color:#020E27; background:#F7C22D;
+               border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto;
+             width:42px; height:42px; border-radius:50%; cursor:pointer;
+             background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4);
+             font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052;
+                display:none; align-items:center; gap:8px;
+                background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px;
+                padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px;
+                       font-weight:700; color:#E8EDF5; background:#162030;
+                       border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="it-IT">Italiano</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="en">English</option>
+    <option value="ru">Русский</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capQueueB=[], capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } } function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<script>(function(){try{
+  var KEY='tsiCapScale', root=document.documentElement;
+  function apply(v){ root.style.setProperty('--cap-scale', v); }
+  var saved=parseFloat(localStorage.getItem(KEY))||1; saved=Math.max(0.6,Math.min(1.9,saved)); apply(saved);
+  var st=document.createElement('style'); st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}.cap-fs-slider::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:#FFD24D;cursor:pointer}'; document.head.appendChild(st);
+  function mount(){ var lb=document.getElementById('lctLangBar'); if(!lb||lb.querySelector('.cap-fs-slider')) return;
+    var w=document.createElement('span'); w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w); var sl=w.querySelector('.cap-fs-slider'); sl.value=saved;
+    var stop=function(e){ e.stopPropagation(); };
+    sl.addEventListener('input',function(){ var v=parseFloat(sl.value)||1; apply(v); try{ localStorage.setItem(KEY,v); }catch(e){} });
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){ sl.addEventListener(ev,stop); });
+  }
+  if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>

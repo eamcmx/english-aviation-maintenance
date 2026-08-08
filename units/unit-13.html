@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 13 · Querying a Service Bulletin with the OEM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  article{max-width:980px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:60px 0 32px;border-bottom:1px solid var(--border);margin-bottom:var(--space-8)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 18px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:26ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-6);max-width:66ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:15px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .cando{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius);padding:var(--space-5);margin:var(--space-6) 0 0}
+  .cando h4{margin:0 0 var(--space-3);color:var(--color-primary-dark);font-size:1rem}
+  .cando ul{margin:0;padding-left:1.15em}
+  .cando li{margin:6px 0;color:#3a3f4d}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.14rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:72ch}
+  p.lede{font-size:17.5px;color:#3a3f4d}
+  p.how{background:#eef3fb;border:1px solid #d3e0f1;border-radius:var(--radius-sm);padding:9px 13px;font-size:15.5px;max-width:none}
+  code{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  a{color:var(--color-primary)}
+  /* dialogue */
+  .dlg{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius) var(--radius) 0;padding:var(--space-4) var(--space-5);margin:var(--space-4) 0;box-shadow:var(--shadow-sm)}
+  .dlg h3{margin:0 0 4px}
+  .dlg .scene{font-size:14px;color:var(--ink-muted);margin:0 0 12px}
+  .turn{margin:7px 0;display:flex;gap:10px;align-items:baseline}
+  .turn .spk{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--color-primary);min-width:118px;flex-shrink:0}
+  .turn .said{color:var(--ink)}
+  .lang-audio-slot{margin:12px 0 4px;min-height:38px;border:1px dashed var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:var(--ink-muted)}
+  .lang-audio-slot::before{content:"\1F50A  audio"}
+  details.transcript{margin-top:6px;border-top:1px solid var(--border-soft);padding-top:8px}
+  details.transcript>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;color:var(--color-primary);font-weight:600}
+  /* vocab */
+  table.vocab{border-collapse:collapse;width:100%;margin-top:12px;font-size:14.5px}
+  table.vocab th,table.vocab td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vocab th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+  table.vocab dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  .col{font-family:var(--font-mono);font-size:12.5px;color:var(--accent)}
+  /* grammar */
+  table.dt{border-collapse:collapse;margin-top:12px;font-size:14.5px;width:100%}
+  table.dt th,table.dt td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.dt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  .fix{margin:10px 0;padding:10px 14px;border-radius:var(--radius-sm);background:var(--bg-elevated);border:1px solid var(--border)}
+  .fix .wrong{color:var(--bad);font-weight:600}
+  .fix .right{color:var(--good);font-weight:600}
+  .fix .why{display:block;font-size:13.5px;color:var(--ink-muted);margin-top:3px}
+  /* exercises */
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex h3{margin:0 0 6px;font-size:1.05rem}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+  .bank span{font-size:12.5px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-family:var(--font-mono);color:var(--color-primary-dark)}
+  .q{margin:9px 0}
+  .q .n{font-family:var(--font-mono);color:var(--color-primary);font-weight:700;margin-right:6px}
+  input[type=text]{font-family:var(--font-sans);font-size:15px;padding:5px 9px;border:1px solid var(--border);border-radius:6px;background:#fff;min-width:190px}
+  select{font-family:var(--font-sans);font-size:15px;padding:5px 9px;border:1px solid var(--border);border-radius:6px;background:#fff}
+  input.right,select.right{border-color:var(--good);background:#eaf5ec}
+  input.wrong,select.wrong{border-color:var(--bad);background:#fbecea}
+  .btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:14px;cursor:pointer;font-weight:600;transition:.14s;margin-top:10px}
+  .btn:hover{border-color:var(--color-primary)}
+  .btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  details.ans{margin-top:8px}
+  details.ans>summary{cursor:pointer;font-family:var(--font-mono);font-size:12.5px;color:var(--accent);font-weight:600}
+  details.ans ol{margin:6px 0 0;padding-left:1.3em;font-size:14px;color:#3a3f4d}
+  .reading-text{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 15px;margin:10px 0;font-size:14.5px;white-space:pre-line;line-height:1.55}
+  .genre{font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:6px}
+  /* speaking */
+  .roleplay{background:var(--bg-elevated);border:1px solid var(--border);border-top:4px solid var(--gold);border-radius:var(--radius-sm);padding:14px 17px;margin:12px 0;box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 6px;font-size:1.02rem;color:var(--color-primary-dark)}
+  .roleplay .row{font-size:14.5px;margin:5px 0}
+  .roleplay .lab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-primary);font-weight:700}
+  .roleplay .phr{font-style:italic;color:#3a3f4d}
+  .aibox{background:#f4eefb;border:1px solid #e0d2f1;border-radius:var(--radius);padding:16px 18px;margin:16px 0}
+  .aibox h4{margin:0 0 8px}
+  .prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 13px;margin:9px 0;font-size:14px;color:#33384a}
+  .prompt .lab{font-family:var(--font-mono);font-size:11px;color:var(--accent);font-weight:700;display:block;margin-bottom:3px}
+  /* writing */
+  .checklist{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius-sm);padding:12px 16px;margin:12px 0}
+  .checklist li{margin:4px 0}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 13 of 32 · Querying a Service Bulletin with the OEM</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 service bulletins — applicability, compliance, modification</span></div></div></header>
+<article>
+
+  <header class="lec-hero">
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · Unit 13 · CEFR B2</p>
+    <h1 class="lecture-title">Querying a Service Bulletin with the OEM</h1>
+    <p class="subtitle">A service bulletin arrives, but the effectivity is unclear. You must ask the maker the right question, understand the answer, and confirm whether your aircraft is affected. This unit gives you the language to do it well.</p>
+    <div class="hero-meta">
+      <span>Course<strong>English for Aviation Maintenance</strong></span>
+      <span>Unit<strong>13 — Service Bulletins</strong></span>
+      <span>Focus<strong>Indirect questions for precision</strong></span>
+      <span>Class length<strong>90 minutes (self-study ready)</strong></span>
+    </div>
+    <div class="cando">
+      <h4>By the end of this unit you can …</h4>
+      <ul>
+        <li>Can summarise an SB's applicability and required action accurately.</li>
+        <li>Can formulate precise questions to the OEM about ambiguous instructions.</li>
+        <li>Can confirm understanding of the OEM's answer and the next step.</li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ============ SCENARIO ============ -->
+  <section class="lecture-section" id="scenario">
+    <h2><span class="secnum">00</span>The situation</h2>
+    <p class="lede">You work on the line at a Part-145 station in Riga. This morning a service bulletin lands in the mailbox. It asks for a bracket change on the pitot system.</p>
+    <p>The problem is the effectivity. The wording is not clear. You are not sure if your aircraft, serial number 5127, is on the list. You must not open the task until you know. So you call the OEM support desk. You ask a clear question, you listen well, and you confirm the next step before you plan any work.</p>
+    <p>Why does this matter so much? A wrong reading of a bulletin can cost hours of work. It can send parts you do not need. Worse, it can leave a real fault open on the aircraft. A precise question saves time and keeps the aircraft safe. This is the skill of the unit: ask well, listen well, and confirm before you act.</p>
+    <p>A good query call has four short steps. First, name the bulletin and its revision. Second, give your serial number. Third, ask your precise questions. Fourth, repeat the answer back and agree the next step. Keep each step short and clear.</p>
+    <p class="how">In this unit you listen first, then read. Play each dialogue. Then open the transcript and check your answers.</p>
+  </section>
+
+  <!-- ============ DIALOGUES ============ -->
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">01</span>Model dialogues</h2>
+    <p class="lede">Three short calls to the OEM. Each one performs the same job from a different angle: ask, confirm, and agree the next step.</p>
+
+    <div class="dlg">
+      <h3>Dialogue 1 — "Is my aircraft affected?"</h3>
+      <p class="scene">A line technician calls the OEM about an unclear effectivity.</p>
+      <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u13-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:22 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">Good morning. This is Rihards from Baltic Line Maintenance. I have a question about a service bulletin.</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Good morning. I can help. Which service bulletin are you looking at?</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">It is SB 34-2189, revision 2. Could you tell me which effectivity applies?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Of course. The effectivity lists the affected aircraft. Do you have your serial number ready?</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">Yes. Our aircraft serial number is 5127. The registration is YL-BAK.</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Thank you. One moment while I open the applicability table.</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">While you check, could you confirm whether this bulletin is mandatory or recommended?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">This one is recommended, not mandatory. It is not linked to an airworthiness directive.</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">Good to know. The wording of the applicability was not clear to me.</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">I understand. An old part number in the text made it confusing.</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">Thank you. I did not want to open the task without a clear answer.</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">That is the right call. Serial 5127 is inside the effectivity. Your aircraft is affected.</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">Understood. So we should plan the modification. Is revision 2 the latest revision?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Yes, revision 2 is current. I will send the applicability in writing for your records.</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">That would help a lot. Could you also copy our engineering mailbox?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Certainly. I will copy your engineering team. Please expect the email within the hour.</span></div>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 2 — "Mandatory, and is there a deadline?"</h3>
+      <p class="scene">A base engineer checks compliance and a superseded revision.</p>
+      <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u13-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:18 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Hello, this is Anna, base engineer at Riga. I am calling about SB 27-0451.</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Hello Anna. I have the file open. What would you like to clarify?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">I need a clarification on compliance. Is this bulletin linked to an airworthiness directive?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Yes, it is. The airworthiness directive makes the modification mandatory for affected aircraft.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">I see. Then compliance is not optional. Could you tell me which revision is current?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Revision 3 is current. Revision 2 is superseded, so please do not use it.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Thank you. Our old paperwork still shows revision 2. That is why I asked.</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Good that you checked. A superseded revision can send you down the wrong path.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Understood. Could you confirm whether our fleet is affected by this modification?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">I can, once I have each serial number. The effectivity is split by batch.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">I will read them out. The first serial number is 4402.</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Serial 4402 is affected. The modification is mandatory for that aircraft.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">And is there a deadline for compliance? I want to plan the work early.</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Yes. Compliance is due within twelve months of the airworthiness directive date.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">That helps. Could you send me the applicability list and the revision status?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Of course. I will email the OEM applicability sheet and the compliance dates today.</span></div>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 3 — "Let me confirm the next step"</h3>
+      <p class="scene">The technician confirms the accomplishment instructions and how to record the work.</p>
+      <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u13-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:14 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">Hi, this is Rihards again. Thank you for confirming the applicability yesterday.</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">You are welcome. How can I help you today?</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">I have read the accomplishment instructions. I want to confirm the next step.</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Please go ahead. Tell me how you understand the accomplishment instructions.</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">First we remove the bracket. Then we install the new part number. Is that right?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">That is correct. After the modification, you inspect the area before you close the panel.</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">Understood. Do these accomplishment instructions require any rework of the wiring?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">No rework of the wiring. The modification only changes the bracket and the fasteners.</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">Good. What is the lead time for the modification kit? We need to order it.</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">The lead time is about three weeks. I would advise you to order it soon.</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">We will order today. After we finish, how do we record the embodiment?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Record the embodiment with a logbook entry. Quote the service bulletin and the revision.</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">So the logbook entry must show the service bulletin number and the revision. Correct?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Correct. The logbook entry proves compliance if an inspector asks later.</span></div>
+        <div class="turn"><span class="spk">A · Technician</span><span class="said">That is clear now. Could you confirm the next step in one sentence?</span></div>
+        <div class="turn"><span class="spk">B · OEM support</span><span class="said">Yes. Order the kit, embody the modification, then make the logbook entry.</span></div>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Extra listening — OEM voicemail</h3>
+      <p class="scene">A short recorded message from OEM support. You answer questions on it in E8.</p>
+      <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u13-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:40 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turn"><span class="spk">Voicemail</span><span class="said">Hello, this is Customer Support at the OEM. This message is for the maintenance team at Baltic Line.</span></div>
+        <div class="turn"><span class="spk">Voicemail</span><span class="said">We are calling about service bulletin 34-2189. Please note that revision 2 is now superseded.</span></div>
+        <div class="turn"><span class="spk">Voicemail</span><span class="said">Revision 3 is current from today. The applicability has changed, and two more serial numbers are now affected.</span></div>
+        <div class="turn"><span class="spk">Voicemail</span><span class="said">The modification stays recommended, not mandatory. Please check the new effectivity before you start any work.</span></div>
+        <div class="turn"><span class="spk">Voicemail</span><span class="said">If you have questions about compliance, call us back on the support line. Thank you, and have a good shift.</span></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ VOCABULARY ============ -->
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">02</span>Vocabulary bank</h2>
+    <p class="lede">Twenty specialist terms from the world of service bulletins. Each has a plain meaning, one example, and one common word partner (collocation).</p>
+    <table class="vocab">
+      <thead><tr><th>Term</th><th>Plain meaning</th><th>Example at level</th><th>Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="service bulletin">service bulletin</dfn> (SB)</td><td>a notice from the maker that tells you to change or check something</td><td>The service bulletin tells us to inspect the bracket.</td><td class="col">issue a service bulletin</td></tr>
+        <tr><td><dfn data-term="applicability">applicability</dfn></td><td>the list of aircraft that a bulletin applies to</td><td>Check the applicability before you plan the work.</td><td class="col">applicability table</td></tr>
+        <tr><td><dfn data-term="effectivity">effectivity</dfn></td><td>the exact serial numbers a bulletin covers</td><td>Our serial number is inside the effectivity.</td><td class="col">effectivity list</td></tr>
+        <tr><td><dfn data-term="compliance">compliance</dfn></td><td>doing what a bulletin or directive requires</td><td>The logbook entry proves compliance.</td><td class="col">due for compliance</td></tr>
+        <tr><td><dfn data-term="modification">modification</dfn></td><td>an approved change to the aircraft</td><td>The modification changes the bracket and the fasteners.</td><td class="col">embody a modification</td></tr>
+        <tr><td><dfn data-term="mandatory">mandatory</dfn></td><td>you must do it; it is not a choice</td><td>An airworthiness directive makes the task mandatory.</td><td class="col">mandatory action</td></tr>
+        <tr><td><dfn data-term="recommended">recommended</dfn></td><td>advised, but not required by law</td><td>This bulletin is recommended, not mandatory.</td><td class="col">recommended action</td></tr>
+        <tr><td><dfn data-term="airworthiness directive">airworthiness directive</dfn> (AD)</td><td>a legal order that makes a fix mandatory</td><td>The airworthiness directive sets the deadline.</td><td class="col">issue an airworthiness directive</td></tr>
+        <tr><td><dfn data-term="serial number">serial number</dfn></td><td>the unique number of one aircraft or part</td><td>Please read out your aircraft serial number.</td><td class="col">serial number range</td></tr>
+        <tr><td><dfn data-term="part number">part number</dfn></td><td>the code that names one exact part</td><td>Install the new part number from the kit.</td><td class="col">correct part number</td></tr>
+        <tr><td><dfn data-term="accomplishment instructions">accomplishment instructions</dfn></td><td>the step-by-step method to do the task</td><td>Follow the accomplishment instructions in order.</td><td class="col">accomplishment instructions step</td></tr>
+        <tr><td><dfn data-term="OEM">OEM</dfn></td><td>the original maker of the aircraft or part</td><td>Call the OEM if the wording is unclear.</td><td class="col">OEM support</td></tr>
+        <tr><td><dfn data-term="superseded">superseded</dfn></td><td>replaced by a newer version</td><td>Revision 2 is superseded by revision 3.</td><td class="col">superseded revision</td></tr>
+        <tr><td><dfn data-term="revision">revision</dfn></td><td>a numbered update of a document</td><td>Always use the latest revision.</td><td class="col">current revision</td></tr>
+        <tr><td><dfn data-term="affected">affected</dfn></td><td>covered by the bulletin; on the list</td><td>Serial 5127 is affected by the bulletin.</td><td class="col">affected aircraft</td></tr>
+        <tr><td><dfn data-term="rework">rework</dfn></td><td>extra work to correct or redo something</td><td>The modification needs no rework of the wiring.</td><td class="col">rework required</td></tr>
+        <tr><td><dfn data-term="logbook entry">logbook entry</dfn></td><td>a written record in the aircraft log</td><td>Make a logbook entry after the modification.</td><td class="col">sign the logbook entry</td></tr>
+        <tr><td><dfn data-term="embodiment">embodiment</dfn></td><td>the state of a modification once it is fitted</td><td>Record the embodiment of the service bulletin.</td><td class="col">embodiment status</td></tr>
+        <tr><td><dfn data-term="lead time">lead time</dfn></td><td>the wait before parts arrive</td><td>The lead time for the kit is three weeks.</td><td class="col">long lead time</td></tr>
+        <tr><td><dfn data-term="clarification">clarification</dfn></td><td>a clear answer that removes doubt</td><td>I need a clarification on the effectivity.</td><td class="col">ask for clarification</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ GRAMMAR ============ -->
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">03</span>Grammar in context — indirect questions</h2>
+    <p class="lede">On the phone with the OEM you want to sound polite and precise. Indirect questions do both. They are softer, and they carry the exact detail you need.</p>
+    <p>Look at these lines from the dialogues. Each one is an indirect question:</p>
+    <ul>
+      <li>"Could you tell me <strong>which effectivity applies</strong>?" (Dialogue 1)</li>
+      <li>"Could you confirm <strong>whether this bulletin is mandatory</strong>?" (Dialogue 1)</li>
+      <li>"Could you tell me <strong>which revision is current</strong>?" (Dialogue 2)</li>
+      <li>"Do you know <strong>how you record the embodiment</strong>?" (from Dialogue 3)</li>
+    </ul>
+    <p>The key rule is word order. After the opener, the clause uses <strong>normal statement order</strong>: subject, then verb. You do not use <code>do</code> or <code>does</code>, and you do not swap the subject and verb. For a yes/no question, add <strong>whether</strong> or <strong>if</strong>.</p>
+    <p>Why use indirect questions on the phone? They sound polite and calm. They also make you slow down and give the exact detail. On a busy line, a soft, clear question gets a better answer. It shows the OEM that you know the paperwork well.</p>
+    <p>Good openers are easy to reuse. Try these: "Could you tell me …", "Could you confirm …", "May I ask …", "Do you know …", and "Could you clarify …". Pick one, then add the clause in statement order. With practice, the pattern becomes automatic.</p>
+    <table class="dt">
+      <thead><tr><th>Direct question</th><th>Indirect (polite) question</th></tr></thead>
+      <tbody>
+        <tr><td>Which effectivity applies?</td><td>Could you tell me which effectivity applies?</td></tr>
+        <tr><td>Is the bulletin mandatory?</td><td>Could you clarify whether the bulletin is mandatory?</td></tr>
+        <tr><td>What is the current revision?</td><td>Do you know what the current revision is?</td></tr>
+        <tr><td>Does the AD apply to us?</td><td>May I ask whether the AD applies to us?</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Three common mistakes (Latvian / Russian speakers)</h3>
+    <div class="fix">
+      <span class="wrong">✗ Could you tell me which effectivity <u>does apply</u>?</span><br>
+      <span class="right">✓ Could you tell me which effectivity <u>applies</u>?</span>
+      <span class="why">Latvian and Russian have no <code>do/does</code> helper. Do not add it, and do not keep it here.</span>
+    </div>
+    <div class="fix">
+      <span class="wrong">✗ Could you tell me what <u>is the current revision</u>?</span><br>
+      <span class="right">✓ Could you tell me what <u>the current revision is</u>?</span>
+      <span class="why">Keep statement order: subject before verb. Do not swap them as in a direct question.</span>
+    </div>
+    <div class="fix">
+      <span class="wrong">✗ I would like to know <u>is my aircraft affected</u>.</span><br>
+      <span class="right">✓ I would like to know <u>whether my aircraft is affected</u>.</span>
+      <span class="why">A yes/no question needs <code>whether</code> or <code>if</code>. Russian and Latvian often drop it.</span>
+    </div>
+  </section>
+
+  <!-- ============ EXERCISES ============ -->
+  <section class="lecture-section" id="exercises">
+    <h2><span class="secnum">04</span>Exercises</h2>
+    <p class="how">Type your answer in each gap. Then press Check. Green is right, red is wrong. Open "Answers" to compare.</p>
+
+    <!-- E1 -->
+    <div class="ex" id="e1">
+      <span class="tag">E1 · Gap-fill</span>
+      <h3>E1 · Put the right term in the gap</h3>
+      <p class="how">Use one term from the bank in each sentence.</p>
+      <div class="bank">
+        <span>service bulletin</span><span>applicability</span><span>effectivity</span><span>compliance</span><span>modification</span><span>mandatory</span><span>recommended</span><span>airworthiness directive</span><span>serial number</span><span>part number</span><span>accomplishment instructions</span><span>OEM</span><span>superseded</span><span>revision</span><span>affected</span><span>rework</span><span>logbook entry</span><span>embodiment</span><span>lead time</span><span>clarification</span>
+      </div>
+      <div class="q"><span class="n">1</span>Check the <input type="text" data-ans="applicability"> table to see which aircraft the bulletin covers.</div>
+      <div class="q"><span class="n">2</span>Our aircraft <input type="text" data-ans="serial number|serial"> is 5127.</div>
+      <div class="q"><span class="n">3</span>Revision 2 is <input type="text" data-ans="superseded"> by revision 3.</div>
+      <div class="q"><span class="n">4</span>An airworthiness directive makes the action <input type="text" data-ans="mandatory">.</div>
+      <div class="q"><span class="n">5</span>The <input type="text" data-ans="lead time|lead"> for the kit is about three weeks.</div>
+      <div class="q"><span class="n">6</span>After the work, make a <input type="text" data-ans="logbook entry"> in the aircraft log.</div>
+      <div class="q"><span class="n">7</span>Follow the <input type="text" data-ans="accomplishment instructions|accomplishment"> step by step.</div>
+      <div class="q"><span class="n">8</span>The logbook entry proves <input type="text" data-ans="compliance"> if an inspector asks.</div>
+      <div class="q"><span class="n">9</span>Please install the correct <input type="text" data-ans="part number|part"> from the kit.</div>
+      <div class="q"><span class="n">10</span>If the wording is unclear, ask the OEM for a <input type="text" data-ans="clarification">.</div>
+      <button class="btn primary" onclick="checkEx('e1')">Check</button>
+      <details class="ans"><summary>Answers</summary><ol>
+        <li>applicability</li><li>serial number</li><li>superseded</li><li>mandatory</li><li>lead time</li><li>logbook entry</li><li>accomplishment instructions</li><li>compliance</li><li>part number</li><li>clarification</li>
+      </ol></details>
+    </div>
+
+    <!-- E2 -->
+    <div class="ex" id="e2">
+      <span class="tag">E2 · Matching</span>
+      <h3>E2 · Match the term to its meaning</h3>
+      <p class="how">Choose the correct term for each meaning.</p>
+      <div class="q"><span class="n">1</span>a notice from the maker to change or check something →
+        <select data-ans="service bulletin"><option value="">—</option><option>service bulletin</option><option>effectivity</option><option>compliance</option><option>mandatory</option><option>superseded</option><option>embodiment</option><option>rework</option><option>revision</option><option>affected</option><option>OEM</option></select></div>
+      <div class="q"><span class="n">2</span>the exact serial numbers a bulletin covers →
+        <select data-ans="effectivity"><option value="">—</option><option>service bulletin</option><option>effectivity</option><option>compliance</option><option>mandatory</option><option>superseded</option><option>embodiment</option><option>rework</option><option>revision</option><option>affected</option><option>OEM</option></select></div>
+      <div class="q"><span class="n">3</span>doing what a bulletin or directive requires →
+        <select data-ans="compliance"><option value="">—</option><option>service bulletin</option><option>effectivity</option><option>compliance</option><option>mandatory</option><option>superseded</option><option>embodiment</option><option>rework</option><option>revision</option><option>affected</option><option>OEM</option></select></div>
+      <div class="q"><span class="n">4</span>you must do it; it is not a choice →
+        <select data-ans="mandatory"><option value="">—</option><option>service bulletin</option><option>effectivity</option><option>compliance</option><option>mandatory</option><option>superseded</option><option>embodiment</option><option>rework</option><option>revision</option><option>affected</option><option>OEM</option></select></div>
+      <div class="q"><span class="n">5</span>replaced by a newer version →
+        <select data-ans="superseded"><option value="">—</option><option>service bulletin</option><option>effectivity</option><option>compliance</option><option>mandatory</option><option>superseded</option><option>embodiment</option><option>rework</option><option>revision</option><option>affected</option><option>OEM</option></select></div>
+      <div class="q"><span class="n">6</span>the state of a modification once it is fitted →
+        <select data-ans="embodiment"><option value="">—</option><option>service bulletin</option><option>effectivity</option><option>compliance</option><option>mandatory</option><option>superseded</option><option>embodiment</option><option>rework</option><option>revision</option><option>affected</option><option>OEM</option></select></div>
+      <div class="q"><span class="n">7</span>extra work to correct or redo something →
+        <select data-ans="rework"><option value="">—</option><option>service bulletin</option><option>effectivity</option><option>compliance</option><option>mandatory</option><option>superseded</option><option>embodiment</option><option>rework</option><option>revision</option><option>affected</option><option>OEM</option></select></div>
+      <div class="q"><span class="n">8</span>a numbered update of a document →
+        <select data-ans="revision"><option value="">—</option><option>service bulletin</option><option>effectivity</option><option>compliance</option><option>mandatory</option><option>superseded</option><option>embodiment</option><option>rework</option><option>revision</option><option>affected</option><option>OEM</option></select></div>
+      <div class="q"><span class="n">9</span>on the list; covered by the bulletin →
+        <select data-ans="affected"><option value="">—</option><option>service bulletin</option><option>effectivity</option><option>compliance</option><option>mandatory</option><option>superseded</option><option>embodiment</option><option>rework</option><option>revision</option><option>affected</option><option>OEM</option></select></div>
+      <div class="q"><span class="n">10</span>the original maker of the aircraft or part →
+        <select data-ans="OEM"><option value="">—</option><option>service bulletin</option><option>effectivity</option><option>compliance</option><option>mandatory</option><option>superseded</option><option>embodiment</option><option>rework</option><option>revision</option><option>affected</option><option>OEM</option></select></div>
+      <button class="btn primary" onclick="checkEx('e2')">Check</button>
+    </div>
+
+    <!-- E3 -->
+    <div class="ex" id="e3">
+      <span class="tag">E3 · Dialogue completion</span>
+      <h3>E3 · Complete the call</h3>
+      <p class="how">Fill each gap with one term. The call is between a technician (A) and OEM support (B).</p>
+      <div class="q"><span class="n">1</span>A: Good morning. I have a question about a service <input type="text" data-ans="bulletin">.</div>
+      <div class="q"><span class="n">2</span>B: Of course. Do you have your <input type="text" data-ans="serial"> number ready?</div>
+      <div class="q"><span class="n">3</span>A: Yes. Could you tell me which <input type="text" data-ans="effectivity"> applies?</div>
+      <div class="q"><span class="n">4</span>B: One moment. Is the bulletin <input type="text" data-ans="mandatory"> or recommended?</div>
+      <div class="q"><span class="n">5</span>A: It is recommended. It is not linked to an airworthiness <input type="text" data-ans="directive">.</div>
+      <div class="q"><span class="n">6</span>B: Your aircraft is <input type="text" data-ans="affected">. Please plan the work.</div>
+      <div class="q"><span class="n">7</span>A: Understood. I will order the <input type="text" data-ans="modification"> kit today.</div>
+      <div class="q"><span class="n">8</span>B: Good. After the work, make a logbook <input type="text" data-ans="entry">.</div>
+      <button class="btn primary" onclick="checkEx('e3')">Check</button>
+      <details class="ans"><summary>Answers</summary><ol>
+        <li>bulletin</li><li>serial</li><li>effectivity</li><li>mandatory</li><li>directive</li><li>affected</li><li>modification</li><li>entry</li>
+      </ol></details>
+    </div>
+
+    <!-- E4 -->
+    <div class="ex" id="e4">
+      <span class="tag">E4 · Grammar transformation</span>
+      <h3>E4 · Build the indirect clause</h3>
+      <p class="how">Use the words in brackets. Write the clause in statement order. Add <em>whether</em> for yes/no.</p>
+      <div class="q"><span class="n">1</span>Could you tell me <input type="text" data-ans="which revision is current"> ? (which revision / be current)</div>
+      <div class="q"><span class="n">2</span>Could you clarify <input type="text" data-ans="whether the bulletin is mandatory"> ? (the bulletin / be mandatory)</div>
+      <div class="q"><span class="n">3</span>Do you know <input type="text" data-ans="what the part number is"> ? (what the part number / be)</div>
+      <div class="q"><span class="n">4</span>May I ask <input type="text" data-ans="whether our aircraft is affected"> ? (our aircraft / be affected)</div>
+      <div class="q"><span class="n">5</span>Could you tell me <input type="text" data-ans="which serial numbers are affected"> ? (which serial numbers / be affected)</div>
+      <div class="q"><span class="n">6</span>Do you know <input type="text" data-ans="how the modification works"> ? (how the modification / work)</div>
+      <div class="q"><span class="n">7</span>Could you confirm <input type="text" data-ans="whether revision 2 is superseded"> ? (revision 2 / be superseded)</div>
+      <div class="q"><span class="n">8</span>May I ask <input type="text" data-ans="what the lead time is"> ? (what the lead time / be)</div>
+      <div class="q"><span class="n">9</span>Could you tell me <input type="text" data-ans="whether compliance is mandatory"> ? (compliance / be mandatory)</div>
+      <div class="q"><span class="n">10</span>Do you know <input type="text" data-ans="where the effectivity is listed"> ? (where the effectivity / be listed)</div>
+      <button class="btn primary" onclick="checkEx('e4')">Check</button>
+      <details class="ans"><summary>Answers</summary><ol>
+        <li>which revision is current</li><li>whether the bulletin is mandatory</li><li>what the part number is</li><li>whether our aircraft is affected</li><li>which serial numbers are affected</li><li>how the modification works</li><li>whether revision 2 is superseded</li><li>what the lead time is</li><li>whether compliance is mandatory</li><li>where the effectivity is listed</li>
+      </ol></details>
+    </div>
+
+    <!-- E5 -->
+    <div class="ex" id="e5">
+      <span class="tag">E5 · Reading 1</span>
+      <h3>E5 · Read the service bulletin</h3>
+      <div class="genre">Authentic genre — Service Bulletin excerpt</div>
+      <div class="reading-text">SERVICE BULLETIN 34-2189, REVISION 3
+ATA Chapter: 34 — Navigation.
+Subject: Pitot probe support bracket — replacement.
+Reason: Some brackets show early cracks. A stronger bracket is now available.
+Applicability: This bulletin applies to Model A320 aircraft. Effectivity: serial numbers 5100 through 5140. See the applicability table for the full list.
+Compliance: Recommended. This bulletin is not linked to an airworthiness directive. The OEM advises action at the next scheduled check.
+Manpower: About four labour hours for two technicians.
+Parts: One modification kit, part number 34-2189-K3. Lead time is about three weeks.
+Accomplishment instructions: (1) Remove the old bracket. (2) Install the new bracket from the kit. (3) Inspect the area. (4) Close the panel.
+Note: Revision 2 is superseded. Do not use revision 2. Record the embodiment with a logbook entry. Quote this service bulletin and the revision number.</div>
+      <p class="how">Answer from the text.</p>
+      <div class="q"><span class="n">1</span>What must you replace?
+        <select data-ans="the bracket"><option value="">—</option><option>the bracket</option><option>the wiring</option><option>the panel</option></select></div>
+      <div class="q"><span class="n">2</span>Is compliance mandatory or recommended?
+        <select data-ans="recommended"><option value="">—</option><option>mandatory</option><option>recommended</option></select></div>
+      <div class="q"><span class="n">3</span>Which serial numbers are affected?
+        <select data-ans="5100 to 5140"><option value="">—</option><option>5100 to 5140</option><option>4402 only</option><option>all A320</option></select></div>
+      <div class="q"><span class="n">4</span>What is the lead time for the kit?
+        <select data-ans="three weeks"><option value="">—</option><option>three days</option><option>three weeks</option><option>three months</option></select></div>
+      <div class="q"><span class="n">5</span>Which revision is superseded?
+        <select data-ans="revision 2"><option value="">—</option><option>revision 2</option><option>revision 3</option></select></div>
+      <div class="q"><span class="n">6</span>How do you record the work?
+        <select data-ans="a logbook entry"><option value="">—</option><option>a phone call</option><option>a logbook entry</option><option>an email only</option></select></div>
+      <button class="btn primary" onclick="checkEx('e5')">Check</button>
+    </div>
+
+    <!-- E6 -->
+    <div class="ex" id="e6">
+      <span class="tag">E6 · Error-spotting</span>
+      <h3>E6 · Find and fix the mistakes</h3>
+      <p class="how">Each line has one wrong indirect question. Write the correct clause in the gap.</p>
+      <div class="q"><span class="n">1</span>Could you tell me which effectivity <em>does apply</em>? → <input type="text" data-ans="which effectivity applies"></div>
+      <div class="q"><span class="n">2</span>Please tell me <em>what is the current revision</em>. → <input type="text" data-ans="what the current revision is"></div>
+      <div class="q"><span class="n">3</span>I want to know <em>is our aircraft affected</em>. → <input type="text" data-ans="whether our aircraft is affected"></div>
+      <div class="q"><span class="n">4</span>I would like to know <em>how does the kit arrive</em>. → <input type="text" data-ans="how the kit arrives"></div>
+      <div class="q"><span class="n">5</span>Can you confirm <em>what is the lead time</em>? → <input type="text" data-ans="what the lead time is"></div>
+      <div class="q"><span class="n">6</span>Do you know <em>is revision 2 superseded</em>? → <input type="text" data-ans="whether revision 2 is superseded"></div>
+      <div class="q"><span class="n">7</span>Could you tell me <em>which parts do I need</em>? → <input type="text" data-ans="which parts i need"></div>
+      <div class="q"><span class="n">8</span>May I ask <em>where is the applicability listed</em>? → <input type="text" data-ans="where the applicability is listed"></div>
+      <button class="btn primary" onclick="checkEx('e6')">Check</button>
+      <details class="ans"><summary>Answers</summary><ol>
+        <li>which effectivity applies</li><li>what the current revision is</li><li>whether our aircraft is affected</li><li>how the kit arrives</li><li>what the lead time is</li><li>whether revision 2 is superseded</li><li>which parts I need</li><li>where the applicability is listed</li>
+      </ol></details>
+    </div>
+
+    <!-- E7 -->
+    <div class="ex" id="e7">
+      <span class="tag">E7 · Reading 2</span>
+      <h3>E7 · Read the work order</h3>
+      <div class="genre">Authentic genre — Work order / task card</div>
+      <div class="reading-text">WORK ORDER 22-0987 — RIGA BASE
+Aircraft: YL-BAK. Serial number: 5127.
+Task: Embody service bulletin 34-2189, revision 3.
+Raised by: A. Ozola, base engineer. Date: 08 August 2026.
+Priority: Routine. Plan before the next A-check.
+Description: The applicability confirms this aircraft is affected. The OEM has sent the applicability sheet by email. Compliance is recommended, not mandatory. No airworthiness directive applies.
+Parts: Order modification kit 34-2189-K3. Lead time is three weeks. Order today.
+Labour: Four hours, two technicians.
+Steps: Follow the accomplishment instructions in revision 3. No rework of the wiring is needed.
+Sign-off: After the modification, inspect the area and close the panel. Make a logbook entry. Record the embodiment. Quote the service bulletin and the revision.
+Note: Revision 2 is superseded. Use revision 3 only. If the wording is unclear, ask the OEM for a clarification first.</div>
+      <p class="how">Answer from the text.</p>
+      <div class="q"><span class="n">1</span>Which serial number is on the work order?
+        <select data-ans="5127"><option value="">—</option><option>4402</option><option>5127</option><option>5140</option></select></div>
+      <div class="q"><span class="n">2</span>Is the modification mandatory?
+        <select data-ans="no, recommended"><option value="">—</option><option>yes, mandatory</option><option>no, recommended</option></select></div>
+      <div class="q"><span class="n">3</span>Does the task need rework of the wiring?
+        <select data-ans="no"><option value="">—</option><option>yes</option><option>no</option></select></div>
+      <div class="q"><span class="n">4</span>What must you order today?
+        <select data-ans="the modification kit"><option value="">—</option><option>a new logbook</option><option>the modification kit</option><option>a new panel</option></select></div>
+      <div class="q"><span class="n">5</span>Which revision must you use?
+        <select data-ans="revision 3"><option value="">—</option><option>revision 2</option><option>revision 3</option></select></div>
+      <div class="q"><span class="n">6</span>What do you make after the modification?
+        <select data-ans="a logbook entry"><option value="">—</option><option>a logbook entry</option><option>a new work order</option><option>a phone call</option></select></div>
+      <button class="btn primary" onclick="checkEx('e7')">Check</button>
+    </div>
+
+    <!-- E8 -->
+    <div class="ex" id="e8">
+      <span class="tag">E8 · Listening review</span>
+      <h3>E8 · Questions on Dialogue 3 and the voicemail</h3>
+      <p class="how">Replay Dialogue 3 and the voicemail. Then answer.</p>
+      <div class="q"><span class="n">1</span>Who calls in Dialogue 3?
+        <select data-ans="a technician"><option value="">—</option><option>a technician</option><option>a pilot</option><option>an inspector</option></select></div>
+      <div class="q"><span class="n">2</span>What has the technician already read?
+        <select data-ans="the accomplishment instructions"><option value="">—</option><option>the flight plan</option><option>the accomplishment instructions</option><option>the weather report</option></select></div>
+      <div class="q"><span class="n">3</span>Does the task need rework of the wiring?
+        <select data-ans="no"><option value="">—</option><option>yes</option><option>no</option></select></div>
+      <div class="q"><span class="n">4</span>What is the lead time for the kit?
+        <select data-ans="three weeks"><option value="">—</option><option>three days</option><option>three weeks</option><option>three months</option></select></div>
+      <div class="q"><span class="n">5</span>How do you record the embodiment?
+        <select data-ans="with a logbook entry"><option value="">—</option><option>with a logbook entry</option><option>with a photo</option><option>with a text message</option></select></div>
+      <div class="q"><span class="n">6</span>In the voicemail, which revision is now current?
+        <select data-ans="revision 3"><option value="">—</option><option>revision 2</option><option>revision 3</option></select></div>
+      <div class="q"><span class="n">7</span>In the voicemail, is the modification mandatory?
+        <select data-ans="no, recommended"><option value="">—</option><option>yes, mandatory</option><option>no, recommended</option></select></div>
+      <div class="q"><span class="n">8</span>What should you check before you start?
+        <select data-ans="the new effectivity"><option value="">—</option><option>the new effectivity</option><option>the fuel load</option><option>the crew list</option></select></div>
+      <button class="btn primary" onclick="checkEx('e8')">Check</button>
+    </div>
+  </section>
+
+  <!-- ============ SPEAKING ============ -->
+  <section class="lecture-section" id="speaking">
+    <h2><span class="secnum">05</span>Speaking — role-plays</h2>
+    <p class="lede">Work with a partner or with the AI buddy. Play the call. Use indirect questions and the bank terms.</p>
+
+    <div class="roleplay">
+      <h4>Role-play card 1 — Query an unclear effectivity</h4>
+      <div class="row"><span class="lab">Situation</span> A service bulletin arrives, but the effectivity is unclear.</div>
+      <div class="row"><span class="lab">Your role</span> Line technician at a Part-145 station.</div>
+      <div class="row"><span class="lab">Your goal</span> Find out whether serial number 5127 is affected.</div>
+      <div class="row"><span class="lab">Useful phrases</span> <span class="phr">"Could you tell me which effectivity applies?" · "Could you confirm whether our aircraft is affected?"</span></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 2 — Mandatory or recommended?</h4>
+      <div class="row"><span class="lab">Situation</span> You need to know if the bulletin is linked to an airworthiness directive.</div>
+      <div class="row"><span class="lab">Your role</span> Base engineer.</div>
+      <div class="row"><span class="lab">Your goal</span> Confirm compliance and the deadline.</div>
+      <div class="row"><span class="lab">Useful phrases</span> <span class="phr">"May I ask whether this is mandatory?" · "Do you know when compliance is due?"</span></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 3 — Confirm the next step</h4>
+      <div class="row"><span class="lab">Situation</span> You have read the accomplishment instructions and want to check them.</div>
+      <div class="row"><span class="lab">Your role</span> Technician about to start the modification.</div>
+      <div class="row"><span class="lab">Your goal</span> Confirm the rework, the lead time, and how to record the embodiment.</div>
+      <div class="row"><span class="lab">Useful phrases</span> <span class="phr">"Could you clarify whether any rework is needed?" · "So the next step is to order the kit. Correct?"</span></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 4 — A superseded revision</h4>
+      <div class="row"><span class="lab">Situation</span> Your paperwork shows an old revision. You are not sure it is current.</div>
+      <div class="row"><span class="lab">Your role</span> Planner in the technical office.</div>
+      <div class="row"><span class="lab">Your goal</span> Confirm the current revision and update the work order.</div>
+      <div class="row"><span class="lab">Useful phrases</span> <span class="phr">"Could you tell me which revision is current?" · "May I ask whether revision 2 is superseded?"</span></div>
+    </div>
+
+    <h3>More useful phrases</h3>
+    <p class="how">Keep these ready for any query call. Say them out loud twice.</p>
+    <ul>
+      <li>Opening: "This is [name] from [station]. I have a question about a service bulletin."</li>
+      <li>Give detail: "Our aircraft serial number is 5127. The bulletin is SB 34-2189."</li>
+      <li>Ask precisely: "Could you tell me whether our aircraft is affected?"</li>
+      <li>Check the level: "May I ask whether the action is mandatory or recommended?"</li>
+      <li>Check the paper: "Could you tell me which revision is current?"</li>
+      <li>Confirm back: "So the next step is to order the kit. Is that correct?"</li>
+      <li>Ask in writing: "Could you send me the applicability sheet for our records?"</li>
+      <li>Close well: "Thank you for the clarification. That is very clear now."</li>
+    </ul>
+
+    <div class="aibox">
+      <h4>🤖 AI conversation partner — copy a prompt into the chat buddy</h4>
+      <p class="how">Paste one prompt. Speak the call. The buddy will gently correct your questions.</p>
+      <div class="prompt"><span class="lab">Prompt 1 — OEM support agent</span>You are an OEM support agent. I am a line technician who calls about service bulletin 34-2189. The effectivity is unclear. Answer my questions and help me find out whether serial 5127 is affected. Speak only at CEFR B2. Keep answers short. If my indirect question has a mistake, repeat it back correctly, then ask one follow-up question.</div>
+      <div class="prompt"><span class="lab">Prompt 2 — Strict compliance desk</span>You are an OEM compliance desk. I am a base engineer. My bulletin is linked to an airworthiness directive. Ask me for my serial numbers, tell me if each aircraft is affected, and state the compliance deadline. Speak only at CEFR B2 and keep it short. Gently recast any error in my questions, then ask me one follow-up.</div>
+      <div class="prompt"><span class="lab">Prompt 3 — Next-step check</span>You are an OEM engineer. I have read the accomplishment instructions and want to confirm the next step. Check my understanding of the rework, the lead time, and the logbook entry. Speak only at CEFR B2, keep answers short, correct my indirect questions softly, and finish each turn with one follow-up question.</div>
+    </div>
+  </section>
+
+  <!-- ============ WRITING ============ -->
+  <section class="lecture-section" id="writing">
+    <h2><span class="secnum">06</span>Writing</h2>
+    <p class="lede">Now write the email you would send before you call. Use Simplified Technical English: short sentences, one idea per line, common words.</p>
+    <p class="how"><strong>Task.</strong> Write a short email to the OEM. Query the unclear effectivity of SB 34-2189. Use three indirect questions. State your serial number. Ask for the applicability in writing. Write 90–120 words.</p>
+
+    <details class="ans"><summary>Model answer</summary>
+      <div class="reading-text">Subject: SB 34-2189 — effectivity query, serial 5127
+
+Dear OEM Support,
+
+We are reviewing service bulletin 34-2189, revision 2. The effectivity is not clear to us.
+
+Our aircraft serial number is 5127. Registration is YL-BAK.
+
+Could you tell me whether this serial number is affected?
+Could you confirm whether the bulletin is mandatory or recommended?
+Could you tell me which revision is current?
+
+Please send the applicability list in writing for our records. Please copy our engineering mailbox.
+
+We will not open the task until we have your answer.
+
+Thank you for your help.
+
+Kind regards,
+R. Berzins
+Baltic Line Maintenance</div>
+    </details>
+
+    <div class="checklist">
+      <strong>Self-check — tick each line</strong>
+      <ul>
+        <li>☐ I used three indirect questions in correct statement order.</li>
+        <li>☐ I gave my serial number and the SB number.</li>
+        <li>☐ My sentences are short, with one idea each.</li>
+        <li>☐ I asked for the applicability in writing.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ RECAP ============ -->
+  <section class="lecture-section" id="recap">
+    <h2><span class="secnum">07</span>Key points to remember</h2>
+    <p class="lede">A short review before you finish. Read each line and check that you can do it.</p>
+    <ul>
+      <li>Always check the applicability and effectivity before you plan any work.</li>
+      <li>Give your serial number early. It is the fastest way to a clear answer.</li>
+      <li>Find out whether the action is mandatory or recommended.</li>
+      <li>A modification is mandatory when an airworthiness directive requires it.</li>
+      <li>Always use the current revision. A superseded revision leads you the wrong way.</li>
+      <li>Ask about the lead time for parts, so you can order the kit in good time.</li>
+      <li>Confirm whether the task needs any rework before you start.</li>
+      <li>Record the embodiment with a logbook entry that quotes the bulletin and revision.</li>
+      <li>Use indirect questions to sound polite and to get the exact detail you need.</li>
+      <li>When in doubt, ask the OEM for a clarification. Never guess.</li>
+    </ul>
+    <p>These habits keep your work safe and your paperwork clean. They also build trust with the OEM. A technician who asks clear questions gets clear answers. That is the goal of this whole unit.</p>
+  </section>
+
+  <footer>
+    English for Aviation Maintenance · Unit 13 · Querying a Service Bulletin with the OEM · CEFR B2 · self-study language unit.
+  </footer>
+
+</article>
+<script>
+(function(){
+  function norm(s){return (s||'').toString().toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();}
+  window.checkEx=function(id){
+    var root=document.getElementById(id);
+    if(!root)return;
+    var fields=root.querySelectorAll('[data-ans]');
+    fields.forEach(function(f){
+      var val=norm(f.value);
+      var alts=(f.getAttribute('data-ans')||'').split('|').map(norm);
+      var ok=val!=='' && alts.indexOf(val)!==-1;
+      f.classList.remove('right','wrong');
+      f.classList.add(ok?'right':'wrong');
+    });
+  };
+})();
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 13 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body>
+</html>

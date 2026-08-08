@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 13 · Teacher Key — Querying a Service Bulletin with the OEM</title>
+<style>
+  :root{--primary:#2F5496;--primary-dark:#1f3a6b;--good:#2e9e6b;--bad:#c0392b;--accent:#b1551f;--gold:#c8821a;
+    --bg:#fbfaf6;--card:#fff;--sunken:#f3f1ea;--margin:#fff8e1;--border:#e7e3d8;--ink:#1f2230;--ink-soft:#4a4f5c;--ink-muted:#707582;
+    --serif:'Source Serif 4',Georgia,serif;--sans:Inter,-apple-system,BlinkMacSystemFont,sans-serif;--mono:'JetBrains Mono',Consolas,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+  article{max-width:940px;margin:0 auto;padding:0 26px 90px}
+  h1,h2,h3,h4{font-family:var(--serif);line-height:1.2;color:var(--ink)}
+  .hero{padding:48px 0 24px;border-bottom:1px solid var(--border);margin-bottom:28px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+  h1{font-size:2rem;margin:0 0 10px}
+  h2{font-size:1.45rem;border-bottom:1px solid var(--border);padding-bottom:8px;margin:38px 0 14px;display:flex;gap:12px;align-items:baseline}
+  h2 .n{font-family:var(--mono);font-size:.85rem;color:var(--primary)}
+  h3{font-size:1.12rem;margin:22px 0 8px}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;margin:10px 0}
+  th,td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  th{background:var(--sunken);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft)}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin:12px 0}
+  .interf{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--bad);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0}
+  .interf .wrong{color:var(--bad);font-weight:600}.interf .right{color:var(--good);font-weight:600}
+  .ext{background:var(--margin);border:1px solid #f0e6c8;border-radius:8px;padding:12px 18px;margin:12px 0}
+  .ext li{margin:6px 0}
+  code{font-family:var(--mono);font-size:.86em;background:var(--sunken);padding:1px 5px;border-radius:4px}
+  .rubric td{font-size:13.5px}
+  .rubric th:first-child{width:120px}
+  .band5{background:#eaf5ec}.band3{background:#fbf6e8}.band1{background:#fbecea}
+  .qk td:first-child{font-family:var(--mono);color:var(--primary-dark);font-weight:700;white-space:nowrap}
+  .skill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700}
+  footer{margin-top:40px;color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:18px}
+</style>
+</head>
+<body>
+<article>
+  <div class="hero">
+    <div class="eyebrow">English for Aviation Maintenance · Unit 13 · Teacher key</div>
+    <h1>Teacher Key — Querying a Service Bulletin with the OEM</h1>
+    <p style="color:var(--ink-soft);max-width:70ch">Staging and timing for the 90-minute class, expanded Latvian / Russian interference notes, extension activities, a CEFR B2 speaking rubric for the role-plays, and the full quiz key with per-item rationale. CEFR B2 · vocabulary field: service bulletins.</p>
+  </div>
+
+  <!-- STAGING -->
+  <h2><span class="n">01</span> Unit staging + timing (90 min)</h2>
+  <table>
+    <tr><th>Min</th><th>Stage</th><th>Focus / grouping</th><th>Materials</th></tr>
+    <tr><td>0–3</td><td>Opener</td><td>Frame the job: query an unclear effectivity. Whole class.</td><td>Deck slide 1</td></tr>
+    <tr><td>3–7</td><td>Outcomes + map</td><td>Read three can-do goals; show the lesson plan.</td><td>Slide 2</td></tr>
+    <tr><td>7–12</td><td>Warm-up</td><td>Pairs, 60 s: "What do you do first?" → the 4-step call.</td><td>Slide 3</td></tr>
+    <tr><td>12–24</td><td>Dialogues 1–3 + voicemail</td><td>Listen twice each; task then language hunt.</td><td>Slides 4–6; body audio</td></tr>
+    <tr><td>24–36</td><td>Vocabulary</td><td>Teach 6 load-bearing terms; revision-tracker check.</td><td>Slides 7–8</td></tr>
+    <tr><td>36–49</td><td>Grammar — indirect questions</td><td>Rule, builder widget, interference errors.</td><td>Slides 9–11</td></tr>
+    <tr><td>49–67</td><td>Exercises E1–E8</td><td>Individual + pairs; reading E5/E7; effectivity checker.</td><td>Slides 12–15; body</td></tr>
+    <tr><td>67–81</td><td>Role-plays (4 cards)</td><td>A/B pairs, swap roles; feedback with the rubric.</td><td>Slide 16; body cards</td></tr>
+    <tr><td>81–87</td><td>Writing — STE email</td><td>Draft the query email; STE habits.</td><td>Slide 17; body</td></tr>
+    <tr><td>87–90</td><td>Wrap-up</td><td>Six take-aways; set homework.</td><td>Slide 18</td></tr>
+  </table>
+  <p style="font-size:14px;color:var(--ink-muted)">If time is short, drop role-play cards 3–4 and set the writing email as homework. Keep E6 (error repair) — it is the highest-value grammar output.</p>
+
+  <!-- INTERFERENCE -->
+  <h2><span class="n">02</span> Latvian / Russian interference — why the errors happen</h2>
+  <p>Indirect questions are hard for these learners for structural reasons, not carelessness. Name the cause when you correct — it makes the fix stick.</p>
+
+  <div class="interf">
+    <p><b>1 · The added <code>do/does</code>.</b> <span class="wrong">✗ …which effectivity does apply?</span> → <span class="right">…which effectivity applies.</span></p>
+    <p style="font-size:14px;color:var(--ink-soft)">Latvian and Russian have <b>no auxiliary <code>do/does</code></b> for questions or negatives. Learners meet English <code>do</code>-support, learn it is "needed for questions", and then over-apply it — even inside an embedded clause where English drops it. Fix: show that the main verb already carries the tense ("applies"), so <code>does</code> is redundant.</p>
+  </div>
+
+  <div class="interf">
+    <p><b>2 · Kept question inversion.</b> <span class="wrong">✗ …what is the current revision.</span> → <span class="right">…what the current revision is.</span></p>
+    <p style="font-size:14px;color:var(--ink-soft)">Both L1s use relatively <b>free word order</b> and do not mark embedded questions with a fixed subject–verb pattern; the direct-question order simply carries over. Russian embedded questions keep the same order as main clauses, so "what is…" feels correct. Fix: drill the contrast pair aloud — direct inverts, indirect does not.</p>
+  </div>
+
+  <div class="interf">
+    <p><b>3 · Dropped <code>whether / if</code>.</b> <span class="wrong">✗ I want to know is my aircraft affected.</span> → <span class="right">…whether my aircraft is affected.</span></p>
+    <p style="font-size:14px;color:var(--ink-soft)">Russian marks yes/no questions with the particle <i>li</i> or by intonation, and Latvian uses <i>vai</i> — but learners often <b>omit the English conjunction</b> because intonation alone felt enough in L1. Fix: teach <code>whether</code>/<code>if</code> as the obligatory bridge for every yes/no report; <code>whether</code> is safer before <code>or not</code> and in formal writing.</p>
+  </div>
+
+  <div class="card" style="font-size:14px">
+    <b>Two more to watch (pronunciation / lexis):</b>
+    <ul>
+      <li><b>Reading digits.</b> Both L1s group digits differently; drill "five-one-two-seven", not "fifty-one twenty-seven". Numbers are tested in the quiz.</li>
+      <li><b>False cousins.</b> <i>Actual</i> ≠ current ("actual revision" is wrong — use <b>current</b>). <i>Control</i> ≠ check ("I control the effectivity" → "I check the effectivity").</li>
+    </ul>
+  </div>
+
+  <!-- EXTENSION -->
+  <h2><span class="n">03</span> Extension activities</h2>
+  <div class="ext">
+    <ul>
+      <li><b>Live call relay.</b> Student A holds a work order; Student B is the OEM with a hidden effectivity list. A must find out if the aircraft is affected using only indirect questions. Swap.</li>
+      <li><b>Effectivity jigsaw.</b> Give three groups different serial ranges and revision statuses. Each must decide "affected? mandatory? current revision?" then report to the class in three sentences.</li>
+      <li><b>Voicemail dictation.</b> Play the OEM voicemail; students write the four changes (revision, current from when, extra serials, compliance level). Compare in pairs.</li>
+      <li><b>Rewrite for STE.</b> Give a wordy real-style OEM reply; pairs cut it to Simplified Technical English — one idea per sentence, short sentences, active voice.</li>
+      <li><b>Cross-genre trace.</b> Students follow SB 34-2189 across the SB, the AD notice, the work order and the tech log entry, and mark where each fact first appears.</li>
+      <li><b>AI partner call.</b> Fast finishers use a chat prompt from the unit page to run a mock OEM call, then log two indirect questions they got right and one the AI recast.</li>
+    </ul>
+  </div>
+
+  <!-- RUBRIC -->
+  <h2><span class="n">04</span> CEFR B2 speaking rubric — role-plays</h2>
+  <p>Score each learner once across a role-play card. Band 5 ≈ solid B2 / B2+, band 3 ≈ B1+ approaching B2, band 1 ≈ below B1. Give one focused piece of feedback per learner.</p>
+  <table class="rubric">
+    <tr><th>Criterion</th><th class="band5">Band 5 (strong B2)</th><th class="band3">Band 3 (developing)</th><th class="band1">Band 1 (limited)</th></tr>
+    <tr>
+      <td><b>Range</b></td>
+      <td class="band5">Uses unit terms (effectivity, compliance, superseded) and varied indirect openers accurately and flexibly.</td>
+      <td class="band3">Core terms present; openers repeat ("could you tell me" only); some gaps.</td>
+      <td class="band1">Few technical terms; falls back on direct questions and general words.</td>
+    </tr>
+    <tr>
+      <td><b>Accuracy</b></td>
+      <td class="band5">Indirect questions in correct statement order; the three interference errors are absent.</td>
+      <td class="band3">Mostly correct; one or two slips (a stray <code>does</code>, a missing <code>whether</code>) that do not block meaning.</td>
+      <td class="band1">Frequent inversion / <code>do</code>-support / dropped <code>whether</code>; errors sometimes block meaning.</td>
+    </tr>
+    <tr>
+      <td><b>Fluency</b></td>
+      <td class="band5">Speaks in a smooth flow; short natural pauses to plan; keeps the call moving.</td>
+      <td class="band3">Some hesitation and reformulation; pace uneven but sustained.</td>
+      <td class="band1">Long pauses; frequent stops that break the exchange.</td>
+    </tr>
+    <tr>
+      <td><b>Interaction</b></td>
+      <td class="band5">Opens, gives the serial, questions, and reads the answer back; repairs misunderstandings; takes turns well.</td>
+      <td class="band3">Manages the exchange but forgets to read back or confirm; occasional overlap.</td>
+      <td class="band1">Relies on the partner to drive; little confirming or turn-taking.</td>
+    </tr>
+    <tr>
+      <td><b>Coherence</b></td>
+      <td class="band5">Follows the 4-step call logic; connectors (although, unless, as soon as) link ideas clearly.</td>
+      <td class="band3">Steps present but order wanders; connectors basic (and, so).</td>
+      <td class="band1">Ideas listed with little linking; the call has no clear shape.</td>
+    </tr>
+  </table>
+
+  <!-- QUIZ KEY -->
+  <h2><span class="n">05</span> Full quiz key — per-item rationale</h2>
+  <p><span class="skill">Listening</span> 8 · <span class="skill">Reading</span> 4 · <span class="skill">Use of English</span> 6 · <span class="skill">Vocabulary</span> 4 &nbsp;=&nbsp; 22 items, 5 types.</p>
+  <table class="qk">
+    <tr><th>Item</th><th>Answer</th><th>Why</th></tr>
+    <tr><td>L1</td><td>Yes, inside the effectivity</td><td>OEM confirms serial 5127 is inside the effectivity → affected.</td></tr>
+    <tr><td>L2</td><td>False</td><td>Dialogue 1: "recommended, not mandatory"; no AD linked.</td></tr>
+    <tr><td>L3</td><td>5127</td><td>Spoken "five-one-two-seven". Tests comprehension of spoken digits.</td></tr>
+    <tr><td>L4</td><td>An airworthiness directive</td><td>An AD, not the SB alone, makes the modification mandatory.</td></tr>
+    <tr><td>L5</td><td>12</td><td>"within twelve months of the airworthiness directive date".</td></tr>
+    <tr><td>L6</td><td>True</td><td>"Revision three is current"; revision 2 superseded.</td></tr>
+    <tr><td>L7</td><td>3</td><td>Lead time "about three weeks" (Dialogue 3).</td></tr>
+    <tr><td>L8</td><td>Revision 3</td><td>Voicemail: rev 2 now superseded; rev 3 current from today.</td></tr>
+    <tr><td>R1</td><td>recommended, not mandatory</td><td>New SB excerpt states "Compliance: recommended"; no AD.</td></tr>
+    <tr><td>R2</td><td>True</td><td>An AD states a legal requirement — "mandatory within 12 months".</td></tr>
+    <tr><td>R3</td><td>The modification kit</td><td>Work order: order kit 34-2189-K3; note says no wiring rework.</td></tr>
+    <tr><td>R4</td><td>True</td><td>Tech log records the SB embodied and the embodiment logged.</td></tr>
+    <tr><td>U1</td><td>which effectivity applies</td><td>Statement order; no <code>does</code>; verb carries tense.</td></tr>
+    <tr><td>U2</td><td>whether the bulletin is mandatory</td><td>Yes/no → <code>whether</code>/<code>if</code> + statement order.</td></tr>
+    <tr><td>U3</td><td>what the lead time is</td><td>Drop the question inversion; "is" goes to the end.</td></tr>
+    <tr><td>U4</td><td>applicability</td><td>The general list of aircraft; effectivity is the exact serials.</td></tr>
+    <tr><td>U5</td><td>superseded</td><td>Replaced by a newer revision; never use it.</td></tr>
+    <tr><td>U6</td><td>embodiment</td><td>The fitted state of the mod; recorded in the logbook.</td></tr>
+    <tr><td>V1</td><td>match (5 pairs)</td><td>effectivity/compliance/mandatory/superseded/rework → meanings.</td></tr>
+    <tr><td>V2</td><td>match (4 pairs)</td><td>applicability·table / airworthiness·directive / logbook·entry / lead·time.</td></tr>
+    <tr><td>V3</td><td>OEM</td><td>Original Equipment Manufacturer — the maker.</td></tr>
+    <tr><td>V4</td><td>record</td><td>"record the embodiment" is the natural collocation.</td></tr>
+  </table>
+  <p style="font-size:14px;color:var(--ink-muted)">Anti-bias check: in every multiple-choice item the correct option is not the longest or most hedged; distractors are plausible and of similar length; no "all of the above". Each question carries general feedback and each option carries specific feedback.</p>
+
+  <footer>Unit 13 · English for Aviation Maintenance · CEFR B2 · teacher key (gated).</footer>
+</article>
+</body>
+</html>
