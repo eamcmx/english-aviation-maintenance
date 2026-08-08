@@ -310,6 +310,8 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
 }
 .lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
 
 .lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
 .lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
@@ -376,18 +378,18 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <p>It is afternoon in the maintenance hangar at Riga. An Airbus A320, registration YL-BBX, has arrived for a scheduled inspection. The work order requires a borescope inspection of the number-two engine. Because you cannot dismantle the engine, you examine the internal components with the borescope camera instead.</p>
     <p>You are the technician performing the inspection. On the display you notice a crack on a turbine blade, so you immediately have a reportable finding. First you describe the finding precisely to your lead: its type, its size, its location and its severity. Afterwards you both consult the maintenance manual and compare each finding against the published serviceable limits. Finally you recommend an appropriate action: accept it, repair it, or refer it to engineering. You must always justify the decision clearly.</p>
     <div class="callout plain">
-      <h4>In plain words &mdash; four ideas before you start</h4>
-      <p style="margin:0"><b>Borescope</b> &mdash; a small camera on a flexible probe that looks inside an engine. <b>Finding</b> &mdash; anything you notice in an inspection that may be a defect. <b>Serviceable limit</b> &mdash; the largest damage the manual allows for a part to stay in use. <b>Comparatives</b> &mdash; the grammar you use to compare a finding with the limit: <i>longer than</i>, <i>deeper than</i>, <i>smaller than</i>. Every hard word is glossed in the vocabulary bank.</p>
+      <h4>In plain words: four ideas before you start</h4>
+      <p style="margin:0"><b>Borescope</b>, a small camera on a flexible probe that looks inside an engine. <b>Finding</b>, anything you notice in an inspection that may be a defect. <b>Serviceable limit</b>, the largest damage the manual allows for a part to stay in use. <b>Comparatives</b>, the grammar you use to compare a finding with the limit: <i>longer than</i>, <i>deeper than</i>, <i>smaller than</i>. Every hard word is glossed in the vocabulary bank.</p>
     </div>
   </section>
 
   <!-- ============ DIALOGUES ============ -->
   <section class="lecture-section" id="dialogues">
-    <h2><span class="secnum">02</span>Listen &mdash; describe it, compare it, decide it</h2>
+    <h2><span class="secnum">02</span>Listen, describe it, compare it, decide it</h2>
     <p>Listen to each part first. Do not read yet. Afterwards, open the transcript and verify the vocabulary. Concentrate on how the technician describes a finding accurately, and how the two colleagues compare each measurement against the published limit. The same two voices return throughout the exercises.</p>
 
     <div class="dlg">
-      <h3>Dialogue 1 &mdash; Describe the borescope finding</h3>
+      <h3>Dialogue 1: Describe the borescope finding</h3>
       <p class="cast">A = J&#257;nis, technician &middot; B = El&#299;na, lead technician</p>
       <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u18-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:26 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -398,11 +400,11 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         <p class="turn"><span class="who">J&#257;nis</span><span class="said">It is stage 1, blade number 12. The crack starts near the blade tip.</span></p>
         <p class="turn"><span class="who">El&#299;na</span><span class="said">Understood. Now give me the dimension of the crack. How long is it on the screen?</span></p>
         <p class="turn"><span class="who">J&#257;nis</span><span class="said">The borescope measuring tool reads it at about 4 mm along the edge.</span></p>
-        <p class="turn"><span class="who">El&#299;na</span><span class="said">4 mm on the leading edge. And the severity &mdash; does the crack look deep to you?</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">4 mm on the leading edge. And the severity, does the crack look deep to you?</span></p>
         <p class="turn"><span class="who">J&#257;nis</span><span class="said">The crack looks shallow, although the line is very clear on the screen.</span></p>
         <p class="turn"><span class="who">El&#299;na</span><span class="said">Is there any other defect near it, such as pitting or light erosion?</span></p>
         <p class="turn"><span class="who">J&#257;nis</span><span class="said">Yes. There is light erosion on the same blade, close to the tip.</span></p>
-        <p class="turn"><span class="who">El&#299;na</span><span class="said">That is a good report. Type, location, dimension and severity &mdash; that is exactly what I need.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">That is a good report. Type, location, dimension and severity, that is exactly what I need.</span></p>
         <p class="turn"><span class="who">J&#257;nis</span><span class="said">I also saw a small dent on a fan blade during the visual inspection.</span></p>
         <p class="turn"><span class="who">El&#299;na</span><span class="said">We record every finding, although some are minor. Note the dent as well.</span></p>
         <p class="turn"><span class="who">J&#257;nis</span><span class="said">The dent is small, so I will give you the exact dimension in a moment.</span></p>
@@ -411,7 +413,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="dlg">
-      <h3>Dialogue 2 &mdash; Compare the finding against the serviceable limits</h3>
+      <h3>Dialogue 2: Compare the finding against the serviceable limits</h3>
       <p class="cast">A = J&#257;nis, technician &middot; B = El&#299;na, lead technician</p>
       <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u18-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:16 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -434,7 +436,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="dlg">
-      <h3>Dialogue 3 &mdash; Recommend accept, repair or refer</h3>
+      <h3>Dialogue 3: Recommend accept, repair or refer</h3>
       <p class="cast">A = J&#257;nis, technician &middot; B = El&#299;na, lead technician</p>
       <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u18-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:26 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -452,13 +454,13 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         <p class="turn"><span class="who">J&#257;nis</span><span class="said">Agreed. But the turbine crack is out of limits, so we cannot simply accept that one.</span></p>
         <p class="turn"><span class="who">El&#299;na</span><span class="said">For the crack we refer the finding to engineering, because they decide the repair.</span></p>
         <p class="turn"><span class="who">J&#257;nis</span><span class="said">So the plan is: accept the scratch, blend the corrosion, and refer the crack.</span></p>
-        <p class="turn"><span class="who">El&#299;na</span><span class="said">Exactly. Accept, repair or refer &mdash; and always write the reason for each decision.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Exactly. Accept, repair or refer, and always write the reason for each decision.</span></p>
         <p class="turn"><span class="who">J&#257;nis</span><span class="said">Understood. I will write the recommendation and the reason next to every finding.</span></p>
       </details>
     </div>
 
     <div class="dlg">
-      <h3>Dialogue 4 &mdash; Shift-handover voicemail</h3>
+      <h3>Dialogue 4: Shift-handover voicemail</h3>
       <p class="cast">A = J&#257;nis, technician (a spoken message for the duty engineer)</p>
       <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u18-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:42 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -475,7 +477,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 
   <!-- ============ VOCABULARY ============ -->
   <section class="lecture-section" id="vocabulary">
-    <h2><span class="secnum">03</span>Vocabulary bank &mdash; inspection findings</h2>
+    <h2><span class="secnum">03</span>Vocabulary bank, inspection findings</h2>
     <p>These twenty-two specialist terms carry the entire unit. Each one includes a plain-words definition, an example at your level, and one frequent word partner (a collocation). You encounter every term in the dialogues, and you subsequently practise every term throughout the exercises.</p>
     <table class="dt">
       <thead><tr><th style="width:19%">Term</th><th style="width:33%">Plain meaning</th><th style="width:31%">Example</th><th style="width:17%">Collocation</th></tr></thead>
@@ -508,7 +510,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 
   <!-- ============ GRAMMAR ============ -->
   <section class="lecture-section" id="grammar">
-    <h2><span class="secnum">04</span>Grammar in context &mdash; comparatives for limits</h2>
+    <h2><span class="secnum">04</span>Grammar in context, comparatives for limits</h2>
     <p>You evaluate every finding against a limit, so you continually compare two measurements: the finding and the limit. English expresses this comparison with the <b>comparative</b>. For a short adjective, add <b>-er</b> and afterwards <b>than</b>: <i>long &rarr; longer than</i>. For a longer adjective, use <b>more</b> and afterwards <b>than</b>: <i>severe &rarr; more severe than</i>. Listen carefully to how J&#257;nis and El&#299;na apply it.</p>
 
     <p class="quote">El&#299;na: "Our crack is 4 mm, so the crack is <b>longer than</b> the limit."</p>
@@ -544,7 +546,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   <!-- ============ EXERCISES ============ -->
   <section class="lecture-section" id="exercises">
     <h2><span class="secnum">05</span>Exercises</h2>
-    <p>Work through E1 to E8. Type your answers, press <b>Check</b>, and the page marks each item. Open <b>Show answers</b> only after you try. Nobody else will confirm your English &mdash; the page will.</p>
+    <p>Work through E1 to E8. Type your answers, press <b>Check</b>, and the page marks each item. Open <b>Show answers</b> only after you try. Nobody else will confirm your English, the page will.</p>
 
     <!-- E1 -->
     <div class="ex" id="e1">
@@ -574,18 +576,18 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       <h3>Match each term to its meaning</h3>
       <p>Choose the meaning that fits the term.</p>
       <ol>
-        <li><b>visual inspection</b> &mdash; <select class="gap" data-answer="a check made by looking at a part carefully"><option value=""></option><option>a check made by looking at a part carefully</option><option>a camera on a probe that looks inside an engine</option><option>the size of a defect in millimetres</option></select></li>
-        <li><b>pitting</b> &mdash; <select class="gap" data-answer="small holes or pits in a surface"><option value=""></option><option>small holes or pits in a surface</option><option>a thin line where the metal has split</option><option>the front edge of a blade</option></select></li>
-        <li><b>dent</b> &mdash; <select class="gap" data-answer="a small hollow where a surface is pushed in"><option value=""></option><option>a small hollow where a surface is pushed in</option><option>loss of material worn away by hot gas</option><option>the largest damage the manual allows</option></select></li>
-        <li><b>erosion</b> &mdash; <select class="gap" data-answer="loss of material worn away by hot gas or particles"><option value=""></option><option>loss of material worn away by hot gas or particles</option><option>a thin surface mark</option><option>a fault passed to engineering</option></select></li>
-        <li><b>scratch</b> &mdash; <select class="gap" data-answer="a thin surface mark that removes a little material"><option value=""></option><option>a thin surface mark that removes a little material</option><option>a small hollow in the surface</option><option>where the defect is on the part</option></select></li>
-        <li><b>location</b> &mdash; <select class="gap" data-answer="where the defect is on the part"><option value=""></option><option>where the defect is on the part</option><option>how serious the defect is</option><option>the size of the defect</option></select></li>
-        <li><b>dimension</b> &mdash; <select class="gap" data-answer="the size of the defect in millimetres"><option value=""></option><option>the size of the defect in millimetres</option><option>the front edge of a blade</option><option>a check made by looking</option></select></li>
-        <li><b>out of limits</b> &mdash; <select class="gap" data-answer="larger than the manual allows; not serviceable"><option value=""></option><option>larger than the manual allows; not serviceable</option><option>inside the allowed maximum; serviceable</option><option>a small hollow in the metal</option></select></li>
-        <li><b>blend</b> &mdash; <select class="gap" data-answer="to smooth away a small defect within limits"><option value=""></option><option>to smooth away a small defect within limits</option><option>to pass a finding to engineering</option><option>to look inside the engine</option></select></li>
-        <li><b>accept</b> &mdash; <select class="gap" data-answer="to leave a part in service because it is within limits"><option value=""></option><option>to leave a part in service because it is within limits</option><option>to pass a finding to engineering</option><option>to measure the size of a defect</option></select></li>
-        <li><b>repair</b> &mdash; <select class="gap" data-answer="to fix a part so it becomes serviceable again"><option value=""></option><option>to fix a part so it becomes serviceable again</option><option>to leave a part exactly as it is</option><option>to look inside the engine with a camera</option></select></li>
-        <li><b>refer</b> &mdash; <select class="gap" data-answer="to pass a finding to engineering for a decision"><option value=""></option><option>to pass a finding to engineering for a decision</option><option>to smooth away a small defect</option><option>to accept a finding within limits</option></select></li>
+        <li><b>visual inspection</b>, <select class="gap" data-answer="a check made by looking at a part carefully"><option value=""></option><option>a check made by looking at a part carefully</option><option>a camera on a probe that looks inside an engine</option><option>the size of a defect in millimetres</option></select></li>
+        <li><b>pitting</b>, <select class="gap" data-answer="small holes or pits in a surface"><option value=""></option><option>small holes or pits in a surface</option><option>a thin line where the metal has split</option><option>the front edge of a blade</option></select></li>
+        <li><b>dent</b>, <select class="gap" data-answer="a small hollow where a surface is pushed in"><option value=""></option><option>a small hollow where a surface is pushed in</option><option>loss of material worn away by hot gas</option><option>the largest damage the manual allows</option></select></li>
+        <li><b>erosion</b>, <select class="gap" data-answer="loss of material worn away by hot gas or particles"><option value=""></option><option>loss of material worn away by hot gas or particles</option><option>a thin surface mark</option><option>a fault passed to engineering</option></select></li>
+        <li><b>scratch</b>, <select class="gap" data-answer="a thin surface mark that removes a little material"><option value=""></option><option>a thin surface mark that removes a little material</option><option>a small hollow in the surface</option><option>where the defect is on the part</option></select></li>
+        <li><b>location</b>, <select class="gap" data-answer="where the defect is on the part"><option value=""></option><option>where the defect is on the part</option><option>how serious the defect is</option><option>the size of the defect</option></select></li>
+        <li><b>dimension</b>, <select class="gap" data-answer="the size of the defect in millimetres"><option value=""></option><option>the size of the defect in millimetres</option><option>the front edge of a blade</option><option>a check made by looking</option></select></li>
+        <li><b>out of limits</b>, <select class="gap" data-answer="larger than the manual allows; not serviceable"><option value=""></option><option>larger than the manual allows; not serviceable</option><option>inside the allowed maximum; serviceable</option><option>a small hollow in the metal</option></select></li>
+        <li><b>blend</b>, <select class="gap" data-answer="to smooth away a small defect within limits"><option value=""></option><option>to smooth away a small defect within limits</option><option>to pass a finding to engineering</option><option>to look inside the engine</option></select></li>
+        <li><b>accept</b>, <select class="gap" data-answer="to leave a part in service because it is within limits"><option value=""></option><option>to leave a part in service because it is within limits</option><option>to pass a finding to engineering</option><option>to measure the size of a defect</option></select></li>
+        <li><b>repair</b>, <select class="gap" data-answer="to fix a part so it becomes serviceable again"><option value=""></option><option>to fix a part so it becomes serviceable again</option><option>to leave a part exactly as it is</option><option>to look inside the engine with a camera</option></select></li>
+        <li><b>refer</b>, <select class="gap" data-answer="to pass a finding to engineering for a decision"><option value=""></option><option>to pass a finding to engineering for a decision</option><option>to smooth away a small defect</option><option>to accept a finding within limits</option></select></li>
       </ol>
       <div class="exfoot"><button class="btn primary check" data-ex="e2">Check</button><span class="score" data-score="e2"></span></div>
       <details class="answers"><summary>Show answers</summary><ol><li>a check made by looking at a part carefully</li><li>small holes or pits in a surface</li><li>a small hollow where a surface is pushed in</li><li>loss of material worn away by hot gas or particles</li><li>a thin surface mark that removes a little material</li><li>where the defect is on the part</li><li>the size of the defect in millimetres</li><li>larger than the manual allows; not serviceable</li><li>to smooth away a small defect within limits</li><li>to leave a part in service because it is within limits</li><li>to fix a part so it becomes serviceable again</li><li>to pass a finding to engineering for a decision</li></ol></details>
@@ -637,7 +639,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       <span class="tag">E5 &middot; Reading 1</span> <span class="genre">Genre: Borescope inspection report (BIR)</span>
       <h3>Read the report, then answer</h3>
       <div class="rtext">
-        <p><b>BORESCOPE INSPECTION REPORT &mdash; ENGINE No. 2</b></p>
+        <p><b>BORESCOPE INSPECTION REPORT, ENGINE No. 2</b></p>
         <p><b>Aircraft:</b> A320, reg YL-BBX. <b>Engine:</b> CFM56, position two. <b>ATA:</b> 72-00.</p>
         <p><b>Inspection:</b> scheduled borescope inspection of the high-pressure turbine.</p>
         <p><b>Finding 1:</b> a crack on the leading edge of a stage-one turbine blade, blade number 12. Dimension: about 4 mm along the edge. Severity: the crack is clear, although it is shallow. Location: near the blade tip.</p>
@@ -663,7 +665,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <div class="ex" id="e6">
       <span class="tag">E6 &middot; Error-spotting</span>
       <h3>Find and fix eight errors</h3>
-      <p>Each sentence has a comparative mistake &mdash; a double comparative, or the wrong word instead of "than". Type the correct part in the box.</p>
+      <p>Each sentence has a comparative mistake, a double comparative, or the wrong word instead of "than". Type the correct part in the box.</p>
       <div class="rtext" style="background:var(--bg-sunken);border-radius:6px;padding:12px 16px">
         <p>REPORT (to correct). [1] The crack is more longer than the limit. [2] The dent is deeper as the limit. [3] The pit is deeper then allowed. [4] The scratch is short than the limit. [5] The corrosion is more deep than the blend limit. [6] The crack is more serious as a scratch. [7] The dent is more small than the limit. [8] The finding is more big than allowed.</p>
       </div>
@@ -683,10 +685,10 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 
     <!-- E7 -->
     <div class="ex reading" id="e7">
-      <span class="tag">E7 &middot; Reading 2</span> <span class="genre">Genre: Maintenance manual &mdash; damage limits (AMM)</span>
+      <span class="tag">E7 &middot; Reading 2</span> <span class="genre">Genre: Maintenance manual, damage limits (AMM)</span>
       <h3>Read the limits page, then answer</h3>
       <div class="rtext">
-        <p><b>MAINTENANCE MANUAL &mdash; DAMAGE LIMITS (ATA 72-00)</b></p>
+        <p><b>MAINTENANCE MANUAL, DAMAGE LIMITS (ATA 72-00)</b></p>
         <p>This chapter gives the serviceable limits for turbine and fan blades. Compare every finding against the limit before you decide.</p>
         <p><b>Cracks:</b> a crack on the leading edge is acceptable up to 3 mm. A crack that is longer than 3 mm is out of limits, and you must refer it to engineering.</p>
         <p><b>Dents:</b> a dent on a fan blade is acceptable up to 2 mm deep. A dent that is deeper than 2 mm is out of limits.</p>
@@ -728,11 +730,11 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 
   <!-- ============ SPEAKING ============ -->
   <section class="lecture-section" id="speaking">
-    <h2><span class="secnum">06</span>Speaking &mdash; role-plays</h2>
+    <h2><span class="secnum">06</span>Speaking, role-plays</h2>
     <p>Work in pairs. Take one role each, then swap after each card. Use the useful phrases, keep sentences short, and use a comparative every time you compare a finding with the limit.</p>
 
     <div class="roleplay">
-      <h4>Role-play card 1 &mdash; Describe the finding</h4>
+      <h4>Role-play card 1: Describe the finding</h4>
       <div class="rp-row"><span class="rp-lab">Situation</span>You have finished a borescope inspection of an engine turbine and you have one finding.</div>
       <div class="rp-row"><span class="rp-lab">Your role (A)</span>Technician. Report the finding to your lead in a clear order.</div>
       <div class="rp-row"><span class="rp-lab">Your goal</span>Give the type, the location, the dimension and the severity of the defect.</div>
@@ -740,7 +742,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="roleplay">
-      <h4>Role-play card 2 &mdash; Compare it with the limit</h4>
+      <h4>Role-play card 2: Compare it with the limit</h4>
       <div class="rp-row"><span class="rp-lab">Situation</span>You both open the maintenance manual and check the finding against the serviceable limit.</div>
       <div class="rp-row"><span class="rp-lab">Your role (A/B)</span>One reads the limit; the other compares the finding with a comparative.</div>
       <div class="rp-row"><span class="rp-lab">Your goal</span>Decide clearly whether the finding is within limits or out of limits, and say why.</div>
@@ -748,7 +750,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="roleplay">
-      <h4>Role-play card 3 &mdash; Recommend accept, repair or refer</h4>
+      <h4>Role-play card 3: Recommend accept, repair or refer</h4>
       <div class="rp-row"><span class="rp-lab">Situation</span>You have several findings from a visual inspection: a scratch, some corrosion and a crack.</div>
       <div class="rp-row"><span class="rp-lab">Your role (A/B)</span>One proposes a decision for each finding; the other agrees or asks for the reason.</div>
       <div class="rp-row"><span class="rp-lab">Your goal</span>Recommend accept, repair or refer for each finding, and give a clear reason.</div>
@@ -756,7 +758,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="roleplay">
-      <h4>Role-play card 4 &mdash; Shift handover</h4>
+      <h4>Role-play card 4: Shift handover</h4>
       <div class="rp-row"><span class="rp-lab">Situation</span>You hand over the inspection findings to the next shift.</div>
       <div class="rp-row"><span class="rp-lab">Your role (A)</span>Outgoing technician. Summarise the main finding, the comparison, and your recommendation.</div>
       <div class="rp-row"><span class="rp-lab">Your goal</span>Make sure the next shift knows the crack is out of limits and referred to engineering.</div>
@@ -774,15 +776,15 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 
   <!-- ============ WRITING ============ -->
   <section class="lecture-section" id="writing">
-    <h2><span class="secnum">07</span>Writing &mdash; a borescope finding report</h2>
+    <h2><span class="secnum">07</span>Writing, a borescope finding report</h2>
     <p>Write a short finding report for the technical records. Use Simplified Technical English (ASD-STE100): one idea per sentence, short sentences, and the active voice. When you compare the finding with the limit, use a comparative with <b>than</b>. End with a clear recommendation and a reason.</p>
     <div class="callout">
       <h4>Task</h4>
-      <p style="margin:0">A borescope inspection of a combustion chamber finds a crack. The crack is on the leading edge of a liner panel. Its dimension is 5 mm. The serviceable limit in the maintenance manual is 4 mm. During the same check, a visual inspection finds light corrosion on a nearby bracket; the corrosion is within the blend limit. Write the report. Cover: the tool used; the type, location, dimension and severity of each finding; the comparison against the serviceable limit (use a comparative); and your recommendation (accept, repair or refer) with a reason. Write 100&ndash;130 words.</p>
+      <p style="margin:0">A borescope inspection of a combustion chamber finds a crack. The crack is on the leading edge of a liner panel. Its dimension is 5 mm. The serviceable limit in the maintenance manual is 4 mm. During the same check, a visual inspection finds light corrosion on a nearby bracket; the corrosion is within the blend limit. Write the report. Cover: the tool used; the type, location, dimension and severity of each finding; the comparison against the serviceable limit (use a comparative); and your recommendation (accept, repair or refer) with a reason. Write 100–130 words.</p>
     </div>
     <details class="answers"><summary>Show a model answer</summary>
       <div class="rtext" style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:12px 16px;margin-top:8px">
-        <p><b>BORESCOPE INSPECTION REPORT &mdash; COMBUSTION CHAMBER</b></p>
+        <p><b>BORESCOPE INSPECTION REPORT, COMBUSTION CHAMBER</b></p>
         <p>Inspection: borescope inspection of the combustion chamber.</p>
         <p>Finding 1: a crack on the leading edge of a liner panel. Dimension: 5 mm. Severity: clear and open.</p>
         <p>Assessment: the serviceable limit is 4 mm. The crack is longer than the limit, so it is out of limits.</p>
@@ -793,7 +795,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         <p>Status: engine not released until engineering answers on Finding 1.</p>
       </div>
     </details>
-    <p style="margin-top:14px"><b>Self-check &mdash; tick each line before you hand in:</b></p>
+    <p style="margin-top:14px"><b>Self-check, tick each line before you hand in:</b></p>
     <ul class="checklist">
       <li>I gave the type, location, dimension and severity of each finding.</li>
       <li>I compared the finding with the limit using a comparative and "than".</li>
@@ -847,7 +849,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       <h4>3 &middot; Put the report in order</h4>
       <p class="widget-hint">Click the four parts in the order you report a finding.</p>
       <div class="widget-chips" data-pool></div>
-      <div class="widget-readout" data-slot><b>Your order:</b> <span data-seq style="color:var(--ink-muted)">&mdash;</span></div>
+      <div class="widget-readout" data-slot><b>Your order:</b> <span data-seq style="color:var(--ink-muted)">, </span></div>
     </div>
 
     <div class="widget" id="w-decide">
@@ -882,12 +884,12 @@ Dimension: 0.1 mm. Limit: 0.2 mm.
 The scratch is shorter than the limit, so it is within limits.
 Recommendation: accept the scratch, and record it.</pre>
 
-    <p><b>Light corrosion &mdash; a repair by blending:</b></p>
+    <p><b>Light corrosion, a repair by blending:</b></p>
     <pre class="worked">Finding: light corrosion near the fastener holes. The pitting is shallow.
 The corrosion is within the blend limit.
 Recommendation: blend the surface, then apply primer. Accept after the blend.</pre>
 
-    <p><b>Erosion &mdash; monitor at the next check:</b></p>
+    <p><b>Erosion, monitor at the next check:</b></p>
     <pre class="worked">Finding: light erosion near the blade tip.
 Severity: minor. The erosion is within limits.
 Recommendation: no action now. Monitor at the next inspection.</pre>
@@ -905,13 +907,13 @@ Better: The crack is longer than the limit, so it is out of limits.</pre>
       <li>I gave the <b>type</b>, <b>location</b>, <b>dimension</b> and <b>severity</b> of each finding.</li>
       <li>I compared the finding with the limit using a comparative and <b>than</b>.</li>
       <li>I wrote <b>within limits</b> or <b>out of limits</b> for each finding.</li>
-      <li>I ended with a recommendation &mdash; <b>accept, repair or refer</b> &mdash; and a reason.</li>
+      <li>I ended with a recommendation, <b>accept, repair or refer</b>, and a reason.</li>
       <li>I used short sentences and the active voice (Simplified Technical English).</li>
     </ul>
   </section>
 
   <footer>
-    English for Aviation Maintenance &middot; Unit 18 &mdash; Reporting inspection findings (borescope and visual) &middot; CEFR B2 &middot; Self-study language unit. Terms are for training only; always work from the current approved AMM, task card and company procedures.
+    English for Aviation Maintenance &middot; Unit 18, Reporting inspection findings (borescope and visual) &middot; CEFR B2 &middot; Self-study language unit. Terms are for training only; always work from the current approved AMM, task card and company procedures.
   </footer>
 </article>
 
@@ -973,9 +975,9 @@ Better: The crack is longer than the limit, so it is out of limits.</pre>
     function update(){
       var v=vals(); findV.textContent=v.f.toFixed(1)+' mm'; limV.textContent=v.l.toFixed(1)+' mm';
       var eq=Math.abs(v.f-v.l)<0.05, comp=v.f>v.l?'longer than':(v.f<v.l?'shorter than':'equal to'), msg;
-      if(eq) msg='<b class="warn">At the limit.</b> The finding equals the limit. At the limit it is still acceptable &mdash; accept.';
-      else if(v.f>v.l) msg='<b class="bad">Out of limits.</b> The finding is '+comp+' the limit, so it is out of limits &mdash; refer it.';
-      else msg='<b class="good">Within limits.</b> The finding is '+comp+' the limit, so it is within limits &mdash; accept.';
+      if(eq) msg='<b class="warn">At the limit.</b> The finding equals the limit. At the limit it is still acceptable, accept.';
+      else if(v.f>v.l) msg='<b class="bad">Out of limits.</b> The finding is '+comp+' the limit, so it is out of limits, refer it.';
+      else msg='<b class="good">Within limits.</b> The finding is '+comp+' the limit, so it is within limits, accept.';
       read.innerHTML=msg;
     }
     function draw(){
@@ -1016,7 +1018,7 @@ Better: The crack is longer than the limit, so it is out of limits.</pre>
     var CORRECT=['Type','Location','Dimension','Severity'], SHUF=['Severity','Type','Dimension','Location'];
     var pool=el.querySelector('[data-pool]'),slot=el.querySelector('[data-slot]');
     function build(){ pool.innerHTML=SHUF.map(function(w){return '<span class="wchip" data-w="'+w+'">'+w+'</span>';}).join('');
-      slot.innerHTML='<b>Your order:</b> <span data-seq style="color:var(--ink-muted)">&mdash;</span>'; }
+      slot.innerHTML='<b>Your order:</b> <span data-seq style="color:var(--ink-muted)">, </span>'; }
     build(); var picked=[];
     pool.addEventListener('click',function(e){
       var c=e.target.closest('.wchip'); if(!c||c.classList.contains('picked')) return;
@@ -1107,7 +1109,7 @@ Better: The crack is longer than the limit, so it is out of limits.</pre>
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "borescope", "def": "A small camera on a flexible probe that looks inside an engine."}, {"term": "visual inspection", "def": "A check made by looking at a part carefully, with good light."}, {"term": "finding", "def": "Anything you notice in an inspection that may be a defect."}, {"term": "defect", "def": "A fault or damage in a part."}, {"term": "crack", "def": "A thin line where the metal has started to split."}, {"term": "corrosion", "def": "Damage where the metal reacts with air or water and breaks down."}, {"term": "pitting", "def": "Small holes or pits in a surface, often caused by corrosion."}, {"term": "dent", "def": "A small hollow where a surface has been pushed in."}, {"term": "erosion", "def": "Loss of material from a surface, worn away by hot gas or particles."}, {"term": "scratch", "def": "A thin surface mark that removes a little material."}, {"term": "leading edge", "def": "The front edge of a blade or wing that meets the airflow first."}, {"term": "location", "def": "Where the defect is on the part."}, {"term": "severity", "def": "How serious a defect is."}, {"term": "dimension", "def": "The size of the defect, measured in millimetres."}, {"term": "serviceable limit", "def": "The largest damage the manual allows for a part to stay in use."}, {"term": "within limits", "def": "Inside the allowed maximum; the part is still serviceable."}, {"term": "out of limits", "def": "Larger than the manual allows; the part is not serviceable."}, {"term": "blend", "def": "To smooth away a small defect so the surface returns within limits."}, {"term": "maintenance manual", "def": "The approved manual that gives the limits and the actions (the AMM)."}, {"term": "accept", "def": "To leave a part in service because the finding is within limits."}, {"term": "repair", "def": "To fix a part so it becomes serviceable again."}, {"term": "refer", "def": "To pass a finding to engineering for a decision."}], "lines": ["El&#299;na, I have finished the borescope inspection of engine 2, and I have one finding.", "Good work, J&#257;nis. Give me the type of defect first, and then the location.", "It is a crack. The crack is on the leading edge of a turbine blade.", "Which stage is it, and which blade number? Be precise, because the report must be exact.", "It is stage 1, blade number 12. The crack starts near the blade tip.", "Understood. Now give me the dimension of the crack. How long is it on the screen?", "The borescope measuring tool reads it at about 4 mm along the edge.", "4 mm on the leading edge. And the severity &mdash; does the crack look deep to you?", "The crack looks shallow, although the line is very clear on the screen.", "Is there any other defect near it, such as pitting or light erosion?", "Yes. There is light erosion on the same blade, close to the tip.", "That is a good report. Type, location, dimension and severity &mdash; that is exactly what I need.", "I also saw a small dent on a fan blade during the visual inspection.", "We record every finding, although some are minor. Note the dent as well.", "The dent is small, so I will give you the exact dimension in a moment.", "Perfect. Next, we compare each finding against the serviceable limits in the manual.", "Open the maintenance manual at chapter 72, and find the damage limits table.", "I have the table here. It lists the serviceable limit for each type of defect.", "Start with the crack. What is the limit for a crack on the leading edge?", "The maintenance manual allows 3 mm for a crack on the leading edge.", "And our crack is 4 mm, so the crack is longer than the limit.", "Yes. 4 mm is longer than 3, so the crack is out of limits.", "Correct. A crack that is longer than allowed is not serviceable, so we cannot leave it.", "Now the dent. The limit for a fan-blade dent is 2 mm."], "roleplays": [], "grammar": "You evaluate every finding against a limit, so you continually compare two measurements: the finding and the limit. English expresses this comparison with the comparative . For a short adjective, add -er and afterwards than : long &rarr; longer than . For a longer adjective, use more and afterwards than : severe &rarr;", "scenario": "It is afternoon in the maintenance hangar at Riga. An Airbus A320, registration YL-BBX, has arrived for a scheduled inspection. The work order requires a borescope inspection of the number-two engine. Because you cannot dismantle the engine, you examine the internal components with the borescope camera instead.", "pron": ["El&#299;na, I have finished the borescope inspection of engine 2, and I have one finding.", "Good work, J&#257;nis. Give me the type of defect first, and then the location.", "It is a crack. The crack is on the leading edge of a turbine blade.", "Which stage is it, and which blade number? Be precise, because the report must be exact."], "course": "English for Aviation Maintenance", "unit": 18, "total": 32, "title": "Reporting inspection findings (borescope and visual)", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "borescope", "def": "A small camera on a flexible probe that looks inside an engine."}, {"term": "visual inspection", "def": "A check made by looking at a part carefully, with good light."}, {"term": "finding", "def": "Anything you notice in an inspection that may be a defect."}, {"term": "defect", "def": "A fault or damage in a part."}, {"term": "crack", "def": "A thin line where the metal has started to split."}, {"term": "corrosion", "def": "Damage where the metal reacts with air or water and breaks down."}, {"term": "pitting", "def": "Small holes or pits in a surface, often caused by corrosion."}, {"term": "dent", "def": "A small hollow where a surface has been pushed in."}, {"term": "erosion", "def": "Loss of material from a surface, worn away by hot gas or particles."}, {"term": "scratch", "def": "A thin surface mark that removes a little material."}, {"term": "leading edge", "def": "The front edge of a blade or wing that meets the airflow first."}, {"term": "location", "def": "Where the defect is on the part."}, {"term": "severity", "def": "How serious a defect is."}, {"term": "dimension", "def": "The size of the defect, measured in millimetres."}, {"term": "serviceable limit", "def": "The largest damage the manual allows for a part to stay in use."}, {"term": "within limits", "def": "Inside the allowed maximum; the part is still serviceable."}, {"term": "out of limits", "def": "Larger than the manual allows; the part is not serviceable."}, {"term": "blend", "def": "To smooth away a small defect so the surface returns within limits."}, {"term": "maintenance manual", "def": "The approved manual that gives the limits and the actions (the AMM)."}, {"term": "accept", "def": "To leave a part in service because the finding is within limits."}, {"term": "repair", "def": "To fix a part so it becomes serviceable again."}, {"term": "refer", "def": "To pass a finding to engineering for a decision."}], "lines": ["El&#299;na, I have finished the borescope inspection of engine 2, and I have one finding.", "Good work, J&#257;nis. Give me the type of defect first, and then the location.", "It is a crack. The crack is on the leading edge of a turbine blade.", "Which stage is it, and which blade number? Be precise, because the report must be exact.", "It is stage 1, blade number 12. The crack starts near the blade tip.", "Understood. Now give me the dimension of the crack. How long is it on the screen?", "The borescope measuring tool reads it at about 4 mm along the edge.", "4 mm on the leading edge. And the severity, does the crack look deep to you?", "The crack looks shallow, although the line is very clear on the screen.", "Is there any other defect near it, such as pitting or light erosion?", "Yes. There is light erosion on the same blade, close to the tip.", "That is a good report. Type, location, dimension and severity, that is exactly what I need.", "I also saw a small dent on a fan blade during the visual inspection.", "We record every finding, although some are minor. Note the dent as well.", "The dent is small, so I will give you the exact dimension in a moment.", "Perfect. Next, we compare each finding against the serviceable limits in the manual.", "Open the maintenance manual at chapter 72, and find the damage limits table.", "I have the table here. It lists the serviceable limit for each type of defect.", "Start with the crack. What is the limit for a crack on the leading edge?", "The maintenance manual allows 3 mm for a crack on the leading edge.", "And our crack is 4 mm, so the crack is longer than the limit.", "Yes. 4 mm is longer than 3, so the crack is out of limits.", "Correct. A crack that is longer than allowed is not serviceable, so we cannot leave it.", "Now the dent. The limit for a fan-blade dent is 2 mm."], "roleplays": ["You have finished a borescope inspection of an engine turbine and you have one finding.", "You both open the maintenance manual and check the finding against the serviceable limit.", "You have several findings from a visual inspection: a scratch, some corrosion and a crack.", "You hand over the inspection findings to the next shift."], "grammar": "You evaluate every finding against a limit, so you continually compare two measurements: the finding and the limit. English expresses this comparison with the comparative . For a short adjective, add -er and afterwards than : long &rarr; longer than . For a longer adjective, use more and afterwards than : severe &rarr;", "scenario": "It is afternoon in the maintenance hangar at Riga. An Airbus A320, registration YL-BBX, has arrived for a scheduled inspection. The work order requires a borescope inspection of the number-two engine. Because you cannot dismantle the engine, you examine the internal components with the borescope camera instead.", "pron": ["El&#299;na, I have finished the borescope inspection of engine 2, and I have one finding.", "Good work, J&#257;nis. Give me the type of defect first, and then the location.", "It is a crack. The crack is on the leading edge of a turbine blade.", "Which stage is it, and which blade number? Be precise, because the report must be exact."], "course": "English for Aviation Maintenance", "unit": 18, "total": 32, "title": "Reporting inspection findings (borescope and visual)", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -1165,10 +1167,12 @@ Better: The crack is longer than the limit, so it is out of limits.</pre>
       'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
       'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
       '',
-      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
       'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
       'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
       'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
       '',
       'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
       (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
@@ -1318,7 +1322,20 @@ Better: The crack is longer than the limit, so it is out of limits.</pre>
     });
   }
 
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
   function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
     var acts = [
       ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
       ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
@@ -1334,7 +1351,7 @@ Better: The crack is longer than the limit, so it is out of limits.</pre>
       b.type = 'button';
       b.className = 'lb-q';
       b.textContent = a[0];
-      b.addEventListener('click', function () { ask(a[1]); });
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
       quick.appendChild(b);
     });
   }
@@ -1347,7 +1364,7 @@ Better: The crack is longer than the limit, so it is out of limits.</pre>
         hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
       } else {
         bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
-          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+          + 'You can write to me in your own language if that is easier.');
       }
       if (needsKey()) keyGate(); else renderQuick();
     }
@@ -1361,6 +1378,7 @@ Better: The crack is longer than the limit, so it is out of limits.</pre>
     e.preventDefault();
     var v = input.value;
     input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
     ask(v);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });

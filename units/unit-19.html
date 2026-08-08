@@ -312,6 +312,8 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
 }
 .lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
 
 .lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
 .lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
@@ -842,7 +844,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "defect report", "def": "A short, formal written record of an aircraft fault that the organisation keeps on file."}, {"term": "Simplified Technical English", "def": "A controlled writing standard that limits you to approved words and short, clear sentences."}, {"term": "approved word", "def": "A word that the Simplified Technical English dictionary allows you to use in a report."}, {"term": "one meaning", "def": "The discipline of using each word for only one idea, which removes confusion."}, {"term": "procedural sentence", "def": "A short command that tells the reader to perform exactly one step in a task."}, {"term": "ambiguity", "def": "The situation where a sentence can be understood in more than one different way."}, {"term": "noun cluster", "def": "Three or more nouns joined in a row, which becomes difficult to read and understand."}, {"term": "active voice", "def": "A sentence pattern where the person or tool that acts comes before the action."}, {"term": "technical name", "def": "The single correct name of a component or a tool, used consistently everywhere."}, {"term": "technical verb", "def": "An approved action word for a maintenance task, for example remove, install, or torque."}, {"term": "warning", "def": "A safety note that tells the reader a step can injure or kill a person."}, {"term": "caution", "def": "A note that tells the reader a step can damage the aircraft or the component."}, {"term": "instruction", "def": "One clear, single step that tells the technician exactly what action to perform."}, {"term": "shift note", "def": "A quick, informal note that a technician writes for personal use during a shift."}, {"term": "tech log", "def": "The official aircraft technical log that records every fault and every maintenance action."}, {"term": "work order", "def": "A formal document that tells a technician which maintenance task to carry out."}, {"term": "serviceable", "def": "In good condition, within limits, and therefore safe to use on the aircraft."}, {"term": "unserviceable", "def": "Not safe to use, and it must be repaired or replaced before further flight."}, {"term": "corrosion", "def": "Gradual damage to metal caused by moisture, air, and chemicals over a long period."}, {"term": "bracket", "def": "A metal fitting that holds another component firmly in its correct position."}], "lines": ["Toms, I read your shift note from last night. It is hard to follow.", "I wrote it fast at the end of the shift. What is wrong with it?", "A defect report is not a shift note. It is a formal record, so it must use Simplified Technical English.", "So I cannot write it the way I speak?", "No. Every word must be an approved word with one meaning. That removes ambiguity.", "Show me. My note says the part near the door looked bad.", "That is the problem. Did you find corrosion, a crack, or a loose bolt?", "There was corrosion on the bracket below the panel.", "Good. Now write it as a fact. The bracket has corrosion. Short and clear.", "That does sound better than my note.", "The tech log needs the same clear style, because the next technician depends on it. Put one idea in each short sentence.", "My note also says it seemed like it might be leaking. Is that wrong?", "Yes. Seemed and might give ambiguity. Write what you saw, not what you guessed.", "So I should write that fuel is on the floor below the bracket?", "Exactly. That is a fact an inspector can check. That is a defect report.", "I understand now. Short sentences, approved words, one meaning.", "Your report is clear. But the repair steps are not in Simplified Technical English yet.", "What should the steps look like?", "Each step is a procedural sentence. It is a command in the active voice.", "Can you give me an example?", "Start with a technical verb. Write: Remove the bolt from the bracket.", "My draft says the removal of the bolt should be done. That is heavy.", "It is heavy and passive. Use the active voice instead, and put one clear instruction in each line.", "You also marked wing attachment fitting bolt hole. Why?"], "roleplays": ["A junior brings a rough shift note to the mentor at shift handover.", "A technician has written the repair steps. The tech author checks the STE.", "Two technicians peer-review each other's defect report before sign-off.", "The supervisor calls about a defect report before closing the work order."], "grammar": "STE keeps sentences short, so every word must earn its place. Even so, English still needs its articles. You cannot drop the or a , although Latvian and Russian have no articles at all. This is the error the instructor will spot first.", "scenario": "It is the end of a late shift at the line station. You found a fault on the aircraft, and you scribbled a quick note before you went home. The note made sense to you at midnight, although it will not make sense to the next technician.", "pron": ["Toms, I read your shift note from last night. It is hard to follow.", "I wrote it fast at the end of the shift. What is wrong with it?", "So I cannot write it the way I speak?", "No. Every word must be an approved word with one meaning. That removes ambiguity."], "course": "English for Aviation Maintenance", "unit": 19, "total": 32, "title": "Writing a defect report in Simplified Technical English", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "defect report", "def": "A short, formal written record of an aircraft fault that the organisation keeps on file."}, {"term": "Simplified Technical English", "def": "A controlled writing standard that limits you to approved words and short, clear sentences."}, {"term": "approved word", "def": "A word that the Simplified Technical English dictionary allows you to use in a report."}, {"term": "one meaning", "def": "The discipline of using each word for only one idea, which removes confusion."}, {"term": "procedural sentence", "def": "A short command that tells the reader to perform exactly one step in a task."}, {"term": "ambiguity", "def": "The situation where a sentence can be understood in more than one different way."}, {"term": "noun cluster", "def": "Three or more nouns joined in a row, which becomes difficult to read and understand."}, {"term": "active voice", "def": "A sentence pattern where the person or tool that acts comes before the action."}, {"term": "technical name", "def": "The single correct name of a component or a tool, used consistently everywhere."}, {"term": "technical verb", "def": "An approved action word for a maintenance task, for example remove, install, or torque."}, {"term": "warning", "def": "A safety note that tells the reader a step can injure or kill a person."}, {"term": "caution", "def": "A note that tells the reader a step can damage the aircraft or the component."}, {"term": "instruction", "def": "One clear, single step that tells the technician exactly what action to perform."}, {"term": "shift note", "def": "A quick, informal note that a technician writes for personal use during a shift."}, {"term": "tech log", "def": "The official aircraft technical log that records every fault and every maintenance action."}, {"term": "work order", "def": "A formal document that tells a technician which maintenance task to carry out."}, {"term": "serviceable", "def": "In good condition, within limits, and therefore safe to use on the aircraft."}, {"term": "unserviceable", "def": "Not safe to use, and it must be repaired or replaced before further flight."}, {"term": "corrosion", "def": "Gradual damage to metal caused by moisture, air, and chemicals over a long period."}, {"term": "bracket", "def": "A metal fitting that holds another component firmly in its correct position."}], "lines": ["Toms, I read your shift note from last night. It is hard to follow.", "I wrote it fast at the end of the shift. What is wrong with it?", "A defect report is not a shift note. It is a formal record, so it must use Simplified Technical English.", "So I cannot write it the way I speak?", "No. Every word must be an approved word with one meaning. That removes ambiguity.", "Show me. My note says the part near the door looked bad.", "That is the problem. Did you find corrosion, a crack, or a loose bolt?", "There was corrosion on the bracket below the panel.", "Good. Now write it as a fact. The bracket has corrosion. Short and clear.", "That does sound better than my note.", "The tech log needs the same clear style, because the next technician depends on it. Put one idea in each short sentence.", "My note also says it seemed like it might be leaking. Is that wrong?", "Yes. Seemed and might give ambiguity. Write what you saw, not what you guessed.", "So I should write that fuel is on the floor below the bracket?", "Exactly. That is a fact an inspector can check. That is a defect report.", "I understand now. Short sentences, approved words, one meaning.", "Your report is clear. But the repair steps are not in Simplified Technical English yet.", "What should the steps look like?", "Each step is a procedural sentence. It is a command in the active voice.", "Can you give me an example?", "Start with a technical verb. Write: Remove the bolt from the bracket.", "My draft says the removal of the bolt should be done. That is heavy.", "It is heavy and passive. Use the active voice instead, and put one clear instruction in each line.", "You also marked wing attachment fitting bolt hole. Why?"], "roleplays": ["A junior brings a rough shift note to the mentor at shift handover.", "A technician has written the repair steps. The tech author checks the STE.", "Two technicians peer-review each other's defect report before sign-off.", "The supervisor calls about a defect report before closing the work order."], "grammar": "STE keeps sentences short, so every word must earn its place. Even so, English still needs its articles. You cannot drop the or a , although Latvian and Russian have no articles at all. This is the error the instructor will spot first.", "scenario": "It is the end of a late shift at the line station. You found a fault on the aircraft, and you scribbled a quick note before you went home. The note made sense to you at midnight, although it will not make sense to the next technician.", "pron": ["Toms, I read your shift note from last night. It is hard to follow.", "I wrote it fast at the end of the shift. What is wrong with it?", "So I cannot write it the way I speak?", "No. Every word must be an approved word with one meaning. That removes ambiguity."], "course": "English for Aviation Maintenance", "unit": 19, "total": 32, "title": "Writing a defect report in Simplified Technical English", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -900,10 +902,12 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
       'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
       '',
-      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
       'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
       'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
       'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
       '',
       'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
       (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
@@ -1053,7 +1057,20 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     });
   }
 
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
   function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
     var acts = [
       ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
       ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
@@ -1069,7 +1086,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       b.type = 'button';
       b.className = 'lb-q';
       b.textContent = a[0];
-      b.addEventListener('click', function () { ask(a[1]); });
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
       quick.appendChild(b);
     });
   }
@@ -1082,7 +1099,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
       } else {
         bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
-          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+          + 'You can write to me in your own language if that is easier.');
       }
       if (needsKey()) keyGate(); else renderQuick();
     }
@@ -1096,6 +1113,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     e.preventDefault();
     var v = input.value;
     input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
     ask(v);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });

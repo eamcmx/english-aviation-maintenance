@@ -196,6 +196,8 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
 }
 .lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
 
 .lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
 .lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
@@ -497,9 +499,9 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 <section class="lecture-section" id="grammar">
   <h2><span class="secnum">04</span>Grammar in context: present perfect vs past simple</h2>
   <p>In a handover, you mix two tenses. You use the <b>present perfect</b> for work that is done and still matters now. You use the <b>past simple</b> for a finished detail with a clear past time. Look at these lines from the dialogues.</p>
-  <div class="quote">"I <b>have completed</b> the left engine oil change." &mdash; done, and it matters now (the engine is ready).</div>
-  <div class="quote">"I <b>ran</b> the leak check at 15:00." &mdash; a finished action with a clear past time.</div>
-  <div class="quote">"<b>Have</b> you <b>found</b> the cause <b>yet</b>?" &mdash; up to now; the word <i>yet</i> needs the present perfect.</div>
+  <div class="quote">"I <b>have completed</b> the left engine oil change.", done, and it matters now (the engine is ready).</div>
+  <div class="quote">"I <b>ran</b> the leak check at 15:00.", a finished action with a clear past time.</div>
+  <div class="quote">"<b>Have</b> you <b>found</b> the cause <b>yet</b>?", up to now; the word <i>yet</i> needs the present perfect.</div>
   <p>The rule is simple. If the time is finished (at 15:00, yesterday, this morning at 08:00), use the past simple. If you look at the result now, or use <i>already, yet, just, so far</i>, use the present perfect.</p>
   <p>In practice, technicians move between the two tenses within a single briefing, because each tense answers a different question for the listener. The present perfect answers "what is the situation right now?", whereas the past simple answers "what exactly happened, and when did it happen?". If you say "I have completed the inspection", your colleague immediately understands that the aircraft is ready at this moment. However, as soon as you add a finished time, such as "at fourteen hundred", English forces you to switch back to the past simple. Getting this contrast right is exactly what makes a handover sound accurate and professional, rather than vague or confusing.</p>
   <table class="gt">
@@ -618,10 +620,10 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <h3>Read a tech log page</h3>
     <p class="instr">Read the tech log entries. Then answer the six questions. Write short answers.</p>
     <div class="reading-text reading">
-      <p class="doc-head">AIRCRAFT TECHNICAL LOG &mdash; 737-800 &mdash; REG OY-BKT &mdash; PAGE 214</p>
-      <p>Entry 214-1 &mdash; 13:20. Right landing light does not work. Bulb and wiring checked, no fault found. No time to troubleshoot fully. Item deferred under MEL 33-45-01, category C. Placard fitted at switch. Work order 8841 raised and left open. Sign: M. Ozols, Cat B1.</p>
-      <p>Entry 214-2 &mdash; 15:00. Left engine oil change completed per AMM 79-21-00. Leak check run, result dry. Task card 79-006 signed. Engine serviceable.</p>
-      <p>Entry 214-3 &mdash; 16:10. Daily inspection completed. No new defect found. Tech log reviewed. Aircraft released to service for next sector.</p>
+      <p class="doc-head">AIRCRAFT TECHNICAL LOG, 737-800, REG OY-BKT, PAGE 214</p>
+      <p>Entry 214-1, 13:20. Right landing light does not work. Bulb and wiring checked, no fault found. No time to troubleshoot fully. Item deferred under MEL 33-45-01, category C. Placard fitted at switch. Work order 8841 raised and left open. Sign: M. Ozols, Cat B1.</p>
+      <p>Entry 214-2, 15:00. Left engine oil change completed per AMM 79-21-00. Leak check run, result dry. Task card 79-006 signed. Engine serviceable.</p>
+      <p>Entry 214-3, 16:10. Daily inspection completed. No new defect found. Tech log reviewed. Aircraft released to service for next sector.</p>
       <p>Note to night shift: the deferred defect on the landing light is carried over. Rectify within ten days. It is not safety-critical. Check the placard before departure.</p>
     </div>
     <ol>
@@ -663,7 +665,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <h3>Read a task card</h3>
     <p class="instr">Read the task card. Then answer the six questions. Write short answers.</p>
     <div class="reading-text reading">
-      <p class="doc-head">TASK CARD 34-41-05 &mdash; WEATHER RADAR BITE FAULT ISOLATION &mdash; ATR 72</p>
+      <p class="doc-head">TASK CARD 34-41-05, WEATHER RADAR BITE FAULT ISOLATION, ATR 72</p>
       <p>Reference: AMM 34-41-05. Warning: power down the radar before you touch the connector.</p>
       <p>Step 1. Run the BITE test. Read the fault code. Record it in the tech log.</p>
       <p>Step 2. Open the AMM fault table. Find the code and the likely cause.</p>
@@ -706,7 +708,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   <p>Work in pairs. One person is the day-shift lead. The other is the incoming night technician. Use the useful phrases. Swap roles after each card.</p>
 
   <div class="roleplay">
-    <h4>Role-play card 1 &mdash; The clean aircraft</h4>
+    <h4>Role-play card 1: The clean aircraft</h4>
     <div class="field"><span class="flab">Situation</span> Your shift is ending. Aircraft one is finished.</div>
     <div class="field"><span class="flab">Your role</span> Day-shift lead handing over the A320.</div>
     <div class="field"><span class="flab">Your goal</span> Report the completed work and confirm the aircraft is serviceable.</div>
@@ -716,7 +718,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="roleplay">
-    <h4>Role-play card 2 &mdash; The deferred defect</h4>
+    <h4>Role-play card 2: The deferred defect</h4>
     <div class="field"><span class="flab">Situation</span> The 737 has a landing light on the MEL.</div>
     <div class="field"><span class="flab">Your role</span> Day-shift lead handing over the deferred defect.</div>
     <div class="field"><span class="flab">Your goal</span> Explain the deferred defect and what the night shift must watch.</div>
@@ -726,7 +728,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="roleplay">
-    <h4>Role-play card 3 &mdash; The mid-task job</h4>
+    <h4>Role-play card 3: The mid-task job</h4>
     <div class="field"><span class="flab">Situation</span> The ATR radar job is half done.</div>
     <div class="field"><span class="flab">Your role</span> Incoming night technician asking about status.</div>
     <div class="field"><span class="flab">Your goal</span> Find out what is done, what is outstanding, and the next step.</div>
@@ -736,7 +738,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="roleplay">
-    <h4>Role-play card 4 &mdash; The status questions</h4>
+    <h4>Role-play card 4: The status questions</h4>
     <div class="field"><span class="flab">Situation</span> The night technician wants a full status check.</div>
     <div class="field"><span class="flab">Your role</span> Day-shift lead answering questions on all three aircraft.</div>
     <div class="field"><span class="flab">Your goal</span> Answer each question accurately, using the right tense.</div>
@@ -759,11 +761,11 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   <p>Write a short handover note for the night shift. Use Simplified Technical English: short sentences, one idea per line, simple words. Cover all three aircraft. Follow the checklist.</p>
   <div class="callout">
     <h4>Your task</h4>
-    <p>Write 90&ndash;120 words. Report aircraft one as completed and serviceable. Report aircraft two as a deferred defect on the MEL. Report aircraft three as mid-task, with the outstanding steps. Use the present perfect for done-and-relevant work. Use the past simple for finished details with a time.</p>
+    <p>Write 90–120 words. Report aircraft one as completed and serviceable. Report aircraft two as a deferred defect on the MEL. Report aircraft three as mid-task, with the outstanding steps. Use the present perfect for done-and-relevant work. Use the past simple for finished details with a time.</p>
   </div>
   <details class="reveal"><summary>Show model answer</summary>
     <div class="reading-text">
-      <p class="doc-head">HANDOVER NOTE &mdash; DAY SHIFT TO NIGHT SHIFT</p>
+      <p class="doc-head">HANDOVER NOTE, DAY SHIFT TO NIGHT SHIFT</p>
       <p>Aircraft 1 (A320, stand 12): I have completed the left engine oil change. I ran the leak check at 15:00; it was dry. The daily is done and the task card is signed. There is no open defect. The aircraft is serviceable and released to service.</p>
       <p>Aircraft 2 (737, bay 3): One deferred defect. The right landing light is unserviceable. I applied the MEL, category C, and fitted a placard. Work order 8841 stays open. It is not safety-critical. Please check the placard before departure.</p>
       <p>Aircraft 3 (ATR 72, hangar): Mid-task. I have finished steps one to four of the radar BITE job. Steps five and six are outstanding. Troubleshoot the wiring with the AMM, then run the BITE again. Carried over to you.</p>
@@ -1176,7 +1178,7 @@ if(window.TSIBuddy){
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "handover", "def": "passing your work and news to the next shift"}, {"term": "shift", "def": "a fixed work period, like day or night"}, {"term": "outstanding", "def": "still not done; waiting to be finished"}, {"term": "deferred defect", "def": "a fault you may fix later, recorded in the log"}, {"term": "carried over", "def": "work passed to the next shift to finish"}, {"term": "open defect", "def": "a fault that is still not fixed"}, {"term": "safety-critical", "def": "able to affect flight safety directly"}, {"term": "tech log", "def": "the aircraft's running record of defects and work"}, {"term": "MEL", "def": "the list of what may be inoperative for flight"}, {"term": "task card", "def": "a sheet with one job and its steps"}, {"term": "work order", "def": "an authorised instruction to do a job"}, {"term": "sign off", "def": "to certify that a job is complete"}, {"term": "AMM", "def": "the Aircraft Maintenance Manual with approved steps"}, {"term": "borescope", "def": "a camera probe to inspect inside an engine"}, {"term": "serviceable", "def": "fit and approved to use"}, {"term": "unserviceable", "def": "not fit to use; short form \"u/s\""}, {"term": "release to service", "def": "to certify the aircraft is fit to fly"}, {"term": "rectify", "def": "to fix a defect properly"}, {"term": "troubleshoot", "def": "to find the cause of a fault"}, {"term": "placard", "def": "a warning label fitted for an inoperative item"}], "lines": ["Hi Anna, are you ready for the handover, because I would like to begin with the A320?", "Yes, go ahead. Let me open the tech log for each aircraft while you brief me.", "Aircraft one is the A320 on stand twelve, and I have completed the left engine oil change.", "Good. Did you run the leak check afterwards, or is it still outstanding?", "I ran the leak check at fifteen hundred, and it was dry, so the task is closed.", "Excellent. And the daily inspection, have you finished it, or is anything still outstanding?", "The daily inspection is done, and I have already signed the task card for it.", "Perfect, so aircraft one is fully serviceable, although you have not released it yet.", "Exactly. There is no open defect anywhere, and the tech log is completely clean.", "Understood. Will you release it to service yourself before you leave the hangar tonight?", "Yes, I will release to service aircraft one immediately after we finish this briefing.", "Great. Now, what is the situation with aircraft two, the seven three seven?", "Aircraft two is in bay three, and unfortunately it carries one deferred defect tonight.", "Okay. Which system is affected, and is the defect safety-critical for the aircraft?", "No, it is not safety-critical, because only the right landing light is unserviceable.", "I see. So you placarded the switch and deferred the item under the MEL?", "Correct. I applied the MEL and fitted a placard, so the item is carried over to you.", "Understood. I will keep an eye on that aircraft throughout the night shift.", "Let me give you more detail about that deferred defect on the seven three seven.", "Please do. Where exactly did you write it up in the paperwork?", "I raised a work order and logged the defect in the tech log at thirteen twenty.", "Did you troubleshoot the light first, or did you defer it straight away?", "I had no time to troubleshoot the fault fully, so I applied the MEL instead.", "Fair enough. How long is the aircraft allowed to stay deferred like this?"], "roleplays": ["Your shift is ending. Aircraft one is finished.", "The 737 has a landing light on the MEL.", "The ATR radar job is half done.", "The night technician wants a full status check."], "grammar": "In a handover, you mix two tenses. You use the present perfect for work that is done and still matters now. You use the past simple for a finished detail with a clear past time. Look at these lines from the dialogues.", "scenario": "It is 18:00 at a Part-145 line station. Your day shift is ending. Three aircraft are on your board. The A320 is finished and ready to fly. The 737 carries a deferred defect on the MEL. The ATR is mid-task, with a radar fault still open. The night technician arrives for the handover. You must brief them clearly, so noth", "pron": ["Yes, go ahead. Let me open the tech log for each aircraft while you brief me.", "Good. Did you run the leak check afterwards, or is it still outstanding?", "Excellent. And the daily inspection, have you finished it, or is anything still outstanding?", "The daily inspection is done, and I have already signed the task card for it."], "course": "English for Aviation Maintenance", "unit": 5, "total": 32, "title": "Giving a shift handover briefing", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "handover", "def": "passing your work and news to the next shift"}, {"term": "shift", "def": "a fixed work period, like day or night"}, {"term": "outstanding", "def": "still not done; waiting to be finished"}, {"term": "deferred defect", "def": "a fault you may fix later, recorded in the log"}, {"term": "carried over", "def": "work passed to the next shift to finish"}, {"term": "open defect", "def": "a fault that is still not fixed"}, {"term": "safety-critical", "def": "able to affect flight safety directly"}, {"term": "tech log", "def": "the aircraft's running record of defects and work"}, {"term": "MEL", "def": "the list of what may be inoperative for flight"}, {"term": "task card", "def": "a sheet with one job and its steps"}, {"term": "work order", "def": "an authorised instruction to do a job"}, {"term": "sign off", "def": "to certify that a job is complete"}, {"term": "AMM", "def": "the Aircraft Maintenance Manual with approved steps"}, {"term": "borescope", "def": "a camera probe to inspect inside an engine"}, {"term": "serviceable", "def": "fit and approved to use"}, {"term": "unserviceable", "def": "not fit to use; short form \"u/s\""}, {"term": "release to service", "def": "to certify the aircraft is fit to fly"}, {"term": "rectify", "def": "to fix a defect properly"}, {"term": "troubleshoot", "def": "to find the cause of a fault"}, {"term": "placard", "def": "a warning label fitted for an inoperative item"}], "lines": ["Hi Anna, are you ready for the handover, because I would like to begin with the A320?", "Yes, go ahead. Let me open the tech log for each aircraft while you brief me.", "Aircraft one is the A320 on stand twelve, and I have completed the left engine oil change.", "Good. Did you run the leak check afterwards, or is it still outstanding?", "I ran the leak check at fifteen hundred, and it was dry, so the task is closed.", "Excellent. And the daily inspection, have you finished it, or is anything still outstanding?", "The daily inspection is done, and I have already signed the task card for it.", "Perfect, so aircraft one is fully serviceable, although you have not released it yet.", "Exactly. There is no open defect anywhere, and the tech log is completely clean.", "Understood. Will you release it to service yourself before you leave the hangar tonight?", "Yes, I will release to service aircraft one immediately after we finish this briefing.", "Great. Now, what is the situation with aircraft two, the seven three seven?", "Aircraft two is in bay three, and unfortunately it carries one deferred defect tonight.", "Okay. Which system is affected, and is the defect safety-critical for the aircraft?", "No, it is not safety-critical, because only the right landing light is unserviceable.", "I see. So you placarded the switch and deferred the item under the MEL?", "Correct. I applied the MEL and fitted a placard, so the item is carried over to you.", "Understood. I will keep an eye on that aircraft throughout the night shift.", "Let me give you more detail about that deferred defect on the seven three seven.", "Please do. Where exactly did you write it up in the paperwork?", "I raised a work order and logged the defect in the tech log at thirteen twenty.", "Did you troubleshoot the light first, or did you defer it straight away?", "I had no time to troubleshoot the fault fully, so I applied the MEL instead.", "Fair enough. How long is the aircraft allowed to stay deferred like this?"], "roleplays": ["Your shift is ending. Aircraft one is finished.", "The 737 has a landing light on the MEL.", "The ATR radar job is half done.", "The night technician wants a full status check."], "grammar": "In a handover, you mix two tenses. You use the present perfect for work that is done and still matters now. You use the past simple for a finished detail with a clear past time. Look at these lines from the dialogues.", "scenario": "It is 18:00 at a Part-145 line station. Your day shift is ending. Three aircraft are on your board. The A320 is finished and ready to fly. The 737 carries a deferred defect on the MEL. The ATR is mid-task, with a radar fault still open. The night technician arrives for the handover. You must brief them clearly, so noth", "pron": ["Yes, go ahead. Let me open the tech log for each aircraft while you brief me.", "Good. Did you run the leak check afterwards, or is it still outstanding?", "Excellent. And the daily inspection, have you finished it, or is anything still outstanding?", "The daily inspection is done, and I have already signed the task card for it."], "course": "English for Aviation Maintenance", "unit": 5, "total": 32, "title": "Giving a shift handover briefing", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -1234,10 +1236,12 @@ if(window.TSIBuddy){
       'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
       'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
       '',
-      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
       'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
       'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
       'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
       '',
       'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
       (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
@@ -1387,7 +1391,20 @@ if(window.TSIBuddy){
     });
   }
 
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
   function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
     var acts = [
       ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
       ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
@@ -1403,7 +1420,7 @@ if(window.TSIBuddy){
       b.type = 'button';
       b.className = 'lb-q';
       b.textContent = a[0];
-      b.addEventListener('click', function () { ask(a[1]); });
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
       quick.appendChild(b);
     });
   }
@@ -1416,7 +1433,7 @@ if(window.TSIBuddy){
         hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
       } else {
         bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
-          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+          + 'You can write to me in your own language if that is easier.');
       }
       if (needsKey()) keyGate(); else renderQuick();
     }
@@ -1430,6 +1447,7 @@ if(window.TSIBuddy){
     e.preventDefault();
     var v = input.value;
     input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
     ask(v);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });

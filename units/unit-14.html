@@ -306,6 +306,8 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
 }
 .lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
 
 .lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
 .lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
@@ -922,7 +924,7 @@ K. Berzins, Base Engineer</div>
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "airworthiness directive", "def": "the state of being safe and legal to fly"}, {"term": "mandatory", "def": "you must do it; it is not a choice"}, {"term": "compliance", "def": "doing what the directive requires"}, {"term": "compliance deadline", "def": "the last date to finish the required action"}, {"term": "non-compliance", "def": "failing to do what the directive requires on time"}, {"term": "recurring inspection", "def": "a check you must repeat at set intervals"}, {"term": "interval", "def": "the gap between two recurring inspections"}, {"term": "threshold", "def": "the point when the very first action becomes due"}, {"term": "effective date", "def": "the date the directive starts to apply"}, {"term": "flight cycles", "def": "a count of flights; one cycle is one takeoff and landing"}, {"term": "flight hours", "def": "time counted while the aircraft is flying"}, {"term": "applicability", "def": "the list of aircraft that the directive applies to"}, {"term": "unsafe condition", "def": "the safety problem that the directive fixes"}, {"term": "corrective action", "def": "the fix or check the directive requires"}, {"term": "terminating action", "def": "a final fix that ends the repeat requirement"}, {"term": "grounding", "def": "stopping an aircraft from flying"}, {"term": "superseded", "def": "replaced by a newer document"}, {"term": "logbook entry", "def": "a written record in the aircraft log that proves the work"}, {"term": "planning department", "def": "the team that schedules the maintenance work"}], "lines": ["Hi Marta. A new airworthiness directive arrived this morning, and because it is a legal order, we must plan it now.", "Thanks, Karlis. Before I open a slot, tell me which aircraft the applicability actually covers.", "The applicability covers our A320 fleet, although only two aircraft appear on the affected list.", "Good to know. So what exactly does the airworthiness directive order us to do?", "It orders a recurring inspection of the landing gear pin, and since an AD is mandatory, we have no choice.", "I understand. As soon as you can, tell me the effective date, because the deadline depends on it.", "The effective date is the twenty-second of August, and the compliance clock starts on that date.", "And what is the compliance deadline for the very first inspection?", "We must do the first inspection within five hundred flight cycles, unless the aircraft reaches ninety days first.", "That is soon for the blue aircraft, because it flies almost every single day.", "Exactly, so we must book it early. Whatever happens, we must not miss the compliance deadline.", "Understood. In case we are late, what is the real consequence for the aircraft?", "Non-compliance means grounding, so the aircraft may not fly until we can show compliance.", "Then this is top priority, and I will protect a maintenance slot this month.", "Thank you. I will forward the airworthiness directive and the applicability list right now.", "Perfect. As soon as I have them, I will build the plan and share it with you today.", "Marta, let us look at the repeat part of the directive, because it is not a one-time job.", "Right. So the recurring inspection comes back again and again, at a fixed interval?", "Yes. As soon as we finish the first check, we must repeat it at a set interval.", "What is the interval, exactly? I need the precise figure for the maintenance plan.", "The interval is fifteen hundred flight cycles, or twelve months, whichever comes first.", "And the first threshold, when is the very first inspection actually due?", "The threshold is five hundred flight cycles, counted from the effective date of the directive.", "Some airworthiness directives count in flight hours. Does this one use flight hours as well?"], "roleplays": [], "grammar": "An airworthiness directive is a legal order, so the language of obligation is strong. We use must and shall to express that obligation clearly.", "scenario": "You work at a Part-145 station in Riga. This morning a new airworthiness directive lands in the mailbox, and because it is a legal order, the action is mandatory.", "pron": ["Thanks, Karlis. Before I open a slot, tell me which aircraft the applicability actually covers.", "The applicability covers our A320 fleet, although only two aircraft appear on the affected list.", "Good to know. So what exactly does the airworthiness directive order us to do?", "The effective date is the twenty-second of August, and the compliance clock starts on that date."], "course": "English for Aviation Maintenance", "unit": 14, "total": 32, "title": "Assessing an Airworthiness Directive", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "airworthiness directive", "def": "the state of being safe and legal to fly"}, {"term": "mandatory", "def": "you must do it; it is not a choice"}, {"term": "compliance", "def": "doing what the directive requires"}, {"term": "compliance deadline", "def": "the last date to finish the required action"}, {"term": "non-compliance", "def": "failing to do what the directive requires on time"}, {"term": "recurring inspection", "def": "a check you must repeat at set intervals"}, {"term": "interval", "def": "the gap between two recurring inspections"}, {"term": "threshold", "def": "the point when the very first action becomes due"}, {"term": "effective date", "def": "the date the directive starts to apply"}, {"term": "flight cycles", "def": "a count of flights; one cycle is one takeoff and landing"}, {"term": "flight hours", "def": "time counted while the aircraft is flying"}, {"term": "applicability", "def": "the list of aircraft that the directive applies to"}, {"term": "unsafe condition", "def": "the safety problem that the directive fixes"}, {"term": "corrective action", "def": "the fix or check the directive requires"}, {"term": "terminating action", "def": "a final fix that ends the repeat requirement"}, {"term": "grounding", "def": "stopping an aircraft from flying"}, {"term": "superseded", "def": "replaced by a newer document"}, {"term": "logbook entry", "def": "a written record in the aircraft log that proves the work"}, {"term": "planning department", "def": "the team that schedules the maintenance work"}], "lines": ["Hi Marta. A new airworthiness directive arrived this morning, and because it is a legal order, we must plan it now.", "Thanks, Karlis. Before I open a slot, tell me which aircraft the applicability actually covers.", "The applicability covers our A320 fleet, although only two aircraft appear on the affected list.", "Good to know. So what exactly does the airworthiness directive order us to do?", "It orders a recurring inspection of the landing gear pin, and since an AD is mandatory, we have no choice.", "I understand. As soon as you can, tell me the effective date, because the deadline depends on it.", "The effective date is the twenty-second of August, and the compliance clock starts on that date.", "And what is the compliance deadline for the very first inspection?", "We must do the first inspection within five hundred flight cycles, unless the aircraft reaches ninety days first.", "That is soon for the blue aircraft, because it flies almost every single day.", "Exactly, so we must book it early. Whatever happens, we must not miss the compliance deadline.", "Understood. In case we are late, what is the real consequence for the aircraft?", "Non-compliance means grounding, so the aircraft may not fly until we can show compliance.", "Then this is top priority, and I will protect a maintenance slot this month.", "Thank you. I will forward the airworthiness directive and the applicability list right now.", "Perfect. As soon as I have them, I will build the plan and share it with you today.", "Marta, let us look at the repeat part of the directive, because it is not a one-time job.", "Right. So the recurring inspection comes back again and again, at a fixed interval?", "Yes. As soon as we finish the first check, we must repeat it at a set interval.", "What is the interval, exactly? I need the precise figure for the maintenance plan.", "The interval is fifteen hundred flight cycles, or twelve months, whichever comes first.", "And the first threshold, when is the very first inspection actually due?", "The threshold is five hundred flight cycles, counted from the effective date of the directive.", "Some airworthiness directives count in flight hours. Does this one use flight hours as well?"], "roleplays": ["A new airworthiness directive has just arrived.", "The planner needs the interval and the threshold for the plan.", "The planner wants to move the slot to next month.", "The work is booked. You confirm the records and the status."], "grammar": "An airworthiness directive is a legal order, so the language of obligation is strong. We use must and shall to express that obligation clearly.", "scenario": "You work at a Part-145 station in Riga. This morning a new airworthiness directive lands in the mailbox, and because it is a legal order, the action is mandatory.", "pron": ["Thanks, Karlis. Before I open a slot, tell me which aircraft the applicability actually covers.", "The applicability covers our A320 fleet, although only two aircraft appear on the affected list.", "Good to know. So what exactly does the airworthiness directive order us to do?", "The effective date is the twenty-second of August, and the compliance clock starts on that date."], "course": "English for Aviation Maintenance", "unit": 14, "total": 32, "title": "Assessing an Airworthiness Directive", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -980,10 +982,12 @@ K. Berzins, Base Engineer</div>
       'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
       'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
       '',
-      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
       'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
       'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
       'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
       '',
       'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
       (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
@@ -1133,7 +1137,20 @@ K. Berzins, Base Engineer</div>
     });
   }
 
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
   function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
     var acts = [
       ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
       ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
@@ -1149,7 +1166,7 @@ K. Berzins, Base Engineer</div>
       b.type = 'button';
       b.className = 'lb-q';
       b.textContent = a[0];
-      b.addEventListener('click', function () { ask(a[1]); });
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
       quick.appendChild(b);
     });
   }
@@ -1162,7 +1179,7 @@ K. Berzins, Base Engineer</div>
         hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
       } else {
         bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
-          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+          + 'You can write to me in your own language if that is easier.');
       }
       if (needsKey()) keyGate(); else renderQuick();
     }
@@ -1176,6 +1193,7 @@ K. Berzins, Base Engineer</div>
     e.preventDefault();
     var v = input.value;
     input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
     ask(v);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });

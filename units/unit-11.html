@@ -196,6 +196,8 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
 }
 .lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
 
 .lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
 .lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
@@ -813,7 +815,7 @@ function copyPrompt(el){
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "wiring diagram", "def": "The master drawing that shows how the conductors link the parts."}, {"term": "connector", "def": "A fitting that joins two separate sets of conductors."}, {"term": "pin", "def": "A small male metal contact inside a connector."}, {"term": "socket", "def": "The female cavity that receives a pin."}, {"term": "contact", "def": "The metal part inside a connector that carries the current."}, {"term": "continuity", "def": "An unbroken electrical path from one end to the other."}, {"term": "open circuit", "def": "A complete break in the path, so no current flows."}, {"term": "short circuit", "def": "An unwanted path, usually to ground."}, {"term": "harness", "def": "A bundle of conductors tied or taped together."}, {"term": "terminal", "def": "A point where a conductor is fixed and connected."}, {"term": "receptacle", "def": "The fixed connector half, mounted on a unit or structure."}, {"term": "plug", "def": "The connector half that you push into the receptacle."}, {"term": "insulation", "def": "The protective cover around a conductor."}, {"term": "resistance", "def": "How strongly a path opposes the current, measured in ohms."}, {"term": "multimeter", "def": "A tool that reads voltage, resistance and continuity."}, {"term": "ground", "def": "The return path to the airframe, normally at zero volts."}, {"term": "bonding", "def": "A low-resistance link between equipment and the airframe."}, {"term": "shield", "def": "A metal braid around a conductor that blocks interference."}, {"term": "splice", "def": "A joint where two conductors are permanently joined."}, {"term": "routing", "def": "The path a conductor takes through the aircraft."}], "lines": ["Right, pull up the wiring diagram for the landing-gear warning, because the gear-down lamp stays off.", "It is on the screen now, although the drawing is crowded here; which conductor are we chasing?", "Wire W241, which originates at pin 3 on connector P1, near the avionics rack.", "Understood, but from P1 the route splits, so where exactly does the conductor terminate?", "It travels through the harness behind the instrument panel, and then continues onward to connector J12.", "So the routing is P1 pin 3, along the loom, and finally into connector J12.", "Exactly right; now read me the socket number where the conductor lands inside J12.", "The diagram clearly indicates socket B on J12, immediately beside the shielded pair.", "Good, because that particular contact feeds the gear-down warning lamp in the cockpit.", "And the return path? I still need to know where the ground reference actually sits.", "The ground is on pin 4, connected by a bonding strap to the airframe structure.", "Understood, so unless the ground connection is broken, the warning lamp should illuminate normally.", "Correct, although as soon as continuity breaks anywhere, the lamp immediately goes dark.", "In that case we should test continuity from P1 through to J12 before anything else.", "Agreed; grab the multimeter, select the continuity range, and back-probe the plug carefully.", "On it, and I will also read the receptacle end so that we compare both connectors.", "I will call the references from the diagram while you locate each item on the harness.", "Ready when you are; give me the first connector, and please say the code slowly.", "Connector P4, which is the round plug positioned near the forward frame.", "Found P4 already, and it has a woven metal shield surrounding the conductors.", "Good, now find pin 7 specifically, and be careful not to confuse it with pin 1.", "Pin 7 located; it is a socket contact sitting in the top row of the connector.", "Excellent, but say the whole reference back to me, exactly as you understood it.", "Connector P4, pin 7, top row of the socket, next to the shielded conductor."], "roleplays": [], "grammar": "Pin routing must be spatially exact, because a single wrong preposition sends your colleague to entirely the wrong place. For that reason we describe the position of a contact and the path of a conductor with real precision.", "scenario": "You are working a landing-gear warning fault at a Part-145 line station this afternoon. The gear-down lamp stays off during the extension check, so the flight crew has written the snag into the tech log. Your task is to trace the affected conductor on the wiring diagram, which is the master drawing of every wire in the", "pron": ["Right, pull up the wiring diagram for the landing-gear warning, because the gear-down lamp stays off.", "Wire W241, which originates at pin 3 on connector P1, near the avionics rack.", "Understood, but from P1 the route splits, so where exactly does the conductor terminate?", "It travels through the harness behind the instrument panel, and then continues onward to connector J12."], "course": "English for Aviation Maintenance", "unit": 11, "total": 32, "title": "Reading a wiring diagram and connector/pin talk", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "wiring diagram", "def": "The master drawing that shows how the conductors link the parts."}, {"term": "connector", "def": "A fitting that joins two separate sets of conductors."}, {"term": "pin", "def": "A small male metal contact inside a connector."}, {"term": "socket", "def": "The female cavity that receives a pin."}, {"term": "contact", "def": "The metal part inside a connector that carries the current."}, {"term": "continuity", "def": "An unbroken electrical path from one end to the other."}, {"term": "open circuit", "def": "A complete break in the path, so no current flows."}, {"term": "short circuit", "def": "An unwanted path, usually to ground."}, {"term": "harness", "def": "A bundle of conductors tied or taped together."}, {"term": "terminal", "def": "A point where a conductor is fixed and connected."}, {"term": "receptacle", "def": "The fixed connector half, mounted on a unit or structure."}, {"term": "plug", "def": "The connector half that you push into the receptacle."}, {"term": "insulation", "def": "The protective cover around a conductor."}, {"term": "resistance", "def": "How strongly a path opposes the current, measured in ohms."}, {"term": "multimeter", "def": "A tool that reads voltage, resistance and continuity."}, {"term": "ground", "def": "The return path to the airframe, normally at zero volts."}, {"term": "bonding", "def": "A low-resistance link between equipment and the airframe."}, {"term": "shield", "def": "A metal braid around a conductor that blocks interference."}, {"term": "splice", "def": "A joint where two conductors are permanently joined."}, {"term": "routing", "def": "The path a conductor takes through the aircraft."}], "lines": ["Right, pull up the wiring diagram for the landing-gear warning, because the gear-down lamp stays off.", "It is on the screen now, although the drawing is crowded here; which conductor are we chasing?", "Wire W241, which originates at pin 3 on connector P1, near the avionics rack.", "Understood, but from P1 the route splits, so where exactly does the conductor terminate?", "It travels through the harness behind the instrument panel, and then continues onward to connector J12.", "So the routing is P1 pin 3, along the loom, and finally into connector J12.", "Exactly right; now read me the socket number where the conductor lands inside J12.", "The diagram clearly indicates socket B on J12, immediately beside the shielded pair.", "Good, because that particular contact feeds the gear-down warning lamp in the cockpit.", "And the return path? I still need to know where the ground reference actually sits.", "The ground is on pin 4, connected by a bonding strap to the airframe structure.", "Understood, so unless the ground connection is broken, the warning lamp should illuminate normally.", "Correct, although as soon as continuity breaks anywhere, the lamp immediately goes dark.", "In that case we should test continuity from P1 through to J12 before anything else.", "Agreed; grab the multimeter, select the continuity range, and back-probe the plug carefully.", "On it, and I will also read the receptacle end so that we compare both connectors.", "I will call the references from the diagram while you locate each item on the harness.", "Ready when you are; give me the first connector, and please say the code slowly.", "Connector P4, which is the round plug positioned near the forward frame.", "Found P4 already, and it has a woven metal shield surrounding the conductors.", "Good, now find pin 7 specifically, and be careful not to confuse it with pin 1.", "Pin 7 located; it is a socket contact sitting in the top row of the connector.", "Excellent, but say the whole reference back to me, exactly as you understood it.", "Connector P4, pin 7, top row of the socket, next to the shielded conductor."], "roleplays": ["You are standing at a mock harness with the wiring diagram open on the screen.", "The gear-down lamp stays off, and you have just completed a continuity test.", "A circuit breaker trips, and you suspect a conductor is touching the airframe.", "Your shift is ending, but the wiring job on the aircraft is not yet finished."], "grammar": "Pin routing must be spatially exact, because a single wrong preposition sends your colleague to entirely the wrong place. For that reason we describe the position of a contact and the path of a conductor with real precision.", "scenario": "You are working a landing-gear warning fault at a Part-145 line station this afternoon. The gear-down lamp stays off during the extension check, so the flight crew has written the snag into the tech log. Your task is to trace the affected conductor on the wiring diagram, which is the master drawing of every wire in the", "pron": ["Right, pull up the wiring diagram for the landing-gear warning, because the gear-down lamp stays off.", "Wire W241, which originates at pin 3 on connector P1, near the avionics rack.", "Understood, but from P1 the route splits, so where exactly does the conductor terminate?", "It travels through the harness behind the instrument panel, and then continues onward to connector J12."], "course": "English for Aviation Maintenance", "unit": 11, "total": 32, "title": "Reading a wiring diagram and connector/pin talk", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -871,10 +873,12 @@ function copyPrompt(el){
       'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
       'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
       '',
-      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
       'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
       'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
       'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
       '',
       'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
       (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
@@ -1024,7 +1028,20 @@ function copyPrompt(el){
     });
   }
 
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
   function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
     var acts = [
       ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
       ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
@@ -1040,7 +1057,7 @@ function copyPrompt(el){
       b.type = 'button';
       b.className = 'lb-q';
       b.textContent = a[0];
-      b.addEventListener('click', function () { ask(a[1]); });
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
       quick.appendChild(b);
     });
   }
@@ -1053,7 +1070,7 @@ function copyPrompt(el){
         hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
       } else {
         bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
-          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+          + 'You can write to me in your own language if that is easier.');
       }
       if (needsKey()) keyGate(); else renderQuick();
     }
@@ -1067,6 +1084,7 @@ function copyPrompt(el){
     e.preventDefault();
     var v = input.value;
     input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
     ask(v);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });

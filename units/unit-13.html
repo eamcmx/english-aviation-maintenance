@@ -306,6 +306,8 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
 }
 .lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
 
 .lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
 .lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
@@ -919,7 +921,7 @@ Baltic Line Maintenance</div>
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "service bulletin", "def": "the list of aircraft that a bulletin applies to"}, {"term": "effectivity", "def": "the exact serial numbers a bulletin covers"}, {"term": "compliance", "def": "doing what a bulletin or directive requires"}, {"term": "modification", "def": "an approved change to the aircraft"}, {"term": "mandatory", "def": "you must do it; it is not a choice"}, {"term": "recommended", "def": "advised, but not required by law"}, {"term": "airworthiness directive", "def": "the unique number of one aircraft or part"}, {"term": "part number", "def": "the code that names one exact part"}, {"term": "accomplishment instructions", "def": "the step-by-step method to do the task"}, {"term": "OEM", "def": "the original maker of the aircraft or part"}, {"term": "superseded", "def": "replaced by a newer version"}, {"term": "revision", "def": "a numbered update of a document"}, {"term": "affected", "def": "covered by the bulletin; on the list"}, {"term": "rework", "def": "extra work to correct or redo something"}, {"term": "logbook entry", "def": "a written record in the aircraft log"}, {"term": "embodiment", "def": "the state of a modification once it is fitted"}, {"term": "lead time", "def": "the wait before parts arrive"}, {"term": "clarification", "def": "a clear answer that removes doubt"}], "lines": ["Good morning. This is Rihards from Baltic Line Maintenance. I have a question about a service bulletin.", "Good morning. I can help. Which service bulletin are you looking at?", "It is SB 34-2189, revision 2. Could you tell me which effectivity applies?", "Of course. The effectivity lists the affected aircraft. Do you have your serial number ready?", "Yes. Our aircraft serial number is 5127. The registration is YL-BAK.", "Thank you. One moment while I open the applicability table.", "While you check, could you confirm whether this bulletin is mandatory or recommended?", "This one is recommended, not mandatory. It is not linked to an airworthiness directive.", "Good to know. The wording of the applicability was not clear to me.", "I understand. An old part number in the text made it confusing.", "Thank you. I did not want to open the task without a clear answer.", "That is the right call. Serial 5127 is inside the effectivity. Your aircraft is affected.", "Understood. So we should plan the modification. Is revision 2 the latest revision?", "Yes, revision 2 is current. I will send the applicability in writing for your records.", "That would help a lot. Could you also copy our engineering mailbox?", "Certainly. I will copy your engineering team. Please expect the email within the hour.", "Hello, this is Anna, base engineer at Riga. I am calling about SB 27-0451.", "Hello Anna. I have the file open. What would you like to clarify?", "I need a clarification on compliance. Is this bulletin linked to an airworthiness directive?", "Yes, it is. The airworthiness directive makes the modification mandatory for affected aircraft.", "I see. Then compliance is not optional. Could you tell me which revision is current?", "Revision 3 is current. Revision 2 is superseded, so please do not use it.", "Thank you. Our old paperwork still shows revision 2. That is why I asked.", "Good that you checked. A superseded revision can send you down the wrong path."], "roleplays": [], "grammar": "On the phone with the OEM you want to sound polite and precise. Indirect questions do both. They are softer, and they carry the exact detail you need.", "scenario": "You work on the line at a Part-145 station in Riga. This morning a service bulletin lands in the mailbox. It asks for a bracket change on the pitot system.", "pron": ["Good morning. I can help. Which service bulletin are you looking at?", "It is SB 34-2189, revision 2. Could you tell me which effectivity applies?", "Of course. The effectivity lists the affected aircraft. Do you have your serial number ready?", "Yes. Our aircraft serial number is 5127. The registration is YL-BAK."], "course": "English for Aviation Maintenance", "unit": 13, "total": 32, "title": "Querying a Service Bulletin with the OEM", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "service bulletin", "def": "the list of aircraft that a bulletin applies to"}, {"term": "effectivity", "def": "the exact serial numbers a bulletin covers"}, {"term": "compliance", "def": "doing what a bulletin or directive requires"}, {"term": "modification", "def": "an approved change to the aircraft"}, {"term": "mandatory", "def": "you must do it; it is not a choice"}, {"term": "recommended", "def": "advised, but not required by law"}, {"term": "airworthiness directive", "def": "the unique number of one aircraft or part"}, {"term": "part number", "def": "the code that names one exact part"}, {"term": "accomplishment instructions", "def": "the step-by-step method to do the task"}, {"term": "OEM", "def": "the original maker of the aircraft or part"}, {"term": "superseded", "def": "replaced by a newer version"}, {"term": "revision", "def": "a numbered update of a document"}, {"term": "affected", "def": "covered by the bulletin; on the list"}, {"term": "rework", "def": "extra work to correct or redo something"}, {"term": "logbook entry", "def": "a written record in the aircraft log"}, {"term": "embodiment", "def": "the state of a modification once it is fitted"}, {"term": "lead time", "def": "the wait before parts arrive"}, {"term": "clarification", "def": "a clear answer that removes doubt"}], "lines": ["Good morning. This is Rihards from Baltic Line Maintenance. I have a question about a service bulletin.", "Good morning. I can help. Which service bulletin are you looking at?", "It is SB 34-2189, revision 2. Could you tell me which effectivity applies?", "Of course. The effectivity lists the affected aircraft. Do you have your serial number ready?", "Yes. Our aircraft serial number is 5127. The registration is YL-BAK.", "Thank you. One moment while I open the applicability table.", "While you check, could you confirm whether this bulletin is mandatory or recommended?", "This one is recommended, not mandatory. It is not linked to an airworthiness directive.", "Good to know. The wording of the applicability was not clear to me.", "I understand. An old part number in the text made it confusing.", "Thank you. I did not want to open the task without a clear answer.", "That is the right call. Serial 5127 is inside the effectivity. Your aircraft is affected.", "Understood. So we should plan the modification. Is revision 2 the latest revision?", "Yes, revision 2 is current. I will send the applicability in writing for your records.", "That would help a lot. Could you also copy our engineering mailbox?", "Certainly. I will copy your engineering team. Please expect the email within the hour.", "Hello, this is Anna, base engineer at Riga. I am calling about SB 27-0451.", "Hello Anna. I have the file open. What would you like to clarify?", "I need a clarification on compliance. Is this bulletin linked to an airworthiness directive?", "Yes, it is. The airworthiness directive makes the modification mandatory for affected aircraft.", "I see. Then compliance is not optional. Could you tell me which revision is current?", "Revision 3 is current. Revision 2 is superseded, so please do not use it.", "Thank you. Our old paperwork still shows revision 2. That is why I asked.", "Good that you checked. A superseded revision can send you down the wrong path."], "roleplays": ["A service bulletin arrives, but the effectivity is unclear.", "You need to know if the bulletin is linked to an airworthiness directive.", "You have read the accomplishment instructions and want to check them.", "Your paperwork shows an old revision. You are not sure it is current."], "grammar": "On the phone with the OEM you want to sound polite and precise. Indirect questions do both. They are softer, and they carry the exact detail you need.", "scenario": "You work on the line at a Part-145 station in Riga. This morning a service bulletin lands in the mailbox. It asks for a bracket change on the pitot system.", "pron": ["Good morning. I can help. Which service bulletin are you looking at?", "It is SB 34-2189, revision 2. Could you tell me which effectivity applies?", "Of course. The effectivity lists the affected aircraft. Do you have your serial number ready?", "Yes. Our aircraft serial number is 5127. The registration is YL-BAK."], "course": "English for Aviation Maintenance", "unit": 13, "total": 32, "title": "Querying a Service Bulletin with the OEM", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -977,10 +979,12 @@ Baltic Line Maintenance</div>
       'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
       'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
       '',
-      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
       'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
       'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
       'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
       '',
       'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
       (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
@@ -1130,7 +1134,20 @@ Baltic Line Maintenance</div>
     });
   }
 
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
   function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
     var acts = [
       ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
       ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
@@ -1146,7 +1163,7 @@ Baltic Line Maintenance</div>
       b.type = 'button';
       b.className = 'lb-q';
       b.textContent = a[0];
-      b.addEventListener('click', function () { ask(a[1]); });
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
       quick.appendChild(b);
     });
   }
@@ -1159,7 +1176,7 @@ Baltic Line Maintenance</div>
         hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
       } else {
         bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
-          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+          + 'You can write to me in your own language if that is easier.');
       }
       if (needsKey()) keyGate(); else renderQuick();
     }
@@ -1173,6 +1190,7 @@ Baltic Line Maintenance</div>
     e.preventDefault();
     var v = input.value;
     input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
     ask(v);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });

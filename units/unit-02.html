@@ -196,6 +196,8 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
 }
 .lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
 
 .lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
 .lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
@@ -881,7 +883,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "task card", "def": "the document that lists the steps of one maintenance job"}, {"term": "work order", "def": "the document that authorises the job you must perform"}, {"term": "AMM", "def": "the Aircraft Maintenance Manual, the master reference book"}, {"term": "reference", "def": "the manual number that the task card points to"}, {"term": "step", "def": "one single action within the maintenance procedure"}, {"term": "inspect", "def": "examine a component closely to identify damage"}, {"term": "torque", "def": "tighten a fastener to an exact turning force"}, {"term": "torque wrench", "def": "the calibrated tool that applies an exact torque"}, {"term": "lockwire", "def": "thin wire that prevents a fastener from turning loose"}, {"term": "fastener", "def": "a screw or bolt that secures a panel or component"}, {"term": "access panel", "def": "a removable cover that lets you reach a component inside"}, {"term": "remove", "def": "take a component off the aircraft"}, {"term": "install", "def": "position and secure a new component in place"}, {"term": "WARNING", "def": "a box warning of a risk to people, not equipment"}, {"term": "CAUTION", "def": "a box warning of a risk to the component or equipment"}, {"term": "NOTE", "def": "a box giving helpful advice, not a safety instruction"}, {"term": "defect", "def": "a fault or damage identified on a component"}, {"term": "tech log", "def": "the aircraft document where defects are recorded"}, {"term": "sign off", "def": "add your signature to confirm a step is complete"}, {"term": "legible", "def": "written clearly enough for another person to read"}], "lines": ["Right, task card 32-41-05 is ready. Before we begin the procedure, confirm that you are prepared.", "Prepared. I will confirm every step aloud, so you read each instruction and I verify it.", "Step one: open the work order and check the reference, which is AMM 32-41-05.", "The work order is open, and the reference matches the AMM exactly. Step one is complete.", "Step two: remove the access panel carefully, because eight fasteners secure it to the structure.", "The access panel is removed, and all eight fasteners are collected safely in the tray.", "Observe the WARNING here: do not touch the connector while electrical power remains applied.", "Understood. The power is isolated and tagged, so the connector is safe to handle now.", "Step three: inspect the bracket for cracks, and examine the weld carefully under magnification.", "One question, though. The instruction says inspect, but which inspection lamp should I select?", "Use the borescope lamp, because the AMM note specifies a high-intensity light source.", "Understood. Inspecting the bracket now, there are no cracks, and the weld appears sound.", "Step four: torque the two bolts to 25 newton metres using the calibrated torque wrench.", "Both bolts are torqued correctly to 25. The torque wrench clicked twice, confirming the value.", "Step five: fit new lockwire on the bolts, and never reuse the original wire.", "New lockwire is fitted, and the old wire is discarded. Now we can proceed to sign off.", "Could you help me read this task card? I am uncertain about the warning symbols.", "Certainly. Examine the boxes carefully, each one is a WARNING, a CAUTION, or a NOTE.", "What is the difference between them? On the printed page they appear quite similar.", "A WARNING indicates a risk to people, so if you ignore it, someone could be injured.", "And the CAUTION box? The card displays a CAUTION immediately before step six.", "A CAUTION indicates a risk to the component, so ignoring it can damage expensive equipment.", "So the NOTE is less serious? There is a NOTE about the required torque value.", "Correct. A NOTE provides helpful information only, and it is never a safety instruction."], "roleplays": [], "grammar": "A task card commands one discrete action at a time, so it uses the imperative. The verb comes first, and the subject disappears entirely. This is the grammar of every procedural step.", "scenario": "You are working in a pair on a Part-145 line. One mechanic reads the task card aloud, while the other performs the work and confirms each step out loud.", "pron": ["Right, task card 32-41-05 is ready. Before we begin the procedure, confirm that you are prepared.", "Prepared. I will confirm every step aloud, so you read each instruction and I verify it.", "Step one: open the work order and check the reference, which is AMM 32-41-05.", "The work order is open, and the reference matches the AMM exactly. Step one is complete."], "course": "English for Aviation Maintenance", "unit": 2, "total": 32, "title": "Reading and signing off a task card", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "task card", "def": "the document that lists the steps of one maintenance job"}, {"term": "work order", "def": "the document that authorises the job you must perform"}, {"term": "AMM", "def": "the Aircraft Maintenance Manual, the master reference book"}, {"term": "reference", "def": "the manual number that the task card points to"}, {"term": "step", "def": "one single action within the maintenance procedure"}, {"term": "inspect", "def": "examine a component closely to identify damage"}, {"term": "torque", "def": "tighten a fastener to an exact turning force"}, {"term": "torque wrench", "def": "the calibrated tool that applies an exact torque"}, {"term": "lockwire", "def": "thin wire that prevents a fastener from turning loose"}, {"term": "fastener", "def": "a screw or bolt that secures a panel or component"}, {"term": "access panel", "def": "a removable cover that lets you reach a component inside"}, {"term": "remove", "def": "take a component off the aircraft"}, {"term": "install", "def": "position and secure a new component in place"}, {"term": "WARNING", "def": "a box warning of a risk to people, not equipment"}, {"term": "CAUTION", "def": "a box warning of a risk to the component or equipment"}, {"term": "NOTE", "def": "a box giving helpful advice, not a safety instruction"}, {"term": "defect", "def": "a fault or damage identified on a component"}, {"term": "tech log", "def": "the aircraft document where defects are recorded"}, {"term": "sign off", "def": "add your signature to confirm a step is complete"}, {"term": "legible", "def": "written clearly enough for another person to read"}], "lines": ["Right, task card 32-41-05 is ready. Before we begin the procedure, confirm that you are prepared.", "Prepared. I will confirm every step aloud, so you read each instruction and I verify it.", "Step one: open the work order and check the reference, which is AMM 32-41-05.", "The work order is open, and the reference matches the AMM exactly. Step one is complete.", "Step two: remove the access panel carefully, because eight fasteners secure it to the structure.", "The access panel is removed, and all eight fasteners are collected safely in the tray.", "Observe the WARNING here: do not touch the connector while electrical power remains applied.", "Understood. The power is isolated and tagged, so the connector is safe to handle now.", "Step three: inspect the bracket for cracks, and examine the weld carefully under magnification.", "One question, though. The instruction says inspect, but which inspection lamp should I select?", "Use the borescope lamp, because the AMM note specifies a high-intensity light source.", "Understood. Inspecting the bracket now, there are no cracks, and the weld appears sound.", "Step four: torque the two bolts to 25 newton metres using the calibrated torque wrench.", "Both bolts are torqued correctly to 25. The torque wrench clicked twice, confirming the value.", "Step five: fit new lockwire on the bolts, and never reuse the original wire.", "New lockwire is fitted, and the old wire is discarded. Now we can proceed to sign off.", "Could you help me read this task card? I am uncertain about the warning symbols.", "Certainly. Examine the boxes carefully, each one is a WARNING, a CAUTION, or a NOTE.", "What is the difference between them? On the printed page they appear quite similar.", "A WARNING indicates a risk to people, so if you ignore it, someone could be injured.", "And the CAUTION box? The card displays a CAUTION immediately before step six.", "A CAUTION indicates a risk to the component, so ignoring it can damage expensive equipment.", "So the NOTE is less serious? There is a NOTE about the required torque value.", "Correct. A NOTE provides helpful information only, and it is never a safety instruction."], "roleplays": [": You are at the bench with a task card for a panel job. Your role: You read the task card aloud, one step at a time. Your goal: Read each step clearly, and wait for your partner to confirm before you continue. Useful ph", ": Your partner reads the steps aloud while you perform the work. Your role: You confirm each completed step, or you query it immediately. Your goal: Confirm the steps you understand, and ask about any instruction that is", ": You inspect a bracket and discover a small crack near the weld. Your role: You report the defect to the certifying mechanic. Your goal: Describe the defect precisely, and explain why you cannot sign off the step. Usefu", ": A new trainee is uncertain about the WARNING, CAUTION and NOTE boxes. Your role: You are the experienced mechanic, and you explain the difference. Your goal: Explain each box in simple words, and give one clear example"], "grammar": "A task card commands one discrete action at a time, so it uses the imperative. The verb comes first, and the subject disappears entirely. This is the grammar of every procedural step.", "scenario": "You are working in a pair on a Part-145 line. One mechanic reads the task card aloud, while the other performs the work and confirms each step out loud.", "pron": ["Right, task card 32-41-05 is ready. Before we begin the procedure, confirm that you are prepared.", "Prepared. I will confirm every step aloud, so you read each instruction and I verify it.", "Step one: open the work order and check the reference, which is AMM 32-41-05.", "The work order is open, and the reference matches the AMM exactly. Step one is complete."], "course": "English for Aviation Maintenance", "unit": 2, "total": 32, "title": "Reading and signing off a task card", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -939,10 +941,12 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
       'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
       '',
-      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
       'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
       'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
       'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
       '',
       'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
       (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
@@ -1092,7 +1096,20 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     });
   }
 
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
   function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
     var acts = [
       ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
       ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
@@ -1108,7 +1125,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       b.type = 'button';
       b.className = 'lb-q';
       b.textContent = a[0];
-      b.addEventListener('click', function () { ask(a[1]); });
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
       quick.appendChild(b);
     });
   }
@@ -1121,7 +1138,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
       } else {
         bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
-          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+          + 'You can write to me in your own language if that is easier.');
       }
       if (needsKey()) keyGate(); else renderQuick();
     }
@@ -1135,6 +1152,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     e.preventDefault();
     var v = input.value;
     input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
     ask(v);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });

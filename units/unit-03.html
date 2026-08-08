@@ -313,6 +313,8 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
 }
 .lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
 
 .lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
 .lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
@@ -915,7 +917,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "defect", "def": "a fault or damage found on a part"}, {"term": "tech log", "def": "the aircraft book where you record defects"}, {"term": "snag", "def": "an everyday word for a reported fault"}, {"term": "pilot report", "def": "the fault as the pilot describes it"}, {"term": "symptom", "def": "the sign that tells you something is wrong"}, {"term": "observation", "def": "a fact you have seen with your own eyes"}, {"term": "assumption", "def": "a guess about the cause, not a fact"}, {"term": "location", "def": "the exact place of the fault"}, {"term": "condition", "def": "the situation when the fault appears"}, {"term": "leak", "def": "fluid escaping where it should not"}, {"term": "chafing", "def": "rubbing damage where two parts touch"}, {"term": "intermittent", "def": "a fault that comes and goes"}, {"term": "crack", "def": "a thin split in a part"}, {"term": "corrosion", "def": "chemical damage that eats the metal"}, {"term": "play", "def": "loose free movement in a joint or bearing"}, {"term": "wear", "def": "gradual loss of material from use"}, {"term": "borescope", "def": "a camera tool that inspects inside a part"}, {"term": "BITE", "def": "built-in test equipment; the avionics self-test"}, {"term": "unserviceable", "def": "not safe or allowed to be used"}, {"term": "rectify", "def": "to repair a defect and clear it"}], "lines": ["The pilot has raised a snag on the brakes. The pilot report is very vague.", "What exactly does the pilot report say about the brakes?", "It only says 'something feels wrong with the brakes.' That is not a clear symptom.", "We cannot write that in the tech log. We need the real symptom and the location.", "Agreed. So let us question the pilot before we record the defect.", "Good idea. Ask when the problem happens, because the condition matters a lot.", "The pilot says the pedal feels soft during a normal landing. That is a useful symptom.", "So the observation is a soft pedal during landing. We have a clear symptom now.", "Careful. 'The seal has failed' is only an assumption, not an observation.", "You are right. We record what we have seen, not what we guess.", "So the entry needs the symptom, the location, and the condition.", "Exactly. The location is the left main gear, and the condition is during landing.", "I will write it now. 'The left brake pedal has felt soft during landing.'", "That is precise. It gives the fact, and it avoids any assumption about the cause.", "Good. I have entered the defect in the tech log for the next shift.", "Well done. Now the inspection can start from a clear, honest report.", "I have inspected the left brake unit. I have found a hydraulic leak.", "Where exactly is the leak located? The location must be precise.", "The leak is at the brake line union, near the wheel. Fluid has pooled below it.", "Understood. Is the line damaged, or is only the fitting loose?", "The line shows chafing. It has rubbed against a bracket for some time.", "Chafing is serious, because the rubbing can wear through the line.", "I agree. There is also light corrosion on the bracket surface.", "Has the corrosion caused a crack, or is the metal still sound?"], "roleplays": [], "grammar": "A defect you found is still there now, so you use the present perfect. It links a past action to the present result. This is the natural tense for a live, unrepaired fault.", "scenario": "A pilot has just landed. She says the brakes \"feel wrong,\" but she cannot say more. Your job is to turn that vague snag into a clear, precise defect entry in the tech log.", "pron": ["The pilot has raised a snag on the brakes. The pilot report is very vague.", "What exactly does the pilot report say about the brakes?", "It only says 'something feels wrong with the brakes.' That is not a clear symptom.", "We cannot write that in the tech log. We need the real symptom and the location."], "course": "English for Aviation Maintenance", "unit": 3, "total": 32, "title": "Raising a defect in the tech log", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "defect", "def": "a fault or damage found on a part"}, {"term": "tech log", "def": "the aircraft book where you record defects"}, {"term": "snag", "def": "an everyday word for a reported fault"}, {"term": "pilot report", "def": "the fault as the pilot describes it"}, {"term": "symptom", "def": "the sign that tells you something is wrong"}, {"term": "observation", "def": "a fact you have seen with your own eyes"}, {"term": "assumption", "def": "a guess about the cause, not a fact"}, {"term": "location", "def": "the exact place of the fault"}, {"term": "condition", "def": "the situation when the fault appears"}, {"term": "leak", "def": "fluid escaping where it should not"}, {"term": "chafing", "def": "rubbing damage where two parts touch"}, {"term": "intermittent", "def": "a fault that comes and goes"}, {"term": "crack", "def": "a thin split in a part"}, {"term": "corrosion", "def": "chemical damage that eats the metal"}, {"term": "play", "def": "loose free movement in a joint or bearing"}, {"term": "wear", "def": "gradual loss of material from use"}, {"term": "borescope", "def": "a camera tool that inspects inside a part"}, {"term": "BITE", "def": "built-in test equipment; the avionics self-test"}, {"term": "unserviceable", "def": "not safe or allowed to be used"}, {"term": "rectify", "def": "to repair a defect and clear it"}], "lines": ["The pilot has raised a snag on the brakes. The pilot report is very vague.", "What exactly does the pilot report say about the brakes?", "It only says 'something feels wrong with the brakes.' That is not a clear symptom.", "We cannot write that in the tech log. We need the real symptom and the location.", "Agreed. So let us question the pilot before we record the defect.", "Good idea. Ask when the problem happens, because the condition matters a lot.", "The pilot says the pedal feels soft during a normal landing. That is a useful symptom.", "So the observation is a soft pedal during landing. We have a clear symptom now.", "Careful. 'The seal has failed' is only an assumption, not an observation.", "You are right. We record what we have seen, not what we guess.", "So the entry needs the symptom, the location, and the condition.", "Exactly. The location is the left main gear, and the condition is during landing.", "I will write it now. 'The left brake pedal has felt soft during landing.'", "That is precise. It gives the fact, and it avoids any assumption about the cause.", "Good. I have entered the defect in the tech log for the next shift.", "Well done. Now the inspection can start from a clear, honest report.", "I have inspected the left brake unit. I have found a hydraulic leak.", "Where exactly is the leak located? The location must be precise.", "The leak is at the brake line union, near the wheel. Fluid has pooled below it.", "Understood. Is the line damaged, or is only the fitting loose?", "The line shows chafing. It has rubbed against a bracket for some time.", "Chafing is serious, because the rubbing can wear through the line.", "I agree. There is also light corrosion on the bracket surface.", "Has the corrosion caused a crack, or is the metal still sound?"], "roleplays": [": A pilot has raised a vague snag: \"the brakes feel wrong.\" Your role: You are the line mechanic who receives the report. Your goal: Ask for the symptom, the location, and the condition, until the report is clear. Useful", ": You have inspected the brake unit and found several defects. Your role: You report your findings to the certifying mechanic. Your goal: Describe the leak, the chafing, and the play, and give the exact location of each.", ": A trainee wants to write \"the seal has failed\" in the tech log. Your role: You are the experienced mechanic who checks the entry. Your goal: Explain the difference between an observation and an assumption, with one exa", ": A display goes blank only in flight, and the fault is intermittent. Your role: You are the avionics technician on the line. Your goal: Explain the symptom, run the BITE, and say why the unit is unserviceable for now. U"], "grammar": "A defect you found is still there now, so you use the present perfect. It links a past action to the present result. This is the natural tense for a live, unrepaired fault.", "scenario": "A pilot has just landed. She says the brakes \"feel wrong,\" but she cannot say more. Your job is to turn that vague snag into a clear, precise defect entry in the tech log.", "pron": ["The pilot has raised a snag on the brakes. The pilot report is very vague.", "What exactly does the pilot report say about the brakes?", "It only says 'something feels wrong with the brakes.' That is not a clear symptom.", "We cannot write that in the tech log. We need the real symptom and the location."], "course": "English for Aviation Maintenance", "unit": 3, "total": 32, "title": "Raising a defect in the tech log", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -973,10 +975,12 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
       'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
       '',
-      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
       'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
       'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
       'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
       '',
       'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
       (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
@@ -1126,7 +1130,20 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     });
   }
 
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
   function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
     var acts = [
       ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
       ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
@@ -1142,7 +1159,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       b.type = 'button';
       b.className = 'lb-q';
       b.textContent = a[0];
-      b.addEventListener('click', function () { ask(a[1]); });
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
       quick.appendChild(b);
     });
   }
@@ -1155,7 +1172,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
       } else {
         bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
-          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+          + 'You can write to me in your own language if that is easier.');
       }
       if (needsKey()) keyGate(); else renderQuick();
     }
@@ -1169,6 +1186,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     e.preventDefault();
     var v = input.value;
     input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
     ask(v);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });

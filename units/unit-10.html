@@ -300,6 +300,8 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
 }
 .lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
 
 .lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
 .lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
@@ -368,7 +370,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 </section>
 
 <section class="lecture-section" id="dialogues">
-  <h2><span class="secnum">01</span>Model dialogues &mdash; listen first</h2>
+  <h2><span class="secnum">01</span>Model dialogues, listen first</h2>
   <p>Listen to each recording before you read the transcript, and replay it twice if you can. On the first pass, simply follow how the two technicians read the code. On the second pass, catch the zero-conditional sentences and the specialist words that carry the meaning.</p>
 
   <div class="dialogue">
@@ -418,7 +420,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="dialogue">
-    <h3><span class="badge">DIALOGUE 3</span> A flight-controls code &mdash; agree the action</h3>
+    <h3><span class="badge">DIALOGUE 3</span> A flight-controls code, agree the action</h3>
     <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u10-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:48 · listen first, then open the transcript</figcaption></figure>
     <details class="transcript"><summary>Transcript</summary>
       <p class="turn"><span class="spk">A</span><span class="said">Here is a fresh BITE readout, and the fault code is 27-93, on the flight controls system.</span></p>
@@ -441,7 +443,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="dialogue">
-    <h3><span class="badge">DIALOGUE 4</span> Bonus listening &mdash; maintenance control voicemail</h3>
+    <h3><span class="badge">DIALOGUE 4</span> Bonus listening, maintenance control voicemail</h3>
     <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u10-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:02 · listen first, then open the transcript</figcaption></figure>
     <details class="transcript"><summary>Transcript</summary>
       <p class="turn"><span class="spk">M</span><span class="said">Hi, this is maintenance control, and here is a quick handover for the night shift.</span></p>
@@ -459,7 +461,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 </section>
 
 <section class="lecture-section" id="vocabulary">
-  <h2><span class="secnum">02</span>Vocabulary bank &mdash; avionics BITE</h2>
+  <h2><span class="secnum">02</span>Vocabulary bank, avionics BITE</h2>
   <p>These are the specialist terms you need to read a BITE readout. Each term has a plain meaning, one example sentence at your level, and one common collocation. Learn the collocation too, because that is how technicians combine the word on the job.</p>
   <table class="vt">
     <thead><tr><th style="width:170px">Term</th><th>Plain meaning</th><th>Example at level</th><th style="width:150px">Collocation</th></tr></thead>
@@ -489,11 +491,11 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 </section>
 
 <section class="lecture-section" id="grammar">
-  <h2><span class="secnum">03</span>Grammar in context &mdash; the zero conditional</h2>
+  <h2><span class="secnum">03</span>Grammar in context, the zero conditional</h2>
   <p>A BITE message maps a fixed cause to a fixed indication, so the logic is permanently true. English expresses this with the zero conditional: the present tense in both parts. You state the condition, and you state the result that is always true. Examine these three lines taken directly from the dialogues.</p>
-  <div class="quote">&ldquo;<b>If</b> the code <b>starts</b> with 34, the system <b>is</b> navigation.&rdquo; &mdash; Dialogue 1</div>
-  <div class="quote">&ldquo;<b>If</b> the self-test <b>passes</b>, the readout <b>shows</b> no fault found.&rdquo; &mdash; Dialogue 1</div>
-  <div class="quote">&ldquo;<b>If</b> the code <b>has</b> ATA 22, the system <b>is</b> autoflight.&rdquo; &mdash; Dialogue 2</div>
+  <div class="quote">&ldquo;<b>If</b> the code <b>starts</b> with 34, the system <b>is</b> navigation.&rdquo;, Dialogue 1</div>
+  <div class="quote">&ldquo;<b>If</b> the self-test <b>passes</b>, the readout <b>shows</b> no fault found.&rdquo;, Dialogue 1</div>
+  <div class="quote">&ldquo;<b>If</b> the code <b>has</b> ATA 22, the system <b>is</b> autoflight.&rdquo;, Dialogue 2</div>
   <p>The rule is short, although many learners still apply it incorrectly. In the <i>if</i>-clause you use the present tense, and never <i>will</i>. In the result you also use the present tense, because the indication is always true, not merely once. So you correctly say &ldquo;if the code <i>starts</i> with 34, the system <i>is</i> navigation&rdquo;. The identical rule holds after <i>when</i>, <i>as soon as</i> and <i>unless</i>, because these clauses take the present tense too.</p>
   <table class="gt">
     <thead><tr><th>Function</th><th>Structure</th><th>Example</th></tr></thead>
@@ -608,7 +610,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <h3>Read a CMC post-flight report</h3>
     <p class="instr">Read the report. Then answer the six questions. Write short answers.</p>
     <div class="reading-text reading">
-      <p class="doc-head">CENTRAL MAINTENANCE COMPUTER &mdash; POST-FLIGHT REPORT &mdash; A320 &mdash; REG YL-ABC</p>
+      <p class="doc-head">CENTRAL MAINTENANCE COMPUTER, POST-FLIGHT REPORT, A320, REG YL-ABC</p>
       <p>This report lists the fault messages from the previous flight. The central maintenance computer, or CMC, collects every BITE fault code in one convenient location.</p>
       <p>The first fault code is 34-12-34, and the affected system is navigation. The fault message identifies ADIRU 1, so the suspect LRU is the number one air data unit.</p>
       <p>If the code starts with 34, the system is invariably navigation, because 34 is the ATA chapter. The readout displays the identical fault on three separate flights, so the fault is not intermittent.</p>
@@ -633,7 +635,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <h3>Find and fix the errors</h3>
     <p class="instr">This draft note has eight errors in the zero conditional, the verb <i>-s</i>, and the articles. Write the correct line in each gap.</p>
     <div class="reading-text">
-      <p class="doc-head">DRAFT BITE NOTE &mdash; FIX EIGHT ERRORS</p>
+      <p class="doc-head">DRAFT BITE NOTE, FIX EIGHT ERRORS</p>
       <p>(1) If the BITE will show 34, the system is navigation.</p>
       <p>(2) If code starts with 22, the system is autoflight.</p>
       <p>(3) If the self-test will pass, the readout shows no fault found.</p>
@@ -662,7 +664,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <h3>Read a Trouble Shooting Manual task</h3>
     <p class="instr">Read the task. Then answer the six questions. Write short answers.</p>
     <div class="reading-text reading">
-      <p class="doc-head">TROUBLE SHOOTING MANUAL &mdash; TASK 22-83 &mdash; FMGC 2 FAULT</p>
+      <p class="doc-head">TROUBLE SHOOTING MANUAL, TASK 22-83, FMGC 2 FAULT</p>
       <p>This task helps you systematically isolate the fault when the BITE shows fault code 22-83. The affected system is autoflight, because 22 is the ATA chapter for autoflight.</p>
       <p>The fault message identifies FMGC 2, so the suspect LRU is the number two flight management computer. If the ECAM displays an autoflight warning, the BITE fault code confirms it.</p>
       <p>Initially, run a ground test. If the ground test repeats the code, the fault is confirmed, and you begin fault isolation. If the ground test runs perfectly clean, the readout shows no fault found, and the fault is intermittent.</p>
@@ -706,7 +708,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   <p>Work in pairs, so one person is technician A and the other is technician B. Read the fault code aloud, name the system and the LRU, and use <i>if</i> for the fixed logic. Then agree which unit to test first, and change roles after each card.</p>
 
   <div class="roleplay">
-    <h4>Role-play card 1 &mdash; Read the navigation code</h4>
+    <h4>Role-play card 1: Read the navigation code</h4>
     <div class="field"><span class="flab">Situation</span> The BITE shows fault code 34-12-34, and the message names ADIRU 1.</div>
     <div class="field"><span class="flab">Your role</span> Technician A. You read the readout aloud.</div>
     <div class="field"><span class="flab">Your goal</span> Name the system from the ATA chapter, name the suspect LRU, and agree to test ADIRU 1 first.</div>
@@ -716,7 +718,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="roleplay">
-    <h4>Role-play card 2 &mdash; Confirm or clear?</h4>
+    <h4>Role-play card 2: Confirm or clear?</h4>
     <div class="field"><span class="flab">Situation</span> An ECAM autoflight warning appeared, and the BITE fault code is 22-83 for FMGC 2.</div>
     <div class="field"><span class="flab">Your role</span> Technician B. You want to be sure before you remove a unit.</div>
     <div class="field"><span class="flab">Your goal</span> Run a ground test, read the CMC history, and decide whether to confirm the fault or clear it.</div>
@@ -726,7 +728,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="roleplay">
-    <h4>Role-play card 3 &mdash; Which LRU first?</h4>
+    <h4>Role-play card 3: Which LRU first?</h4>
     <div class="field"><span class="flab">Situation</span> The BITE fault code is 27-93 for the flight controls, and the message names ELAC 1.</div>
     <div class="field"><span class="flab">Your role</span> Technician A, deciding together with your colleague.</div>
     <div class="field"><span class="flab">Your goal</span> Run the self-test, try a reset, check the connector, and agree to isolate ELAC 1 first.</div>
@@ -736,7 +738,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="roleplay">
-    <h4>Role-play card 4 &mdash; Disagree on the follow-up</h4>
+    <h4>Role-play card 4: Disagree on the follow-up</h4>
     <div class="field"><span class="flab">Situation</span> Your colleague wants to change the LRU at once, although the ground test is clean.</div>
     <div class="field"><span class="flab">Your role</span> Technician B. You disagree, and you give reasons.</div>
     <div class="field"><span class="flab">Your goal</span> Say why you disagree, ask to check the connector and the CMC history first, and then reach an agreement.</div>
@@ -759,11 +761,11 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   <p>Write a short log entry for the BITE fault, and use Simplified Technical English (ASD-STE100), because short sentences and approved words are easier to read on the line. Write one idea per sentence, keep every sentence under twenty words, and use the present tense in every <i>if</i>-clause, with no <i>will</i>.</p>
   <div class="callout">
     <h4>Your task</h4>
-    <p>Write 80&ndash;110 words to record the BITE fault. Give the fault code, the system, the suspect LRU, and the tests you ran. Use the zero conditional for the fixed logic, so you say clearly what the code means. State the follow-up action, and keep every sentence short.</p>
+    <p>Write 80–110 words to record the BITE fault. Give the fault code, the system, the suspect LRU, and the tests you ran. Use the zero conditional for the fixed logic, so you say clearly what the code means. State the follow-up action, and keep every sentence short.</p>
   </div>
   <details class="reveal model"><summary>Show model answer</summary>
     <div class="reading-text">
-      <p class="doc-head">TECH LOG ENTRY &mdash; BITE FAULT &mdash; ADIRU 1</p>
+      <p class="doc-head">TECH LOG ENTRY, BITE FAULT, ADIRU 1</p>
       <p>Fault code: 34-12-34. If the code starts with 34, the system is navigation.</p>
       <p>Fault message: ADIRU 1 FAULT. The suspect LRU is the number one air data unit.</p>
       <p>Test 1: run the self-test. The self-test repeats the code, so the fault is confirmed.</p>
@@ -858,7 +860,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "BITE", "def": "Built-in test equipment; the automated self-check that stores and displays fault codes."}, {"term": "self-test", "def": "The automatic internal check that a unit performs on itself."}, {"term": "fault code", "def": "The number the BITE displays for one particular fault, such as 34-12."}, {"term": "readout", "def": "The message displayed on the screen for the technician to interpret."}, {"term": "LRU", "def": "A line replaceable unit; a component you can exchange quickly on the line."}, {"term": "fault message", "def": "The line of text that identifies the fault and the affected unit."}, {"term": "maintenance message", "def": "A stored message intended for maintenance only, never displayed to the crew."}, {"term": "CMC", "def": "The central maintenance computer; it collects every fault code in one location."}, {"term": "ECAM", "def": "The display that presents system warnings directly to the flight crew."}, {"term": "ATA chapter", "def": "The standard chapter number that identifies each aircraft system."}, {"term": "system", "def": "The aircraft area that a fault code identifies, such as navigation."}, {"term": "isolate", "def": "To systematically narrow the fault down to one unit or one area."}, {"term": "confirm", "def": "To prove that a fault is genuine, not a single false reading."}, {"term": "reset", "def": "To switch a unit off and on again to clear a temporary fault."}, {"term": "connector", "def": "A plug that mechanically joins a unit to the aircraft wiring."}, {"term": "intermittent", "def": "A fault that appears and disappears, rather than remaining constantly."}, {"term": "no fault found", "def": "The result when the test detects nothing wrong at this moment."}, {"term": "ground test", "def": "A controlled test of a unit on the ground, to attempt to repeat the fault."}, {"term": "fault isolation", "def": "The systematic, step-by-step method that narrows a fault to one unit."}, {"term": "serviceable", "def": "Fit to use, and legally acceptable to fit or to fly."}], "lines": ["We are finally on the flight deck, so let us read the BITE readout aloud together.", "Certainly. The BITE currently shows one fault message, and the fault code is 34-12-34.", "If the code starts with 34, the system is navigation, because 34 is the ATA chapter.", "Exactly. So this maintenance message clearly points to navigation, not to the autoflight system.", "The readout also identifies the LRU precisely. It says ADIRU 1, so the suspect unit is obvious.", "Correct. If the BITE names ADIRU 1, the affected LRU is the number one air data unit.", "Let me run the self-test again immediately, in case the fault is merely intermittent.", "Sensible idea. If the self-test passes, the readout shows no fault found, and we stop.", "Unfortunately the self-test still shows the identical fault code, so the fault is genuine.", "Then we confirm the message, and afterwards we open the CMC to examine the complete history.", "The CMC lists the identical fault three separate times today, so the ADIRU is obviously faulty.", "Agreed. If the CMC repeats the code, the fault is confirmed, and the LRU becomes suspect.", "So which unit do we test first? Personally I say ADIRU 1, because the readout names it.", "I completely agree. We isolate ADIRU 1 first, although we still inspect its connector carefully.", "Sensible plan. If the connector is loose, we reset the unit before we remove anything.", "Fine. As soon as the test is finished, we accurately record the result and the fault code.", "On the last flight the crew observed an ECAM warning for the autoflight system.", "Let us examine the BITE carefully, because the ECAM warning and the fault code should match.", "The BITE fault code is 22-83, so the system is autoflight and the suspect LRU is FMGC 2.", "If the code contains ATA 22, the system is autoflight, and 22 always indicates that chapter.", "The fault message reads FMGC 2 FAULT, so the number two computer is obviously the suspect LRU.", "We should run a ground test initially, because a ground test can safely repeat the fault.", "Precisely. If the ground test repeats the code, we confirm the fault and begin fault isolation.", "Unfortunately the ground test runs clean, and the readout currently says no fault found."], "roleplays": ["The BITE shows fault code 34-12-34, and the message names ADIRU 1.", "An ECAM autoflight warning appeared, and the BITE fault code is 22-83 for FMGC 2.", "The BITE fault code is 27-93 for the flight controls, and the message names ELAC 1.", "Your colleague wants to change the LRU at once, although the ground test is clean."], "grammar": "A BITE message maps a fixed cause to a fixed indication, so the logic is permanently true. English expresses this with the zero conditional: the present tense in both parts. You state the condition, and you state the result that is always true. Examine these three lines taken directly from the dialogues.", "scenario": "You are on the flight deck with a colleague, and the BITE has stored a fault from the last flight. Neither technician can act until you both understand the message correctly, because a fault code is only useful once you interpret it properly. Initially you identify the system from the ATA chapter, and afterwards you id", "pron": ["We are finally on the flight deck, so let us read the BITE readout aloud together.", "Certainly. The BITE currently shows one fault message, and the fault code is 34-12-34.", "If the code starts with 34, the system is navigation, because 34 is the ATA chapter.", "Exactly. So this maintenance message clearly points to navigation, not to the autoflight system."], "course": "English for Aviation Maintenance", "unit": 10, "total": 32, "title": "Interpreting a BITE readout with a colleague", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "BITE", "def": "Built-in test equipment; the automated self-check that stores and displays fault codes."}, {"term": "self-test", "def": "The automatic internal check that a unit performs on itself."}, {"term": "fault code", "def": "The number the BITE displays for one particular fault, such as 34-12."}, {"term": "readout", "def": "The message displayed on the screen for the technician to interpret."}, {"term": "LRU", "def": "A line replaceable unit; a component you can exchange quickly on the line."}, {"term": "fault message", "def": "The line of text that identifies the fault and the affected unit."}, {"term": "maintenance message", "def": "A stored message intended for maintenance only, never displayed to the crew."}, {"term": "CMC", "def": "The central maintenance computer; it collects every fault code in one location."}, {"term": "ECAM", "def": "The display that presents system warnings directly to the flight crew."}, {"term": "ATA chapter", "def": "The standard chapter number that identifies each aircraft system."}, {"term": "system", "def": "The aircraft area that a fault code identifies, such as navigation."}, {"term": "isolate", "def": "To systematically narrow the fault down to one unit or one area."}, {"term": "confirm", "def": "To prove that a fault is genuine, not a single false reading."}, {"term": "reset", "def": "To switch a unit off and on again to clear a temporary fault."}, {"term": "connector", "def": "A plug that mechanically joins a unit to the aircraft wiring."}, {"term": "intermittent", "def": "A fault that appears and disappears, rather than remaining constantly."}, {"term": "no fault found", "def": "The result when the test detects nothing wrong at this moment."}, {"term": "ground test", "def": "A controlled test of a unit on the ground, to attempt to repeat the fault."}, {"term": "fault isolation", "def": "The systematic, step-by-step method that narrows a fault to one unit."}, {"term": "serviceable", "def": "Fit to use, and legally acceptable to fit or to fly."}], "lines": ["We are finally on the flight deck, so let us read the BITE readout aloud together.", "Certainly. The BITE currently shows one fault message, and the fault code is 34-12-34.", "If the code starts with 34, the system is navigation, because 34 is the ATA chapter.", "Exactly. So this maintenance message clearly points to navigation, not to the autoflight system.", "The readout also identifies the LRU precisely. It says ADIRU 1, so the suspect unit is obvious.", "Correct. If the BITE names ADIRU 1, the affected LRU is the number one air data unit.", "Let me run the self-test again immediately, in case the fault is merely intermittent.", "Sensible idea. If the self-test passes, the readout shows no fault found, and we stop.", "Unfortunately the self-test still shows the identical fault code, so the fault is genuine.", "Then we confirm the message, and afterwards we open the CMC to examine the complete history.", "The CMC lists the identical fault three separate times today, so the ADIRU is obviously faulty.", "Agreed. If the CMC repeats the code, the fault is confirmed, and the LRU becomes suspect.", "So which unit do we test first? Personally I say ADIRU 1, because the readout names it.", "I completely agree. We isolate ADIRU 1 first, although we still inspect its connector carefully.", "Sensible plan. If the connector is loose, we reset the unit before we remove anything.", "Fine. As soon as the test is finished, we accurately record the result and the fault code.", "On the last flight the crew observed an ECAM warning for the autoflight system.", "Let us examine the BITE carefully, because the ECAM warning and the fault code should match.", "The BITE fault code is 22-83, so the system is autoflight and the suspect LRU is FMGC 2.", "If the code contains ATA 22, the system is autoflight, and 22 always indicates that chapter.", "The fault message reads FMGC 2 FAULT, so the number two computer is obviously the suspect LRU.", "We should run a ground test initially, because a ground test can safely repeat the fault.", "Precisely. If the ground test repeats the code, we confirm the fault and begin fault isolation.", "Unfortunately the ground test runs clean, and the readout currently says no fault found."], "roleplays": ["The BITE shows fault code 34-12-34, and the message names ADIRU 1.", "An ECAM autoflight warning appeared, and the BITE fault code is 22-83 for FMGC 2.", "The BITE fault code is 27-93 for the flight controls, and the message names ELAC 1.", "Your colleague wants to change the LRU at once, although the ground test is clean."], "grammar": "A BITE message maps a fixed cause to a fixed indication, so the logic is permanently true. English expresses this with the zero conditional: the present tense in both parts. You state the condition, and you state the result that is always true. Examine these three lines taken directly from the dialogues.", "scenario": "You are on the flight deck with a colleague, and the BITE has stored a fault from the last flight. Neither technician can act until you both understand the message correctly, because a fault code is only useful once you interpret it properly. Initially you identify the system from the ATA chapter, and afterwards you id", "pron": ["We are finally on the flight deck, so let us read the BITE readout aloud together.", "Certainly. The BITE currently shows one fault message, and the fault code is 34-12-34.", "If the code starts with 34, the system is navigation, because 34 is the ATA chapter.", "Exactly. So this maintenance message clearly points to navigation, not to the autoflight system."], "course": "English for Aviation Maintenance", "unit": 10, "total": 32, "title": "Interpreting a BITE readout with a colleague", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -916,10 +918,12 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
       'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
       '',
-      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
       'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
       'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
       'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
       '',
       'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
       (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
@@ -1069,7 +1073,20 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     });
   }
 
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
   function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
     var acts = [
       ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
       ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
@@ -1085,7 +1102,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       b.type = 'button';
       b.className = 'lb-q';
       b.textContent = a[0];
-      b.addEventListener('click', function () { ask(a[1]); });
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
       quick.appendChild(b);
     });
   }
@@ -1098,7 +1115,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
       } else {
         bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
-          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+          + 'You can write to me in your own language if that is easier.');
       }
       if (needsKey()) keyGate(); else renderQuick();
     }
@@ -1112,6 +1129,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     e.preventDefault();
     var v = input.value;
     input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
     ask(v);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });

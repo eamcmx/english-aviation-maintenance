@@ -300,6 +300,8 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
 }
 .lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
 
 .lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
 .lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
@@ -368,7 +370,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 </section>
 
 <section class="lecture-section" id="dialogues">
-  <h2><span class="secnum">01</span>Model dialogues &mdash; listen first</h2>
+  <h2><span class="secnum">01</span>Model dialogues, listen first</h2>
   <p>Listen to each recording before you examine the transcript, and replay it twice whenever possible. Initially, simply follow the turnaround situation. Afterwards, capture the time clauses and the specialist line-operations vocabulary that carry the essential meaning.</p>
 
   <div class="dialogue">
@@ -455,7 +457,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 </section>
 
 <section class="lecture-section" id="vocabulary">
-  <h2><span class="secnum">02</span>Vocabulary bank &mdash; line operations</h2>
+  <h2><span class="secnum">02</span>Vocabulary bank, line operations</h2>
   <p>These are the essential specialist terms for a turnaround. Each term includes a plain meaning, one example sentence at your level, and one frequent collocation. Memorise the collocation, because it represents the natural way technicians use the word on the line.</p>
   <table class="vt">
     <thead><tr><th style="width:170px">Term</th><th>Plain meaning</th><th>Example at level</th><th style="width:150px">Collocation</th></tr></thead>
@@ -485,11 +487,11 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 </section>
 
 <section class="lecture-section" id="grammar">
-  <h2><span class="secnum">03</span>Grammar in context &mdash; time clauses with before / after</h2>
+  <h2><span class="secnum">03</span>Grammar in context, time clauses with before / after</h2>
   <p>A turnaround is essentially a sequence of actions in a fixed order, so you must indicate what happens first and what follows immediately afterwards. English expresses this using time clauses, with connectors like <i>before</i>, <i>after</i>, <i>as soon as</i>, <i>once</i>, <i>until</i> and <i>when</i>. Examine these lines from the dialogues, and notice the identical pattern in each example.</p>
-  <div class="quote">&ldquo;Fit the fasteners and close the panel <b>before</b> the aircraft goes for pushback.&rdquo; &mdash; D1</div>
-  <div class="quote">&ldquo;<b>After</b> you close the task card, I will sign the release to service.&rdquo; &mdash; D3</div>
-  <div class="quote">&ldquo;I will update the task card <b>as soon as</b> the clip arrives.&rdquo; &mdash; D2</div>
+  <div class="quote">&ldquo;Fit the fasteners and close the panel <b>before</b> the aircraft goes for pushback.&rdquo;, D1</div>
+  <div class="quote">&ldquo;<b>After</b> you close the task card, I will sign the release to service.&rdquo;, D3</div>
+  <div class="quote">&ldquo;I will update the task card <b>as soon as</b> the clip arrives.&rdquo;, D2</div>
   <p>The rule is brief, although learners frequently apply it incorrectly. In a time clause about the future, use the <b>present</b> tense, and never <i>will</i>. The main clause can still contain <i>will</i> or a direct instruction. Therefore you say &ldquo;before the aircraft <i>departs</i>&rdquo;, and never &ldquo;before the aircraft will depart&rdquo;.</p>
   <table class="gt">
     <thead><tr><th>Function</th><th>Structure</th><th>Example</th></tr></thead>
@@ -606,7 +608,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <h3>Read a tech log page</h3>
     <p class="instr">Read the tech log page, and then answer the seven questions. Write short answers.</p>
     <div class="reading-text reading">
-      <p class="doc-head">AIRCRAFT TECHNICAL LOG &mdash; A320 &mdash; SECTOR RIX&ndash;ARN</p>
+      <p class="doc-head">AIRCRAFT TECHNICAL LOG, A320, SECTOR RIX–ARN</p>
       <p>Date: 08 AUG. Registration: YL-ABC. Turnaround: stand 12. Ground time: 45 minutes.</p>
       <p>Defect 1: right engine cowl access panel loose. Two fasteners missing, found on the walkaround before boarding.</p>
       <p>Defect 2: cowl hinge cracked. MEL reference 71-10-01 applies, so the defect may be carried as a deferred defect.</p>
@@ -634,7 +636,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <h3>Find and fix the errors</h3>
     <p class="instr">This turnaround note has eight errors, mostly in the time clauses. Write the correct line in each gap.</p>
     <div class="reading-text">
-      <p class="doc-head">DRAFT TURNAROUND NOTE &mdash; FIX EIGHT ERRORS</p>
+      <p class="doc-head">DRAFT TURNAROUND NOTE, FIX EIGHT ERRORS</p>
       <p>(1) Fit the panel before the aircraft will depart.</p>
       <p>(2) After I will finish the walkaround, I sign the log.</p>
       <p>(3) Check the MEL before to defer the defect.</p>
@@ -663,7 +665,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <h3>Read an MEL dispatch message</h3>
     <p class="instr">Read the stores and dispatch message, and then answer the seven questions. Write short answers.</p>
     <div class="reading-text reading">
-      <p class="doc-head">DISPATCH MESSAGE &mdash; LINE STATION ARN &mdash; FLT 621</p>
+      <p class="doc-head">DISPATCH MESSAGE, LINE STATION ARN, FLT 621</p>
       <p>To: line team. From: dispatch desk. Subject: turnaround, stand 12, ground time 35 minutes.</p>
       <p>Status: one deferred defect is open on the cowl hinge. The MEL allows it, provided that the clip stays fitted.</p>
       <p>Part: the clip, part number C-4402, is serviceable and is available in stores, so there is no AOG.</p>
@@ -707,7 +709,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   <p>Work in pairs, so one person represents the technician and the other represents the controller or the stores clerk. Use the useful phrases, and always confirm that the message was understood, because a rapid exchange deteriorates whenever nobody confirms it. Exchange roles after each card.</p>
 
   <div class="roleplay">
-    <h4>Role-play card 1 &mdash; Take the handover</h4>
+    <h4>Role-play card 1: Take the handover</h4>
     <div class="field"><span class="flab">Situation</span> The aircraft has landed with a tight turnaround, and there is one open defect.</div>
     <div class="field"><span class="flab">Your role</span> Incoming technician taking the handover.</div>
     <div class="field"><span class="flab">Your goal</span> Get the ground time, the slot, the defect and the open task card, and repeat it back to confirm.</div>
@@ -717,7 +719,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="roleplay">
-    <h4>Role-play card 2 &mdash; Decide: rectify or defer</h4>
+    <h4>Role-play card 2: Decide: rectify or defer</h4>
     <div class="field"><span class="flab">Situation</span> The defect is a cracked hinge, and the ground time is short.</div>
     <div class="field"><span class="flab">Your role</span> Technician deciding with the controller.</div>
     <div class="field"><span class="flab">Your goal</span> Check the MEL, decide if it is a no-go item, and agree to fit the clip and defer the hinge.</div>
@@ -727,7 +729,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="roleplay">
-    <h4>Role-play card 3 &mdash; Request the part from stores</h4>
+    <h4>Role-play card 3: Request the part from stores</h4>
     <div class="field"><span class="flab">Situation</span> You need the clip before the fuellers finish, or the slot is at risk.</div>
     <div class="field"><span class="flab">Your role</span> Technician calling stores under time pressure.</div>
     <div class="field"><span class="flab">Your goal</span> Give the part number, check that it is serviceable, and confirm it will arrive before pushback.</div>
@@ -737,7 +739,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="roleplay">
-    <h4>Role-play card 4 &mdash; Act, document and release</h4>
+    <h4>Role-play card 4: Act, document and release</h4>
     <div class="field"><span class="flab">Situation</span> The clip is fitted, but a panel warning is still on in the flight deck.</div>
     <div class="field"><span class="flab">Your role</span> Technician finishing the job with the controller.</div>
     <div class="field"><span class="flab">Your goal</span> Troubleshoot with a BITE test, clear the warning, complete the tech log, and agree the release before pushback.</div>
@@ -760,11 +762,11 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   <p>Write a concise tech log entry for the turnaround, and use Simplified Technical English (ASD-STE100), because short sentences and approved words are considerably easier to read on the line. Include one instruction per sentence, and keep every sentence under twenty words. Use the present tense in every time clause, and follow the checklist below.</p>
   <div class="callout">
     <h4>Your task</h4>
-    <p>Write 80&ndash;110 words to record the turnaround. Give the defect, the MEL decision and the action, and say what you fitted. Then write the sequence with time clauses: what you do <i>before</i> pushback, and what you sign <i>after</i> you close the task card. Keep every sentence short, clear and in the right order.</p>
+    <p>Write 80–110 words to record the turnaround. Give the defect, the MEL decision and the action, and say what you fitted. Then write the sequence with time clauses: what you do <i>before</i> pushback, and what you sign <i>after</i> you close the task card. Keep every sentence short, clear and in the right order.</p>
   </div>
   <details class="reveal"><summary>Show model answer</summary>
     <div class="reading-text">
-      <p class="doc-head">TECH LOG ENTRY &mdash; A320 &mdash; TURNAROUND STAND 12</p>
+      <p class="doc-head">TECH LOG ENTRY, A320, TURNAROUND STAND 12</p>
       <p>Defect: right cowl hinge cracked. Found on the walkaround before boarding.</p>
       <p>Decision: the MEL allows the defect. Carry it as a deferred defect.</p>
       <p>Action: fit the temporary clip, part number C-4402. The clip is serviceable.</p>
@@ -862,7 +864,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "turnaround", "def": "The brief interval on the ground between arrival and the following departure."}, {"term": "ground time", "def": "The total duration the aircraft remains on the ground for a turnaround."}, {"term": "slot", "def": "The fixed time window during which the aircraft is permitted to depart."}, {"term": "dispatch", "def": "To release and send the aircraft onward for its subsequent flight."}, {"term": "handover", "def": "Transferring the task and the information to the following technician or shift."}, {"term": "walkaround", "def": "The visual inspection you perform walking around the entire aircraft."}, {"term": "defect", "def": "A fault on the aircraft that you must document and then resolve."}, {"term": "tech log", "def": "The aircraft logbook where you register each defect and each action."}, {"term": "task card", "def": "The job document that describes one task and its procedure precisely."}, {"term": "MEL", "def": "The minimum equipment list; it specifies what may be inoperative for dispatch."}, {"term": "no-go item", "def": "An item that must operate, otherwise the aircraft is prohibited from flying."}, {"term": "deferred defect", "def": "A defect the MEL permits you to carry now and rectify later."}, {"term": "rectify", "def": "To repair a defect completely, so it is no longer a fault."}, {"term": "troubleshoot", "def": "To identify the cause of a fault systematically, step by step."}, {"term": "BITE", "def": "Built-in test equipment; the automated self-test that displays fault codes."}, {"term": "serviceable", "def": "Suitable for use, and legally acceptable to install or to operate."}, {"term": "release to service", "def": "The certification signature confirming the aircraft is airworthy again."}, {"term": "pushback", "def": "When the tug reverses the aircraft away from the parking stand."}, {"term": "delay", "def": "A departure that occurs later than the originally scheduled time."}, {"term": "AOG", "def": "Aircraft on ground; a missing component is preventing the departure."}], "lines": ["Hi Raivis, here is my handover on the A320, so please listen before boarding commences.", "Go ahead, Anna. The turnaround is extremely tight, because we only have forty-five minutes of ground time.", "Understood, so I will be brief. The aircraft arrived punctually, and the departure slot remains available.", "Excellent. Did you complete the walkaround before the passengers disembarked?", "Yes, I did, although I discovered one defect during the walkaround, so I must demonstrate it now.", "Sorry, repeat that. You identified a defect precisely where?", "On the right engine cowl, one access panel is loose, and two fasteners are missing.", "Understood, a loose panel and two missing fasteners. Did you register it in the tech log?", "Yes, the defect is documented in the tech log, and I opened a task card for the panel.", "Perfect. So, before I certify anything, I must secure that panel, correct?", "Exactly. Install the fasteners and secure the panel before the aircraft proceeds for pushback.", "Certainly. After I secure the panel, I will complete your remaining walkaround items too.", "Thank you. The refuelling and the oil are finished, so only the panel remains open.", "A clear handover, Anna. Let me repeat it back, so we both agree completely.", "Please do, because a rapid turnaround deteriorates whenever the message is not confirmed.", "Right: secure the panel, install two fasteners, then complete the walkaround before pushback.", "Raivis, the panel is more serious than we anticipated, because one hinge is cracked.", "A cracked hinge changes everything. Is this a no-go item, or can we carry it?", "I am consulting the MEL currently, so please wait before you contact the captain.", "Fine. If the MEL permits it, we can carry it as a deferred defect.", "The MEL permits one cracked hinge, but only after we install a temporary clip.", "Do we possess the clip in stores, or is this becoming an AOG?", "Stores holds one clip, therefore it is not an AOG, which is excellent news.", "Great. Then we need not rectify the hinge completely before this departure."], "roleplays": ["The aircraft has landed with a tight turnaround, and there is one open defect.", "The defect is a cracked hinge, and the ground time is short.", "You need the clip before the fuellers finish, or the slot is at risk.", "The clip is fitted, but a panel warning is still on in the flight deck."], "grammar": "A turnaround is essentially a sequence of actions in a fixed order, so you must indicate what happens first and what follows immediately afterwards. English expresses this using time clauses, with connectors like before , after , as soon as , once , until and when . Examine these lines from the dialogues, and notice th", "scenario": "You are on the A320 line, and the aircraft has just arrived with a forty-five minute turnaround. You receive the handover from the departing technician, and immediately you begin the walkaround. You discover a defect, so the remaining ground time is now extremely tight. You must decide quickly, although you cannot prot", "pron": ["Hi Raivis, here is my handover on the A320, so please listen before boarding commences.", "Understood, so I will be brief. The aircraft arrived punctually, and the departure slot remains available.", "Excellent. Did you complete the walkaround before the passengers disembarked?", "Sorry, repeat that. You identified a defect precisely where?"], "course": "English for Aviation Maintenance", "unit": 8, "total": 32, "title": "Simulation: line-station turnaround", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "turnaround", "def": "The brief interval on the ground between arrival and the following departure."}, {"term": "ground time", "def": "The total duration the aircraft remains on the ground for a turnaround."}, {"term": "slot", "def": "The fixed time window during which the aircraft is permitted to depart."}, {"term": "dispatch", "def": "To release and send the aircraft onward for its subsequent flight."}, {"term": "handover", "def": "Transferring the task and the information to the following technician or shift."}, {"term": "walkaround", "def": "The visual inspection you perform walking around the entire aircraft."}, {"term": "defect", "def": "A fault on the aircraft that you must document and then resolve."}, {"term": "tech log", "def": "The aircraft logbook where you register each defect and each action."}, {"term": "task card", "def": "The job document that describes one task and its procedure precisely."}, {"term": "MEL", "def": "The minimum equipment list; it specifies what may be inoperative for dispatch."}, {"term": "no-go item", "def": "An item that must operate, otherwise the aircraft is prohibited from flying."}, {"term": "deferred defect", "def": "A defect the MEL permits you to carry now and rectify later."}, {"term": "rectify", "def": "To repair a defect completely, so it is no longer a fault."}, {"term": "troubleshoot", "def": "To identify the cause of a fault systematically, step by step."}, {"term": "BITE", "def": "Built-in test equipment; the automated self-test that displays fault codes."}, {"term": "serviceable", "def": "Suitable for use, and legally acceptable to install or to operate."}, {"term": "release to service", "def": "The certification signature confirming the aircraft is airworthy again."}, {"term": "pushback", "def": "When the tug reverses the aircraft away from the parking stand."}, {"term": "delay", "def": "A departure that occurs later than the originally scheduled time."}, {"term": "AOG", "def": "Aircraft on ground; a missing component is preventing the departure."}], "lines": ["Hi Raivis, here is my handover on the A320, so please listen before boarding commences.", "Go ahead, Anna. The turnaround is extremely tight, because we only have forty-five minutes of ground time.", "Understood, so I will be brief. The aircraft arrived punctually, and the departure slot remains available.", "Excellent. Did you complete the walkaround before the passengers disembarked?", "Yes, I did, although I discovered one defect during the walkaround, so I must demonstrate it now.", "Sorry, repeat that. You identified a defect precisely where?", "On the right engine cowl, one access panel is loose, and two fasteners are missing.", "Understood, a loose panel and two missing fasteners. Did you register it in the tech log?", "Yes, the defect is documented in the tech log, and I opened a task card for the panel.", "Perfect. So, before I certify anything, I must secure that panel, correct?", "Exactly. Install the fasteners and secure the panel before the aircraft proceeds for pushback.", "Certainly. After I secure the panel, I will complete your remaining walkaround items too.", "Thank you. The refuelling and the oil are finished, so only the panel remains open.", "A clear handover, Anna. Let me repeat it back, so we both agree completely.", "Please do, because a rapid turnaround deteriorates whenever the message is not confirmed.", "Right: secure the panel, install two fasteners, then complete the walkaround before pushback.", "Raivis, the panel is more serious than we anticipated, because one hinge is cracked.", "A cracked hinge changes everything. Is this a no-go item, or can we carry it?", "I am consulting the MEL currently, so please wait before you contact the captain.", "Fine. If the MEL permits it, we can carry it as a deferred defect.", "The MEL permits one cracked hinge, but only after we install a temporary clip.", "Do we possess the clip in stores, or is this becoming an AOG?", "Stores holds one clip, therefore it is not an AOG, which is excellent news.", "Great. Then we need not rectify the hinge completely before this departure."], "roleplays": ["The aircraft has landed with a tight turnaround, and there is one open defect.", "The defect is a cracked hinge, and the ground time is short.", "You need the clip before the fuellers finish, or the slot is at risk.", "The clip is fitted, but a panel warning is still on in the flight deck."], "grammar": "A turnaround is essentially a sequence of actions in a fixed order, so you must indicate what happens first and what follows immediately afterwards. English expresses this using time clauses, with connectors like before , after , as soon as , once , until and when . Examine these lines from the dialogues, and notice th", "scenario": "You are on the A320 line, and the aircraft has just arrived with a forty-five minute turnaround. You receive the handover from the departing technician, and immediately you begin the walkaround. You discover a defect, so the remaining ground time is now extremely tight. You must decide quickly, although you cannot prot", "pron": ["Hi Raivis, here is my handover on the A320, so please listen before boarding commences.", "Understood, so I will be brief. The aircraft arrived punctually, and the departure slot remains available.", "Excellent. Did you complete the walkaround before the passengers disembarked?", "Sorry, repeat that. You identified a defect precisely where?"], "course": "English for Aviation Maintenance", "unit": 8, "total": 32, "title": "Simulation: line-station turnaround", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -920,10 +922,12 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
       'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
       '',
-      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
       'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
       'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
       'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
       '',
       'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
       (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
@@ -1073,7 +1077,20 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     });
   }
 
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
   function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
     var acts = [
       ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
       ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
@@ -1089,7 +1106,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       b.type = 'button';
       b.className = 'lb-q';
       b.textContent = a[0];
-      b.addEventListener('click', function () { ask(a[1]); });
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
       quick.appendChild(b);
     });
   }
@@ -1102,7 +1119,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
       } else {
         bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
-          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+          + 'You can write to me in your own language if that is easier.');
       }
       if (needsKey()) keyGate(); else renderQuick();
     }
@@ -1116,6 +1133,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     e.preventDefault();
     var v = input.value;
     input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
     ask(v);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });

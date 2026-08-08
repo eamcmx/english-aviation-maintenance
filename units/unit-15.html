@@ -196,6 +196,8 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
 }
 .lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
 
 .lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
 .lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
@@ -878,7 +880,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "minimum equipment list", "def": "The book that lists which items may be broken and still let the aircraft fly (the MEL)."}, {"term": "master minimum equipment list", "def": "The manufacturer's base list. The operator's MEL is built from it."}, {"term": "dispatch", "def": "To release the aircraft to fly."}, {"term": "inoperative", "def": "Not working."}, {"term": "placard", "def": "A small warning label fitted near a broken control; also, to fit that label."}, {"term": "rectification interval", "def": "The time limit to repair a deferred item."}, {"term": "deferred defect", "def": "A fault the aircraft may fly with, repaired later within the interval."}, {"term": "technical log", "def": "The aircraft's running record of faults and actions (the tech log)."}, {"term": "certificate of release to service", "def": "The signed statement that the work is done and the aircraft is safe to fly (CRS)."}, {"term": "serviceable", "def": "Working and fit for use."}, {"term": "unserviceable", "def": "Not fit for use; broken."}, {"term": "repair category", "def": "The MEL class (A, B, C or D) that sets the rectification interval."}, {"term": "proviso", "def": "A condition you must meet to dispatch under the MEL."}, {"term": "limitation", "def": "A limit the MEL puts on the flight, such as a maximum altitude."}, {"term": "operational procedure", "def": "The action the crew must take in flight (marked \"O\" in the MEL)."}, {"term": "maintenance procedure", "def": "The action the technician must take (marked \"M\" in the MEL)."}, {"term": "configuration deviation list", "def": "The list for missing parts, such as a panel or a static wick (the CDL)."}, {"term": "no-go item", "def": "A fault that stops dispatch; the aircraft may not fly."}, {"term": "line station", "def": "An airport where aircraft are turned round and given line maintenance."}, {"term": "duty engineer", "def": "The certifying engineer on call who supports the line and makes the dispatch call."}], "lines": ["Duty desk, it's Kārlis on stand twelve. I have a problem on the A320.", "Go ahead, Kārlis. What is the defect?", "The number two air-conditioning pack is inoperative. The crew wrote it up in the technical log.", "Understood. Did you get a fault code from the BITE test?", "Yes. The pack flow-control valve fails to open. It looks like a valve fault, not the controller.", "Right. Let's open the minimum equipment list and see if we can dispatch.", "I have the MEL page here. It says one pack may be inoperative.", "Good. That is a repair category C item. So the rectification interval is ten calendar days.", "So the aircraft may dispatch with one pack inoperative?", "Yes, but only if you meet the provisos. Read me the conditions.", "Condition one is a limitation on altitude. The flight level must not go above three one zero.", "Correct. A single pack cannot pressurise the cabin above that level.", "Condition two, we must placard the pack control on the overhead panel.", "Do that now. Fit an \"INOP\" placard next to the switch so the crew sees it.", "Understood. And the maintenance procedure?", "Pull and collar the pack circuit breaker, then raise the deferred defect in the tech log.", "Copy. I will sign the certificate of release to service after placarding.", "One more thing. Brief the crew on the operational procedure before they leave.", "I will brief them. Thanks, Rob. I'll call you when the placard is on.", "Hi Rob, it's Inga at the line station. I have an avionics defect on the 737.", "Hello Inga. I am the duty engineer tonight. What is unserviceable?", "The weather radar is inoperative. The display is blank and the BITE shows a transmitter fault.", "Let me check the minimum equipment list. Is the second radar serviceable?", "There is only one radar on this aircraft. So we have no backup."], "roleplays": [], "grammar": "Dispatch hinges on what is allowed and what is possible . So this unit lives on modal verbs: may, can, could, must not, cannot . They tell the crew what they are permitted to do and what they must never do. Listen to how the duty engineer uses them.", "scenario": "It is night at a busy line station. An A320 is on stand, ready to fly, but the crew has written up a fault in the technical log. One item is inoperative. The turnaround clock is running, and the captain wants an answer: can we go?", "pron": ["Duty desk, it's Kārlis on stand twelve. I have a problem on the A320.", "Go ahead, Kārlis. What is the defect?", "The number two air-conditioning pack is inoperative. The crew wrote it up in the technical log.", "Understood. Did you get a fault code from the BITE test?"], "course": "English for Aviation Maintenance", "unit": 15, "total": 32, "title": "MEL dispatch conversation with the duty engineer", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "minimum equipment list", "def": "The book that lists which items may be broken and still let the aircraft fly (the MEL)."}, {"term": "master minimum equipment list", "def": "The manufacturer's base list. The operator's MEL is built from it."}, {"term": "dispatch", "def": "To release the aircraft to fly."}, {"term": "inoperative", "def": "Not working."}, {"term": "placard", "def": "A small warning label fitted near a broken control; also, to fit that label."}, {"term": "rectification interval", "def": "The time limit to repair a deferred item."}, {"term": "deferred defect", "def": "A fault the aircraft may fly with, repaired later within the interval."}, {"term": "technical log", "def": "The aircraft's running record of faults and actions (the tech log)."}, {"term": "certificate of release to service", "def": "The signed statement that the work is done and the aircraft is safe to fly (CRS)."}, {"term": "serviceable", "def": "Working and fit for use."}, {"term": "unserviceable", "def": "Not fit for use; broken."}, {"term": "repair category", "def": "The MEL class (A, B, C or D) that sets the rectification interval."}, {"term": "proviso", "def": "A condition you must meet to dispatch under the MEL."}, {"term": "limitation", "def": "A limit the MEL puts on the flight, such as a maximum altitude."}, {"term": "operational procedure", "def": "The action the crew must take in flight (marked \"O\" in the MEL)."}, {"term": "maintenance procedure", "def": "The action the technician must take (marked \"M\" in the MEL)."}, {"term": "configuration deviation list", "def": "The list for missing parts, such as a panel or a static wick (the CDL)."}, {"term": "no-go item", "def": "A fault that stops dispatch; the aircraft may not fly."}, {"term": "line station", "def": "An airport where aircraft are turned round and given line maintenance."}, {"term": "duty engineer", "def": "The certifying engineer on call who supports the line and makes the dispatch call."}], "lines": ["Duty desk, it's Kārlis on stand twelve. I have a problem on the A320.", "Go ahead, Kārlis. What is the defect?", "The number two air-conditioning pack is inoperative. The crew wrote it up in the technical log.", "Understood. Did you get a fault code from the BITE test?", "Yes. The pack flow-control valve fails to open. It looks like a valve fault, not the controller.", "Right. Let's open the minimum equipment list and see if we can dispatch.", "I have the MEL page here. It says one pack may be inoperative.", "Good. That is a repair category C item. So the rectification interval is ten calendar days.", "So the aircraft may dispatch with one pack inoperative?", "Yes, but only if you meet the provisos. Read me the conditions.", "Condition one is a limitation on altitude. The flight level must not go above three one zero.", "Correct. A single pack cannot pressurise the cabin above that level.", "Condition two, we must placard the pack control on the overhead panel.", "Do that now. Fit an \"INOP\" placard next to the switch so the crew sees it.", "Understood. And the maintenance procedure?", "Pull and collar the pack circuit breaker, then raise the deferred defect in the tech log.", "Copy. I will sign the certificate of release to service after placarding.", "One more thing. Brief the crew on the operational procedure before they leave.", "I will brief them. Thanks, Rob. I'll call you when the placard is on.", "Hi Rob, it's Inga at the line station. I have an avionics defect on the 737.", "Hello Inga. I am the duty engineer tonight. What is unserviceable?", "The weather radar is inoperative. The display is blank and the BITE shows a transmitter fault.", "Let me check the minimum equipment list. Is the second radar serviceable?", "There is only one radar on this aircraft. So we have no backup."], "roleplays": ["A landing light is inoperative on a night departure. You call the duty engineer.", "The anti-skid system is unserviceable on a wet runway day.", "One VHF radio is inoperative. You read the minimum equipment list line by line.", "You hand over a deferred defect to the next shift at the line station."], "grammar": "Dispatch hinges on what is allowed and what is possible . So this unit lives on modal verbs: may, can, could, must not, cannot . They tell the crew what they are permitted to do and what they must never do. Listen to how the duty engineer uses them.", "scenario": "It is night at a busy line station. An A320 is on stand, ready to fly, but the crew has written up a fault in the technical log. One item is inoperative. The turnaround clock is running, and the captain wants an answer: can we go?", "pron": ["Duty desk, it's Kārlis on stand twelve. I have a problem on the A320.", "Go ahead, Kārlis. What is the defect?", "The number two air-conditioning pack is inoperative. The crew wrote it up in the technical log.", "Understood. Did you get a fault code from the BITE test?"], "course": "English for Aviation Maintenance", "unit": 15, "total": 32, "title": "MEL dispatch conversation with the duty engineer", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -936,10 +938,12 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
       'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
       '',
-      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
       'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
       'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
       'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
       '',
       'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
       (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
@@ -1089,7 +1093,20 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     });
   }
 
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
   function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
     var acts = [
       ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
       ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
@@ -1105,7 +1122,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       b.type = 'button';
       b.className = 'lb-q';
       b.textContent = a[0];
-      b.addEventListener('click', function () { ask(a[1]); });
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
       quick.appendChild(b);
     });
   }
@@ -1118,7 +1135,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
       } else {
         bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
-          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+          + 'You can write to me in your own language if that is easier.');
       }
       if (needsKey()) keyGate(); else renderQuick();
     }
@@ -1132,6 +1149,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     e.preventDefault();
     var v = input.value;
     input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
     ask(v);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });
