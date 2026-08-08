@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U19-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 19 — Writing a defect report in Simplified Technical English. Listening, reading, use of English (obligatory articles + bank terms), and vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ==================== LISTENING (7) ==================== -->
+
+  <question type="multichoice">
+    <name><text>L1 · Dialogue 1 — report vs shift note</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again</strong> (From shift note to defect report). What makes a defect report different from a shift note?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A defect report is a formal record, so every word must be an approved word with one meaning. That is what removes ambiguity.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>It uses approved words with one meaning.</text><feedback format="html"><text><![CDATA[<p>Correct — approved words, each with one meaning, remove ambiguity.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>It is written quickly at the end of every shift.</text><feedback format="html"><text><![CDATA[<p>No — that describes the rough shift note, not the report.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>It records the technician's personal opinion of the part.</text><feedback format="html"><text><![CDATA[<p>No — a report states checkable facts, not opinions or guesses.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L2 · Dialogue 1 — seemed and might</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> The mentor says the words <em>seemed</em> and <em>might</em> are good words for a defect report.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. "Seemed" and "might" give ambiguity. You write what you saw, not what you guessed.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — those words are guesses, and an inspector cannot check a guess.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — they create ambiguity, so STE avoids them.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L3 · Dialogue 2 — procedural sentence</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again</strong> (Write the procedure in STE). What is a procedural sentence?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Each step is a procedural sentence — a command in the active voice that starts with a technical verb.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>A command in the active voice.</text><feedback format="html"><text><![CDATA[<p>Correct — one instruction, active voice, starting with a technical verb.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>A long description of the whole repair task.</text><feedback format="html"><text><![CDATA[<p>No — a procedural sentence gives exactly one step.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>A passive note about what should be done.</text><feedback format="html"><text><![CDATA[<p>No — STE uses the active voice, not the passive.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L4 · Dialogue 2 — nouns in a cluster</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> The mentor says that a certain number of nouns together create ambiguity (a noun cluster). How many nouns together?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Three. "Three nouns together create ambiguity." Break the cluster into the technical name plus small words.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — three nouns in a row is a noun cluster.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>The mentor says three nouns together create ambiguity.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L5 · Dialogues 1-2 — ideas per sentence</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogues 1 and 2 again.</strong> How many ideas (or instructions) should you put in each short sentence?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>One. "Put one idea in each short sentence" and "one clear instruction in each line."</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>1</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — one idea, or one instruction, per sentence.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>The speakers say one idea, or one instruction, per line.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L6 · Dialogue 3 — where the warning goes</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again</strong> (Peer review before sign-off). The warning about the live circuit should come before the step.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The warning protects the person, so it comes before the step.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — a warning always precedes the step it protects.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No — the person must read the warning before doing the step.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L7 · Voicemail — exceptions to the rule</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to the line supervisor's voicemail again.</strong> The new STE rule applies "without exception". How many exceptions are allowed?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Zero. "From today, without exception, all reports must use Simplified Technical English."</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>0</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — "without exception" means zero exceptions.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>"Without exception" means no exceptions — zero.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ==================== READING (5) ==================== -->
+
+  <question type="multichoice">
+    <name><text>R1 · Task card</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this task card.</strong></p><blockquote>TASK CARD 32-11-00 — Inspect the main gear bracket for corrosion. Clean the area. If the depth is within limits, tag the part serviceable. If the depth is not within limits, tag it unserviceable and raise a defect report.</blockquote><p>What must the technician do if the corrosion depth is <em>not</em> within limits?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Out of limits means the part is unserviceable, and a defect report must be raised.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Tag it unserviceable and raise a defect report.</text><feedback format="html"><text><![CDATA[<p>Correct — the card says exactly this.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>Clean the area, refit the panel, and close the work order.</text><feedback format="html"><text><![CDATA[<p>No — the work order is not closed on an out-of-limits fault.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>Record the depth in the tech log and continue the check.</text><feedback format="html"><text><![CDATA[<p>No — an out-of-limits part must be tagged and reported.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R2 · MEL entry</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this MEL entry.</strong></p><blockquote>MEL 34-12 — The number two weather radar may be inoperative for up to 10 days. Placard the unit. Deactivate it in accordance with the procedure.</blockquote><p>The MEL allows the number two weather radar to stay inoperative for a maximum of ten days.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. "up to 10 days" is the maximum allowed by this MEL item.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — up to 10 days.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Re-read: the entry says "up to 10 days".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>R3 · Airworthiness Directive — interval</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this Airworthiness Directive.</strong></p><blockquote>AD-2024-07 — Within the next 100 flight hours, inspect the rudder PCU bracket for cracks. This AD is mandatory. Report any crack to the manufacturer.</blockquote><p>Within how many flight hours must the inspection be done? (Type the number.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>100 flight hours. The AD sets a hard interval, and it is mandatory.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>100</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — within the next 100 flight hours.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>The AD says within the next 100 flight hours.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 · Service Bulletin</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this Service Bulletin note.</strong></p><blockquote>SB-27-1145 is recommended, unless your authority makes it mandatory. It affects the rudder PCU bracket.</blockquote><p>A Service Bulletin is always mandatory.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. A Service Bulletin is recommended unless the authority makes it mandatory; an Airworthiness Directive is what is always mandatory.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — a SB is recommended unless the authority makes it mandatory.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — a SB is not automatically mandatory.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R5 · Work order</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this work order.</strong></p><blockquote>WO-5567 — Replace the corroded antenna bracket. WARNING: isolate the electrical supply before removal. Close the work order only when the new bracket is fitted and tested.</blockquote><p>When may the work order be closed?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The work order stays open until the new bracket is fitted and tested.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>When the new bracket is fitted and tested.</text><feedback format="html"><text><![CDATA[<p>Correct — those are the conditions stated on the work order.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>As soon as the electrical supply has been isolated.</text><feedback format="html"><text><![CDATA[<p>No — isolating the supply is a warning step, not completion.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>After the warning has been written into the tech log.</text><feedback format="html"><text><![CDATA[<p>No — the job must be finished and tested first.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ==================== USE OF ENGLISH (6) ==================== -->
+
+  <question type="shortanswer">
+    <name><text>U1 · Article — first mention</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Type the missing article. <br>The technician found ___ crack in the panel.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>a</strong> — a crack is mentioned for the first time, so use <em>a</em>. (Later: measure <em>the</em> crack.)</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>a</text><feedback format="html"><text><![CDATA[<p>Correct — first mention takes <em>a</em>.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>the</text><feedback format="html"><text><![CDATA[<p>Not yet — the crack is new information, so use <em>a</em> first.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>First mention of a countable noun takes <em>a</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 · Article — general / uncountable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Type the article, or write <em>none</em> if no article is needed. <br>Check for ___ corrosion.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>none</strong> — "corrosion" is uncountable and general here, so it takes no article.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>none</text><feedback format="html"><text><![CDATA[<p>Correct — general uncountable, no article.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>no article</text><feedback format="html"><text><![CDATA[<p>Correct — no article for a general uncountable noun.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>-</text><feedback format="html"><text><![CDATA[<p>Correct — no article needed.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>the</text><feedback format="html"><text><![CDATA[<p>No — "the corrosion" would mean a specific, already-known patch.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>General uncountable nouns take no article.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 · Passive to active transformation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Rewrite this heavy line as one short STE command in the active voice. <br>"The removal of the bolt should be done."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>Remove the bolt.</strong> Start with a technical verb, use the active voice, keep the article.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>Remove the bolt.</text><feedback format="html"><text><![CDATA[<p>Correct — technical verb, active voice, article in place.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>Remove the bolt</text><feedback format="html"><text><![CDATA[<p>Correct — a full stop would finish it neatly.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>Remove bolt*</text><feedback format="html"><text><![CDATA[<p>Almost — do not drop the article: write "Remove <em>the</em> bolt."</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use the technical verb: "Remove the bolt."</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 · Bank term — state of a part</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Type the approved word. <br>A part that is <em>not safe to use</em> is ___ .</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>unserviceable</strong> — the approved opposite of serviceable. Never write "bad" or "not okay".</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>unserviceable</text><feedback format="html"><text><![CDATA[<p>Correct — the approved word for not safe to use.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>serviceable</text><feedback format="html"><text><![CDATA[<p>That is the opposite — serviceable means safe to use.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The approved word is "unserviceable".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 · Bank term — safety note for people</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Type the approved word. <br>The safety note that protects a <em>person</em> is a ___ .</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>warning</strong> protects a person; a <em>caution</em> protects the part. Both go before the step.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>warning</text><feedback format="html"><text><![CDATA[<p>Correct — a warning is for people.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>caution</text><feedback format="html"><text><![CDATA[<p>No — a caution protects the part; a warning protects the person.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>A warning protects a person from injury.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 · Article — second mention</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Type the missing article. <br>Find a crack. Measure ___ crack.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>the</strong> — the crack is now known (it was mentioned before), so use <em>the</em>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>the</text><feedback format="html"><text><![CDATA[<p>Correct — second mention takes <em>the</em>.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>a</text><feedback format="html"><text><![CDATA[<p>No — the crack is already known, so use <em>the</em>.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Once a thing is known, use <em>the</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ==================== VOCABULARY (4) ==================== -->
+
+  <question type="matching">
+    <name><text>V1 · Match term to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>defect report = formal record; shift note = quick personal note; ambiguity = two meanings; warning = protects a person; caution = protects the part.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[defect report]]></text><answer><text>A short, formal record of a fault.</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[shift note]]></text><answer><text>A quick, informal personal note.</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[ambiguity]]></text><answer><text>When a sentence has two meanings.</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[warning]]></text><answer><text>A note that protects a person.</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[caution]]></text><answer><text>A note that protects the part.</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 · Match term to its collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the word that usually goes with it.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>raise a defect report · close the work order · surface corrosion · sign the tech log · mounting bracket.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[defect report]]></text><answer><text>raise a defect report</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[work order]]></text><answer><text>close the work order</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[corrosion]]></text><answer><text>surface corrosion</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[tech log]]></text><answer><text>sign the tech log</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[bracket]]></text><answer><text>mounting bracket</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V3 · The approved word</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which is the approved STE word for a part that is <em>not safe to use</em>?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"unserviceable" is the single approved word. Everyday phrases add ambiguity and are not allowed.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>unserviceable</text><feedback format="html"><text><![CDATA[<p>Correct — the one approved word.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>not really okay to fly it</text><feedback format="html"><text><![CDATA[<p>No — an everyday phrase, not an approved word.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>a bit dodgy near the bolt</text><feedback format="html"><text><![CDATA[<p>No — vague and not approved; it adds ambiguity.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>V4 · Serviceable meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Serviceable" means the part is not safe to use.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. Serviceable means in limits and safe to use. The opposite is unserviceable.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — that is "unserviceable".</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — serviceable means safe to use.</p>]]></text></feedback></answer>
+  </question>
+
+</quiz>

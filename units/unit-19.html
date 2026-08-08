@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English for Aviation Maintenance · Unit 19 — Writing a defect report in Simplified Technical English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-code:#1a1f2b; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582; --ink-inverse:#f6f4ee;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  article{max-width:960px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 32px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4vw,2.6rem);line-height:1.1;margin:0 0 var(--space-4);max-width:26ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:66ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px 24px;border-top:1px solid var(--border);padding-top:var(--space-4)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:14px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .cando{margin:var(--space-5) 0 0;padding:var(--space-4) var(--space-5);background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius)}
+  .cando h4{font-size:.95rem;margin:0 0 var(--space-3);color:var(--color-primary-dark);font-family:var(--font-sans);text-transform:uppercase;letter-spacing:.06em;font-size:12px}
+  .cando ul{margin:0;padding-left:1.2em}
+  .cando li{margin:6px 0;color:#33384a}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.14rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:74ch}
+  code,kbd{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  a{color:var(--color-primary)}
+  .lede{font-size:17.5px;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  /* dialogues */
+  .dlg{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);margin:var(--space-5) 0;box-shadow:var(--shadow-sm);overflow:hidden}
+  .dlg-head{background:var(--bg-sunken);padding:12px 18px;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary-dark);font-weight:600}
+  .dlg-body{padding:8px 18px 16px}
+  .lang-audio-slot{margin:12px 0;padding:14px 16px;border:1px dashed var(--color-primary-soft);border-radius:var(--radius-sm);background:#eef2f9;font-family:var(--font-mono);font-size:12px;color:var(--color-primary-dark);text-align:center}
+  .lang-audio-slot:before{content:"🎧 Audio track "counter(x);}
+  details.transcript{margin-top:6px}
+  details.transcript>summary{cursor:pointer;font-weight:600;color:var(--color-primary);font-size:14px;padding:6px 0}
+  .turn{margin:6px 0;max-width:none;display:flex;gap:10px;align-items:baseline}
+  .turn .spk{font-family:var(--font-mono);font-weight:700;color:var(--color-primary);min-width:22px}
+  .turn .said{color:var(--ink)}
+  .turn.mono{display:block}
+  /* vocab */
+  table.vocab{border-collapse:collapse;width:100%;margin-top:12px;font-size:14.5px}
+  table.vocab th,table.vocab td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vocab th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  table.vocab dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  table.vocab td.ex{color:#3a3f4d;font-style:italic}
+  table.vocab td.col{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-muted)}
+  /* grammar */
+  table.form{border-collapse:collapse;width:100%;margin:12px 0;font-size:14.5px}
+  table.form th,table.form td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.form th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  .wr{background:#fbecea;border-left:3px solid var(--bad);padding:8px 12px;border-radius:var(--radius-sm);margin:6px 0}
+  .ri{background:#eaf5ec;border-left:3px solid var(--good);padding:8px 12px;border-radius:var(--radius-sm);margin:6px 0}
+  .wr b,.ri b{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+  .quote{border-left:4px solid var(--gold);background:var(--bg-margin);padding:8px 14px;margin:10px 0;font-family:var(--font-serif);font-style:italic}
+  /* exercises */
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:16px 18px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono);display:block;margin-bottom:2px}
+  .ex h3{margin:0 0 4px;font-size:1.08rem}
+  .ex .instr{font-size:15px;color:var(--ink-soft);margin:2px 0 10px}
+  .ex ol{margin:8px 0;padding-left:1.4em}
+  .ex ol.qs li{margin:9px 0}
+  .ex .wordbank{font-family:var(--font-mono);font-size:13px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;margin:6px 0 12px;line-height:1.9}
+  .reading-text{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin:8px 0 12px;font-size:15px}
+  .reading-text .doc-head{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-primary);font-weight:700;margin-bottom:6px}
+  input.gap{font-family:var(--font-mono);font-size:14px;border:1px solid var(--border);border-radius:5px;padding:4px 8px;min-width:120px;background:#fff}
+  input.gap.right{border-color:var(--good);background:#eaf5ec}
+  input.gap.wrong{border-color:var(--bad);background:#fbecea}
+  select.gap{font-family:var(--font-sans);font-size:14px;border:1px solid var(--border);border-radius:5px;padding:4px 8px;background:#fff}
+  select.gap.right{border-color:var(--good);background:#eaf5ec}
+  select.gap.wrong{border-color:var(--bad);background:#fbecea}
+  .btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  .btn:hover{border-color:var(--color-primary)}
+  .btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .exscore{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--color-primary-dark);margin-left:10px}
+  details.answers{margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken)}
+  details.answers>summary{cursor:pointer;font-weight:600;color:var(--color-primary);padding:8px 12px;font-size:14px}
+  details.answers .abody{padding:0 14px 12px;font-size:14px;color:#3a3f4d}
+  /* speaking */
+  .roleplay{background:var(--bg-elevated);border:1px solid var(--border);border-top:4px solid var(--gold);border-radius:var(--radius-sm);padding:14px 16px;margin:12px 0;box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.02rem}
+  .roleplay .field{margin:6px 0;font-size:14.5px}
+  .roleplay .flab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-primary);font-weight:700;display:block}
+  .rp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:640px){.rp-grid{grid-template-columns:1fr}}
+  .ai-box{background:linear-gradient(180deg,#f4eefb,#fbfaf6);border:1px solid #e0d2f1;border-radius:var(--radius);padding:16px 18px;margin:16px 0}
+  .ai-box h4{margin:0 0 8px;color:#5a4fcf}
+  .ai-prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;margin:8px 0;font-size:14px;font-family:var(--font-mono);color:#33384a;white-space:pre-wrap}
+  .writing-model{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken);padding:14px 16px;margin:10px 0;font-size:14.5px}
+  .checklist{list-style:none;padding:0;margin:10px 0}
+  .checklist li{margin:6px 0}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 19 of 32 · Writing a defect report in Simplified Technical English</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 STE writing — approved word, one meaning, procedural sentenc</span></div></div></header>
+<article>
+
+  <header class="lec-hero">
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · EASA Part-66/145 · Unit 19 · CEFR B2</p>
+    <h1 class="lecture-title">Writing a defect report in Simplified Technical English.</h1>
+    <p class="subtitle">A rambling shift note is not a defect report. In this unit you learn to rewrite messy notes into clear, safe, STE-compliant reports — approved words, one meaning per word, short sentences, and the articles English needs but your first language drops.</p>
+    <div class="hero-meta">
+      <span>Unit<strong>19 — Defect reports in STE</strong></span>
+      <span>Specialism<strong>Mechanics &amp; avionics</strong></span>
+      <span>Grammar<strong>Obligatory articles (the / a)</strong></span>
+      <span>Class length<strong>90 minutes</strong></span>
+    </div>
+    <div class="cando">
+      <h4>By the end of this unit you can …</h4>
+      <ul>
+        <li>Can write a defect report using approved STE words and short sentences.</li>
+        <li>Can remove ambiguity by applying one-meaning-per-word discipline.</li>
+        <li>Can self-check a report against the core STE writing rules.</li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="lecture-section" id="scenario">
+    <h2><span class="secnum">00</span>The situation</h2>
+    <p class="lede">It is the end of a late shift at the line station. You found a fault on the aircraft, and you scribbled a quick note before you went home. The note made sense to you at midnight, although it will not make sense to the next technician.</p>
+    <p>Tomorrow, the day shift must act on your words. If your report is vague, they waste time, or worse, they miss the danger. This is why maintenance organisations write in <strong>Simplified Technical English</strong> — a controlled language with approved words and short sentences, so that one report means one thing to everyone who reads it.</p>
+    <p>Your task in this unit is simple to say and hard to do well. You will take a rambling shift note and rewrite it, on your own, into an STE-compliant defect report. Then you will swap with a partner and peer-review each other's version, unless the instructor pairs you differently. Read the model dialogues first, and listen before you read.</p>
+    <p>Simplified Technical English was originally developed for the aerospace industry, precisely because ambiguous maintenance instructions were causing expensive and dangerous mistakes. The standard reduces the vocabulary deliberately, so that a single approved word carries a single meaning across every manual. For a technician whose first language is Latvian or Russian, this discipline is genuinely helpful, although the missing articles remain a persistent challenge in English.</p>
+    <p>Consider what happens when documentation fails at a busy line station. An instruction that a native speaker reads as obvious can appear genuinely ambiguous to a colleague from another linguistic background. In aviation, that single misunderstanding can propagate quietly into an incorrect installation or a missed inspection. Investigators repeatedly identify unclear procedures as a contributing factor in maintenance errors, alongside fatigue and interruption. By constraining vocabulary and sentence length together, Simplified Technical English attacks the linguistic component of that risk directly, which explains its wide adoption across manufacturers and regulators.</p>
+  </section>
+
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">01</span>Model dialogues</h2>
+    <p class="instr" style="color:var(--ink-soft)">Listen to each track first, with the transcript closed. Then open the transcript and read.</p>
+
+    <div class="dlg">
+      <div class="dlg-head">Dialogue 1 — From shift note to defect report</div>
+      <div class="dlg-body">
+        <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u19-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:30 · listen first, then open the transcript</figcaption></figure>
+        <details class="transcript"><summary>Transcript</summary>
+          <p class="turn"><span class="spk">A</span><span class="said">Toms, I read your shift note from last night. It is hard to follow.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">I wrote it fast at the end of the shift. What is wrong with it?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">A defect report is not a shift note. It is a formal record, so it must use Simplified Technical English.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">So I cannot write it the way I speak?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">No. Every word must be an approved word with one meaning. That removes ambiguity.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Show me. My note says the part near the door looked bad.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">That is the problem. Did you find corrosion, a crack, or a loose bolt?</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">There was corrosion on the bracket below the panel.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Good. Now write it as a fact. The bracket has corrosion. Short and clear.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">That does sound better than my note.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">The tech log needs the same clear style, because the next technician depends on it. Put one idea in each short sentence.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">My note also says it seemed like it might be leaking. Is that wrong?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Yes. Seemed and might give ambiguity. Write what you saw, not what you guessed.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">So I should write that fuel is on the floor below the bracket?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Exactly. That is a fact an inspector can check. That is a defect report.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">I understand now. Short sentences, approved words, one meaning.</span></p>
+        </details>
+      </div>
+    </div>
+
+    <div class="dlg">
+      <div class="dlg-head">Dialogue 2 — Write the procedure in STE</div>
+      <div class="dlg-body">
+        <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u19-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:18 · listen first, then open the transcript</figcaption></figure>
+        <details class="transcript"><summary>Transcript</summary>
+          <p class="turn"><span class="spk">A</span><span class="said">Your report is clear. But the repair steps are not in Simplified Technical English yet.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">What should the steps look like?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Each step is a procedural sentence. It is a command in the active voice.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Can you give me an example?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Start with a technical verb. Write: Remove the bolt from the bracket.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">My draft says the removal of the bolt should be done. That is heavy.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">It is heavy and passive. Use the active voice instead, and put one clear instruction in each line.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">You also marked wing attachment fitting bolt hole. Why?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">That is a long noun cluster. Three nouns together create ambiguity.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">How do I fix a noun cluster?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Use the technical name and small words. Write: the bolt hole in the fitting.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">That is easier to read. What about danger notes?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Put a warning before the step when a person can be hurt.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">And when only the part can be damaged?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Then you write a caution. A warning is for people, a caution is for the part.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">So every approved word has one meaning, and each instruction stays short.</span></p>
+        </details>
+      </div>
+    </div>
+
+    <div class="dlg">
+      <div class="dlg-head">Dialogue 3 — Peer review before sign-off</div>
+      <div class="dlg-body">
+        <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u19-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:30 · listen first, then open the transcript</figcaption></figure>
+        <details class="transcript"><summary>Transcript</summary>
+          <p class="turn"><span class="spk">A</span><span class="said">Before I sign the work order, let us peer-review your defect report together.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">I made the sentences short and used approved words.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Good. But here you dropped an article. You wrote: Remove bolt from bracket.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">In my language we do not use articles, so I forget them.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">In English they are not optional. Write: Remove the bolt from the bracket.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">I see. So every noun needs the or a.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Usually, yes. You write a crack the first time you mention it, and then the crack after that.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Here I wrote that the part is okay. Is that an approved word?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">No. Write serviceable if it is good, or unserviceable if it is not.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">The bracket has corrosion, so it is unserviceable.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Correct, so tag it now. Then add the caution about the sealant near the panel, unless it is already there.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Should the warning about the live circuit go first?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Yes. The warning protects the person, so it comes before the step.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">I will update the tech log with the same words.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Good. Now the report is clear, and I can sign the work order.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Thank you. Next time I will add the articles before you ask.</span></p>
+        </details>
+      </div>
+    </div>
+
+    <div class="dlg">
+      <div class="dlg-head">Dialogue 4 — Line supervisor voicemail (monologue)</div>
+      <div class="dlg-body">
+        <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u19-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:51 · listen first, then open the transcript</figcaption></figure>
+        <details class="transcript"><summary>Transcript</summary>
+          <p class="turn mono"><span class="said">Hi, this is the line supervisor with a short message for the late shift. Please listen to the whole note.</span></p>
+          <p class="turn mono"><span class="said">We have an important new rule for every defect report. From today, without exception, all reports must use Simplified Technical English.</span></p>
+          <p class="turn mono"><span class="said">Do not copy your rough shift note straight into the tech log. Rewrite it first.</span></p>
+          <p class="turn mono"><span class="said">Use approved words, and give each word one meaning. Keep every sentence short and clear.</span></p>
+          <p class="turn mono"><span class="said">If you find corrosion on a bracket, write it as a plain fact. Do not guess.</span></p>
+          <p class="turn mono"><span class="said">Add a warning before any step that can hurt a person. Add a caution when only the part can be damaged.</span></p>
+          <p class="turn mono"><span class="said">When the report is ready, attach it to the work order and call me. Thank you, and have a safe shift.</span></p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">02</span>Vocabulary bank</h2>
+    <p class="instr" style="color:var(--ink-soft)">These are the words for this unit. Each one has a plain meaning, an example, and a common partner word.</p>
+    <table class="vocab">
+      <thead><tr><th>Term</th><th>Plain meaning</th><th>Example</th><th>Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="defect report">defect report</dfn></td><td>A short, formal written record of an aircraft fault that the organisation keeps on file.</td><td class="ex">The technician raised a defect report, because the corrosion on the bracket was outside limits.</td><td class="col">raise a defect report</td></tr>
+        <tr><td><dfn data-term="Simplified Technical English">Simplified Technical English</dfn></td><td>A controlled writing standard that limits you to approved words and short, clear sentences.</td><td class="ex">Aircraft manuals and defect reports use Simplified Technical English, so every reader understands them equally.</td><td class="col">write in Simplified Technical English</td></tr>
+        <tr><td><dfn data-term="approved word">approved word</dfn></td><td>A word that the Simplified Technical English dictionary allows you to use in a report.</td><td class="ex">In this standard, "remove" is an approved word, although the everyday phrase "take off" is not.</td><td class="col">use an approved word</td></tr>
+        <tr><td><dfn data-term="one meaning">one meaning</dfn></td><td>The discipline of using each word for only one idea, which removes confusion.</td><td class="ex">Give each word one meaning, because a word with two meanings creates dangerous ambiguity.</td><td class="col">one meaning per word</td></tr>
+        <tr><td><dfn data-term="procedural sentence">procedural sentence</dfn></td><td>A short command that tells the reader to perform exactly one step in a task.</td><td class="ex">Every repair step becomes a procedural sentence that begins with an approved technical verb.</td><td class="col">write a procedural sentence</td></tr>
+        <tr><td><dfn data-term="ambiguity">ambiguity</dfn></td><td>The situation where a sentence can be understood in more than one different way.</td><td class="ex">The words "seemed" and "might" create ambiguity, so the inspector cannot trust the report.</td><td class="col">remove ambiguity</td></tr>
+        <tr><td><dfn data-term="noun cluster">noun cluster</dfn></td><td>Three or more nouns joined in a row, which becomes difficult to read and understand.</td><td class="ex">Break the long noun cluster "wing attachment fitting bolt hole" into smaller, clearer parts.</td><td class="col">a long noun cluster</td></tr>
+        <tr><td><dfn data-term="active voice">active voice</dfn></td><td>A sentence pattern where the person or tool that acts comes before the action.</td><td class="ex">Simplified Technical English prefers the active voice, so the instructions stay direct and easy to follow.</td><td class="col">use the active voice</td></tr>
+        <tr><td><dfn data-term="technical name">technical name</dfn></td><td>The single correct name of a component or a tool, used consistently everywhere.</td><td class="ex">Always use the technical name of the component, because a nickname introduces unnecessary ambiguity.</td><td class="col">the correct technical name</td></tr>
+        <tr><td><dfn data-term="technical verb">technical verb</dfn></td><td>An approved action word for a maintenance task, for example remove, install, or torque.</td><td class="ex">Begin each procedural sentence with a technical verb, such as "remove", "install", or "inspect".</td><td class="col">an approved technical verb</td></tr>
+        <tr><td><dfn data-term="warning">warning</dfn></td><td>A safety note that tells the reader a step can injure or kill a person.</td><td class="ex">Position the warning before the step, because it must protect the technician from injury.</td><td class="col">a safety warning</td></tr>
+        <tr><td><dfn data-term="caution">caution</dfn></td><td>A note that tells the reader a step can damage the aircraft or the component.</td><td class="ex">The caution reminds you not to use a steel brush, which would damage the protective coating.</td><td class="col">a caution note</td></tr>
+        <tr><td><dfn data-term="instruction">instruction</dfn></td><td>One clear, single step that tells the technician exactly what action to perform.</td><td class="ex">Write one instruction on each line, so that nobody performs two actions by mistake.</td><td class="col">a clear instruction</td></tr>
+        <tr><td><dfn data-term="shift note">shift note</dfn></td><td>A quick, informal note that a technician writes for personal use during a shift.</td><td class="ex">My rough shift note made sense at midnight, although the day shift could not follow it.</td><td class="col">a rough shift note</td></tr>
+        <tr><td><dfn data-term="tech log">tech log</dfn></td><td>The official aircraft technical log that records every fault and every maintenance action.</td><td class="ex">Copy the confirmed defect into the tech log, using exactly the same approved words.</td><td class="col">sign the tech log</td></tr>
+        <tr><td><dfn data-term="work order">work order</dfn></td><td>A formal document that tells a technician which maintenance task to carry out.</td><td class="ex">The supervisor keeps the work order open until the inspector confirms the bracket.</td><td class="col">close the work order</td></tr>
+        <tr><td><dfn data-term="serviceable">serviceable</dfn></td><td>In good condition, within limits, and therefore safe to use on the aircraft.</td><td class="ex">After the inspection, the valve is serviceable, so the aircraft can return to service.</td><td class="col">a serviceable part</td></tr>
+        <tr><td><dfn data-term="unserviceable">unserviceable</dfn></td><td>Not safe to use, and it must be repaired or replaced before further flight.</td><td class="ex">Because the bracket has corrosion beyond the limit, the technician tagged it unserviceable.</td><td class="col">tag it unserviceable</td></tr>
+        <tr><td><dfn data-term="corrosion">corrosion</dfn></td><td>Gradual damage to metal caused by moisture, air, and chemicals over a long period.</td><td class="ex">Surface corrosion had reduced the thickness of the bracket near the lower bolt hole.</td><td class="col">surface corrosion</td></tr>
+        <tr><td><dfn data-term="bracket">bracket</dfn></td><td>A metal fitting that holds another component firmly in its correct position.</td><td class="ex">The mounting bracket holds the antenna, so any corrosion on it is a genuine concern.</td><td class="col">a mounting bracket</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">03</span>Grammar in context — obligatory articles</h2>
+    <p class="lede">STE keeps sentences short, so every word must earn its place. Even so, English still needs its articles. You cannot drop <em>the</em> or <em>a</em>, although Latvian and Russian have no articles at all. This is the error the instructor will spot first.</p>
+    <p>Look again at two lines from the dialogues. In Dialogue 2, the mentor gives the model step:</p>
+    <div class="quote">"Start with a technical verb. Write: Remove the bolt from the bracket."</div>
+    <p>Every noun has an article. It is <em>the</em> bolt and <em>the</em> bracket, because the reader already knows which ones. In Dialogue 3, the supervisor corrects a dropped article:</p>
+    <div class="quote">"You dropped an article. You wrote: Remove bolt from bracket."</div>
+    <p>The naked nouns feel normal in Latvian or Russian, yet in an English report they read as broken. The difficulty is understandable, because neither language marks a noun as definite or indefinite with a separate word. Consequently, the article is often the very last feature a fluent speaker masters, unless they practise it deliberately in their own writing. Use the table below to choose the right article, and then check every noun in your defect report against it.</p>
+    <table class="form">
+      <thead><tr><th>Case</th><th>Rule</th><th>STE example</th></tr></thead>
+      <tbody>
+        <tr><td>Known thing</td><td>Use <b>the</b> when the reader knows which one.</td><td>Remove <b>the</b> bolt from <b>the</b> bracket.</td></tr>
+        <tr><td>First mention</td><td>Use <b>a / an</b> the first time; use <b>the</b> after that.</td><td>Find <b>a</b> crack. Measure <b>the</b> crack.</td></tr>
+        <tr><td>One of many</td><td>Use <b>a / an</b> for any one, not a special one.</td><td>Install <b>a</b> new seal.</td></tr>
+        <tr><td>General / uncountable</td><td>Use <b>no</b> article for a material or a plural in general.</td><td>Check for corrosion. Torque all bolts.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Three mistakes to avoid (Latvian / Russian speakers)</h3>
+    <div class="callout">
+      <h4>Why the article matters for safety</h4>
+      <p>An article is not decoration; in a maintenance instruction it identifies exactly which component the technician must handle. Whenever you write "the bracket", you are signalling that a particular, already-mentioned bracket is meant, rather than any similar component nearby. When you drop the article, you quietly reintroduce the very ambiguity that Simplified Technical English exists to eliminate. Therefore, experienced reviewers treat every missing article as a genuine documentation defect, comparable to an omitted torque value.</p>
+    </div>
+    <p>Articles also interact with countability in ways that reward a little study. A singular countable noun, such as "bolt" or "bracket", almost always needs an article or another determiner in front of it. An uncountable noun, such as "corrosion" or "fuel", takes no article when you mean the substance in general, although it takes "the" once you specify a particular quantity. Recognising this distinction quickly will eliminate the majority of the article errors that currently appear in your reports.</p>
+    <div class="wr"><b>Wrong ✗</b> — Technician found crack in panel and replaced bracket.</div>
+    <div class="ri"><b>Right ✓</b> — The technician found a crack in the panel and replaced the bracket.</div>
+    <div class="wr"><b>Wrong ✗</b> — Fault is in left hydraulic system.</div>
+    <div class="ri"><b>Right ✓</b> — The fault is in the left hydraulic system.</div>
+    <div class="wr"><b>Wrong ✗</b> — Remove bolt, then install new seal on valve.</div>
+    <div class="ri"><b>Right ✓</b> — Remove the bolt, then install a new seal on the valve.</div>
+  </section>
+
+  <section class="lecture-section" id="exercises">
+    <h2><span class="secnum">04</span>Exercises</h2>
+    <p class="instr" style="color:var(--ink-soft)">Do each exercise, then press <em>Check</em>. Green means correct. You can also open the answer key.</p>
+    <p>These exercises deliberately progress from recognition towards production, because that sequence mirrors how professionals genuinely acquire specialist terminology. In the early tasks you simply identify the correct approved word, whereas the later tasks require you to reconstruct an entire procedural sentence. Work through them in order, and resist revealing an answer until you have committed to your own response, since verification only helps once you have actually decided.</p>
+
+    <!-- E1 -->
+    <div class="ex" id="e1">
+      <span class="tag">E1 · Gap-fill</span>
+      <h3>Put the right term in each gap</h3>
+      <p class="instr">Use a term from the word bank. Type it in the gap, then press Check.</p>
+      <div class="wordbank">defect report · Simplified Technical English · approved word · one meaning · procedural sentence · ambiguity · noun cluster · active voice · technical name · technical verb · warning · caution · instruction · shift note · tech log · work order · serviceable · unserviceable · corrosion · bracket</div>
+      <ol>
+        <li>A quick note you write during your shift is a <input class="gap" data-answer="shift note" size="12">.</li>
+        <li>The clear, formal record of a fault is a <input class="gap" data-answer="defect report" size="12">.</li>
+        <li>When a sentence has two meanings, it has <input class="gap" data-answer="ambiguity" size="10">.</li>
+        <li>A command that gives one step is a <input class="gap" data-answer="procedural sentence" size="14">.</li>
+        <li>The note that protects a person is a <input class="gap" data-answer="warning" size="8">.</li>
+        <li>The note that protects the part is a <input class="gap" data-answer="caution" size="8">.</li>
+        <li>Damage on metal from air and water is <input class="gap" data-answer="corrosion" size="9">.</li>
+        <li>A part that is safe to use is <input class="gap" data-answer="serviceable" size="10">.</li>
+        <li>A part that is not safe to use is <input class="gap" data-answer="unserviceable" size="12">.</li>
+        <li>The controlled writing style for manuals is <input class="gap" data-answer="Simplified Technical English" size="20">.</li>
+      </ol>
+      <button class="btn primary" data-check="e1">Check</button><span class="exscore"></span>
+      <details class="answers"><summary>Answer key</summary><div class="abody">1 shift note · 2 defect report · 3 ambiguity · 4 procedural sentence · 5 warning · 6 caution · 7 corrosion · 8 serviceable · 9 unserviceable · 10 Simplified Technical English</div></details>
+    </div>
+
+    <!-- E2 -->
+    <div class="ex" id="e2">
+      <span class="tag">E2 · Matching</span>
+      <h3>Match the term to its meaning</h3>
+      <p class="instr">Choose the letter of the correct meaning for each term.</p>
+      <ol>
+        <li>approved word — <select class="gap" data-answer="C"><option value="">—</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
+        <li>noun cluster — <select class="gap" data-answer="A"><option value="">—</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
+        <li>active voice — <select class="gap" data-answer="F"><option value="">—</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
+        <li>technical verb — <select class="gap" data-answer="B"><option value="">—</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
+        <li>tech log — <select class="gap" data-answer="E"><option value="">—</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
+        <li>work order — <select class="gap" data-answer="D"><option value="">—</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
+        <li>caution — <select class="gap" data-answer="H"><option value="">—</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
+        <li>unserviceable — <select class="gap" data-answer="G"><option value="">—</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
+      </ol>
+      <p style="font-size:14px;color:#3a3f4d"><b>Meanings:</b> A a long string of nouns · B an approved action word · C a word the STE rules allow · D a document that sets the task · E the log that records faults · F doer before the action · G not safe to use · H a note that protects the part</p>
+      <button class="btn primary" data-check="e2">Check</button><span class="exscore"></span>
+      <details class="answers"><summary>Answer key</summary><div class="abody">approved word=C · noun cluster=A · active voice=F · technical verb=B · tech log=E · work order=D · caution=H · unserviceable=G</div></details>
+    </div>
+
+    <!-- E3 -->
+    <div class="ex" id="e3">
+      <span class="tag">E3 · Dialogue completion</span>
+      <h3>Complete the missing words</h3>
+      <p class="instr">These lines come from the dialogues. Type the missing word in each gap.</p>
+      <ol>
+        <li>A: Every word must be an approved word with <input class="gap" data-answer="one" size="6"> meaning.</li>
+        <li>A: The <input class="gap" data-answer="bracket" size="9"> has corrosion. Short and clear.</li>
+        <li>A: Each step is a procedural sentence. It is a command in the <input class="gap" data-answer="active" size="7"> voice.</li>
+        <li>A: Start with a technical <input class="gap" data-answer="verb" size="6">. Write: Remove the bolt.</li>
+        <li>A: Three nouns together create <input class="gap" data-answer="ambiguity" size="10">.</li>
+        <li>A: A warning is for people, a <input class="gap" data-answer="caution" size="9"> is for the part.</li>
+        <li>A: Write serviceable if it is good, or <input class="gap" data-answer="unserviceable" size="12"> if it is not.</li>
+        <li>A: Now the report is clear, and I can sign the <input class="gap" data-answer="work order" size="11">.</li>
+      </ol>
+      <button class="btn primary" data-check="e3">Check</button><span class="exscore"></span>
+      <details class="answers"><summary>Answer key</summary><div class="abody">1 one · 2 bracket · 3 active · 4 verb · 5 ambiguity · 6 caution · 7 unserviceable · 8 work order</div></details>
+    </div>
+
+    <!-- E4 -->
+    <div class="ex" id="e4">
+      <span class="tag">E4 · Grammar transformation</span>
+      <h3>Add the missing articles</h3>
+      <p class="instr">Type only the missing article (<code>the</code> or <code>a</code>) in each gap. Read the whole sentence first.</p>
+      <ol>
+        <li>Remove <input class="gap" data-answer="the" size="4"> bolt from <input class="gap" data-answer="the" size="4"> bracket.</li>
+        <li>The technician found <input class="gap" data-answer="a" size="4"> crack in the panel.</li>
+        <li>Install <input class="gap" data-answer="a" size="4"> new seal on the valve.</li>
+        <li>The fault is in <input class="gap" data-answer="the" size="4"> left hydraulic system.</li>
+        <li>Read <input class="gap" data-answer="the" size="4"> warning before you start <input class="gap" data-answer="the" size="4"> step.</li>
+        <li>There is <input class="gap" data-answer="a" size="4"> caution about <input class="gap" data-answer="the" size="4"> sealant.</li>
+        <li>Attach the report to <input class="gap" data-answer="the" size="4"> work order.</li>
+      </ol>
+      <button class="btn primary" data-check="e4">Check</button><span class="exscore"></span>
+      <details class="answers"><summary>Answer key</summary><div class="abody">1 the / the · 2 a · 3 a · 4 the · 5 the / the · 6 a / the · 7 the</div></details>
+    </div>
+
+    <!-- E5 -->
+    <div class="ex" id="e5">
+      <span class="tag">E5 · Reading 1</span>
+      <h3>Read a completed defect report</h3>
+      <div class="reading-text">
+        <div class="doc-head">Tech Log — Defect Report · A/C reg YL-BAM · ATA 32 Landing Gear</div>
+        <p>Defect: During the walk-around check, the technician found corrosion on the left main gear bracket. The corrosion is on the lower face of the bracket, near the bolt hole. The area is about two centimetres wide. There is no crack in the bracket, and no fluid is present.</p>
+        <p>Action: The technician cleaned the surface and measured the depth of the corrosion. The depth is within the limit in the maintenance manual, although it is close to the limit. The technician tagged the bracket as serviceable for now. A repeat check is due at the next A-check, unless the depth grows.</p>
+        <p>Warning: Do not apply load to the gear before the area is clean and dry. Caution: Do not use a steel brush on the surface, because it can damage the coating. The work order stays open until the repeat check is complete.</p>
+        <p>Note for the reviewer: the original technician recorded the observation immediately, rather than relying on memory at the end of the shift. Consequently, the measurements remain precise, and a second engineer can repeat the inspection and reach an identical conclusion. This traceability is precisely what distinguishes a professional defect report from a hurried personal note.</p>
+      </div>
+      <p class="instr">Choose the best answer.</p>
+      <ol class="qs">
+        <li>Where is the corrosion? <select class="gap" data-answer="B"><option value="">—</option><option value="A">A on the bolt</option><option value="B">B on the left main gear bracket</option><option value="C">C on the panel</option></select></li>
+        <li>Is there a crack? <select class="gap" data-answer="A"><option value="">—</option><option value="A">A no crack</option><option value="B">B a long crack</option><option value="C">C two cracks</option></select></li>
+        <li>What is the depth compared with the limit? <select class="gap" data-answer="C"><option value="">—</option><option value="A">A over the limit</option><option value="B">B far below it</option><option value="C">C within, but close to it</option></select></li>
+        <li>What is the state of the bracket now? <select class="gap" data-answer="A"><option value="">—</option><option value="A">A serviceable</option><option value="B">B unserviceable</option><option value="C">C removed</option></select></li>
+        <li>Why the caution about the steel brush? <select class="gap" data-answer="B"><option value="">—</option><option value="A">A it is slow</option><option value="B">B it can damage the coating</option><option value="C">C it is heavy</option></select></li>
+        <li>Is the work order closed? <select class="gap" data-answer="C"><option value="">—</option><option value="A">A yes, fully</option><option value="B">B it was never opened</option><option value="C">C no, it stays open</option></select></li>
+      </ol>
+      <button class="btn primary" data-check="e5">Check</button><span class="exscore"></span>
+      <details class="answers"><summary>Answer key</summary><div class="abody">1 B · 2 A · 3 C · 4 A · 5 B · 6 C</div></details>
+    </div>
+
+    <!-- E6 -->
+    <div class="ex" id="e6">
+      <span class="tag">E6 · Error-spotting</span>
+      <h3>Fix the eight errors in this shift note</h3>
+      <p class="instr">This rough shift note breaks the STE rules and drops articles. Each line has one error. Type the corrected word or article in the gap.</p>
+      <ol>
+        <li>Found corrosion on <input class="gap" data-answer="the" size="4"> bracket. <span class="instr" style="display:inline">(missing article)</span></li>
+        <li>The removal of the bolt should be done. → Use a technical <input class="gap" data-answer="verb" size="6"> and the active voice.</li>
+        <li>Part looked bad and might be leaking. → Replace "bad" with an approved <input class="gap" data-answer="word" size="6">.</li>
+        <li>Wrote it in shift note style, but a report needs Simplified Technical <input class="gap" data-answer="English" size="8">.</li>
+        <li>The wing attachment fitting bolt hole is a long noun <input class="gap" data-answer="cluster" size="8">.</li>
+        <li>The part is okay. → Write <input class="gap" data-answer="serviceable" size="11"> instead of "okay".</li>
+        <li>Danger note for the live circuit must be a <input class="gap" data-answer="warning" size="8">, not a caution.</li>
+        <li>Copy result into <input class="gap" data-answer="the" size="4"> tech log with the same words.</li>
+      </ol>
+      <button class="btn primary" data-check="e6">Check</button><span class="exscore"></span>
+      <details class="answers"><summary>Answer key</summary><div class="abody">1 the · 2 verb · 3 word · 4 English · 5 cluster · 6 serviceable · 7 warning · 8 the</div></details>
+    </div>
+
+    <!-- E7 -->
+    <div class="ex" id="e7">
+      <span class="tag">E7 · Reading 2</span>
+      <h3>Read a Service Bulletin summary</h3>
+      <div class="reading-text">
+        <div class="doc-head">Service Bulletin SB-737-27-1145 · Rudder PCU Bracket · Summary for line stations</div>
+        <p>Reason: The manufacturer has received reports of corrosion on the bracket that holds the rudder power control unit. In a small number of aircraft, the corrosion reduces the strength of the bracket over time. If the bracket becomes unserviceable, the rudder control can be affected.</p>
+        <p>Action required: At the next scheduled check, inspect the bracket for corrosion and cracks. Use the technical name of each part in the defect report. Write every step as a procedural sentence in Simplified Technical English, so that the record has no ambiguity for the next technician.</p>
+        <p>Compliance: This bulletin is recommended, unless your authority makes it mandatory. Record the inspection in the tech log and close the work order only when the bracket is confirmed serviceable. A warning applies during the check: support the rudder before you remove any bracket bolt, because the surface can move without warning.</p>
+        <p>Additional guidance: line stations should treat this recommendation seriously even before it becomes mandatory, because corrosion progresses gradually and often unpredictably. Where an aircraft operates near the coast, atmospheric humidity accelerates the deterioration, and the interval between inspections may therefore need shortening. Record any such decision, together with its justification, so that the reasoning remains visible to every subsequent technician.</p>
+      </div>
+      <p class="instr">Choose the best answer.</p>
+      <ol class="qs">
+        <li>What part does the bulletin cover? <select class="gap" data-answer="B"><option value="">—</option><option value="A">A the engine mount</option><option value="B">B the rudder PCU bracket</option><option value="C">C the landing gear</option></select></li>
+        <li>What can corrosion do over time? <select class="gap" data-answer="A"><option value="">—</option><option value="A">A reduce the strength of the bracket</option><option value="B">B change the colour only</option><option value="C">C add weight</option></select></li>
+        <li>How should each step be written? <select class="gap" data-answer="C"><option value="">—</option><option value="A">A as a long paragraph</option><option value="B">B as a shift note</option><option value="C">C as a procedural sentence in STE</option></select></li>
+        <li>When is the bulletin mandatory? <select class="gap" data-answer="B"><option value="">—</option><option value="A">A always</option><option value="B">B when the authority makes it mandatory</option><option value="C">C never</option></select></li>
+        <li>When can you close the work order? <select class="gap" data-answer="A"><option value="">—</option><option value="A">A when the bracket is confirmed serviceable</option><option value="B">B at once</option><option value="C">C after one year</option></select></li>
+        <li>What does the warning ask you to do? <select class="gap" data-answer="C"><option value="">—</option><option value="A">A remove all bolts fast</option><option value="B">B ignore the surface</option><option value="C">C support the rudder before removing a bolt</option></select></li>
+      </ol>
+      <button class="btn primary" data-check="e7">Check</button><span class="exscore"></span>
+      <details class="answers"><summary>Answer key</summary><div class="abody">1 B · 2 A · 3 C · 4 B · 5 A · 6 C</div></details>
+    </div>
+
+    <!-- E8 -->
+    <div class="ex" id="e8">
+      <span class="tag">E8 · Listening review</span>
+      <h3>Questions on Dialogue 3</h3>
+      <p class="instr">Replay Audio track 3 (Peer review before sign-off). Then choose the best answer.</p>
+      <ol class="qs">
+        <li>What does A want to do before signing? <select class="gap" data-answer="B"><option value="">—</option><option value="A">A close the hangar</option><option value="B">B peer-review the defect report</option><option value="C">C order a new part</option></select></li>
+        <li>What error did B make in "Remove bolt from bracket"? <select class="gap" data-answer="A"><option value="">—</option><option value="A">A dropped the articles</option><option value="B">B wrong verb</option><option value="C">C too long</option></select></li>
+        <li>Why does B forget articles? <select class="gap" data-answer="C"><option value="">—</option><option value="A">A B is tired</option><option value="B">B B writes fast</option><option value="C">C B's first language has no articles</option></select></li>
+        <li>Which word replaces "okay"? <select class="gap" data-answer="B"><option value="">—</option><option value="A">A fine</option><option value="B">B serviceable</option><option value="C">C good</option></select></li>
+        <li>Why is the bracket unserviceable? <select class="gap" data-answer="A"><option value="">—</option><option value="A">A it has corrosion</option><option value="B">B it is new</option><option value="C">C it is painted</option></select></li>
+        <li>Where should the warning go? <select class="gap" data-answer="C"><option value="">—</option><option value="A">A at the end</option><option value="B">B in a footnote</option><option value="C">C before the step</option></select></li>
+      </ol>
+      <button class="btn primary" data-check="e8">Check</button><span class="exscore"></span>
+      <details class="answers"><summary>Answer key</summary><div class="abody">1 B · 2 A · 3 C · 4 B · 5 A · 6 C</div></details>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="speaking">
+    <h2><span class="secnum">05</span>Speaking — role-play</h2>
+    <p class="instr" style="color:var(--ink-soft)">Work in pairs. Take a card each. Use the useful phrases. Swap roles after five minutes.</p>
+    <p>Speaking about a defect out loud is surprisingly different from writing one, because conversation constantly tempts you back into vague, everyday vocabulary. During each role-play, discipline yourself to describe the fault using the very same approved words that your written report would contain. If your partner hears any ambiguity, they should interrupt immediately, so that you practise correcting yourself under mild but realistic professional pressure.</p>
+
+    <div class="rp-grid">
+      <div class="roleplay">
+        <h4>Role-play Card 1 — Mentor and junior</h4>
+        <div class="field"><span class="flab">Situation</span>A junior brings a rough shift note to the mentor at shift handover.</div>
+        <div class="field"><span class="flab">Your role (A)</span>You are the mentor. You help the junior rewrite the note.</div>
+        <div class="field"><span class="flab">Your goal</span>Turn the note into a clear defect report with approved words.</div>
+        <div class="field"><span class="flab">Useful phrases</span>"That word has ambiguity." · "Give each word one meaning." · "Write it as a fact."</div>
+      </div>
+
+      <div class="roleplay">
+        <h4>Role-play Card 2 — Technician and tech author</h4>
+        <div class="field"><span class="flab">Situation</span>A technician has written the repair steps. The tech author checks the STE.</div>
+        <div class="field"><span class="flab">Your role (B)</span>You are the technician. You explain your steps and ask for help.</div>
+        <div class="field"><span class="flab">Your goal</span>Rewrite each step as a procedural sentence in the active voice.</div>
+        <div class="field"><span class="flab">Useful phrases</span>"Is this a procedural sentence?" · "Start with a technical verb." · "Break the noun cluster."</div>
+      </div>
+
+      <div class="roleplay">
+        <h4>Role-play Card 3 — Peer review</h4>
+        <div class="field"><span class="flab">Situation</span>Two technicians peer-review each other's defect report before sign-off.</div>
+        <div class="field"><span class="flab">Your role (A)</span>You are the reviewer. You check the articles and the approved words.</div>
+        <div class="field"><span class="flab">Your goal</span>Find dropped articles and any word with more than one meaning.</div>
+        <div class="field"><span class="flab">Useful phrases</span>"You dropped an article here." · "Is the part serviceable or unserviceable?" · "This needs a warning."</div>
+      </div>
+
+      <div class="roleplay">
+        <h4>Role-play Card 4 — Supervisor and technician</h4>
+        <div class="field"><span class="flab">Situation</span>The supervisor calls about a defect report before closing the work order.</div>
+        <div class="field"><span class="flab">Your role (B)</span>You are the technician. You report the fault and the action clearly.</div>
+        <div class="field"><span class="flab">Your goal</span>Describe the corrosion, the warning, and the caution in short sentences.</div>
+        <div class="field"><span class="flab">Useful phrases</span>"There is corrosion on the bracket." · "I added a warning first." · "The tech log is updated."</div>
+      </div>
+    </div>
+
+    <div class="ai-box">
+      <h4>AI conversation partner — copy a prompt into the chat buddy</h4>
+      <p style="font-size:14px;margin:0 0 6px">Paste one prompt below into the chat buddy and speak your part. The AI will stay in role and gently correct your English.</p>
+      <div class="ai-prompt">You are my mentor at a Part-145 line station. I bring you a rough shift note about corrosion on a bracket. Play the mentor and help me rewrite it as a defect report. Speak at CEFR B2 with short sentences. Ask me one question each turn. When I make an error, gently repeat my sentence the correct way, then continue.</div>
+      <div class="ai-prompt">You are a tech author. I am a technician. I read you my repair steps, and you help me rewrite each one as a procedural sentence in the active voice. Speak at CEFR B2, keep it short, and ask one follow-up question each turn. If I drop an article or use a heavy phrase, recast my line correctly without a lecture.</div>
+      <div class="ai-prompt">You are my peer reviewer. I read you my defect report, and you check it against the STE rules. Speak at CEFR B2 in short sentences. Each turn, point out one issue (a dropped article, ambiguity, or a missing warning), recast my line correctly, and ask me one question.</div>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="writing">
+    <h2><span class="secnum">06</span>Writing task</h2>
+    <p class="lede">Now do the unit task on your own. Below is a rambling shift note. Rewrite it as a clean defect report in Simplified Technical English. Then use the self-check list, and peer-review a partner's version.</p>
+    <p>Professional maintenance writing is judged not by elegance but by whether an independent inspector can act on it without asking a single clarifying question. As you rewrite the note below, imagine that particular reader precisely, and remove anything that would force them to guess your intention. A report that survives that imagined inspection, with every article present and every word carrying exactly one meaning, meets the standard this entire unit has been training you towards.</p>
+    <div class="reading-text">
+      <div class="doc-head">Rough shift note (rewrite this)</div>
+      <p>"So basically when I was doing the walk-round on the right side I noticed the little metal thing that holds the antenna, it looked kind of rough near the bottom, might be some corrosion or maybe just dirt, hard to tell in the dark, anyway I wiped it and it still looked bad so probably someone should look at it, also there was a bolt that felt a bit loose but I didn't have the torque wrench so I left it, tell the day shift."</p>
+    </div>
+    <p class="instr">Write six to eight short lines. Use a defect line, an action line, a warning or caution, and the state of the part (serviceable or unserviceable).</p>
+    <details class="answers"><summary>Model answer (open after you write)</summary><div class="abody">
+      <p><b>Defect:</b> There is corrosion on the antenna bracket on the right side. The corrosion is near the lower edge, close to the bolt hole.</p>
+      <p><b>Action:</b> The technician cleaned the surface. The corrosion is still visible. The technician did not torque the loose bolt, because the torque wrench was not available.</p>
+      <p><b>State:</b> The bracket is unserviceable until an inspector checks it.</p>
+      <p><b>Caution:</b> Do not apply load to the antenna before the bolt is torqued to the correct value. Record this in the tech log and keep the work order open.</p>
+    </div></details>
+    <h3>Self-check list</h3>
+    <ul class="checklist">
+      <li><label><input type="checkbox"> Every sentence is short, and each one gives one idea.</label></li>
+      <li><label><input type="checkbox"> Every noun has the right article (the / a), with none dropped.</label></li>
+      <li><label><input type="checkbox"> I used approved words, and each word has one meaning (no ambiguity).</label></li>
+      <li><label><input type="checkbox"> I stated the part as serviceable or unserviceable, with a warning or caution if needed.</label></li>
+    </ul>
+  </section>
+
+  <footer>
+    English for Aviation Maintenance · Unit 19 · Writing a defect report in Simplified Technical English · CEFR B2 · Self-study language unit.
+  </footer>
+
+<script>
+(function(){
+  function norm(s){return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.,;:!?]+$/,'');}
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    if(!t.matches('[data-check]'))return;
+    var box=document.getElementById(t.getAttribute('data-check'));
+    if(!box)return;
+    var fields=box.querySelectorAll('input.gap, select.gap');
+    var ok=0,tot=0;
+    fields.forEach(function(f){
+      tot++;
+      var raw=(f.getAttribute('data-answer')||'').toLowerCase();
+      var answers=raw.split('|').map(norm);
+      var val=norm(f.value);
+      if(val!=='' && answers.indexOf(val)>-1){f.classList.add('right');f.classList.remove('wrong');ok++;}
+      else{f.classList.add('wrong');f.classList.remove('right');}
+    });
+    var out=box.querySelector('.exscore');
+    if(out)out.textContent=ok+' / '+tot+' correct.';
+  });
+})();
+</script>
+</article>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 19 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body>
+</html>
