@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Giving a shift handover briefing</title><!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Giving a shift handover briefing</title><!--CF-LANG-UI--><style>/* CourseForge LANG: the unit design system. Injected deterministically into every unit page
    AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
 :root{
   --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
@@ -142,7 +142,96 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 .cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
 .cf-prog i{position:relative;z-index:1;flex:none}
 @media (max-width:1180px){.cf-nav{display:none}}
-</style><!--/CF-LANG-UI--></head><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 5 of 32 · Giving a shift handover briefing</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 work status — outstanding, deferred, carried-over</span></div></div></header><article>
+/* LANG edition: Lang Buddy (in-lesson tutor) + pronunciation practice.
+   Uses the unit design tokens from lang-ui.css (--brand, --amber, --ink, --ink-2, --line, --paper). */
+
+.lb-root { font: 15px/1.6 'Inter', 'Segoe UI', system-ui, sans-serif; }
+
+.lb-fab {
+  position: fixed; right: 20px; bottom: 20px; z-index: 60;
+  display: flex; align-items: center; gap: 9px;
+  background: var(--brand, #2F5496); color: #fff; border: 0; cursor: pointer;
+  border-radius: 999px; padding: 12px 20px 12px 16px; font-size: 14.5px; font-weight: 600;
+  box-shadow: 0 2px 6px rgba(16, 32, 54, .16), 0 12px 30px rgba(16, 32, 54, .22);
+  transition: transform .16s, box-shadow .16s;
+}
+.lb-fab:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(16, 32, 54, .2), 0 18px 40px rgba(16, 32, 54, .26); }
+.lb-fab-i { font-size: 17px; line-height: 1; }
+
+.lb-panel {
+  position: fixed; right: 20px; bottom: 20px; z-index: 61;
+  width: 390px; max-width: calc(100vw - 32px); height: 580px; max-height: calc(100vh - 40px);
+  display: flex; flex-direction: column; overflow: hidden;
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(16, 32, 54, .1), 0 26px 60px rgba(16, 32, 54, .24);
+}
+.lb-panel[hidden] { display: none; }
+
+.lb-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line, #e2e6ec);
+  background: linear-gradient(180deg, #fff, #f8fafc);
+}
+.lb-head b { font-size: 15px; color: var(--ink, #1b2733); display: block; }
+.lb-sub { font-size: 12px; color: var(--ink-2, #5a6b7d); }
+.lb-x { background: 0; border: 0; font-size: 22px; line-height: 1; color: var(--ink-2, #5a6b7d); cursor: pointer; padding: 0 4px; }
+.lb-x:hover { color: var(--ink, #1b2733); }
+
+.lb-log { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.lb-msg { max-width: 84%; padding: 9px 13px; border-radius: 14px; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap; }
+.lb-you { align-self: flex-end; background: var(--brand, #2F5496); color: #fff; border-bottom-right-radius: 5px; }
+.lb-bot { align-self: flex-start; background: #f2f5f9; color: var(--ink, #1b2733); border-bottom-left-radius: 5px; }
+.lb-think { color: var(--ink-2, #5a6b7d); font-style: italic; }
+.lb-err { background: #fdeceb; color: #8c2f27; }
+
+.lb-gate { background: #fffdf6; border: 1px solid #f0dfbe; border-radius: 12px; padding: 13px 14px; font-size: 13.5px; }
+.lb-gate p { margin: 0 0 10px; color: var(--ink-2, #5a6b7d); line-height: 1.5; }
+.lb-key { width: 100%; padding: 9px 11px; border: 1px solid var(--line, #e2e6ec); border-radius: 9px; font-size: 13.5px; }
+.lb-save { margin-top: 9px; background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 9px; padding: 9px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+.lb-help { display: block; margin-top: 9px; font-size: 12.5px; color: var(--brand, #2F5496); }
+
+.lb-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
+.lb-q {
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px;
+  padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
+}
+.lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+
+.lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
+.lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
+.lb-in:focus { outline: 0; border-color: var(--brand, #2F5496); box-shadow: 0 0 0 3px rgba(47, 84, 150, .12); }
+.lb-send { background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 11px; padding: 10px 17px; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 560px) {
+  .lb-panel { right: 8px; left: 8px; bottom: 8px; width: auto; height: calc(100vh - 70px); }
+  .lb-fab-t { display: none; }
+  .lb-fab { padding: 14px; }
+}
+
+/* ---- pronunciation practice ---------------------------------------------------------------- */
+.pron { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; padding: 18px 20px; margin: 20px 0; }
+.pron h3 { margin: 0 0 4px; font-size: 16.5px; color: var(--brand, #2F5496); }
+.pron .hint { margin: 0 0 14px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.pron-line { border-top: 1px solid #eef1f5; padding: 13px 0; }
+.pron-line:first-of-type { border-top: 0; }
+.pron-target { font-size: 15.5px; line-height: 1.6; color: var(--ink, #1b2733); margin-bottom: 9px; }
+.pron-target span { padding: 1px 2px; border-radius: 4px; }
+.pron-target span.hit { background: #e6f6ee; color: #0f6e56; }
+.pron-target span.miss { background: #fdeceb; color: #8c2f27; }
+.pron-bar { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.pron-rec {
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 999px;
+  padding: 8px 16px; font-size: 13.5px; font-weight: 600; font-family: inherit;
+}
+.pron-rec[data-on="1"] { background: #c0392b; animation: pron-pulse 1.1s ease-in-out infinite; }
+@keyframes pron-pulse { 0%, 100% { opacity: 1 } 50% { opacity: .62 } }
+.pron-score { font-size: 13.5px; font-weight: 600; color: var(--ink-2, #5a6b7d); }
+.pron-score.good { color: #0f6e56; }
+.pron-score.poor { color: #8c2f27; }
+.pron-heard { font-size: 13px; color: var(--ink-2, #5a6b7d); margin-top: 7px; font-style: italic; }
+.pron-note { font-size: 12.5px; color: var(--ink-2, #5a6b7d); margin-top: 12px; }
+</style><!--/CF-LANG-UI--></head><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 5 of 32 · Giving a shift handover briefing</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 work status, outstanding, deferred, carried-over</span></div></div></header><article>
 <style>
   :root{
     --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
@@ -189,7 +278,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   .dialogue h3{margin:0;padding:13px 18px;background:var(--bg-sunken);border-bottom:1px solid var(--border);font-size:1.02rem;display:flex;align-items:center;gap:10px}
   .dialogue h3 .badge{font-family:var(--font-mono);font-size:11px;font-weight:700;color:#fff;background:var(--color-primary);padding:2px 9px;border-radius:20px;letter-spacing:.04em}
   .lang-audio-slot{margin:0;padding:14px 18px;background:#eef2f9;border-bottom:1px dashed #cfdcef;font-family:var(--font-mono);font-size:12px;color:var(--color-primary-dark)}
-  .lang-audio-slot:before{content:"AUDIO ► track "attr(data-audio)" — press play, listen first"}
+  .lang-audio-slot:before{content:"AUDIO ► track "attr(data-audio)", press play, listen first"}
   details.transcript{padding:6px 18px 14px}
   details.transcript summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary);font-weight:700;padding:8px 0}
   .turn{margin:6px 0;max-width:76ch}
@@ -261,7 +350,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   <h1 class="lecture-title">Giving a shift handover briefing.</h1>
   <p class="subtitle">The night shift is walking in. Three aircraft are on your board: one finished, one with a deferred defect, one still mid-task. This unit gives you the language to hand it all over clearly, so nothing is lost between shifts.</p>
   <div class="hero-meta">
-    <span>Unit<strong>5 — Shift handover briefing</strong></span>
+    <span>Unit<strong>5, Shift handover briefing</strong></span>
     <span>Function<strong>Summarise, highlight, respond</strong></span>
     <span>Grammar<strong>Present perfect vs past simple</strong></span>
     <span>Vocabulary<strong>Work status: outstanding, deferred, carried-over</strong></span>
@@ -290,7 +379,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   <p>Listen first with the transcript closed, and only open it to read afterwards. <b>A</b> is Māris, the experienced day-shift lead, while <b>B</b> is Anna, the incoming night technician. Notice how each speaker keeps their sentences short, although they still use natural connectors such as although, because and unless to link their ideas professionally.</p>
 
   <div class="dialogue">
-    <h3><span class="badge">Dialogue 1</span>The board overview — three aircraft</h3>
+    <h3><span class="badge">Dialogue 1</span>The board overview, three aircraft</h3>
     <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u05-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:39 · listen first, then open the transcript</figcaption></figure>
     <details class="transcript"><summary>Transcript</summary>
       <p class="turn a"><span class="spk">A</span><span class="said">Hi Anna, are you ready for the handover, because I would like to begin with the A320?</span></p>
@@ -298,7 +387,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       <p class="turn a"><span class="spk">A</span><span class="said">Aircraft one is the A320 on stand twelve, and I have completed the left engine oil change.</span></p>
       <p class="turn b"><span class="spk">B</span><span class="said">Good. Did you run the leak check afterwards, or is it still outstanding?</span></p>
       <p class="turn a"><span class="spk">A</span><span class="said">I ran the leak check at fifteen hundred, and it was dry, so the task is closed.</span></p>
-      <p class="turn b"><span class="spk">B</span><span class="said">Excellent. And the daily inspection — have you finished it, or is anything still outstanding?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Excellent. And the daily inspection, have you finished it, or is anything still outstanding?</span></p>
       <p class="turn a"><span class="spk">A</span><span class="said">The daily inspection is done, and I have already signed the task card for it.</span></p>
       <p class="turn b"><span class="spk">B</span><span class="said">Perfect, so aircraft one is fully serviceable, although you have not released it yet.</span></p>
       <p class="turn a"><span class="spk">A</span><span class="said">Exactly. There is no open defect anywhere, and the tech log is completely clean.</span></p>
@@ -338,7 +427,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   </div>
 
   <div class="dialogue">
-    <h3><span class="badge">Dialogue 3</span>The mid-task aircraft — an avionics fault</h3>
+    <h3><span class="badge">Dialogue 3</span>The mid-task aircraft, an avionics fault</h3>
     <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u05-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:27 · listen first, then open the transcript</figcaption></figure>
     <details class="transcript"><summary>Transcript</summary>
       <p class="turn a"><span class="spk">A</span><span class="said">Now aircraft three, the ATR seventy-two in the hangar, and this one is still mid-task.</span></p>
@@ -354,7 +443,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       <p class="turn a"><span class="spk">A</span><span class="said">Yes, I inspected the connector at sixteen thirty, and it was completely clean and dry.</span></p>
       <p class="turn b"><span class="spk">B</span><span class="said">Good. So what is the very next step that I should take tonight?</span></p>
       <p class="turn a"><span class="spk">A</span><span class="said">Follow the AMM diagram and troubleshoot the wiring loom, then run the BITE test again.</span></p>
-      <p class="turn b"><span class="spk">B</span><span class="said">Understood. And the borescope kit — will I need it for anything on this job?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Understood. And the borescope kit, will I need it for anything on this job?</span></p>
       <p class="turn a"><span class="spk">A</span><span class="said">No, the borescope is not needed at all, because this radar fault is purely electrical.</span></p>
       <p class="turn b"><span class="spk">B</span><span class="said">Clear. I will carry over the last two steps and finish them during the night.</span></p>
     </details>
@@ -774,7 +863,7 @@ pre.worked b{color:#7fd0ff}
       <p class="wnote">Pick a sentence. Watch the marker move on the timeline: near <b>NOW</b> for the present perfect, back on the line for the past simple.</p>
     </div>
   </div>
-  <h3>Worked examples — read, then cover and try</h3>
+  <h3>Worked examples: read, then cover and try</h3>
   <p>Study these four transformations. Each one shows the same idea in two forms, so you can see exactly when English changes the tense.</p>
   <pre class="worked"><b>1</b>  Finish + no time  →  I <b>have finished</b> the daily. (it is ready now)
 <b>2</b>  Finish + a time   →  I <b>finished</b> the daily at 08:00. (finished moment)
@@ -786,16 +875,16 @@ pre.worked b{color:#7fd0ff}
   <h2><span class="secnum">09</span>The paperwork you will meet</h2>
   <p>A handover is only as good as the paperwork behind it. Every fact you pass on comes from a document, and you must read each one quickly and correctly. This section shows the main genres you will handle on the line and in the hangar. Learn what each one is for, because the incoming technician trusts the paperwork, not your memory.</p>
   <ul class="genre-list">
-    <li><b>Tech log</b> — the aircraft's running record of defects and work.</li>
-    <li><b>Task card</b> — one job broken into numbered steps.</li>
-    <li><b>Work order</b> — an authorised instruction to do a job.</li>
-    <li><b>AMM</b> — the approved Aircraft Maintenance Manual.</li>
-    <li><b>IPC</b> — the Illustrated Parts Catalogue, for the right part number.</li>
-    <li><b>MEL</b> — the list of what may be inoperative, and for how long.</li>
-    <li><b>SB</b> — a Service Bulletin, often recommended.</li>
-    <li><b>AD</b> — an Airworthiness Directive, always mandatory.</li>
-    <li><b>BITE readout</b> — the result of a built-in self-test.</li>
-    <li><b>Wiring diagram</b> — the map of an electrical circuit.</li>
+    <li><b>Tech log</b>, the aircraft's running record of defects and work.</li>
+    <li><b>Task card</b>, one job broken into numbered steps.</li>
+    <li><b>Work order</b>, an authorised instruction to do a job.</li>
+    <li><b>AMM</b>, the approved Aircraft Maintenance Manual.</li>
+    <li><b>IPC</b>, the Illustrated Parts Catalogue, for the right part number.</li>
+    <li><b>MEL</b>, the list of what may be inoperative, and for how long.</li>
+    <li><b>SB</b>, a Service Bulletin, often recommended.</li>
+    <li><b>AD</b>, an Airworthiness Directive, always mandatory.</li>
+    <li><b>BITE readout</b>, the result of a built-in self-test.</li>
+    <li><b>Wiring diagram</b>, the map of an electrical circuit.</li>
   </ul>
   <p>Read the six real examples below. Notice how short each entry is. Good maintenance writing uses Simplified Technical English: short sentences, one idea per line, and the same word for the same thing every time. You will write like this in the final task, so copy the style now.</p>
   <pre class="worked"><b>TECH LOG</b>  Entry 214-1 · 13:20
@@ -864,7 +953,7 @@ WIRING: CHECK REQUIRED</pre>
   </div>
   <h3>A model you can copy</h3>
   <p>Here is a full handover note in Simplified Technical English. Read it, then write your own for the task in section 07. Notice the tense choices marked in the comments.</p>
-  <pre class="worked"><b>HANDOVER — DAY SHIFT TO NIGHT SHIFT</b>
+  <pre class="worked"><b>HANDOVER, DAY SHIFT TO NIGHT SHIFT</b>
 A1 (A320): I <b>have completed</b> the oil change.   // done, relevant now
 I <b>ran</b> the leak check at 15:00; it was dry.    // finished time
 No open defect. Serviceable and released to service.
@@ -872,7 +961,7 @@ A2 (737): One deferred defect. Landing light u/s.
 MEL cat C applied. Placard fitted. Not safety-critical.
 A3 (ATR): Mid-task. Steps 1-4 done, 5-6 outstanding.
 Troubleshoot the wiring, then run the BITE again.</pre>
-  <pre class="worked"><b>STE — before and after</b>
+  <pre class="worked"><b>STE, before and after</b>
 Before: Due to the fact that there was insufficient time available,
         the troubleshooting of the fault was not able to be completed.
 After:  I had no time, so I did not finish the troubleshooting.</pre>
@@ -912,7 +1001,7 @@ After:  I had no time, so I did not finish the troubleshooting.</pre>
     var box=mk(h,row),f=box.querySelector('[data-f]');
     box.querySelectorAll('button').forEach(function(b){b.onclick=function(){
       box.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');
-      var s=sig[+b.dataset.i];f.className='fb ok';f.innerHTML='<b>'+(s[1]==='pp'?'Present perfect':'Past simple')+'</b> — “'+s[2]+'”';};});
+      var s=sig[+b.dataset.i];f.className='fb ok';f.innerHTML='<b>'+(s[1]==='pp'?'Present perfect':'Past simple')+'</b>, “'+s[2]+'”';};});
   };
   // 3 · TIMELINE (canvas + rAF)
   W.timeline=function(h){
@@ -932,15 +1021,15 @@ After:  I had no time, so I did not finish the troubleshooting.</pre>
     function loop(){pos+=(tgt-pos)*0.14;draw();if(Math.abs(tgt-pos)>0.002)raf=requestAnimationFrame(loop);else{pos=tgt;draw();raf=null;}}
     box.querySelectorAll('button').forEach(function(b){b.onclick=function(){cur=+b.dataset.i;tgt=cs[cur][1];
       box.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');
-      f.className='fb '+(cs[cur][2]==='pp'?'ok':'');f.textContent='“'+cs[cur][0]+'” — '+(cs[cur][2]==='pp'?'present perfect (near NOW)':'past simple (a finished point)');
+      f.className='fb '+(cs[cur][2]==='pp'?'ok':'');f.textContent='“'+cs[cur][0]+'”, '+(cs[cur][2]==='pp'?'present perfect (near NOW)':'past simple (a finished point)');
       if(!raf)loop();};});
     window.addEventListener('resize',size);setTimeout(size,0);
   };
   // 4 · STATUS (canvas)
   W.status=function(h){
-    var ac=[{n:"A320",s:"SERVICEABLE",c:"#34d399",l:["serviceable — fit and approved to fly","release to service — certify it is fit to fly","sign off — certify a job is complete"]},
-      {n:"737",s:"DEFERRED DEFECT",c:"#e0a53d",l:["deferred defect — a fault fixed later, on the MEL","carried over — passed to the next shift","placard — a warning label for an u/s item"]},
-      {n:"ATR 72",s:"MID-TASK",c:"#e57373",l:["outstanding — still not done","task card — one job in numbered steps","troubleshoot — find the cause of a fault"]}];
+    var ac=[{n:"A320",s:"SERVICEABLE",c:"#34d399",l:["serviceable, fit and approved to fly","release to service, certify it is fit to fly","sign off, certify a job is complete"]},
+      {n:"737",s:"DEFERRED DEFECT",c:"#e0a53d",l:["deferred defect, a fault fixed later, on the MEL","carried over, passed to the next shift","placard, a warning label for an u/s item"]},
+      {n:"ATR 72",s:"MID-TASK",c:"#e57373",l:["outstanding, still not done","task card, one job in numbered steps","troubleshoot, find the cause of a fault"]}];
     var row='<div class="row">';ac.forEach(function(a,i){row+='<button data-i="'+i+'">'+a.n+'</button>';});row+='</div>';
     var box=mk(h,row+'<canvas height="110"></canvas><div class="fb" data-f></div>');
     var cv=box.querySelector('canvas'),f=box.querySelector('[data-f]'),ctx,cur=0;
@@ -975,12 +1064,12 @@ After:  I had no time, so I did not finish the troubleshooting.</pre>
     var idx=-1,shown=0,tgt=0,raf=null,done=false;
     function size(){cv.width=cv.clientWidth||560;ctx=cv.getContext('2d');draw();}
     function draw(){if(!ctx)return;ctx.clearRect(0,0,cv.width,cv.height);ctx.fillStyle=done?'#34d399':'#7fd0ff';ctx.font='bold 40px ui-monospace,Consolas,monospace';ctx.textAlign='center';
-      var l=idx>=0?L[idx]:null;ctx.fillText(idx<0?'—':(l&&l.t?fmt(Math.round(shown/1)*1|0,0)&&(String(Math.floor(shown/100)).padStart(2,'0')+':'+String(Math.round(shown%100)).padStart(2,'0')):Math.round(shown)),cv.width/2,52);ctx.textAlign='left';}
+      var l=idx>=0?L[idx]:null;ctx.fillText(idx<0?', ':(l&&l.t?fmt(Math.round(shown/1)*1|0,0)&&(String(Math.floor(shown/100)).padStart(2,'0')+':'+String(Math.round(shown%100)).padStart(2,'0')):Math.round(shown)),cv.width/2,52);ctx.textAlign='left';}
     function loop(){shown+=(tgt-shown)*0.2;draw();if(Math.abs(tgt-shown)>0.5)raf=requestAnimationFrame(loop);else{shown=tgt;draw();raf=null;}}
     box.querySelector('[data-play]').onclick=function(){idx=(idx+1)%L.length;done=false;var l=L[idx];c.textContent='Line '+(idx+1)+' / '+L.length+': “'+l.q+'”';tgt=l.a;shown=0;f.className='fb';f.textContent='Say the figure, then click it.';
       ob.innerHTML='';l.o.forEach(function(o){var b=document.createElement('button');b.textContent=fmt(o,l.t);b.onclick=function(){guess(o,b);};ob.appendChild(b);});if(!raf)loop();};
     function guess(o,b){var l=L[idx];done=true;ob.querySelectorAll('button').forEach(function(x){x.className='';});
-      if(o===l.a){b.classList.add('good');f.className='fb ok';f.textContent='Correct — '+fmt(l.a,l.t);}else{b.classList.add('bad');f.className='fb no';f.textContent='The answer is '+fmt(l.a,l.t)+'.';}shown=l.a;draw();}
+      if(o===l.a){b.classList.add('good');f.className='fb ok';f.textContent='Correct, '+fmt(l.a,l.t);}else{b.classList.add('bad');f.className='fb no';f.textContent='The answer is '+fmt(l.a,l.t)+'.';}shown=l.a;draw();}
     window.addEventListener('resize',size);setTimeout(size,0);
   };
   // 7 · MEL (canvas + rAF)
@@ -995,7 +1084,7 @@ After:  I had no time, so I did not finish the troubleshooting.</pre>
       ctx.fillStyle='#9db0c6';ctx.font='12px sans-serif';ctx.fillText('day 0',x0,y+38);ctx.fillText('day 10',dx-42,y-20);}
     function loop(){shown+=(tgt-shown)*0.2;draw();if(Math.abs(tgt-shown)>0.03)raf=requestAnimationFrame(loop);else{shown=tgt;draw();raf=null;}}
     sl.oninput=function(){tgt=+sl.value;dv.textContent=sl.value;var left=10-tgt;
-      f.className='fb '+(tgt<=10?'ok':'no');f.textContent=tgt<=10?(left+' day(s) left — still check the placard before departure.'):('Overdue by '+(tgt-10)+' day(s) — it must be rectified.');if(!raf)loop();};
+      f.className='fb '+(tgt<=10?'ok':'no');f.textContent=tgt<=10?(left+' day(s) left, still check the placard before departure.'):('Overdue by '+(tgt-10)+' day(s), it must be rectified.');if(!raf)loop();};
     window.addEventListener('resize',size);setTimeout(size,0);
   };
   // 8 · COLLOC (bar rAF)
@@ -1013,7 +1102,7 @@ After:  I had no time, so I did not finish the troubleshooting.</pre>
   };
   // 9 · BUILDER
   W.builder=function(h){
-    var box=mk(h,'<div class="row"><select data-act><option value="complete">complete the daily</option><option value="run">run the leak check</option><option value="find">find the cause</option></select> <select data-time><option value="">(no time — result now)</option><option value="at 15:00">at 15:00</option><option value="yesterday">yesterday</option></select></div><div class="fb" data-f>Choose and see the correct sentence.</div>');
+    var box=mk(h,'<div class="row"><select data-act><option value="complete">complete the daily</option><option value="run">run the leak check</option><option value="find">find the cause</option></select> <select data-time><option value="">(no time, result now)</option><option value="at 15:00">at 15:00</option><option value="yesterday">yesterday</option></select></div><div class="fb" data-f>Choose and see the correct sentence.</div>');
     var a=box.querySelector('[data-act]'),t=box.querySelector('[data-time]'),f=box.querySelector('[data-f]');
     var pp={complete:"have completed",run:"have run",find:"have found"},ps={complete:"completed",run:"ran",find:"found"},noun={complete:"the daily",run:"the leak check",find:"the cause"};
     function upd(){var perfect=!t.value;var v=a.value;var verb=perfect?pp[v]:ps[v];
@@ -1027,7 +1116,7 @@ After:  I had no time, so I did not finish the troubleshooting.</pre>
     var idx=0,box=mk(h,'<div class="row"><button data-a></button></div><div class="row"><button data-b></button></div><div class="fb" data-f>Click the clearer STE line.</div>');
     var ba=box.querySelector('[data-a]'),bb=box.querySelector('[data-b]'),f=box.querySelector('[data-f]');
     function draw(){var pair=q[idx];ba.textContent=pair[0][0];bb.textContent=pair[1][0];ba.className='';bb.className='';f.className='fb';f.textContent='Click the clearer STE line.';}
-    function pick(good,btn){btn.classList.add(good?'good':'bad');f.className='fb '+(good?'ok':'no');f.textContent=good?'Yes — short, active, one idea.':'That one is long and indirect. The other is clearer.';
+    function pick(good,btn){btn.classList.add(good?'good':'bad');f.className='fb '+(good?'ok':'no');f.textContent=good?'Yes, short, active, one idea.':'That one is long and indirect. The other is clearer.';
       setTimeout(function(){idx=(idx+1)%q.length;draw();},1200);}
     ba.onclick=function(){pick(q[idx][0][1]===1,ba);};bb.onclick=function(){pick(q[idx][1][1]===1,bb);};
     draw();
@@ -1043,7 +1132,7 @@ After:  I had no time, so I did not finish the troubleshooting.</pre>
 <script>
 if(window.TSIBuddy){
   TSIBuddy.mount({
-    systemPrompt: "You are a conversation partner for a CEFR B2 English lesson for aircraft maintenance technicians (EASA Part-66/145). The unit is 'Giving a shift handover briefing'. Stay inside the unit's scenarios: an end-of-shift handover at a Part-145 line station covering three aircraft — an A320 that is completed and serviceable, a 737 with one deferred defect on the MEL, and an ATR 72 mid-task on a weather-radar BITE job. Play the role the learner assigns (incoming night technician, day-shift lead, or supervisor). Speak ONLY at CEFR B2: short sentences, common words plus the unit's specialist terms (handover, outstanding, deferred defect, carried over, open defect, safety-critical, tech log, MEL, task card, work order, sign off, AMM, borescope, serviceable, unserviceable, release to service, rectify, troubleshoot, placard). Keep every answer short — two or three sentences at most. Ask exactly ONE follow-up question each turn about work status, an open defect, or a safety-critical item. When the learner makes an English error, gently recast their sentence the correct way and then continue — never lecture or list rules. Pay special attention to present perfect vs past simple (their Latvian and Russian first languages have no present perfect): if they say 'I already signed the card', reply naturally with 'Right, you have already signed the card.' Use English only. You may add one Latvian gloss in brackets for a single hard term if the learner seems stuck. Never hand the learner a full model answer to the writing task; instead prompt them with one guiding question.",
+    systemPrompt: "You are a conversation partner for a CEFR B2 English lesson for aircraft maintenance technicians (EASA Part-66/145). The unit is 'Giving a shift handover briefing'. Stay inside the unit's scenarios: an end-of-shift handover at a Part-145 line station covering three aircraft, an A320 that is completed and serviceable, a 737 with one deferred defect on the MEL, and an ATR 72 mid-task on a weather-radar BITE job. Play the role the learner assigns (incoming night technician, day-shift lead, or supervisor). Speak ONLY at CEFR B2: short sentences, common words plus the unit's specialist terms (handover, outstanding, deferred defect, carried over, open defect, safety-critical, tech log, MEL, task card, work order, sign off, AMM, borescope, serviceable, unserviceable, release to service, rectify, troubleshoot, placard). Keep every answer short, two or three sentences at most. Ask exactly ONE follow-up question each turn about work status, an open defect, or a safety-critical item. When the learner makes an English error, gently recast their sentence the correct way and then continue, never lecture or list rules. Pay special attention to present perfect vs past simple (their Latvian and Russian first languages have no present perfect): if they say 'I already signed the card', reply naturally with 'Right, you have already signed the card.' Use English only. You may add one Latvian gloss in brackets for a single hard term if the learner seems stuck. Never hand the learner a full model answer to the writing task; instead prompt them with one guiding question.",
     contextLabel: "Unit 5 · Giving a shift handover briefing",
     openingLine: "I am ready for the handover. Which aircraft would you like to brief me on first?",
     temperature: 0.4
@@ -1086,5 +1175,387 @@ if(window.TSIBuddy){
       bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
+})();
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "handover", "def": "passing your work and news to the next shift"}, {"term": "shift", "def": "a fixed work period, like day or night"}, {"term": "outstanding", "def": "still not done; waiting to be finished"}, {"term": "deferred defect", "def": "a fault you may fix later, recorded in the log"}, {"term": "carried over", "def": "work passed to the next shift to finish"}, {"term": "open defect", "def": "a fault that is still not fixed"}, {"term": "safety-critical", "def": "able to affect flight safety directly"}, {"term": "tech log", "def": "the aircraft's running record of defects and work"}, {"term": "MEL", "def": "the list of what may be inoperative for flight"}, {"term": "task card", "def": "a sheet with one job and its steps"}, {"term": "work order", "def": "an authorised instruction to do a job"}, {"term": "sign off", "def": "to certify that a job is complete"}, {"term": "AMM", "def": "the Aircraft Maintenance Manual with approved steps"}, {"term": "borescope", "def": "a camera probe to inspect inside an engine"}, {"term": "serviceable", "def": "fit and approved to use"}, {"term": "unserviceable", "def": "not fit to use; short form \"u/s\""}, {"term": "release to service", "def": "to certify the aircraft is fit to fly"}, {"term": "rectify", "def": "to fix a defect properly"}, {"term": "troubleshoot", "def": "to find the cause of a fault"}, {"term": "placard", "def": "a warning label fitted for an inoperative item"}], "lines": ["Hi Anna, are you ready for the handover, because I would like to begin with the A320?", "Yes, go ahead. Let me open the tech log for each aircraft while you brief me.", "Aircraft one is the A320 on stand twelve, and I have completed the left engine oil change.", "Good. Did you run the leak check afterwards, or is it still outstanding?", "I ran the leak check at fifteen hundred, and it was dry, so the task is closed.", "Excellent. And the daily inspection, have you finished it, or is anything still outstanding?", "The daily inspection is done, and I have already signed the task card for it.", "Perfect, so aircraft one is fully serviceable, although you have not released it yet.", "Exactly. There is no open defect anywhere, and the tech log is completely clean.", "Understood. Will you release it to service yourself before you leave the hangar tonight?", "Yes, I will release to service aircraft one immediately after we finish this briefing.", "Great. Now, what is the situation with aircraft two, the seven three seven?", "Aircraft two is in bay three, and unfortunately it carries one deferred defect tonight.", "Okay. Which system is affected, and is the defect safety-critical for the aircraft?", "No, it is not safety-critical, because only the right landing light is unserviceable.", "I see. So you placarded the switch and deferred the item under the MEL?", "Correct. I applied the MEL and fitted a placard, so the item is carried over to you.", "Understood. I will keep an eye on that aircraft throughout the night shift.", "Let me give you more detail about that deferred defect on the seven three seven.", "Please do. Where exactly did you write it up in the paperwork?", "I raised a work order and logged the defect in the tech log at thirteen twenty.", "Did you troubleshoot the light first, or did you defer it straight away?", "I had no time to troubleshoot the fault fully, so I applied the MEL instead.", "Fair enough. How long is the aircraft allowed to stay deferred like this?"], "roleplays": ["Your shift is ending. Aircraft one is finished.", "The 737 has a landing light on the MEL.", "The ATR radar job is half done.", "The night technician wants a full status check."], "grammar": "In a handover, you mix two tenses. You use the present perfect for work that is done and still matters now. You use the past simple for a finished detail with a clear past time. Look at these lines from the dialogues.", "scenario": "It is 18:00 at a Part-145 line station. Your day shift is ending. Three aircraft are on your board. The A320 is finished and ready to fly. The 737 carries a deferred defect on the MEL. The ATR is mid-task, with a radar fault still open. The night technician arrives for the handover. You must brief them clearly, so noth", "pron": ["Yes, go ahead. Let me open the tech log for each aircraft while you brief me.", "Good. Did you run the leak check afterwards, or is it still outstanding?", "Excellent. And the daily inspection, have you finished it, or is anything still outstanding?", "The daily inspection is done, and I have already signed the task card for it."], "course": "English for Aviation Maintenance", "unit": 5, "total": 32, "title": "Giving a shift handover briefing", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+//
+// It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
+// the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
+// buddy answers about THIS lesson rather than about English in general.
+//
+// Three ways to reach a model, chosen per course at build time:
+//   proxy: the page holds NO credential; it POSTs to a small endpoint that keeps the key.
+//   embedded: an institutional key is baked into the page. Convenient, but any learner who opens
+//              devtools can read it, so it is only defensible behind a login.
+//   byo: the learner pastes their own key; it is kept in localStorage and never leaves the
+//              browser except to the vendor.
+// Vendors: anything OpenAI-compatible (Mistral, OpenAI, Groq, DeepSeek, OpenRouter, Azure, a local
+// server), plus Anthropic and Google, whose request shapes differ.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !CFG.ai) return;
+
+  var AI = CFG.ai;
+  var LS_KEY = 'langbuddy.key.' + (AI.vendor || 'x');
+  var LS_HIST = 'langbuddy.hist.' + (CFG.course || '') + '.' + (CFG.unit || 0);
+
+  var PRESETS = {
+    mistral: { base: 'https://api.mistral.ai/v1', shape: 'openai', model: 'mistral-small-latest', keyUrl: 'https://console.mistral.ai/api-keys' },
+    openai: { base: 'https://api.openai.com/v1', shape: 'openai', model: 'gpt-4o-mini', keyUrl: 'https://platform.openai.com/api-keys' },
+    groq: { base: 'https://api.groq.com/openai/v1', shape: 'openai', model: 'llama-3.1-8b-instant', keyUrl: 'https://console.groq.com/keys' },
+    deepseek: { base: 'https://api.deepseek.com/v1', shape: 'openai', model: 'deepseek-chat', keyUrl: 'https://platform.deepseek.com/api_keys' },
+    openrouter: { base: 'https://openrouter.ai/api/v1', shape: 'openai', model: 'mistralai/mistral-small', keyUrl: 'https://openrouter.ai/keys' },
+    anthropic: { base: 'https://api.anthropic.com/v1', shape: 'anthropic', model: 'claude-haiku-4-5-20251001', keyUrl: 'https://console.anthropic.com/settings/keys' },
+    google: { base: 'https://generativelanguage.googleapis.com/v1beta', shape: 'google', model: 'gemini-2.0-flash', keyUrl: 'https://aistudio.google.com/apikey' }
+  };
+  var P = PRESETS[AI.vendor] || PRESETS.mistral;
+  var BASE = AI.baseUrl || P.base;
+  var SHAPE = AI.shape || P.shape;
+  var MODEL = AI.model || P.model;
+
+  function storedKey() {
+    try { return localStorage.getItem(LS_KEY) || ''; } catch (e) { return ''; }
+  }
+  function activeKey() {
+    return AI.mode === 'embedded' ? (AI.key || '') : storedKey();
+  }
+  function needsKey() {
+    return AI.mode !== 'proxy' && !activeKey();
+  }
+
+  // ---- what the buddy knows about this unit -------------------------------------------------
+  function systemPrompt() {
+    var lang = CFG.language || 'English';
+    var terms = (CFG.terms || []).map(function (t) { return t.term + (t.def ? ' = ' + t.def : ''); }).join('; ');
+    var lines = (CFG.lines || []).slice(0, 24).join('\n');
+    var l1 = (CFG.l1 || []).join(' or ');
+    return [
+      'You are Lang Buddy, a patient ' + lang + ' tutor inside an online lesson.',
+      'The learner is studying "' + (CFG.course || lang) + '", unit ' + (CFG.unit || '') + ': "' + (CFG.title || '') + '".',
+      'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
+      'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
+      '',
+      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
+      'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
+      'then give the ' + lang + ' version.',
+      '',
+      'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
+      (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
+      (terms ? 'Vocabulary bank: ' + terms : ''),
+      (lines ? 'Lines from the unit dialogues you can refer to:\n' + lines : ''),
+      '',
+      'Rules. Answer questions about this unit first, using its own words and examples.',
+      'For exercises, give a hint or an example with a DIFFERENT word, never the answer itself;',
+      'if the learner insists, ask them to try once more, then explain the reasoning without',
+      'writing their answer for them. Correct their mistakes gently: repeat their sentence',
+      'correctly, then continue. If a question has nothing to do with language or this subject,',
+      'say so kindly and steer back to the lesson.'
+    ].filter(Boolean).join('\n');
+  }
+
+  // ---- vendor calls -------------------------------------------------------------------------
+  function callModel(messages, onDone, onFail) {
+    var key = activeKey();
+    var url, headers = { 'Content-Type': 'application/json' }, body;
+
+    if (AI.mode === 'proxy') {
+      url = AI.proxyUrl;
+      body = { model: MODEL, messages: [{ role: 'system', content: systemPrompt() }].concat(messages) };
+    } else if (SHAPE === 'anthropic') {
+      url = BASE + '/messages';
+      headers['x-api-key'] = key;
+      headers['anthropic-version'] = '2023-06-01';
+      headers['anthropic-dangerous-direct-browser-access'] = 'true';
+      body = { model: MODEL, max_tokens: 500, system: systemPrompt(), messages: messages };
+    } else if (SHAPE === 'google') {
+      url = BASE + '/models/' + MODEL + ':generateContent?key=' + encodeURIComponent(key);
+      body = {
+        systemInstruction: { parts: [{ text: systemPrompt() }] },
+        contents: messages.map(function (m) {
+          return { role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] };
+        })
+      };
+    } else {
+      url = BASE + '/chat/completions';
+      headers.Authorization = 'Bearer ' + key;
+      body = {
+        model: MODEL, max_tokens: 500, temperature: 0.4,
+        messages: [{ role: 'system', content: systemPrompt() }].concat(messages)
+      };
+    }
+
+    fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(body) })
+      .then(function (r) {
+        return r.text().then(function (t) {
+          var j = null;
+          try { j = JSON.parse(t); } catch (e) { /* keep the raw body for the error message */ }
+          if (!r.ok) {
+            var msg = (j && j.error && (j.error.message || j.error)) || t.slice(0, 160);
+            throw new Error(r.status === 401 || r.status === 403
+              ? 'The key was refused. Check it and try again.'
+              : (r.status === 429 ? 'Too many questions right now. Wait a moment, then ask again.' : String(msg)));
+          }
+          var out = '';
+          if (SHAPE === 'anthropic' && j.content) out = (j.content[0] || {}).text || '';
+          else if (SHAPE === 'google' && j.candidates) out = (((j.candidates[0] || {}).content || {}).parts || [{}])[0].text || '';
+          else out = (((j.choices || [{}])[0] || {}).message || {}).content || '';
+          if (!out) throw new Error('The model sent an empty answer. Try asking again.');
+          return out.trim();
+        });
+      })
+      .then(onDone)
+      .catch(function (e) { onFail(e.message || String(e)); });
+  }
+
+  // ---- UI -----------------------------------------------------------------------------------
+  var hist = [];
+  try { hist = JSON.parse(localStorage.getItem(LS_HIST) || '[]'); } catch (e) { hist = []; }
+
+  var root = document.createElement('div');
+  root.className = 'lb-root';
+  root.innerHTML =
+    '<button class="lb-fab" aria-label="Open Lang Buddy"><span class="lb-fab-i">💬</span>'
+    + '<span class="lb-fab-t">Lang Buddy</span></button>'
+    + '<section class="lb-panel" hidden aria-label="Lang Buddy">'
+    + '  <header class="lb-head"><div><b>Lang Buddy</b>'
+    + '    <span class="lb-sub">Unit ' + (CFG.unit || '') + ' · answers at ' + (CFG.cefr || 'B1') + '</span></div>'
+    + '    <button class="lb-x" aria-label="Close">×</button></header>'
+    + '  <div class="lb-log" role="log"></div>'
+    + '  <div class="lb-quick"></div>'
+    + '  <form class="lb-form"><input class="lb-in" autocomplete="off"'
+    + '    placeholder="Ask about this unit…"><button class="lb-send">Send</button></form>'
+    + '</section>';
+  document.body.appendChild(root);
+
+  var fab = root.querySelector('.lb-fab');
+  var panel = root.querySelector('.lb-panel');
+  var log = root.querySelector('.lb-log');
+  var form = root.querySelector('.lb-form');
+  var input = root.querySelector('.lb-in');
+  var quick = root.querySelector('.lb-quick');
+
+  function bubble(role, text, cls) {
+    var d = document.createElement('div');
+    d.className = 'lb-msg lb-' + role + (cls ? ' ' + cls : '');
+    d.textContent = text;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+    return d;
+  }
+
+  function keyGate() {
+    var box = document.createElement('div');
+    box.className = 'lb-gate';
+    box.innerHTML =
+      '<p>Lang Buddy needs a key for <b>' + (AI.vendor || 'the model') + '</b>. It is stored only in this'
+      + ' browser and is sent to the vendor, never to us.</p>'
+      + '<input class="lb-key" type="password" placeholder="Paste your API key">'
+      + '<button class="lb-save">Save key</button>'
+      + '<a class="lb-help" href="' + (P.keyUrl || '#') + '" target="_blank" rel="noopener">Where do I get one?</a>';
+    log.appendChild(box);
+    box.querySelector('.lb-save').addEventListener('click', function () {
+      var v = box.querySelector('.lb-key').value.trim();
+      if (!v) return;
+      try { localStorage.setItem(LS_KEY, v); } catch (e) { /* private mode: key lives for this page only */ }
+      AI.key = v;
+      box.remove();
+      bubble('bot', 'Thank you. Ask me anything about this unit.');
+      renderQuick();
+    });
+  }
+
+  var busy = false;
+  function ask(text) {
+    if (busy || !text.trim()) return;
+    if (needsKey()) { keyGate(); return; }
+    busy = true;
+    bubble('you', text);
+    hist.push({ role: 'user', content: text });
+    var think = bubble('bot', 'thinking…', 'lb-think');
+    callModel(hist.slice(-10), function (out) {
+      think.classList.remove('lb-think');
+      think.textContent = out;
+      hist.push({ role: 'assistant', content: out });
+      try { localStorage.setItem(LS_HIST, JSON.stringify(hist.slice(-20))); } catch (e) { /* full or blocked */ }
+      busy = false;
+    }, function (err) {
+      think.classList.remove('lb-think');
+      think.classList.add('lb-err');
+      think.textContent = err;
+      hist.pop();
+      busy = false;
+    });
+  }
+
+  function renderQuick() {
+    var acts = [
+      ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
+      ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
+      ['I do not understand a word', 'I will name a word from this unit. Explain it simply and give one example sentence.']
+    ];
+    (CFG.roleplays || []).slice(0, 2).forEach(function (r, i) {
+      acts.unshift(['Role-play ' + (i + 1), 'Let us role-play. ' + r + ' You start. Speak only at CEFR '
+        + (CFG.cefr || 'B1') + ', keep your turns short, and ask me one question each turn.']);
+    });
+    quick.innerHTML = '';
+    acts.slice(0, 5).forEach(function (a) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lb-q';
+      b.textContent = a[0];
+      b.addEventListener('click', function () { ask(a[1]); });
+      quick.appendChild(b);
+    });
+  }
+
+  function open() {
+    panel.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    if (!log.childElementCount) {
+      if (hist.length) {
+        hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
+      } else {
+        bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
+          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+      }
+      if (needsKey()) keyGate(); else renderQuick();
+    }
+    setTimeout(function () { input.focus(); }, 60);
+  }
+  function close() { panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); }
+
+  fab.addEventListener('click', function () { panel.hidden ? open() : close(); });
+  root.querySelector('.lb-x').addEventListener('click', close);
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value;
+    input.value = '';
+    ask(v);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });
+})();
+</script><script>// LANG edition: pronunciation practice.
+//
+// The learner reads a line from this unit's dialogues out loud; the browser's own speech
+// recognition transcribes it and we score the transcript word by word against the target. No key,
+// no server, nothing leaves the browser beyond the recognition service the browser already uses.
+// Chrome and Edge support this; Firefox and Safari do not, so we say so rather than showing a
+// button that does nothing.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !(CFG.pron || []).length) return;
+
+  var host = document.getElementById('speaking') || document.getElementById('dialogues');
+  if (!host) return;
+
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var LANG = CFG.langCode || 'en-GB';
+
+  // Words we do not penalise: the learner saying "the" instead of "a" is not a pronunciation fault
+  // worth a red mark in a technical-English lesson.
+  var SKIP = { a: 1, an: 1, the: 1, is: 1, are: 1, and: 1, to: 1, of: 1, it: 1, in: 1, that: 1 };
+
+  function norm(s) {
+    return String(s || '').toLowerCase()
+      .replace(/[^\p{L}\p{N}' ]/gu, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function words(s) { return norm(s).split(' ').filter(Boolean); }
+
+  var card = document.createElement('div');
+  card.className = 'pron';
+  card.innerHTML = '<h3>Say it out loud</h3><p class="hint">Press record and read the line. '
+    + 'You will see which words came through clearly.</p>';
+
+  if (!SR) {
+    card.innerHTML += '<p class="pron-note">Your browser cannot listen. Open this lesson in Chrome '
+      + 'or Edge to use this exercise. You can still read the lines aloud with your teacher.</p>';
+    host.appendChild(card);
+    return;
+  }
+
+  CFG.pron.slice(0, 4).forEach(function (target, i) {
+    var row = document.createElement('div');
+    row.className = 'pron-line';
+    row.innerHTML =
+      '<div class="pron-target" id="pt' + i + '"></div>'
+      + '<div class="pron-bar"><button type="button" class="pron-rec">🎙 Record</button>'
+      + '<span class="pron-score"></span></div><div class="pron-heard"></div>';
+    card.appendChild(row);
+
+    var tgtEl = row.querySelector('.pron-target');
+    var btn = row.querySelector('.pron-rec');
+    var scoreEl = row.querySelector('.pron-score');
+    var heardEl = row.querySelector('.pron-heard');
+    var tw = words(target);
+
+    // render the target with each word in its own span so we can mark it later
+    target.split(/(\s+)/).forEach(function (chunk) {
+      if (/^\s+$/.test(chunk)) { tgtEl.appendChild(document.createTextNode(chunk)); return; }
+      var s = document.createElement('span');
+      s.textContent = chunk;
+      s.dataset.w = norm(chunk);
+      tgtEl.appendChild(s);
+    });
+
+    var rec = null;
+    function stop() {
+      if (rec) { try { rec.stop(); } catch (e) { /* already stopped */ } rec = null; }
+      btn.dataset.on = '';
+      btn.textContent = '🎙 Record';
+    }
+
+    function grade(said) {
+      var heard = words(said);
+      var pool = heard.slice();
+      var hits = 0, counted = 0;
+      tw.forEach(function (w) {
+        if (SKIP[w]) return;
+        counted++;
+        var at = pool.indexOf(w);
+        if (at >= 0) { hits++; pool.splice(at, 1); }
+      });
+      var pct = counted ? Math.round(100 * hits / counted) : 0;
+
+      var got = words(said);
+      tgtEl.querySelectorAll('span').forEach(function (s) {
+        var w = s.dataset.w;
+        if (!w || SKIP[w]) { s.className = ''; return; }
+        s.className = got.indexOf(w) >= 0 ? 'hit' : 'miss';
+      });
+      scoreEl.textContent = pct + '% clear (' + hits + ' of ' + counted + ' words)';
+      scoreEl.className = 'pron-score ' + (pct >= 80 ? 'good' : (pct >= 55 ? '' : 'poor'));
+      heardEl.textContent = said ? 'We heard: ' + said : 'We heard nothing. Try again, a little louder.';
+    }
+
+    btn.addEventListener('click', function () {
+      if (rec) { stop(); return; }
+      rec = new SR();
+      rec.lang = LANG;
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      btn.dataset.on = '1';
+      btn.textContent = '● Listening, press to stop';
+      scoreEl.textContent = '';
+      heardEl.textContent = '';
+      rec.onresult = function (e) {
+        var said = '';
+        for (var k = 0; k < e.results.length; k++) said += e.results[k][0].transcript + ' ';
+        grade(said.trim());
+      };
+      rec.onerror = function (e) {
+        heardEl.textContent = e.error === 'not-allowed'
+          ? 'The microphone is blocked. Allow it in the address bar, then try again.'
+          : 'The microphone did not work. Try again.';
+        stop();
+      };
+      rec.onend = stop;
+      try { rec.start(); } catch (e) { stop(); }
+    });
+  });
+
+  card.insertAdjacentHTML('beforeend',
+    '<p class="pron-note">Scoring counts the words the browser recognised, so it rewards clear '
+    + 'consonants and word stress. It is practice, not an exam.</p>');
+  host.appendChild(card);
 })();
 </script><!--/CF-LANG-UI--></body></html>

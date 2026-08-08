@@ -108,7 +108,7 @@
   .checklist li{margin:4px 0}
   footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
 </style>
-<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+<!--CF-LANG-UI--><style>/* CourseForge LANG: the unit design system. Injected deterministically into every unit page
    AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
 :root{
   --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
@@ -252,8 +252,97 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 .cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
 .cf-prog i{position:relative;z-index:1;flex:none}
 @media (max-width:1180px){.cf-nav{display:none}}
+/* LANG edition: Lang Buddy (in-lesson tutor) + pronunciation practice.
+   Uses the unit design tokens from lang-ui.css (--brand, --amber, --ink, --ink-2, --line, --paper). */
+
+.lb-root { font: 15px/1.6 'Inter', 'Segoe UI', system-ui, sans-serif; }
+
+.lb-fab {
+  position: fixed; right: 20px; bottom: 20px; z-index: 60;
+  display: flex; align-items: center; gap: 9px;
+  background: var(--brand, #2F5496); color: #fff; border: 0; cursor: pointer;
+  border-radius: 999px; padding: 12px 20px 12px 16px; font-size: 14.5px; font-weight: 600;
+  box-shadow: 0 2px 6px rgba(16, 32, 54, .16), 0 12px 30px rgba(16, 32, 54, .22);
+  transition: transform .16s, box-shadow .16s;
+}
+.lb-fab:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(16, 32, 54, .2), 0 18px 40px rgba(16, 32, 54, .26); }
+.lb-fab-i { font-size: 17px; line-height: 1; }
+
+.lb-panel {
+  position: fixed; right: 20px; bottom: 20px; z-index: 61;
+  width: 390px; max-width: calc(100vw - 32px); height: 580px; max-height: calc(100vh - 40px);
+  display: flex; flex-direction: column; overflow: hidden;
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(16, 32, 54, .1), 0 26px 60px rgba(16, 32, 54, .24);
+}
+.lb-panel[hidden] { display: none; }
+
+.lb-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line, #e2e6ec);
+  background: linear-gradient(180deg, #fff, #f8fafc);
+}
+.lb-head b { font-size: 15px; color: var(--ink, #1b2733); display: block; }
+.lb-sub { font-size: 12px; color: var(--ink-2, #5a6b7d); }
+.lb-x { background: 0; border: 0; font-size: 22px; line-height: 1; color: var(--ink-2, #5a6b7d); cursor: pointer; padding: 0 4px; }
+.lb-x:hover { color: var(--ink, #1b2733); }
+
+.lb-log { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.lb-msg { max-width: 84%; padding: 9px 13px; border-radius: 14px; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap; }
+.lb-you { align-self: flex-end; background: var(--brand, #2F5496); color: #fff; border-bottom-right-radius: 5px; }
+.lb-bot { align-self: flex-start; background: #f2f5f9; color: var(--ink, #1b2733); border-bottom-left-radius: 5px; }
+.lb-think { color: var(--ink-2, #5a6b7d); font-style: italic; }
+.lb-err { background: #fdeceb; color: #8c2f27; }
+
+.lb-gate { background: #fffdf6; border: 1px solid #f0dfbe; border-radius: 12px; padding: 13px 14px; font-size: 13.5px; }
+.lb-gate p { margin: 0 0 10px; color: var(--ink-2, #5a6b7d); line-height: 1.5; }
+.lb-key { width: 100%; padding: 9px 11px; border: 1px solid var(--line, #e2e6ec); border-radius: 9px; font-size: 13.5px; }
+.lb-save { margin-top: 9px; background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 9px; padding: 9px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+.lb-help { display: block; margin-top: 9px; font-size: 12.5px; color: var(--brand, #2F5496); }
+
+.lb-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
+.lb-q {
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px;
+  padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
+}
+.lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+
+.lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
+.lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
+.lb-in:focus { outline: 0; border-color: var(--brand, #2F5496); box-shadow: 0 0 0 3px rgba(47, 84, 150, .12); }
+.lb-send { background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 11px; padding: 10px 17px; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 560px) {
+  .lb-panel { right: 8px; left: 8px; bottom: 8px; width: auto; height: calc(100vh - 70px); }
+  .lb-fab-t { display: none; }
+  .lb-fab { padding: 14px; }
+}
+
+/* ---- pronunciation practice ---------------------------------------------------------------- */
+.pron { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; padding: 18px 20px; margin: 20px 0; }
+.pron h3 { margin: 0 0 4px; font-size: 16.5px; color: var(--brand, #2F5496); }
+.pron .hint { margin: 0 0 14px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.pron-line { border-top: 1px solid #eef1f5; padding: 13px 0; }
+.pron-line:first-of-type { border-top: 0; }
+.pron-target { font-size: 15.5px; line-height: 1.6; color: var(--ink, #1b2733); margin-bottom: 9px; }
+.pron-target span { padding: 1px 2px; border-radius: 4px; }
+.pron-target span.hit { background: #e6f6ee; color: #0f6e56; }
+.pron-target span.miss { background: #fdeceb; color: #8c2f27; }
+.pron-bar { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.pron-rec {
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 999px;
+  padding: 8px 16px; font-size: 13.5px; font-weight: 600; font-family: inherit;
+}
+.pron-rec[data-on="1"] { background: #c0392b; animation: pron-pulse 1.1s ease-in-out infinite; }
+@keyframes pron-pulse { 0%, 100% { opacity: 1 } 50% { opacity: .62 } }
+.pron-score { font-size: 13.5px; font-weight: 600; color: var(--ink-2, #5a6b7d); }
+.pron-score.good { color: #0f6e56; }
+.pron-score.poor { color: #8c2f27; }
+.pron-heard { font-size: 13px; color: var(--ink-2, #5a6b7d); margin-top: 7px; font-style: italic; }
+.pron-note { font-size: 12.5px; color: var(--ink-2, #5a6b7d); margin-top: 12px; }
 </style><!--/CF-LANG-UI--></head>
-<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 14 of 32 · Assessing an Airworthiness Directive</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 airworthiness — mandatory, compliance deadline, recurring in</span></div></div></header>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 14 of 32 · Assessing an Airworthiness Directive</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 airworthiness, mandatory, compliance deadline, recurring ins</span></div></div></header>
 <article>
 
   <header class="lec-hero">
@@ -262,7 +351,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <p class="subtitle">A new airworthiness directive arrives. Because it is a legal order, the action is mandatory. You must read it, find the required action and the compliance deadline, and brief the planner. This unit gives you the language to do it well.</p>
     <div class="hero-meta">
       <span>Course<strong>English for Aviation Maintenance</strong></span>
-      <span>Unit<strong>14 — Airworthiness Directives</strong></span>
+      <span>Unit<strong>14, Airworthiness Directives</strong></span>
       <span>Focus<strong>Modals must / shall for obligation</strong></span>
       <span>Class length<strong>90 minutes (self-study ready)</strong></span>
     </div>
@@ -292,7 +381,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <p class="lede">Three short briefings between an engineer and a planner. Each one performs the same job from a different angle: assess the airworthiness directive, weigh the grounding risk, and agree the compliance plan.</p>
 
     <div class="dlg">
-      <h3>Dialogue 1 — "A new AD has arrived"</h3>
+      <h3>Dialogue 1: "A new AD has arrived"</h3>
       <p class="scene">Scene: Karlis, a base engineer, briefs Marta, the planner, on a newly issued directive.</p>
       <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u14-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:22 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -316,7 +405,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="dlg">
-      <h3>Dialogue 2 — "The repeat check and the final fix"</h3>
+      <h3>Dialogue 2: "The repeat check and the final fix"</h3>
       <p class="scene">Scene: the same engineer and planner examine the recurring part and the terminating action.</p>
       <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u14-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:30 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -325,7 +414,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         <div class="turn"><span class="spk">A · Engineer</span><span class="said">Yes. As soon as we finish the first check, we must repeat it at a set interval.</span></div>
         <div class="turn"><span class="spk">B · Planner</span><span class="said">What is the interval, exactly? I need the precise figure for the maintenance plan.</span></div>
         <div class="turn"><span class="spk">A · Engineer</span><span class="said">The interval is fifteen hundred flight cycles, or twelve months, whichever comes first.</span></div>
-        <div class="turn"><span class="spk">B · Planner</span><span class="said">And the first threshold — when is the very first inspection actually due?</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">And the first threshold, when is the very first inspection actually due?</span></div>
         <div class="turn"><span class="spk">A · Engineer</span><span class="said">The threshold is five hundred flight cycles, counted from the effective date of the directive.</span></div>
         <div class="turn"><span class="spk">B · Planner</span><span class="said">Some airworthiness directives count in flight hours. Does this one use flight hours as well?</span></div>
         <div class="turn"><span class="spk">A · Engineer</span><span class="said">No. This directive counts flight cycles only, since one cycle means one takeoff and landing.</span></div>
@@ -342,7 +431,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="dlg">
-      <h3>Dialogue 3 — "The plan and the grounding risk"</h3>
+      <h3>Dialogue 3: "The plan and the grounding risk"</h3>
       <p class="scene">Scene: the engineer and planner agree the compliance plan and the required records.</p>
       <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u14-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:17 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -368,7 +457,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="dlg">
-      <h3>Dialogue 4 — Voicemail from the Airworthiness office</h3>
+      <h3>Dialogue 4: Voicemail from the Airworthiness office</h3>
       <p class="scene">Scene: a short recorded message for the maintenance planning team.</p>
       <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u14-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:42 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -414,7 +503,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 
   <!-- ============ GRAMMAR ============ -->
   <section class="lecture-section" id="grammar">
-    <h2><span class="secnum">03</span>Grammar in context — must / shall for obligation</h2>
+    <h2><span class="secnum">03</span>Grammar in context, must / shall for obligation</h2>
     <p class="lede">An airworthiness directive is a legal order, so the language of obligation is strong. We use <strong>must</strong> and <strong>shall</strong> to express that obligation clearly.</p>
     <p>Look at these lines from the dialogues, because each one carries an obligation:</p>
     <ul>
@@ -489,25 +578,25 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       <h3>E2 · Match the term to its meaning</h3>
       <p class="how">Choose the correct term for each meaning.</p>
       <div class="q"><span class="n">1</span>a legal order that makes a fix mandatory →
-        <select data-ans="airworthiness directive"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+        <select data-ans="airworthiness directive"><option value="">, </option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
       <div class="q"><span class="n">2</span>the gap between two recurring inspections →
-        <select data-ans="interval"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+        <select data-ans="interval"><option value="">, </option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
       <div class="q"><span class="n">3</span>the point when the very first action is due →
-        <select data-ans="threshold"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+        <select data-ans="threshold"><option value="">, </option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
       <div class="q"><span class="n">4</span>stopping an aircraft from flying →
-        <select data-ans="grounding"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+        <select data-ans="grounding"><option value="">, </option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
       <div class="q"><span class="n">5</span>replaced by a newer document →
-        <select data-ans="superseded"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+        <select data-ans="superseded"><option value="">, </option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
       <div class="q"><span class="n">6</span>the fix or check the AD requires →
-        <select data-ans="corrective action"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+        <select data-ans="corrective action"><option value="">, </option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
       <div class="q"><span class="n">7</span>time counted while the aircraft is flying →
-        <select data-ans="flight hours"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+        <select data-ans="flight hours"><option value="">, </option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
       <div class="q"><span class="n">8</span>the list of aircraft the AD applies to →
-        <select data-ans="applicability"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+        <select data-ans="applicability"><option value="">, </option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
       <div class="q"><span class="n">9</span>doing what the AD requires →
-        <select data-ans="compliance"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+        <select data-ans="compliance"><option value="">, </option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
       <div class="q"><span class="n">10</span>a final fix that ends the repeat requirement →
-        <select data-ans="terminating action"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+        <select data-ans="terminating action"><option value="">, </option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
       <button class="btn primary" onclick="checkEx('e2')">Check</button>
     </div>
 
@@ -557,11 +646,11 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <div class="ex" id="e5">
       <span class="tag">E5 · Reading 1</span>
       <h3>E5 · Read the airworthiness directive</h3>
-      <div class="genre">Authentic genre — Airworthiness Directive excerpt</div>
+      <div class="genre">Authentic genre, Airworthiness Directive excerpt</div>
       <div class="reading-text">AIRWORTHINESS DIRECTIVE AD 2026-0147
 Effective date: 22 August 2026.
-ATA Chapter: 32 — Landing Gear.
-Subject: Main landing gear pivot pin — cracking.
+ATA Chapter: 32, Landing Gear.
+Subject: Main landing gear pivot pin, cracking.
 Reason: An unsafe condition has been found. Some pivot pins can crack under load. A crack can lead to failure of the landing gear.
 Applicability: Model A320 aircraft, serial numbers 5100 through 5140.
 Required action (corrective action): Do a detailed inspection of the pivot pin.
@@ -572,17 +661,17 @@ Records: The operator shall make a logbook entry after each action. The entry sh
 Note: This AD supersedes Service Bulletin 32-0147. Non-compliance will result in grounding of the aircraft. If in doubt, contact the airworthiness office before you start.</div>
       <p class="how">Answer from the text.</p>
       <div class="q"><span class="n">1</span>What must you inspect?
-        <select data-ans="the pivot pin"><option value="">—</option><option>the pivot pin</option><option>the wiring</option><option>the fuel pump</option></select></div>
+        <select data-ans="the pivot pin"><option value="">, </option><option>the pivot pin</option><option>the wiring</option><option>the fuel pump</option></select></div>
       <div class="q"><span class="n">2</span>Is the action mandatory or recommended?
-        <select data-ans="mandatory"><option value="">—</option><option>mandatory</option><option>recommended</option></select></div>
+        <select data-ans="mandatory"><option value="">, </option><option>mandatory</option><option>recommended</option></select></div>
       <div class="q"><span class="n">3</span>What is the first threshold?
-        <select data-ans="500 flight cycles or 90 days"><option value="">—</option><option>1500 flight cycles</option><option>500 flight cycles or 90 days</option><option>24 months</option></select></div>
+        <select data-ans="500 flight cycles or 90 days"><option value="">, </option><option>1500 flight cycles</option><option>500 flight cycles or 90 days</option><option>24 months</option></select></div>
       <div class="q"><span class="n">4</span>What ends the recurring inspection?
-        <select data-ans="the terminating action"><option value="">—</option><option>a logbook entry</option><option>the terminating action</option><option>the effective date</option></select></div>
+        <select data-ans="the terminating action"><option value="">, </option><option>a logbook entry</option><option>the terminating action</option><option>the effective date</option></select></div>
       <div class="q"><span class="n">5</span>What does non-compliance cause?
-        <select data-ans="grounding"><option value="">—</option><option>a small fine</option><option>grounding</option><option>nothing</option></select></div>
+        <select data-ans="grounding"><option value="">, </option><option>a small fine</option><option>grounding</option><option>nothing</option></select></div>
       <div class="q"><span class="n">6</span>What must the operator record?
-        <select data-ans="a logbook entry"><option value="">—</option><option>a logbook entry</option><option>a phone call</option><option>a photo</option></select></div>
+        <select data-ans="a logbook entry"><option value="">, </option><option>a logbook entry</option><option>a phone call</option><option>a photo</option></select></div>
       <button class="btn primary" onclick="checkEx('e5')">Check</button>
     </div>
 
@@ -609,8 +698,8 @@ Note: This AD supersedes Service Bulletin 32-0147. Non-compliance will result in
     <div class="ex" id="e7">
       <span class="tag">E7 · Reading 2</span>
       <h3>E7 · Read the planning memo</h3>
-      <div class="genre">Authentic genre — Maintenance planning memo</div>
-      <div class="reading-text">MAINTENANCE PLANNING MEMO — RIGA BASE
+      <div class="genre">Authentic genre, Maintenance planning memo</div>
+      <div class="reading-text">MAINTENANCE PLANNING MEMO, RIGA BASE
 To: Line and base teams. From: Planning department.
 Date: 08 August 2026.
 Subject: Compliance plan for AD 2026-0147.
@@ -623,17 +712,17 @@ Records: The technician shall make a logbook entry and quote the AD number.
 Warning: Do not use Service Bulletin 32-0147. It is superseded by this AD. Non-compliance will ground the aircraft. Protect the booked slots.</div>
       <p class="how">Answer from the text.</p>
       <div class="q"><span class="n">1</span>How many aircraft are affected?
-        <select data-ans="two"><option value="">—</option><option>one</option><option>two</option><option>three</option></select></div>
+        <select data-ans="two"><option value="">, </option><option>one</option><option>two</option><option>three</option></select></div>
       <div class="q"><span class="n">2</span>Is the action mandatory?
-        <select data-ans="yes"><option value="">—</option><option>yes</option><option>no</option></select></div>
+        <select data-ans="yes"><option value="">, </option><option>yes</option><option>no</option></select></div>
       <div class="q"><span class="n">3</span>When is the first inspection booked for YL-BAK?
-        <select data-ans="02 september"><option value="">—</option><option>22 august</option><option>02 september</option><option>05 october</option></select></div>
+        <select data-ans="02 september"><option value="">, </option><option>22 august</option><option>02 september</option><option>05 october</option></select></div>
       <div class="q"><span class="n">4</span>What ends the recurring inspection?
-        <select data-ans="the improved pin"><option value="">—</option><option>a logbook entry</option><option>the improved pin</option><option>a phone call</option></select></div>
+        <select data-ans="the improved pin"><option value="">, </option><option>a logbook entry</option><option>the improved pin</option><option>a phone call</option></select></div>
       <div class="q"><span class="n">5</span>Which document is superseded?
-        <select data-ans="the service bulletin"><option value="">—</option><option>the AD</option><option>the service bulletin</option><option>the memo</option></select></div>
+        <select data-ans="the service bulletin"><option value="">, </option><option>the AD</option><option>the service bulletin</option><option>the memo</option></select></div>
       <div class="q"><span class="n">6</span>What must the technician record?
-        <select data-ans="a logbook entry"><option value="">—</option><option>a logbook entry</option><option>a new memo</option><option>a photo</option></select></div>
+        <select data-ans="a logbook entry"><option value="">, </option><option>a logbook entry</option><option>a new memo</option><option>a photo</option></select></div>
       <button class="btn primary" onclick="checkEx('e7')">Check</button>
     </div>
 
@@ -643,32 +732,32 @@ Warning: Do not use Service Bulletin 32-0147. It is superseded by this AD. Non-c
       <h3>E8 · Questions on Dialogue 3 and the voicemail</h3>
       <p class="how">Replay Dialogue 3 and the voicemail. Then answer.</p>
       <div class="q"><span class="n">1</span>What do the engineer and planner want to agree in Dialogue 3?
-        <select data-ans="the compliance plan"><option value="">—</option><option>the compliance plan</option><option>the fuel load</option><option>the crew list</option></select></div>
+        <select data-ans="the compliance plan"><option value="">, </option><option>the compliance plan</option><option>the fuel load</option><option>the crew list</option></select></div>
       <div class="q"><span class="n">2</span>Before which date must the first inspection be done?
-        <select data-ans="the fifth of september"><option value="">—</option><option>the first of august</option><option>the fifth of september</option><option>the first of october</option></select></div>
+        <select data-ans="the fifth of september"><option value="">, </option><option>the first of august</option><option>the fifth of september</option><option>the first of october</option></select></div>
       <div class="q"><span class="n">3</span>What must the technician make after the check?
-        <select data-ans="a logbook entry"><option value="">—</option><option>a logbook entry</option><option>a phone call</option><option>a new AD</option></select></div>
+        <select data-ans="a logbook entry"><option value="">, </option><option>a logbook entry</option><option>a phone call</option><option>a new AD</option></select></div>
       <div class="q"><span class="n">4</span>What is now superseded?
-        <select data-ans="the old service bulletin"><option value="">—</option><option>the old service bulletin</option><option>the AD</option><option>the logbook</option></select></div>
+        <select data-ans="the old service bulletin"><option value="">, </option><option>the old service bulletin</option><option>the AD</option><option>the logbook</option></select></div>
       <div class="q"><span class="n">5</span>What happens if planning cannot find a slot in time?
-        <select data-ans="the aircraft is grounded"><option value="">—</option><option>the aircraft is grounded</option><option>the AD is cancelled</option><option>the deadline moves</option></select></div>
+        <select data-ans="the aircraft is grounded"><option value="">, </option><option>the aircraft is grounded</option><option>the AD is cancelled</option><option>the deadline moves</option></select></div>
       <div class="q"><span class="n">6</span>In the voicemail, what is the AD number?
-        <select data-ans="ad 2026-0147"><option value="">—</option><option>ad 2026-0147</option><option>sb 34-2189</option><option>ad 2025-0100</option></select></div>
+        <select data-ans="ad 2026-0147"><option value="">, </option><option>ad 2026-0147</option><option>sb 34-2189</option><option>ad 2025-0100</option></select></div>
       <div class="q"><span class="n">7</span>In the voicemail, is the AD mandatory?
-        <select data-ans="yes"><option value="">—</option><option>yes</option><option>no</option></select></div>
+        <select data-ans="yes"><option value="">, </option><option>yes</option><option>no</option></select></div>
       <div class="q"><span class="n">8</span>Within how many flight cycles is the first inspection due?
-        <select data-ans="500"><option value="">—</option><option>90</option><option>500</option><option>1500</option></select></div>
+        <select data-ans="500"><option value="">, </option><option>90</option><option>500</option><option>1500</option></select></div>
       <button class="btn primary" onclick="checkEx('e8')">Check</button>
     </div>
   </section>
 
   <!-- ============ SPEAKING ============ -->
   <section class="lecture-section" id="speaking">
-    <h2><span class="secnum">05</span>Speaking — role-plays</h2>
+    <h2><span class="secnum">05</span>Speaking, role-plays</h2>
     <p class="lede">Work with a partner or with the AI buddy. Play the briefing. Use must and shall, and the specialist bank terms.</p>
 
     <div class="roleplay">
-      <h4>Role-play card 1 — Brief the planner on a new AD</h4>
+      <h4>Role-play card 1: Brief the planner on a new AD</h4>
       <div class="row"><span class="lab">Situation</span> A new airworthiness directive has just arrived.</div>
       <div class="row"><span class="lab">Your role</span> Base engineer at a Part-145 station.</div>
       <div class="row"><span class="lab">Your goal</span> Tell the planner the required action and the compliance deadline.</div>
@@ -676,7 +765,7 @@ Warning: Do not use Service Bulletin 32-0147. It is superseded by this AD. Non-c
     </div>
 
     <div class="roleplay">
-      <h4>Role-play card 2 — Explain the recurring inspection</h4>
+      <h4>Role-play card 2: Explain the recurring inspection</h4>
       <div class="row"><span class="lab">Situation</span> The planner needs the interval and the threshold for the plan.</div>
       <div class="row"><span class="lab">Your role</span> Base engineer who has read the AD.</div>
       <div class="row"><span class="lab">Your goal</span> Explain the recurring inspection and the terminating action.</div>
@@ -684,7 +773,7 @@ Warning: Do not use Service Bulletin 32-0147. It is superseded by this AD. Non-c
     </div>
 
     <div class="roleplay">
-      <h4>Role-play card 3 — Explain the grounding risk</h4>
+      <h4>Role-play card 3: Explain the grounding risk</h4>
       <div class="row"><span class="lab">Situation</span> The planner wants to move the slot to next month.</div>
       <div class="row"><span class="lab">Your role</span> Base engineer who knows the deadline.</div>
       <div class="row"><span class="lab">Your goal</span> Explain that non-compliance means grounding, and keep the early slot.</div>
@@ -692,7 +781,7 @@ Warning: Do not use Service Bulletin 32-0147. It is superseded by this AD. Non-c
     </div>
 
     <div class="roleplay">
-      <h4>Role-play card 4 — Confirm the paperwork</h4>
+      <h4>Role-play card 4: Confirm the paperwork</h4>
       <div class="row"><span class="lab">Situation</span> The work is booked. You confirm the records and the status.</div>
       <div class="row"><span class="lab">Your role</span> Planner in the technical office.</div>
       <div class="row"><span class="lab">Your goal</span> Confirm the logbook entry and that the old bulletin is superseded.</div>
@@ -713,11 +802,11 @@ Warning: Do not use Service Bulletin 32-0147. It is superseded by this AD. Non-c
     </ul>
 
     <div class="aibox">
-      <h4>🤖 AI conversation partner — copy a prompt into the chat buddy</h4>
+      <h4>🤖 AI conversation partner: copy a prompt into the chat buddy</h4>
       <p class="how">Paste one prompt. Speak the briefing. The buddy will gently correct your modals.</p>
-      <div class="prompt"><span class="lab">Prompt 1 — Planner receiving the brief</span>You are a maintenance planner. I am a base engineer who briefs you on a new airworthiness directive, AD 2026-0147. Ask me what the required action is and what the compliance deadline is. Speak only at CEFR B2. Keep answers short, one to three sentences. If I make an error with must or shall (an extra "to", a missing "be", or "must not" instead of "need not"), repeat my sentence back correctly, then ask one follow-up question.</div>
-      <div class="prompt"><span class="lab">Prompt 2 — Cautious planner who wants to delay</span>You are a busy planner. I am a base engineer. You want to move the inspection slot to next month. I must explain that the action is mandatory and that non-compliance means grounding. Push back gently so I have to use strong modals. Speak only at CEFR B2 and keep it short. Gently recast any modal error in my speech, then ask me one follow-up question.</div>
-      <div class="prompt"><span class="lab">Prompt 3 — Records and status check</span>You are an OEM engineer. I am a planner who confirms the records for AD 2026-0147. Check my understanding of the logbook entry, the recurring inspection, and the superseded bulletin. Speak only at CEFR B2, keep answers short, correct my must and shall softly, and finish each turn with one follow-up question.</div>
+      <div class="prompt"><span class="lab">Prompt 1, Planner receiving the brief</span>You are a maintenance planner. I am a base engineer who briefs you on a new airworthiness directive, AD 2026-0147. Ask me what the required action is and what the compliance deadline is. Speak only at CEFR B2. Keep answers short, one to three sentences. If I make an error with must or shall (an extra "to", a missing "be", or "must not" instead of "need not"), repeat my sentence back correctly, then ask one follow-up question.</div>
+      <div class="prompt"><span class="lab">Prompt 2, Cautious planner who wants to delay</span>You are a busy planner. I am a base engineer. You want to move the inspection slot to next month. I must explain that the action is mandatory and that non-compliance means grounding. Push back gently so I have to use strong modals. Speak only at CEFR B2 and keep it short. Gently recast any modal error in my speech, then ask me one follow-up question.</div>
+      <div class="prompt"><span class="lab">Prompt 3, Records and status check</span>You are an OEM engineer. I am a planner who confirms the records for AD 2026-0147. Check my understanding of the logbook entry, the recurring inspection, and the superseded bulletin. Speak only at CEFR B2, keep answers short, correct my must and shall softly, and finish each turn with one follow-up question.</div>
     </div>
   </section>
 
@@ -728,7 +817,7 @@ Warning: Do not use Service Bulletin 32-0147. It is superseded by this AD. Non-c
     <p class="how"><strong>Task.</strong> Write a short briefing note to the planning department about AD 2026-0147. State the required action, the effective date, and the compliance deadline. Use <em>must</em> and <em>shall</em>. Name the grounding risk of non-compliance. Write 90–120 words.</p>
 
     <details class="ans"><summary>Model answer</summary>
-      <div class="reading-text">Subject: AD 2026-0147 — compliance plan needed, A320 fleet
+      <div class="reading-text">Subject: AD 2026-0147, compliance plan needed, A320 fleet
 
 To: Planning Department
 
@@ -747,7 +836,7 @@ K. Berzins, Base Engineer</div>
     </details>
 
     <div class="checklist">
-      <strong>Self-check — tick each line</strong>
+      <strong>Self-check, tick each line</strong>
       <ul>
         <li>☐ I stated the required action and the effective date.</li>
         <li>☐ I gave the compliance deadline in clear terms.</li>
@@ -832,6 +921,388 @@ K. Berzins, Base Engineer</div>
       bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
+})();
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "airworthiness directive", "def": "the state of being safe and legal to fly"}, {"term": "mandatory", "def": "you must do it; it is not a choice"}, {"term": "compliance", "def": "doing what the directive requires"}, {"term": "compliance deadline", "def": "the last date to finish the required action"}, {"term": "non-compliance", "def": "failing to do what the directive requires on time"}, {"term": "recurring inspection", "def": "a check you must repeat at set intervals"}, {"term": "interval", "def": "the gap between two recurring inspections"}, {"term": "threshold", "def": "the point when the very first action becomes due"}, {"term": "effective date", "def": "the date the directive starts to apply"}, {"term": "flight cycles", "def": "a count of flights; one cycle is one takeoff and landing"}, {"term": "flight hours", "def": "time counted while the aircraft is flying"}, {"term": "applicability", "def": "the list of aircraft that the directive applies to"}, {"term": "unsafe condition", "def": "the safety problem that the directive fixes"}, {"term": "corrective action", "def": "the fix or check the directive requires"}, {"term": "terminating action", "def": "a final fix that ends the repeat requirement"}, {"term": "grounding", "def": "stopping an aircraft from flying"}, {"term": "superseded", "def": "replaced by a newer document"}, {"term": "logbook entry", "def": "a written record in the aircraft log that proves the work"}, {"term": "planning department", "def": "the team that schedules the maintenance work"}], "lines": ["Hi Marta. A new airworthiness directive arrived this morning, and because it is a legal order, we must plan it now.", "Thanks, Karlis. Before I open a slot, tell me which aircraft the applicability actually covers.", "The applicability covers our A320 fleet, although only two aircraft appear on the affected list.", "Good to know. So what exactly does the airworthiness directive order us to do?", "It orders a recurring inspection of the landing gear pin, and since an AD is mandatory, we have no choice.", "I understand. As soon as you can, tell me the effective date, because the deadline depends on it.", "The effective date is the twenty-second of August, and the compliance clock starts on that date.", "And what is the compliance deadline for the very first inspection?", "We must do the first inspection within five hundred flight cycles, unless the aircraft reaches ninety days first.", "That is soon for the blue aircraft, because it flies almost every single day.", "Exactly, so we must book it early. Whatever happens, we must not miss the compliance deadline.", "Understood. In case we are late, what is the real consequence for the aircraft?", "Non-compliance means grounding, so the aircraft may not fly until we can show compliance.", "Then this is top priority, and I will protect a maintenance slot this month.", "Thank you. I will forward the airworthiness directive and the applicability list right now.", "Perfect. As soon as I have them, I will build the plan and share it with you today.", "Marta, let us look at the repeat part of the directive, because it is not a one-time job.", "Right. So the recurring inspection comes back again and again, at a fixed interval?", "Yes. As soon as we finish the first check, we must repeat it at a set interval.", "What is the interval, exactly? I need the precise figure for the maintenance plan.", "The interval is fifteen hundred flight cycles, or twelve months, whichever comes first.", "And the first threshold, when is the very first inspection actually due?", "The threshold is five hundred flight cycles, counted from the effective date of the directive.", "Some airworthiness directives count in flight hours. Does this one use flight hours as well?"], "roleplays": [], "grammar": "An airworthiness directive is a legal order, so the language of obligation is strong. We use must and shall to express that obligation clearly.", "scenario": "You work at a Part-145 station in Riga. This morning a new airworthiness directive lands in the mailbox, and because it is a legal order, the action is mandatory.", "pron": ["Thanks, Karlis. Before I open a slot, tell me which aircraft the applicability actually covers.", "The applicability covers our A320 fleet, although only two aircraft appear on the affected list.", "Good to know. So what exactly does the airworthiness directive order us to do?", "The effective date is the twenty-second of August, and the compliance clock starts on that date."], "course": "English for Aviation Maintenance", "unit": 14, "total": 32, "title": "Assessing an Airworthiness Directive", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+//
+// It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
+// the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
+// buddy answers about THIS lesson rather than about English in general.
+//
+// Three ways to reach a model, chosen per course at build time:
+//   proxy: the page holds NO credential; it POSTs to a small endpoint that keeps the key.
+//   embedded: an institutional key is baked into the page. Convenient, but any learner who opens
+//              devtools can read it, so it is only defensible behind a login.
+//   byo: the learner pastes their own key; it is kept in localStorage and never leaves the
+//              browser except to the vendor.
+// Vendors: anything OpenAI-compatible (Mistral, OpenAI, Groq, DeepSeek, OpenRouter, Azure, a local
+// server), plus Anthropic and Google, whose request shapes differ.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !CFG.ai) return;
+
+  var AI = CFG.ai;
+  var LS_KEY = 'langbuddy.key.' + (AI.vendor || 'x');
+  var LS_HIST = 'langbuddy.hist.' + (CFG.course || '') + '.' + (CFG.unit || 0);
+
+  var PRESETS = {
+    mistral: { base: 'https://api.mistral.ai/v1', shape: 'openai', model: 'mistral-small-latest', keyUrl: 'https://console.mistral.ai/api-keys' },
+    openai: { base: 'https://api.openai.com/v1', shape: 'openai', model: 'gpt-4o-mini', keyUrl: 'https://platform.openai.com/api-keys' },
+    groq: { base: 'https://api.groq.com/openai/v1', shape: 'openai', model: 'llama-3.1-8b-instant', keyUrl: 'https://console.groq.com/keys' },
+    deepseek: { base: 'https://api.deepseek.com/v1', shape: 'openai', model: 'deepseek-chat', keyUrl: 'https://platform.deepseek.com/api_keys' },
+    openrouter: { base: 'https://openrouter.ai/api/v1', shape: 'openai', model: 'mistralai/mistral-small', keyUrl: 'https://openrouter.ai/keys' },
+    anthropic: { base: 'https://api.anthropic.com/v1', shape: 'anthropic', model: 'claude-haiku-4-5-20251001', keyUrl: 'https://console.anthropic.com/settings/keys' },
+    google: { base: 'https://generativelanguage.googleapis.com/v1beta', shape: 'google', model: 'gemini-2.0-flash', keyUrl: 'https://aistudio.google.com/apikey' }
+  };
+  var P = PRESETS[AI.vendor] || PRESETS.mistral;
+  var BASE = AI.baseUrl || P.base;
+  var SHAPE = AI.shape || P.shape;
+  var MODEL = AI.model || P.model;
+
+  function storedKey() {
+    try { return localStorage.getItem(LS_KEY) || ''; } catch (e) { return ''; }
+  }
+  function activeKey() {
+    return AI.mode === 'embedded' ? (AI.key || '') : storedKey();
+  }
+  function needsKey() {
+    return AI.mode !== 'proxy' && !activeKey();
+  }
+
+  // ---- what the buddy knows about this unit -------------------------------------------------
+  function systemPrompt() {
+    var lang = CFG.language || 'English';
+    var terms = (CFG.terms || []).map(function (t) { return t.term + (t.def ? ' = ' + t.def : ''); }).join('; ');
+    var lines = (CFG.lines || []).slice(0, 24).join('\n');
+    var l1 = (CFG.l1 || []).join(' or ');
+    return [
+      'You are Lang Buddy, a patient ' + lang + ' tutor inside an online lesson.',
+      'The learner is studying "' + (CFG.course || lang) + '", unit ' + (CFG.unit || '') + ': "' + (CFG.title || '') + '".',
+      'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
+      'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
+      '',
+      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
+      'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
+      'then give the ' + lang + ' version.',
+      '',
+      'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
+      (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
+      (terms ? 'Vocabulary bank: ' + terms : ''),
+      (lines ? 'Lines from the unit dialogues you can refer to:\n' + lines : ''),
+      '',
+      'Rules. Answer questions about this unit first, using its own words and examples.',
+      'For exercises, give a hint or an example with a DIFFERENT word, never the answer itself;',
+      'if the learner insists, ask them to try once more, then explain the reasoning without',
+      'writing their answer for them. Correct their mistakes gently: repeat their sentence',
+      'correctly, then continue. If a question has nothing to do with language or this subject,',
+      'say so kindly and steer back to the lesson.'
+    ].filter(Boolean).join('\n');
+  }
+
+  // ---- vendor calls -------------------------------------------------------------------------
+  function callModel(messages, onDone, onFail) {
+    var key = activeKey();
+    var url, headers = { 'Content-Type': 'application/json' }, body;
+
+    if (AI.mode === 'proxy') {
+      url = AI.proxyUrl;
+      body = { model: MODEL, messages: [{ role: 'system', content: systemPrompt() }].concat(messages) };
+    } else if (SHAPE === 'anthropic') {
+      url = BASE + '/messages';
+      headers['x-api-key'] = key;
+      headers['anthropic-version'] = '2023-06-01';
+      headers['anthropic-dangerous-direct-browser-access'] = 'true';
+      body = { model: MODEL, max_tokens: 500, system: systemPrompt(), messages: messages };
+    } else if (SHAPE === 'google') {
+      url = BASE + '/models/' + MODEL + ':generateContent?key=' + encodeURIComponent(key);
+      body = {
+        systemInstruction: { parts: [{ text: systemPrompt() }] },
+        contents: messages.map(function (m) {
+          return { role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] };
+        })
+      };
+    } else {
+      url = BASE + '/chat/completions';
+      headers.Authorization = 'Bearer ' + key;
+      body = {
+        model: MODEL, max_tokens: 500, temperature: 0.4,
+        messages: [{ role: 'system', content: systemPrompt() }].concat(messages)
+      };
+    }
+
+    fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(body) })
+      .then(function (r) {
+        return r.text().then(function (t) {
+          var j = null;
+          try { j = JSON.parse(t); } catch (e) { /* keep the raw body for the error message */ }
+          if (!r.ok) {
+            var msg = (j && j.error && (j.error.message || j.error)) || t.slice(0, 160);
+            throw new Error(r.status === 401 || r.status === 403
+              ? 'The key was refused. Check it and try again.'
+              : (r.status === 429 ? 'Too many questions right now. Wait a moment, then ask again.' : String(msg)));
+          }
+          var out = '';
+          if (SHAPE === 'anthropic' && j.content) out = (j.content[0] || {}).text || '';
+          else if (SHAPE === 'google' && j.candidates) out = (((j.candidates[0] || {}).content || {}).parts || [{}])[0].text || '';
+          else out = (((j.choices || [{}])[0] || {}).message || {}).content || '';
+          if (!out) throw new Error('The model sent an empty answer. Try asking again.');
+          return out.trim();
+        });
+      })
+      .then(onDone)
+      .catch(function (e) { onFail(e.message || String(e)); });
+  }
+
+  // ---- UI -----------------------------------------------------------------------------------
+  var hist = [];
+  try { hist = JSON.parse(localStorage.getItem(LS_HIST) || '[]'); } catch (e) { hist = []; }
+
+  var root = document.createElement('div');
+  root.className = 'lb-root';
+  root.innerHTML =
+    '<button class="lb-fab" aria-label="Open Lang Buddy"><span class="lb-fab-i">💬</span>'
+    + '<span class="lb-fab-t">Lang Buddy</span></button>'
+    + '<section class="lb-panel" hidden aria-label="Lang Buddy">'
+    + '  <header class="lb-head"><div><b>Lang Buddy</b>'
+    + '    <span class="lb-sub">Unit ' + (CFG.unit || '') + ' · answers at ' + (CFG.cefr || 'B1') + '</span></div>'
+    + '    <button class="lb-x" aria-label="Close">×</button></header>'
+    + '  <div class="lb-log" role="log"></div>'
+    + '  <div class="lb-quick"></div>'
+    + '  <form class="lb-form"><input class="lb-in" autocomplete="off"'
+    + '    placeholder="Ask about this unit…"><button class="lb-send">Send</button></form>'
+    + '</section>';
+  document.body.appendChild(root);
+
+  var fab = root.querySelector('.lb-fab');
+  var panel = root.querySelector('.lb-panel');
+  var log = root.querySelector('.lb-log');
+  var form = root.querySelector('.lb-form');
+  var input = root.querySelector('.lb-in');
+  var quick = root.querySelector('.lb-quick');
+
+  function bubble(role, text, cls) {
+    var d = document.createElement('div');
+    d.className = 'lb-msg lb-' + role + (cls ? ' ' + cls : '');
+    d.textContent = text;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+    return d;
+  }
+
+  function keyGate() {
+    var box = document.createElement('div');
+    box.className = 'lb-gate';
+    box.innerHTML =
+      '<p>Lang Buddy needs a key for <b>' + (AI.vendor || 'the model') + '</b>. It is stored only in this'
+      + ' browser and is sent to the vendor, never to us.</p>'
+      + '<input class="lb-key" type="password" placeholder="Paste your API key">'
+      + '<button class="lb-save">Save key</button>'
+      + '<a class="lb-help" href="' + (P.keyUrl || '#') + '" target="_blank" rel="noopener">Where do I get one?</a>';
+    log.appendChild(box);
+    box.querySelector('.lb-save').addEventListener('click', function () {
+      var v = box.querySelector('.lb-key').value.trim();
+      if (!v) return;
+      try { localStorage.setItem(LS_KEY, v); } catch (e) { /* private mode: key lives for this page only */ }
+      AI.key = v;
+      box.remove();
+      bubble('bot', 'Thank you. Ask me anything about this unit.');
+      renderQuick();
+    });
+  }
+
+  var busy = false;
+  function ask(text) {
+    if (busy || !text.trim()) return;
+    if (needsKey()) { keyGate(); return; }
+    busy = true;
+    bubble('you', text);
+    hist.push({ role: 'user', content: text });
+    var think = bubble('bot', 'thinking…', 'lb-think');
+    callModel(hist.slice(-10), function (out) {
+      think.classList.remove('lb-think');
+      think.textContent = out;
+      hist.push({ role: 'assistant', content: out });
+      try { localStorage.setItem(LS_HIST, JSON.stringify(hist.slice(-20))); } catch (e) { /* full or blocked */ }
+      busy = false;
+    }, function (err) {
+      think.classList.remove('lb-think');
+      think.classList.add('lb-err');
+      think.textContent = err;
+      hist.pop();
+      busy = false;
+    });
+  }
+
+  function renderQuick() {
+    var acts = [
+      ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
+      ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
+      ['I do not understand a word', 'I will name a word from this unit. Explain it simply and give one example sentence.']
+    ];
+    (CFG.roleplays || []).slice(0, 2).forEach(function (r, i) {
+      acts.unshift(['Role-play ' + (i + 1), 'Let us role-play. ' + r + ' You start. Speak only at CEFR '
+        + (CFG.cefr || 'B1') + ', keep your turns short, and ask me one question each turn.']);
+    });
+    quick.innerHTML = '';
+    acts.slice(0, 5).forEach(function (a) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lb-q';
+      b.textContent = a[0];
+      b.addEventListener('click', function () { ask(a[1]); });
+      quick.appendChild(b);
+    });
+  }
+
+  function open() {
+    panel.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    if (!log.childElementCount) {
+      if (hist.length) {
+        hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
+      } else {
+        bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
+          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+      }
+      if (needsKey()) keyGate(); else renderQuick();
+    }
+    setTimeout(function () { input.focus(); }, 60);
+  }
+  function close() { panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); }
+
+  fab.addEventListener('click', function () { panel.hidden ? open() : close(); });
+  root.querySelector('.lb-x').addEventListener('click', close);
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value;
+    input.value = '';
+    ask(v);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });
+})();
+</script><script>// LANG edition: pronunciation practice.
+//
+// The learner reads a line from this unit's dialogues out loud; the browser's own speech
+// recognition transcribes it and we score the transcript word by word against the target. No key,
+// no server, nothing leaves the browser beyond the recognition service the browser already uses.
+// Chrome and Edge support this; Firefox and Safari do not, so we say so rather than showing a
+// button that does nothing.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !(CFG.pron || []).length) return;
+
+  var host = document.getElementById('speaking') || document.getElementById('dialogues');
+  if (!host) return;
+
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var LANG = CFG.langCode || 'en-GB';
+
+  // Words we do not penalise: the learner saying "the" instead of "a" is not a pronunciation fault
+  // worth a red mark in a technical-English lesson.
+  var SKIP = { a: 1, an: 1, the: 1, is: 1, are: 1, and: 1, to: 1, of: 1, it: 1, in: 1, that: 1 };
+
+  function norm(s) {
+    return String(s || '').toLowerCase()
+      .replace(/[^\p{L}\p{N}' ]/gu, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function words(s) { return norm(s).split(' ').filter(Boolean); }
+
+  var card = document.createElement('div');
+  card.className = 'pron';
+  card.innerHTML = '<h3>Say it out loud</h3><p class="hint">Press record and read the line. '
+    + 'You will see which words came through clearly.</p>';
+
+  if (!SR) {
+    card.innerHTML += '<p class="pron-note">Your browser cannot listen. Open this lesson in Chrome '
+      + 'or Edge to use this exercise. You can still read the lines aloud with your teacher.</p>';
+    host.appendChild(card);
+    return;
+  }
+
+  CFG.pron.slice(0, 4).forEach(function (target, i) {
+    var row = document.createElement('div');
+    row.className = 'pron-line';
+    row.innerHTML =
+      '<div class="pron-target" id="pt' + i + '"></div>'
+      + '<div class="pron-bar"><button type="button" class="pron-rec">🎙 Record</button>'
+      + '<span class="pron-score"></span></div><div class="pron-heard"></div>';
+    card.appendChild(row);
+
+    var tgtEl = row.querySelector('.pron-target');
+    var btn = row.querySelector('.pron-rec');
+    var scoreEl = row.querySelector('.pron-score');
+    var heardEl = row.querySelector('.pron-heard');
+    var tw = words(target);
+
+    // render the target with each word in its own span so we can mark it later
+    target.split(/(\s+)/).forEach(function (chunk) {
+      if (/^\s+$/.test(chunk)) { tgtEl.appendChild(document.createTextNode(chunk)); return; }
+      var s = document.createElement('span');
+      s.textContent = chunk;
+      s.dataset.w = norm(chunk);
+      tgtEl.appendChild(s);
+    });
+
+    var rec = null;
+    function stop() {
+      if (rec) { try { rec.stop(); } catch (e) { /* already stopped */ } rec = null; }
+      btn.dataset.on = '';
+      btn.textContent = '🎙 Record';
+    }
+
+    function grade(said) {
+      var heard = words(said);
+      var pool = heard.slice();
+      var hits = 0, counted = 0;
+      tw.forEach(function (w) {
+        if (SKIP[w]) return;
+        counted++;
+        var at = pool.indexOf(w);
+        if (at >= 0) { hits++; pool.splice(at, 1); }
+      });
+      var pct = counted ? Math.round(100 * hits / counted) : 0;
+
+      var got = words(said);
+      tgtEl.querySelectorAll('span').forEach(function (s) {
+        var w = s.dataset.w;
+        if (!w || SKIP[w]) { s.className = ''; return; }
+        s.className = got.indexOf(w) >= 0 ? 'hit' : 'miss';
+      });
+      scoreEl.textContent = pct + '% clear (' + hits + ' of ' + counted + ' words)';
+      scoreEl.className = 'pron-score ' + (pct >= 80 ? 'good' : (pct >= 55 ? '' : 'poor'));
+      heardEl.textContent = said ? 'We heard: ' + said : 'We heard nothing. Try again, a little louder.';
+    }
+
+    btn.addEventListener('click', function () {
+      if (rec) { stop(); return; }
+      rec = new SR();
+      rec.lang = LANG;
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      btn.dataset.on = '1';
+      btn.textContent = '● Listening, press to stop';
+      scoreEl.textContent = '';
+      heardEl.textContent = '';
+      rec.onresult = function (e) {
+        var said = '';
+        for (var k = 0; k < e.results.length; k++) said += e.results[k][0].transcript + ' ';
+        grade(said.trim());
+      };
+      rec.onerror = function (e) {
+        heardEl.textContent = e.error === 'not-allowed'
+          ? 'The microphone is blocked. Allow it in the address bar, then try again.'
+          : 'The microphone did not work. Try again.';
+        stop();
+      };
+      rec.onend = stop;
+      try { rec.start(); } catch (e) { stop(); }
+    });
+  });
+
+  card.insertAdjacentHTML('beforeend',
+    '<p class="pron-note">Scoring counts the words the browser recognised, so it rewards clear '
+    + 'consonants and word stress. It is practice, not an exam.</p>');
+  host.appendChild(card);
 })();
 </script><!--/CF-LANG-UI--></body>
 </html>

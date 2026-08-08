@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MEL dispatch conversation with the duty engineer</title><!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MEL dispatch conversation with the duty engineer</title><!--CF-LANG-UI--><style>/* CourseForge LANG: the unit design system. Injected deterministically into every unit page
    AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
 :root{
   --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
@@ -142,9 +142,98 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 .cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
 .cf-prog i{position:relative;z-index:1;flex:none}
 @media (max-width:1180px){.cf-nav{display:none}}
-</style><!--/CF-LANG-UI--></head><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 15 of 32 · MEL dispatch conversation with the duty engineer</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 MEL and dispatch — inoperative, placard, rectification inter</span></div></div></header><meta charset="utf-8">
+/* LANG edition: Lang Buddy (in-lesson tutor) + pronunciation practice.
+   Uses the unit design tokens from lang-ui.css (--brand, --amber, --ink, --ink-2, --line, --paper). */
+
+.lb-root { font: 15px/1.6 'Inter', 'Segoe UI', system-ui, sans-serif; }
+
+.lb-fab {
+  position: fixed; right: 20px; bottom: 20px; z-index: 60;
+  display: flex; align-items: center; gap: 9px;
+  background: var(--brand, #2F5496); color: #fff; border: 0; cursor: pointer;
+  border-radius: 999px; padding: 12px 20px 12px 16px; font-size: 14.5px; font-weight: 600;
+  box-shadow: 0 2px 6px rgba(16, 32, 54, .16), 0 12px 30px rgba(16, 32, 54, .22);
+  transition: transform .16s, box-shadow .16s;
+}
+.lb-fab:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(16, 32, 54, .2), 0 18px 40px rgba(16, 32, 54, .26); }
+.lb-fab-i { font-size: 17px; line-height: 1; }
+
+.lb-panel {
+  position: fixed; right: 20px; bottom: 20px; z-index: 61;
+  width: 390px; max-width: calc(100vw - 32px); height: 580px; max-height: calc(100vh - 40px);
+  display: flex; flex-direction: column; overflow: hidden;
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(16, 32, 54, .1), 0 26px 60px rgba(16, 32, 54, .24);
+}
+.lb-panel[hidden] { display: none; }
+
+.lb-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line, #e2e6ec);
+  background: linear-gradient(180deg, #fff, #f8fafc);
+}
+.lb-head b { font-size: 15px; color: var(--ink, #1b2733); display: block; }
+.lb-sub { font-size: 12px; color: var(--ink-2, #5a6b7d); }
+.lb-x { background: 0; border: 0; font-size: 22px; line-height: 1; color: var(--ink-2, #5a6b7d); cursor: pointer; padding: 0 4px; }
+.lb-x:hover { color: var(--ink, #1b2733); }
+
+.lb-log { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.lb-msg { max-width: 84%; padding: 9px 13px; border-radius: 14px; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap; }
+.lb-you { align-self: flex-end; background: var(--brand, #2F5496); color: #fff; border-bottom-right-radius: 5px; }
+.lb-bot { align-self: flex-start; background: #f2f5f9; color: var(--ink, #1b2733); border-bottom-left-radius: 5px; }
+.lb-think { color: var(--ink-2, #5a6b7d); font-style: italic; }
+.lb-err { background: #fdeceb; color: #8c2f27; }
+
+.lb-gate { background: #fffdf6; border: 1px solid #f0dfbe; border-radius: 12px; padding: 13px 14px; font-size: 13.5px; }
+.lb-gate p { margin: 0 0 10px; color: var(--ink-2, #5a6b7d); line-height: 1.5; }
+.lb-key { width: 100%; padding: 9px 11px; border: 1px solid var(--line, #e2e6ec); border-radius: 9px; font-size: 13.5px; }
+.lb-save { margin-top: 9px; background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 9px; padding: 9px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+.lb-help { display: block; margin-top: 9px; font-size: 12.5px; color: var(--brand, #2F5496); }
+
+.lb-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
+.lb-q {
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px;
+  padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
+}
+.lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+
+.lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
+.lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
+.lb-in:focus { outline: 0; border-color: var(--brand, #2F5496); box-shadow: 0 0 0 3px rgba(47, 84, 150, .12); }
+.lb-send { background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 11px; padding: 10px 17px; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 560px) {
+  .lb-panel { right: 8px; left: 8px; bottom: 8px; width: auto; height: calc(100vh - 70px); }
+  .lb-fab-t { display: none; }
+  .lb-fab { padding: 14px; }
+}
+
+/* ---- pronunciation practice ---------------------------------------------------------------- */
+.pron { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; padding: 18px 20px; margin: 20px 0; }
+.pron h3 { margin: 0 0 4px; font-size: 16.5px; color: var(--brand, #2F5496); }
+.pron .hint { margin: 0 0 14px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.pron-line { border-top: 1px solid #eef1f5; padding: 13px 0; }
+.pron-line:first-of-type { border-top: 0; }
+.pron-target { font-size: 15.5px; line-height: 1.6; color: var(--ink, #1b2733); margin-bottom: 9px; }
+.pron-target span { padding: 1px 2px; border-radius: 4px; }
+.pron-target span.hit { background: #e6f6ee; color: #0f6e56; }
+.pron-target span.miss { background: #fdeceb; color: #8c2f27; }
+.pron-bar { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.pron-rec {
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 999px;
+  padding: 8px 16px; font-size: 13.5px; font-weight: 600; font-family: inherit;
+}
+.pron-rec[data-on="1"] { background: #c0392b; animation: pron-pulse 1.1s ease-in-out infinite; }
+@keyframes pron-pulse { 0%, 100% { opacity: 1 } 50% { opacity: .62 } }
+.pron-score { font-size: 13.5px; font-weight: 600; color: var(--ink-2, #5a6b7d); }
+.pron-score.good { color: #0f6e56; }
+.pron-score.poor { color: #8c2f27; }
+.pron-heard { font-size: 13px; color: var(--ink-2, #5a6b7d); margin-top: 7px; font-style: italic; }
+.pron-note { font-size: 12.5px; color: var(--ink-2, #5a6b7d); margin-top: 12px; }
+</style><!--/CF-LANG-UI--></head><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 15 of 32 · MEL dispatch conversation with the duty engineer</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 MEL and dispatch, inoperative, placard, rectification interv</span></div></div></header><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>English for Aviation Maintenance · Unit 15 — MEL dispatch with the duty engineer</title>
+<title>English for Aviation Maintenance · Unit 15, MEL dispatch with the duty engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -198,7 +287,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   .cast{font-size:13.5px;color:var(--ink-muted);margin:0 0 10px}
   .lang-audio-slot{display:flex;align-items:center;gap:10px;min-height:52px;border:1px dashed var(--color-primary-soft);border-radius:var(--radius-sm);background:#eef2f9;color:var(--color-primary-dark);font-size:13.5px;font-family:var(--font-mono);padding:10px 14px;margin:6px 0}
   .lang-audio-slot::before{content:"▶";font-size:15px}
-  .lang-audio-slot::after{content:"Audio player loads here — listen first, then open the transcript.";color:var(--color-primary-dark)}
+  .lang-audio-slot::after{content:"Audio player loads here, listen first, then open the transcript.";color:var(--color-primary-dark)}
   details.transcript{margin-top:8px;border-top:1px solid var(--border-soft);padding-top:8px}
   details.transcript>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary);font-weight:700}
   .turn{margin:7px 0;max-width:none}
@@ -261,10 +350,10 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   <header class="lec-hero">
     <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 15</p>
     <h1 class="lecture-title">MEL dispatch: the duty-engineer call.</h1>
-    <p class="subtitle">A jet has an inoperative item. Can it still fly? In this unit you read the MEL, weigh the conditions and limitations, fit the placard, and tell the duty engineer what the operational and maintenance procedures require — all in clear, spoken B2 English.</p>
+    <p class="subtitle">A jet has an inoperative item. Can it still fly? In this unit you read the MEL, weigh the conditions and limitations, fit the placard, and tell the duty engineer what the operational and maintenance procedures require, all in clear, spoken B2 English.</p>
     <div class="hero-meta">
       <span>Scenario<strong>Duty-engineer dispatch call</strong></span>
-      <span>Vocabulary<strong>MEL &amp; dispatch — 20 terms</strong></span>
+      <span>Vocabulary<strong>MEL &amp; dispatch, 20 terms</strong></span>
       <span>Grammar<strong>Modals of permission &amp; possibility</strong></span>
       <span>Class length<strong>90 minutes · balanced skills</strong></span>
     </div>
@@ -285,18 +374,18 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <p>It is night at a busy line station. An A320 is on stand, ready to fly, but the crew has written up a fault in the technical log. One item is inoperative. The turnaround clock is running, and the captain wants an answer: can we go?</p>
     <p>You cannot decide alone. You call the duty engineer. Together you open the Minimum Equipment List, read the conditions, and agree the go or no-go. Then you fit the placard, defer the defect, and sign the release. In this unit you learn to hold that conversation with confidence.</p>
     <div class="callout plain">
-      <h4>In plain words — four terms before you start</h4>
-      <p style="margin:0"><b>MEL</b> (Minimum Equipment List) — the book that says which items may be broken and still let the aircraft fly. <b>Inoperative</b> — not working. <b>Dispatch</b> — release the aircraft to fly. <b>Placard</b> — a small warning label you fit near a broken control. Every hard word in this unit is glossed in the vocabulary bank.</p>
+      <h4>In plain words: four terms before you start</h4>
+      <p style="margin:0"><b>MEL</b> (Minimum Equipment List), the book that says which items may be broken and still let the aircraft fly. <b>Inoperative</b>, not working. <b>Dispatch</b>, release the aircraft to fly. <b>Placard</b>, a small warning label you fit near a broken control. Every hard word in this unit is glossed in the vocabulary bank.</p>
     </div>
   </section>
 
   <!-- ============ DIALOGUES ============ -->
   <section class="lecture-section" id="dialogues">
-    <h2><span class="secnum">02</span>Listen — three duty-engineer calls</h2>
+    <h2><span class="secnum">02</span>Listen, three duty-engineer calls</h2>
     <p>Listen to each call first. Do not read yet. Then open the transcript and check the words. The same voices come back in the exercises, so listen for the conditions, the limitations and the procedures.</p>
 
     <div class="dlg">
-      <h3>Dialogue 1 — One air-conditioning pack inoperative</h3>
+      <h3>Dialogue 1: One air-conditioning pack inoperative</h3>
       <p class="cast">A = Kārlis, line technician (mechanical) · B = Rob, duty engineer</p>
       <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u15-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:21 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -312,7 +401,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         <p class="turn"><span class="who">Rob</span><span class="said">Yes, but only if you meet the provisos. Read me the conditions.</span></p>
         <p class="turn"><span class="who">Kārlis</span><span class="said">Condition one is a limitation on altitude. The flight level must not go above three one zero.</span></p>
         <p class="turn"><span class="who">Rob</span><span class="said">Correct. A single pack cannot pressurise the cabin above that level.</span></p>
-        <p class="turn"><span class="who">Kārlis</span><span class="said">Condition two — we must placard the pack control on the overhead panel.</span></p>
+        <p class="turn"><span class="who">Kārlis</span><span class="said">Condition two, we must placard the pack control on the overhead panel.</span></p>
         <p class="turn"><span class="who">Rob</span><span class="said">Do that now. Fit an "INOP" placard next to the switch so the crew sees it.</span></p>
         <p class="turn"><span class="who">Kārlis</span><span class="said">Understood. And the maintenance procedure?</span></p>
         <p class="turn"><span class="who">Rob</span><span class="said">Pull and collar the pack circuit breaker, then raise the deferred defect in the tech log.</span></p>
@@ -323,7 +412,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="dlg">
-      <h3>Dialogue 2 — Weather radar inoperative, and a missing part</h3>
+      <h3>Dialogue 2: Weather radar inoperative, and a missing part</h3>
       <p class="cast">A = Inga, avionics technician · B = Rob, duty engineer</p>
       <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u15-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:20 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -332,7 +421,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         <p class="turn"><span class="who">Inga</span><span class="said">The weather radar is inoperative. The display is blank and the BITE shows a transmitter fault.</span></p>
         <p class="turn"><span class="who">Rob</span><span class="said">Let me check the minimum equipment list. Is the second radar serviceable?</span></p>
         <p class="turn"><span class="who">Inga</span><span class="said">There is only one radar on this aircraft. So we have no backup.</span></p>
-        <p class="turn"><span class="who">Rob</span><span class="said">Then read the MEL item with me. Weather radar — dispatch conditions.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Then read the MEL item with me. Weather radar, dispatch conditions.</span></p>
         <p class="turn"><span class="who">Inga</span><span class="said">The repair category is C. The rectification interval is ten days.</span></p>
         <p class="turn"><span class="who">Rob</span><span class="said">What is the main limitation in the proviso?</span></p>
         <p class="turn"><span class="who">Inga</span><span class="said">The aircraft must not fly into known or forecast thunderstorm areas.</span></p>
@@ -351,7 +440,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="dlg">
-      <h3>Dialogue 3 — APU inoperative: is it a no-go item?</h3>
+      <h3>Dialogue 3: APU inoperative: is it a no-go item?</h3>
       <p class="cast">A = Toms, line supervisor · B = Rob, duty engineer</p>
       <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u15-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:19 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -378,7 +467,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="dlg">
-      <h3>Monologue — Shift-handover voicemail</h3>
+      <h3>Monologue: Shift-handover voicemail</h3>
       <p class="cast">A = Rob, duty engineer (voicemail to the early shift)</p>
       <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u15-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:44 · listen first, then open the transcript</figcaption></figure>
       <details class="transcript"><summary>Transcript</summary>
@@ -395,7 +484,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 
   <!-- ============ VOCABULARY ============ -->
   <section class="lecture-section" id="vocabulary">
-    <h2><span class="secnum">03</span>Vocabulary bank — MEL &amp; dispatch</h2>
+    <h2><span class="secnum">03</span>Vocabulary bank, MEL &amp; dispatch</h2>
     <p>These twenty terms carry the unit. Each one has a plain-words meaning, an example at your level, and one common word partner (collocation). You hear every term in the dialogues and use every term in the exercises.</p>
     <table class="dt">
       <thead><tr><th style="width:20%">Term</th><th style="width:32%">Plain meaning</th><th style="width:30%">Example</th><th style="width:18%">Collocation</th></tr></thead>
@@ -426,13 +515,13 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 
   <!-- ============ GRAMMAR ============ -->
   <section class="lecture-section" id="grammar">
-    <h2><span class="secnum">04</span>Grammar in context — modals of permission &amp; possibility</h2>
+    <h2><span class="secnum">04</span>Grammar in context, modals of permission &amp; possibility</h2>
     <p>Dispatch hinges on what is <em>allowed</em> and what is <em>possible</em>. So this unit lives on modal verbs: <b>may, can, could, must not, cannot</b>. They tell the crew what they are permitted to do and what they must never do. Listen to how the duty engineer uses them.</p>
 
-    <p class="quote">"So the aircraft <b>may</b> dispatch with one pack inoperative?" — permission granted by the MEL.</p>
-    <p class="quote">"The fault <b>could</b> be in the valve, not the controller." — a possibility, not a fact.</p>
-    <p class="quote">"The flight level <b>must not</b> go above three one zero." — a firm prohibition.</p>
-    <p class="quote">"A single pack <b>cannot</b> pressurise the cabin above that level." — a physical impossibility.</p>
+    <p class="quote">"So the aircraft <b>may</b> dispatch with one pack inoperative?", permission granted by the MEL.</p>
+    <p class="quote">"The fault <b>could</b> be in the valve, not the controller.", a possibility, not a fact.</p>
+    <p class="quote">"The flight level <b>must not</b> go above three one zero.", a firm prohibition.</p>
+    <p class="quote">"A single pack <b>cannot</b> pressurise the cabin above that level.", a physical impossibility.</p>
 
     <p>A key rule: a modal is followed by the bare verb, with <b>no</b> "to". We say <em>may dispatch</em>, never <em>may to dispatch</em>. And modals do not stack: we cannot say <em>will can</em>. For future ability we use <b>will be able to</b>.</p>
 
@@ -460,7 +549,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   <!-- ============ EXERCISES ============ -->
   <section class="lecture-section" id="exercises">
     <h2><span class="secnum">05</span>Exercises</h2>
-    <p>Work through E1 to E8. Type your answers, press <b>Check</b>, and the page marks each item. Open <b>Show answers</b> only after you try. Nobody else will confirm your English — the page will.</p>
+    <p>Work through E1 to E8. Type your answers, press <b>Check</b>, and the page marks each item. Open <b>Show answers</b> only after you try. Nobody else will confirm your English, the page will.</p>
 
     <!-- E1 -->
     <div class="ex" id="e1">
@@ -490,16 +579,16 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       <h3>Match each term to its meaning</h3>
       <p>Choose the meaning that fits the term.</p>
       <ol>
-        <li><b>technical log</b> — <select class="gap" data-answer="the aircraft's running record of faults and actions"><option value=""></option><option>a warning label near a control</option><option>the aircraft's running record of faults and actions</option><option>a limit on the flight level</option></select></li>
-        <li><b>certificate of release to service</b> — <select class="gap" data-answer="the signed statement that the aircraft is safe to fly"><option value=""></option><option>the signed statement that the aircraft is safe to fly</option><option>the time limit to repair a fault</option><option>the manufacturer's base list</option></select></li>
-        <li><b>repair category</b> — <select class="gap" data-answer="the class (a, b, c, d) that sets the interval"><option value=""></option><option>the class (A, B, C, D) that sets the interval</option><option>a missing part on the airframe</option><option>a fault that stops dispatch</option></select></li>
-        <li><b>operational procedure</b> — <select class="gap" data-answer="the action the crew must take in flight"><option value=""></option><option>the action the technician must take</option><option>the action the crew must take in flight</option><option>a warning label near a control</option></select></li>
-        <li><b>maintenance procedure</b> — <select class="gap" data-answer="the action the technician must take"><option value=""></option><option>the action the technician must take</option><option>a condition you must meet to dispatch</option><option>an airport for turnarounds</option></select></li>
-        <li><b>configuration deviation list</b> — <select class="gap" data-answer="the list for missing parts on the airframe"><option value=""></option><option>the list for missing parts on the airframe</option><option>the running record of faults</option><option>the on-call certifying engineer</option></select></li>
-        <li><b>no-go item</b> — <select class="gap" data-answer="a fault that stops dispatch"><option value=""></option><option>a part that is working normally</option><option>a fault that stops dispatch</option><option>a signed release statement</option></select></li>
-        <li><b>line station</b> — <select class="gap" data-answer="an airport where aircraft are turned round"><option value=""></option><option>an airport where aircraft are turned round</option><option>a maximum altitude limit</option><option>the manufacturer's base list</option></select></li>
-        <li><b>duty engineer</b> — <select class="gap" data-answer="the on-call engineer who makes the dispatch call"><option value=""></option><option>the pilot who flies the aircraft</option><option>the on-call engineer who makes the dispatch call</option><option>a small warning label</option></select></li>
-        <li><b>master minimum equipment list</b> — <select class="gap" data-answer="the manufacturer's base list the mel is built from"><option value=""></option><option>the manufacturer's base list the MEL is built from</option><option>the crew's flight plan</option><option>a fault repaired later</option></select></li>
+        <li><b>technical log</b>, <select class="gap" data-answer="the aircraft's running record of faults and actions"><option value=""></option><option>a warning label near a control</option><option>the aircraft's running record of faults and actions</option><option>a limit on the flight level</option></select></li>
+        <li><b>certificate of release to service</b>, <select class="gap" data-answer="the signed statement that the aircraft is safe to fly"><option value=""></option><option>the signed statement that the aircraft is safe to fly</option><option>the time limit to repair a fault</option><option>the manufacturer's base list</option></select></li>
+        <li><b>repair category</b>, <select class="gap" data-answer="the class (a, b, c, d) that sets the interval"><option value=""></option><option>the class (A, B, C, D) that sets the interval</option><option>a missing part on the airframe</option><option>a fault that stops dispatch</option></select></li>
+        <li><b>operational procedure</b>, <select class="gap" data-answer="the action the crew must take in flight"><option value=""></option><option>the action the technician must take</option><option>the action the crew must take in flight</option><option>a warning label near a control</option></select></li>
+        <li><b>maintenance procedure</b>, <select class="gap" data-answer="the action the technician must take"><option value=""></option><option>the action the technician must take</option><option>a condition you must meet to dispatch</option><option>an airport for turnarounds</option></select></li>
+        <li><b>configuration deviation list</b>, <select class="gap" data-answer="the list for missing parts on the airframe"><option value=""></option><option>the list for missing parts on the airframe</option><option>the running record of faults</option><option>the on-call certifying engineer</option></select></li>
+        <li><b>no-go item</b>, <select class="gap" data-answer="a fault that stops dispatch"><option value=""></option><option>a part that is working normally</option><option>a fault that stops dispatch</option><option>a signed release statement</option></select></li>
+        <li><b>line station</b>, <select class="gap" data-answer="an airport where aircraft are turned round"><option value=""></option><option>an airport where aircraft are turned round</option><option>a maximum altitude limit</option><option>the manufacturer's base list</option></select></li>
+        <li><b>duty engineer</b>, <select class="gap" data-answer="the on-call engineer who makes the dispatch call"><option value=""></option><option>the pilot who flies the aircraft</option><option>the on-call engineer who makes the dispatch call</option><option>a small warning label</option></select></li>
+        <li><b>master minimum equipment list</b>, <select class="gap" data-answer="the manufacturer's base list the mel is built from"><option value=""></option><option>the manufacturer's base list the MEL is built from</option><option>the crew's flight plan</option><option>a fault repaired later</option></select></li>
       </ol>
       <div class="exfoot"><button class="btn primary check" data-ex="e2">Check</button><span class="score" data-score="e2"></span></div>
       <details class="answers"><summary>Show answers</summary><ol><li>the aircraft's running record of faults and actions</li><li>the signed statement that the aircraft is safe to fly</li><li>the class (A, B, C, D) that sets the interval</li><li>the action the crew must take in flight</li><li>the action the technician must take</li><li>the list for missing parts on the airframe</li><li>a fault that stops dispatch</li><li>an airport where aircraft are turned round</li><li>the on-call engineer who makes the dispatch call</li><li>the manufacturer's base list the MEL is built from</li></ol></details>
@@ -512,7 +601,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       <p>Fill each gap with the missing term. The call is like the ones you heard.</p>
       <div class="wordbank"><span>minimum equipment list</span><span>repair category</span><span>rectification interval</span><span>proviso</span><span>placard</span><span>deferred defect</span><span>operational procedure</span><span>certificate of release to service</span></div>
       <ol>
-        <li>Tech: One landing light is inoperative. Can we go? — Engineer: Let's open the <input class="gap" data-answer="minimum equipment list" size="22">.</li>
+        <li>Tech: One landing light is inoperative. Can we go?, Engineer: Let's open the <input class="gap" data-answer="minimum equipment list" size="22">.</li>
         <li>Engineer: The <input class="gap" data-answer="repair category" size="16"> is C, so we have time.</li>
         <li>Engineer: The <input class="gap" data-answer="rectification interval" size="20"> is ten calendar days.</li>
         <li>Engineer: You may dispatch, but read me the first <input class="gap" data-answer="proviso" size="12">.</li>
@@ -529,7 +618,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <div class="ex" id="e4">
       <span class="tag">E4 · Grammar transformation</span>
       <h3>Rewrite with a modal</h3>
-      <p>Fill the gap with the correct modal or modal phrase. Watch out — no "to" after a modal, and no double modals.</p>
+      <p>Fill the gap with the correct modal or modal phrase. Watch out, no "to" after a modal, and no double modals.</p>
       <ol>
         <li>It is not permitted to climb above FL310. → The flight <input class="gap" data-answer="must not" size="12"> climb above FL310.</li>
         <li>It is possible that the fault is in the valve. → The fault <input class="gap" data-answer="could|may|might" size="10"> be in the valve.</li>
@@ -550,7 +639,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       <h3>Read the MEL page, then answer</h3>
       <div class="rtext">
         <p><b>MEL Item 21-52-01 · Air-Conditioning Pack (one)</b></p>
-        <p><b>Repair category:</b> C — rectification interval ten (10) calendar days.</p>
+        <p><b>Repair category:</b> C, rectification interval ten (10) calendar days.</p>
         <p><b>Number installed:</b> 2. <b>Number required for dispatch:</b> 1.</p>
         <p>One air-conditioning pack may be inoperative provided that:</p>
         <p>(a) the affected pack is deactivated and the crew is briefed;<br>(b) the flight level does not exceed FL310 (limitation on cabin pressurisation);<br>(c) the pack control switch is placarded "INOP".</p>
@@ -574,9 +663,9 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     <div class="ex" id="e6">
       <span class="tag">E6 · Error-spotting</span>
       <h3>Find and fix eight errors</h3>
-      <p>This tech-log note has eight mistakes — modal errors, missing articles, and wrong words. Type the corrected word or phrase in each box.</p>
+      <p>This tech-log note has eight mistakes, modal errors, missing articles, and wrong words. Type the corrected word or phrase in each box.</p>
       <div class="rtext" style="background:var(--bg-sunken);border-radius:6px;padding:12px 16px">
-        <p>Aircraft <u>may to dispatch</u> [1] with one pack inoperative. <u>Crew</u> [2] must follow the operational procedure. The flight <u>can</u> [3] not climb above FL310, because a single pack cannot pressurise the cabin. We fitted an INOP <u>placate</u> [4] on the switch. Tomorrow we <u>will can</u> [5] fit the new valve. The <u>rectification interval</u> is ten days — wait, the item is category B, so it is <u>ten</u> [6] days. Please raise the <u>defer defect</u> [7] in the technical log and sign the <u>release</u> before the crew arrives, once the <u>placard</u> [8] is on.</p>
+        <p>Aircraft <u>may to dispatch</u> [1] with one pack inoperative. <u>Crew</u> [2] must follow the operational procedure. The flight <u>can</u> [3] not climb above FL310, because a single pack cannot pressurise the cabin. We fitted an INOP <u>placate</u> [4] on the switch. Tomorrow we <u>will can</u> [5] fit the new valve. The <u>rectification interval</u> is ten days, wait, the item is category B, so it is <u>ten</u> [6] days. Please raise the <u>defer defect</u> [7] in the technical log and sign the <u>release</u> before the crew arrives, once the <u>placard</u> [8] is on.</p>
       </div>
       <ol>
         <li>[1] <u>may to dispatch</u> → <input class="gap" data-answer="may dispatch" size="14"></li>
@@ -640,11 +729,11 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 
   <!-- ============ SPEAKING ============ -->
   <section class="lecture-section" id="speaking">
-    <h2><span class="secnum">06</span>Speaking — role-plays</h2>
+    <h2><span class="secnum">06</span>Speaking, role-plays</h2>
     <p>Work in pairs. One of you is the technician; the other is the duty engineer. Swap roles after each card. Use the useful phrases, and keep to short, clear sentences.</p>
 
     <div class="roleplay">
-      <h4>Role-play card 1 — Landing light inoperative</h4>
+      <h4>Role-play card 1: Landing light inoperative</h4>
       <div class="rp-row"><span class="rp-lab">Situation</span>A landing light is inoperative on a night departure. You call the duty engineer.</div>
       <div class="rp-row"><span class="rp-lab">Your role (A)</span>Line technician. Report the defect and ask if you can dispatch.</div>
       <div class="rp-row"><span class="rp-lab">Your goal</span>Agree the repair category, the rectification interval, and whether a placard is needed.</div>
@@ -652,7 +741,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="roleplay">
-      <h4>Role-play card 2 — Is it a go or a no-go?</h4>
+      <h4>Role-play card 2: Is it a go or a no-go?</h4>
       <div class="rp-row"><span class="rp-lab">Situation</span>The anti-skid system is unserviceable on a wet runway day.</div>
       <div class="rp-row"><span class="rp-lab">Your role (B)</span>Duty engineer. Decide if it is a go item or a no-go item, and say why.</div>
       <div class="rp-row"><span class="rp-lab">Your goal</span>State the limitation and the operational procedure the crew must follow.</div>
@@ -660,7 +749,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="roleplay">
-      <h4>Role-play card 3 — Reading the MEL together</h4>
+      <h4>Role-play card 3: Reading the MEL together</h4>
       <div class="rp-row"><span class="rp-lab">Situation</span>One VHF radio is inoperative. You read the minimum equipment list line by line.</div>
       <div class="rp-row"><span class="rp-lab">Your role (A/B)</span>Technician reads the conditions; engineer confirms each proviso.</div>
       <div class="rp-row"><span class="rp-lab">Your goal</span>List the conditions, the maintenance procedure and the operational procedure.</div>
@@ -668,7 +757,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
 
     <div class="roleplay">
-      <h4>Role-play card 4 — Shift handover</h4>
+      <h4>Role-play card 4: Shift handover</h4>
       <div class="rp-row"><span class="rp-lab">Situation</span>You hand over a deferred defect to the next shift at the line station.</div>
       <div class="rp-row"><span class="rp-lab">Your role (A)</span>Outgoing engineer. Explain the item, the limitation and the expiry of the rectification interval.</div>
       <div class="rp-row"><span class="rp-lab">Your goal</span>Make sure the next shift can sign the certificate of release to service and plan the fix.</div>
@@ -686,7 +775,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 
   <!-- ============ WRITING ============ -->
   <section class="lecture-section" id="writing">
-    <h2><span class="secnum">07</span>Writing — a deferred-defect entry</h2>
+    <h2><span class="secnum">07</span>Writing, a deferred-defect entry</h2>
     <p>Write a deferred-defect entry for the technical log. Use Simplified Technical English (ASD-STE100): short sentences, one instruction each, the active voice, and approved words. Keep each sentence under about twenty words.</p>
     <div class="callout">
       <h4>Task</h4>
@@ -694,7 +783,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     </div>
     <details class="answers"><summary>Show a model answer</summary>
       <div class="rtext" style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:12px 16px;margin-top:8px">
-        <p><b>DEFERRED DEFECT — VHF 2 INOPERATIVE</b></p>
+        <p><b>DEFERRED DEFECT, VHF 2 INOPERATIVE</b></p>
         <p>Defect: VHF 2 is inoperative. VHF 1 is serviceable.</p>
         <p>MEL reference: 23-12-02, repair category C. Rectification interval: 10 calendar days.</p>
         <p>Proviso: one VHF radio must work. The crew must use VHF 1.</p>
@@ -704,17 +793,17 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
         <p>Release: sign the certificate of release to service after the placard is on.</p>
       </div>
     </details>
-    <p style="margin-top:14px"><b>Self-check — tick each line before you hand in:</b></p>
+    <p style="margin-top:14px"><b>Self-check, tick each line before you hand in:</b></p>
     <ul class="checklist">
       <li>Every sentence is short (under about twenty words) and gives one idea.</li>
       <li>I used the MEL terms correctly: proviso, limitation, placard, deferred defect.</li>
-      <li>I wrote both procedures — the maintenance (M) and the operational (O).</li>
+      <li>I wrote both procedures, the maintenance (M) and the operational (O).</li>
       <li>I ended with the certificate of release to service.</li>
     </ul>
   </section>
 
   <footer>
-    English for Aviation Maintenance · Unit 15 — MEL dispatch with the duty engineer · CEFR B2 · Self-study language unit. Terms are for training only; always work from the current approved MEL, AMM and company procedures.
+    English for Aviation Maintenance · Unit 15, MEL dispatch with the duty engineer · CEFR B2 · Self-study language unit. Terms are for training only; always work from the current approved MEL, AMM and company procedures.
   </footer>
 </article>
 
@@ -788,5 +877,387 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
+})();
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "minimum equipment list", "def": "The book that lists which items may be broken and still let the aircraft fly (the MEL)."}, {"term": "master minimum equipment list", "def": "The manufacturer's base list. The operator's MEL is built from it."}, {"term": "dispatch", "def": "To release the aircraft to fly."}, {"term": "inoperative", "def": "Not working."}, {"term": "placard", "def": "A small warning label fitted near a broken control; also, to fit that label."}, {"term": "rectification interval", "def": "The time limit to repair a deferred item."}, {"term": "deferred defect", "def": "A fault the aircraft may fly with, repaired later within the interval."}, {"term": "technical log", "def": "The aircraft's running record of faults and actions (the tech log)."}, {"term": "certificate of release to service", "def": "The signed statement that the work is done and the aircraft is safe to fly (CRS)."}, {"term": "serviceable", "def": "Working and fit for use."}, {"term": "unserviceable", "def": "Not fit for use; broken."}, {"term": "repair category", "def": "The MEL class (A, B, C or D) that sets the rectification interval."}, {"term": "proviso", "def": "A condition you must meet to dispatch under the MEL."}, {"term": "limitation", "def": "A limit the MEL puts on the flight, such as a maximum altitude."}, {"term": "operational procedure", "def": "The action the crew must take in flight (marked \"O\" in the MEL)."}, {"term": "maintenance procedure", "def": "The action the technician must take (marked \"M\" in the MEL)."}, {"term": "configuration deviation list", "def": "The list for missing parts, such as a panel or a static wick (the CDL)."}, {"term": "no-go item", "def": "A fault that stops dispatch; the aircraft may not fly."}, {"term": "line station", "def": "An airport where aircraft are turned round and given line maintenance."}, {"term": "duty engineer", "def": "The certifying engineer on call who supports the line and makes the dispatch call."}], "lines": ["Duty desk, it's Kārlis on stand twelve. I have a problem on the A320.", "Go ahead, Kārlis. What is the defect?", "The number two air-conditioning pack is inoperative. The crew wrote it up in the technical log.", "Understood. Did you get a fault code from the BITE test?", "Yes. The pack flow-control valve fails to open. It looks like a valve fault, not the controller.", "Right. Let's open the minimum equipment list and see if we can dispatch.", "I have the MEL page here. It says one pack may be inoperative.", "Good. That is a repair category C item. So the rectification interval is ten calendar days.", "So the aircraft may dispatch with one pack inoperative?", "Yes, but only if you meet the provisos. Read me the conditions.", "Condition one is a limitation on altitude. The flight level must not go above three one zero.", "Correct. A single pack cannot pressurise the cabin above that level.", "Condition two, we must placard the pack control on the overhead panel.", "Do that now. Fit an \"INOP\" placard next to the switch so the crew sees it.", "Understood. And the maintenance procedure?", "Pull and collar the pack circuit breaker, then raise the deferred defect in the tech log.", "Copy. I will sign the certificate of release to service after placarding.", "One more thing. Brief the crew on the operational procedure before they leave.", "I will brief them. Thanks, Rob. I'll call you when the placard is on.", "Hi Rob, it's Inga at the line station. I have an avionics defect on the 737.", "Hello Inga. I am the duty engineer tonight. What is unserviceable?", "The weather radar is inoperative. The display is blank and the BITE shows a transmitter fault.", "Let me check the minimum equipment list. Is the second radar serviceable?", "There is only one radar on this aircraft. So we have no backup."], "roleplays": [], "grammar": "Dispatch hinges on what is allowed and what is possible . So this unit lives on modal verbs: may, can, could, must not, cannot . They tell the crew what they are permitted to do and what they must never do. Listen to how the duty engineer uses them.", "scenario": "It is night at a busy line station. An A320 is on stand, ready to fly, but the crew has written up a fault in the technical log. One item is inoperative. The turnaround clock is running, and the captain wants an answer: can we go?", "pron": ["Duty desk, it's Kārlis on stand twelve. I have a problem on the A320.", "Go ahead, Kārlis. What is the defect?", "The number two air-conditioning pack is inoperative. The crew wrote it up in the technical log.", "Understood. Did you get a fault code from the BITE test?"], "course": "English for Aviation Maintenance", "unit": 15, "total": 32, "title": "MEL dispatch conversation with the duty engineer", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+//
+// It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
+// the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
+// buddy answers about THIS lesson rather than about English in general.
+//
+// Three ways to reach a model, chosen per course at build time:
+//   proxy: the page holds NO credential; it POSTs to a small endpoint that keeps the key.
+//   embedded: an institutional key is baked into the page. Convenient, but any learner who opens
+//              devtools can read it, so it is only defensible behind a login.
+//   byo: the learner pastes their own key; it is kept in localStorage and never leaves the
+//              browser except to the vendor.
+// Vendors: anything OpenAI-compatible (Mistral, OpenAI, Groq, DeepSeek, OpenRouter, Azure, a local
+// server), plus Anthropic and Google, whose request shapes differ.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !CFG.ai) return;
+
+  var AI = CFG.ai;
+  var LS_KEY = 'langbuddy.key.' + (AI.vendor || 'x');
+  var LS_HIST = 'langbuddy.hist.' + (CFG.course || '') + '.' + (CFG.unit || 0);
+
+  var PRESETS = {
+    mistral: { base: 'https://api.mistral.ai/v1', shape: 'openai', model: 'mistral-small-latest', keyUrl: 'https://console.mistral.ai/api-keys' },
+    openai: { base: 'https://api.openai.com/v1', shape: 'openai', model: 'gpt-4o-mini', keyUrl: 'https://platform.openai.com/api-keys' },
+    groq: { base: 'https://api.groq.com/openai/v1', shape: 'openai', model: 'llama-3.1-8b-instant', keyUrl: 'https://console.groq.com/keys' },
+    deepseek: { base: 'https://api.deepseek.com/v1', shape: 'openai', model: 'deepseek-chat', keyUrl: 'https://platform.deepseek.com/api_keys' },
+    openrouter: { base: 'https://openrouter.ai/api/v1', shape: 'openai', model: 'mistralai/mistral-small', keyUrl: 'https://openrouter.ai/keys' },
+    anthropic: { base: 'https://api.anthropic.com/v1', shape: 'anthropic', model: 'claude-haiku-4-5-20251001', keyUrl: 'https://console.anthropic.com/settings/keys' },
+    google: { base: 'https://generativelanguage.googleapis.com/v1beta', shape: 'google', model: 'gemini-2.0-flash', keyUrl: 'https://aistudio.google.com/apikey' }
+  };
+  var P = PRESETS[AI.vendor] || PRESETS.mistral;
+  var BASE = AI.baseUrl || P.base;
+  var SHAPE = AI.shape || P.shape;
+  var MODEL = AI.model || P.model;
+
+  function storedKey() {
+    try { return localStorage.getItem(LS_KEY) || ''; } catch (e) { return ''; }
+  }
+  function activeKey() {
+    return AI.mode === 'embedded' ? (AI.key || '') : storedKey();
+  }
+  function needsKey() {
+    return AI.mode !== 'proxy' && !activeKey();
+  }
+
+  // ---- what the buddy knows about this unit -------------------------------------------------
+  function systemPrompt() {
+    var lang = CFG.language || 'English';
+    var terms = (CFG.terms || []).map(function (t) { return t.term + (t.def ? ' = ' + t.def : ''); }).join('; ');
+    var lines = (CFG.lines || []).slice(0, 24).join('\n');
+    var l1 = (CFG.l1 || []).join(' or ');
+    return [
+      'You are Lang Buddy, a patient ' + lang + ' tutor inside an online lesson.',
+      'The learner is studying "' + (CFG.course || lang) + '", unit ' + (CFG.unit || '') + ': "' + (CFG.title || '') + '".',
+      'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
+      'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
+      '',
+      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
+      'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
+      'then give the ' + lang + ' version.',
+      '',
+      'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
+      (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
+      (terms ? 'Vocabulary bank: ' + terms : ''),
+      (lines ? 'Lines from the unit dialogues you can refer to:\n' + lines : ''),
+      '',
+      'Rules. Answer questions about this unit first, using its own words and examples.',
+      'For exercises, give a hint or an example with a DIFFERENT word, never the answer itself;',
+      'if the learner insists, ask them to try once more, then explain the reasoning without',
+      'writing their answer for them. Correct their mistakes gently: repeat their sentence',
+      'correctly, then continue. If a question has nothing to do with language or this subject,',
+      'say so kindly and steer back to the lesson.'
+    ].filter(Boolean).join('\n');
+  }
+
+  // ---- vendor calls -------------------------------------------------------------------------
+  function callModel(messages, onDone, onFail) {
+    var key = activeKey();
+    var url, headers = { 'Content-Type': 'application/json' }, body;
+
+    if (AI.mode === 'proxy') {
+      url = AI.proxyUrl;
+      body = { model: MODEL, messages: [{ role: 'system', content: systemPrompt() }].concat(messages) };
+    } else if (SHAPE === 'anthropic') {
+      url = BASE + '/messages';
+      headers['x-api-key'] = key;
+      headers['anthropic-version'] = '2023-06-01';
+      headers['anthropic-dangerous-direct-browser-access'] = 'true';
+      body = { model: MODEL, max_tokens: 500, system: systemPrompt(), messages: messages };
+    } else if (SHAPE === 'google') {
+      url = BASE + '/models/' + MODEL + ':generateContent?key=' + encodeURIComponent(key);
+      body = {
+        systemInstruction: { parts: [{ text: systemPrompt() }] },
+        contents: messages.map(function (m) {
+          return { role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] };
+        })
+      };
+    } else {
+      url = BASE + '/chat/completions';
+      headers.Authorization = 'Bearer ' + key;
+      body = {
+        model: MODEL, max_tokens: 500, temperature: 0.4,
+        messages: [{ role: 'system', content: systemPrompt() }].concat(messages)
+      };
+    }
+
+    fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(body) })
+      .then(function (r) {
+        return r.text().then(function (t) {
+          var j = null;
+          try { j = JSON.parse(t); } catch (e) { /* keep the raw body for the error message */ }
+          if (!r.ok) {
+            var msg = (j && j.error && (j.error.message || j.error)) || t.slice(0, 160);
+            throw new Error(r.status === 401 || r.status === 403
+              ? 'The key was refused. Check it and try again.'
+              : (r.status === 429 ? 'Too many questions right now. Wait a moment, then ask again.' : String(msg)));
+          }
+          var out = '';
+          if (SHAPE === 'anthropic' && j.content) out = (j.content[0] || {}).text || '';
+          else if (SHAPE === 'google' && j.candidates) out = (((j.candidates[0] || {}).content || {}).parts || [{}])[0].text || '';
+          else out = (((j.choices || [{}])[0] || {}).message || {}).content || '';
+          if (!out) throw new Error('The model sent an empty answer. Try asking again.');
+          return out.trim();
+        });
+      })
+      .then(onDone)
+      .catch(function (e) { onFail(e.message || String(e)); });
+  }
+
+  // ---- UI -----------------------------------------------------------------------------------
+  var hist = [];
+  try { hist = JSON.parse(localStorage.getItem(LS_HIST) || '[]'); } catch (e) { hist = []; }
+
+  var root = document.createElement('div');
+  root.className = 'lb-root';
+  root.innerHTML =
+    '<button class="lb-fab" aria-label="Open Lang Buddy"><span class="lb-fab-i">💬</span>'
+    + '<span class="lb-fab-t">Lang Buddy</span></button>'
+    + '<section class="lb-panel" hidden aria-label="Lang Buddy">'
+    + '  <header class="lb-head"><div><b>Lang Buddy</b>'
+    + '    <span class="lb-sub">Unit ' + (CFG.unit || '') + ' · answers at ' + (CFG.cefr || 'B1') + '</span></div>'
+    + '    <button class="lb-x" aria-label="Close">×</button></header>'
+    + '  <div class="lb-log" role="log"></div>'
+    + '  <div class="lb-quick"></div>'
+    + '  <form class="lb-form"><input class="lb-in" autocomplete="off"'
+    + '    placeholder="Ask about this unit…"><button class="lb-send">Send</button></form>'
+    + '</section>';
+  document.body.appendChild(root);
+
+  var fab = root.querySelector('.lb-fab');
+  var panel = root.querySelector('.lb-panel');
+  var log = root.querySelector('.lb-log');
+  var form = root.querySelector('.lb-form');
+  var input = root.querySelector('.lb-in');
+  var quick = root.querySelector('.lb-quick');
+
+  function bubble(role, text, cls) {
+    var d = document.createElement('div');
+    d.className = 'lb-msg lb-' + role + (cls ? ' ' + cls : '');
+    d.textContent = text;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+    return d;
+  }
+
+  function keyGate() {
+    var box = document.createElement('div');
+    box.className = 'lb-gate';
+    box.innerHTML =
+      '<p>Lang Buddy needs a key for <b>' + (AI.vendor || 'the model') + '</b>. It is stored only in this'
+      + ' browser and is sent to the vendor, never to us.</p>'
+      + '<input class="lb-key" type="password" placeholder="Paste your API key">'
+      + '<button class="lb-save">Save key</button>'
+      + '<a class="lb-help" href="' + (P.keyUrl || '#') + '" target="_blank" rel="noopener">Where do I get one?</a>';
+    log.appendChild(box);
+    box.querySelector('.lb-save').addEventListener('click', function () {
+      var v = box.querySelector('.lb-key').value.trim();
+      if (!v) return;
+      try { localStorage.setItem(LS_KEY, v); } catch (e) { /* private mode: key lives for this page only */ }
+      AI.key = v;
+      box.remove();
+      bubble('bot', 'Thank you. Ask me anything about this unit.');
+      renderQuick();
+    });
+  }
+
+  var busy = false;
+  function ask(text) {
+    if (busy || !text.trim()) return;
+    if (needsKey()) { keyGate(); return; }
+    busy = true;
+    bubble('you', text);
+    hist.push({ role: 'user', content: text });
+    var think = bubble('bot', 'thinking…', 'lb-think');
+    callModel(hist.slice(-10), function (out) {
+      think.classList.remove('lb-think');
+      think.textContent = out;
+      hist.push({ role: 'assistant', content: out });
+      try { localStorage.setItem(LS_HIST, JSON.stringify(hist.slice(-20))); } catch (e) { /* full or blocked */ }
+      busy = false;
+    }, function (err) {
+      think.classList.remove('lb-think');
+      think.classList.add('lb-err');
+      think.textContent = err;
+      hist.pop();
+      busy = false;
+    });
+  }
+
+  function renderQuick() {
+    var acts = [
+      ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
+      ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
+      ['I do not understand a word', 'I will name a word from this unit. Explain it simply and give one example sentence.']
+    ];
+    (CFG.roleplays || []).slice(0, 2).forEach(function (r, i) {
+      acts.unshift(['Role-play ' + (i + 1), 'Let us role-play. ' + r + ' You start. Speak only at CEFR '
+        + (CFG.cefr || 'B1') + ', keep your turns short, and ask me one question each turn.']);
+    });
+    quick.innerHTML = '';
+    acts.slice(0, 5).forEach(function (a) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lb-q';
+      b.textContent = a[0];
+      b.addEventListener('click', function () { ask(a[1]); });
+      quick.appendChild(b);
+    });
+  }
+
+  function open() {
+    panel.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    if (!log.childElementCount) {
+      if (hist.length) {
+        hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
+      } else {
+        bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
+          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+      }
+      if (needsKey()) keyGate(); else renderQuick();
+    }
+    setTimeout(function () { input.focus(); }, 60);
+  }
+  function close() { panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); }
+
+  fab.addEventListener('click', function () { panel.hidden ? open() : close(); });
+  root.querySelector('.lb-x').addEventListener('click', close);
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value;
+    input.value = '';
+    ask(v);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });
+})();
+</script><script>// LANG edition: pronunciation practice.
+//
+// The learner reads a line from this unit's dialogues out loud; the browser's own speech
+// recognition transcribes it and we score the transcript word by word against the target. No key,
+// no server, nothing leaves the browser beyond the recognition service the browser already uses.
+// Chrome and Edge support this; Firefox and Safari do not, so we say so rather than showing a
+// button that does nothing.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !(CFG.pron || []).length) return;
+
+  var host = document.getElementById('speaking') || document.getElementById('dialogues');
+  if (!host) return;
+
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var LANG = CFG.langCode || 'en-GB';
+
+  // Words we do not penalise: the learner saying "the" instead of "a" is not a pronunciation fault
+  // worth a red mark in a technical-English lesson.
+  var SKIP = { a: 1, an: 1, the: 1, is: 1, are: 1, and: 1, to: 1, of: 1, it: 1, in: 1, that: 1 };
+
+  function norm(s) {
+    return String(s || '').toLowerCase()
+      .replace(/[^\p{L}\p{N}' ]/gu, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function words(s) { return norm(s).split(' ').filter(Boolean); }
+
+  var card = document.createElement('div');
+  card.className = 'pron';
+  card.innerHTML = '<h3>Say it out loud</h3><p class="hint">Press record and read the line. '
+    + 'You will see which words came through clearly.</p>';
+
+  if (!SR) {
+    card.innerHTML += '<p class="pron-note">Your browser cannot listen. Open this lesson in Chrome '
+      + 'or Edge to use this exercise. You can still read the lines aloud with your teacher.</p>';
+    host.appendChild(card);
+    return;
+  }
+
+  CFG.pron.slice(0, 4).forEach(function (target, i) {
+    var row = document.createElement('div');
+    row.className = 'pron-line';
+    row.innerHTML =
+      '<div class="pron-target" id="pt' + i + '"></div>'
+      + '<div class="pron-bar"><button type="button" class="pron-rec">🎙 Record</button>'
+      + '<span class="pron-score"></span></div><div class="pron-heard"></div>';
+    card.appendChild(row);
+
+    var tgtEl = row.querySelector('.pron-target');
+    var btn = row.querySelector('.pron-rec');
+    var scoreEl = row.querySelector('.pron-score');
+    var heardEl = row.querySelector('.pron-heard');
+    var tw = words(target);
+
+    // render the target with each word in its own span so we can mark it later
+    target.split(/(\s+)/).forEach(function (chunk) {
+      if (/^\s+$/.test(chunk)) { tgtEl.appendChild(document.createTextNode(chunk)); return; }
+      var s = document.createElement('span');
+      s.textContent = chunk;
+      s.dataset.w = norm(chunk);
+      tgtEl.appendChild(s);
+    });
+
+    var rec = null;
+    function stop() {
+      if (rec) { try { rec.stop(); } catch (e) { /* already stopped */ } rec = null; }
+      btn.dataset.on = '';
+      btn.textContent = '🎙 Record';
+    }
+
+    function grade(said) {
+      var heard = words(said);
+      var pool = heard.slice();
+      var hits = 0, counted = 0;
+      tw.forEach(function (w) {
+        if (SKIP[w]) return;
+        counted++;
+        var at = pool.indexOf(w);
+        if (at >= 0) { hits++; pool.splice(at, 1); }
+      });
+      var pct = counted ? Math.round(100 * hits / counted) : 0;
+
+      var got = words(said);
+      tgtEl.querySelectorAll('span').forEach(function (s) {
+        var w = s.dataset.w;
+        if (!w || SKIP[w]) { s.className = ''; return; }
+        s.className = got.indexOf(w) >= 0 ? 'hit' : 'miss';
+      });
+      scoreEl.textContent = pct + '% clear (' + hits + ' of ' + counted + ' words)';
+      scoreEl.className = 'pron-score ' + (pct >= 80 ? 'good' : (pct >= 55 ? '' : 'poor'));
+      heardEl.textContent = said ? 'We heard: ' + said : 'We heard nothing. Try again, a little louder.';
+    }
+
+    btn.addEventListener('click', function () {
+      if (rec) { stop(); return; }
+      rec = new SR();
+      rec.lang = LANG;
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      btn.dataset.on = '1';
+      btn.textContent = '● Listening, press to stop';
+      scoreEl.textContent = '';
+      heardEl.textContent = '';
+      rec.onresult = function (e) {
+        var said = '';
+        for (var k = 0; k < e.results.length; k++) said += e.results[k][0].transcript + ' ';
+        grade(said.trim());
+      };
+      rec.onerror = function (e) {
+        heardEl.textContent = e.error === 'not-allowed'
+          ? 'The microphone is blocked. Allow it in the address bar, then try again.'
+          : 'The microphone did not work. Try again.';
+        stop();
+      };
+      rec.onend = stop;
+      try { rec.start(); } catch (e) { stop(); }
+    });
+  });
+
+  card.insertAdjacentHTML('beforeend',
+    '<p class="pron-note">Scoring counts the words the browser recognised, so it rewards clear '
+    + 'consonants and word stress. It is practice, not an exam.</p>');
+  host.appendChild(card);
 })();
 </script><!--/CF-LANG-UI--></body></html>

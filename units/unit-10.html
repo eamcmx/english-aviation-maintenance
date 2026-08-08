@@ -102,7 +102,7 @@
   .checklist li:before{content:"\2610";position:absolute;left:4px;font-size:18px;color:var(--color-primary)}
   footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
 </style>
-<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+<!--CF-LANG-UI--><style>/* CourseForge LANG: the unit design system. Injected deterministically into every unit page
    AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
 :root{
   --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
@@ -246,8 +246,97 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 .cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
 .cf-prog i{position:relative;z-index:1;flex:none}
 @media (max-width:1180px){.cf-nav{display:none}}
+/* LANG edition: Lang Buddy (in-lesson tutor) + pronunciation practice.
+   Uses the unit design tokens from lang-ui.css (--brand, --amber, --ink, --ink-2, --line, --paper). */
+
+.lb-root { font: 15px/1.6 'Inter', 'Segoe UI', system-ui, sans-serif; }
+
+.lb-fab {
+  position: fixed; right: 20px; bottom: 20px; z-index: 60;
+  display: flex; align-items: center; gap: 9px;
+  background: var(--brand, #2F5496); color: #fff; border: 0; cursor: pointer;
+  border-radius: 999px; padding: 12px 20px 12px 16px; font-size: 14.5px; font-weight: 600;
+  box-shadow: 0 2px 6px rgba(16, 32, 54, .16), 0 12px 30px rgba(16, 32, 54, .22);
+  transition: transform .16s, box-shadow .16s;
+}
+.lb-fab:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(16, 32, 54, .2), 0 18px 40px rgba(16, 32, 54, .26); }
+.lb-fab-i { font-size: 17px; line-height: 1; }
+
+.lb-panel {
+  position: fixed; right: 20px; bottom: 20px; z-index: 61;
+  width: 390px; max-width: calc(100vw - 32px); height: 580px; max-height: calc(100vh - 40px);
+  display: flex; flex-direction: column; overflow: hidden;
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(16, 32, 54, .1), 0 26px 60px rgba(16, 32, 54, .24);
+}
+.lb-panel[hidden] { display: none; }
+
+.lb-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line, #e2e6ec);
+  background: linear-gradient(180deg, #fff, #f8fafc);
+}
+.lb-head b { font-size: 15px; color: var(--ink, #1b2733); display: block; }
+.lb-sub { font-size: 12px; color: var(--ink-2, #5a6b7d); }
+.lb-x { background: 0; border: 0; font-size: 22px; line-height: 1; color: var(--ink-2, #5a6b7d); cursor: pointer; padding: 0 4px; }
+.lb-x:hover { color: var(--ink, #1b2733); }
+
+.lb-log { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.lb-msg { max-width: 84%; padding: 9px 13px; border-radius: 14px; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap; }
+.lb-you { align-self: flex-end; background: var(--brand, #2F5496); color: #fff; border-bottom-right-radius: 5px; }
+.lb-bot { align-self: flex-start; background: #f2f5f9; color: var(--ink, #1b2733); border-bottom-left-radius: 5px; }
+.lb-think { color: var(--ink-2, #5a6b7d); font-style: italic; }
+.lb-err { background: #fdeceb; color: #8c2f27; }
+
+.lb-gate { background: #fffdf6; border: 1px solid #f0dfbe; border-radius: 12px; padding: 13px 14px; font-size: 13.5px; }
+.lb-gate p { margin: 0 0 10px; color: var(--ink-2, #5a6b7d); line-height: 1.5; }
+.lb-key { width: 100%; padding: 9px 11px; border: 1px solid var(--line, #e2e6ec); border-radius: 9px; font-size: 13.5px; }
+.lb-save { margin-top: 9px; background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 9px; padding: 9px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+.lb-help { display: block; margin-top: 9px; font-size: 12.5px; color: var(--brand, #2F5496); }
+
+.lb-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
+.lb-q {
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px;
+  padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
+}
+.lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+
+.lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
+.lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
+.lb-in:focus { outline: 0; border-color: var(--brand, #2F5496); box-shadow: 0 0 0 3px rgba(47, 84, 150, .12); }
+.lb-send { background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 11px; padding: 10px 17px; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 560px) {
+  .lb-panel { right: 8px; left: 8px; bottom: 8px; width: auto; height: calc(100vh - 70px); }
+  .lb-fab-t { display: none; }
+  .lb-fab { padding: 14px; }
+}
+
+/* ---- pronunciation practice ---------------------------------------------------------------- */
+.pron { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; padding: 18px 20px; margin: 20px 0; }
+.pron h3 { margin: 0 0 4px; font-size: 16.5px; color: var(--brand, #2F5496); }
+.pron .hint { margin: 0 0 14px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.pron-line { border-top: 1px solid #eef1f5; padding: 13px 0; }
+.pron-line:first-of-type { border-top: 0; }
+.pron-target { font-size: 15.5px; line-height: 1.6; color: var(--ink, #1b2733); margin-bottom: 9px; }
+.pron-target span { padding: 1px 2px; border-radius: 4px; }
+.pron-target span.hit { background: #e6f6ee; color: #0f6e56; }
+.pron-target span.miss { background: #fdeceb; color: #8c2f27; }
+.pron-bar { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.pron-rec {
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 999px;
+  padding: 8px 16px; font-size: 13.5px; font-weight: 600; font-family: inherit;
+}
+.pron-rec[data-on="1"] { background: #c0392b; animation: pron-pulse 1.1s ease-in-out infinite; }
+@keyframes pron-pulse { 0%, 100% { opacity: 1 } 50% { opacity: .62 } }
+.pron-score { font-size: 13.5px; font-weight: 600; color: var(--ink-2, #5a6b7d); }
+.pron-score.good { color: #0f6e56; }
+.pron-score.poor { color: #8c2f27; }
+.pron-heard { font-size: 13px; color: var(--ink-2, #5a6b7d); margin-top: 7px; font-style: italic; }
+.pron-note { font-size: 12.5px; color: var(--ink-2, #5a6b7d); margin-top: 12px; }
 </style><!--/CF-LANG-UI--></head>
-<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 10 of 32 · Interpreting a BITE readout with a colleague</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 avionics BITE — fault code, LRU, self-test</span></div></div></header>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 10 of 32 · Interpreting a BITE readout with a colleague</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 avionics BITE, fault code, LRU, self-test</span></div></div></header>
 <article>
 
 <header class="lec-hero">
@@ -768,5 +857,387 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
+})();
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "BITE", "def": "Built-in test equipment; the automated self-check that stores and displays fault codes."}, {"term": "self-test", "def": "The automatic internal check that a unit performs on itself."}, {"term": "fault code", "def": "The number the BITE displays for one particular fault, such as 34-12."}, {"term": "readout", "def": "The message displayed on the screen for the technician to interpret."}, {"term": "LRU", "def": "A line replaceable unit; a component you can exchange quickly on the line."}, {"term": "fault message", "def": "The line of text that identifies the fault and the affected unit."}, {"term": "maintenance message", "def": "A stored message intended for maintenance only, never displayed to the crew."}, {"term": "CMC", "def": "The central maintenance computer; it collects every fault code in one location."}, {"term": "ECAM", "def": "The display that presents system warnings directly to the flight crew."}, {"term": "ATA chapter", "def": "The standard chapter number that identifies each aircraft system."}, {"term": "system", "def": "The aircraft area that a fault code identifies, such as navigation."}, {"term": "isolate", "def": "To systematically narrow the fault down to one unit or one area."}, {"term": "confirm", "def": "To prove that a fault is genuine, not a single false reading."}, {"term": "reset", "def": "To switch a unit off and on again to clear a temporary fault."}, {"term": "connector", "def": "A plug that mechanically joins a unit to the aircraft wiring."}, {"term": "intermittent", "def": "A fault that appears and disappears, rather than remaining constantly."}, {"term": "no fault found", "def": "The result when the test detects nothing wrong at this moment."}, {"term": "ground test", "def": "A controlled test of a unit on the ground, to attempt to repeat the fault."}, {"term": "fault isolation", "def": "The systematic, step-by-step method that narrows a fault to one unit."}, {"term": "serviceable", "def": "Fit to use, and legally acceptable to fit or to fly."}], "lines": ["We are finally on the flight deck, so let us read the BITE readout aloud together.", "Certainly. The BITE currently shows one fault message, and the fault code is 34-12-34.", "If the code starts with 34, the system is navigation, because 34 is the ATA chapter.", "Exactly. So this maintenance message clearly points to navigation, not to the autoflight system.", "The readout also identifies the LRU precisely. It says ADIRU 1, so the suspect unit is obvious.", "Correct. If the BITE names ADIRU 1, the affected LRU is the number one air data unit.", "Let me run the self-test again immediately, in case the fault is merely intermittent.", "Sensible idea. If the self-test passes, the readout shows no fault found, and we stop.", "Unfortunately the self-test still shows the identical fault code, so the fault is genuine.", "Then we confirm the message, and afterwards we open the CMC to examine the complete history.", "The CMC lists the identical fault three separate times today, so the ADIRU is obviously faulty.", "Agreed. If the CMC repeats the code, the fault is confirmed, and the LRU becomes suspect.", "So which unit do we test first? Personally I say ADIRU 1, because the readout names it.", "I completely agree. We isolate ADIRU 1 first, although we still inspect its connector carefully.", "Sensible plan. If the connector is loose, we reset the unit before we remove anything.", "Fine. As soon as the test is finished, we accurately record the result and the fault code.", "On the last flight the crew observed an ECAM warning for the autoflight system.", "Let us examine the BITE carefully, because the ECAM warning and the fault code should match.", "The BITE fault code is 22-83, so the system is autoflight and the suspect LRU is FMGC 2.", "If the code contains ATA 22, the system is autoflight, and 22 always indicates that chapter.", "The fault message reads FMGC 2 FAULT, so the number two computer is obviously the suspect LRU.", "We should run a ground test initially, because a ground test can safely repeat the fault.", "Precisely. If the ground test repeats the code, we confirm the fault and begin fault isolation.", "Unfortunately the ground test runs clean, and the readout currently says no fault found."], "roleplays": ["The BITE shows fault code 34-12-34, and the message names ADIRU 1.", "An ECAM autoflight warning appeared, and the BITE fault code is 22-83 for FMGC 2.", "The BITE fault code is 27-93 for the flight controls, and the message names ELAC 1.", "Your colleague wants to change the LRU at once, although the ground test is clean."], "grammar": "A BITE message maps a fixed cause to a fixed indication, so the logic is permanently true. English expresses this with the zero conditional: the present tense in both parts. You state the condition, and you state the result that is always true. Examine these three lines taken directly from the dialogues.", "scenario": "You are on the flight deck with a colleague, and the BITE has stored a fault from the last flight. Neither technician can act until you both understand the message correctly, because a fault code is only useful once you interpret it properly. Initially you identify the system from the ATA chapter, and afterwards you id", "pron": ["We are finally on the flight deck, so let us read the BITE readout aloud together.", "Certainly. The BITE currently shows one fault message, and the fault code is 34-12-34.", "If the code starts with 34, the system is navigation, because 34 is the ATA chapter.", "Exactly. So this maintenance message clearly points to navigation, not to the autoflight system."], "course": "English for Aviation Maintenance", "unit": 10, "total": 32, "title": "Interpreting a BITE readout with a colleague", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+//
+// It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
+// the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
+// buddy answers about THIS lesson rather than about English in general.
+//
+// Three ways to reach a model, chosen per course at build time:
+//   proxy: the page holds NO credential; it POSTs to a small endpoint that keeps the key.
+//   embedded: an institutional key is baked into the page. Convenient, but any learner who opens
+//              devtools can read it, so it is only defensible behind a login.
+//   byo: the learner pastes their own key; it is kept in localStorage and never leaves the
+//              browser except to the vendor.
+// Vendors: anything OpenAI-compatible (Mistral, OpenAI, Groq, DeepSeek, OpenRouter, Azure, a local
+// server), plus Anthropic and Google, whose request shapes differ.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !CFG.ai) return;
+
+  var AI = CFG.ai;
+  var LS_KEY = 'langbuddy.key.' + (AI.vendor || 'x');
+  var LS_HIST = 'langbuddy.hist.' + (CFG.course || '') + '.' + (CFG.unit || 0);
+
+  var PRESETS = {
+    mistral: { base: 'https://api.mistral.ai/v1', shape: 'openai', model: 'mistral-small-latest', keyUrl: 'https://console.mistral.ai/api-keys' },
+    openai: { base: 'https://api.openai.com/v1', shape: 'openai', model: 'gpt-4o-mini', keyUrl: 'https://platform.openai.com/api-keys' },
+    groq: { base: 'https://api.groq.com/openai/v1', shape: 'openai', model: 'llama-3.1-8b-instant', keyUrl: 'https://console.groq.com/keys' },
+    deepseek: { base: 'https://api.deepseek.com/v1', shape: 'openai', model: 'deepseek-chat', keyUrl: 'https://platform.deepseek.com/api_keys' },
+    openrouter: { base: 'https://openrouter.ai/api/v1', shape: 'openai', model: 'mistralai/mistral-small', keyUrl: 'https://openrouter.ai/keys' },
+    anthropic: { base: 'https://api.anthropic.com/v1', shape: 'anthropic', model: 'claude-haiku-4-5-20251001', keyUrl: 'https://console.anthropic.com/settings/keys' },
+    google: { base: 'https://generativelanguage.googleapis.com/v1beta', shape: 'google', model: 'gemini-2.0-flash', keyUrl: 'https://aistudio.google.com/apikey' }
+  };
+  var P = PRESETS[AI.vendor] || PRESETS.mistral;
+  var BASE = AI.baseUrl || P.base;
+  var SHAPE = AI.shape || P.shape;
+  var MODEL = AI.model || P.model;
+
+  function storedKey() {
+    try { return localStorage.getItem(LS_KEY) || ''; } catch (e) { return ''; }
+  }
+  function activeKey() {
+    return AI.mode === 'embedded' ? (AI.key || '') : storedKey();
+  }
+  function needsKey() {
+    return AI.mode !== 'proxy' && !activeKey();
+  }
+
+  // ---- what the buddy knows about this unit -------------------------------------------------
+  function systemPrompt() {
+    var lang = CFG.language || 'English';
+    var terms = (CFG.terms || []).map(function (t) { return t.term + (t.def ? ' = ' + t.def : ''); }).join('; ');
+    var lines = (CFG.lines || []).slice(0, 24).join('\n');
+    var l1 = (CFG.l1 || []).join(' or ');
+    return [
+      'You are Lang Buddy, a patient ' + lang + ' tutor inside an online lesson.',
+      'The learner is studying "' + (CFG.course || lang) + '", unit ' + (CFG.unit || '') + ': "' + (CFG.title || '') + '".',
+      'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
+      'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
+      '',
+      'Reply in ' + lang + ' by default. The learner may write to you in ' + (l1 || 'their own language') + ';',
+      'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
+      'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
+      'then give the ' + lang + ' version.',
+      '',
+      'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
+      (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
+      (terms ? 'Vocabulary bank: ' + terms : ''),
+      (lines ? 'Lines from the unit dialogues you can refer to:\n' + lines : ''),
+      '',
+      'Rules. Answer questions about this unit first, using its own words and examples.',
+      'For exercises, give a hint or an example with a DIFFERENT word, never the answer itself;',
+      'if the learner insists, ask them to try once more, then explain the reasoning without',
+      'writing their answer for them. Correct their mistakes gently: repeat their sentence',
+      'correctly, then continue. If a question has nothing to do with language or this subject,',
+      'say so kindly and steer back to the lesson.'
+    ].filter(Boolean).join('\n');
+  }
+
+  // ---- vendor calls -------------------------------------------------------------------------
+  function callModel(messages, onDone, onFail) {
+    var key = activeKey();
+    var url, headers = { 'Content-Type': 'application/json' }, body;
+
+    if (AI.mode === 'proxy') {
+      url = AI.proxyUrl;
+      body = { model: MODEL, messages: [{ role: 'system', content: systemPrompt() }].concat(messages) };
+    } else if (SHAPE === 'anthropic') {
+      url = BASE + '/messages';
+      headers['x-api-key'] = key;
+      headers['anthropic-version'] = '2023-06-01';
+      headers['anthropic-dangerous-direct-browser-access'] = 'true';
+      body = { model: MODEL, max_tokens: 500, system: systemPrompt(), messages: messages };
+    } else if (SHAPE === 'google') {
+      url = BASE + '/models/' + MODEL + ':generateContent?key=' + encodeURIComponent(key);
+      body = {
+        systemInstruction: { parts: [{ text: systemPrompt() }] },
+        contents: messages.map(function (m) {
+          return { role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] };
+        })
+      };
+    } else {
+      url = BASE + '/chat/completions';
+      headers.Authorization = 'Bearer ' + key;
+      body = {
+        model: MODEL, max_tokens: 500, temperature: 0.4,
+        messages: [{ role: 'system', content: systemPrompt() }].concat(messages)
+      };
+    }
+
+    fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(body) })
+      .then(function (r) {
+        return r.text().then(function (t) {
+          var j = null;
+          try { j = JSON.parse(t); } catch (e) { /* keep the raw body for the error message */ }
+          if (!r.ok) {
+            var msg = (j && j.error && (j.error.message || j.error)) || t.slice(0, 160);
+            throw new Error(r.status === 401 || r.status === 403
+              ? 'The key was refused. Check it and try again.'
+              : (r.status === 429 ? 'Too many questions right now. Wait a moment, then ask again.' : String(msg)));
+          }
+          var out = '';
+          if (SHAPE === 'anthropic' && j.content) out = (j.content[0] || {}).text || '';
+          else if (SHAPE === 'google' && j.candidates) out = (((j.candidates[0] || {}).content || {}).parts || [{}])[0].text || '';
+          else out = (((j.choices || [{}])[0] || {}).message || {}).content || '';
+          if (!out) throw new Error('The model sent an empty answer. Try asking again.');
+          return out.trim();
+        });
+      })
+      .then(onDone)
+      .catch(function (e) { onFail(e.message || String(e)); });
+  }
+
+  // ---- UI -----------------------------------------------------------------------------------
+  var hist = [];
+  try { hist = JSON.parse(localStorage.getItem(LS_HIST) || '[]'); } catch (e) { hist = []; }
+
+  var root = document.createElement('div');
+  root.className = 'lb-root';
+  root.innerHTML =
+    '<button class="lb-fab" aria-label="Open Lang Buddy"><span class="lb-fab-i">💬</span>'
+    + '<span class="lb-fab-t">Lang Buddy</span></button>'
+    + '<section class="lb-panel" hidden aria-label="Lang Buddy">'
+    + '  <header class="lb-head"><div><b>Lang Buddy</b>'
+    + '    <span class="lb-sub">Unit ' + (CFG.unit || '') + ' · answers at ' + (CFG.cefr || 'B1') + '</span></div>'
+    + '    <button class="lb-x" aria-label="Close">×</button></header>'
+    + '  <div class="lb-log" role="log"></div>'
+    + '  <div class="lb-quick"></div>'
+    + '  <form class="lb-form"><input class="lb-in" autocomplete="off"'
+    + '    placeholder="Ask about this unit…"><button class="lb-send">Send</button></form>'
+    + '</section>';
+  document.body.appendChild(root);
+
+  var fab = root.querySelector('.lb-fab');
+  var panel = root.querySelector('.lb-panel');
+  var log = root.querySelector('.lb-log');
+  var form = root.querySelector('.lb-form');
+  var input = root.querySelector('.lb-in');
+  var quick = root.querySelector('.lb-quick');
+
+  function bubble(role, text, cls) {
+    var d = document.createElement('div');
+    d.className = 'lb-msg lb-' + role + (cls ? ' ' + cls : '');
+    d.textContent = text;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+    return d;
+  }
+
+  function keyGate() {
+    var box = document.createElement('div');
+    box.className = 'lb-gate';
+    box.innerHTML =
+      '<p>Lang Buddy needs a key for <b>' + (AI.vendor || 'the model') + '</b>. It is stored only in this'
+      + ' browser and is sent to the vendor, never to us.</p>'
+      + '<input class="lb-key" type="password" placeholder="Paste your API key">'
+      + '<button class="lb-save">Save key</button>'
+      + '<a class="lb-help" href="' + (P.keyUrl || '#') + '" target="_blank" rel="noopener">Where do I get one?</a>';
+    log.appendChild(box);
+    box.querySelector('.lb-save').addEventListener('click', function () {
+      var v = box.querySelector('.lb-key').value.trim();
+      if (!v) return;
+      try { localStorage.setItem(LS_KEY, v); } catch (e) { /* private mode: key lives for this page only */ }
+      AI.key = v;
+      box.remove();
+      bubble('bot', 'Thank you. Ask me anything about this unit.');
+      renderQuick();
+    });
+  }
+
+  var busy = false;
+  function ask(text) {
+    if (busy || !text.trim()) return;
+    if (needsKey()) { keyGate(); return; }
+    busy = true;
+    bubble('you', text);
+    hist.push({ role: 'user', content: text });
+    var think = bubble('bot', 'thinking…', 'lb-think');
+    callModel(hist.slice(-10), function (out) {
+      think.classList.remove('lb-think');
+      think.textContent = out;
+      hist.push({ role: 'assistant', content: out });
+      try { localStorage.setItem(LS_HIST, JSON.stringify(hist.slice(-20))); } catch (e) { /* full or blocked */ }
+      busy = false;
+    }, function (err) {
+      think.classList.remove('lb-think');
+      think.classList.add('lb-err');
+      think.textContent = err;
+      hist.pop();
+      busy = false;
+    });
+  }
+
+  function renderQuick() {
+    var acts = [
+      ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
+      ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
+      ['I do not understand a word', 'I will name a word from this unit. Explain it simply and give one example sentence.']
+    ];
+    (CFG.roleplays || []).slice(0, 2).forEach(function (r, i) {
+      acts.unshift(['Role-play ' + (i + 1), 'Let us role-play. ' + r + ' You start. Speak only at CEFR '
+        + (CFG.cefr || 'B1') + ', keep your turns short, and ask me one question each turn.']);
+    });
+    quick.innerHTML = '';
+    acts.slice(0, 5).forEach(function (a) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lb-q';
+      b.textContent = a[0];
+      b.addEventListener('click', function () { ask(a[1]); });
+      quick.appendChild(b);
+    });
+  }
+
+  function open() {
+    panel.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    if (!log.childElementCount) {
+      if (hist.length) {
+        hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
+      } else {
+        bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
+          + 'You can write to me in ' + ((CFG.l1 || []).join(' or ') || 'your own language') + ' if that is easier.');
+      }
+      if (needsKey()) keyGate(); else renderQuick();
+    }
+    setTimeout(function () { input.focus(); }, 60);
+  }
+  function close() { panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); }
+
+  fab.addEventListener('click', function () { panel.hidden ? open() : close(); });
+  root.querySelector('.lb-x').addEventListener('click', close);
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value;
+    input.value = '';
+    ask(v);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });
+})();
+</script><script>// LANG edition: pronunciation practice.
+//
+// The learner reads a line from this unit's dialogues out loud; the browser's own speech
+// recognition transcribes it and we score the transcript word by word against the target. No key,
+// no server, nothing leaves the browser beyond the recognition service the browser already uses.
+// Chrome and Edge support this; Firefox and Safari do not, so we say so rather than showing a
+// button that does nothing.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !(CFG.pron || []).length) return;
+
+  var host = document.getElementById('speaking') || document.getElementById('dialogues');
+  if (!host) return;
+
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var LANG = CFG.langCode || 'en-GB';
+
+  // Words we do not penalise: the learner saying "the" instead of "a" is not a pronunciation fault
+  // worth a red mark in a technical-English lesson.
+  var SKIP = { a: 1, an: 1, the: 1, is: 1, are: 1, and: 1, to: 1, of: 1, it: 1, in: 1, that: 1 };
+
+  function norm(s) {
+    return String(s || '').toLowerCase()
+      .replace(/[^\p{L}\p{N}' ]/gu, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function words(s) { return norm(s).split(' ').filter(Boolean); }
+
+  var card = document.createElement('div');
+  card.className = 'pron';
+  card.innerHTML = '<h3>Say it out loud</h3><p class="hint">Press record and read the line. '
+    + 'You will see which words came through clearly.</p>';
+
+  if (!SR) {
+    card.innerHTML += '<p class="pron-note">Your browser cannot listen. Open this lesson in Chrome '
+      + 'or Edge to use this exercise. You can still read the lines aloud with your teacher.</p>';
+    host.appendChild(card);
+    return;
+  }
+
+  CFG.pron.slice(0, 4).forEach(function (target, i) {
+    var row = document.createElement('div');
+    row.className = 'pron-line';
+    row.innerHTML =
+      '<div class="pron-target" id="pt' + i + '"></div>'
+      + '<div class="pron-bar"><button type="button" class="pron-rec">🎙 Record</button>'
+      + '<span class="pron-score"></span></div><div class="pron-heard"></div>';
+    card.appendChild(row);
+
+    var tgtEl = row.querySelector('.pron-target');
+    var btn = row.querySelector('.pron-rec');
+    var scoreEl = row.querySelector('.pron-score');
+    var heardEl = row.querySelector('.pron-heard');
+    var tw = words(target);
+
+    // render the target with each word in its own span so we can mark it later
+    target.split(/(\s+)/).forEach(function (chunk) {
+      if (/^\s+$/.test(chunk)) { tgtEl.appendChild(document.createTextNode(chunk)); return; }
+      var s = document.createElement('span');
+      s.textContent = chunk;
+      s.dataset.w = norm(chunk);
+      tgtEl.appendChild(s);
+    });
+
+    var rec = null;
+    function stop() {
+      if (rec) { try { rec.stop(); } catch (e) { /* already stopped */ } rec = null; }
+      btn.dataset.on = '';
+      btn.textContent = '🎙 Record';
+    }
+
+    function grade(said) {
+      var heard = words(said);
+      var pool = heard.slice();
+      var hits = 0, counted = 0;
+      tw.forEach(function (w) {
+        if (SKIP[w]) return;
+        counted++;
+        var at = pool.indexOf(w);
+        if (at >= 0) { hits++; pool.splice(at, 1); }
+      });
+      var pct = counted ? Math.round(100 * hits / counted) : 0;
+
+      var got = words(said);
+      tgtEl.querySelectorAll('span').forEach(function (s) {
+        var w = s.dataset.w;
+        if (!w || SKIP[w]) { s.className = ''; return; }
+        s.className = got.indexOf(w) >= 0 ? 'hit' : 'miss';
+      });
+      scoreEl.textContent = pct + '% clear (' + hits + ' of ' + counted + ' words)';
+      scoreEl.className = 'pron-score ' + (pct >= 80 ? 'good' : (pct >= 55 ? '' : 'poor'));
+      heardEl.textContent = said ? 'We heard: ' + said : 'We heard nothing. Try again, a little louder.';
+    }
+
+    btn.addEventListener('click', function () {
+      if (rec) { stop(); return; }
+      rec = new SR();
+      rec.lang = LANG;
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      btn.dataset.on = '1';
+      btn.textContent = '● Listening, press to stop';
+      scoreEl.textContent = '';
+      heardEl.textContent = '';
+      rec.onresult = function (e) {
+        var said = '';
+        for (var k = 0; k < e.results.length; k++) said += e.results[k][0].transcript + ' ';
+        grade(said.trim());
+      };
+      rec.onerror = function (e) {
+        heardEl.textContent = e.error === 'not-allowed'
+          ? 'The microphone is blocked. Allow it in the address bar, then try again.'
+          : 'The microphone did not work. Try again.';
+        stop();
+      };
+      rec.onend = stop;
+      try { rec.start(); } catch (e) { stop(); }
+    });
+  });
+
+  card.insertAdjacentHTML('beforeend',
+    '<p class="pron-note">Scoring counts the words the browser recognised, so it rewards clear '
+    + 'consonants and word stress. It is practice, not an exam.</p>');
+  host.appendChild(card);
 })();
 </script><!--/CF-LANG-UI--></body></html>
