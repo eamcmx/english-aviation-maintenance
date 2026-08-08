@@ -1,0 +1,772 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Interpreting a BITE readout with a colleague</title>
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  article{max-width:1000px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 30px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:26ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:66ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:14px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:74ch}
+  code{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  a{color:var(--color-primary)}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .card h4{font-size:.98rem;margin:0 0 var(--space-3);color:var(--color-primary-dark)}
+  .card ul{margin:0;padding-left:1.1em}
+  .card li{margin:6px 0;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .scenario-box{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius);padding:var(--space-4) var(--space-5);font-family:var(--font-serif);font-size:18px;line-height:1.6;color:#33384a}
+  .dialogue{border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-elevated);box-shadow:var(--shadow-sm);margin:var(--space-4) 0 var(--space-5);overflow:hidden}
+  .dialogue h3{margin:0;padding:13px 18px;background:var(--bg-sunken);border-bottom:1px solid var(--border);font-size:1.02rem;display:flex;align-items:center;gap:10px}
+  .dialogue h3 .badge{font-family:var(--font-mono);font-size:11px;font-weight:700;color:#fff;background:var(--color-primary);padding:2px 9px;border-radius:20px;letter-spacing:.04em}
+  .lang-audio-slot{margin:0;padding:14px 18px;background:#eef2f9;border-bottom:1px dashed #cfdcef;font-family:var(--font-mono);font-size:12px;color:var(--color-primary-dark)}
+  .lang-audio-slot:before{content:"AUDIO \25BA track "attr(data-audio)" \2014 press play, listen first"}
+  details.transcript{padding:6px 18px 14px}
+  details.transcript summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary);font-weight:700;padding:8px 0}
+  .turn{margin:6px 0;max-width:76ch}
+  .turn .spk{display:inline-block;min-width:1.4em;font-family:var(--font-mono);font-weight:700;color:var(--color-primary);margin-right:6px}
+  .turn.b .spk{color:var(--accent)}
+  .said{color:#262b38}
+  table.vt{border-collapse:collapse;width:100%;font-size:14px;margin-top:10px}
+  table.vt th,table.vt td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  .vt td.col{color:var(--ink-muted);font-family:var(--font-mono);font-size:12.5px}
+  table.gt{border-collapse:collapse;width:100%;font-size:14.5px;margin:12px 0}
+  table.gt th,table.gt td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.gt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  .quote{border-left:4px solid var(--gold);background:var(--bg-margin);padding:10px 16px;margin:10px 0;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-family:var(--font-serif);font-size:16px}
+  .mistake{display:grid;grid-template-columns:1fr;gap:6px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 15px;margin:10px 0;background:var(--bg-elevated)}
+  .mistake .wrong{color:var(--bad)}.mistake .right{color:var(--good)}
+  .mistake .why{font-size:13.5px;color:var(--ink-muted)}
+  .x{color:var(--bad);font-weight:700}.tick{color:var(--good);font-weight:700}
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex h3{margin:0 0 4px;font-size:1.06rem}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex .instr{font-weight:600;color:var(--ink-soft);margin:2px 0 10px;max-width:72ch}
+  .ex ol{margin:6px 0;padding-left:1.4em}
+  .ex ol li{margin:8px 0}
+  .wordbank{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 12px}
+  .wordbank span{font-family:var(--font-mono);font-size:12.5px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:20px;padding:4px 11px}
+  input.gap,select.gap{font-family:var(--font-sans);font-size:14px;border:1px solid var(--border);border-radius:6px;padding:5px 9px;background:#fff;min-width:120px}
+  input.gap:focus,select.gap:focus{outline:2px solid var(--color-primary-soft);border-color:var(--color-primary)}
+  input.gap.right,select.gap.right{border-color:var(--good);background:#eaf5ec}
+  input.gap.wrong,select.gap.wrong{border-color:var(--bad);background:#fbecea}
+  .reading-text{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;margin:10px 0;font-family:var(--font-mono);font-size:13.5px;line-height:1.6}
+  .reading-text p{max-width:none;margin:6px 0}
+  .reading-text .doc-head{font-weight:700;color:var(--color-primary-dark);letter-spacing:.03em;border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:8px}
+  .btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  .btn:hover{border-color:var(--color-primary)}
+  .btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .score{font-family:var(--font-mono);font-weight:700;margin-left:12px;color:var(--color-primary-dark)}
+  details.reveal{margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken);padding:0 14px}
+  details.reveal summary{cursor:pointer;font-weight:700;color:var(--color-primary);padding:10px 0;font-size:14px}
+  details.reveal ol{margin:0 0 12px}
+  .roleplay{border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:var(--radius-sm);padding:14px 18px;margin:12px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.02rem}
+  .roleplay .field{margin:7px 0}
+  .roleplay .flab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:700;display:block}
+  .roleplay .phr{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .roleplay .phr span{font-size:13px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:6px;padding:3px 9px}
+  .ai-box{background:linear-gradient(180deg,#f4eefb,#fbfaf6);border:1px solid #e0d2f1;border-radius:var(--radius-lg);padding:20px 22px;margin:var(--space-5) 0}
+  .ai-box h3{margin:0 0 4px}
+  .prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin:10px 0;font-size:14px;position:relative}
+  .prompt code{background:none;padding:0;display:block;white-space:pre-wrap;line-height:1.55;color:#33384a}
+  .copybtn{position:absolute;top:10px;right:10px}
+  .checklist{list-style:none;padding:0;margin:10px 0}
+  .checklist li{padding:7px 0 7px 30px;position:relative}
+  .checklist li:before{content:"\2610";position:absolute;left:4px;font-size:18px;color:var(--color-primary)}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 10 of 32 · Interpreting a BITE readout with a colleague</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 avionics BITE — fault code, LRU, self-test</span></div></div></header>
+<article>
+
+<header class="lec-hero">
+  <p class="eyebrow"><span class="dot"></span>Unit 10 &middot; English for Aviation Maintenance &middot; EASA Part-66/145 &middot; CEFR B2</p>
+  <h1 class="lecture-title">Interpreting a BITE readout with a colleague</h1>
+  <p class="subtitle">A fault code appears on the flight deck, and two technicians read it aloud together. What system does the code name? Which line replaceable unit is the suspect? They map the fixed logic of the BITE message, and then they agree which unit to test first.</p>
+  <div class="hero-meta">
+    <span>Unit<strong>10 &middot; Interpreting a BITE readout</strong></span>
+    <span>Function<strong>Read a fault code, name the system and LRU, agree the action</strong></span>
+    <span>Grammar<strong>Zero conditional for system logic</strong></span>
+    <span>AI stage<strong>Consultant &middot; conversation partner</strong></span>
+  </div>
+  <div class="card" style="margin-top:22px">
+    <h4>By the end of this unit you can &hellip;</h4>
+    <ul>
+      <li>Can read a BITE fault code and explain its meaning to a colleague.</li>
+      <li>Can relate a fault message to the affected system and LRU.</li>
+      <li>Can decide with a partner the follow-up action from the readout.</li>
+    </ul>
+  </div>
+</header>
+
+<section class="lecture-section" id="scenario">
+  <h2><span class="secnum">00</span>The scenario</h2>
+  <div class="scenario-box">
+    <p style="margin:0">You are on the flight deck with a colleague, and the BITE has stored a fault from the last flight. Neither technician can act until you both understand the message correctly, because a fault code is only useful once you interpret it properly. Initially you identify the system from the ATA chapter, and afterwards you identify the suspect LRU. You never remove a serviceable unit at random, because that unnecessarily wastes valuable time and a good component. Instead, you calmly agree together which particular unit to test first.</p>
+  </div>
+  <p>A BITE readout follows fixed, predictable logic, so the identical code always maps to the identical meaning. The first digits give the ATA chapter, which accurately identifies the affected system. The fault message then identifies the LRU, which is the component you replace directly on the line. Because the logic is completely fixed, English uses the zero conditional to describe it, and you say plainly &ldquo;if the BITE shows 34, the system is navigation&rdquo;. Throughout this unit you read authentic fault codes aloud, explain them clearly to a colleague, and confidently decide the follow-up action together.</p>
+</section>
+
+<section class="lecture-section" id="dialogues">
+  <h2><span class="secnum">01</span>Model dialogues &mdash; listen first</h2>
+  <p>Listen to each recording before you read the transcript, and replay it twice if you can. On the first pass, simply follow how the two technicians read the code. On the second pass, catch the zero-conditional sentences and the specialist words that carry the meaning.</p>
+
+  <div class="dialogue">
+    <h3><span class="badge">DIALOGUE 1</span> Read the code, name the LRU</h3>
+    <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u10-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:53 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">We are finally on the flight deck, so let us read the BITE readout aloud together.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Certainly. The BITE currently shows one fault message, and the fault code is 34-12-34.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">If the code starts with 34, the system is navigation, because 34 is the ATA chapter.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Exactly. So this maintenance message clearly points to navigation, not to the autoflight system.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The readout also identifies the LRU precisely. It says ADIRU 1, so the suspect unit is obvious.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Correct. If the BITE names ADIRU 1, the affected LRU is the number one air data unit.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Let me run the self-test again immediately, in case the fault is merely intermittent.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Sensible idea. If the self-test passes, the readout shows no fault found, and we stop.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Unfortunately the self-test still shows the identical fault code, so the fault is genuine.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Then we confirm the message, and afterwards we open the CMC to examine the complete history.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The CMC lists the identical fault three separate times today, so the ADIRU is obviously faulty.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Agreed. If the CMC repeats the code, the fault is confirmed, and the LRU becomes suspect.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">So which unit do we test first? Personally I say ADIRU 1, because the readout names it.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">I completely agree. We isolate ADIRU 1 first, although we still inspect its connector carefully.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Sensible plan. If the connector is loose, we reset the unit before we remove anything.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Fine. As soon as the test is finished, we accurately record the result and the fault code.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">DIALOGUE 2</span> An intermittent autoflight fault</h3>
+    <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u10-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:47 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">On the last flight the crew observed an ECAM warning for the autoflight system.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Let us examine the BITE carefully, because the ECAM warning and the fault code should match.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The BITE fault code is 22-83, so the system is autoflight and the suspect LRU is FMGC 2.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">If the code contains ATA 22, the system is autoflight, and 22 always indicates that chapter.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The fault message reads FMGC 2 FAULT, so the number two computer is obviously the suspect LRU.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">We should run a ground test initially, because a ground test can safely repeat the fault.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Precisely. If the ground test repeats the code, we confirm the fault and begin fault isolation.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Unfortunately the ground test runs clean, and the readout currently says no fault found.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">So the fault is clearly intermittent, because it appears in flight but hides on the ground.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">That is genuinely the hardest kind. If the fault is intermittent, the CMC history still helps.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The CMC shows the identical fault code on three separate flights, so the LRU remains suspect.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Then we certainly do not clear it yet, although the ground test currently looks perfectly fine.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Let me inspect the connector and the rack, in case a loose pin causes the intermittent fault.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Sensible. If the connector is clean, we fit a serviceable FMGC 2 and monitor it carefully.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Agreed. We isolate the fault to FMGC 2, and afterwards we test it on the next flight.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Fine. I accurately record the fault code, the ground test, and the follow-up action in the log.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">DIALOGUE 3</span> A flight-controls code &mdash; agree the action</h3>
+    <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u10-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:48 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">Here is a fresh BITE readout, and the fault code is 27-93, on the flight controls system.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">If the code starts with 27, the system is flight controls, so this is definitely not navigation.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The fault message names ELAC 1, so the suspect LRU is the number one flight-control computer.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Let me read the entire readout aloud, because the class of the fault clearly changes the action.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">It says ELAC 1 FAULT, class 2, so we may defer it, although we still isolate the unit.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good. Initially we run the self-test, in case the fault clears after a normal reset.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The self-test unfortunately shows the identical fault code, so a simple reset does not fix it.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Then we reset the ELAC once, and we carefully watch the readout for any change.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">After the reset the BITE still shows 27-93, so the fault is genuine and the LRU is suspect.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Agreed. If the reset does not clear the code, we isolate ELAC 1 and inspect its connector.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The connector looks perfectly clean and tight, however, so the wiring is probably not responsible.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">So the computer itself is the root cause, and ELAC 1 is definitely not serviceable now.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Which unit do we test first? Personally I say ELAC 1, because the readout names it directly.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">I completely agree. We isolate ELAC 1 first, and we send it for a thorough ground test.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Good. If the ground test fails, we fit a serviceable ELAC and clear the fault message.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Fine. As soon as the replacement unit is fitted, I record the fault code and close the readout.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">DIALOGUE 4</span> Bonus listening &mdash; maintenance control voicemail</h3>
+    <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u10-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:02 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">M</span><span class="said">Hi, this is maintenance control, and here is a quick handover for the night shift.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">Aircraft Yankee Lima Alpha Bravo Charlie currently has one open BITE fault from the last flight.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">The fault code is 34-12, so the affected system is navigation, and the suspect LRU is ADIRU 1.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">The self-test still shows the code, so the fault is confirmed, not a false reading.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">The CMC lists the identical fault three separate times, so please treat ADIRU 1 as suspect.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">If the ground test fails tonight, isolate ADIRU 1 and fit a serviceable replacement unit.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">Please inspect the connector initially, because a loose pin can cause an intermittent fault.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">Do not sign the readout as clear yet, because the fault remains open in the log.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">Accurately record the fault code, the ground test, and every action for the next shift.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">Thanks very much, and have a safe shift. Please call me back if the code changes.</span></p>
+    </details>
+  </div>
+</section>
+
+<section class="lecture-section" id="vocabulary">
+  <h2><span class="secnum">02</span>Vocabulary bank &mdash; avionics BITE</h2>
+  <p>These are the specialist terms you need to read a BITE readout. Each term has a plain meaning, one example sentence at your level, and one common collocation. Learn the collocation too, because that is how technicians combine the word on the job.</p>
+  <table class="vt">
+    <thead><tr><th style="width:170px">Term</th><th>Plain meaning</th><th>Example at level</th><th style="width:150px">Collocation</th></tr></thead>
+    <tbody>
+      <tr><td><dfn data-term="BITE">BITE</dfn></td><td>Built-in test equipment; the automated self-check that stores and displays fault codes.</td><td>We carefully read the BITE on the flight deck before we disturb any unit.</td><td class="col">read the BITE</td></tr>
+      <tr><td><dfn data-term="self-test">self-test</dfn></td><td>The automatic internal check that a unit performs on itself.</td><td>If the self-test passes, the readout obviously shows no fault found.</td><td class="col">run a self-test</td></tr>
+      <tr><td><dfn data-term="fault code">fault code</dfn></td><td>The number the BITE displays for one particular fault, such as 34-12.</td><td>The fault code is 34-12, so the affected system is clearly navigation.</td><td class="col">read the fault code</td></tr>
+      <tr><td><dfn data-term="readout">readout</dfn></td><td>The message displayed on the screen for the technician to interpret.</td><td>The readout precisely identifies the LRU as ADIRU 1, so the suspect unit is obvious.</td><td class="col">a BITE readout</td></tr>
+      <tr><td><dfn data-term="LRU">LRU</dfn></td><td>A line replaceable unit; a component you can exchange quickly on the line.</td><td>The suspect LRU is definitely the number one air data unit.</td><td class="col">the suspect LRU</td></tr>
+      <tr><td><dfn data-term="fault message">fault message</dfn></td><td>The line of text that identifies the fault and the affected unit.</td><td>The fault message reads FMGC 2 FAULT, so the computer is obviously suspect.</td><td class="col">a fault message</td></tr>
+      <tr><td><dfn data-term="maintenance message">maintenance message</dfn></td><td>A stored message intended for maintenance only, never displayed to the crew.</td><td>This maintenance message clearly points to the navigation system.</td><td class="col">a maintenance message</td></tr>
+      <tr><td><dfn data-term="CMC">CMC</dfn></td><td>The central maintenance computer; it collects every fault code in one location.</td><td>The CMC conveniently lists the identical fault three separate times today.</td><td class="col">open the CMC</td></tr>
+      <tr><td><dfn data-term="ECAM">ECAM</dfn></td><td>The display that presents system warnings directly to the flight crew.</td><td>The crew observed an ECAM warning for the autoflight system.</td><td class="col">an ECAM warning</td></tr>
+      <tr><td><dfn data-term="ATA chapter">ATA chapter</dfn></td><td>The standard chapter number that identifies each aircraft system.</td><td>34 is the ATA chapter for navigation, so the code obviously starts with 34.</td><td class="col">the ATA chapter</td></tr>
+      <tr><td><dfn data-term="system">system</dfn></td><td>The aircraft area that a fault code identifies, such as navigation.</td><td>If the code starts with 27, the affected system is flight controls.</td><td class="col">the affected system</td></tr>
+      <tr><td><dfn data-term="isolate">isolate</dfn></td><td>To systematically narrow the fault down to one unit or one area.</td><td>We systematically isolate ADIRU 1 first, because the readout identifies it.</td><td class="col">isolate the fault</td></tr>
+      <tr><td><dfn data-term="confirm">confirm</dfn></td><td>To prove that a fault is genuine, not a single false reading.</td><td>If the CMC repeats the code, we immediately confirm the fault.</td><td class="col">confirm the fault</td></tr>
+      <tr><td><dfn data-term="reset">reset</dfn></td><td>To switch a unit off and on again to clear a temporary fault.</td><td>If the connector is loose, we initially reset the unit.</td><td class="col">reset the unit</td></tr>
+      <tr><td><dfn data-term="connector">connector</dfn></td><td>A plug that mechanically joins a unit to the aircraft wiring.</td><td>A loose connector frequently causes an annoying intermittent fault.</td><td class="col">a loose connector</td></tr>
+      <tr><td><dfn data-term="intermittent">intermittent</dfn></td><td>A fault that appears and disappears, rather than remaining constantly.</td><td>The fault appears in flight but hides on the ground, so it is intermittent.</td><td class="col">an intermittent fault</td></tr>
+      <tr><td><dfn data-term="no fault found">no fault found</dfn></td><td>The result when the test detects nothing wrong at this moment.</td><td>The ground test runs perfectly clean, so the readout says no fault found.</td><td class="col">no fault found</td></tr>
+      <tr><td><dfn data-term="ground test">ground test</dfn></td><td>A controlled test of a unit on the ground, to attempt to repeat the fault.</td><td>If the ground test repeats the code, we immediately confirm the fault.</td><td class="col">run a ground test</td></tr>
+      <tr><td><dfn data-term="fault isolation">fault isolation</dfn></td><td>The systematic, step-by-step method that narrows a fault to one unit.</td><td>If the ground test repeats the code, we begin systematic fault isolation.</td><td class="col">start fault isolation</td></tr>
+      <tr><td><dfn data-term="serviceable">serviceable</dfn></td><td>Fit to use, and legally acceptable to fit or to fly.</td><td>ELAC 1 is not serviceable, so we fit a fully serviceable replacement unit.</td><td class="col">a serviceable unit</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="lecture-section" id="grammar">
+  <h2><span class="secnum">03</span>Grammar in context &mdash; the zero conditional</h2>
+  <p>A BITE message maps a fixed cause to a fixed indication, so the logic is permanently true. English expresses this with the zero conditional: the present tense in both parts. You state the condition, and you state the result that is always true. Examine these three lines taken directly from the dialogues.</p>
+  <div class="quote">&ldquo;<b>If</b> the code <b>starts</b> with 34, the system <b>is</b> navigation.&rdquo; &mdash; Dialogue 1</div>
+  <div class="quote">&ldquo;<b>If</b> the self-test <b>passes</b>, the readout <b>shows</b> no fault found.&rdquo; &mdash; Dialogue 1</div>
+  <div class="quote">&ldquo;<b>If</b> the code <b>has</b> ATA 22, the system <b>is</b> autoflight.&rdquo; &mdash; Dialogue 2</div>
+  <p>The rule is short, although many learners still apply it incorrectly. In the <i>if</i>-clause you use the present tense, and never <i>will</i>. In the result you also use the present tense, because the indication is always true, not merely once. So you correctly say &ldquo;if the code <i>starts</i> with 34, the system <i>is</i> navigation&rdquo;. The identical rule holds after <i>when</i>, <i>as soon as</i> and <i>unless</i>, because these clauses take the present tense too.</p>
+  <table class="gt">
+    <thead><tr><th>Function</th><th>Structure</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Code &rarr; system (fixed logic)</td><td>If + present, + present</td><td>If the code starts with 34, the system is navigation.</td></tr>
+      <tr><td>Test &rarr; standard result</td><td>If + present, + present</td><td>If the self-test passes, the readout shows no fault found.</td></tr>
+      <tr><td>Condition &rarr; instruction</td><td>If + present, + order</td><td>If the reset does not clear it, isolate the unit.</td></tr>
+      <tr><td>Negative condition</td><td>If + present negative, + present</td><td>If the code does not clear, the LRU is suspect.</td></tr>
+    </tbody>
+  </table>
+  <h3>Three common mistakes (Latvian and Russian speakers)</h3>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> If the BITE <b>will show</b> 34, the system is navigation.</div>
+    <div class="right"><span class="tick">&#10003;</span> If the BITE <b>shows</b> 34, the system is navigation.</div>
+    <div class="why">Why: use the present tense in the <i>if</i>-clause, never <i>will</i>, although Latvian and Russian often use a future form here.</div>
+  </div>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> If the self-test <b>show</b> a fault, the light comes on.</div>
+    <div class="right"><span class="tick">&#10003;</span> If the self-test <b>shows</b> a fault, the light comes on.</div>
+    <div class="why">Why: add <i>-s</i> for <i>he/she/it</i> in the present tense; Latvian and Russian speakers often drop it.</div>
+  </div>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> If <b>BITE</b> shows <b>fault code</b>, <b>technician</b> reads it.</div>
+    <div class="right"><span class="tick">&#10003;</span> If <b>the BITE</b> shows <b>a fault code</b>, <b>the technician</b> reads it.</div>
+    <div class="why">Why: English needs articles; Latvian and Russian have none, so learners often drop <i>the</i> and <i>a</i>.</div>
+  </div>
+</section>
+
+<section class="lecture-section" id="exercises">
+  <h2><span class="secnum">04</span>Exercises</h2>
+  <p>Do the exercises in order. Type your answer, and then press <b>Check</b>, because the page marks each answer green or red. Open the <b>Answers</b> only after you have honestly tried the exercise yourself.</p>
+
+  <div class="ex" id="e1">
+    <span class="tag">E1 &middot; Gap-fill</span>
+    <h3>Put the right term in the gap</h3>
+    <p class="instr">Read each sentence. Write one term from the bank in the gap.</p>
+    <div class="wordbank"><span>BITE</span><span>self-test</span><span>fault code</span><span>readout</span><span>LRU</span><span>system</span><span>ATA chapter</span><span>CMC</span><span>ECAM</span><span>connector</span></div>
+    <ol>
+      <li>The built-in test equipment on the aircraft is the <input class="gap" size="8" data-answer="bite|BITE">.</li>
+      <li>The automatic internal check a unit runs on itself is the <input class="gap" size="10" data-answer="self-test">.</li>
+      <li>The number the BITE shows for one fault is the <input class="gap" size="11" data-answer="fault code">.</li>
+      <li>The message shown on the screen to read is the <input class="gap" size="9" data-answer="readout">.</li>
+      <li>A box you can change quickly on the line is an <input class="gap" size="6" data-answer="lru|LRU">.</li>
+      <li>The aircraft area a code names, such as navigation, is the <input class="gap" size="8" data-answer="system">.</li>
+      <li>The standard chapter number that names a system is the <input class="gap" size="12" data-answer="ata chapter|ATA chapter">.</li>
+      <li>The computer that collects every fault code is the <input class="gap" size="6" data-answer="cmc|CMC">.</li>
+      <li>The screen that shows warnings to the crew is the <input class="gap" size="7" data-answer="ecam|ECAM">.</li>
+      <li>A plug that joins a unit to the wiring is a <input class="gap" size="10" data-answer="connector">.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>BITE</li><li>self-test</li><li>fault code</li><li>readout</li><li>LRU</li><li>system</li><li>ATA chapter</li><li>CMC</li><li>ECAM</li><li>connector</li></ol></details>
+  </div>
+
+  <div class="ex" id="e2">
+    <span class="tag">E2 &middot; Matching</span>
+    <h3>Match the term to its meaning</h3>
+    <p class="instr">Choose the correct meaning for each term.</p>
+    <ol>
+      <li><dfn>fault message</dfn> &rarr; <select class="gap" data-answer="the line of text that names the fault and the unit"><option value="">choose&hellip;</option><option>the line of text that names the fault and the unit</option><option>a test of a unit on the ground</option><option>fit to use and legal to fly</option><option>a plug that joins a unit to the wiring</option></select></li>
+      <li><dfn>maintenance message</dfn> &rarr; <select class="gap" data-answer="a stored message for maintenance, not shown to the crew"><option value="">choose&hellip;</option><option>a stored message for maintenance, not shown to the crew</option><option>the number the BITE shows for a fault</option><option>to narrow the fault down to one unit</option><option>a fault that comes and goes</option></select></li>
+      <li><dfn>no fault found</dfn> &rarr; <select class="gap" data-answer="the result when the test finds nothing wrong now"><option value="">choose&hellip;</option><option>the result when the test finds nothing wrong now</option><option>the screen that shows warnings to the crew</option><option>the step-by-step method to narrow a fault</option><option>to switch a unit off and on</option></select></li>
+      <li><dfn>ground test</dfn> &rarr; <select class="gap" data-answer="a test of a unit on the ground to repeat the fault"><option value="">choose&hellip;</option><option>a test of a unit on the ground to repeat the fault</option><option>a box you can change on the line</option><option>the chapter number that names a system</option><option>a stored message for maintenance</option></select></li>
+      <li><dfn>fault isolation</dfn> &rarr; <select class="gap" data-answer="the step-by-step method that narrows a fault to one unit"><option value="">choose&hellip;</option><option>the step-by-step method that narrows a fault to one unit</option><option>the message shown on the screen to read</option><option>to prove that a fault is real</option><option>fit to use and legal to fly</option></select></li>
+      <li><dfn>confirm</dfn> &rarr; <select class="gap" data-answer="to prove that a fault is real, not a false reading"><option value="">choose&hellip;</option><option>to prove that a fault is real, not a false reading</option><option>a fault that comes and goes</option><option>a plug that joins a unit to the wiring</option><option>the central maintenance computer</option></select></li>
+      <li><dfn>isolate</dfn> &rarr; <select class="gap" data-answer="to narrow the fault down to one unit or area"><option value="">choose&hellip;</option><option>to narrow the fault down to one unit or area</option><option>the result when the test finds nothing wrong</option><option>the automatic internal check of a unit</option><option>the chapter number that names a system</option></select></li>
+      <li><dfn>reset</dfn> &rarr; <select class="gap" data-answer="to switch a unit off and on to clear a fault"><option value="">choose&hellip;</option><option>to switch a unit off and on to clear a fault</option><option>a line replaceable unit</option><option>the line of text that names the fault</option><option>a test of a unit on the ground</option></select></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>the line of text that names the fault and the unit</li><li>a stored message for maintenance, not shown to the crew</li><li>the result when the test finds nothing wrong now</li><li>a test of a unit on the ground to repeat the fault</li><li>the step-by-step method that narrows a fault to one unit</li><li>to prove that a fault is real, not a false reading</li><li>to narrow the fault down to one unit or area</li><li>to switch a unit off and on to clear a fault</li></ol></details>
+  </div>
+
+  <div class="ex" id="e3">
+    <span class="tag">E3 &middot; Dialogue completion</span>
+    <h3>Complete the flight-deck talk</h3>
+    <p class="instr">Read the short exchange. Write one term in each gap.</p>
+    <ol>
+      <li>A: We read the <input class="gap" size="7" data-answer="bite|BITE"> readout aloud on the flight deck.</li>
+      <li>B: The <input class="gap" size="11" data-answer="fault code"> is 34-12, so the system is navigation.</li>
+      <li>A: The message names ADIRU 1, so that is the suspect <input class="gap" size="6" data-answer="lru|LRU">.</li>
+      <li>B: Let us run the <input class="gap" size="10" data-answer="self-test"> again, in case the fault is only intermittent.</li>
+      <li>A: The <input class="gap" size="9" data-answer="readout"> still shows the same code, so the fault is real.</li>
+      <li>B: The fault shows in flight but hides on the ground, so it is <input class="gap" size="12" data-answer="intermittent">.</li>
+      <li>A: The connector is the cause, so the computer itself is still <input class="gap" size="12" data-answer="serviceable">.</li>
+      <li>B: We <input class="gap" size="8" data-answer="isolate"> ADIRU 1 first, and then we test it on the bench.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>BITE</li><li>fault code</li><li>LRU</li><li>self-test</li><li>readout</li><li>intermittent</li><li>serviceable</li><li>isolate</li></ol></details>
+  </div>
+
+  <div class="ex" id="e4">
+    <span class="tag">E4 &middot; Grammar transformation</span>
+    <h3>Put the verb in the right form</h3>
+    <p class="instr">This is the zero conditional. Put the verb in brackets in the present tense.</p>
+    <ol>
+      <li>If the BITE <input class="gap" size="8" data-answer="shows"> (show) code 34, the system is navigation.</li>
+      <li>If the code <input class="gap" size="8" data-answer="starts"> (start) with 22, the system is autoflight.</li>
+      <li>If the self-test <input class="gap" size="8" data-answer="passes"> (pass), the readout shows no fault found.</li>
+      <li>If the CMC <input class="gap" size="8" data-answer="repeats"> (repeat) the code, the fault is confirmed.</li>
+      <li>If the ground test <input class="gap" size="8" data-answer="fails"> (fail), the LRU is not serviceable.</li>
+      <li>If the reset <input class="gap" size="8" data-answer="clears"> (clear) the code, the fault is gone.</li>
+      <li>If a pin <input class="gap" size="6" data-answer="is"> (be) loose, the fault is intermittent.</li>
+      <li>If the readout <input class="gap" size="8" data-answer="says"> (say) no fault found, we stop.</li>
+      <li>If the connector <input class="gap" size="8" data-answer="looks"> (look) clean, the wiring is good.</li>
+      <li>If ELAC 1 <input class="gap" size="8" data-answer="fails"> (fail) the ground test, we fit a new unit.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>shows</li><li>starts</li><li>passes</li><li>repeats</li><li>fails</li><li>clears</li><li>is</li><li>says</li><li>looks</li><li>fails</li></ol></details>
+  </div>
+
+  <div class="ex" id="e5">
+    <span class="tag">E5 &middot; Reading 1</span>
+    <h3>Read a CMC post-flight report</h3>
+    <p class="instr">Read the report. Then answer the six questions. Write short answers.</p>
+    <div class="reading-text reading">
+      <p class="doc-head">CENTRAL MAINTENANCE COMPUTER &mdash; POST-FLIGHT REPORT &mdash; A320 &mdash; REG YL-ABC</p>
+      <p>This report lists the fault messages from the previous flight. The central maintenance computer, or CMC, collects every BITE fault code in one convenient location.</p>
+      <p>The first fault code is 34-12-34, and the affected system is navigation. The fault message identifies ADIRU 1, so the suspect LRU is the number one air data unit.</p>
+      <p>If the code starts with 34, the system is invariably navigation, because 34 is the ATA chapter. The readout displays the identical fault on three separate flights, so the fault is not intermittent.</p>
+      <p>The technician initially runs the self-test on the ground. If the self-test passes, the readout shows no fault found, and the message clears automatically. Here the self-test repeats the code, so the fault is confirmed.</p>
+      <p>The next step is systematic fault isolation. The technician inspects the connector first, and afterwards runs a ground test on ADIRU 1. If the ground test fails, ADIRU 1 is not serviceable, and a replacement unit is fitted.</p>
+      <p>Accurately record every fault code and every action in the tech log.</p>
+    </div>
+    <ol>
+      <li>Which computer collects the fault codes? <input class="gap" size="18" data-answer="the cmc|cmc|central maintenance computer|the central maintenance computer"></li>
+      <li>What is the first fault code? <input class="gap" size="14" data-answer="34-12-34|3412 34|34 12 34|341234"></li>
+      <li>Which system is affected? <input class="gap" size="14" data-answer="navigation|the navigation system|nav"></li>
+      <li>Which LRU is suspect? <input class="gap" size="14" data-answer="adiru 1|adiru|the adiru|adiru one|number one air data unit"></li>
+      <li>If the self-test passes, what does the readout show? <input class="gap" size="16" data-answer="no fault found"></li>
+      <li>Where do you record each action? <input class="gap" size="14" data-answer="the tech log|tech log|in the tech log|the log"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>the CMC (central maintenance computer)</li><li>34-12-34</li><li>navigation</li><li>ADIRU 1</li><li>no fault found</li><li>the tech log</li></ol></details>
+  </div>
+
+  <div class="ex" id="e6">
+    <span class="tag">E6 &middot; Error-spotting</span>
+    <h3>Find and fix the errors</h3>
+    <p class="instr">This draft note has eight errors in the zero conditional, the verb <i>-s</i>, and the articles. Write the correct line in each gap.</p>
+    <div class="reading-text">
+      <p class="doc-head">DRAFT BITE NOTE &mdash; FIX EIGHT ERRORS</p>
+      <p>(1) If the BITE will show 34, the system is navigation.</p>
+      <p>(2) If code starts with 22, the system is autoflight.</p>
+      <p>(3) If the self-test will pass, the readout shows no fault found.</p>
+      <p>(4) If the CMC repeat the code, the fault is confirmed.</p>
+      <p>(5) When you will read the readout, note the fault code.</p>
+      <p>(6) If BITE shows a fault code, technician reads it.</p>
+      <p>(7) If the ground test will fail, the LRU is not serviceable.</p>
+      <p>(8) If the reset clear the code, the fault is gone.</p>
+    </div>
+    <ol>
+      <li>(1) &rarr; <input class="gap" size="48" data-answer="if the bite shows 34, the system is navigation|if the bite shows 34 the system is navigation"></li>
+      <li>(2) &rarr; <input class="gap" size="48" data-answer="if the code starts with 22, the system is autoflight|if the code starts with 22 the system is autoflight"></li>
+      <li>(3) &rarr; <input class="gap" size="52" data-answer="if the self-test passes, the readout shows no fault found|if the self-test passes the readout shows no fault found"></li>
+      <li>(4) &rarr; <input class="gap" size="48" data-answer="if the cmc repeats the code, the fault is confirmed|if the cmc repeats the code the fault is confirmed"></li>
+      <li>(5) &rarr; <input class="gap" size="46" data-answer="when you read the readout, note the fault code|when you read the readout note the fault code|as soon as you read the readout, note the fault code|as soon as you read the readout note the fault code"></li>
+      <li>(6) &rarr; <input class="gap" size="52" data-answer="if the bite shows a fault code, the technician reads it|if the bite shows a fault code the technician reads it"></li>
+      <li>(7) &rarr; <input class="gap" size="50" data-answer="if the ground test fails, the lru is not serviceable|if the ground test fails the lru is not serviceable"></li>
+      <li>(8) &rarr; <input class="gap" size="42" data-answer="if the reset clears the code, the fault is gone|if the reset clears the code the fault is gone"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>If the BITE shows 34, the system is navigation. (present, not <i>will</i>)</li><li>If the code starts with 22, the system is autoflight. (add <i>the</i>)</li><li>If the self-test passes, the readout shows no fault found. (present, not <i>will</i>)</li><li>If the CMC repeats the code, the fault is confirmed. (add <i>-s</i>)</li><li>When you read the readout, note the fault code. (present after <i>when</i>)</li><li>If the BITE shows a fault code, the technician reads it. (add articles)</li><li>If the ground test fails, the LRU is not serviceable. (present, not <i>will</i>)</li><li>If the reset clears the code, the fault is gone. (add <i>-s</i>)</li></ol></details>
+  </div>
+
+  <div class="ex" id="e7">
+    <span class="tag">E7 &middot; Reading 2</span>
+    <h3>Read a Trouble Shooting Manual task</h3>
+    <p class="instr">Read the task. Then answer the six questions. Write short answers.</p>
+    <div class="reading-text reading">
+      <p class="doc-head">TROUBLE SHOOTING MANUAL &mdash; TASK 22-83 &mdash; FMGC 2 FAULT</p>
+      <p>This task helps you systematically isolate the fault when the BITE shows fault code 22-83. The affected system is autoflight, because 22 is the ATA chapter for autoflight.</p>
+      <p>The fault message identifies FMGC 2, so the suspect LRU is the number two flight management computer. If the ECAM displays an autoflight warning, the BITE fault code confirms it.</p>
+      <p>Initially, run a ground test. If the ground test repeats the code, the fault is confirmed, and you begin fault isolation. If the ground test runs perfectly clean, the readout shows no fault found, and the fault is intermittent.</p>
+      <p>Next, carefully inspect the connector at the rack. If a pin is loose, reset the unit and run the self-test again. If the self-test still shows 22-83, the connector is definitely not responsible.</p>
+      <p>Afterwards, fit a serviceable FMGC 2. If the fault does not return, the original LRU is genuinely the root cause.</p>
+      <p>Finally, confirm the result, and accurately record the fault code and the action in the tech log.</p>
+    </div>
+    <ol>
+      <li>What is the fault code? <input class="gap" size="12" data-answer="22-83|2283|22 83"></li>
+      <li>Which system is affected? <input class="gap" size="14" data-answer="autoflight|the autoflight system"></li>
+      <li>Which LRU is suspect? <input class="gap" size="14" data-answer="fmgc 2|fmgc|the fmgc|fmgc two|number two flight management computer"></li>
+      <li>What does a clean ground test mean? <input class="gap" size="18" data-answer="no fault found|intermittent|the fault is intermittent|no fault found, intermittent"></li>
+      <li>What do you do if a pin is loose? <input class="gap" size="20" data-answer="reset the unit|reset it|reset the unit and run the self-test|reset"></li>
+      <li>Where do you record the action? <input class="gap" size="14" data-answer="the tech log|tech log|in the tech log|the log"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>22-83</li><li>autoflight</li><li>FMGC 2</li><li>no fault found (the fault is intermittent)</li><li>reset the unit and run the self-test</li><li>the tech log</li></ol></details>
+  </div>
+
+  <div class="ex" id="e8">
+    <span class="tag">E8 &middot; Listening review</span>
+    <h3>Questions on Dialogue 3</h3>
+    <p class="instr">Play Dialogue 3 again. Then answer. Write short answers.</p>
+    <ol>
+      <li>What is the fault code in Dialogue 3? <input class="gap" size="12" data-answer="27-93|2793|27 93"></li>
+      <li>Which system does 27 name? <input class="gap" size="16" data-answer="flight controls|the flight controls|flight control"></li>
+      <li>Which LRU does the message name? <input class="gap" size="14" data-answer="elac 1|elac|the elac|elac one|number one flight-control computer"></li>
+      <li>What do they run first? <input class="gap" size="12" data-answer="the self-test|self-test|a self-test"></li>
+      <li>Does the reset clear the code? <input class="gap" size="12" data-answer="no|no it does not|it does not|no, it does not"></li>
+      <li>What do they check on the unit? <input class="gap" size="14" data-answer="the connector|connector|its connector"></li>
+      <li>Is ELAC 1 serviceable? <input class="gap" size="14" data-answer="no|no it is not|it is not|no, it is not|not serviceable"></li>
+      <li>Where do they send ELAC 1? <input class="gap" size="18" data-answer="the bench|to the bench|for a ground test|the bench for a ground test"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>27-93</li><li>flight controls</li><li>ELAC 1</li><li>the self-test</li><li>no, it does not</li><li>the connector</li><li>no, it is not serviceable</li><li>to the bench for a ground test</li></ol></details>
+  </div>
+</section>
+
+<section class="lecture-section" id="speaking">
+  <h2><span class="secnum">05</span>Speaking: read the readout with a colleague</h2>
+  <p>Work in pairs, so one person is technician A and the other is technician B. Read the fault code aloud, name the system and the LRU, and use <i>if</i> for the fixed logic. Then agree which unit to test first, and change roles after each card.</p>
+
+  <div class="roleplay">
+    <h4>Role-play card 1 &mdash; Read the navigation code</h4>
+    <div class="field"><span class="flab">Situation</span> The BITE shows fault code 34-12-34, and the message names ADIRU 1.</div>
+    <div class="field"><span class="flab">Your role</span> Technician A. You read the readout aloud.</div>
+    <div class="field"><span class="flab">Your goal</span> Name the system from the ATA chapter, name the suspect LRU, and agree to test ADIRU 1 first.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>The fault code is 34-12.</span><span>If the code starts with 34, the system is navigation.</span><span>The readout names ADIRU 1.</span><span>The suspect LRU is clear.</span><span>Let us test ADIRU 1 first.</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 2 &mdash; Confirm or clear?</h4>
+    <div class="field"><span class="flab">Situation</span> An ECAM autoflight warning appeared, and the BITE fault code is 22-83 for FMGC 2.</div>
+    <div class="field"><span class="flab">Your role</span> Technician B. You want to be sure before you remove a unit.</div>
+    <div class="field"><span class="flab">Your goal</span> Run a ground test, read the CMC history, and decide whether to confirm the fault or clear it.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>Let us run a ground test first.</span><span>If the ground test repeats the code, we confirm the fault.</span><span>The CMC shows it three times.</span><span>The fault is intermittent.</span><span>Do we confirm or clear it?</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 3 &mdash; Which LRU first?</h4>
+    <div class="field"><span class="flab">Situation</span> The BITE fault code is 27-93 for the flight controls, and the message names ELAC 1.</div>
+    <div class="field"><span class="flab">Your role</span> Technician A, deciding together with your colleague.</div>
+    <div class="field"><span class="flab">Your goal</span> Run the self-test, try a reset, check the connector, and agree to isolate ELAC 1 first.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>If the code starts with 27, the system is flight controls.</span><span>Let us run the self-test.</span><span>If the reset does not clear it, we isolate ELAC 1.</span><span>The connector looks clean.</span><span>Which unit do we test first?</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 4 &mdash; Disagree on the follow-up</h4>
+    <div class="field"><span class="flab">Situation</span> Your colleague wants to change the LRU at once, although the ground test is clean.</div>
+    <div class="field"><span class="flab">Your role</span> Technician B. You disagree, and you give reasons.</div>
+    <div class="field"><span class="flab">Your goal</span> Say why you disagree, ask to check the connector and the CMC history first, and then reach an agreement.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>I see your point, but&hellip;</span><span>The ground test says no fault found.</span><span>If the fault is intermittent, we check the connector first.</span><span>Let us read the CMC history.</span><span>Let us agree on this.</span></div>
+    </div>
+  </div>
+
+  <div class="ai-partner ai-box">
+    <h3>AI conversation partner</h3>
+    <p>Copy one prompt into the chat buddy, and speak your part out loud, because the AI plays your colleague and gently corrects your English.</p>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are my colleague on the flight deck, and I am a technician. The scenario: the BITE shows fault code 34-12-34 with the message ADIRU 1. Make me read the code aloud, name the system from the ATA chapter, name the suspect LRU, and agree which unit to test first. Speak only at CEFR B2 with short sentences and the unit's terms (BITE, fault code, readout, LRU, system, ATA chapter, self-test, CMC, isolate). Keep every reply to two or three sentences, and ask me one question each turn. If I make an error, gently recast my sentence the right way, then continue. Watch my zero conditional: if I say "if the code will start with 34", reply naturally "yes, if the code starts with 34". English only; you may add one Latvian gloss in brackets for a hard term.</code></div>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are an avionics technician, and I am your colleague. The scenario: an ECAM warning showed for autoflight, and the BITE fault code is 22-83 for FMGC 2. I want to change the LRU at once; you want to run a ground test and read the CMC history first. Disagree with me politely and give reasons. Speak only at CEFR B2 with short sentences and the unit's terms (ECAM, BITE, fault code, LRU, ground test, no fault found, intermittent, CMC, confirm). Keep replies short, two or three sentences, and ask me one question each turn. If I make an English error, recast it gently and move on. Watch my "if"-clauses: model "if the ground test repeats the code" not "if the ground test will repeat the code". English only, with an optional one-word Latvian gloss for a hard term.</code></div>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are my colleague, and I am a technician. The scenario: the BITE fault code is 27-93 for the flight controls, and the message names ELAC 1. Help me decide the follow-up action: run the self-test, try a reset, check the connector, then agree to isolate ELAC 1. Speak only at CEFR B2 with short sentences and the unit's terms (BITE, fault code, readout, system, self-test, reset, connector, isolate, serviceable, fault isolation). Keep replies short and ask me one question each turn. Recast my errors gently, never lecture. Watch the zero conditional: model "if the reset does not clear the code" not "if the reset will not clear the code". English only; one Latvian gloss in brackets is allowed for a hard term.</code></div>
+  </div>
+</section>
+
+<section class="lecture-section" id="writing">
+  <h2><span class="secnum">06</span>Writing: a BITE fault-isolation log entry</h2>
+  <p>Write a short log entry for the BITE fault, and use Simplified Technical English (ASD-STE100), because short sentences and approved words are easier to read on the line. Write one idea per sentence, keep every sentence under twenty words, and use the present tense in every <i>if</i>-clause, with no <i>will</i>.</p>
+  <div class="callout">
+    <h4>Your task</h4>
+    <p>Write 80&ndash;110 words to record the BITE fault. Give the fault code, the system, the suspect LRU, and the tests you ran. Use the zero conditional for the fixed logic, so you say clearly what the code means. State the follow-up action, and keep every sentence short.</p>
+  </div>
+  <details class="reveal model"><summary>Show model answer</summary>
+    <div class="reading-text">
+      <p class="doc-head">TECH LOG ENTRY &mdash; BITE FAULT &mdash; ADIRU 1</p>
+      <p>Fault code: 34-12-34. If the code starts with 34, the system is navigation.</p>
+      <p>Fault message: ADIRU 1 FAULT. The suspect LRU is the number one air data unit.</p>
+      <p>Test 1: run the self-test. The self-test repeats the code, so the fault is confirmed.</p>
+      <p>Test 2: open the CMC. The CMC lists the same fault three times today.</p>
+      <p>Test 3: check the connector. The connector is clean and tight.</p>
+      <p>Result: ADIRU 1 is the suspect unit. Next step: run a ground test on ADIRU 1.</p>
+      <p>If the ground test fails, ADIRU 1 is not serviceable. Fit a serviceable unit.</p>
+    </div>
+  </details>
+  <h3>Self-check</h3>
+  <ul class="checklist">
+    <li>Did I use short sentences and simple words (Simplified Technical English)?</li>
+    <li>Did I give the fault code, the system, and the suspect LRU?</li>
+    <li>Did I use the present tense in every <i>if</i>-clause, with no <i>will</i>?</li>
+    <li>Did I state the follow-up action clearly, with <i>if</i> for the ground test?</li>
+  </ul>
+</section>
+
+</article>
+<script>
+(function(){
+  document.querySelectorAll('.check-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var ex=btn.closest('.ex');
+      var fields=ex.querySelectorAll('[data-answer]');
+      var ok=0,tot=0;
+      fields.forEach(function(f){
+        tot++;
+        var val=(f.value||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[?.!,]+$/,'');
+        var answers=f.getAttribute('data-answer').toLowerCase().split('|').map(function(s){return s.trim();});
+        if(val!=='' && answers.indexOf(val)!==-1){f.classList.add('right','correct');f.classList.remove('wrong');ok++;}
+        else{f.classList.add('wrong');f.classList.remove('right','correct');}
+      });
+      var sc=ex.querySelector('.score');
+      if(sc){sc.textContent=ok+' / '+tot+' correct';}
+    });
+  });
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var code=btn.parentElement.querySelector('code');
+      var text=code?code.textContent:'';
+      if(navigator.clipboard){navigator.clipboard.writeText(text);}
+      var old=btn.textContent;btn.textContent='Copied';
+      setTimeout(function(){btn.textContent=old;},1200);
+    });
+  });
+})();
+</script>
+<script>
+(function(){
+  if(!window.TSIBuddy) return;
+  TSIBuddy.mount({
+    temperature: 0.3,
+    contextLabel: "Unit 10 · Interpreting a BITE readout with a colleague",
+    openingLine: "I want to practise reading a BITE readout. Please play my colleague on the flight deck.",
+    systemPrompt: "You are a conversation partner for a CEFR B2 English lesson for aircraft maintenance technicians (EASA Part-66/145). The unit is 'Interpreting a BITE readout with a colleague'. Stay inside the unit's scenarios: two technicians read a BITE fault code on the flight deck, name the affected system from the ATA chapter, name the suspect LRU, and decide the follow-up action (the navigation code 34-12 for ADIRU 1, the autoflight code 22-83 for FMGC 2, the flight-controls code 27-93 for ELAC 1). Play the colleague the learner assigns. Speak ONLY at CEFR B2: short sentences, common words plus the unit's specialist terms (BITE, self-test, fault code, readout, LRU, fault message, maintenance message, CMC, ECAM, ATA chapter, system, isolate, confirm, reset, connector, intermittent, no fault found, ground test, fault isolation, serviceable). Keep every answer short, two or three sentences at most, and ask exactly ONE follow-up question each turn. Push the learner to justify each step: ask 'what system is that?' or 'which unit do we test first?'. When the learner makes an English error, gently recast the sentence the correct way and then continue; never lecture. Pay special attention to the zero conditional (their Latvian and Russian first languages form it differently): if they say 'if the code will start with 34', reply naturally 'yes, if the code starts with 34'; if they drop the third-person -s and say 'if the self-test show a fault', model 'if the self-test shows a fault'; if they drop an article and say 'if BITE shows fault code', model 'if the BITE shows a fault code'. Use English only. You may add one Latvian gloss in brackets for a single hard term if the learner seems stuck. Never write the learner's log entry for them; instead prompt them with one guiding question."
+  });
+})();
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 10 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body></html>

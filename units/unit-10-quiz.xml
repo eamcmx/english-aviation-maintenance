@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U10-r1</text></category>
+    <info format="html"><text><![CDATA[Unit 10 — Interpreting a BITE readout with a colleague. CEFR B2. 23 items across Listening, Reading, Use of English and Vocabulary.]]></text></info>
+  </question>
+
+  <!-- ============================= LISTENING (7) ============================= -->
+
+  <question type="multichoice">
+    <name><text>L1 · Listening · Dialogue 1 · how the fault is confirmed</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> How do the two technicians finally confirm that the fault is genuine?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A fault is <em>confirmed</em> when the evidence repeats. In Dialogue 1 the CMC lists the identical fault three separate times, so the ADIRU is treated as suspect.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The CMC lists the identical fault three times.]]></text><feedback format="html"><text><![CDATA[Correct — repetition in the CMC history confirms it.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The self-test passes and the readout clears the message.]]></text><feedback format="html"><text><![CDATA[No — a passing self-test would give "no fault found", not confirmation.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[An ECAM warning appears for the crew on the flight deck.]]></text><feedback format="html"><text><![CDATA[No — the ECAM is a crew warning, not the confirmation used here.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The connector is found loose and is then reset by hand.]]></text><feedback format="html"><text><![CDATA[No — that is a possible cause to check, not how they confirm the fault.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L2 · Listening · Dialogue 2 · ground test</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> Decide if this is true or false:</p><p><em>The ground test repeats the fault code.</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The ground test runs clean and the readout says "no fault found". Because the fault appears in flight but hides on the ground, it is <em>intermittent</em>.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No — the ground test runs clean; it does not repeat the code.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — the ground test is clean, which is why the fault is intermittent.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L3 · Listening · Dialogue 1 · CMC count</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> How many separate times does the CMC list the fault today? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The CMC lists the identical fault <b>three</b> separate times today, so the ADIRU is obviously suspect.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>3</text><feedback format="html"><text><![CDATA[Correct — three times.]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Listen again — the CMC lists it three times.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L4 · Listening · Dialogue 2 · flights</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> On how many separate flights does the CMC show the identical code? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The CMC shows the identical fault code on <b>three</b> separate flights, so FMGC 2 stays suspect even though the ground test is clean.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>3</text><feedback format="html"><text><![CDATA[Correct — three flights.]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Listen again — the history shows it on three flights.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L5 · Listening · Dialogue 3 · after the reset</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> After the reset, what does the BITE show?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>After the reset the BITE still shows <b>27-93</b>, so the fault is genuine and ELAC 1 stays suspect.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The same code, 27-93.]]></text><feedback format="html"><text><![CDATA[Correct — the reset does not clear it.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[No fault found, so the message then clears.]]></text><feedback format="html"><text><![CDATA[No — the code stays; it is not cleared.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A new flight-controls code for ELAC 2.]]></text><feedback format="html"><text><![CDATA[No — the unit named is ELAC 1, and the code does not change.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[An autoflight code for the FMGC computer.]]></text><feedback format="html"><text><![CDATA[No — that is Dialogue 2; here it is flight controls.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L6 · Listening · voicemail · sign as clear</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to the bonus voicemail again.</b> Decide if this is true or false:</p><p><em>Maintenance control says you may sign the readout as clear tonight.</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Maintenance control says do <b>not</b> sign the readout as clear yet, because the fault is still open in the log.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No — the caller says do not sign it clear; the fault is still open.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — the readout must stay open, not be signed clear.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L7 · Listening · voicemail · ATA chapter</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to the bonus voicemail again.</b> The fault code is 34-12. Which ATA chapter number does the code start with? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The code starts with <b>34</b>, the ATA chapter for navigation, so the affected system is navigation.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>34</text><feedback format="html"><text><![CDATA[Correct — chapter 34 = navigation.]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Listen again — the code is 34-12, so the chapter is 34.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <!-- ============================= READING (5) ============================= -->
+
+  <question type="multichoice">
+    <name><text>R1 · Reading · MEL · deferral</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this MEL extract, then answer.</p><blockquote style="font-family:monospace;font-size:13px"><b>MINIMUM EQUIPMENT LIST — ATA 34</b><br>Item: ADIRU 1 (air data / inertial reference).<br>Number installed: 3 &nbsp; Number required for dispatch: 2 &nbsp; Category: B<br>Repair-interval key: A = per remarks; B = 3 calendar days; C = 10 calendar days; D = 120 calendar days.</blockquote><p>For how long may the aircraft be dispatched with ADIRU 1 inoperative?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>ADIRU 1 is a Category <b>B</b> item, and the key gives Category B a repair interval of 3 calendar days. Three units are installed and only two are required, so dispatch is allowed within that interval.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[For up to 3 calendar days.]]></text><feedback format="html"><text><![CDATA[Correct — Category B = 3 calendar days.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[For up to 10 calendar days, as a category C item.]]></text><feedback format="html"><text><![CDATA[No — the item is Category B, not C.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[For 120 calendar days, because it is category D.]]></text><feedback format="html"><text><![CDATA[No — Category D is 120 days, but this item is Category B.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Not at all, because two units must be working.]]></text><feedback format="html"><text><![CDATA[No — two are required and three are installed, so one may be inoperative.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R2 · Reading · work order · confirmed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this work-order extract, then decide if the statement is true or false.</p><blockquote style="font-family:monospace;font-size:13px"><b>WORK ORDER 55123</b><br>BITE fault code: 34-12. Self-test run: code repeated. Status: fault confirmed.</blockquote><p><em>The self-test repeated the code, so the fault is confirmed.</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The work order states the self-test repeated the code and the status is "fault confirmed", so the statement matches the document.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — a repeated code on the self-test confirms the fault.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[No — the order clearly says the code repeated and the fault is confirmed.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R3 · Reading · task card · order of steps</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this task card, then answer.</p><blockquote style="font-family:monospace;font-size:13px"><b>TASK CARD 34-12-00 — ADIRU 1 fault isolation</b><br>1. Read the BITE and record the code.<br>2. Run the self-test.<br>3. If the code remains, inspect the connector at the rack.<br>4. If the connector is clean, remove and replace ADIRU 1.<br>5. Run a ground test and record the result.</blockquote><p>According to the card, what must you do <b>before</b> you replace the unit?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Step 3 comes before Step 4: you inspect the connector at the rack first, and only replace ADIRU 1 if the connector is clean. You never remove a unit at random.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Inspect the connector at the rack.]]></text><feedback format="html"><text><![CDATA[Correct — Step 3 comes before the replacement.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Run a ground test and then record the result.]]></text><feedback format="html"><text><![CDATA[No — the ground test is Step 5, after the replacement.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Record the code and then sign the card off.]]></text><feedback format="html"><text><![CDATA[No — recording the code is Step 1, not the last check before replacing.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Replace the rack first and then the wiring.]]></text><feedback format="html"><text><![CDATA[No — the card does not replace the rack or the wiring.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 · Reading · Service Bulletin · mandatory?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this Service Bulletin header, then decide if the statement is true or false.</p><blockquote style="font-family:monospace;font-size:13px"><b>SERVICE BULLETIN SB-27-1043</b><br>Subject: update ELAC software to standard 4.<br>Compliance: <b>recommended</b> — not mandatory.</blockquote><p><em>This Service Bulletin is mandatory and must be done at once.</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The bulletin is marked "recommended, not mandatory". Only an Airworthiness Directive (AD) is mandatory; an SB is usually advisory.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No — the header says recommended, not mandatory.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — an SB is recommended here; only an AD is mandatory.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R5 · Reading · AMM · intermittent fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this AMM note, then answer.</p><blockquote style="font-family:monospace;font-size:13px"><b>AMM 22-83 — note</b><br>If the ground test runs clean, the readout shows no fault found. This does not clear an intermittent fault. If the CMC lists the code on earlier flights, keep the LRU suspect and monitor it.</blockquote><p>Why does a clean ground test not close the case?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A clean ground test only means the fault did not appear now. An <em>intermittent</em> fault comes and goes, so the CMC history still keeps the LRU suspect.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Because the fault is intermittent.]]></text><feedback format="html"><text><![CDATA[Correct — it comes and goes, so a clean test proves little.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Because the self-test was not run first.]]></text><feedback format="html"><text><![CDATA[No — the note is about the ground test and the history, not the order.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Because the CMC has deleted the old code.]]></text><feedback format="html"><text><![CDATA[No — the CMC still lists the code on earlier flights.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Because the crew must first sign the ECAM.]]></text><feedback format="html"><text><![CDATA[No — the ECAM is not mentioned in this note.]]></text></feedback></answer>
+  </question>
+
+  <!-- ========================= USE OF ENGLISH (7) ========================= -->
+
+  <question type="shortanswer">
+    <name><text>U1 · Use of English · zero conditional · start</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the verb in the present tense. One word.</p><p>If the code ______ (start) with 22, the system is autoflight.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Zero conditional: present tense in the if-clause, with third-person <b>-s</b> — "starts". Never <em>will</em> here.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>starts</text><feedback format="html"><text><![CDATA[Correct — present tense, third-person -s.]]></text></feedback></answer>
+    <answer fraction="0"><text>will start</text><feedback format="html"><text><![CDATA[No — do not use "will" in the if-clause. Write "starts".]]></text></feedback></answer>
+    <answer fraction="0"><text>start</text><feedback format="html"><text><![CDATA[Almost — add the -s: "starts".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 · Use of English · zero conditional · pass</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the verb in the present tense. One word.</p><p>If the self-test ______ (pass), the readout shows no fault found.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Add <b>-es</b> after <em>-ss</em>: "passes". Both clauses of the zero conditional are present tense.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>passes</text><feedback format="html"><text><![CDATA[Correct — "passes".]]></text></feedback></answer>
+    <answer fraction="0"><text>will pass</text><feedback format="html"><text><![CDATA[No — no "will" in the if-clause. Write "passes".]]></text></feedback></answer>
+    <answer fraction="0"><text>pass</text><feedback format="html"><text><![CDATA[Almost — add -es: "passes".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 · Use of English · transformation · remove will</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Rewrite this sentence with correct grammar.</p><p>"If the BITE will show 34, the system is navigation."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Drop <em>will</em> and keep the present tense: <b>If the BITE shows 34, the system is navigation.</b></p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>If the BITE shows 34, the system is navigation.</text><feedback format="html"><text><![CDATA[Correct — present tense, no "will".]]></text></feedback></answer>
+    <answer fraction="100"><text>If the BITE shows 34 the system is navigation</text><feedback format="html"><text><![CDATA[Correct — present tense, no "will".]]></text></feedback></answer>
+    <answer fraction="100"><text>If the BITE shows 34, the system is navigation</text><feedback format="html"><text><![CDATA[Correct — present tense, no "will".]]></text></feedback></answer>
+    <answer fraction="0"><text>*will show*</text><feedback format="html"><text><![CDATA[No — remove "will"; write "shows".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 · Use of English · zero conditional · repeat</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the verb in the present tense. One word.</p><p>If the CMC ______ (repeat) the code, the fault is confirmed.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Third-person <b>-s</b> on "the CMC": "repeats".</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>repeats</text><feedback format="html"><text><![CDATA[Correct — "repeats".]]></text></feedback></answer>
+    <answer fraction="0"><text>will repeat</text><feedback format="html"><text><![CDATA[No — no "will" in the if-clause. Write "repeats".]]></text></feedback></answer>
+    <answer fraction="0"><text>repeat</text><feedback format="html"><text><![CDATA[Almost — add the -s: "repeats".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 · Use of English · LRU expansion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the term. One word in the gap.</p><p>An LRU is a ______ replaceable unit — a box you change on the line.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>LRU = <b>line</b> replaceable unit. You change it quickly on the line, without a workshop.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>line</text><feedback format="html"><text><![CDATA[Correct — line replaceable unit.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The missing word is "line".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 · Use of English · serviceable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the specialist term that means "fit to use, and legal to fit or to fly". One word.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The term is <b>serviceable</b>. Its opposite here is "not serviceable" — the unit must not be fitted or flown.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>serviceable</text><feedback format="html"><text><![CDATA[Correct — serviceable.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The term is "serviceable".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U7 · Use of English · negative present · do-support</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing words in the present tense (negative). Two or three words.</p><p>If the reset ______ the code, we isolate the unit. (not clear)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Use <em>do</em>-support in the present: <b>does not clear</b> (or "doesn't clear"). Not "not clears".</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>does not clear</text><feedback format="html"><text><![CDATA[Correct — "does not clear".]]></text></feedback></answer>
+    <answer fraction="100"><text>doesn't clear</text><feedback format="html"><text><![CDATA[Correct — "doesn't clear".]]></text></feedback></answer>
+    <answer fraction="0"><text>not clears</text><feedback format="html"><text><![CDATA[No — use do-support: "does not clear".]]></text></feedback></answer>
+    <answer fraction="0"><text>will not clear</text><feedback format="html"><text><![CDATA[No — present tense in the if-clause: "does not clear".]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================= VOCABULARY (4) ============================= -->
+
+  <question type="matching">
+    <name><text>V1 · Vocabulary · term to meaning (set 1)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Core avionics-BITE terms: BITE (the self-check), LRU (a box you change on the line), CMC (collects fault codes), intermittent (comes and goes), serviceable (fit to use).</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>the built-in self-check that stores fault codes</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[LRU]]></text><answer><text>a box you can change quickly on the line</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[CMC]]></text><answer><text>the computer that collects every fault code</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[intermittent]]></text><answer><text>a fault that comes and goes</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[serviceable]]></text><answer><text>fit to use, and legal to fly</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 · Vocabulary · term to meaning (set 2)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>self-test (a unit's own internal check), readout (the message on the screen), connector (a plug to the wiring), isolate (narrow to one unit), no fault found (nothing wrong right now).</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[self-test]]></text><answer><text>a unit's own internal check</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[readout]]></text><answer><text>the message shown on the screen to read</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[connector]]></text><answer><text>a plug that joins a unit to the wiring</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[isolate]]></text><answer><text>to narrow the fault to one unit</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[no fault found]]></text><answer><text>the test finds nothing wrong now</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V3 · Vocabulary · collocations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each verb to the noun it goes with on the job.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Fixed chunks technicians use: read the BITE, run a ground test, isolate the fault, open the CMC, fit a serviceable unit.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[read...]]></text><answer><text>the BITE</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[run...]]></text><answer><text>a ground test</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[isolate...]]></text><answer><text>the fault</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[open...]]></text><answer><text>the CMC</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[fit...]]></text><answer><text>a serviceable unit</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V4 · Vocabulary · ATA chapter to system</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each ATA chapter number to the system it names.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The fixed logic of a BITE code: 34 = navigation, 22 = autoflight, 27 = flight controls, 23 = communications.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[34]]></text><answer><text>navigation</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[22]]></text><answer><text>autoflight</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[27]]></text><answer><text>flight controls</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[23]]></text><answer><text>communications</text></answer></subquestion>
+  </question>
+
+</quiz>

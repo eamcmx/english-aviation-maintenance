@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 10 — Teacher Deck · Interpreting a BITE readout with a colleague</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace;
+  --nav:#38b6ff;--auto:#a78bfa;--flt:#fbbf24;--com:#ff8fc0}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15);overflow:auto}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:40px;margin:.2em 0;line-height:1.1}
+h2{font-size:30px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.center{align-items:center;text-align:center}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.cols,.cols3{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+.card h3{margin:.1em 0 .35em;color:#cfe5ff;font-size:19px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:720px}
+/* deck widget skin (dark) */
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:5px 9px;font-size:14px}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:56px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.grp{display:inline-flex;border:1px solid #314865;border-radius:9px;overflow:hidden;margin:0 8px 6px 0}
+.grp button{border:0;border-radius:0;border-right:1px solid #314865}
+.grp button:last-child{border-right:0}
+.flab{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:#7fd0ff;font-weight:700;display:block;margin:8px 0 2px}
+/* dialogue on deck */
+.dlg{display:flex;flex-direction:column;gap:8px;margin:6px 0;max-width:900px}
+.turn{display:flex;gap:10px;align-items:flex-start;max-width:88%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:26px;font-family:var(--mono);font-size:13px;font-weight:700;color:#7fd0ff;padding-top:8px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#12203300;border:1px solid #2a3b52;border-radius:12px 12px 12px 3px;padding:8px 13px;font-size:16px;background:#101c2e}
+.turn.b .said{border-radius:12px 12px 3px 12px;background:#1c1a10;border-color:#4a411f}
+.code{font-family:var(--mono);color:#7fd0ff}
+.hl{color:var(--amber);font-weight:700}
+.gd{color:var(--good);font-weight:700}.bd{color:var(--hot);font-weight:700}
+table.gt{border-collapse:collapse;width:100%;font-size:15px;margin:8px 0}
+table.gt th,table.gt td{border:1px solid #2a3b52;padding:7px 11px;text-align:left;vertical-align:top}
+table.gt th{background:#12213a;color:#cfe5ff;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.rowcards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(max-width:900px){.rowcards{grid-template-columns:1fr}}
+.rp{border:1px solid #4a411f;border-radius:12px;background:linear-gradient(180deg,#171308,#0f0d07);padding:13px 16px}
+.rp h4{margin:0 0 6px;color:var(--amber);font-size:16px}
+.rp .fl{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#d9b970;font-weight:700}
+.rp .phr span{display:inline-block;font-size:12.5px;background:#0c1622;border:1px solid #2a3b52;border-radius:6px;padding:2px 8px;margin:3px 4px 0 0;color:#cfe0ee}
+.timeline{display:grid;grid-template-columns:70px 1fr;gap:2px 14px;font-size:16px}
+.timeline .t{font-family:var(--mono);color:#7fd0ff;font-weight:700}
+.audio-cue{display:inline-flex;align-items:center;gap:8px;background:#12213a;border:1px solid #2a557e;border-radius:9px;padding:6px 12px;font-family:var(--mono);font-size:13px;color:#7fd0ff}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="TIMING 0:00–0:03 (3 min). Open the class. This is a LISTENING-and-SPEAKING-led unit at CEFR B2 for aircraft maintenance technicians (EASA Part-66/145). The scenario is concrete: two technicians stand on the flight deck, the BITE has stored a fault from the last flight, and they must read the code, name the system and the suspect LRU, and agree the follow-up action. Say the day's promise out loud: by the end, every learner can read a real fault code aloud and explain it. Name the language target early — the zero conditional, because a BITE maps a fixed cause to a fixed indication ('if the code starts with 34, the system is navigation'). Tell the room the class runs 90 minutes and moves listening → vocabulary → grammar → practice → speaking → writing. Turn on captions (CC button, or press L) if any learner wants the live Latvian or Russian translation of what you say.">
+    <div class="kick">English for Aviation Maintenance · Unit 10 of 32 · CEFR B2 · EASA Part-66/145</div>
+    <h1>Interpreting a BITE readout with a colleague</h1>
+    <p class="big muted">A fault code appears on the flight deck. Two technicians read it aloud, name the system from the ATA chapter, name the suspect LRU, and agree which unit to test first.</p>
+    <p class="pill">90-minute class &nbsp;·&nbsp; listening · speaking · writing &nbsp;·&nbsp; grammar: the zero conditional &nbsp;·&nbsp; "if the code starts with 34, the system is navigation"</p>
+  </section>
+
+  <!-- 2 · BY THE END / HOW THE 90 MIN RUNS -->
+  <section class="slide" data-notes="TIMING 0:03–0:07 (4 min). Set the three can-do outcomes and show the shape of the lesson so learners know where they are going. Read each outcome and give one example. Then walk the timing column on the right so the class can see the rhythm — it also helps you keep pace. Stress that everything is practice, not a test: the small quiz at the end is formative. This unit sits at the Consultant AI stage — the chat partner on the unit page plays a colleague and recasts errors; it never writes the learner's log entry. Keep this slide short; the work starts on the next screen.">
+    <div class="kick">By the end · how the 90 minutes runs</div>
+    <h2>Three outcomes — and the plan for the hour and a half</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">1 · Read &amp; explain.</b> Read a BITE fault code and explain its meaning to a colleague.</p>
+        <p><b style="color:var(--purple)">2 · Relate to system &amp; LRU.</b> Relate a fault message to the affected system and the suspect line replaceable unit.</p>
+        <p><b style="color:var(--good)">3 · Decide together.</b> Decide with a partner the follow-up action from the readout.</p>
+        <p class="muted" style="font-size:16px">Language target: the <b>zero conditional</b> for fixed system logic.</p>
+      </div>
+      <div class="card">
+        <div class="timeline">
+          <span class="t">0–7</span><span>Open · outcomes</span>
+          <span class="t">7–14</span><span>Scenario · how a BITE maps a fault</span>
+          <span class="t">14–30</span><span>Listening — three dialogues</span>
+          <span class="t">30–42</span><span>Vocabulary bank &amp; games</span>
+          <span class="t">42–56</span><span>Grammar — zero conditional</span>
+          <span class="t">56–70</span><span>Exercises E1–E8</span>
+          <span class="t">70–84</span><span>Speaking — role-play cards</span>
+          <span class="t">84–90</span><span>Writing brief · wrap-up · quiz</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SCENARIO -->
+  <section class="slide" data-notes="TIMING 0:07–0:11 (4 min). Paint the situation so the language has a home. You are on the flight deck with a colleague; the BITE stored a fault last flight. Neither technician acts until both read the message correctly — a fault code is only useful once you interpret it. The rule of the room: never pull a serviceable (good, legal-to-fit) unit at random, because that wastes a good part and time. Ask the class the two questions on the right and take a couple of spoken answers in English — this is a gentle warm-up before the audio. Do not over-explain the vocabulary yet; the bank comes after the listening, on purpose, so learners first meet the words in context.">
+    <div class="kick">§0 · the scenario</div>
+    <h2>On the flight deck, a stored fault is waiting</h2>
+    <div class="cols">
+      <div>
+        <p class="big">The BITE has stored a fault from the last flight. You and a colleague must read it correctly <b>before</b> you touch a single unit.</p>
+        <p>A code is only useful once you interpret it. First you name the system from the ATA chapter; then you name the suspect LRU; then you agree the follow-up action. You never remove a <b class="gd">serviceable</b> unit at random.</p>
+      </div>
+      <div class="card">
+        <h3>Warm-up — ask the room</h3>
+        <p>· What is the <b>first thing</b> you do when the BITE shows a code?</p>
+        <p>· Why is it a bad idea to change a unit <b>before</b> you read the readout?</p>
+        <p class="muted" style="font-size:15px">Take two or three answers in English. No wrong answers yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · HOW A BITE MAPS A FAULT (widget: decoder) -->
+  <section class="slide" data-notes="TIMING 0:11–0:16 (5 min). Teach the fixed logic that the whole unit rests on. The first digits of the code are the ATA chapter, which names the system; the fault message then names the LRU. Because the same code always maps to the same meaning, English uses the zero conditional. Drive the decoder widget from the front: press each code button and read the animated chain aloud — code → ATA chapter → system → LRU. Say the zero-conditional sentence each time: 'If the code starts with 34, the system is navigation.' Do 34, then 22, then 27, then the extra 23 (communications) so they hear a fourth chapter. Invite one learner to predict the system before you press the button. This widget is student-driven — hand the keyboard/mouse over if a learner is confident.">
+    <div class="kick">§1 · how a BITE maps a fault — fixed logic</div>
+    <h2>Code → ATA chapter → system → LRU</h2>
+    <div class="cols">
+      <div>
+        <p>The first digits are the <b class="hl">ATA chapter</b>. They name the <b>system</b>. The fault message then names the <b>LRU</b> — the line replaceable unit you can change on the line.</p>
+        <p class="big">Same code, same meaning — always. That is why we say it with <b>if + present</b>.</p>
+        <p class="muted" style="font-size:16px">Press a code. Read the chain aloud with the class.</p>
+      </div>
+      <div class="dw wk-holder"><div data-widget="decoder"></div></div>
+    </div>
+  </section>
+
+  <!-- 5 · LISTENING D1 -->
+  <section class="slide" data-notes="TIMING 0:16–0:21 (5 min). First listening. Play Dialogue 1 from the unit page (track 1) TWICE before the transcript is shown. First pass: learners just follow how the two technicians read the code. Second pass: they catch the zero-conditional lines and the specialist words. Then reveal the key lines on this slide and check comprehension with quick questions: What is the code? (34-12-34) Which system? (navigation) Which LRU? (ADIRU 1) Is the fault confirmed? (yes — self-test repeats it, CMC lists it three times). Drill one zero-conditional line chorally: 'If the code starts with 34, the system is navigation.' Keep the pace up — the other two dialogues are coming.">
+    <div class="kick">§2 · listening · Dialogue 1</div>
+    <h2>Read the code, name the LRU <span class="tag">NAV · 34-12-34</span></h2>
+    <div class="audio-cue">▶ AUDIO — play track 1 from the unit page, twice, before you reveal the lines</div>
+    <div class="dlg" style="margin-top:14px">
+      <div class="turn"><span class="who">A</span><span class="said">If the code starts with <span class="code">34</span>, the system is <span class="hl">navigation</span>, because 34 is the ATA chapter.</span></div>
+      <div class="turn b"><span class="who">B</span><span class="said">If the BITE names <span class="code">ADIRU 1</span>, the affected LRU is the number one air data unit.</span></div>
+      <div class="turn"><span class="who">A</span><span class="said">The self-test still shows the identical code, so the fault is genuine.</span></div>
+      <div class="turn b"><span class="who">B</span><span class="said">If the CMC repeats the code, the fault is confirmed, and the LRU becomes suspect.</span></div>
+    </div>
+    <p class="muted" style="font-size:16px">Check: code? system? LRU? confirmed or not — and how do we know?</p>
+  </section>
+
+  <!-- 6 · LISTENING D2 -->
+  <section class="slide" data-notes="TIMING 0:21–0:26 (5 min). Second listening — the harder case: an intermittent fault. Play track 2 twice. The key idea: the ground test runs clean (no fault found) yet the fault is real because it appeared in flight and the CMC lists it on three flights. Teach the word 'intermittent' here (comes and goes). Comprehension check: code? (22-83) system? (autoflight) LRU? (FMGC 2) why is it hard? (it hides on the ground). Ask: do we clear it or keep it open? (keep it open — inspect the connector, fit a serviceable FMGC 2, and monitor). This sets up role-play card 2 and the disagreement task later.">
+    <div class="kick">§2 · listening · Dialogue 2</div>
+    <h2>An intermittent autoflight fault <span class="tag">A/FLT · 22-83</span></h2>
+    <div class="audio-cue">▶ AUDIO — play track 2 twice; the trap is the clean ground test</div>
+    <div class="dlg" style="margin-top:14px">
+      <div class="turn"><span class="who">A</span><span class="said">The fault code is <span class="code">22-83</span>, so the system is <span class="hl">autoflight</span> and the suspect LRU is FMGC 2.</span></div>
+      <div class="turn b"><span class="who">B</span><span class="said">Unfortunately the ground test runs clean, and the readout says <span class="gd">no fault found</span>.</span></div>
+      <div class="turn"><span class="who">A</span><span class="said">So the fault is clearly <span class="hl">intermittent</span>, because it appears in flight but hides on the ground.</span></div>
+      <div class="turn b"><span class="who">B</span><span class="said">If the fault is intermittent, the CMC history still helps — it shows it on three flights.</span></div>
+    </div>
+    <p class="muted" style="font-size:16px">Check: why is a clean ground test <b>not</b> proof the unit is good?</p>
+  </section>
+
+  <!-- 7 · LISTENING D3 + bonus -->
+  <section class="slide" data-notes="TIMING 0:26–0:30 (4 min). Third listening and the bonus voicemail. Play track 3 (flight controls, ELAC 1, class 2, code 27-93). Here a reset does NOT clear the code and the connector is clean — so the computer itself is the root cause and ELAC 1 is not serviceable; it goes to the bench for a ground test. Then, if time allows, play track 4 — the maintenance-control voicemail — as a gist task: learners note the aircraft registration (Yankee Lima Alpha Bravo Charlie), the code (34-12) and the one instruction (do not sign it clear yet). This trains listening for spoken figures and letters, which the quiz will test. Move on promptly to vocabulary.">
+    <div class="kick">§2 · listening · Dialogue 3 + bonus</div>
+    <h2>A flight-controls code — agree the action <span class="tag">F/CTL · 27-93</span></h2>
+    <div class="cols">
+      <div class="dlg">
+        <div class="turn"><span class="who">A</span><span class="said">If the code starts with <span class="code">27</span>, the system is <span class="hl">flight controls</span>; the message names ELAC 1.</span></div>
+        <div class="turn b"><span class="who">B</span><span class="said">If the reset does not clear the code, we isolate ELAC 1 and inspect its connector.</span></div>
+        <div class="turn"><span class="who">A</span><span class="said">The connector looks clean and tight, so the wiring is probably not responsible.</span></div>
+        <div class="turn b"><span class="who">B</span><span class="said">So the computer itself is the root cause, and ELAC 1 is not <span class="gd">serviceable</span> now.</span></div>
+      </div>
+      <div class="card">
+        <h3>Bonus — track 4 voicemail</h3>
+        <p>Gist listening. Note down:</p>
+        <p>· the aircraft registration (phonetic letters)</p>
+        <p>· the fault code and system</p>
+        <p>· the one clear instruction for the night shift</p>
+        <p class="muted" style="font-size:15px">Answers surface in the quiz — spoken numbers and letters count as listening.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · VOCABULARY BANK -->
+  <section class="slide" data-notes="TIMING 0:30–0:37 (7 min). Move to the vocabulary bank — 20 avionics-BITE terms on the unit page, each with a plain gloss, a level example, and a collocation. Do NOT read all twenty aloud. Instead, elicit: show the term, ask a learner for the plain meaning, then give the collocation because that is how the word is really used ('read the BITE', 'the suspect LRU', 'run a ground test'). Focus on the eight or nine that carry the dialogues: BITE, self-test, fault code, readout, LRU, CMC, isolate, intermittent, serviceable. Teach the collocations as chunks — this is where B2 density lives. The next slide is a fast recall game.">
+    <div class="kick">§3 · vocabulary bank — avionics BITE</div>
+    <h2>Twenty terms — learn the collocation, not just the word</h2>
+    <div class="cols3">
+      <div class="card"><h3>Read the machine</h3><p style="font-size:16px"><b>BITE</b> · self-test · fault code · readout · fault message · maintenance message</p><p class="muted" style="font-size:14px">read the BITE · run a self-test · a BITE readout</p></div>
+      <div class="card"><h3>Name the target</h3><p style="font-size:16px"><b>LRU</b> · system · ATA chapter · CMC · ECAM</p><p class="muted" style="font-size:14px">the suspect LRU · the affected system · open the CMC</p></div>
+      <div class="card"><h3>Decide the action</h3><p style="font-size:16px"><b>isolate</b> · confirm · reset · connector · intermittent · ground test · fault isolation · no fault found · serviceable</p><p class="muted" style="font-size:14px">isolate the fault · confirm the fault · a serviceable unit</p></div>
+    </div>
+    <p class="muted" style="font-size:16px">Elicit meaning → give the collocation as a fixed chunk. Nine terms carry the whole unit.</p>
+  </section>
+
+  <!-- 9 · VOCAB GAME -->
+  <section class="slide" data-center data-notes="TIMING 0:37–0:42 (5 min). Fast recall game — 'Say the chunk'. Read a plain meaning; the first pair to call the correct term AND its collocation wins the point. Examples on screen. Then flip it: give the collocation, they give the meaning. Keep it brisk and loud — this is spoken retrieval before the grammar. If the class is strong, add a 'use it in an if-sentence' bonus: they must put the term inside a zero conditional ('if the ground test repeats the code, we confirm the fault'). This is a bridge straight into the grammar section.">
+    <div class="kick">§3 · activation game</div>
+    <h2>Say the chunk</h2>
+    <div class="card" style="max-width:760px">
+      <p class="big">Meaning → term → collocation. Fastest pair scores.</p>
+      <table class="gt">
+        <tr><th>You say (meaning)</th><th>They say (term + collocation)</th></tr>
+        <tr><td>a box you change quickly on the line</td><td>LRU — "the suspect LRU"</td></tr>
+        <tr><td>a fault that comes and goes</td><td>intermittent — "an intermittent fault"</td></tr>
+        <tr><td>fit to use and legal to fly</td><td>serviceable — "a serviceable unit"</td></tr>
+        <tr><td>the test finds nothing wrong now</td><td>no fault found — "the readout says no fault found"</td></tr>
+      </table>
+      <p class="muted" style="font-size:15px">Bonus round: put the term inside an <b>if</b>-sentence.</p>
+    </div>
+  </section>
+
+  <!-- 10 · GRAMMAR: zero conditional (widget: decide) -->
+  <section class="slide" data-notes="TIMING 0:42–0:50 (8 min). Core grammar: the zero conditional for fixed system logic — if + present, + present. It states a rule that is always true, so both clauses are present tense; never 'will' in the if-clause. Show the three model lines, then drive the decision widget. The widget lets you set three real conditions (self-test, CMC history, connector) and watch the needle swing to the follow-up action — each state is spoken as a zero-conditional sentence printed under the gauge. Set connector to LOOSE first: 'If the connector is loose, we reset the unit before we remove anything.' Then clean connector + self-test repeats + CMC repeats: CONFIRM & ISOLATE. Then self-test clean + CMC repeats: INTERMITTENT — monitor. Read every result aloud in if + present. Also note the same present-tense rule holds after when, as soon as, unless.">
+    <div class="kick">§4 · grammar — the zero conditional</div>
+    <h2>If + present, + present — a rule that is always true</h2>
+    <div class="cols">
+      <div>
+        <p class="code" style="font-size:18px">If the code <b class="hl">starts</b> with 34, the system <b class="hl">is</b> navigation.</p>
+        <p class="code" style="font-size:18px">If the self-test <b class="hl">passes</b>, the readout <b class="hl">shows</b> no fault found.</p>
+        <p>Both parts are present tense. <b>Never</b> <span class="bd">will</span> in the if-clause. The same rule holds after <i>when</i>, <i>as soon as</i>, and <i>unless</i>.</p>
+        <p class="muted" style="font-size:16px">Set the conditions → read the result aloud as an <b>if</b>-sentence.</p>
+      </div>
+      <div class="dw wk-holder"><div data-widget="decide"></div></div>
+    </div>
+  </section>
+
+  <!-- 11 · GRAMMAR: interference errors (widget: tester) -->
+  <section class="slide" data-notes="TIMING 0:50–0:56 (6 min). Target the three interference errors from Latvian and Russian. (1) 'will' in the if-clause — both languages use a future form there, so learners say 'if the BITE will show 34'. (2) dropped third-person -s — neither language marks the verb this way, so 'if the self-test show a fault'. (3) dropped articles — neither language has articles, so 'if BITE shows fault code'. Drive the sentence-tester widget: it has three switches, one per error. Start fully wrong and read the broken sentence aloud so the class hears why it grates; then flip each switch to correct and watch the meter climb to 3/3. Have learners flip the switches and self-correct. Keep recasting gently — model the right form, do not lecture the rule.">
+    <div class="kick">§4 · grammar — fix the three interference errors</div>
+    <h2>Latvian &amp; Russian speakers: watch these three</h2>
+    <div class="cols">
+      <div>
+        <table class="gt">
+          <tr><th>Error</th><th class="bd">✗</th><th class="gd">✓</th></tr>
+          <tr><td><i>will</i> in the if-clause</td><td class="bd">if the BITE will show</td><td class="gd">if the BITE shows</td></tr>
+          <tr><td>dropped <i>-s</i></td><td class="bd">if the self-test show</td><td class="gd">if the self-test shows</td></tr>
+          <tr><td>dropped articles</td><td class="bd">if BITE shows fault code</td><td class="gd">if the BITE shows a fault code</td></tr>
+        </table>
+        <p class="muted" style="font-size:16px">Flip each switch. Read the sentence aloud each time.</p>
+      </div>
+      <div class="dw wk-holder"><div data-widget="tester"></div></div>
+    </div>
+  </section>
+
+  <!-- 12 · EXERCISES E1-E4 -->
+  <section class="slide" data-notes="TIMING 0:56–0:63 (7 min). Move to the exercises on the unit page. Learners work the gap-fills and grammar items, press Check, and only open Answers after an honest try. Manage E1–E4 here: E1 gap-fill with the term bank; E2 term↔meaning matching; E3 dialogue completion (flight-deck talk); E4 the zero-conditional transformation (put the verb in the present). Circulate. The two errors to catch by ear are the missing -s and the stray 'will'. Set a firm time box — do not let the fast finishers stall; they can start E5 reading early. Full model answers with a one-line why sit in the solutions file for you.">
+    <div class="kick">§5 · exercises · E1–E4</div>
+    <h2>Terms, matching, dialogue, and the verb form</h2>
+    <div class="rowcards">
+      <div class="card"><h3>E1 · Gap-fill</h3><p style="font-size:16px">Put the right term in the gap — ten sentences, term bank on screen.</p></div>
+      <div class="card"><h3>E2 · Matching</h3><p style="font-size:16px">Match seven terms to their plain meaning.</p></div>
+      <div class="card"><h3>E3 · Dialogue completion</h3><p style="font-size:16px">Complete the flight-deck talk with one term per gap.</p></div>
+      <div class="card"><h3>E4 · Grammar transformation</h3><p style="font-size:16px">Zero conditional — put the verb in brackets in the present tense.</p></div>
+    </div>
+    <p class="muted" style="font-size:16px">Check by ear: the dropped <b>-s</b> and the stray <b>will</b>. Time box it.</p>
+  </section>
+
+  <!-- 13 · EXERCISES E5-E8 -->
+  <section class="slide" data-notes="TIMING 0:63–0:70 (7 min). The reading and listening-review exercises. E5 is an authentic CMC post-flight report (navigation, ADIRU 1) with six short-answer questions; E7 is a Trouble Shooting Manual task for code 22-83 (FMGC 2) — both are real maintenance-documentation genres, which is a teacher request for this course. E6 is error-spotting: eight lines with the three target errors to fix. E8 is a listening review on Dialogue 3 — play track 3 once more first. Point out the document conventions in the reading texts (doc head, ATA reference, present-tense zero conditionals) so learners can read a real AMM/TSM page, not just a lesson text.">
+    <div class="kick">§5 · exercises · E5–E8</div>
+    <h2>Read real documents, spot errors, review the audio</h2>
+    <div class="rowcards">
+      <div class="card"><h3>E5 · Reading 1 — CMC report</h3><p style="font-size:16px">A post-flight report (NAV / ADIRU 1). Six short answers.</p></div>
+      <div class="card"><h3>E6 · Error-spotting</h3><p style="font-size:16px">Eight lines: fix <i>will</i>, the missing <i>-s</i>, and the articles.</p></div>
+      <div class="card"><h3>E7 · Reading 2 — TSM task</h3><p style="font-size:16px">Trouble Shooting Manual, code 22-83 (FMGC 2). Six answers.</p></div>
+      <div class="card"><h3>E8 · Listening review</h3><p style="font-size:16px">Replay Dialogue 3, then eight questions on 27-93 / ELAC 1.</p></div>
+    </div>
+    <div class="audio-cue" style="margin-top:12px">▶ AUDIO — replay track 3 before E8</div>
+  </section>
+
+  <!-- 14 · SPEAKING role-play cards -->
+  <section class="slide" data-notes="TIMING 0:70–0:84 (14 min — the biggest block). Pair speaking with the four role-play cards from the unit page. Model the language once with a strong pair or with the AI partner on screen, then set the pairs going and rotate roles after each card. Card 1: read the navigation code and agree to test ADIRU 1 first. Card 2: confirm-or-clear the intermittent 22-83. Card 3: decide which LRU first for 27-93. Card 4: DISAGREE politely on the follow-up when the ground test is clean — this is the stretch card for interaction and turn-taking. Insist on the zero conditional and the specialist chunks. Circulate with the B2 speaking rubric in the key file (range, accuracy, fluency, interaction, coherence) and jot two named examples of good use and one recast to feed back at the end.">
+    <div class="kick">§6 · speaking — read the readout with a colleague</div>
+    <h2>Four role-play cards · rotate roles</h2>
+    <div class="rowcards">
+      <div class="rp"><h4>Card 1 — Read the navigation code</h4><p style="font-size:15px;margin:2px 0">34-12-34 · ADIRU 1. Name the system and LRU; agree to test ADIRU 1 first.</p><div class="phr"><span>If the code starts with 34, the system is navigation.</span><span>The readout names ADIRU 1.</span></div></div>
+      <div class="rp"><h4>Card 2 — Confirm or clear?</h4><p style="font-size:15px;margin:2px 0">22-83 · FMGC 2. Run a ground test, read the CMC, decide.</p><div class="phr"><span>If the ground test repeats the code, we confirm the fault.</span><span>Do we confirm or clear it?</span></div></div>
+      <div class="rp"><h4>Card 3 — Which LRU first?</h4><p style="font-size:15px;margin:2px 0">27-93 · ELAC 1. Self-test, reset, check the connector, isolate ELAC 1.</p><div class="phr"><span>If the reset does not clear it, we isolate ELAC 1.</span><span>The connector looks clean.</span></div></div>
+      <div class="rp"><h4>Card 4 — Disagree on the follow-up</h4><p style="font-size:15px;margin:2px 0">Ground test clean, colleague wants to swap the LRU now. Disagree, give reasons.</p><div class="phr"><span>I see your point, but&hellip;</span><span>If the fault is intermittent, we check the connector first.</span></div></div>
+    </div>
+  </section>
+
+  <!-- 15 · AI PARTNER -->
+  <section class="slide" data-notes="TIMING runs inside the speaking block. Show the AI conversation partner on the unit page for pairs who finish early or for a learner without a partner. It is set to the Consultant stage: it plays a colleague on the flight deck, speaks only at B2 in short sentences with the unit's terms, keeps replies to two or three sentences, asks one question each turn, and gently recasts errors — especially the zero conditional. Read the copy-in prompt aloud once. Remind learners the partner will NOT write their tech-log entry — it will only prompt them with a guiding question, because the writing must be their own. Keep it as a support, not the main event: human pairs first.">
+    <div class="kick">§6 · AI conversation partner (Consultant stage)</div>
+    <h2>A colleague who recasts your English</h2>
+    <div class="cols">
+      <div>
+        <p>On the unit page, the chat partner plays your colleague on the flight deck. It speaks only at B2, keeps replies short, asks one question each turn, and gently recasts errors — watching your <b>if</b>-clauses.</p>
+        <p class="muted" style="font-size:16px">Use it for early finishers or a learner without a partner.</p>
+      </div>
+      <div class="card">
+        <h3>What it will and won't do</h3>
+        <p style="font-size:16px">✓ Play the colleague and push you to justify each step.</p>
+        <p style="font-size:16px">✓ Recast "if the code will start" → "if the code starts".</p>
+        <p style="font-size:16px">✗ It will not write your tech-log entry — it only asks a guiding question.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · WRITING -->
+  <section class="slide" data-notes="TIMING 0:84–0:88 (4 min) — set the brief; most writing is homework. The task: an 80–110 word tech-log entry for the BITE fault, in Simplified Technical English (ASD-STE100). Teach the STE habits explicitly because it is a course requirement: one idea per sentence, short sentences under twenty words, approved plain words, present tense in every if-clause with no 'will'. Show the four self-check questions. The annotated model answer is in the solutions file — do not project it before they draft. If a few minutes remain, have them write the first two lines (fault code + zero-conditional meaning; fault message + suspect LRU) in class so they start with momentum, then finish for homework.">
+    <div class="kick">§7 · writing — a BITE fault-isolation log entry</div>
+    <h2>Write it in Simplified Technical English</h2>
+    <div class="cols">
+      <div>
+        <p class="big">80–110 words. Give the fault code, the system, the suspect LRU, and the tests you ran. State the follow-up action.</p>
+        <p class="muted" style="font-size:16px">Draft the first two lines now; finish for homework.</p>
+      </div>
+      <div class="card">
+        <h3>STE self-check</h3>
+        <p style="font-size:16px">· One idea per sentence, under twenty words.</p>
+        <p style="font-size:16px">· Approved, plain words.</p>
+        <p style="font-size:16px">· Present tense in every <b>if</b>-clause — no <i>will</i>.</p>
+        <p style="font-size:16px">· State the follow-up action clearly, with <b>if</b> for the ground test.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · WRAP-UP -->
+  <section class="slide" data-center data-notes="TIMING 0:88–0:90 (2 min). Close the loop. Quick exit ticket: each learner says one zero-conditional sentence that maps a code to a system or an action ('if the reset does not clear it, we isolate the unit'). Recap the three outcomes and confirm they were met. Give homework: finish the tech-log entry and take the formative quiz on the unit page — it covers listening (including spoken numbers), reading, use of English on the zero conditional and the bank, and vocabulary matching. Preview the next unit briefly. Thank the room and remind them the captions and AI partner are always available on the page for self-study.">
+    <div class="kick">§8 · wrap-up</div>
+    <h2>Exit ticket — one <i>if</i>-sentence each</h2>
+    <p class="big">"If the reset does not clear it, we isolate the unit." — your turn.</p>
+    <div class="card" style="max-width:720px;margin-top:10px">
+      <p style="font-size:17px">✓ Read a code and explain it &nbsp;·&nbsp; ✓ Relate it to system &amp; LRU &nbsp;·&nbsp; ✓ Decide the follow-up</p>
+      <p class="muted" style="font-size:16px">Homework: finish the tech-log entry · take the formative quiz (listening · reading · use of English · vocabulary).</p>
+    </div>
+    <p class="pill" style="margin-top:14px">Captions (L) and the AI colleague stay open on the unit page for self-study.</p>
+  </section>
+
+</div>
+
+<!-- ===================== INTERACTIVE WIDGETS ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+
+  /* ---- W1: ATA CODE DECODER (canvas + rAF) ---- */
+  window.DeckW.decoder = function(el){
+    el.innerHTML =
+      '<div class="wk"><div class="bar"><span class="note" style="font-weight:700;color:#9db0c6">FAULT CODE</span>'+
+      '<button data-c="0" class="prim">34-12-34</button><button data-c="1">22-83</button>'+
+      '<button data-c="2">27-93</button><button data-c="3">23-41</button></div>'+
+      '<canvas width="700" height="210"></canvas>'+
+      '<div class="info" data-why></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),why=el.querySelector('[data-why]');
+    var btns=[].slice.call(el.querySelectorAll('[data-c]'));
+    var DATA=[
+      {code:"34-12-34",ata:"34",sys:"NAVIGATION",lru:"ADIRU 1",gloss:"If the code starts with 34, the system is navigation. The message names ADIRU 1 — the number one air data unit."},
+      {code:"22-83",ata:"22",sys:"AUTOFLIGHT",lru:"FMGC 2",gloss:"If the code starts with 22, the system is autoflight. The message names FMGC 2 — the number two flight management computer."},
+      {code:"27-93",ata:"27",sys:"FLIGHT CONTROLS",lru:"ELAC 1",gloss:"If the code starts with 27, the system is flight controls. The message names ELAC 1 — the number one flight-control computer."},
+      {code:"23-41",ata:"23",sys:"COMMUNICATIONS",lru:"VHF 1",gloss:"If the code starts with 23, the system is communications. The message names VHF 1 — the number one radio. (An extra ATA chapter to hear.)"}
+    ];
+    var cur=0,prog=0,raf=null;
+    var stops=[["CODE",""],["ATA CHAPTER",""],["SYSTEM",""],["LRU",""]];
+    function draw(){
+      var W=cv.width,H=cv.height,d=DATA[cur];
+      stops[0][1]=d.code;stops[1][1]="ATA "+d.ata;stops[2][1]=d.sys;stops[3][1]=d.lru;
+      ctx.clearRect(0,0,W,H);
+      var n=4,gap=W/n,cw=gap-26,cy=H/2-8,ch=64;
+      // arrows
+      ctx.strokeStyle="#2a3b52";ctx.lineWidth=3;
+      for(var i=0;i<n-1;i++){var x1=(i+1)*gap-13,x2=(i+1)*gap+13;ctx.beginPath();ctx.moveTo(x1,cy);ctx.lineTo(x2,cy);ctx.stroke();
+        ctx.beginPath();ctx.moveTo(x2-8,cy-5);ctx.lineTo(x2,cy);ctx.lineTo(x2-8,cy+5);ctx.stroke();}
+      var lit=prog*n;
+      var cols=["#38b6ff","#7fd0ff","#fbbf24","#34d399"];
+      for(var i=0;i<n;i++){
+        var cx=i*gap+gap/2,on=lit>=i+0.85,part=clamp(lit-i,0,1);
+        ctx.fillStyle=on?"#101c2e":"#0c1420";
+        ctx.strokeStyle=on?cols[i]:"#233246";ctx.lineWidth=on?2.4:1.4;
+        roundRect(ctx,cx-cw/2,cy-ch/2,cw,ch,12);ctx.fill();ctx.stroke();
+        ctx.globalAlpha=0.3+0.7*part;
+        ctx.fillStyle="#7e98ad";ctx.font="11px ui-monospace,monospace";ctx.textAlign="center";
+        ctx.fillText(stops[i][0],cx,cy-ch/2-9);
+        ctx.fillStyle=on?"#e9f0f7":"#5b6b86";ctx.font="700 "+(i===0?"20":"16")+"px ui-monospace,monospace";
+        wrapText(ctx,stops[i][1],cx,cy+5,cw-8,17);
+        ctx.globalAlpha=1;
+      }
+      // moving pulse
+      if(prog<1){var px=prog*W;ctx.fillStyle="#fbbf24";ctx.beginPath();ctx.arc(clamp(px,6,W-6),cy,4,0,7);ctx.fill();}
+    }
+    function roundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+    function wrapText(c,t,x,y,maxw,lh){var words=String(t).split(' '),line='',lines=[];for(var i=0;i<words.length;i++){var test=line?line+' '+words[i]:words[i];if(c.measureText(test).width>maxw&&line){lines.push(line);line=words[i];}else line=test;}lines.push(line);var oy=y-(lines.length-1)*lh/2;lines.forEach(function(l,k){c.fillText(l,x,oy+k*lh);});}
+    function anim(){prog+=0.035;if(prog>=1){prog=1;draw();raf=null;return;}draw();raf=requestAnimationFrame(anim);}
+    function select(i){cur=i;prog=0;why.innerHTML="<h4>"+DATA[i].code+" &rarr; "+DATA[i].sys+"</h4>"+DATA[i].gloss;
+      btns.forEach(function(b,k){b.classList.toggle('prim',k===i);});
+      if(raf)cancelAnimationFrame(raf);raf=requestAnimationFrame(anim);}
+    btns.forEach(function(b,i){b.addEventListener('click',function(){select(i);});});
+    select(0);
+  };
+
+  /* ---- W2: FAULT-DECISION GAUGE (canvas + rAF) ---- */
+  window.DeckW.decide = function(el){
+    el.innerHTML=
+      '<div class="wk">'+
+      '<span class="flab">Self-test result</span>'+
+      '<span class="grp"><button data-k="st" data-v="1" class="on">repeats the code</button><button data-k="st" data-v="0">no fault found</button></span>'+
+      '<span class="flab">CMC history</span>'+
+      '<span class="grp"><button data-k="cmc" data-v="1" class="on">shows it on 3 flights</button><button data-k="cmc" data-v="0">clean</button></span>'+
+      '<span class="flab">Connector</span>'+
+      '<span class="grp"><button data-k="con" data-v="0" class="on">clean &amp; tight</button><button data-k="con" data-v="1">loose</button></span>'+
+      '<canvas width="700" height="150" style="margin-top:10px"></canvas>'+
+      '<div class="info" data-why></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),why=el.querySelector('[data-why]');
+    var st={st:1,cmc:1,con:0};
+    var OUT=[
+      {a:0.14,lab:"RESET FIRST",col:"#a78bfa",s:"If the connector is loose, we reset the unit before we remove anything, and we run the self-test again."},
+      {a:0.34,lab:"NO FAULT FOUND — CLEAR",col:"#34d399",s:"If the self-test passes and the CMC is clean, the readout shows no fault found, so we clear the message."},
+      {a:0.60,lab:"INTERMITTENT — MONITOR",col:"#fbbf24",s:"If the ground test is clean but the CMC repeats the code, the fault is intermittent. We fit a serviceable unit and monitor it."},
+      {a:0.86,lab:"CONFIRM & ISOLATE",col:"#ff5667",s:"If the self-test repeats the code and the CMC repeats it, the fault is confirmed. We isolate the LRU and run a ground test."}
+    ];
+    var target=3,disp=0.86,curOut=3;
+    function decide(){
+      if(st.con===1) return 0;                 // loose connector -> reset first
+      if(st.st===1 && st.cmc===1) return 3;    // confirmed
+      if(st.st===0 && st.cmc===1) return 2;    // intermittent
+      return 1;                                // clean/clean -> no fault found
+    }
+    function setOut(){curOut=decide();target=OUT[curOut].a;why.innerHTML="<h4>"+OUT[curOut].lab+"</h4>"+OUT[curOut].s;}
+    function draw(){
+      var W=cv.width,H=cv.height,cx=W/2,cy=H-16,R=104;
+      ctx.clearRect(0,0,W,H);
+      // arc track
+      ctx.lineWidth=16;ctx.lineCap="round";
+      for(var i=0;i<OUT.length;i++){
+        var a0=Math.PI+ (i/OUT.length)*Math.PI, a1=Math.PI+((i+1)/OUT.length)*Math.PI;
+        ctx.strokeStyle=OUT[i].col+"55";ctx.beginPath();ctx.arc(cx,cy,R,a0+0.02,a1-0.02);ctx.stroke();
+        var am=Math.PI+((i+0.5)/OUT.length)*Math.PI;
+        ctx.fillStyle=(i===curOut)?OUT[i].col:"#6f8299";ctx.font=(i===curOut?"700 ":"")+"11px ui-monospace,monospace";ctx.textAlign="center";
+        var lx=cx+Math.cos(am)*(R+26),ly=cy+Math.sin(am)*(R+26);
+        ctx.fillText(OUT[i].lab.split(" ")[0],lx,ly);
+      }
+      // needle
+      var ang=Math.PI+disp*Math.PI;
+      var nx=cx+Math.cos(ang)*(R-6),ny=cy+Math.sin(ang)*(R-6);
+      ctx.strokeStyle=OUT[curOut].col;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(nx,ny);ctx.stroke();
+      ctx.fillStyle="#e9f0f7";ctx.beginPath();ctx.arc(cx,cy,7,0,7);ctx.fill();
+      ctx.fillStyle=OUT[curOut].col;ctx.font="700 15px ui-monospace,monospace";ctx.fillText(OUT[curOut].lab,cx,cy-R-6);
+    }
+    function tick(){var d=target-disp;if(Math.abs(d)>0.002)disp+=d*0.16;else disp=target;draw();requestAnimationFrame(tick);}
+    el.querySelectorAll('[data-k]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var k=b.getAttribute('data-k');st[k]=+b.getAttribute('data-v');
+        el.querySelectorAll('[data-k="'+k+'"]').forEach(function(x){x.classList.toggle('on',x===b);});
+        setOut();
+      });
+    });
+    setOut();requestAnimationFrame(tick);
+  };
+
+  /* ---- W3: ZERO-CONDITIONAL SENTENCE TESTER (canvas meter + rAF) ---- */
+  window.DeckW.tester = function(el){
+    el.innerHTML=
+      '<div class="wk">'+
+      '<span class="flab">1 · if-clause verb</span>'+
+      '<span class="grp"><button data-k="w" data-v="0" class="on">the BITE shows</button><button data-k="w" data-v="1">the BITE will show</button></span>'+
+      '<span class="flab">2 · third-person -s</span>'+
+      '<span class="grp"><button data-k="s" data-v="0" class="on">the self-test shows</button><button data-k="s" data-v="1">the self-test show</button></span>'+
+      '<span class="flab">3 · articles</span>'+
+      '<span class="grp"><button data-k="a" data-v="0" class="on">a fault code</button><button data-k="a" data-v="1">fault code</button></span>'+
+      '<div style="margin-top:12px;font-size:17px;line-height:1.5" data-sent></div>'+
+      '<canvas width="700" height="46" style="margin-top:8px"></canvas>'+
+      '<div class="info" data-why></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),sent=el.querySelector('[data-sent]'),why=el.querySelector('[data-why]');
+    var st={w:0,s:0,a:0};
+    var disp=0,target=1;
+    function build(){
+      var v1=st.w===0?"<span class='gd'>shows</span>":"<span class='bd'>will show</span>";
+      // sentence: "If the BITE [shows/will show] a fault code, the self-test [shows/show] the same code."
+      var art=st.a===0?"<span class='gd'>a</span> fault code":"<span class='bd'>—</span> fault code";
+      var v2=st.s===0?"<span class='gd'>shows</span>":"<span class='bd'>show</span>";
+      sent.innerHTML="If the BITE "+v1+" "+art+", the self-test "+v2+" the same code.";
+      var score=(st.w===0?1:0)+(st.s===0?1:0)+(st.a===0?1:0);
+      target=score/3;
+      var msgs=[];
+      if(st.w===1)msgs.push("Use the present tense in the if-clause, never <i>will</i>.");
+      if(st.s===1)msgs.push("Add <i>-s</i> for it: the self-test <b>shows</b>.");
+      if(st.a===1)msgs.push("English needs the article: <b>a</b> fault code.");
+      why.innerHTML="<h4>"+score+" / 3 correct</h4>"+(msgs.length?msgs.join(" "):"Perfect zero conditional — both clauses present tense, -s added, articles in place.");
+    }
+    function draw(){
+      var W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+      ctx.fillStyle="#0c1420";roundRect(ctx,0,H/2-9,W,18,9);ctx.fill();
+      var col=target>=1?"#34d399":target>=0.66?"#fbbf24":"#ff5667";
+      ctx.fillStyle=col;roundRect(ctx,0,H/2-9,W*disp,18,9);ctx.fill();
+      ctx.fillStyle="#0a0f18";ctx.font="700 12px ui-monospace,monospace";ctx.textAlign="left";
+      ctx.fillText(Math.round(disp*3)+" / 3",8,H/2+4);
+    }
+    function roundRect(c,x,y,w,h,r){if(w<2*r)r=w/2;c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+    function tick(){var d=target-disp;if(Math.abs(d)>0.004)disp+=d*0.2;else disp=target;draw();requestAnimationFrame(tick);}
+    el.querySelectorAll('[data-k]').forEach(function(b){
+      b.addEventListener('click',function(){var k=b.getAttribute('data-k');st[k]=+b.getAttribute('data-v');
+        el.querySelectorAll('[data-k="'+k+'"]').forEach(function(x){x.classList.toggle('on',x===b);});build();});
+    });
+    build();requestAnimationFrame(tick);
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u10_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u10_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 10</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:24px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">&lsaquo; Prev</button><button onclick="post(1)">Next &rsaquo;</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u10_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("\\u25B6 Next: "+(s.titles[i+1]||"")):"\\u2014 end of deck \\u2014";}',
+'function post(d){localStorage.setItem("u10_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u10_deck_state")render();});',
+'render();setInterval(render,700);',
+'<\/scr'+'ipt></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u10_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,80); }
+window.addEventListener('DOMContentLoaded',init);
+if(document.readyState!=='loading') init();
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — the teacher's speech becomes a live translated
+     subtitle. Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC or "L".
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}.lct-row-top{opacity:1}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="it-IT">Italiano</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capTopAtB=0;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctEndIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capTopAtB=0; lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capTopAtB=0; lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capTopAtB=0; lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<script>(function(){try{
+  var KEY='tsiCapScale', root=document.documentElement;
+  function apply(v){ root.style.setProperty('--cap-scale', v); }
+  var saved=parseFloat(localStorage.getItem(KEY))||1; saved=Math.max(0.6,Math.min(1.9,saved)); apply(saved);
+  var st=document.createElement('style'); st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}.cap-fs-slider::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:#FFD24D;cursor:pointer}'; document.head.appendChild(st);
+  function mount(){ var lb=document.getElementById('lctLangBar'); if(!lb||lb.querySelector('.cap-fs-slider')) return;
+    var w=document.createElement('span'); w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w); var sl=w.querySelector('.cap-fs-slider'); sl.value=saved;
+    var stop=function(e){ e.stopPropagation(); };
+    sl.addEventListener('input',function(){ var v=parseFloat(sl.value)||1; apply(v); try{ localStorage.setItem(KEY,v); }catch(e){} });
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){ sl.addEventListener(ev,stop); });
+  }
+  if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>
