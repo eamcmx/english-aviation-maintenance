@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 25 — Teacher Deck · Reporting a near-miss or hangar incident</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.16em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:40px;margin:.2em 0;line-height:1.12}
+h2{font-size:30px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul,ol{margin:.2em 0}
+small{font-size:14px;color:var(--muted)}
+.tag{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.good{color:var(--good)}.hot{color:var(--hot)}.amb{color:var(--amber)}
+.wrong{color:#ff9aa2}.right{color:#9af0c8}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.dlg{background:#0c1622;border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:18px;line-height:1.55}
+.dlg b{color:var(--accent)}.dlg .b{color:var(--amber)}
+/* deck widget skin */
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px;width:100%;max-width:680px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:8px 14px;cursor:pointer;font-size:15px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:6px 9px;font-size:15px}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:54px;font-size:15px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="Timing 0–3 min. Open the class. This is a 90-minute B2 lesson for aircraft mechanics and avionics technicians. The one job today: report a dropped-tool near-miss to the safety officer with a factual timeline and one preventive suggestion. Say the three can-do outcomes out loud and write the headline scenario on the board. Tell the room the golden rule of the lesson early: we separate what we SAW (observation) from what we THINK (opinion), we tell the story in order, and we never blame a person. Point out the caption button (CC, bottom-right, or key L) — it live-translates the teacher's speech into Latvian or Russian for anyone who needs it.">
+    <div class="kick">English for Aviation Maintenance · Unit 25 · CEFR B2 · 90 minutes</div>
+    <h1>Reporting a near-miss or hangar incident</h1>
+    <p class="big muted">Report a dropped-tool near-miss to the safety officer — a factual timeline, the past continuous for the background action, and one preventive suggestion, with no blame.</p>
+    <p class="pill">safety reporting · near-miss · root cause · corrective action &nbsp;·&nbsp; "I was torquing when it slipped"</p>
+  </section>
+
+  <!-- 2 · OUTCOMES + HOW THE 90 MIN RUNS -->
+  <section class="slide" data-notes="Timing 3–7 min. Set the map for the 90 minutes so students know where they are going. Three can-do outcomes on the left. On the right, the running order and the clock: warm-up and vocabulary (~15), Dialogue 1 + grammar (~20), Dialogue 2 + root cause (~15), Dialogue 3 + actions (~10), exercises E1–E8 (~15), role-plays (~10), writing set and started (~5). Stress that the exercises are self-checking in the student page, so pairs can move at their own speed. Keep instructions to learners very short.">
+    <div class="kick">By the end · how the 90 minutes runs</div>
+    <h2>Three outcomes — and the running order</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="good">1 · Report factually.</b> Separate observation from opinion.</p>
+        <p><b class="amb">2 · Narrate in order.</b> Use clear past-tense narration of the sequence of events.</p>
+        <p><b style="color:var(--purple)">3 · Suggest a fix.</b> Propose corrective and preventive actions without blame.</p>
+      </div>
+      <div>
+        <p class="muted" style="line-height:1.7">Warm-up + vocabulary — 15 min<br>
+        Dialogue 1 + past continuous — 20 min<br>
+        Dialogue 2 + root cause — 15 min<br>
+        Dialogue 3 + actions — 10 min<br>
+        Exercises E1–E8 (self-check) — 15 min<br>
+        Role-plays 1–4 — 10 min<br>
+        Writing set + started — 5 min</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · WARM-UP -->
+  <section class="slide" data-center data-notes="Timing 7–11 min. Warm-up to surface prior knowledge. Ask the room in pairs: 'A tool falls two metres to the floor. It hits no one. Is it still a problem?' Elicit that YES — it is a near-miss, and a near-miss is reportable even with no injury and no damage, because next time the outcome could be worse. Draw out the difference between a near-miss (almost caused harm) and an incident (did or could cause harm). Board the key question of the lesson: what did you SEE, and what do you THINK? Keep this quick and spoken.">
+    <div class="kick">Warm-up · talk in pairs</div>
+    <h2>A tool falls two metres. It hits no one. Still a problem?</h2>
+    <p class="big">Yes — it is a <span class="amb">near-miss</span>. We report it even with no injury and no damage, because next time it could be worse.</p>
+    <p class="muted">Ask each pair for one word: what makes a dropped tool dangerous? (It can hit a person · it can damage the aircraft · it becomes FOD.)</p>
+  </section>
+
+  <!-- 4 · VOCABULARY FIELD -->
+  <section class="slide" data-notes="Timing 11–15 min. Pre-teach the specialist terms before the dialogues, so listening is not blocked by unknown words. Drill pronunciation chorally: near-miss, root cause, corrective action, preventive action, contributing factor, lanyard, torque wrench, FOD, tech log, work order, debrief, mitigation. Give a one-line plain gloss for each — do not over-explain. Highlight the pairs students confuse: near-miss vs incident; root cause vs contributing factor; corrective (after) vs preventive (before); observation (fact) vs opinion. These pairs return in every exercise and the quiz.">
+    <div class="kick">§1 · vocabulary field · safety reporting</div>
+    <h2>The words we will use all lesson</h2>
+    <div class="cols">
+      <div class="card" style="font-size:17px">
+        <p><b class="good">near-miss</b> — almost caused harm, but did not · <b class="good">incident</b> — did or could cause harm · <b class="good">hazard</b> — could cause harm</p>
+        <p><b class="amb">root cause</b> — the first, real reason · <b class="amb">contributing factor</b> — helped cause it, not the main reason</p>
+        <p><b style="color:var(--purple)">corrective action</b> — stops it happening again · <b style="color:var(--purple)">preventive action</b> — stops it starting</p>
+        <p><b>lanyard</b> · <b>torque wrench</b> · <b>FOD</b> · <b>tech log</b> · <b>work order</b> · <b>debrief</b> · <b>mitigation</b> · <b>observation</b></p>
+      </div>
+      <div><p>Every hard word gets a plain gloss on first use, and lives in the vocabulary bank on the student page.</p>
+        <p class="muted">Watch the confusing pairs: near-miss ≠ incident · root cause ≠ contributing factor · corrective (after) ≠ preventive (before) · observation ≠ opinion.</p></div>
+    </div>
+  </section>
+
+  <!-- 5 · WIDGET: FACT vs OPINION -->
+  <section class="slide" data-notes="Timing 15–20 min. Interactive. The heart of outcome 1: a report keeps observation (fact) apart from opinion. Read each sentence aloud, ask the class to vote 'fact' or 'opinion', then click the button to check. The needle animates toward the score. Draw the rule from the examples: a fact says what was seen or measured ('the wrench dropped about two metres'); an opinion judges or blames ('that stand is useless', 'it was his fault'). In a real occurrence report, only observations go in the timeline. Have students turn one opinion into an observation on the spot.">
+    <div class="kick">§1 · Interactive · observation vs opinion</div>
+    <h2>Fact or opinion? — sort each line</h2>
+    <div class="cols">
+      <div class="dw" data-widget="factop"></div>
+      <div><p>Only <span class="right">observations</span> (facts) belong in the report timeline. <span class="wrong">Opinions</span> and blame stay out.</p>
+        <p class="muted">Ask each pair to rewrite one opinion as a clean observation — "that stand is useless" → "the stand rail was loose."</p></div>
+    </div>
+  </section>
+
+  <!-- 6 · DIALOGUE 1 -->
+  <section class="slide" data-notes="Timing 20–26 min. Play Audio 1 (report the near-miss at once) twice — first for gist, then for detail. Set two gist questions before playing: (1) Was anyone hurt? (2) What did the mechanic do first? Then read the key turns on screen. Note the professional moves: report immediately, confirm no injury, give an OBSERVATION not an opinion, describe the sequence of events in order, place a barrier, and log the occurrence. Point out the model grammar line in green — it sets up the past continuous next.">
+    <div class="kick">§2 · Dialogue 1 · listening</div>
+    <h2>"I have to report a near-miss immediately."</h2>
+    <div class="cols">
+      <div class="dlg">
+        <p><b>Mechanic:</b> A tool just fell from my platform.</p>
+        <p><span class="b">Safety officer:</span> Is anyone actually injured?</p>
+        <p><b>Mechanic:</b> Nobody — although it was extremely close, so I stopped the task at once.</p>
+        <p><span class="b">Safety officer:</span> Give me an observation, and not an opinion.</p>
+        <p><b>Mechanic:</b> <span class="right">I was torquing the flap bolts when the wrench slipped out of my hand.</span></p>
+      </div>
+      <div><p><b>Listen for:</b> Was anyone hurt? What fell? How far? What did the mechanic do first?</p>
+        <p class="muted">Professional moves: report at once · confirm no injury · observation, not opinion · sequence in order · barrier the area · log it.</p></div>
+    </div>
+  </section>
+
+  <!-- 7 · GRAMMAR FOCUS -->
+  <section class="slide" data-notes="Timing 26–30 min. Teach the grammar focus explicitly. Incidents interrupt an ongoing task, so we need two tenses at once: the PAST CONTINUOUS (was/were + -ing) for the long background action, and the PAST SIMPLE for the short event that cuts in. Model line: 'I was torquing the bolt WHEN it slipped.' Board the three forms: positive 'I was standing'; negative 'I was not using'; question 'Were you working?'. Keep every sentence short — that is B2 register with real professional density. Then move to the widget to build the timeline.">
+    <div class="kick">§2 · grammar focus · past continuous</div>
+    <h2>Background = was/were + -ing · Event = past simple</h2>
+    <div class="cols">
+      <div class="card">
+        <p class="big"><span class="amb">I was torquing</span> the bolt <span class="good">when it slipped.</span></p>
+        <p class="muted">Long background action → past continuous. Short interrupting event → past simple.</p>
+      </div>
+      <div><p><b>Positive:</b> I <span class="amb">was standing</span> on the platform.</p>
+        <p><b>Negative:</b> I <span class="amb">was not using</span> a lanyard.</p>
+        <p><b>Question:</b> <span class="amb">Were you working</span> under the flap?</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · WIDGET: PAST CONTINUOUS TIMELINE -->
+  <section class="slide" data-notes="Timing 30–35 min. Interactive, animated. Students build the interrupted-action sentence. Choose the background verb (torquing / working / standing / climbing) and the event (slipped / failed / moved / called), then drag the slider to place the moment the event cuts in. The canvas draws the long background bar and the pulsing event marker; the sentence assembles below. Make the point visible: the background was ALREADY happening when the event struck — that is exactly why it takes the past continuous. Ask two students to read the assembled sentence aloud.">
+    <div class="kick">§2 · Interactive · rAF · build the timeline</div>
+    <h2>Place the event that interrupts the task</h2>
+    <div class="cols">
+      <div class="dw" data-widget="pastcont"></div>
+      <div><p>The background action was <em>already in progress</em> when the short event cut in — so it takes the past continuous.</p>
+        <p class="muted">Change the verbs and drag the marker; read the assembled sentence aloud with a partner.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · L1 INTERFERENCE -->
+  <section class="slide" data-notes="Timing 35–38 min. Target the first-language interference directly, because Latvian and Russian have no continuous tense. Three recasts on screen. (1) Past simple used for the background — 'when it slipped, I torqued the panel' → 'I was torquing the panel.' (2) was/were agreement — 'we was working' → 'we were working.' (3) dropped -ing — 'I was work' → 'I was working.' Recast gently: say the correct form back, do not lecture. Drill each corrected sentence chorally once.">
+    <div class="kick">§2 · Latvian / Russian speakers · recast</div>
+    <h2>Three errors to catch — and fix gently</h2>
+    <div class="card" style="font-size:19px">
+      <p><span class="wrong">When it slipped, I torqued the panel.</span> → <span class="right">I was torquing the panel.</span> <small>Background needs the past continuous.</small></p>
+      <p><span class="wrong">We was working under the flap.</span> → <span class="right">We were working under the flap.</span> <small>we / you / they → were.</small></p>
+      <p><span class="wrong">I was work on the panel.</span> → <span class="right">I was working on the panel.</span> <small>Keep the -ing ending.</small></p>
+    </div>
+  </section>
+
+  <!-- 10 · DIALOGUE 2 -->
+  <section class="slide" data-notes="Timing 38–44 min. Play Audio 2 (the debrief — finding the root cause). Set the listening focus: find the root cause and the contributing factors, and notice that no one is blamed. Read the key turns. Draw out the reasoning chain: the wrench slipped (tired hand, slightly over-torqued bolt) — but that is not the whole story. Contributing factors: poor light in shadow, no lanyard because the work order did not list one, a stand with a loose rail last week in the tech log. Land the conclusion: the root cause is weak tool control, not one tired grip.">
+    <div class="kick">§3 · Dialogue 2 · listening</div>
+    <h2>"Let us find the root cause — not blame the last mistake."</h2>
+    <div class="cols">
+      <div class="dlg">
+        <p><b>Mechanic:</b> The wrench slipped because my hand was tired.</p>
+        <p><span class="b">Safety officer:</span> Let us also look for contributing factors.</p>
+        <p><b>Mechanic:</b> The light was poor, and the work order did not mention a lanyard.</p>
+        <p><b>Mechanic:</b> The same stand had a loose rail last week in the tech log.</p>
+        <p><span class="b">Safety officer:</span> <span class="right">No lanyard, poor light and a shaky stand together caused this.</span></p>
+      </div>
+      <div><p><b>Listen for:</b> the root cause vs the contributing factors — and the blame-free tone.</p>
+        <p class="muted">Root cause = <span class="amb">weak tool control</span>, not one tired hand.</p></div>
+    </div>
+  </section>
+
+  <!-- 11 · ROOT CAUSE vs CONTRIBUTING FACTOR -->
+  <section class="slide" data-center data-notes="Timing 44–47 min. Sharpen the concept the widget will use. A contributing factor helped the event happen, but is not the whole reason. The root cause is the first, real reason — usually a weak system, not a person. Ask 'why?' several times: the tool fell → no lanyard → the work order did not require one → tool control was weak. That last answer is the root cause. This 'ask why until you reach the system' habit is the heart of a good debrief, and it keeps the report blame-free.">
+    <div class="kick">§3 · concept</div>
+    <h2>Keep asking "why?" until you reach the system</h2>
+    <p class="big">The tool fell → no lanyard → the work order did not require one → <span class="amb">tool control was weak.</span></p>
+    <p class="muted" style="max-width:60ch">A <b>contributing factor</b> helped it happen. The <b>root cause</b> is the first, real reason — usually a weak system, not a tired person. That is why the report blames nobody.</p>
+  </section>
+
+  <!-- 12 · WIDGET: ROOT-CAUSE BUILDER -->
+  <section class="slide" data-notes="Timing 47–52 min. Interactive. Students switch on each contributing factor — no lanyard, poor light, loose stand — and watch them stack. When all three are on, the widget reveals the root cause: weak tool control. Make the visual point: single factors alone might not drop a tool, but together they overwhelm a weak system. Ask the class which single corrective action would remove the most risk (a tool lanyard), and why (it physically stops the tool falling whatever else goes wrong).">
+    <div class="kick">§3 · Interactive · build the root cause</div>
+    <h2>Stack the factors — reveal the root cause</h2>
+    <div class="cols">
+      <div class="dw" data-widget="rootcause"></div>
+      <div><p>One factor alone might not drop a tool. Together they overwhelm a <span class="amb">weak system</span>.</p>
+        <p class="muted">Ask: which single corrective action removes the most risk? (A tool lanyard — it stops the fall whatever else goes wrong.)</p></div>
+    </div>
+  </section>
+
+  <!-- 13 · DIALOGUE 3 -->
+  <section class="slide" data-notes="Timing 52–57 min. Play Audio 3 (agreeing corrective and preventive actions). Focus: separate what fixes THIS problem from what stops the NEXT one. Read the key turns. The corrective actions repair the known fault — lanyards on every tool above floor level, better lighting under the flap, repair the loose stand. The preventive action works before the next job — update the work order so it requires a documented lanyard check, plus a toolbox talk to share the lesson. End on the theme: fix the broken system, never blame a single person, and keep reporting openly.">
+    <div class="kick">§4 · Dialogue 3 · listening</div>
+    <h2>"What corrective action did the team agree on?"</h2>
+    <div class="cols">
+      <div class="dlg">
+        <p><b>Mechanic:</b> Every tool above floor level must have a lanyard.</p>
+        <p><b>Mechanic:</b> We will install better lighting under the flap.</p>
+        <p><b>Mechanic:</b> We will repair the loose access stand.</p>
+        <p><span class="b">Colleague:</span> And what preventive action, before the next job?</p>
+        <p><b>Mechanic:</b> <span class="right">Update the work order, so it requires a lanyard check.</span></p>
+      </div>
+      <div><p><b>Listen for:</b> which actions fix THIS event (corrective) and which stop the NEXT (preventive).</p>
+        <p class="muted">Theme: fix the system, share the lesson, blame no one.</p></div>
+    </div>
+  </section>
+
+  <!-- 14 · CORRECTIVE vs PREVENTIVE + STE -->
+  <section class="slide" data-notes="Timing 57–60 min. Two teaching points. First, corrective vs preventive: corrective repairs a known problem so it does not recur; preventive acts before any problem, to stop it starting. Fitting a lanyard after a drop is corrective; requiring a lanyard check in the work order for every future job is preventive. Second, introduce Simplified Technical English for the writing task: short sentences, one instruction per sentence, a simple approved verb, active voice, no vague words. Show the STE contrast on screen. This prepares both the sorter widget and the writing task.">
+    <div class="kick">§4 · concept + Simplified Technical English</div>
+    <h2>Corrective (after) vs preventive (before) — in STE</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="good">Corrective</b> — repairs a known problem: fit a lanyard, repair the stand, add lighting.</p>
+        <p><b style="color:var(--purple)">Preventive</b> — acts before any problem: update the work order to require a lanyard check.</p>
+      </div>
+      <div><p><b>Simplified Technical English:</b> short sentences, one idea each, active voice, no vague words.</p>
+        <p><span class="wrong">The tool was being dropped due to inadequate securing.</span><br>
+        <span class="right">The tool fell. It had no lanyard.</span></p></div>
+    </div>
+  </section>
+
+  <!-- 15 · WIDGET: CORRECTIVE / PREVENTIVE SORTER -->
+  <section class="slide" data-notes="Timing 60–64 min. Interactive. Students read each action and drop it into the corrective or preventive bin; the canvas columns fill and the score updates. Discuss the tricky ones: 'better lighting' is corrective here because it repairs a known bad condition, while 'update the work order to require a lanyard check' is preventive because it changes future jobs before anything goes wrong. The test question to ask each time: does this fix a problem that already exists, or stop one that has not started yet?">
+    <div class="kick">§4 · Interactive · rAF · sort the actions</div>
+    <h2>Corrective or preventive? — drop each action</h2>
+    <div class="cols">
+      <div class="dw" data-widget="cvp"></div>
+      <div><p>Ask each time: does it fix a problem that <em>already exists</em>, or stop one that <em>has not started</em>?</p>
+        <p class="muted">The safest reports name at least one of each — repair now, and change the system for next time.</p></div>
+    </div>
+  </section>
+
+  <!-- 16 · EXERCISE STAGING -->
+  <section class="slide" data-notes="Timing 64–74 min. Stage the exercises on the student page. They are self-checking — pairs press Check and the page marks each gap green or red. Set them in order but let pairs move at their own speed: E1 gap-fill (bank terms), E2 matching (term to meaning), E3 dialogue completion, E4 past continuous transformation, E5 reading an Occurrence Report, E6 error-spotting (grammar + opinion mixed with fact), E7 reading a Task Card in STE, E8 listening review on Dialogue 3. Circulate and catch was/were and dropped -ing errors. Full answers with a one-line reason are in the solutions file.">
+    <div class="kick">§5 · exercises E1–E8 · self-check</div>
+    <h2>Set the tasks — pairs work, page marks</h2>
+    <div class="two">
+      <div class="card" style="font-size:16px"><p><span class="tag">E1</span> Gap-fill — bank terms</p><p><span class="tag">E2</span> Matching — term ↔ meaning</p><p><span class="tag">E3</span> Dialogue completion</p><p><span class="tag">E4</span> Past continuous transformation</p></div>
+      <div class="card" style="font-size:16px"><p><span class="tag">E5</span> Reading 1 — Occurrence Report</p><p><span class="tag">E6</span> Error-spotting — grammar + fact/opinion</p><p><span class="tag">E7</span> Reading 2 — Task Card (STE)</p><p><span class="tag">E8</span> Listening review — Dialogue 3</p></div>
+    </div>
+    <p class="muted">Instruction to learners: "Do each task. Press Check. Green is right, red is wrong." Circulate for was/were and -ing slips.</p>
+  </section>
+
+  <!-- 17 · ROLE-PLAY MANAGEMENT -->
+  <section class="slide" data-notes="Timing 74–84 min. Run the four role-play cards in pairs; swap roles after each card so everyone plays both mechanic and safety officer. Card 1 first report — give a factual timeline in past tenses. Card 2 fact or opinion — the officer turns each opinion into an observation. Card 3 root cause — explain the contributing factors without blame. Card 4 suggest an action — one corrective and one preventive. Hand each pair the useful phrases. Use the CEFR B2 speaking rubric in the key file to give quick feedback on range, accuracy, fluency, interaction and coherence. The student page also has an AI partner they can rehearse with.">
+    <div class="kick">§6 · role-plays · pairs, swap roles</div>
+    <h2>Four cards — play both sides</h2>
+    <div class="two">
+      <div class="card" style="font-size:16px"><p><b class="amb">Card 1 · First report</b><br>Give a factual timeline in past tenses.</p><p><b class="amb">Card 2 · Fact or opinion?</b><br>Turn each opinion into an observation.</p></div>
+      <div class="card" style="font-size:16px"><p><b class="amb">Card 3 · Root cause</b><br>Explain the factors, blame no one.</p><p><b class="amb">Card 4 · Suggest an action</b><br>One corrective + one preventive.</p></div>
+    </div>
+    <p class="muted">Swap roles after each card. Grade with the B2 speaking rubric (range · accuracy · fluency · interaction · coherence) in the key.</p>
+  </section>
+
+  <!-- 18 · WRITING + WRAP -->
+  <section class="slide" data-center data-notes="Timing 84–90 min. Set the writing task and start it in class. Write a short Occurrence Report for the dropped-tool near-miss, 90–120 words, in Simplified Technical English. It must include location and type, the sequence of events, the immediate action, one contributing factor and one corrective action. Read the self-check aloud: observation apart from opinion, past continuous for the background, sequence in order, one contributing factor and one corrective action. Recap the whole lesson in one breath — report at once, fact not opinion, past continuous for the background, find the root cause, agree a corrective and a preventive action, blame no one. Point them to the quiz to consolidate. That closes the 90 minutes.">
+    <div class="kick">§7 · writing · Occurrence Report (STE)</div>
+    <h2>Write it, then we close</h2>
+    <p class="big">90–120 words · location + type · sequence of events · immediate action · one contributing factor + one corrective action.</p>
+    <p class="muted" style="max-width:64ch">Self-check: observation apart from opinion · past continuous for the background · sequence in order · one factor + one corrective action.</p>
+    <p class="pill">Recap: report at once · fact not opinion · "I was …-ing when it …-ed" · find the root cause · corrective + preventive · blame no one.</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS · canvas + rAF · student-driven) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+
+  /* ---- W1: FACT vs OPINION (canvas gauge + rAF) ---- */
+  window.DeckW.factop=function(host){
+    var items=[
+      {t:"The wrench dropped about two metres to the floor.",f:true},
+      {t:"That access stand is useless and dangerous.",f:false},
+      {t:"No one was standing below the platform.",f:true},
+      {t:"I think the late shift is always careless.",f:false},
+      {t:"The work order did not list a lanyard step.",f:true},
+      {t:"Honestly, it was probably his own fault.",f:false}
+    ];
+    var i=0, score=0, done=0, shownAng=0, targetAng=0, raf=null;
+    host.innerHTML='';
+    var w=el('div','wk'); host.appendChild(w);
+    var cvs=el('canvas'); cvs.width=620; cvs.height=120; w.appendChild(cvs);
+    var sent=el('div','info'); w.appendChild(sent);
+    var bar=el('div','bar');
+    var bF=el('button',null,'It is a FACT'); var bO=el('button',null,'It is an OPINION'); var bN=el('button','prim','Next ▸');
+    bar.appendChild(bF); bar.appendChild(bO); bar.appendChild(bN); w.appendChild(bar);
+    var ctx=cvs.getContext('2d');
+    function draw(){
+      ctx.clearRect(0,0,620,120);
+      ctx.fillStyle='#0a0f18'; ctx.fillRect(0,0,620,120);
+      // track
+      ctx.strokeStyle='#26384e'; ctx.lineWidth=14; ctx.lineCap='round';
+      ctx.beginPath(); ctx.arc(310,110,86,Math.PI,0); ctx.stroke();
+      // filled portion by score/done
+      var frac= done? score/done : 0;
+      ctx.strokeStyle='#34d399'; ctx.beginPath(); ctx.arc(310,110,86,Math.PI,Math.PI+Math.PI*frac); ctx.stroke();
+      // needle
+      var a=Math.PI+Math.PI*shownAng;
+      ctx.strokeStyle='#38b6ff'; ctx.lineWidth=3;
+      ctx.beginPath(); ctx.moveTo(310,110); ctx.lineTo(310+80*Math.cos(a),110+80*Math.sin(a)); ctx.stroke();
+      ctx.fillStyle='#cfe0ee'; ctx.font='700 15px sans-serif'; ctx.textAlign='center';
+      ctx.fillText('Score '+score+' / '+done, 310, 44);
+    }
+    function loop(){ shownAng += (targetAng-shownAng)*0.15; draw(); if(Math.abs(targetAng-shownAng)>0.002){raf=requestAnimationFrame(loop);} else {shownAng=targetAng;draw();} }
+    function show(){ sent.innerHTML='<h4>Sentence '+(i+1)+' of '+items.length+'</h4>'+items[i].t; bF.classList.remove('on');bO.classList.remove('on'); }
+    function answer(saidFact){
+      var it=items[i]; var right=(saidFact===it.f); done++; if(right)score++;
+      (saidFact?bF:bO).classList.add('on');
+      sent.innerHTML='<h4>'+(right?'✓ Correct':'✗ Not quite')+'</h4>'+it.t+' — this is <b>'+(it.f?'a FACT (observation)':'an OPINION')+'</b>.'+(it.f?' It can go in the report.':' Keep it out of the report.');
+      targetAng= done? score/done : 0; if(raf)cancelAnimationFrame(raf); loop();
+    }
+    bF.onclick=function(){answer(true);}; bO.onclick=function(){answer(false);};
+    bN.onclick=function(){ i=(i+1)%items.length; show(); };
+    show(); draw();
+  };
+
+  /* ---- W2: PAST CONTINUOUS TIMELINE (canvas + rAF) ---- */
+  window.DeckW.pastcont=function(host){
+    var bgs=['torquing','working','standing','climbing'];
+    var evs=['slipped','failed','moved','fell'];
+    var subj=['I','We','She','They'];
+    var was=['was','were','was','were'];
+    var bi=0, ei=0, si=0, pos=60, pulse=0, raf=null;
+    host.innerHTML='';
+    var w=el('div','wk'); host.appendChild(w);
+    var bar=el('div','bar');
+    var sSel=mk(subj), bSel=mk(bgs), eSel=mk(evs);
+    bar.appendChild(lab('who')); bar.appendChild(sSel);
+    bar.appendChild(lab('was …-ing')); bar.appendChild(bSel);
+    bar.appendChild(lab('when it …')); bar.appendChild(eSel);
+    w.appendChild(bar);
+    var cvs=el('canvas'); cvs.width=620; cvs.height=120; w.appendChild(cvs);
+    var rng=el('input'); rng.type='range'; rng.min=20; rng.max=100; rng.value=60; rng.style.marginTop='10px'; w.appendChild(rng);
+    var out=el('div','info'); w.appendChild(out);
+    function mk(a){var s=el('select');a.forEach(function(x,k){var o=el('option',null,x);o.value=k;s.appendChild(o);});return s;}
+    function lab(t){var e=el('span','note',t);e.style.margin='0 2px 0 8px';return e;}
+    var ctx=cvs.getContext('2d');
+    function draw(){
+      ctx.clearRect(0,0,620,120); ctx.fillStyle='#0a0f18'; ctx.fillRect(0,0,620,120);
+      // axis
+      ctx.strokeStyle='#26384e'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(30,80); ctx.lineTo(590,80); ctx.stroke();
+      // background action bar (past continuous)
+      var x=30+ (pos/100)*(560);
+      ctx.fillStyle='rgba(251,191,36,.35)'; ctx.fillRect(30,52,x-30,20);
+      ctx.strokeStyle='#fbbf24'; ctx.strokeRect(30,52,x-30,20);
+      ctx.fillStyle='#fbbf24'; ctx.font='700 13px sans-serif'; ctx.textAlign='left';
+      ctx.fillText(was[si]+' '+bgs[bi]+' …', 36, 46);
+      // event marker (past simple) — pulses
+      ctx.fillStyle='#ff5667'; var r=6+pulse*4;
+      ctx.beginPath(); ctx.arc(x,62,r,0,2*Math.PI); ctx.fill();
+      ctx.fillStyle='#ff9aa2'; ctx.textAlign='center'; ctx.fillText('…'+evs[ei], x, 104);
+    }
+    function loop(){ pulse=(Math.sin(Date.now()/220)+1)/2; draw(); raf=requestAnimationFrame(loop); }
+    function sentence(){
+      var neg = false;
+      out.innerHTML='<h4>Your sentence</h4><span style="color:#fbbf24">'+subj[si]+' '+was[si]+' '+bgs[bi]+'</span> the flap bolt <span style="color:#9af0c8">when the wrench '+evs[ei]+'.</span>';
+    }
+    sSel.onchange=function(){si=+sSel.value;draw();sentence();};
+    bSel.onchange=function(){bi=+bSel.value;draw();sentence();};
+    eSel.onchange=function(){ei=+eSel.value;draw();sentence();};
+    rng.oninput=function(){pos=+rng.value;draw();};
+    sentence(); loop();
+  };
+
+  /* ---- W3: ROOT-CAUSE BUILDER (canvas + rAF) ---- */
+  window.DeckW.rootcause=function(host){
+    var facts=[{k:'No lanyard',on:false},{k:'Poor light',on:false},{k:'Loose stand',on:false}];
+    var heights=[0,0,0], raf=null;
+    host.innerHTML='';
+    var w=el('div','wk'); host.appendChild(w);
+    var bar=el('div','bar');
+    facts.forEach(function(f,k){var b=el('button',null,f.k);b.onclick=function(){f.on=!f.on;b.classList.toggle('on',f.on);animate();};bar.appendChild(b);});
+    w.appendChild(bar);
+    var cvs=el('canvas'); cvs.width=620; cvs.height=180; w.appendChild(cvs);
+    var out=el('div','info',' '); w.appendChild(out);
+    var ctx=cvs.getContext('2d');
+    function draw(){
+      ctx.clearRect(0,0,620,180); ctx.fillStyle='#0a0f18'; ctx.fillRect(0,0,620,180);
+      var cols=['#38b6ff','#fbbf24','#a78bfa'];
+      facts.forEach(function(f,k){
+        var bx=90+k*150, h=heights[k];
+        ctx.fillStyle=cols[k]; ctx.globalAlpha=.85; ctx.fillRect(bx,150-h,110,h); ctx.globalAlpha=1;
+        ctx.strokeStyle=cols[k]; ctx.strokeRect(bx,150-h,110,h);
+        ctx.fillStyle='#cfe0ee'; ctx.font='600 13px sans-serif'; ctx.textAlign='center';
+        ctx.fillText(f.k, bx+55, 168);
+      });
+      var all=facts.every(function(f){return f.on;});
+      if(all){ ctx.fillStyle='#ff5667'; ctx.font='800 18px sans-serif'; ctx.textAlign='center';
+        ctx.fillText('ROOT CAUSE → weak tool control', 310, 26); }
+    }
+    function animate(){
+      var moving=false;
+      facts.forEach(function(f,k){var tgt=f.on?90:0; heights[k]+=(tgt-heights[k])*0.2; if(Math.abs(tgt-heights[k])>0.5)moving=true;});
+      draw();
+      var all=facts.every(function(f){return f.on;});
+      out.innerHTML= all? '<h4>All three together</h4>A single factor may not drop a tool. Together they overwhelm weak <b>tool control</b> — the root cause.' :
+        '<h4>Switch on the contributing factors</h4>Each one alone is a contributing factor. Turn on all three to reveal the root cause.';
+      if(moving) raf=requestAnimationFrame(animate);
+    }
+    draw(); out.innerHTML='<h4>Switch on the contributing factors</h4>Each one alone is a contributing factor. Turn on all three to reveal the root cause.';
+  };
+
+  /* ---- W4: CORRECTIVE / PREVENTIVE SORTER (canvas + rAF) ---- */
+  window.DeckW.cvp=function(host){
+    var acts=[
+      {t:"Fit a lanyard to the dropped tool now",p:false},
+      {t:"Update the work order to require a lanyard check",p:true},
+      {t:"Repair the loose access stand",p:false},
+      {t:"Add a lanyard step to every future task card",p:true},
+      {t:"Install better lighting under the flap",p:false},
+      {t:"Hold a toolbox talk before the next job",p:true}
+    ];
+    var i=0, cC=0, cP=0, cor=0, done=0, hc=0, hp=0, raf=null;
+    host.innerHTML='';
+    var w=el('div','wk'); host.appendChild(w);
+    var cvs=el('canvas'); cvs.width=620; cvs.height=150; w.appendChild(cvs);
+    var info=el('div','info'); w.appendChild(info);
+    var bar=el('div','bar');
+    var bC=el('button',null,'◀ Corrective (after)'); var bP=el('button',null,'Preventive (before) ▶'); var bN=el('button','prim','Next ▸');
+    bar.appendChild(bC); bar.appendChild(bP); bar.appendChild(bN); w.appendChild(bar);
+    var ctx=cvs.getContext('2d');
+    function draw(){
+      ctx.clearRect(0,0,620,150); ctx.fillStyle='#0a0f18'; ctx.fillRect(0,0,620,150);
+      // corrective bin
+      ctx.strokeStyle='#34d399'; ctx.strokeRect(70,20,180,110);
+      ctx.fillStyle='rgba(52,211,153,.3)'; ctx.fillRect(70,130-hc,180,hc);
+      ctx.fillStyle='#34d399'; ctx.font='700 14px sans-serif'; ctx.textAlign='center'; ctx.fillText('CORRECTIVE '+cC, 160, 145);
+      // preventive bin
+      ctx.strokeStyle='#a78bfa'; ctx.strokeRect(370,20,180,110);
+      ctx.fillStyle='rgba(167,139,250,.3)'; ctx.fillRect(370,130-hp,180,hp);
+      ctx.fillStyle='#a78bfa'; ctx.fillText('PREVENTIVE '+cP, 460, 145);
+    }
+    function loop(){ hc+=((cC*18)-hc)*0.2; hp+=((cP*18)-hp)*0.2; draw();
+      if(Math.abs(cC*18-hc)>0.5||Math.abs(cP*18-hp)>0.5) raf=requestAnimationFrame(loop); }
+    function show(){ info.innerHTML='<h4>Action '+(i+1)+' of '+acts.length+'</h4>'+acts[i].t; bC.classList.remove('on');bP.classList.remove('on'); }
+    function pick(saidPrev){
+      var a=acts[i]; var right=(saidPrev===a.p); done++; if(right)cor++;
+      if(saidPrev){cP++;bP.classList.add('on');} else {cC++;bC.classList.add('on');}
+      info.innerHTML='<h4>'+(right?'✓ Correct':'✗ Rethink')+'</h4>'+a.t+' — this is <b>'+(a.p?'preventive':'corrective')+'</b>. '+(a.p?'It changes future jobs before a problem starts.':'It repairs a problem that already exists.')+' &nbsp;<small>Score '+cor+'/'+done+'</small>';
+      if(raf)cancelAnimationFrame(raf); loop();
+    }
+    bC.onclick=function(){pick(false);}; bP.onclick=function(){pick(true);};
+    bN.onclick=function(){ i=(i+1)%acts.length; show(); };
+    show(); draw();
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u25_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u25_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 25</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:24px;color:#9db0c6;font-size:17px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">&lsaquo; Prev</button><button onclick="post(1)">Next &rsaquo;</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u25_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u25_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u25_deck_state")render();});',
+'render();',
+'<\/scr'+'ipt></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u25_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,80); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════ LIVE CAPTION TRANSLATOR — teacher speech → live translated subtitle. CC button or "L". ════════════ -->
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+  </select>
+</div>
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:monospace; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:monospace; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'), lineTop=document.getElementById('lctLineTop'), lineBot=document.getElementById('lctLineBot');
+  var line=document.getElementById('lctLine'), srcEl=document.getElementById('lctSrc'), btn=document.getElementById('lctBtn');
+  var gear=document.getElementById('lctGear'), status=document.getElementById('lctStatus'), langBar=document.getElementById('lctLangBar');
+  var srcSel=document.getElementById('lctSrcSel'), tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var spoken='en-US', src='en', target='lv', rec=null, active=false;
+  var lastInterim='', pending='', capTopB='', capBotB='', capTopAtB=0, finalTimer=null, silenceTimer=null, lctIdeaTimer=null;
+  var lastTrAt=0, lastTrText='', lastTrLen=0, netErrors=0, cache=new Map(), POLL_GAP_MS=700;
+  function setStatus(t){ status.textContent=t; status.classList.toggle('show', active||t==='mic blocked'||t==='use Chrome'); }
+  function tail(text,maxWords){ if(!text)return''; var t=String(text).trim().replace(/\s+/g,' '); if(!t)return''; var p=t.split(' '); if(p.length<=maxWords)return t; return p.slice(-maxWords).join(' '); }
+  async function translateRemote(text){
+    try{ if(src===target)return text;
+      var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text);
+      var ctrl=new AbortController(), tmo=setTimeout(function(){ctrl.abort();},3000);
+      var r=await fetch(url,{signal:ctrl.signal}); clearTimeout(tmo); if(!r.ok)return null;
+      var j=await r.json(); if(Array.isArray(j)&&Array.isArray(j[0])){ var out=''; j[0].forEach(function(s){if(s&&s[0])out+=s[0];}); return out||null; }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){ if(!text||!text.trim())return''; var key=src+'|'+target+'|'+text.trim().toLowerCase();
+    if(cache.has(key))return cache.get(key); var out=await translateRemote(text); if(!out)out=text; cache.set(key,out);
+    if(cache.size>250)cache.delete(cache.keys().next().value); return out; }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.9)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16,Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap)return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0?s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB&&(capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail(pending||'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr)return; capBotB=capBotB?(capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)){capTopB=capBotB;capTopAtB=Date.now();capBotB='';} lctDraw(); }
+  function render(){ lctDraw(); if(lctIdeaTimer)clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(function(){ if(capBotB){capTopB=capBotB;capTopAtB=Date.now();capBotB='';} lctDraw(); },1500); }
+  function armSilence(){ cancelSilence(); silenceTimer=setTimeout(function(){ capTopB='';capBotB='';capTopAtB=0;lastInterim='';pending='';render(); },30000); }
+  function cancelSilence(){ if(silenceTimer){clearTimeout(silenceTimer);silenceTimer=null;} }
+  async function commitFinal(chunk){ chunk=chunk.trim(); if(!chunk)return; srcEl.textContent=tail(chunk,18); var tr=await translate(chunk); lctCommit(tr); lastInterim='';lastTrLen=0; render(); }
+  async function translateInterim(text){ var now=performance.now(); if(now-lastTrAt<POLL_GAP_MS)return; if(text.length-lastTrLen<10&&text.length>0)return; if(text===lastTrText)return;
+    lastTrAt=now;lastTrLen=text.length;lastTrText=text; try{ var tr=await translate(text); if(tr&&active){ lastInterim=tr; render(); } }catch(e){} }
+  function startRec(){
+    rec=new SR(); rec.continuous=true; rec.interimResults=true; rec.lang=spoken; if('maxAlternatives' in rec)rec.maxAlternatives=1;
+    rec.onresult=function(e){ netErrors=0; cancelSilence(); var interim='',fin='';
+      for(var i=e.resultIndex;i<e.results.length;i++){ var r=e.results[i]; if(r.isFinal)fin+=' '+r[0].transcript; else interim+=' '+r[0].transcript; }
+      if(fin){ pending+=' '+fin; if(finalTimer)clearTimeout(finalTimer); finalTimer=setTimeout(function(){ var c=pending; pending=''; commitFinal(c).then(armSilence); },120); }
+      if(interim){ srcEl.textContent=tail(interim.trim(),18); translateInterim(interim.trim()); }
+      render(); setStatus('live · '+src+'→'+target); };
+    rec.onerror=function(ev){ if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active=false; }
+      else if(ev.error==='no-speech'||ev.error==='aborted'){} else if(ev.error==='network'){ netErrors++; if(netErrors>=3){ active=false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect '+netErrors+'/3'); } else setStatus(ev.error); };
+    rec.onend=function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active&&rec){ try{ rec.start(); }catch(_){} } },350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){ active=false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off');
+      if(rec){ try{ rec.onend=null; rec.stop(); }catch(e){} rec=null; } capTopB='';capBotB='';lastInterim='';pending='';render();
+    } else { active=true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on'); setStatus('starting…'); startRec(); }
+  }
+  btn.addEventListener('click',function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click',function(e){ e.stopPropagation(); var open=langBar.classList.toggle('open'); gear.classList.toggle('on',open); });
+  document.addEventListener('keydown',function(e){ if((e.key==='l'||e.key==='L')&&!/^(input|textarea|select)$/i.test((e.target.tagName||'')))toggle(); });
+  srcSel.addEventListener('change',function(e){ e.stopPropagation(); spoken=srcSel.value; src=spoken.slice(0,2); cache.clear();
+    if(active&&rec){ rec.onend=null; try{ rec.stop(); }catch(_){} rec=null; startRec(); } if(active)setStatus('live · '+src+'→'+target); });
+  tgtSel.addEventListener('change',function(e){ e.stopPropagation(); target=tgtSel.value; cache.clear();
+    capTopB='';capBotB='';lastInterim='';lastTrText='';lastTrLen=0; render(); if(active)setStatus('live · '+src+'→'+target); });
+  [srcSel,tgtSel].forEach(function(s){ s.addEventListener('click',function(e){ e.stopPropagation(); }); });
+})();
+</script>
+</body>
+</html>

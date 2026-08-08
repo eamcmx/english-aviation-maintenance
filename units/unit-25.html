@@ -1,0 +1,1594 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reporting a near-miss or hangar incident</title><!--CF-LANG-UI--><style>/* CourseForge LANG: the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+/* LANG edition: Lang Buddy (in-lesson tutor) + pronunciation practice.
+   Uses the unit design tokens from lang-ui.css (--brand, --amber, --ink, --ink-2, --line, --paper). */
+
+.lb-root { font: 15px/1.6 'Inter', 'Segoe UI', system-ui, sans-serif; }
+
+.lb-fab {
+  position: fixed; right: 20px; bottom: 20px; z-index: 60;
+  display: flex; align-items: center; gap: 9px;
+  background: var(--brand, #2F5496); color: #fff; border: 0; cursor: pointer;
+  border-radius: 999px; padding: 12px 20px 12px 16px; font-size: 14.5px; font-weight: 600;
+  box-shadow: 0 2px 6px rgba(16, 32, 54, .16), 0 12px 30px rgba(16, 32, 54, .22);
+  transition: transform .16s, box-shadow .16s;
+}
+.lb-fab:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(16, 32, 54, .2), 0 18px 40px rgba(16, 32, 54, .26); }
+.lb-fab-i { font-size: 17px; line-height: 1; }
+
+.lb-panel {
+  position: fixed; right: 20px; bottom: 20px; z-index: 61;
+  width: 390px; max-width: calc(100vw - 32px); height: 580px; max-height: calc(100vh - 40px);
+  display: flex; flex-direction: column; overflow: hidden;
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(16, 32, 54, .1), 0 26px 60px rgba(16, 32, 54, .24);
+}
+.lb-panel[hidden] { display: none; }
+
+.lb-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line, #e2e6ec);
+  background: linear-gradient(180deg, #fff, #f8fafc);
+}
+.lb-head b { font-size: 15px; color: var(--ink, #1b2733); display: block; }
+.lb-sub { font-size: 12px; color: var(--ink-2, #5a6b7d); }
+.lb-x { background: 0; border: 0; font-size: 22px; line-height: 1; color: var(--ink-2, #5a6b7d); cursor: pointer; padding: 0 4px; }
+.lb-x:hover { color: var(--ink, #1b2733); }
+
+.lb-log { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.lb-msg { max-width: 84%; padding: 9px 13px; border-radius: 14px; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap; }
+.lb-you { align-self: flex-end; background: var(--brand, #2F5496); color: #fff; border-bottom-right-radius: 5px; }
+.lb-bot { align-self: flex-start; background: #f2f5f9; color: var(--ink, #1b2733); border-bottom-left-radius: 5px; }
+.lb-think { color: var(--ink-2, #5a6b7d); font-style: italic; }
+.lb-err { background: #fdeceb; color: #8c2f27; }
+
+.lb-gate { background: #fffdf6; border: 1px solid #f0dfbe; border-radius: 12px; padding: 13px 14px; font-size: 13.5px; }
+.lb-gate p { margin: 0 0 10px; color: var(--ink-2, #5a6b7d); line-height: 1.5; }
+.lb-key { width: 100%; padding: 9px 11px; border: 1px solid var(--line, #e2e6ec); border-radius: 9px; font-size: 13.5px; }
+.lb-save { margin-top: 9px; background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 9px; padding: 9px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+.lb-help { display: block; margin-top: 9px; font-size: 12.5px; color: var(--brand, #2F5496); }
+
+.lb-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
+.lb-q {
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px;
+  padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
+}
+.lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
+
+.lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
+.lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
+.lb-in:focus { outline: 0; border-color: var(--brand, #2F5496); box-shadow: 0 0 0 3px rgba(47, 84, 150, .12); }
+.lb-send { background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 11px; padding: 10px 17px; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 560px) {
+  .lb-panel { right: 8px; left: 8px; bottom: 8px; width: auto; height: calc(100vh - 70px); }
+  .lb-fab-t { display: none; }
+  .lb-fab { padding: 14px; }
+}
+
+/* ---- pronunciation practice ---------------------------------------------------------------- */
+.pron { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; padding: 18px 20px; margin: 20px 0; }
+.pron h3 { margin: 0 0 4px; font-size: 16.5px; color: var(--brand, #2F5496); }
+.pron .hint { margin: 0 0 14px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.pron-line { border-top: 1px solid #eef1f5; padding: 13px 0; }
+.pron-line:first-of-type { border-top: 0; }
+.pron-target { font-size: 15.5px; line-height: 1.6; color: var(--ink, #1b2733); margin-bottom: 9px; }
+.pron-target span { padding: 1px 2px; border-radius: 4px; }
+.pron-target span.hit { background: #e6f6ee; color: #0f6e56; }
+.pron-target span.miss { background: #fdeceb; color: #8c2f27; }
+.pron-bar { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.pron-rec {
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 999px;
+  padding: 8px 16px; font-size: 13.5px; font-weight: 600; font-family: inherit;
+}
+.pron-rec[data-on="1"] { background: #c0392b; animation: pron-pulse 1.1s ease-in-out infinite; }
+@keyframes pron-pulse { 0%, 100% { opacity: 1 } 50% { opacity: .62 } }
+.pron-score { font-size: 13.5px; font-weight: 600; color: var(--ink-2, #5a6b7d); }
+.pron-score.good { color: #0f6e56; }
+.pron-score.poor { color: #8c2f27; }
+.pron-heard { font-size: 13px; color: var(--ink-2, #5a6b7d); margin-top: 7px; font-style: italic; }
+.pron-note { font-size: 12.5px; color: var(--ink-2, #5a6b7d); margin-top: 12px; }
+
+/* ---- unit figures --------------------------------------------------------------------------- */
+.lang-fig { margin: 26px 0; padding: 0; background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; overflow: hidden; }
+.lang-fig .fig-head { padding: 13px 20px; border-bottom: 1px solid var(--line, #e2e6ec); background: #fbfcfe; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.lang-fig .fig-head b { color: var(--brand, #2F5496); font-weight: 600; }
+.lang-fig .fig-body { padding: 18px 16px; overflow-x: auto; }
+.lang-fig .fig-cap { margin: 0; padding: 0 20px 16px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); line-height: 1.55; }
+.lang-fig .fig-bar { padding: 0 20px 16px; }
+.fig-btn { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px; padding: 7px 15px; font-size: 12.5px; font-family: inherit; color: var(--brand, #2F5496); cursor: pointer; }
+.fig-btn:hover { border-color: var(--brand, #2F5496); background: #f6f9fd; }
+.fig-quiz { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 9px; padding: 0 20px 18px; }
+.fig-quiz label { display: flex; align-items: center; gap: 8px; }
+.fig-quiz label span { width: 22px; height: 22px; flex: none; border-radius: 50%; background: var(--brand, #2F5496); color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.fig-quiz input { flex: 1; min-width: 0; padding: 7px 10px; border: 1px solid var(--line, #e2e6ec); border-radius: 8px; font-size: 13px; font-family: inherit; }
+.fig-quiz input.ok { border-color: #0f6e56; background: #e6f6ee; color: #0f6e56; }
+.fig-quiz input.bad { border-color: #c0392b; background: #fdeceb; color: #8c2f27; }
+</style><!--/CF-LANG-UI--></head><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 25 of 32 · Reporting a near-miss or hangar incident</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 safety reporting, near-miss, root cause, corrective action</span></div></div></header><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English for Aviation Maintenance · Unit 25, Reporting a near-miss or hangar incident</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  article{max-width:1000px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:60px 0 32px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.1;margin:0 0 var(--space-4);max-width:26ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:66ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px 24px;border-top:1px solid var(--border);padding-top:var(--space-4)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:14.5px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  h4{font-size:1rem;margin:var(--space-4) 0 var(--space-2)}
+  p{max-width:74ch}
+  a{color:var(--color-primary)}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .cando{border-left:5px solid var(--color-primary);background:linear-gradient(180deg,#fbfcff,#f6f8fd)}
+  .cando h4{color:var(--color-primary-dark);margin-top:0}
+  .cando ul{margin:0;padding-left:1.15em}
+  .cando li{margin:7px 0;color:#33384a;font-weight:500}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin-top:0}
+  .scenario-box{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius);padding:var(--space-4) var(--space-5)}
+  /* dialogues */
+  .dialogue{margin:var(--space-5) 0 var(--space-6)}
+  .dlg-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+  .dlg-head h3{margin:0}
+  .dlg-tag{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--color-primary);font-weight:700}
+  .lang-audio-slot{display:flex;align-items:center;gap:12px;background:var(--bg-sunken);border:1px dashed var(--color-primary-soft);border-radius:var(--radius-sm);padding:12px 16px;margin:8px 0;font-family:var(--font-mono);font-size:12.5px;color:var(--color-primary-dark)}
+  .lang-audio-slot:before{content:"\25B6";color:var(--color-primary);font-size:15px}
+  .transcript{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-elevated);padding:2px 16px;box-shadow:var(--shadow-sm)}
+  .transcript>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--color-primary);font-weight:700;padding:10px 0}
+  .turn{display:grid;grid-template-columns:78px 1fr;gap:12px;margin:4px 0;max-width:none}
+  .turn .sp{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--color-primary-dark);padding-top:2px}
+  .turn .said{color:#2c313f}
+  /* vocab */
+  table.vocab-table{border-collapse:collapse;width:100%;margin-top:10px;font-size:14.5px}
+  table.vocab-table th,table.vocab-table td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vocab-table th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  .vocab-table td.col{color:var(--ink-muted);font-size:13px}
+  /* grammar */
+  table.gram{border-collapse:collapse;width:100%;margin:12px 0;font-size:14.5px}
+  table.gram th,table.gram td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.gram th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  .fix{display:grid;grid-template-columns:1fr;gap:6px;border:1px solid var(--border);border-left:4px solid var(--signal);border-radius:var(--radius-sm);padding:10px 14px;margin:9px 0;background:#fff}
+  .fix .wrong{color:var(--bad)} .fix .right{color:var(--good)}
+  .fix .wrong:before{content:"\2717 ";font-weight:700}
+  .fix .right:before{content:"\2713 ";font-weight:700}
+  .fix .note{font-size:13px;color:var(--ink-muted)}
+  /* exercises */
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px 16px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex>h3{margin-top:4px;display:flex;align-items:baseline;gap:10px}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex ol{padding-left:1.4em}
+  .ex li{margin:8px 0}
+  .wordbank{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 13px;font-size:13.5px;margin:6px 0 12px}
+  .wordbank b{color:var(--color-primary-dark);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+  input.gap,select.gap{font-family:var(--font-sans);font-size:14.5px;border:1px solid var(--border);border-radius:6px;padding:4px 8px;min-width:130px;background:#fff;color:var(--ink)}
+  input.gap:focus,select.gap:focus{outline:none;border-color:var(--color-primary)}
+  input.gap.ok,select.gap.ok{border-color:var(--good);background:#eaf5ec}
+  input.gap.bad,select.gap.bad{border-color:var(--bad);background:#fbecea}
+  .reading{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-sm);padding:4px 18px 12px;margin:10px 0}
+  .doc{font-family:var(--font-mono);font-size:13.5px;line-height:1.6;background:#fcfbf7;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;white-space:normal}
+  .doc .docrow{display:grid;grid-template-columns:150px 1fr;gap:10px;border-bottom:1px dashed var(--border);padding:5px 0}
+  .doc .docrow b{color:var(--color-primary-dark)}
+  .btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  .btn:hover{border-color:var(--color-primary)}
+  .btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .exfoot{display:flex;align-items:center;gap:14px;margin-top:12px;flex-wrap:wrap}
+  .score{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--color-primary-dark)}
+  .answer{display:none;margin-top:12px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 15px;font-size:14px}
+  .answer ol{margin:6px 0;padding-left:1.3em}
+  .answer li{margin:4px 0}
+  /* speaking */
+  .roleplay{border:1px solid var(--border);border-top:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:12px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin-top:0;color:var(--color-primary-dark)}
+  .roleplay .rp-field{margin:7px 0}
+  .roleplay .flab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--color-primary);font-weight:700;display:block;margin-bottom:1px}
+  .roleplay .phrases{background:var(--bg-sunken);border-radius:var(--radius-sm);padding:8px 12px;font-size:14px}
+  .roleplay .phrases li{margin:3px 0}
+  .aibox{border:1px solid #cfdcef;background:#eef3fb;border-radius:var(--radius);padding:16px 20px;margin:16px 0}
+  .aibox h4{color:var(--color-primary-dark);margin-top:0}
+  .prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:11px 14px;margin:9px 0;font-size:14px;font-family:var(--font-mono);line-height:1.55}
+  .rp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.rp-grid{grid-template-columns:1fr}.turn{grid-template-columns:60px 1fr}}
+  .checklist li{margin:5px 0}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<article>
+
+  <header class="lec-hero">
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · CEFR B2 · Unit 25</p>
+    <h1 class="lecture-title">Reporting a near-miss or hangar incident</h1>
+    <p class="subtitle">A dropped tool. No one hurt, this time. In this unit you report the event to the safety officer with a clear, factual timeline, and you suggest one way to stop it happening again.</p>
+    <div class="hero-meta">
+      <span>Specialism<strong>Aircraft mechanics &amp; avionics (EASA Part-66/145)</strong></span>
+      <span>Grammar focus<strong>Past continuous for background action</strong></span>
+      <span>Vocabulary field<strong>Safety reporting: near-miss, root cause, action</strong></span>
+      <span>Class length<strong>90 minutes · self-study ready</strong></span>
+    </div>
+    <div class="card cando" style="margin-top:var(--space-5)">
+      <h4>By the end of this unit you can &hellip;</h4>
+      <ul>
+        <li>Can report an incident factually, separating observation from opinion.</li>
+        <li>Can describe the sequence of events using clear past-tense narration.</li>
+        <li>Can suggest corrective actions without assigning blame.</li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="lecture-section" id="scenario">
+    <h2><span class="secnum">01</span>The situation</h2>
+    <div class="scenario-box">
+      <p>You are a Part-145 mechanic on the late shift. You are torquing panel bolts on a flap, up on a work platform. Your <strong>torque wrench</strong> slips and falls two metres to the hangar floor. Nobody is hurt, and the aircraft is not damaged, but it was close. This is a <strong>near-miss</strong> (an event that almost caused harm). You must report it to the <strong>safety officer</strong> now, while the facts are fresh. You will give a plain timeline, keep facts apart from opinion, and suggest one action to prevent the next one.</p>
+    </div>
+    <p>Reporting openly is not about blame. A good report helps the team find the <strong>root cause</strong> (the first, real reason) and agree a <strong>corrective action</strong> (a step to stop it happening again). Listen to the three dialogues first, then read the transcripts. After that, work through the vocabulary, the grammar, and the tasks.</p>
+    <p>In professional aviation maintenance, the quality of a safety report depends on discipline, and not on drama. A useful occurrence report records precisely what happened, in the correct order, using neutral language that any investigator can trust. Whenever you describe the event, you must separate your observations, which are verifiable facts, from your interpretation, which is only opinion. This habit protects your colleagues, because an honest, blame-free report allows the organisation to identify the underlying weakness and correct it before another technician is exposed to exactly the same hazard.</p>
+  </section>
+
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">02</span>Model dialogues</h2>
+    <p>Listen first, with the transcript closed, because a safety report is spoken before it is written. Then open the transcript and read along carefully. Throughout, <strong>A</strong> is the mechanic reporting the event, while <strong>B</strong> is the safety officer or a colleague.</p>
+
+    <div class="dialogue">
+      <div class="dlg-head"><span class="dlg-tag">Dialogue 1</span><h3>Reporting the near-miss at once</h3></div>
+      <p class="note">Immediately after the tool falls, the mechanic hurries over to find the safety officer in Bay&nbsp;3.</p>
+      <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u25-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:36 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="sp">A</span><span class="said">Rita, I have to report a near-miss immediately, because a tool just fell from my platform.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">I am the safety officer, so tell me everything, but first, is anyone actually injured?</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Nobody is injured, although it was extremely close, so I stopped the whole task at once.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">That was exactly the right decision. Now, give me an observation, and not an opinion.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Understood. I was torquing the flap panel bolts when the torque wrench slipped out of my hand.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">So you were working directly on the flap. Where exactly were you standing at that moment?</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">I was standing on the elevated platform, near the trailing edge, on the right-hand side.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">Describe the sequence of events for me now, in the exact order that everything happened.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">As the wrench slipped, it dropped roughly two metres onto the concrete hangar floor below.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">Did the wrench strike anybody, or any part of the aircraft structure, as it fell?</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">No. It landed clear of the aircraft, and fortunately nobody was walking underneath at the time.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">It is still a serious hazard, because a dropped tool is a genuine incident, even without damage.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">I completely agree, which is exactly why I am reporting it now, before we forget the details.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">Correct. It also counts as FOD, since a loose tool can easily damage the aircraft structure.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Exactly. I have already placed a barrier around the area, so that nobody accidentally steps on it.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">Perfect response. I will log the occurrence, and we will hold a proper debrief in ten minutes.</span></p>
+      </details>
+    </div>
+
+    <div class="dialogue">
+      <div class="dlg-head"><span class="dlg-tag">Dialogue 2</span><h3>The debrief: finding the root cause</h3></div>
+      <p class="note">Ten minutes later, the two of them sit down together to investigate why the tool actually fell.</p>
+      <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u25-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:43 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="sp">A</span><span class="said">Rita, I have already written down the full sequence of events for the occurrence report.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">Good work. Let us find the root cause together, and not simply blame the last mistake.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">The wrench slipped because my hand was tired, and because the bolt was slightly over-torqued.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">That is certainly one cause. However, let us also look carefully for any contributing factors.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Well, the lighting was poor, since I was working in a deep shadow underneath the flap.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">Poor lighting is a clear contributing factor. Now, what exactly did the work order say?</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">The work order did not mention a lanyard, so unfortunately I was not using one.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">That is important, because a missing instruction is a genuine cause, and never just an excuse.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">I also checked the tech log, and the same access stand had a loose rail last week.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">So the stand itself may be a hazard, which means we should inspect it thoroughly today.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Agreed. The root cause really looks like weak tool control, rather than just my tired grip.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">I think so too, since no lanyard, poor light, and a shaky stand together caused this.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Should I add all of these details to the report as separate, clearly numbered observations?</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">Yes. Keep every line factual, one observation per line, in order, and with absolutely no blame.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Understood. I will keep the objective facts and my personal opinion very clearly apart.</span></p>
+      </details>
+    </div>
+
+    <div class="dialogue">
+      <div class="dlg-head"><span class="dlg-tag">Dialogue 3</span><h3>Agreeing corrective and preventive actions</h3></div>
+      <p class="note">After the debrief has finished, the mechanic explains the agreed plan to a colleague named Marek.</p>
+      <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u25-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:30 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="sp">A</span><span class="said">Marek, we have finally finished the debrief on my dropped-tool near-miss from the late shift.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">I heard about it earlier. Nobody was injured, although honestly it could have been very bad.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">So tell me, what corrective action did the investigation team eventually agree on?</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">First, every tool used above floor level must have a lanyard attached, from now on.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">That makes complete sense, because a lanyard physically stops the tool falling to the floor.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Second, we will install much better lighting underneath the flap, as a practical mitigation.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">Good, since poor light was a contributing factor, so brighter lighting clearly lowers the risk.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Third, we will repair the loose access stand before anyone is allowed to use it again.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">And what preventive action have you planned for the future, before the very next job?</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Yes, we will update the work order, so that it requires a documented lanyard check.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">Excellent. That way, tool control begins before the task starts, instead of afterwards.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Rita also wants a short toolbox talk about dropped tools, sometime later this week.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">Very smart, because if we share the lesson properly, then the whole team learns from it.</span></p>
+        <p class="turn"><span class="sp">A</span><span class="said">Exactly. The real point is to fix the broken system, and never to blame a single person.</span></p>
+        <p class="turn"><span class="sp">B</span><span class="said">Fully agreed. As long as we keep reporting openly, we can prevent the next serious incident.</span></p>
+      </details>
+    </div>
+
+    <div class="dialogue">
+      <div class="dlg-head"><span class="dlg-tag">Audio 4 · Monologue</span><h3>Hangar safety announcement</h3></div>
+      <p class="note">A short stand-down announcement over the hangar speakers. You answer questions on it in E8's partner track, but listen now for the main message.</p>
+      <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u25-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:55 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="sp">PA</span><span class="said">Attention, all hangar staff. This is the safety officer speaking to you directly.</span></p>
+        <p class="turn"><span class="sp">PA</span><span class="said">Earlier today we had a dropped-tool near-miss in Bay 3, although fortunately nobody was injured.</span></p>
+        <p class="turn"><span class="sp">PA</span><span class="said">However, a falling tool remains a serious hazard, so please stop your work and listen carefully.</span></p>
+        <p class="turn"><span class="sp">PA</span><span class="said">From today, tool control is much tighter, because every tool used above floor level needs a lanyard.</span></p>
+        <p class="turn"><span class="sp">PA</span><span class="said">Before you begin any task, always check your work order carefully for the new lanyard step.</span></p>
+        <p class="turn"><span class="sp">PA</span><span class="said">If an access stand feels loose or unsafe, do not use it, and report it immediately.</span></p>
+        <p class="turn"><span class="sp">PA</span><span class="said">We will hold a short toolbox talk at three o'clock, about the agreed corrective action.</span></p>
+        <p class="turn"><span class="sp">PA</span><span class="said">Thank you for reporting openly, because one clear report can genuinely prevent the next incident.</span></p>
+        <p class="turn"><span class="sp">PA</span><span class="said">Stay alert, look after each other, and remember that no deadline is ever worth an injury.</span></p>
+      </details>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">03</span>Vocabulary bank</h2>
+    <p>These are the specialist terms for this unit. Each has a plain-words meaning, one example, and one common word pair (a collocation). Learn to say them and to spell them.</p>
+    <p>Try to learn each term together with its collocation, the natural word partner shown in the final column, because experienced technicians rarely say the noun on its own. For example, you <em>report a near-miss</em>, you <em>find the root cause</em>, and you <em>agree a corrective action</em>, so memorising these fixed pairs will make your spoken reports sound noticeably more fluent and professional.</p>
+    <table class="vocab-table">
+      <thead><tr><th>Term</th><th>Plain-words meaning</th><th>Example at level</th><th>Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="near-miss">near-miss</dfn></td><td>an event that almost caused harm, but did not</td><td>The dropped wrench was a near-miss, not an accident.</td><td class="col">report a near-miss</td></tr>
+        <tr><td><dfn data-term="incident">incident</dfn></td><td>an unplanned event that did or could cause harm</td><td>A dropped tool is a real incident, even with no damage.</td><td class="col">report an incident</td></tr>
+        <tr><td><dfn data-term="hazard">hazard</dfn></td><td>something that could cause harm</td><td>A loose stand is a hazard for the whole team.</td><td class="col">a serious hazard</td></tr>
+        <tr><td><dfn data-term="root cause">root cause</dfn></td><td>the first, real reason a problem happened</td><td>The root cause was weak tool control, not tiredness.</td><td class="col">find the root cause</td></tr>
+        <tr><td><dfn data-term="contributing factor">contributing factor</dfn></td><td>something that helped cause the event, but was not the main reason</td><td>Poor light was a contributing factor in the near-miss.</td><td class="col">a contributing factor</td></tr>
+        <tr><td><dfn data-term="corrective action">corrective action</dfn></td><td>a step taken to stop a problem happening again</td><td>The corrective action was to use a lanyard on every tool.</td><td class="col">agree a corrective action</td></tr>
+        <tr><td><dfn data-term="preventive action">preventive action</dfn></td><td>a step taken before a problem, to stop it starting</td><td>Updating the work order is a preventive action.</td><td class="col">a preventive action</td></tr>
+        <tr><td><dfn data-term="mitigation">mitigation</dfn></td><td>an action that lowers a risk</td><td>Better lighting is a good mitigation under the flap.</td><td class="col">risk mitigation</td></tr>
+        <tr><td><dfn data-term="observation">observation</dfn></td><td>a fact you saw or heard, not an opinion</td><td>Write each observation on its own line.</td><td class="col">a factual observation</td></tr>
+        <tr><td><dfn data-term="sequence of events">sequence of events</dfn></td><td>the order in which things happened</td><td>I wrote the sequence of events for the report.</td><td class="col">the sequence of events</td></tr>
+        <tr><td><dfn data-term="safety officer">safety officer</dfn></td><td>the person who manages safety reports</td><td>Tell the safety officer as soon as it is safe.</td><td class="col">the safety officer</td></tr>
+        <tr><td><dfn data-term="debrief">debrief</dfn></td><td>a short meeting to review what happened after an event</td><td>We hold a debrief straight after any incident.</td><td class="col">hold a debrief</td></tr>
+        <tr><td><dfn data-term="tool control">tool control</dfn></td><td>the system for tracking every tool in and out</td><td>Strong tool control stops tools going missing.</td><td class="col">weak tool control</td></tr>
+        <tr><td><dfn data-term="lanyard">lanyard</dfn></td><td>a cord that ties a tool to you, so it cannot fall</td><td>Clip the lanyard to your wrist before you climb.</td><td class="col">clip a lanyard</td></tr>
+        <tr><td><dfn data-term="torque wrench">torque wrench</dfn></td><td>a tool that tightens a bolt to an exact force</td><td>The torque wrench slipped as I tightened the bolt.</td><td class="col">use a torque wrench</td></tr>
+        <tr><td><dfn data-term="FOD">FOD</dfn></td><td>foreign object debris, loose items that can damage an aircraft</td><td>A loose tool becomes FOD if you leave it behind.</td><td class="col">a FOD hazard</td></tr>
+        <tr><td><dfn data-term="work order">work order</dfn></td><td>a document that authorises and records a task</td><td>The work order did not list a lanyard step.</td><td class="col">update the work order</td></tr>
+        <tr><td><dfn data-term="tech log">tech log</dfn></td><td>the aircraft's running record of defects and actions</td><td>I checked the tech log for earlier defects.</td><td class="col">check the tech log</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">04</span>Grammar in context, past continuous for background action</h2>
+    <p>An incident interrupts a task. To report it well, you show the <strong>background action</strong> that was in progress, and then the <strong>short event</strong> that cut in. English uses the <strong>past continuous</strong> for the background, and the <strong>past simple</strong> for the interrupting event.</p>
+    <p>Look again at these lines from Dialogue&nbsp;1:</p>
+    <div class="callout">
+      <p style="margin:0"><em>&ldquo;I <strong>was torquing</strong> the flap bolts <strong>when</strong> the torque wrench <strong>slipped</strong>.&rdquo;</em><br>
+      <em>&ldquo;As the wrench <strong>slipped</strong>, it <strong>dropped</strong> two metres.&rdquo;</em></p>
+    </div>
+    <p>The long action (<em>was torquing</em>) sets the scene. The short action (<em>slipped</em>) interrupts it. Use <em>when</em> before the short event, and <em>while</em> or <em>as</em> before the long one.</p>
+    <p>Notice the difference in duration between the two forms. The past continuous describes an activity that was already in progress and still continuing, whereas the past simple describes a single, completed event that suddenly interrupted it. Because your first language has no continuous aspect, this contrast will probably feel unnatural at first, so you should practise it deliberately until the interrupted pattern becomes automatic in your own incident reports.</p>
+    <table class="gram">
+      <thead><tr><th>Form</th><th>Structure</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Positive</td><td>was / were + verb-<em>ing</em></td><td>I <strong>was standing</strong> on the platform.</td></tr>
+        <tr><td>Negative</td><td>was / were + not + verb-<em>ing</em></td><td>I <strong>was not using</strong> a lanyard.</td></tr>
+        <tr><td>Question</td><td>was / were + subject + verb-<em>ing</em></td><td><strong>Were you working</strong> on the flap?</td></tr>
+        <tr><td>Interrupted</td><td>past continuous + <em>when</em> + past simple</td><td>I <strong>was torquing</strong> the bolt <strong>when</strong> it <strong>slipped</strong>.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Common mistakes: Latvian and Russian speakers</h3>
+    <p>Latvian and Russian do not have a continuous tense. So learners often use the past simple for the background, drop the <em>-ing</em>, or use the wrong form of <em>be</em>. Fix these first.</p>
+    <div class="fix">
+      <span class="wrong">When it slipped, I torqued the panel.</span>
+      <span class="right">When it slipped, I was torquing the panel.</span>
+      <span class="note">The background task needs the past continuous, not the past simple.</span>
+    </div>
+    <div class="fix">
+      <span class="wrong">We was working under the flap.</span>
+      <span class="right">We were working under the flap.</span>
+      <span class="note">Use <em>were</em> with we, you and they; use <em>was</em> with I, he, she and it.</span>
+    </div>
+    <div class="fix">
+      <span class="wrong">I was work on the panel when the light failed.</span>
+      <span class="right">I was working on the panel when the light failed.</span>
+      <span class="note">Keep the <em>-ing</em> ending on the main verb after was or were.</span>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="exercises">
+    <h2><span class="secnum">05</span>Exercises</h2>
+    <p>Do each task, then press <strong>Check</strong> to mark your answers. Green is right; red is wrong. You can also open <strong>Answers</strong> to compare.</p>
+
+    <!-- E1 -->
+    <div class="ex" id="e1">
+      <h3><span class="tag">E1 · Gap-fill</span> Put the right term in each gap</h3>
+      <div class="wordbank"><b>Word bank</b>, near-miss · incident · hazard · root cause · contributing factor · corrective action · preventive action · mitigation · observation · sequence of events · safety officer · debrief · tool control · lanyard · torque wrench · FOD · work order · tech log</div>
+      <p class="note">Read each sentence. Type one term from the bank in the gap.</p>
+      <ol>
+        <li>The wrench fell but hit no one, so we call it a <input class="gap" data-answer="near-miss" size="12">.</li>
+        <li>Clip a <input class="gap" data-answer="lanyard" size="12"> to your wrist so the tool cannot fall.</li>
+        <li>The first, real reason for a problem is the <input class="gap" data-answer="root cause" size="12">.</li>
+        <li>Tell the <input class="gap" data-answer="safety officer" size="14"> as soon as the area is safe.</li>
+        <li>A loose stand is a real <input class="gap" data-answer="hazard" size="12"> for the team.</li>
+        <li>We hold a short <input class="gap" data-answer="debrief" size="12"> straight after the event.</li>
+        <li>The step that stops it happening again is the <input class="gap" data-answer="corrective action" size="16">.</li>
+        <li>Poor light did not cause it alone, but it was a <input class="gap" data-answer="contributing factor" size="18">.</li>
+        <li>A loose tool left behind becomes <input class="gap" data-answer="FOD" size="8">.</li>
+        <li>I checked the <input class="gap" data-answer="tech log" size="12"> for earlier defects on the aircraft.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span>
+        <button class="btn reveal" data-target="e1a" data-show="Answers" data-hide="Hide answers">Answers</button></div>
+      <div class="answer" id="e1a"><ol>
+        <li>near-miss</li><li>lanyard</li><li>root cause</li><li>safety officer</li><li>hazard</li>
+        <li>debrief</li><li>corrective action</li><li>contributing factor</li><li>FOD</li><li>tech log</li>
+      </ol></div>
+    </div>
+
+    <!-- E2 -->
+    <div class="ex" id="e2">
+      <h3><span class="tag">E2 · Matching</span> Match the term to its meaning</h3>
+      <p class="note">Choose the letter of the correct meaning for each term.</p>
+      <p style="font-size:13.5px;background:var(--bg-sunken);border-radius:6px;padding:9px 13px">
+        <b>A</b> the order in which things happened &nbsp;·&nbsp;
+        <b>B</b> a step taken before a problem, to stop it starting &nbsp;·&nbsp;
+        <b>C</b> a cord that ties a tool to you &nbsp;·&nbsp;
+        <b>D</b> an action that lowers a risk &nbsp;·&nbsp;
+        <b>E</b> the system for tracking every tool &nbsp;·&nbsp;
+        <b>F</b> a fact you saw, not an opinion &nbsp;·&nbsp;
+        <b>G</b> a document that authorises and records a task &nbsp;·&nbsp;
+        <b>H</b> a tool that tightens a bolt to an exact force
+      </p>
+      <ol>
+        <li>preventive action &rarr; <select class="gap" data-answer="B"><option value="">, </option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></li>
+        <li>lanyard &rarr; <select class="gap" data-answer="C"><option value="">, </option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></li>
+        <li>mitigation &rarr; <select class="gap" data-answer="D"><option value="">, </option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></li>
+        <li>tool control &rarr; <select class="gap" data-answer="E"><option value="">, </option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></li>
+        <li>observation &rarr; <select class="gap" data-answer="F"><option value="">, </option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></li>
+        <li>work order &rarr; <select class="gap" data-answer="G"><option value="">, </option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></li>
+        <li>torque wrench &rarr; <select class="gap" data-answer="H"><option value="">, </option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></li>
+        <li>sequence of events &rarr; <select class="gap" data-answer="A"><option value="">, </option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span>
+        <button class="btn reveal" data-target="e2a" data-show="Answers" data-hide="Hide answers">Answers</button></div>
+      <div class="answer" id="e2a"><p>1&nbsp;B · 2&nbsp;C · 3&nbsp;D · 4&nbsp;E · 5&nbsp;F · 6&nbsp;G · 7&nbsp;H · 8&nbsp;A</p></div>
+    </div>
+
+    <!-- E3 -->
+    <div class="ex" id="e3">
+      <h3><span class="tag">E3 · Dialogue completion</span> Complete the report talk</h3>
+      <p class="note">Type one word in each gap to complete the short dialogue.</p>
+      <ol>
+        <li>A: I need to <input class="gap" data-answer="report" size="10"> a near-miss.</li>
+        <li>B: First, is anyone <input class="gap" data-answer="hurt" size="8">?</li>
+        <li>A: No. But give me a moment, I <input class="gap" data-answer="stopped" size="10"> the task at once.</li>
+        <li>B: Good. Give me an observation, not an <input class="gap" data-answer="opinion" size="10">.</li>
+        <li>A: I was <input class="gap" data-answer="torquing" size="10"> the bolts when the wrench slipped.</li>
+        <li>B: Where were you <input class="gap" data-answer="standing" size="10">?</li>
+        <li>A: On the platform. The tool <input class="gap" data-answer="dropped|fell" size="10"> two metres.</li>
+        <li>B: We will hold a <input class="gap" data-answer="debrief" size="10"> in ten minutes.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span>
+        <button class="btn reveal" data-target="e3a" data-show="Answers" data-hide="Hide answers">Answers</button></div>
+      <div class="answer" id="e3a"><p>1 report · 2 hurt · 3 stopped · 4 opinion · 5 torquing · 6 standing · 7 dropped (or fell) · 8 debrief</p></div>
+    </div>
+
+    <!-- E4 -->
+    <div class="ex" id="e4">
+      <h3><span class="tag">E4 · Grammar transformation</span> Make the past continuous</h3>
+      <p class="note">Write the verb in brackets in the past continuous (was / were + -ing).</p>
+      <ol>
+        <li>I <input class="gap" data-answer="was torquing" size="14"> (torque) the bolt when it slipped.</li>
+        <li>We <input class="gap" data-answer="were working" size="14"> (work) under the flap when the light failed.</li>
+        <li>She <input class="gap" data-answer="was standing" size="14"> (stand) on the stand when it moved.</li>
+        <li>They <input class="gap" data-answer="were climbing" size="14"> (climb) the platform when I called.</li>
+        <li>He <input class="gap" data-answer="was not using" size="16"> (not use) a lanyard at the time.</li>
+        <li><input class="gap" data-answer="were you checking" size="18"> (you / check) the tech log when it happened?</li>
+        <li>The wrench <input class="gap" data-answer="was falling" size="14"> (fall) as I reached out.</li>
+        <li>I <input class="gap" data-answer="was writing" size="14"> (write) the report when Rita arrived.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span>
+        <button class="btn reveal" data-target="e4a" data-show="Answers" data-hide="Hide answers">Answers</button></div>
+      <div class="answer" id="e4a"><p>1 was torquing · 2 were working · 3 was standing · 4 were climbing · 5 was not using · 6 Were you checking · 7 was falling · 8 was writing</p></div>
+    </div>
+
+    <!-- E5 -->
+    <div class="ex" id="e5">
+      <h3><span class="tag">E5 · Reading 1</span> An Occurrence Report (safety reporting genre)</h3>
+      <div class="reading">
+        <div class="doc">
+          <div class="docrow"><b>OCCURRENCE REPORT</b><span>Part-145 Safety Reporting</span></div>
+          <div class="docrow"><b>Ref / Date</b><span>OR-25-114 · 08 AUG · Late shift</span></div>
+          <div class="docrow"><b>Location</b><span>Hangar 2, Bay 3, work platform (right side)</span></div>
+          <div class="docrow"><b>Type</b><span>Near-miss, dropped tool (no injury, no aircraft damage)</span></div>
+          <div class="docrow"><b>What happened</b><span>The mechanic was torquing flap panel bolts. The torque wrench slipped from the hand. It dropped about two metres to the floor. It landed clear of the aircraft. No person was below at the time.</span></div>
+          <div class="docrow"><b>Immediate action</b><span>Task stopped. Area barriered. Safety officer told at once. Tool quarantined for check.</span></div>
+          <div class="docrow"><b>Contributing factors</b><span>No lanyard in use. Work order did not list a lanyard step. Poor light under the flap. Stand rail reported loose last week in the tech log.</span></div>
+          <div class="docrow"><b>Reporter's note</b><span>This is a factual report. I have kept my opinion out of the timeline.</span></div>
+        </div>
+      </div>
+      <p class="note">Answer with short facts from the report.</p>
+      <ol>
+        <li>What type of occurrence is this? <input class="gap" data-answer="near-miss|near miss|dropped tool" size="14"></li>
+        <li>How far did the tool fall (in metres)? <input class="gap" data-answer="two|2|two metres|2 metres" size="10"></li>
+        <li>Was anyone below the platform? <input class="gap" data-answer="no" size="8"></li>
+        <li>Which tool slipped? <input class="gap" data-answer="torque wrench|the torque wrench" size="14"></li>
+        <li>Name one contributing factor. <input class="gap" data-answer="no lanyard|lanyard|poor light|loose stand|work order|light" size="16"></li>
+        <li>Where was the loose rail recorded? <input class="gap" data-answer="tech log|the tech log" size="12"></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span>
+        <button class="btn reveal" data-target="e5a" data-show="Answers" data-hide="Hide answers">Answers</button></div>
+      <div class="answer" id="e5a"><p>1 near-miss (dropped tool) · 2 two metres · 3 no · 4 the torque wrench · 5 e.g. no lanyard / poor light / loose stand / work order gap · 6 the tech log</p></div>
+    </div>
+
+    <!-- E6 -->
+    <div class="ex" id="e6">
+      <h3><span class="tag">E6 · Error-spotting</span> Fix the flawed report</h3>
+      <p class="note">This report has eight problems: wrong grammar, and opinion mixed with fact. Read each line. Type the corrected word or phrase.</p>
+      <ol>
+        <li>I was work on the flap when the wrench slipped. &rarr; <input class="gap" data-answer="was working" size="14"></li>
+        <li>We was standing on the platform at the time. &rarr; <input class="gap" data-answer="were standing" size="14"></li>
+        <li>When the tool fell, I am torquing the last bolt. &rarr; <input class="gap" data-answer="was torquing" size="14"></li>
+        <li>The stupid stand is always loose and useless. Keep only the fact: the stand was <input class="gap" data-answer="loose" size="10">.</li>
+        <li>It landed clear off the aircraft. &rarr; <input class="gap" data-answer="clear of|of" size="10"></li>
+        <li>I think it is maybe someone else's fault. Replace opinion with: I have kept my <input class="gap" data-answer="opinion" size="10"> out of the timeline.</li>
+        <li>They was not using a lanyard. &rarr; <input class="gap" data-answer="were not using|were not" size="16"></li>
+        <li>I reported the near-miss to safety officer. Add the missing word: to <input class="gap" data-answer="the" size="6"> safety officer.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span>
+        <button class="btn reveal" data-target="e6a" data-show="Answers" data-hide="Hide answers">Answers</button></div>
+      <div class="answer" id="e6a"><p>1 was working · 2 were standing · 3 was torquing · 4 loose (drop &ldquo;stupid / useless&rdquo;) · 5 clear of · 6 opinion · 7 were not using · 8 the</p></div>
+    </div>
+
+    <!-- E7 -->
+    <div class="ex" id="e7">
+      <h3><span class="tag">E7 · Reading 2</span> A Task Card step (Simplified Technical English)</h3>
+      <div class="reading">
+        <div class="doc">
+          <div class="docrow"><b>TASK CARD</b><span>TC-57-31-04 · Flap panel bolt torque</span></div>
+          <div class="docrow"><b>Revision</b><span>Rev C, lanyard step added after OR-25-114</span></div>
+          <div class="docrow"><b>Zone / Access</b><span>Zone 570 · Use approved platform. Check the stand is safe.</span></div>
+          <div class="docrow"><b>Step 1</b><span>Put on eye protection. Clip a lanyard to each hand tool.</span></div>
+          <div class="docrow"><b>Step 2</b><span>Set the torque wrench to the value in the AMM. Do not guess.</span></div>
+          <div class="docrow"><b>Step 3</b><span>Torque the bolts in the correct order. Keep a firm grip.</span></div>
+          <div class="docrow"><b>Step 4</b><span>Do a tool control check. Count the tools in and out.</span></div>
+          <div class="docrow"><b>Step 5</b><span>Sign the work order. Report any near-miss to the safety officer.</span></div>
+          <div class="docrow"><b>Note</b><span>If a tool falls, stop. Treat it as FOD. Do not restart until the area is clear.</span></div>
+        </div>
+      </div>
+      <p class="note">Answer with short facts from the task card.</p>
+      <ol>
+        <li>Why was the card revised to Rev&nbsp;C? A <input class="gap" data-answer="lanyard|lanyard step" size="12"> step was added.</li>
+        <li>What must you clip to each hand tool? <input class="gap" data-answer="lanyard|a lanyard" size="12"></li>
+        <li>Where do you find the torque value? <input class="gap" data-answer="AMM|the AMM" size="10"></li>
+        <li>What check do you do in Step 4? <input class="gap" data-answer="tool control|tool control check" size="14"></li>
+        <li>Who do you tell about a near-miss? <input class="gap" data-answer="safety officer|the safety officer" size="14"></li>
+        <li>What do you treat a fallen tool as? <input class="gap" data-answer="FOD" size="8"></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span>
+        <button class="btn reveal" data-target="e7a" data-show="Answers" data-hide="Hide answers">Answers</button></div>
+      <div class="answer" id="e7a"><p>1 a lanyard step · 2 a lanyard · 3 the AMM · 4 a tool control check · 5 the safety officer · 6 FOD</p></div>
+    </div>
+
+    <!-- E8 -->
+    <div class="ex" id="e8">
+      <h3><span class="tag">E8 · Listening review</span> Questions on Dialogue 3</h3>
+      <p class="note">Replay Audio&nbsp;3 (or read its transcript). Then answer.</p>
+      <ol>
+        <li>What was the near-miss about? A <input class="gap" data-answer="dropped tool|dropped-tool|tool" size="14"></li>
+        <li>What must every tool above the floor now have? A <input class="gap" data-answer="lanyard|a lanyard" size="12"></li>
+        <li>What will be added under the flap as a mitigation? Better <input class="gap" data-answer="lighting|light" size="10"></li>
+        <li>What was the second contributing factor? Poor <input class="gap" data-answer="light|lighting" size="10"></li>
+        <li>What preventive action updates the paperwork? Update the <input class="gap" data-answer="work order" size="12"></li>
+        <li>When does tool control now start? Before the <input class="gap" data-answer="task|job" size="10"></li>
+        <li>What short meeting will Rita hold this week? A toolbox <input class="gap" data-answer="talk" size="8"></li>
+        <li>What is the point of the plan, fix the system or blame a <input class="gap" data-answer="person" size="10">?</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span>
+        <button class="btn reveal" data-target="e8a" data-show="Answers" data-hide="Hide answers">Answers</button></div>
+      <div class="answer" id="e8a"><p>1 a dropped tool · 2 a lanyard · 3 better lighting · 4 poor light · 5 the work order · 6 before the task · 7 a toolbox talk · 8 a person (the plan fixes the system)</p></div>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="speaking">
+    <h2><span class="secnum">06</span>Speaking, role-plays</h2>
+    <p>Work with a partner, or with the AI partner below. Swap roles after each card. Use the useful phrases.</p>
+
+    <div class="rp-grid">
+      <div class="roleplay">
+        <h4>Role-play card 1: First report</h4>
+        <div class="rp-field"><span class="flab">Situation</span>A tool just fell from your platform. No one is hurt.</div>
+        <div class="rp-field"><span class="flab">Your role</span>You are the mechanic. Your partner is the safety officer.</div>
+        <div class="rp-field"><span class="flab">Your goal</span>Report the near-miss. Give a factual timeline in past tenses.</div>
+        <div class="rp-field"><span class="flab">Useful phrases</span>
+          <ul class="phrases">
+            <li>&ldquo;I need to report a near-miss.&rdquo;</li>
+            <li>&ldquo;I was torquing the bolt when it slipped.&rdquo;</li>
+            <li>&ldquo;No one was hurt, but it was close.&rdquo;</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="roleplay">
+        <h4>Role-play card 2: Fact or opinion?</h4>
+        <div class="rp-field"><span class="flab">Situation</span>You are writing the report together at the debrief.</div>
+        <div class="rp-field"><span class="flab">Your role</span>You are the safety officer. Keep the mechanic factual.</div>
+        <div class="rp-field"><span class="flab">Your goal</span>Turn each opinion into a clear observation.</div>
+        <div class="rp-field"><span class="flab">Useful phrases</span>
+          <ul class="phrases">
+            <li>&ldquo;Give me an observation, not an opinion.&rdquo;</li>
+            <li>&ldquo;What did you actually see?&rdquo;</li>
+            <li>&ldquo;Let us keep the facts and the blame apart.&rdquo;</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="roleplay">
+        <h4>Role-play card 3: Finding the root cause</h4>
+        <div class="rp-field"><span class="flab">Situation</span>The debrief is looking for why the tool fell.</div>
+        <div class="rp-field"><span class="flab">Your role</span>You are the mechanic. Explain the contributing factors.</div>
+        <div class="rp-field"><span class="flab">Your goal</span>Agree on the root cause without blaming a person.</div>
+        <div class="rp-field"><span class="flab">Useful phrases</span>
+          <ul class="phrases">
+            <li>&ldquo;The root cause looks like weak tool control.&rdquo;</li>
+            <li>&ldquo;Poor light was a contributing factor.&rdquo;</li>
+            <li>&ldquo;The work order did not mention a lanyard.&rdquo;</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="roleplay">
+        <h4>Role-play card 4: Suggesting an action</h4>
+        <div class="rp-field"><span class="flab">Situation</span>The team must agree how to stop it happening again.</div>
+        <div class="rp-field"><span class="flab">Your role</span>You are a mechanic proposing actions to a colleague.</div>
+        <div class="rp-field"><span class="flab">Your goal</span>Suggest one corrective and one preventive action.</div>
+        <div class="rp-field"><span class="flab">Useful phrases</span>
+          <ul class="phrases">
+            <li>&ldquo;As a corrective action, we should use a lanyard.&rdquo;</li>
+            <li>&ldquo;A good preventive action is to update the work order.&rdquo;</li>
+            <li>&ldquo;Better lighting would be a useful mitigation.&rdquo;</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="aibox">
+      <h4>AI conversation partner: copy a prompt into the chat buddy</h4>
+      <p class="note">Paste one prompt into the chat. Speak in English. The partner will keep it at your level and gently correct you.</p>
+      <div class="prompt">You are a Part-145 safety officer in a busy hangar. I am a mechanic who just had a dropped-tool near-miss. Ask me to report it to you. Speak only at CEFR B2, keep your turns short, ask me one question each time, and gently recast my errors instead of lecturing me.</div>
+      <div class="prompt">You are my colleague at a debrief. Help me find the root cause of a dropped-tool near-miss. Ask me about the contributing factors one by one. Stay at CEFR B2, keep answers short, gently fix my past continuous when I get it wrong, and end each turn with one question.</div>
+      <div class="prompt">You are a team leader. I must suggest corrective and preventive actions after a near-miss, without blaming anyone. Push me to keep it factual and blame-free. Use CEFR B2 English, short turns, one follow-up question each time, and softly recast any mistakes I make.</div>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="writing">
+    <h2><span class="secnum">07</span>Writing task</h2>
+    <p>Write a short <strong>Occurrence Report</strong> for the dropped-tool near-miss. Use the same genre as E5. Write 90–120 words. Keep facts and opinion apart. Use the past continuous for the background action.</p>
+    <p>Remember that an occurrence report is a permanent record, which other engineers, auditors and regulators may read months later. Therefore, write in short, unambiguous Simplified Technical English sentences, keep every single statement factual, and carefully avoid any language that assigns personal blame to a colleague.</p>
+    <div class="callout">
+      <h4>Include these parts</h4>
+      <ul>
+        <li>Location and type of occurrence (near-miss).</li>
+        <li>What happened, as a clear sequence of events.</li>
+        <li>Immediate action you took.</li>
+        <li>One contributing factor and one corrective action.</li>
+      </ul>
+    </div>
+    <div class="exfoot"><button class="btn reveal" data-target="wmodel" data-show="Show model answer" data-hide="Hide model answer">Show model answer</button></div>
+    <div class="answer" id="wmodel">
+      <p><strong>Occurrence Report, OR-25-114</strong><br>
+      Location: Hangar 2, Bay 3, work platform. Type: near-miss (dropped tool).<br>
+      What happened: I was torquing the flap panel bolts when my torque wrench slipped. It dropped about two metres to the floor. It landed clear of the aircraft, and no one was below.<br>
+      Immediate action: I stopped the task, barriered the area, and told the safety officer at once.<br>
+      Contributing factor: I was not using a lanyard, because the work order did not list one.<br>
+      Corrective action: fit a lanyard to every tool above the floor, and update the work order.</p>
+    </div>
+    <h4>Self-check: tick before you submit</h4>
+    <ul class="checklist">
+      <li>Did I separate observation from opinion (no blame words)?</li>
+      <li>Did I use the past continuous for the background action?</li>
+      <li>Is my sequence of events in the right order?</li>
+      <li>Did I name one contributing factor and one corrective action?</li>
+    </ul>
+  </section>
+
+  <footer>
+    English for Aviation Maintenance · Unit 25, Reporting a near-miss or hangar incident · CEFR B2 · Self-study language unit. Answers are self-checking: the page confirms them, so you can study alone.
+  </footer>
+</article>
+
+<script>
+(function(){
+  function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();}
+  document.querySelectorAll('.check').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var ex=btn.closest('.ex');if(!ex)return;
+      var right=0,total=0;
+      ex.querySelectorAll('[data-answer]').forEach(function(inp){
+        total++;
+        var want=inp.getAttribute('data-answer').split('|').map(norm);
+        var got=norm(inp.value);
+        if(got!=='' && want.indexOf(got)>-1){inp.classList.add('ok');inp.classList.remove('bad');right++;}
+        else{inp.classList.add('bad');inp.classList.remove('ok');}
+      });
+      var out=ex.querySelector('.score');
+      if(out)out.textContent=right+' / '+total+' correct';
+    });
+  });
+  document.querySelectorAll('.reveal').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var t=document.getElementById(btn.getAttribute('data-target'));
+      if(!t)return;
+      var open=(t.style.display==='block');
+      t.style.display=open?'none':'block';
+      btn.textContent=open?btn.getAttribute('data-show'):btn.getAttribute('data-hide');
+    });
+  });
+})();
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 25 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "near-miss", "def": "an event that almost caused harm, but did not"}, {"term": "incident", "def": "an unplanned event that did or could cause harm"}, {"term": "hazard", "def": "something that could cause harm"}, {"term": "root cause", "def": "the first, real reason a problem happened"}, {"term": "contributing factor", "def": "something that helped cause the event, but was not the main reason"}, {"term": "corrective action", "def": "a step taken to stop a problem happening again"}, {"term": "preventive action", "def": "a step taken before a problem, to stop it starting"}, {"term": "mitigation", "def": "an action that lowers a risk"}, {"term": "observation", "def": "a fact you saw or heard, not an opinion"}, {"term": "sequence of events", "def": "the order in which things happened"}, {"term": "safety officer", "def": "the person who manages safety reports"}, {"term": "debrief", "def": "a short meeting to review what happened after an event"}, {"term": "tool control", "def": "the system for tracking every tool in and out"}, {"term": "lanyard", "def": "a cord that ties a tool to you, so it cannot fall"}, {"term": "torque wrench", "def": "a tool that tightens a bolt to an exact force"}, {"term": "FOD", "def": "foreign object debris, loose items that can damage an aircraft"}, {"term": "work order", "def": "a document that authorises and records a task"}, {"term": "tech log", "def": "the aircraft's running record of defects and actions"}], "lines": ["Rita, I have to report a near-miss immediately, because a tool just fell from my platform.", "I am the safety officer, so tell me everything, but first, is anyone actually injured?", "Nobody is injured, although it was extremely close, so I stopped the whole task at once.", "That was exactly the right decision. Now, give me an observation, and not an opinion.", "Understood. I was torquing the flap panel bolts when the torque wrench slipped out of my hand.", "So you were working directly on the flap. Where exactly were you standing at that moment?", "I was standing on the elevated platform, near the trailing edge, on the right-hand side.", "Describe the sequence of events for me now, in the exact order that everything happened.", "As the wrench slipped, it dropped roughly two metres onto the concrete hangar floor below.", "Did the wrench strike anybody, or any part of the aircraft structure, as it fell?", "No. It landed clear of the aircraft, and fortunately nobody was walking underneath at the time.", "It is still a serious hazard, because a dropped tool is a genuine incident, even without damage.", "I completely agree, which is exactly why I am reporting it now, before we forget the details.", "Correct. It also counts as FOD, since a loose tool can easily damage the aircraft structure.", "Exactly. I have already placed a barrier around the area, so that nobody accidentally steps on it.", "Perfect response. I will log the occurrence, and we will hold a proper debrief in ten minutes.", "Rita, I have already written down the full sequence of events for the occurrence report.", "Good work. Let us find the root cause together, and not simply blame the last mistake.", "The wrench slipped because my hand was tired, and because the bolt was slightly over-torqued.", "That is certainly one cause. However, let us also look carefully for any contributing factors.", "Well, the lighting was poor, since I was working in a deep shadow underneath the flap.", "Poor lighting is a clear contributing factor. Now, what exactly did the work order say?", "The work order did not mention a lanyard, so unfortunately I was not using one.", "That is important, because a missing instruction is a genuine cause, and never just an excuse."], "roleplays": ["A tool just fell from your platform. No one is hurt.", "You are writing the report together at the debrief.", "The debrief is looking for why the tool fell.", "The team must agree how to stop it happening again."], "grammar": "An incident interrupts a task. To report it well, you show the background action that was in progress, and then the short event that cut in. English uses the past continuous for the background, and the past simple for the interrupting event.", "scenario": "You are a Part-145 mechanic on the late shift. You are torquing panel bolts on a flap, up on a work platform. Your torque wrench slips and falls two metres to the hangar floor. Nobody is hurt, and the aircraft is not damaged, but it was close. This is a near-miss (an event that almost caused harm). You must report it t", "pron": ["Rita, I have to report a near-miss immediately, because a tool just fell from my platform.", "I am the safety officer, so tell me everything, but first, is anyone actually injured?", "Nobody is injured, although it was extremely close, so I stopped the whole task at once.", "That was exactly the right decision. Now, give me an observation, and not an opinion."], "course": "English for Aviation Maintenance", "unit": 25, "total": 32, "title": "Reporting a near-miss or hangar incident", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}, "figures": [{"type": "doc", "where": "scenario", "title": "Filing the near-miss report", "docTitle": "Hangar Incident Report Form", "caption": "Each field name is a safety term from this unit; the note shows what the mechanic actually wrote.", "rows": [{"label": "Near-miss", "note": "The torque wrench fell but nobody was hurt and nothing was damaged."}, {"label": "Hazard", "note": "A tool falling from a work platform onto the hangar floor."}, {"label": "Root cause", "note": "The lanyard was not attached to the torque wrench."}, {"label": "Contributing factor", "note": "The mechanic was reaching across the platform for the last bolt."}, {"label": "Corrective action", "note": "Attach a lanyard to every tool before working at height."}, {"label": "FOD", "note": "Foreign object debris that could damage the aircraft or an engine."}]}, {"type": "flow", "where": "grammar", "title": "Building the interrupted-action sentence", "caption": "Past continuous sets the background; past simple cuts in with the event, joined by 'when'.", "steps": [{"label": "Set the background", "note": "Past continuous shows the task in progress: 'I was torquing the flap panel bolts.'"}, {"label": "Add 'when'", "note": "Use 'when' to introduce the sudden event that interrupted the task."}, {"label": "Name the event", "note": "Past simple shows the short action: 'the torque wrench slipped out of my hand.'"}, {"label": "State the result", "note": "Add the next past simple action: 'it fell two metres to the floor.'"}, {"label": "Confirm the outcome", "note": "Close with a past simple fact: 'nobody was injured.'"}]}, {"type": "tree", "where": "grammar", "title": "First response to a near-miss", "caption": "Each question is answered with a short past simple fact, exactly as Rita requires in the debrief.", "levels": [{"q": "Is anyone actually injured?", "yes": "Call for help, then report.", "no": "Stop the task, then report."}, {"q": "Is the aircraft damaged?", "yes": "Log the damage in the tech log.", "no": "Note 'no damage found'."}, {"q": "Is this an observation, not opinion?", "yes": "State only what you did.", "no": "Rephrase it as a fact."}]}, {"type": "compare", "where": "vocabulary", "title": "Observation vs opinion in a debrief", "a": "Observation", "b": "Opinion", "caption": "Rita's rule 'give an observation, not an opinion' separates these two kinds of sentence.", "rows": [["What it states", "A fact you saw or did", "A belief or guess"], ["Rita's example", "\"The wrench slipped.\"", "\"The platform was too small.\""], ["Effect on root cause", "Builds a reliable sequence of events", "Can hide the real root cause"], ["Tense usually used", "Past simple: it slipped", "Present belief: I think"]]}, {"type": "timeline", "where": "speaking", "title": "Sequence of events on the platform", "caption": "Retell the incident aloud: background events in past continuous, the interruption in past simple.", "events": [{"t": "23:10", "e": "Climbs onto work platform", "note": "Background begins: torquing the flap panel bolts."}, {"t": "23:14", "e": "Torque wrench slips", "note": "The interrupting event, told in past simple."}, {"t": "23:14", "e": "Tool falls two metres", "note": "Immediate result, also past simple."}, {"t": "23:15", "e": "Task stopped immediately", "note": "The safety officer calls this exactly the right decision."}, {"t": "23:16", "e": "Near-miss reported to Rita", "note": "The mechanic reports at once, as tool control requires."}, {"t": "23:25", "e": "Debrief begins", "note": "Rita asks for an observation, not an opinion."}]}]};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+//
+// It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
+// the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
+// buddy answers about THIS lesson rather than about English in general.
+//
+// Three ways to reach a model, chosen per course at build time:
+//   proxy: the page holds NO credential; it POSTs to a small endpoint that keeps the key.
+//   embedded: an institutional key is baked into the page. Convenient, but any learner who opens
+//              devtools can read it, so it is only defensible behind a login.
+//   byo: the learner pastes their own key; it is kept in localStorage and never leaves the
+//              browser except to the vendor.
+// Vendors: anything OpenAI-compatible (Mistral, OpenAI, Groq, DeepSeek, OpenRouter, Azure, a local
+// server), plus Anthropic and Google, whose request shapes differ.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !CFG.ai) return;
+
+  var AI = CFG.ai;
+  var LS_KEY = 'langbuddy.key.' + (AI.vendor || 'x');
+  var LS_HIST = 'langbuddy.hist.' + (CFG.course || '') + '.' + (CFG.unit || 0);
+
+  var PRESETS = {
+    mistral: { base: 'https://api.mistral.ai/v1', shape: 'openai', model: 'mistral-small-latest', keyUrl: 'https://console.mistral.ai/api-keys' },
+    openai: { base: 'https://api.openai.com/v1', shape: 'openai', model: 'gpt-4o-mini', keyUrl: 'https://platform.openai.com/api-keys' },
+    groq: { base: 'https://api.groq.com/openai/v1', shape: 'openai', model: 'llama-3.1-8b-instant', keyUrl: 'https://console.groq.com/keys' },
+    deepseek: { base: 'https://api.deepseek.com/v1', shape: 'openai', model: 'deepseek-chat', keyUrl: 'https://platform.deepseek.com/api_keys' },
+    openrouter: { base: 'https://openrouter.ai/api/v1', shape: 'openai', model: 'mistralai/mistral-small', keyUrl: 'https://openrouter.ai/keys' },
+    anthropic: { base: 'https://api.anthropic.com/v1', shape: 'anthropic', model: 'claude-haiku-4-5-20251001', keyUrl: 'https://console.anthropic.com/settings/keys' },
+    google: { base: 'https://generativelanguage.googleapis.com/v1beta', shape: 'google', model: 'gemini-2.0-flash', keyUrl: 'https://aistudio.google.com/apikey' }
+  };
+  var P = PRESETS[AI.vendor] || PRESETS.mistral;
+  var BASE = AI.baseUrl || P.base;
+  var SHAPE = AI.shape || P.shape;
+  var MODEL = AI.model || P.model;
+
+  function storedKey() {
+    try { return localStorage.getItem(LS_KEY) || ''; } catch (e) { return ''; }
+  }
+  function activeKey() {
+    return AI.mode === 'embedded' ? (AI.key || '') : storedKey();
+  }
+  function needsKey() {
+    return AI.mode !== 'proxy' && !activeKey();
+  }
+
+  // ---- what the buddy knows about this unit -------------------------------------------------
+  function systemPrompt() {
+    var lang = CFG.language || 'English';
+    var terms = (CFG.terms || []).map(function (t) { return t.term + (t.def ? ' = ' + t.def : ''); }).join('; ');
+    var lines = (CFG.lines || []).slice(0, 24).join('\n');
+    var l1 = (CFG.l1 || []).join(' or ');
+    return [
+      'You are Lang Buddy, a patient ' + lang + ' tutor inside an online lesson.',
+      'The learner is studying "' + (CFG.course || lang) + '", unit ' + (CFG.unit || '') + ': "' + (CFG.title || '') + '".',
+      'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
+      'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
+      '',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
+      'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
+      'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
+      'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
+      '',
+      'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
+      (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
+      (terms ? 'Vocabulary bank: ' + terms : ''),
+      (lines ? 'Lines from the unit dialogues you can refer to:\n' + lines : ''),
+      '',
+      'Rules. Answer questions about this unit first, using its own words and examples.',
+      'For exercises, give a hint or an example with a DIFFERENT word, never the answer itself;',
+      'if the learner insists, ask them to try once more, then explain the reasoning without',
+      'writing their answer for them. Correct their mistakes gently: repeat their sentence',
+      'correctly, then continue. If a question has nothing to do with language or this subject,',
+      'say so kindly and steer back to the lesson.'
+    ].filter(Boolean).join('\n');
+  }
+
+  // ---- vendor calls -------------------------------------------------------------------------
+  function callModel(messages, onDone, onFail) {
+    var key = activeKey();
+    var url, headers = { 'Content-Type': 'application/json' }, body;
+
+    if (AI.mode === 'proxy') {
+      url = AI.proxyUrl;
+      body = { model: MODEL, messages: [{ role: 'system', content: systemPrompt() }].concat(messages) };
+    } else if (SHAPE === 'anthropic') {
+      url = BASE + '/messages';
+      headers['x-api-key'] = key;
+      headers['anthropic-version'] = '2023-06-01';
+      headers['anthropic-dangerous-direct-browser-access'] = 'true';
+      body = { model: MODEL, max_tokens: 500, system: systemPrompt(), messages: messages };
+    } else if (SHAPE === 'google') {
+      url = BASE + '/models/' + MODEL + ':generateContent?key=' + encodeURIComponent(key);
+      body = {
+        systemInstruction: { parts: [{ text: systemPrompt() }] },
+        contents: messages.map(function (m) {
+          return { role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] };
+        })
+      };
+    } else {
+      url = BASE + '/chat/completions';
+      headers.Authorization = 'Bearer ' + key;
+      body = {
+        model: MODEL, max_tokens: 500, temperature: 0.4,
+        messages: [{ role: 'system', content: systemPrompt() }].concat(messages)
+      };
+    }
+
+    fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(body) })
+      .then(function (r) {
+        return r.text().then(function (t) {
+          var j = null;
+          try { j = JSON.parse(t); } catch (e) { /* keep the raw body for the error message */ }
+          if (!r.ok) {
+            var msg = (j && j.error && (j.error.message || j.error)) || t.slice(0, 160);
+            throw new Error(r.status === 401 || r.status === 403
+              ? 'The key was refused. Check it and try again.'
+              : (r.status === 429 ? 'Too many questions right now. Wait a moment, then ask again.' : String(msg)));
+          }
+          var out = '';
+          if (SHAPE === 'anthropic' && j.content) out = (j.content[0] || {}).text || '';
+          else if (SHAPE === 'google' && j.candidates) out = (((j.candidates[0] || {}).content || {}).parts || [{}])[0].text || '';
+          else out = (((j.choices || [{}])[0] || {}).message || {}).content || '';
+          if (!out) throw new Error('The model sent an empty answer. Try asking again.');
+          return out.trim();
+        });
+      })
+      .then(onDone)
+      .catch(function (e) { onFail(e.message || String(e)); });
+  }
+
+  // ---- UI -----------------------------------------------------------------------------------
+  var hist = [];
+  try { hist = JSON.parse(localStorage.getItem(LS_HIST) || '[]'); } catch (e) { hist = []; }
+
+  var root = document.createElement('div');
+  root.className = 'lb-root';
+  root.innerHTML =
+    '<button class="lb-fab" aria-label="Open Lang Buddy"><span class="lb-fab-i">💬</span>'
+    + '<span class="lb-fab-t">Lang Buddy</span></button>'
+    + '<section class="lb-panel" hidden aria-label="Lang Buddy">'
+    + '  <header class="lb-head"><div><b>Lang Buddy</b>'
+    + '    <span class="lb-sub">Unit ' + (CFG.unit || '') + ' · answers at ' + (CFG.cefr || 'B1') + '</span></div>'
+    + '    <button class="lb-x" aria-label="Close">×</button></header>'
+    + '  <div class="lb-log" role="log"></div>'
+    + '  <div class="lb-quick"></div>'
+    + '  <form class="lb-form"><input class="lb-in" autocomplete="off"'
+    + '    placeholder="Ask about this unit…"><button class="lb-send">Send</button></form>'
+    + '</section>';
+  document.body.appendChild(root);
+
+  var fab = root.querySelector('.lb-fab');
+  var panel = root.querySelector('.lb-panel');
+  var log = root.querySelector('.lb-log');
+  var form = root.querySelector('.lb-form');
+  var input = root.querySelector('.lb-in');
+  var quick = root.querySelector('.lb-quick');
+
+  function bubble(role, text, cls) {
+    var d = document.createElement('div');
+    d.className = 'lb-msg lb-' + role + (cls ? ' ' + cls : '');
+    d.textContent = text;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+    return d;
+  }
+
+  function keyGate() {
+    var box = document.createElement('div');
+    box.className = 'lb-gate';
+    box.innerHTML =
+      '<p>Lang Buddy needs a key for <b>' + (AI.vendor || 'the model') + '</b>. It is stored only in this'
+      + ' browser and is sent to the vendor, never to us.</p>'
+      + '<input class="lb-key" type="password" placeholder="Paste your API key">'
+      + '<button class="lb-save">Save key</button>'
+      + '<a class="lb-help" href="' + (P.keyUrl || '#') + '" target="_blank" rel="noopener">Where do I get one?</a>';
+    log.appendChild(box);
+    box.querySelector('.lb-save').addEventListener('click', function () {
+      var v = box.querySelector('.lb-key').value.trim();
+      if (!v) return;
+      try { localStorage.setItem(LS_KEY, v); } catch (e) { /* private mode: key lives for this page only */ }
+      AI.key = v;
+      box.remove();
+      bubble('bot', 'Thank you. Ask me anything about this unit.');
+      renderQuick();
+    });
+  }
+
+  var busy = false;
+  function ask(text) {
+    if (busy || !text.trim()) return;
+    if (needsKey()) { keyGate(); return; }
+    busy = true;
+    bubble('you', text);
+    hist.push({ role: 'user', content: text });
+    var think = bubble('bot', 'thinking…', 'lb-think');
+    callModel(hist.slice(-10), function (out) {
+      think.classList.remove('lb-think');
+      think.textContent = out;
+      hist.push({ role: 'assistant', content: out });
+      try { localStorage.setItem(LS_HIST, JSON.stringify(hist.slice(-20))); } catch (e) { /* full or blocked */ }
+      busy = false;
+    }, function (err) {
+      think.classList.remove('lb-think');
+      think.classList.add('lb-err');
+      think.textContent = err;
+      hist.pop();
+      busy = false;
+    });
+  }
+
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
+  function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
+    var acts = [
+      ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
+      ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
+      ['I do not understand a word', 'I will name a word from this unit. Explain it simply and give one example sentence.']
+    ];
+    (CFG.roleplays || []).slice(0, 2).forEach(function (r, i) {
+      acts.unshift(['Role-play ' + (i + 1), 'Let us role-play. ' + r + ' You start. Speak only at CEFR '
+        + (CFG.cefr || 'B1') + ', keep your turns short, and ask me one question each turn.']);
+    });
+    quick.innerHTML = '';
+    acts.slice(0, 5).forEach(function (a) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lb-q';
+      b.textContent = a[0];
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
+      quick.appendChild(b);
+    });
+  }
+
+  function open() {
+    panel.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    if (!log.childElementCount) {
+      if (hist.length) {
+        hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
+      } else {
+        bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
+          + 'You can write to me in your own language if that is easier.');
+      }
+      if (needsKey()) keyGate(); else renderQuick();
+    }
+    setTimeout(function () { input.focus(); }, 60);
+  }
+  function close() { panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); }
+
+  fab.addEventListener('click', function () { panel.hidden ? open() : close(); });
+  root.querySelector('.lb-x').addEventListener('click', close);
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value;
+    input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
+    ask(v);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });
+})();
+</script><script>// LANG edition: pronunciation practice.
+//
+// The learner reads a line from this unit's dialogues out loud; the browser's own speech
+// recognition transcribes it and we score the transcript word by word against the target. No key,
+// no server, nothing leaves the browser beyond the recognition service the browser already uses.
+// Chrome and Edge support this; Firefox and Safari do not, so we say so rather than showing a
+// button that does nothing.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !(CFG.pron || []).length) return;
+
+  var host = document.getElementById('speaking') || document.getElementById('dialogues');
+  if (!host) return;
+
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var LANG = CFG.langCode || 'en-GB';
+
+  // Words we do not penalise: the learner saying "the" instead of "a" is not a pronunciation fault
+  // worth a red mark in a technical-English lesson.
+  var SKIP = { a: 1, an: 1, the: 1, is: 1, are: 1, and: 1, to: 1, of: 1, it: 1, in: 1, that: 1 };
+
+  function norm(s) {
+    return String(s || '').toLowerCase()
+      .replace(/[^\p{L}\p{N}' ]/gu, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function words(s) { return norm(s).split(' ').filter(Boolean); }
+
+  var card = document.createElement('div');
+  card.className = 'pron';
+  card.innerHTML = '<h3>Say it out loud</h3><p class="hint">Press record and read the line. '
+    + 'You will see which words came through clearly.</p>';
+
+  if (!SR) {
+    card.innerHTML += '<p class="pron-note">Your browser cannot listen. Open this lesson in Chrome '
+      + 'or Edge to use this exercise. You can still read the lines aloud with your teacher.</p>';
+    host.appendChild(card);
+    return;
+  }
+
+  CFG.pron.slice(0, 4).forEach(function (target, i) {
+    var row = document.createElement('div');
+    row.className = 'pron-line';
+    row.innerHTML =
+      '<div class="pron-target" id="pt' + i + '"></div>'
+      + '<div class="pron-bar"><button type="button" class="pron-rec">🎙 Record</button>'
+      + '<span class="pron-score"></span></div><div class="pron-heard"></div>';
+    card.appendChild(row);
+
+    var tgtEl = row.querySelector('.pron-target');
+    var btn = row.querySelector('.pron-rec');
+    var scoreEl = row.querySelector('.pron-score');
+    var heardEl = row.querySelector('.pron-heard');
+    var tw = words(target);
+
+    // render the target with each word in its own span so we can mark it later
+    target.split(/(\s+)/).forEach(function (chunk) {
+      if (/^\s+$/.test(chunk)) { tgtEl.appendChild(document.createTextNode(chunk)); return; }
+      var s = document.createElement('span');
+      s.textContent = chunk;
+      s.dataset.w = norm(chunk);
+      tgtEl.appendChild(s);
+    });
+
+    var rec = null;
+    function stop() {
+      if (rec) { try { rec.stop(); } catch (e) { /* already stopped */ } rec = null; }
+      btn.dataset.on = '';
+      btn.textContent = '🎙 Record';
+    }
+
+    function grade(said) {
+      var heard = words(said);
+      var pool = heard.slice();
+      var hits = 0, counted = 0;
+      tw.forEach(function (w) {
+        if (SKIP[w]) return;
+        counted++;
+        var at = pool.indexOf(w);
+        if (at >= 0) { hits++; pool.splice(at, 1); }
+      });
+      var pct = counted ? Math.round(100 * hits / counted) : 0;
+
+      var got = words(said);
+      tgtEl.querySelectorAll('span').forEach(function (s) {
+        var w = s.dataset.w;
+        if (!w || SKIP[w]) { s.className = ''; return; }
+        s.className = got.indexOf(w) >= 0 ? 'hit' : 'miss';
+      });
+      scoreEl.textContent = pct + '% clear (' + hits + ' of ' + counted + ' words)';
+      scoreEl.className = 'pron-score ' + (pct >= 80 ? 'good' : (pct >= 55 ? '' : 'poor'));
+      heardEl.textContent = said ? 'We heard: ' + said : 'We heard nothing. Try again, a little louder.';
+    }
+
+    btn.addEventListener('click', function () {
+      if (rec) { stop(); return; }
+      rec = new SR();
+      rec.lang = LANG;
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      btn.dataset.on = '1';
+      btn.textContent = '● Listening, press to stop';
+      scoreEl.textContent = '';
+      heardEl.textContent = '';
+      rec.onresult = function (e) {
+        var said = '';
+        for (var k = 0; k < e.results.length; k++) said += e.results[k][0].transcript + ' ';
+        grade(said.trim());
+      };
+      rec.onerror = function (e) {
+        heardEl.textContent = e.error === 'not-allowed'
+          ? 'The microphone is blocked. Allow it in the address bar, then try again.'
+          : 'The microphone did not work. Try again.';
+        stop();
+      };
+      rec.onend = stop;
+      try { rec.start(); } catch (e) { stop(); }
+    });
+  });
+
+  card.insertAdjacentHTML('beforeend',
+    '<p class="pron-note">Scoring counts the words the browser recognised, so it rewards clear '
+    + 'consonants and word stress. It is practice, not an exam.</p>');
+  host.appendChild(card);
+})();
+</script><script>// LANG edition: unit figures.
+//
+// Every figure is DRAWN here from a small JSON spec the authoring agent writes, never hand-drawn
+// as SVG by the agent. That is deliberate: agent-authored SVG comes out different (and often
+// broken) in every unit, while a shared renderer gives one house style across a whole course.
+//
+// The types are chosen so each one carries a language function, not just a picture:
+//   doc      anatomy of a real document, callouts -> the vocabulary of its parts
+//   flow     ordered steps                        -> sequencing language, imperatives
+//   tree     a yes/no decision                    -> conditionals
+//   compare  two things side by side              -> comparatives
+//   timeline events across a shift or a check     -> tenses
+//
+// Figures with labels can be switched into "label it" mode, where the labels are blanked and the
+// learner types them back. That turns an illustration into a vocabulary exercise for free.
+(function () {
+  var SPEC = (window.__LANG_BUDDY__ || {}).figures;
+  if (!SPEC || !SPEC.length) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var INK = '#1b2733', INK2 = '#5a6b7d', BRAND = '#2F5496', AMBER = '#e0a53d', LINE = '#dbe1e9';
+
+  function el(name, attrs, text) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) if (attrs.hasOwnProperty(k)) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function svg(w, h) {
+    var s = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: '100%',
+      preserveAspectRatio: 'xMidYMid meet', role: 'img' });
+    s.style.maxWidth = w + 'px';
+    s.style.display = 'block';
+    s.style.margin = '0 auto';
+    return s;
+  }
+  // crude but reliable line wrapping: SVG has none of its own
+  function wrap(s, max) {
+    var out = [], line = '';
+    String(s || '').split(/\s+/).forEach(function (w) {
+      if ((line + ' ' + w).trim().length > max) { if (line) out.push(line); line = w; }
+      else line = (line ? line + ' ' : '') + w;
+    });
+    if (line) out.push(line);
+    return out;
+  }
+  function textBlock(parent, str, x, y, max, size, fill, lh) {
+    var lines = wrap(str, max);
+    lines.forEach(function (l, i) {
+      parent.appendChild(el('text', { x: x, y: y + i * (lh || size + 4),
+        'font-size': size, fill: fill, 'font-family': 'Inter, Segoe UI, sans-serif' }, l));
+    });
+    return lines.length * (lh || size + 4);
+  }
+  function box(parent, x, y, w, h, fill, stroke, r) {
+    parent.appendChild(el('rect', { x: x, y: y, width: w, height: h, rx: r == null ? 9 : r,
+      fill: fill || '#fff', stroke: stroke || LINE, 'stroke-width': 1.2 }));
+  }
+
+  // ---- doc: the anatomy of a document, with numbered callouts ------------------------------
+  // Rows are measured before they are drawn: a note that wraps to three lines gets a taller box
+  // instead of spilling out of it.
+  function drawDoc(f) {
+    var rows = f.rows || [], W = 720, gap = 8;
+    var hs = rows.map(function (r) { return Math.max(52, 34 + wrap(r.note || '', 78).length * 17); });
+    var H = 74 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Document'));
+    box(s, 20, 18, W - 40, H - 36, '#fdfdfb', LINE, 12);
+    s.appendChild(el('text', { x: 40, y: 48, 'font-size': 15, 'font-weight': '600',
+      fill: BRAND, 'font-family': 'Inter, sans-serif' }, f.docTitle || f.title || ''));
+    var y = 66;
+    rows.forEach(function (r, i) {
+      var rowH = hs[i];
+      box(s, 40, y, W - 80, rowH, '#fff', LINE, 8);
+      s.appendChild(el('circle', { cx: 62, cy: y + 26, r: 13, fill: BRAND }));
+      s.appendChild(el('text', { x: 62, y: y + 31, 'font-size': 13, fill: '#fff',
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 86, y: y + 21, 'font-size': 13.5, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, r.label || ''));
+      textBlock(s, r.note || '', 86, y + 39, 78, 12.5, INK2, 17);
+      y += rowH + gap;
+    });
+    return s;
+  }
+
+  // ---- flow: ordered steps -------------------------------------------------------------------
+  function drawFlow(f) {
+    var st = f.steps || [], W = 720, gap = 20;
+    var hs = st.map(function (t) {
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      return Math.max(56, 34 + wrap(note, 74).length * 17);
+    });
+    var H = 30 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Process'));
+    var yy = 16;
+    st.forEach(function (t, i) {
+      var bh = hs[i], y = yy;
+      yy += bh + gap;
+      var label = typeof t === 'string' ? t : (t.label || '');
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      box(s, 60, y, W - 120, bh, i === st.length - 1 ? '#fffdf5' : '#fff',
+        i === st.length - 1 ? '#f0dfbe' : LINE, 10);
+      s.appendChild(el('circle', { cx: 60, cy: y + bh / 2, r: 16, fill: i === st.length - 1 ? AMBER : BRAND }));
+      s.appendChild(el('text', { x: 60, y: y + bh / 2 + 5, 'font-size': 14,
+        fill: i === st.length - 1 ? '#2c1e05' : '#fff', 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 92, y: y + (note ? 26 : 34), 'font-size': 14, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, label));
+      if (note) textBlock(s, note, 92, y + 44, 74, 12.5, INK2, 17);
+      if (i < st.length - 1) {
+        s.appendChild(el('path', { d: 'M60 ' + (y + bh + 2) + ' L60 ' + (y + bh + gap - 4),
+          stroke: LINE, 'stroke-width': 2 }));
+        s.appendChild(el('path', { d: 'M55 ' + (y + bh + gap - 10) + ' L60 ' + (y + bh + gap - 3)
+          + ' L65 ' + (y + bh + gap - 10), stroke: INK2, 'stroke-width': 1.6, fill: 'none' }));
+      }
+    });
+    return s;
+  }
+
+  // ---- tree: one yes/no decision per level ---------------------------------------------------
+  function drawTree(f) {
+    var levels = f.levels || [], W = 720, H = 40 + levels.length * 118;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Decision'));
+    levels.forEach(function (lv, i) {
+      var y = 20 + i * 118;
+      box(s, 200, y, 320, 46, '#eef3fa', '#c9d9ee', 10);
+      s.appendChild(el('text', { x: 360, y: y + 28, 'font-size': 13.5, 'text-anchor': 'middle',
+        fill: BRAND, 'font-weight': '600', 'font-family': 'Inter, sans-serif' },
+        wrap(lv.q || '', 46)[0] || ''));
+      [['yes', 40, '#e6f6ee', '#a9dcc6', '#0f6e56'], ['no', 400, '#fdeceb', '#f3c6c2', '#8c2f27']]
+        .forEach(function (o) {
+          var t = lv[o[0]];
+          if (!t) return;
+          var x = o[1] + 40;
+          box(s, x, y + 66, 280, 40, o[2], o[3], 9);
+          s.appendChild(el('text', { x: x + 12, y: y + 84, 'font-size': 11.5, fill: o[4],
+            'font-weight': '600', 'font-family': 'Inter, sans-serif' }, o[0].toUpperCase()));
+          s.appendChild(el('text', { x: x + 48, y: y + 91, 'font-size': 12.5, fill: INK,
+            'font-family': 'Inter, sans-serif' }, wrap(t, 34)[0] || ''));
+          s.appendChild(el('path', { d: 'M360 ' + (y + 46) + ' L360 ' + (y + 56)
+            + ' L' + (x + 140) + ' ' + (y + 56) + ' L' + (x + 140) + ' ' + (y + 64),
+            stroke: LINE, 'stroke-width': 1.6, fill: 'none' }));
+        });
+    });
+    return s;
+  }
+
+  // ---- compare: two things, attribute by attribute -------------------------------------------
+  function drawCompare(f) {
+    var rows = f.rows || [], W = 720, rh = 44, H = 78 + rows.length * rh;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Comparison'));
+    box(s, 20, 18, W - 40, H - 36, '#fff', LINE, 12);
+    [[250, f.a], [500, f.b]].forEach(function (c) {
+      s.appendChild(el('text', { x: c[0], y: 48, 'font-size': 14, 'font-weight': '600', fill: BRAND,
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, c[1] || ''));
+    });
+    rows.forEach(function (r, i) {
+      var y = 62 + i * rh;
+      if (i) s.appendChild(el('path', { d: 'M40 ' + y + ' L' + (W - 40) + ' ' + y, stroke: '#eef1f5' }));
+      s.appendChild(el('text', { x: 44, y: y + 27, 'font-size': 12.5, fill: INK2,
+        'font-family': 'Inter, sans-serif' }, wrap(r[0], 22)[0] || ''));
+      s.appendChild(el('text', { x: 250, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[1], 26)[0] || ''));
+      s.appendChild(el('text', { x: 500, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[2], 26)[0] || ''));
+    });
+    return s;
+  }
+
+  // ---- timeline ------------------------------------------------------------------------------
+  function drawTimeline(f) {
+    var ev = f.events || [], W = 720, H = 60 + ev.length * 62;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Timeline'));
+    s.appendChild(el('path', { d: 'M120 30 L120 ' + (H - 26), stroke: LINE, 'stroke-width': 2 }));
+    ev.forEach(function (e, i) {
+      var y = 46 + i * 62;
+      s.appendChild(el('circle', { cx: 120, cy: y, r: 8, fill: BRAND }));
+      s.appendChild(el('text', { x: 104, y: y + 5, 'font-size': 12.5, fill: INK2, 'text-anchor': 'end',
+        'font-family': 'JetBrains Mono, monospace' }, e.t || ''));
+      s.appendChild(el('text', { x: 146, y: y - 2, 'font-size': 13.5, 'font-weight': '600', fill: INK,
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(e.e || '', 58)[0] || ''));
+      if (e.note) textBlock(s, e.note, 146, y + 16, 62, 12.5, INK2);
+    });
+    return s;
+  }
+
+  var DRAW = { doc: drawDoc, flow: drawFlow, tree: drawTree, compare: drawCompare, timeline: drawTimeline };
+
+  // Number the figures in READING order, not in the order the spec happens to list them: a figure
+  // written third but placed in the vocabulary section must not be called Figure 3 on a page where
+  // it appears second.
+  var ORDER = ['scenario', 'dialogues', 'reading', 'vocabulary', 'grammar', 'exercises',
+    'speaking', 'writing'];
+  var ordered = SPEC.slice().sort(function (a, b) {
+    return ORDER.indexOf(a.where || 'scenario') - ORDER.indexOf(b.where || 'scenario');
+  });
+
+  ordered.forEach(function (f, idx) {
+    var host = document.getElementById(f.where || 'scenario')
+      || document.getElementById('scenario') || document.querySelector('article') || document.body;
+    var draw = DRAW[f.type];
+    if (!draw) return;
+
+    var fig = document.createElement('figure');
+    fig.className = 'lang-fig';
+    var head = document.createElement('figcaption');
+    head.className = 'fig-head';
+    head.innerHTML = '<b>Figure ' + (idx + 1) + '. ' + (f.title || '') + '</b>';
+    fig.appendChild(head);
+
+    var holder = document.createElement('div');
+    holder.className = 'fig-body';
+    var node;
+    try { node = draw(f); } catch (e) { return; }
+    holder.appendChild(node);
+    fig.appendChild(holder);
+
+    if (f.caption) {
+      var cap = document.createElement('p');
+      cap.className = 'fig-cap';
+      cap.textContent = f.caption;
+      fig.appendChild(cap);
+    }
+
+    // "label it": blank the labels, let the learner type them back, check on blur
+    var labels = [].slice.call(node.querySelectorAll('.figlab'));
+    if (labels.length >= 3) {
+      var bar = document.createElement('div');
+      bar.className = 'fig-bar';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'fig-btn';
+      btn.textContent = 'Hide the labels and test me';
+      var answers = labels.map(function (l) { return l.textContent; });
+      var on = false;
+      btn.addEventListener('click', function () {
+        on = !on;
+        btn.textContent = on ? 'Show the labels again' : 'Hide the labels and test me';
+        labels.forEach(function (l, i) { l.textContent = on ? '?' : answers[i]; });
+        quiz.hidden = !on;
+      });
+      bar.appendChild(btn);
+      fig.appendChild(bar);
+
+      var quiz = document.createElement('div');
+      quiz.className = 'fig-quiz';
+      quiz.hidden = true;
+      answers.forEach(function (a, i) {
+        var row = document.createElement('label');
+        row.innerHTML = '<span>' + (i + 1) + '</span>';
+        var inp = document.createElement('input');
+        inp.placeholder = 'type the label';
+        inp.addEventListener('blur', function () {
+          if (!inp.value.trim()) return;
+          var ok = inp.value.trim().toLowerCase() === a.trim().toLowerCase();
+          inp.className = ok ? 'ok' : 'bad';
+          if (ok) labels[i].textContent = a;
+        });
+        row.appendChild(inp);
+        quiz.appendChild(row);
+      });
+      fig.appendChild(quiz);
+    }
+
+    host.appendChild(fig);
+  });
+})();
+</script><!--/CF-LANG-UI--></body></html>

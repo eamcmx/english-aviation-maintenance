@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English for Aviation Maintenance · Unit 25 · Reporting a near-miss or hangar incident · CEFR B2
+     Moodle XML. 24 items across 5 types (multichoice, truefalse, numerical, shortanswer, matching).
+     Split by skill: Listening (7) · Reading (5) · Use of English (7) · Vocabulary (5). No Cloze. -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U25-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 25 — Reporting a near-miss or hangar incident (CEFR B2). Listening, Reading, Use of English and Vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ============================ LISTENING (7) ============================ -->
+
+  <question type="multichoice">
+    <name><text>L1 · Dialogue 1 · first action</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Right after the torque wrench fell, what did the mechanic do first?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The mechanic says, "so I stopped the whole task at once." Stopping the task is the correct first action, because it makes the area safe before anything else.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Stopped the whole task at once]]></text><feedback format="html"><text><![CDATA[<p>Correct — stopping the task made the area safe first.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Carried on torquing the last few flap bolts]]></text><feedback format="html"><text><![CDATA[<p>No — the mechanic stopped work; carrying on would keep the hazard live.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Picked up the wrench and kept working nearby]]></text><feedback format="html"><text><![CDATA[<p>No — the tool was quarantined and the task was stopped.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Waited for the safety officer before doing anything]]></text><feedback format="html"><text><![CDATA[<p>No — the mechanic stopped the task and barriered the area first, then reported.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L2 · Dialogue 1 · did it hit the aircraft</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> The wrench struck the aircraft structure as it fell.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The mechanic says, "It landed clear of the aircraft, and fortunately nobody was walking underneath." It is still a reportable near-miss even without damage.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[<p>No — it landed clear of the aircraft.</p>]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — the tool landed clear of the aircraft.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L3 · Dialogue 1 · fall distance</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Roughly how many <b>metres</b> did the wrench drop to the floor? (Write the number only.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The mechanic says the wrench "dropped roughly two metres onto the concrete hangar floor." The answer is 2.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="html"><text>2</text><feedback format="html"><text><![CDATA[<p>Correct — about two metres.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L4 · Dialogue 1 · debrief timing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> In how many <b>minutes</b> did the safety officer say the debrief would be held? (Write the number only.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Rita says, "we will hold a proper debrief in ten minutes." The answer is 10.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="html"><text>10</text><feedback format="html"><text><![CDATA[<p>Correct — in ten minutes.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L5 · Dialogue 2 · root cause</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> What did the team finally agree was the root cause?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>They agree it "really looks like weak tool control, rather than just my tired grip" — no lanyard, poor light and a shaky stand together. The root cause is the weak system, not one person.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Weak tool control]]></text><feedback format="html"><text><![CDATA[<p>Correct — the system of tool control was weak.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The mechanic's tired hand and nothing else]]></text><feedback format="html"><text><![CDATA[<p>No — the team looked past the tired grip to the wider system.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A faulty torque wrench from the tool store]]></text><feedback format="html"><text><![CDATA[<p>No — the wrench was not blamed; tool control was.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Bad weather outside the hangar that evening]]></text><feedback format="html"><text><![CDATA[<p>No — weather is not mentioned as a cause.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L6 · Dialogue 3 · injury</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> Nobody was injured in the near-miss.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. Marek says, "Nobody was injured, although honestly it could have been very bad." No injury, but still a serious near-miss.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — no one was hurt.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[<p>No — the dialogue says nobody was injured.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L7 · Announcement · toolbox talk time</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to the hangar announcement again.</b> At what time (o'clock) will the toolbox talk be held? (Write the hour as a number.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The safety officer says, "We will hold a short toolbox talk at three o'clock." The answer is 3.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="html"><text>3</text><feedback format="html"><text><![CDATA[<p>Correct — at three o'clock.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <!-- ============================ READING (5) ============================ -->
+
+  <question type="multichoice">
+    <name><text>R1 · Tech log entry</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this tech log entry, then answer.</b></p>
+    <blockquote style="border-left:3px solid #999;padding-left:12px">TECH LOG — A/C REG YL-BAK · Access stand S-14 rail found loose during panel work. Stand withdrawn from service and tagged. Raise work order for rail repair before re-use.</blockquote>
+    <p>According to the entry, what must happen before stand S-14 is used again?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The entry says the stand is "withdrawn from service and tagged" and a work order must be raised for the rail repair before re-use. So it must be repaired first.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[The loose rail must be repaired]]></text><feedback format="html"><text><![CDATA[<p>Correct — a work order for the rail repair is required first.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The stand may be used if a mechanic is careful]]></text><feedback format="html"><text><![CDATA[<p>No — it is withdrawn from service, not "use with care".</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The whole aircraft must be moved to another bay]]></text><feedback format="html"><text><![CDATA[<p>No — the entry is about the stand, not the aircraft.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The safety officer must sign the tech log twice]]></text><feedback format="html"><text><![CDATA[<p>No — no such step is mentioned.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R2 · Tech log entry · status</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the tech log entry in R1 again.</b> Stand S-14 was left in service for other mechanics to use.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The stand was "withdrawn from service and tagged", so it must not be used until the rail is repaired.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[<p>No — it was withdrawn from service.</p>]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — the stand was withdrawn and tagged.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R3 · Service Bulletin extract</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this Service Bulletin extract, then answer.</b></p>
+    <blockquote style="border-left:3px solid #999;padding-left:12px">SB 27-118 · REASON: Several operators reported dropped tools during flap work. RECOMMENDATION: Fit a lanyard to every hand tool used above floor level. Update the task card to add a lanyard check as Step 1.</blockquote>
+    <p>Why was this Service Bulletin issued?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The "REASON" line states that operators reported dropped tools during flap work. The bulletin then recommends tool lanyards to prevent it.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Operators reported dropped tools]]></text><feedback format="html"><text><![CDATA[<p>Correct — that is the stated reason.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Operators asked for a lighter type of torque wrench]]></text><feedback format="html"><text><![CDATA[<p>No — the bulletin is about lanyards, not wrench weight.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The flap panel bolts were found to be over-torqued]]></text><feedback format="html"><text><![CDATA[<p>No — torque values are not the reason given.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Inspectors found corrosion on several access stands]]></text><feedback format="html"><text><![CDATA[<p>No — corrosion is not mentioned in the bulletin.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 · Service Bulletin · task card change</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the Service Bulletin in R3 again.</b> The bulletin tells operators to add a lanyard check to the task card.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The recommendation is to "Update the task card to add a lanyard check as Step 1." This makes tool control begin before the task.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — a lanyard check is added as Step 1.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[<p>No — the bulletin does ask for a task-card change.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R5 · MEL note</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this note from the safety board, then answer.</b></p>
+    <blockquote style="border-left:3px solid #999;padding-left:12px">REMINDER: A dropped tool is a reportable occurrence even when there is no injury and no damage. Report it to the safety officer as soon as the area is safe. Do not wait until the end of the shift.</blockquote>
+    <p>What does the note say a mechanic must do after a dropped tool?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The note says to "Report it to the safety officer as soon as the area is safe" and not to wait until the end of the shift. A near-miss is reportable even with no harm.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Report it once the area is safe]]></text><feedback format="html"><text><![CDATA[<p>Correct — report promptly, after making the area safe.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Report it only if the tool caused visible damage]]></text><feedback format="html"><text><![CDATA[<p>No — it is reportable even with no damage.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Wait until the end of the shift and then report]]></text><feedback format="html"><text><![CDATA[<p>No — the note says clearly not to wait.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Ask a colleague to report it on their behalf]]></text><feedback format="html"><text><![CDATA[<p>No — the reporter should report it themselves.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ USE OF ENGLISH (7) ============================ -->
+
+  <question type="shortanswer">
+    <name><text>U1 · past continuous · torque</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the verb in the <b>past continuous</b> (was / were + -ing).</p>
+    <p>I <b>______</b> (torque) the flap bolt when the wrench slipped.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The long background action takes the past continuous: <b>was torquing</b>. The short interrupting event ("slipped") stays in the past simple.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>was torquing</text><feedback format="html"><text><![CDATA[<p>Correct — "was" + "torquing".</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "was torquing": was + the -ing form for the background action.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 · past continuous · we/work</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the verb in the <b>past continuous</b>.</p>
+    <p>We <b>______</b> (work) under the flap when the light failed.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Use <b>were working</b>. With "we", "you" and "they" the correct form of <em>be</em> is "were", not "was".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>were working</text><feedback format="html"><text><![CDATA[<p>Correct — "were" with "we".</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>was working</text><feedback format="html"><text><![CDATA[<p>Almost — but "we" takes "were", so "were working".</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "were working": were + the -ing form.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 · past continuous · negative</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the verb in the <b>past continuous negative</b>.</p>
+    <p>He <b>______</b> (not use) a lanyard at the time.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Use <b>was not using</b> (or "wasn't using"). The negative goes after "was": was + not + using.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>was not using</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>wasn't using</text><feedback format="html"><text><![CDATA[<p>Correct — the short form is fine.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "was not using": was + not + the -ing form.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 · past continuous · question</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing word to make a <b>past continuous question</b>.</p>
+    <p><b>______</b> you checking the tech log when it happened?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Use <b>Were</b>. In questions the form of <em>be</em> comes first: "Were you checking...?"</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>Were</text><feedback format="html"><text><![CDATA[<p>Correct — "Were you checking...?"</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>Was</text><feedback format="html"><text><![CDATA[<p>Almost — but "you" takes "were", so "Were you checking...?"</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "Were" — the question begins with the form of "be".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 · transformation · while</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the sentence so it means the same. Use the <b>past continuous</b>.</p>
+    <p>The wrench slipped during my work on the bolt.<br>
+    &rarr; The wrench slipped while I <b>______</b> on the bolt.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Use <b>was working</b>. "While" introduces the long background action, which takes the past continuous.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>was working</text><feedback format="html"><text><![CDATA[<p>Correct — "while I was working".</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "was working": while + past continuous for the background.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 · bank term · root cause</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the term from the vocabulary bank.</p>
+    <p>The first, real reason a problem happened is the root <b>______</b>.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The term is <b>root cause</b> — the first, real reason, not just a surface symptom.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>cause</text><feedback format="html"><text><![CDATA[<p>Correct — "root cause".</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[<p>The word is "cause": the root cause is the first, real reason.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U7 · bank term · preventive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the term from the vocabulary bank.</p>
+    <p>A step taken <em>before</em> a problem, to stop it starting, is a <b>______</b> action.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The term is <b>preventive action</b>. Compare it with a corrective action, which is taken <em>after</em> a problem to stop it happening again.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>preventive</text><feedback format="html"><text><![CDATA[<p>Correct — "preventive action".</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[<p>The word is "preventive": it acts before the problem starts.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ VOCABULARY (5) ============================ -->
+
+  <question type="matching">
+    <name><text>V1 · term to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each safety-reporting term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>near-miss = almost caused harm; hazard = something that could cause harm; contributing factor = helped cause it, not the main reason; observation = a fact you saw; mitigation = an action that lowers a risk.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><shuffleanswers>1</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[near-miss]]></text><answer><text>an event that almost caused harm, but did not</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[hazard]]></text><answer><text>something that could cause harm</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[contributing factor]]></text><answer><text>something that helped cause the event, not the main reason</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[observation]]></text><answer><text>a fact you saw or heard, not an opinion</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[mitigation]]></text><answer><text>an action that lowers a risk</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 · term to collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the phrase it belongs in.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>These are the natural collocations from the unit: report a near-miss, find the root cause, agree a corrective action, clip a lanyard, hold a debrief.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><shuffleanswers>1</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[report a ...]]></text><answer><text>near-miss</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[find the ...]]></text><answer><text>root cause</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[agree a ...]]></text><answer><text>corrective action</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[clip a ...]]></text><answer><text>lanyard</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[hold a ...]]></text><answer><text>debrief</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V3 · meaning of near-miss</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which word means "an event that almost caused harm, but did not"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <b>near-miss</b> is an event that almost caused harm but did not. A dropped tool that hits no one is a classic near-miss.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Near-miss]]></text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Corrective action]]></text><feedback format="html"><text><![CDATA[<p>No — that is a step taken to stop a problem happening again.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Sequence of events]]></text><feedback format="html"><text><![CDATA[<p>No — that is the order in which things happened.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Contributing factor]]></text><feedback format="html"><text><![CDATA[<p>No — that is something that helped cause the event.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>V4 · FOD meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>FOD</b> means "foreign object debris" — loose items that can damage an aircraft.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. FOD is foreign object debris. A dropped tool that is left loose becomes FOD and can damage the aircraft.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — foreign object debris.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[<p>No — FOD does stand for foreign object debris.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V5 · corrective vs preventive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Fitting a lanyard so a tool cannot fall again, after a dropped-tool event, is best called a...</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A step taken to stop a problem happening again is a <b>corrective action</b>. A preventive action is taken before any problem, to stop it starting.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Corrective action]]></text><feedback format="html"><text><![CDATA[<p>Correct — it stops the problem happening again.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A simple factual observation]]></text><feedback format="html"><text><![CDATA[<p>No — an observation is a fact you saw, not an action.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The full sequence of events]]></text><feedback format="html"><text><![CDATA[<p>No — that is the order in which things happened.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A contributing factor only]]></text><feedback format="html"><text><![CDATA[<p>No — a contributing factor is a cause, not a fix.</p>]]></text></feedback></answer>
+  </question>
+
+</quiz>
