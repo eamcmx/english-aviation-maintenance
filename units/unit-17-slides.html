@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 17 — Teacher Deck · Coordinating a component removal and installation</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.16em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:40px;margin:.2em 0;line-height:1.1}
+h2{font-size:30px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.cols,.cols3{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+.card h3{margin:.1em 0 .35em;font-size:18px;color:var(--accent)}
+.card p,.card li{font-size:16px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:14px;color:var(--muted)}
+.dw{width:100%;max-width:560px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:5px 9px;font-size:14px}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:52px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.turnrow{display:flex;gap:10px;margin:5px 0;font-size:17px}
+.turnrow .w{font-family:var(--mono);color:#7fd0ff;font-weight:700;min-width:52px}
+.tbl{width:100%;border-collapse:collapse;font-size:17px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 11px;text-align:left}
+.tbl th{background:#16263a;color:var(--muted);font-size:14px}
+.wrong{color:#ff9aa2}.right{color:#9af0c8;font-weight:600}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.time{font-family:var(--mono);font-size:13px;color:var(--good);border:1px solid #2f6b4e;border-radius:6px;padding:2px 8px;background:#10271e}
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="Open the class. This is a 90-minute B2 lesson for aircraft mechanics and avionics technicians under EASA Part-66/145. The whole lesson turns on one authentic hangar job: two technicians change the integrated drive generator (IDG) on an A320, reg YL-BBX, in the Riga hangar. Say the shape of the lesson out loud so the room knows the destination: first they find the correct part in the illustrated parts catalogue (IPC) by figure and item number; then they coordinate the removal with a partner; then they install, torque, tag and test. The language target sits inside that job — the active imperative of Simplified Technical English (STE): name the action, start with the verb. Set the register: this is spoken shop-floor English between two people who must not misunderstand each other. Warm up (4 min): ask two or three technicians what a two-person component change looks like at their station, and who calls the steps. Keep it short — the listening comes next.">
+    <div class="kick">English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 17</div>
+    <h1>Coordinating a component removal and installation</h1>
+    <p class="big muted">Find the part in the IPC · coordinate the removal · install, torque, tag and test — two technicians talking in clear, short, spoken English at every step.</p>
+    <p class="pill">90-minute class &nbsp;·&nbsp; 🎧 listening · 🗣 speaking · ✍️ writing &nbsp;·&nbsp; grammar: the active imperative (STE)</p>
+  </section>
+
+  <!-- 2 · CAN-DO + MAP + TIMING -->
+  <section class="slide" data-notes="State the can-do outcomes plainly so students can self-assess at the end. By the close, each student should be able to: identify the correct component using the IPC figure and item number; coordinate a removal and installation, confirming steps with a partner; and describe the torque, tagging and test requirements on completion. Walk the timing plan on the right — it adds up to 90 minutes with a little air. Stress the assessment shape typical for this course: the exercises E1 to E8 are self-marking on the page and are formative practice, not graded homework; the graded evidence is the paired role-play and the written task card. Tell the room the grammar rule in one line now, because everything hangs on it: an instruction is a verb first — Install the pump — never a passive. Move to the situation.">
+    <div class="kick">By the end · lesson map · timing</div>
+    <h2>Three can-do outcomes — and how the 90 minutes runs</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Can-do outcomes</h3>
+        <ul>
+          <li>Identify the correct component using the IPC <b>figure</b> and <b>item number</b>.</li>
+          <li>Coordinate a <b>removal</b> and <b>installation</b>, confirming steps with a partner.</li>
+          <li>Describe the <b>torque</b>, <b>tagging</b> and <b>test</b> requirements on completion.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Timing (90 min)</h3>
+        <p><span class="time">4</span> Warm-up &amp; situation<br>
+        <span class="time">18</span> Listening — Dialogues 1–4<br>
+        <span class="time">14</span> Vocabulary bank (22 terms)<br>
+        <span class="time">12</span> Grammar — active imperative (STE)<br>
+        <span class="time">20</span> Exercises E1–E8<br>
+        <span class="time">16</span> Speaking — 4 role-plays<br>
+        <span class="time">6</span> Writing set-up &amp; wrap-up</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SITUATION -->
+  <section class="slide" data-notes="Build the scene so the listening lands. Morning in the Riga hangar; an A320, reg YL-BBX, is on jacks in bay two; the work order is to change the IDG on engine one; the generator is unserviceable and a fresh unit waits on the store shelf. Make it a two-technician task — nobody works alone on this. Pre-teach only the four survival abbreviations on the slide, because every hard word beyond these is glossed in the vocabulary bank later: IPC = the manual with drawings that show every part and its number; IDG = the unit on the engine that makes electrical power; torque value = the exact tightness for a bolt in newton metres; STE = the plain writing rule for manuals. Do not pre-teach the whole bank now — that kills the listening. Ask the room to predict the first physical step once the cowl is open (answer comes in Dialogue 1's last line: gain access to the component).">
+    <div class="kick">§1 · the situation</div>
+    <h2>A two-technician IDG change at Riga</h2>
+    <div class="cols">
+      <div>
+        <p>An A320, reg <b>YL-BBX</b>, is on jacks in bay two. The work order: change the <b>integrated drive generator</b> on engine one. The old unit is <b>unserviceable</b>; a fresh unit waits on the shelf.</p>
+        <p class="muted">You are the lead technician. First identify the part in the IPC. Then coordinate the removal. Then install, torque, tag and test — and sign the task card.</p>
+      </div>
+      <div class="card">
+        <h3>Four words before we start</h3>
+        <p><b>IPC</b> — the manual with drawings that show every part and its number.<br>
+        <b>IDG</b> — the unit on the engine that makes electrical power.<br>
+        <b>Torque value</b> — the exact tightness for a bolt, in newton metres.<br>
+        <b>STE</b> — the plain rule for manuals: one instruction, verb first.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · LISTENING D1 + IPC WIDGET -->
+  <section class="slide" data-notes="Listening block starts. Play Dialogue 1 (Find the correct component in the IPC) with books closed — students listen for gist only. First question after one play: what job do Rob and Lena have, and what must they do before they touch the aircraft? (Change the IDG on engine one; first find the correct part in the IPC.) Play again for detail: which figure, which item number, which part number, and why check the effectivity? Elicit the numbers exactly — figure 24-11-01, item number 40, part number 761782C — because hearing spoken figures correctly is a real skill and the quiz tests it. Use the IPC widget on the right to make the figure concrete: press Reveal to show the callouts, then click item 40 to confirm it is the generator. Drive the meaning of effectivity: it confirms the part applies to THIS tail, YL-BBX, not a different variant. Only after the detail pass, open the transcript in the body to check spelling.">
+    <div class="kick">§2 · Listening · Dialogue 1 · find the part</div>
+    <h2>Find the correct component in the IPC</h2>
+    <div class="cols">
+      <div class="dw" data-widget="ipc"></div>
+      <div>
+        <p><b>Listen twice.</b> Gist first (books closed): what is the job? Then detail: <b>figure</b>, <b>item number</b>, <b>part number</b>, <b>effectivity</b>.</p>
+        <p class="muted">Answers said in the audio: figure <b>24-11-01</b> · item <b>40</b> · part <b>761782C</b> · effectivity lists tail <b>YL-BBX</b>. Click item 40 in the figure to confirm it is the generator.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · LISTENING D2 -->
+  <section class="slide" data-notes="Play Dialogue 2 (Coordinate the removal). This dialogue is the spine of the speaking work, so mine it for the coordination language. First listen: how do the two technicians keep each other safe? (One calls each step; the other supports the component and confirms; they warn before every move.) Second listen: get the ordered sequence — disconnect the electrical connector, fit a blanking cap, remove the bonding lead, cut the lockwire on the oil unions, cap the lines, then remove the mounting bolt last and lower together on three. Put the sequence on the board as verbs only, because that IS the grammar target: Disconnect, Fit, Remove, Cut, Cap, Remove, Lower. Highlight the natural connectors the technicians use — although, unless, as soon as, in case, because — and the confirmations (Connector is off; Done, the cap is on; I have it). Point out the safety line: Hold the component firmly, because it is heavy once the mounting bolt is out. This is the model students will reproduce in role-play card 2.">
+    <div class="kick">§2 · Listening · Dialogue 2 · coordinate the removal</div>
+    <h2>One calls the step — the other confirms</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>The removal sequence — verbs only</h3>
+        <p><b>Disconnect</b> the electrical connector → <b>Fit</b> the blanking cap → <b>Remove</b> the bonding lead → <b>Cut</b> the lockwire → <b>Cap</b> the oil lines → <b>Remove</b> the mounting bolt (last) → <b>Lower</b> the component on three.</p>
+      </div>
+      <div>
+        <p>Listen for how they <b>warn before every move</b> and confirm each one.</p>
+        <ul>
+          <li>"Warn me before each move."</li>
+          <li>"Connector is off." / "Done, the cap is on."</li>
+          <li>"Hold the component firmly, <b>because</b> it is heavy."</li>
+          <li>"Lower the component together, on three."</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · LISTENING D3 + TORQUE WIDGET -->
+  <section class="slide" data-notes="Play Dialogue 3 (Install, torque, tag and test). This carries the completion vocabulary the third can-do outcome needs. First listen: what is the exact order of the finish? (Seat the component, start the bolt by hand, torque to the value, fit lockwire, add a torque seal, reconnect the lines and connector, run a functional test, sign the task card.) Second listen for the numbers: the torque value is thirty-four newton metres, and the wrench clicks at thirty-four. Use the torque-wrench widget on the right to teach the key idea physically — set the target, press Torque, and the needle rises until it CLICKS at the set value; over-tightening is not the goal, the exact value is. Draw out WHY each finishing step exists: start by hand so the thread cannot cross; lockwire so the bolt cannot turn loose while the engine vibrates; torque seal so the next shift can SEE the bolt was torqued; functional test before closing the cowl so any fault appears immediately. These 'so that' reasons are exactly what the quiz and the writing task reward.">
+    <div class="kick">§2 · Listening · Dialogue 3 · install, torque, tag, test</div>
+    <h2>Torque to the value — then lock, seal and test</h2>
+    <div class="cols">
+      <div class="dw" data-widget="torque"></div>
+      <div>
+        <p><b>Start</b> the bolt by hand → <b>Torque</b> to <b>34 N·m</b> → <b>Fit</b> lockwire → <b>Add</b> a torque seal → <b>Reconnect</b> → <b>Run</b> a functional test → <b>Sign</b> the task card.</p>
+        <p class="muted">Set the target and press Torque: the wrench <b>clicks</b> at the set value. The exact value is the goal — not "as tight as possible".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · LISTENING D4 — figures -->
+  <section class="slide" data-notes="Play Dialogue 4 (Shift-handover voicemail). It is a monologue, so it is the best listening for spoken figures and for the register of a professional summary. Set a focused task before playing: note the six facts the next shift needs. Play once, let them compare in pairs, play again to confirm. The target facts: the job was the IDG on engine one, on tail yankee-lima-bravo-bravo-x-ray (YL-BBX); the part was found at IPC figure 24-11-01, item number 40; the old unit is unserviceable and carries a warning tag; the mounting bolt was torqued to 34 newton metres with the torque wrench; fresh lockwire and a torque seal were fitted; the functional test was good, the generator is serviceable, and the task card is signed. Point out the phonetic alphabet on the tail number — yankee-lima-bravo — and drill it briefly, because reading back a registration correctly is a genuine line-station skill. This monologue is the model for role-play card 4.">
+    <div class="kick">§2 · Listening · Dialogue 4 · shift handover</div>
+    <h2>The handover — listen for the figures</h2>
+    <div class="cols">
+      <div>
+        <p>A voicemail to the next shift. <b>Note the six facts</b> the incoming technician needs.</p>
+        <p class="muted">Drill the phonetic tail: <b>yankee-lima-bravo-bravo-x-ray</b> = YL-BBX. Reading a registration back correctly is a real line skill.</p>
+      </div>
+      <div class="card">
+        <h3>Six handover facts</h3>
+        <ul>
+          <li>Job: IDG, engine one, tail <b>YL-BBX</b></li>
+          <li>Part: IPC figure <b>24-11-01</b>, item <b>40</b></li>
+          <li>Old unit <b>unserviceable</b> + warning tag</li>
+          <li>Torqued to <b>34 N·m</b> with the torque wrench</li>
+          <li>Fresh lockwire + torque seal fitted</li>
+          <li>Functional test good → <b>serviceable</b>, card signed</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · VOCABULARY BANK -->
+  <section class="slide" data-notes="Vocabulary block. The unit carries 22 specialist terms, each glossed in plain words in the body's bank. Do not read all 22 aloud — that is dead time. Instead run a quick sorting activity: put the terms into four families on the board and let pairs place them. Family 1, the paperwork/identify group: illustrated parts catalogue, figure, item number, part number, effectivity, task card. Family 2, the hardware: component, fastener, mounting bolt, lockwire, blanking cap, electrical connector, bonding lead, torque wrench, torque seal, warning tag. Family 3, the actions/procedures: removal, installation, functional test. Family 4, the status words: serviceable, unserviceable, torque value. Teach one collocation per term from the bank column — check the part number, fit a blanking cap, torque the mounting bolt, run a functional test — because the collocation is what makes the word usable. Elicit the Latvian or Russian equivalent for two or three hard ones only, to anchor them, then move to the collocation drill.">
+    <div class="kick">§3 · Vocabulary bank · component change · 22 terms</div>
+    <h2>Sort the 22 terms into four families</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Identify &amp; paperwork</h3>
+        <p class="muted">illustrated parts catalogue · figure · item number · part number · effectivity · task card</p>
+        <h3>Status</h3>
+        <p class="muted">serviceable · unserviceable · torque value</p>
+      </div>
+      <div class="card">
+        <h3>Hardware</h3>
+        <p class="muted">component · fastener · mounting bolt · lockwire · blanking cap · electrical connector · bonding lead · torque wrench · torque seal · warning tag</p>
+        <h3>Actions</h3>
+        <p class="muted">removal · installation · functional test</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · VOCAB COLLOCATIONS -->
+  <section class="slide" data-notes="Collocation drill — this is where the vocabulary becomes speakable. Put the verbs on the left and the nouns on the right and have the class join them at speed: open (the IPC / a figure), read (the item number / the part number), check (the effectivity / the part number), fit (a blanking cap / lockwire / fresh lockwire), torque (the mounting bolt), set (the torque wrench), add (a torque seal), attach (a warning tag), run/carry out (a functional test), mark (it unserviceable), sign (the task card). Then a fast oral round: point at a technician, say a noun, they give the verb collocation and use it in a one-line imperative — 'torque wrench' → 'Set the torque wrench to 34.' This primes the grammar block, because every answer is already a verb-first instruction. Watch for the L1 slip of dropping the article: it is 'Fit the blanking cap', not 'Fit blanking cap' — Latvian and Russian have no articles, so this needs explicit correction here.">
+    <div class="kick">§3 · Vocabulary · collocations</div>
+    <h2>Verb + noun — say it as one chunk</h2>
+    <div class="cols">
+      <div>
+        <table class="tbl">
+          <tr><th>Verb</th><th>Noun partner</th></tr>
+          <tr><td>open</td><td>the IPC / a figure</td></tr>
+          <tr><td>check</td><td>the effectivity / the part number</td></tr>
+          <tr><td>fit</td><td>a blanking cap / fresh lockwire</td></tr>
+          <tr><td>torque</td><td>the mounting bolt</td></tr>
+          <tr><td>run</td><td>a functional test</td></tr>
+          <tr><td>sign</td><td>the task card</td></tr>
+        </table>
+      </div>
+      <div>
+        <p><b>Fast round:</b> a noun → the collocation → a one-line instruction.</p>
+        <p class="muted">"torque wrench" → <b>Set the torque wrench to 34.</b></p>
+        <p class="muted" style="border-left:3px solid var(--amber);padding-left:12px">Watch the article: <b>Fit <u>the</u> blanking cap</b> — never "Fit blanking cap". Latvian and Russian have no articles, so drill "the".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · GRAMMAR FOCUS + WIDGET -->
+  <section class="slide" data-notes="Grammar focus — the heart of the lesson. In maintenance work you give instructions to a partner, and Simplified Technical English (ASD-STE100) has one clear rule: name the action and start the sentence with the verb. This is the active imperative — verb plus object — and the doer 'you' is understood, so it is never stated. Contrast it with the passive and indirect forms students default to: 'The connector must be disconnected' becomes 'Disconnect the connector'; 'It is necessary to fit the cap' becomes 'Fit the cap'; 'The bolt is to be torqued' becomes 'Torque the bolt'. Use the transformer widget on the right — press Convert and watch the passive collapse into the active imperative; the point is that the STE version is shorter, names the doer's action, and cannot be misread under pressure. Two habits to nail: keep the article — Install THE pump — and use the plain verb, not the -ing form — Remove the bolt, never Removing the bolt. Do three or four transforms chorally, then send them into E4 and E6 which drill exactly this.">
+    <div class="kick">§4 · Grammar in context · the active imperative (STE)</div>
+    <h2>Instructions are verb-first — not passive</h2>
+    <div class="cols">
+      <div class="dw" data-widget="imperative"></div>
+      <div>
+        <p><b>STE rule:</b> name the action, start with the verb. The doer "you" is understood.</p>
+        <p class="wrong">The connector must be disconnected.</p>
+        <p class="right">→ Disconnect the connector.</p>
+        <p class="muted">Keep the article — Install <b>the</b> pump. Use the plain verb — <b>Remove</b> the bolt, not "Removing".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · L1 INTERFERENCE -->
+  <section class="slide" data-notes="Anticipate the first-language interference directly, because these three errors will dominate the written and spoken output of Latvian and Russian speakers. One: both languages routinely use passive or impersonal forms for written instructions, so students produce 'the connector must be disconnected' — recast to 'Disconnect the connector'. Two: the calque 'it is necessary to...' (Latvian 'ir nepieciešams', Russian 'необходимо') gets pasted in front of the verb — STE forbids it, so delete it and start with the verb. Three: Russian gives commands with the infinitive on signs and instructions ('Не курить' = 'To not smoke'), so learners write 'To fit the blanking cap' as a command — recast to the bare imperative 'Fit the blanking cap'. Add the two smaller but constant slips: the missing article (no articles in either L1), and the -ing command ('Removing the bolt'). Do not just name these — put a wrong sentence on the board, ask the room to fix it, and make the fix a chorus. Then run the exercises.">
+    <div class="kick">§4 · Grammar · Latvian &amp; Russian interference</div>
+    <h2>Three errors to expect — and fix</h2>
+    <table class="tbl">
+      <tr><th>Why it happens</th><th>Wrong</th><th>Right (STE)</th></tr>
+      <tr><td>L1 uses the passive for instructions</td><td class="wrong">The connector must be disconnected.</td><td class="right">Disconnect the connector.</td></tr>
+      <tr><td>Calque of "it is necessary to…"</td><td class="wrong">It is necessary to torque the bolt.</td><td class="right">Torque the bolt.</td></tr>
+      <tr><td>Russian infinitive as a command</td><td class="wrong">To fit the blanking cap.</td><td class="right">Fit the blanking cap.</td></tr>
+      <tr><td>No articles in L1</td><td class="wrong">Fit blanking cap.</td><td class="right">Fit the blanking cap.</td></tr>
+    </table>
+  </section>
+
+  <!-- 12 · EXERCISES E1-E4 -->
+  <section class="slide" data-notes="Exercise staging, first half. The exercises are on the body page and mark themselves — press Check and the boxes turn green or red — so students get instant feedback and you circulate rather than mark. Run E1 to E4 as controlled practice, about ten minutes. E1 gap-fill and E2 matching consolidate the 22 terms and their meanings — set them individually, two minutes each, then pair-check. E3 completes a removal call with the missing terms — this bridges vocabulary into the dialogue register. E4 is the grammar transformation: passive or indirect into the active imperative, typing only the missing verb. Model the first E4 item on the board so the format is clear (type just the verb: Disconnect). Tell them to try before opening 'Show answers' — the page confirms their English, and self-correction is the point. Take a hands-up score on E4 to check the grammar has landed before moving to the reading.">
+    <div class="kick">§5 · Exercises · controlled practice</div>
+    <h2>E1–E4 — terms and the imperative</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Set individually, then pair-check</h3>
+        <ul>
+          <li><b>E1</b> Gap-fill — 10 bank terms</li>
+          <li><b>E2</b> Matching — term ↔ meaning</li>
+          <li><b>E3</b> Dialogue completion — the removal call</li>
+          <li><b>E4</b> Transformation — passive → active imperative</li>
+        </ul>
+      </div>
+      <div>
+        <p>The page <b>marks itself</b> — press <b>Check</b>. Circulate; do not mark.</p>
+        <p class="muted">Model E4 item 1 on the board: type only the verb → <b>Disconnect</b>. Take a hands-up score on E4 before you move on.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · EXERCISES E5-E8 -->
+  <section class="slide" data-notes="Exercise staging, second half — the reading and listening review, about ten minutes. E5 is Reading 1, an authentic IPC page (ATA 24-11-01): students scan for item 40, its part number 761782C, the two mounting bolts, the effectivity to tail YL-BBX, and the note that the unit is serviceable only with a valid release certificate. Teach the skill of scanning a parts list for one fact, not reading it linearly. E6 is error-spotting on a badly written task card — eight steps hidden in the passive that they rewrite as active imperatives; this is the grammar target applied to a real genre. E7 is Reading 2, a full component-change task card: comprehension of the removal, tagging, installation, torque value and sign-off. E8 is a listening review — replay Dialogue 3 and answer from what they hear, including the torque value and the reason for the torque seal. Set E7 for confident finishers and keep E8 whole-class if time is tight. All answers are on the page; the model answers with reasons are in the teacher solutions file.">
+    <div class="kick">§5 · Exercises · reading &amp; review</div>
+    <h2>E5–E8 — authentic genres</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Reading &amp; listening</h3>
+        <ul>
+          <li><b>E5</b> Reading 1 — IPC page (ATA 24-11-01): scan for one fact</li>
+          <li><b>E6</b> Error-spotting — fix 8 passive steps → imperatives</li>
+          <li><b>E7</b> Reading 2 — full component-change task card</li>
+          <li><b>E8</b> Listening review — replay Dialogue 3</li>
+        </ul>
+      </div>
+      <div>
+        <p>Teach <b>scanning</b>: find one fact fast, do not read line by line.</p>
+        <p class="muted">E6 applies the grammar to a real genre. Keep E8 whole-class if time is short. Model answers + reasons: teacher solutions file.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 · SPEAKING ROLE-PLAYS -->
+  <section class="slide" data-notes="Speaking block, about sixteen minutes — the graded evidence for the coordination outcome. Four role-play cards, pairs, swap roles after each card. Card 1: find the part in the IPC — agree figure, item number, part number and effectivity before touching the aircraft. Card 2: coordinate the removal — one calls each step, the other supports and confirms, and they warn before every move; insist on verb-first instructions here. Card 3: install, torque and test — state the torque value, fit lockwire and a torque seal, confirm the functional test. Card 4: shift handover — summarise removal, installation, torque and test, and confirm the old unit is unserviceable and the card is signed. Set the success criteria before they start, from the B2 speaking rubric in the teacher key: short accurate imperatives, correct specialist terms, clear turn-taking and confirmation, and a coherent sequence. Circulate with the rubric and note two strengths and one fix per pair. If a pair finishes early, point them at the AI conversation-partner prompts on the body page — the page tutor stays in role at B2 and recasts errors gently.">
+    <div class="kick">§6 · Speaking · role-plays · pairs</div>
+    <h2>Four cards — swap roles after each</h2>
+    <div class="cols3">
+      <div class="card"><h3>Card 1</h3><p>Find the part in the IPC — agree figure, item, part number, effectivity.</p></div>
+      <div class="card"><h3>Card 2</h3><p>Coordinate the removal — call each step, confirm, warn before every move.</p></div>
+      <div class="card"><h3>Card 3</h3><p>Install, torque, test — state the value, fit lockwire + seal, confirm the test.</p></div>
+    </div>
+    <p style="margin-top:14px"><b>Card 4</b> — shift handover: summarise the job; confirm the old unit is <b>unserviceable</b> and the card is <b>signed</b>. &nbsp; <span class="muted">Assess with the B2 speaking rubric in the teacher key. Early finishers: the AI partner prompts on the page.</span></p>
+  </section>
+
+  <!-- 15 · WRITING -->
+  <section class="slide" data-notes="Writing set-up — start it in class and finish for homework. The task moves the language to a new component so it is transfer, not copying: a fuel boost pump in the centre tank of an A320 is unserviceable and a pair changes it. Students write the task-card steps as active imperatives, 100 to 130 words, one instruction per line, covering the full arc: find the pump in the IPC by figure and item; check the effectivity; disconnect the connector and fit a blanking cap; remove the mounting bolts; lower with two people; tag the old pump unserviceable; install the new pump; torque to the value; fit lockwire and a torque seal; run a functional test; sign the card. Put the STE self-check on the board: every line starts with the action verb; active voice, no 'must be' or 'should be'; one instruction per line; ends with the test and the signed card. Show the annotated model answer in the teacher solutions only after they draft, so they generate first. Read out the four self-check lines and set the drafting going for the last minutes.">
+    <div class="kick">§7 · Writing · a task-card step list (STE)</div>
+    <h2>Write the steps — verb-first, one per line</h2>
+    <div class="cols">
+      <div>
+        <p><b>New component:</b> a centre-tank <b>fuel boost pump</b> on an A320 is unserviceable. Write the change as a task card — <b>100–130 words</b>, one instruction per line.</p>
+        <p class="muted">Cover: find in IPC (figure + item) · check effectivity · disconnect + blank · remove bolts · lower with two · tag u/s · install · torque · lockwire + seal · functional test · sign.</p>
+      </div>
+      <div class="card">
+        <h3>STE self-check</h3>
+        <ul>
+          <li>Every line starts with the <b>action verb</b>.</li>
+          <li>Active voice — no "must be" / "should be".</li>
+          <li>One instruction per line, kept short.</li>
+          <li>Ends with the <b>functional test</b> and the <b>signed</b> card.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · WRAP-UP -->
+  <section class="slide" data-center data-notes="Close and check the can-do outcomes out loud. Ask three quick questions to the room: how do you name the correct part in the IPC (figure plus item number)? what is the one rule for an instruction in STE (verb first, active, keep the article)? and what three things do you confirm on completion (torque to the value, tag the old unit unserviceable, run a functional test before you sign)? Set the exit ticket: each student writes one active-imperative instruction from the job on a slip and hands it in — a fast check that the grammar transferred. Homework: finish the written task card to 100–130 words, and optionally run one AI conversation-partner prompt from the page for extra speaking. Remind them the exercises stay open for self-study and the transcripts are there to check spelling. End on the one-line takeaway: on a component change, say it verb-first and confirm every step — that is how two technicians stay safe and understood.">
+    <div class="kick">Recap · exit ticket · homework</div>
+    <h2>Name the part · say it verb-first · confirm on completion</h2>
+    <p class="big muted">IPC <b>figure + item number</b> names the part · an instruction is <b>verb-first, active, with the article</b> · on completion: <b>torque to the value</b>, <b>tag unserviceable</b>, <b>run a functional test</b>, then sign.</p>
+    <p><b>Exit ticket:</b> one active-imperative instruction on a slip. &nbsp; <b>Homework:</b> finish the 100–130-word task card; optional AI-partner speaking round.</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS · canvas + rAF) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+
+  /* ---- W1: TORQUE WRENCH GAUGE (canvas + rAF) ---- */
+  window.DeckW.torque=function(el){
+    el.innerHTML='<div class="wk"><div class="bar">'+
+      '<span class="note" style="font-weight:700;color:#9db0c6">TARGET</span>'+
+      '<select data-tgt><option value="20">20 N·m</option><option value="34" selected>34 N·m</option><option value="45">45 N·m</option></select>'+
+      '<button class="prim" data-go>Torque</button><button data-rst>Reset</button></div>'+
+      '<canvas width="520" height="230"></canvas>'+
+      '<div class="info"><h4 id="ti">Set the wrench and press Torque</h4><p id="tp" style="margin:0">The needle rises to the set value, then the wrench <b>clicks</b>. The exact value is the goal.</p></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+    var tgt=34,val=0,going=false,clicked=false,raf=null;
+    var tgtSel=el.querySelector('[data-tgt]');
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      var cx=W/2,cy=H-20,R=150;
+      // arc scale 0..60
+      ctx.lineWidth=16;
+      ctx.strokeStyle='#16263a';ctx.beginPath();ctx.arc(cx,cy,R,Math.PI,2*Math.PI);ctx.stroke();
+      // target marker
+      var ta=Math.PI+(tgt/60)*Math.PI;
+      ctx.strokeStyle='#fbbf24';ctx.lineWidth=4;
+      ctx.beginPath();ctx.moveTo(cx+Math.cos(ta)*(R-16),cy+Math.sin(ta)*(R-16));ctx.lineTo(cx+Math.cos(ta)*(R+10),cy+Math.sin(ta)*(R+10));ctx.stroke();
+      // filled value arc
+      var va=Math.PI+(clamp(val,0,60)/60)*Math.PI;
+      ctx.strokeStyle=clicked?'#34d399':'#38b6ff';ctx.lineWidth=16;
+      ctx.beginPath();ctx.arc(cx,cy,R,Math.PI,va);ctx.stroke();
+      // needle
+      ctx.strokeStyle=clicked?'#34d399':'#7fd0ff';ctx.lineWidth=3;
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(va)*(R-8),cy+Math.sin(va)*(R-8));ctx.stroke();
+      // readout
+      ctx.fillStyle='#e9f0f7';ctx.font='700 40px ui-monospace,Consolas,monospace';ctx.textAlign='center';
+      ctx.fillText(val.toFixed(0)+' N·m',cx,cy-40);
+      ctx.fillStyle='#fbbf24';ctx.font='13px ui-monospace';ctx.fillText('target '+tgt,cx+Math.cos(ta)*(R+30),cy+Math.sin(ta)*(R+30));
+    }
+    function step(){
+      if(going){
+        if(val<tgt){ val=Math.min(tgt,val+0.9); raf=requestAnimationFrame(step); }
+        else { going=false; clicked=true; el.querySelector('#ti').textContent='CLICK — '+tgt+' N·m reached';
+               el.querySelector('#tp').innerHTML='Correct torque value. Now <b>fit lockwire</b> and <b>add a torque seal</b>.'; }
+      }
+      draw();
+    }
+    el.querySelector('[data-go]').addEventListener('click',function(){ tgt=+tgtSel.value; val=0;clicked=false;going=true;
+      el.querySelector('#ti').textContent='Torquing to '+tgt+' N·m…'; if(raf)cancelAnimationFrame(raf); raf=requestAnimationFrame(step); });
+    el.querySelector('[data-rst]').addEventListener('click',function(){ going=false;clicked=false;val=0;
+      el.querySelector('#ti').textContent='Set the wrench and press Torque'; el.querySelector('#tp').innerHTML='The needle rises to the set value, then the wrench <b>clicks</b>.'; draw(); });
+    tgtSel.addEventListener('change',function(){ tgt=+tgtSel.value; draw(); });
+    draw();
+  };
+
+  /* ---- W2: IPC FIGURE (canvas + rAF pulse, clickable items) ---- */
+  window.DeckW.ipc=function(el){
+    el.innerHTML='<div class="wk"><div class="bar">'+
+      '<button class="prim" data-rev>Reveal callouts</button>'+
+      '<span class="note">Click an item number</span></div>'+
+      '<canvas width="520" height="250"></canvas>'+
+      '<div class="info"><h4 id="ii">IPC figure 24-11-01</h4><p id="ip" style="margin:0">Press Reveal, then click <b>item 40</b> to confirm the generator.</p></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+    var revealed=false,sel=0,t=0,raf=null;
+    var items=[{n:40,x:250,y:120,r:52,name:'integrated drive generator, P/N 761782C'},
+               {n:45,x:250,y:120,r:78,name:'mounting clamp, P/N 761783A',ring:true},
+               {n:50,x:360,y:70,r:16,name:'mounting bolt, P/N MS21250-06 (×2)'}];
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      // clamp ring
+      ctx.lineWidth=2;
+      ctx.strokeStyle=(sel===45)?'#38b6ff':'#314865';
+      ctx.beginPath();ctx.arc(250,120,78,0,7);ctx.stroke();
+      // generator body
+      ctx.fillStyle=(sel===40)?'#16324c':'#16263a';
+      ctx.strokeStyle=(sel===40)?'#38b6ff':'#4a6079';ctx.lineWidth=(sel===40)?3:2;
+      ctx.beginPath();ctx.arc(250,120,52,0,7);ctx.fill();ctx.stroke();
+      ctx.fillStyle='#7e98ad';ctx.font='12px ui-monospace';ctx.textAlign='center';ctx.fillText('IDG',250,124);
+      // bolt
+      ctx.fillStyle=(sel===50)?'#38b6ff':'#5a708c';
+      ctx.beginPath();ctx.arc(360,70,10,0,7);ctx.fill();
+      if(revealed){
+        var pulse=6+Math.sin(t/12)*3;
+        items.forEach(function(it){
+          ctx.fillStyle='#fbbf24';ctx.font='700 14px ui-monospace';ctx.textAlign='left';
+          var lx=it.x+it.r+8,ly=it.y-it.r+ (it.n===45?90: it.n===50?-6:-30);
+          if(it.n===50){lx=378;ly=64;}
+          if(it.n===45){lx=250+78+8;ly=190;}
+          if(it.n===40){lx=250+52+10;ly=90;}
+          ctx.beginPath();ctx.arc(lx-4,ly-4,(sel===it.n?pulse:5),0,7);ctx.strokeStyle='#fbbf24';ctx.lineWidth=2;ctx.stroke();
+          ctx.fillText(String(it.n),lx+6,ly);
+        });
+      }
+    }
+    function loop(){ t++; if(revealed) draw(); raf=requestAnimationFrame(loop); }
+    cv.addEventListener('click',function(e){
+      var r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*(W/r.width),y=(e.clientY-r.top)*(H/r.height);
+      var d40=Math.hypot(x-250,y-120);
+      if(Math.hypot(x-360,y-70)<16)sel=50; else if(d40<52)sel=40; else if(d40<78)sel=45; else sel=0;
+      var it=items.filter(function(o){return o.n===sel;})[0];
+      el.querySelector('#ii').textContent=sel?('Item '+sel):'IPC figure 24-11-01';
+      el.querySelector('#ip').innerHTML=it?('<b>Item '+sel+'</b> — '+it.name):'Click an item number.';
+      draw();
+    });
+    el.querySelector('[data-rev]').addEventListener('click',function(){ revealed=true;
+      el.querySelector('#ip').innerHTML='Callouts shown. Now click <b>item 40</b>.'; if(!raf)loop(); });
+    draw();
+  };
+
+  /* ---- W3: IMPERATIVE TRANSFORMER (canvas + rAF slide) ---- */
+  window.DeckW.imperative=function(el){
+    el.innerHTML='<div class="wk"><div class="bar">'+
+      '<select data-sent>'+
+      '<option value="0">The connector must be disconnected.</option>'+
+      '<option value="1">It is necessary to fit the cap.</option>'+
+      '<option value="2">The bolt is to be torqued.</option>'+
+      '<option value="3">A functional test must be carried out.</option></select>'+
+      '<button class="prim" data-conv>Convert →</button></div>'+
+      '<canvas width="520" height="150"></canvas>'+
+      '<div class="info"><h4>Passive / indirect → active imperative</h4><p style="margin:0" id="wp">Pick a sentence and press Convert.</p></div></div>';
+    var pairs=[['The connector must be disconnected.','Disconnect the connector.'],
+               ['It is necessary to fit the cap.','Fit the cap.'],
+               ['The bolt is to be torqued.','Torque the bolt.'],
+               ['A functional test must be carried out.','Carry out a functional test.']];
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+    var idx=0,prog=0,going=false,raf=null;
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      ctx.textAlign='center';
+      // passive (fading/striking)
+      ctx.globalAlpha=1-prog*0.75;
+      ctx.fillStyle='#ff9aa2';ctx.font='18px -apple-system,Segoe UI,sans-serif';
+      ctx.fillText(pairs[idx][0],W/2,45-prog*18);
+      if(prog>0.15){ctx.strokeStyle='#ff5667';ctx.lineWidth=2;var tw=ctx.measureText(pairs[idx][0]).width;
+        ctx.beginPath();ctx.moveTo(W/2-tw/2,45-prog*18);ctx.lineTo(W/2-tw/2+tw*Math.min(1,prog*1.3),45-prog*18);ctx.stroke();}
+      ctx.globalAlpha=prog;
+      ctx.fillStyle='#9af0c8';ctx.font='700 22px -apple-system,Segoe UI,sans-serif';
+      ctx.fillText(pairs[idx][1],W/2,105+ (1-prog)*18);
+      ctx.globalAlpha=1;
+    }
+    function step(){ if(going){ prog=Math.min(1,prog+0.04); if(prog<1)raf=requestAnimationFrame(step); else going=false;
+      el.querySelector('#wp').innerHTML='<b>Verb first.</b> The doer "you" is understood; keep the article.'; } draw(); }
+    el.querySelector('[data-sent]').addEventListener('change',function(e){ idx=+e.target.value;prog=0;going=false;
+      el.querySelector('#wp').textContent='Press Convert.';draw(); });
+    el.querySelector('[data-conv]').addEventListener('click',function(){ prog=0;going=true; if(raf)cancelAnimationFrame(raf); raf=requestAnimationFrame(step); });
+    draw();
+  };
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u17_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u17_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 17</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:24px;color:#9db0c6;font-size:17px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:20px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u17_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u17_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u17_deck_state")render();});',
+'render();',
+'<\/script></body></html>'
+].join('');
+window.addEventListener('storage',function(e){
+  if(e.key==='u17_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+window.addEventListener('DOMContentLoaded',function(){ show(0); });
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="it-IT">Italiano</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="en">English</option>
+    <option value="ru">Русский</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capQueueB=[], capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<script>(function(){try{
+  var KEY='tsiCapScale', root=document.documentElement;
+  function apply(v){ root.style.setProperty('--cap-scale', v); }
+  var saved=parseFloat(localStorage.getItem(KEY))||1; saved=Math.max(0.6,Math.min(1.9,saved)); apply(saved);
+  var st=document.createElement('style'); st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}.cap-fs-slider::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:#FFD24D;cursor:pointer}'; document.head.appendChild(st);
+  function mount(){ var lb=document.getElementById('lctLangBar'); if(!lb||lb.querySelector('.cap-fs-slider')) return;
+    var w=document.createElement('span'); w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w); var sl=w.querySelector('.cap-fs-slider'); sl.value=saved;
+    var stop=function(e){ e.stopPropagation(); };
+    sl.addEventListener('input',function(){ var v=parseFloat(sl.value)||1; apply(v); try{ localStorage.setItem(KEY,v); }catch(e){} });
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){ sl.addEventListener(ev,stop); });
+  }
+  if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>

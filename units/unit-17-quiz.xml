@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U17-r1</text></category>
+    <info format="html"><text><![CDATA[<p>English for Aviation Maintenance — Unit 17: Coordinating a component removal and installation (CEFR B2). Split by skill: listening, reading, use of English, vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ============================ LISTENING (8) ============================ -->
+
+  <question type="multichoice">
+    <name><text>U17 L1 IPC figure</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Which figure do Rob and Lena open in the illustrated parts catalogue to find the generator?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Rob says: "Open figure twenty-four eleven zero-one." The generator sits in the middle of figure <b>24-11-01</b>.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[24-11-01]]></text><feedback format="html"><text><![CDATA[<p>Correct — the figure the generator sits in.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[24-01-11]]></text><feedback format="html"><text><![CDATA[<p>The middle and last groups are the wrong way round — listen again.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[21-14-01]]></text><feedback format="html"><text><![CDATA[<p>That is a different ATA chapter; the figure is 24-11-01.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[24-11-10]]></text><feedback format="html"><text><![CDATA[<p>The last two digits are swapped; it is 24-11-01.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U17 L2 item number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> What item number is the integrated drive generator in the figure? Type the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Lena confirms: "The generator is item number forty in the figure." The answer is <b>40</b>.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>40</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — item 40.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>45</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Item 45 is the mounting clamp, not the generator.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U17 L3 removal order</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> True or false: they remove the mounting bolt <i>first</i>, before the electrical connector.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The electrical connector comes off first; the mounting bolt is the <b>last</b> item, because the component is heavy once the bolt is out.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — the connector is disconnected first; the bolt is last.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — connector first, mounting bolt last.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U17 L4 open plug</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> What does Lena fit on the open plug straight away, so no dirt gets in?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Rob says: "Fit the blanking cap now, so no dirt gets into the electrical connector." A <b>blanking cap</b> closes the open plug.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[a blanking cap]]></text><feedback format="html"><text><![CDATA[<p>Correct — it keeps contamination out of the plug.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a bonding lead]]></text><feedback format="html"><text><![CDATA[<p>The bonding lead is the earth strap, not a cap for the plug.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a warning tag]]></text><feedback format="html"><text><![CDATA[<p>A warning tag marks a state; it does not close a plug.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a torque seal]]></text><feedback format="html"><text><![CDATA[<p>A torque seal is a paint mark on a bolt, not a plug cap.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U17 L5 torque value</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> What is the torque value for the mounting bolt, in newton metres? Type the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The task card gives thirty-four newton metres; the wrench clicks at thirty-four. The answer is <b>34</b>.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>34</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — 34 N·m.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>43</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>The digits are reversed — it is 34, not 43.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U17 L6 torque seal reason</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> Why do they add a torque seal across the bolt head?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Rob says: "Add a torque seal, so the next shift can see the bolt was torqued." The seal is a visible check for the next inspector.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[So the next shift can see the bolt was torqued.]]></text><feedback format="html"><text><![CDATA[<p>Correct — a torque seal is visible evidence of torque.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[To keep dirt out of the open electrical connector plug.]]></text><feedback format="html"><text><![CDATA[<p>That is the job of a blanking cap, not a torque seal.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Because the bonding lead needs a second securing point.]]></text><feedback format="html"><text><![CDATA[<p>The seal has nothing to do with the bonding lead.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[To give the oil lines an extra layer of leak protection.]]></text><feedback format="html"><text><![CDATA[<p>The oil lines are sealed by their unions and lockwire, not the torque seal.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U17 L7 handover result</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 4 again</b> (the handover voicemail). True or false: the functional test was good and the generator is serviceable.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. Rob says the functional test was good, so the generator is serviceable and the task card is signed.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — test good, unit serviceable, card signed.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Listen again — the test was good and the unit is serviceable.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U17 L8 engine number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 4 again.</b> The integrated drive generator was changed on which engine? Type the engine number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Rob says the IDG was changed on engine one, on tail YL-BBX. The answer is <b>1</b>.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>1</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — engine one.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>2</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Bay two is where the aircraft sits; the engine is number one.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ READING (5) ============================ -->
+
+  <question type="multichoice">
+    <name><text>U17 R1 service bulletin</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this Service Bulletin extract, then answer.</b></p>
+    <p style="background:#f3f1ea;padding:8px 12px;border-radius:6px"><b>SB 24-0071</b> — Integrated drive generator. This bulletin introduces improved generator part number 761782D. Operators must comply within 600 flight hours from receipt. Until compliance, part number 761782C remains approved for continued use.</p>
+    <p>By when must operators comply with SB 24-0071?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The bulletin sets the compliance window at <b>600 flight hours from receipt</b>. Until then, the old part number 761782C is still approved.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Within 600 flight hours.]]></text><feedback format="html"><text><![CDATA[<p>Correct — 600 flight hours from receipt.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Immediately, before the next flight of the aircraft.]]></text><feedback format="html"><text><![CDATA[<p>No — the SB allows 600 flight hours, and 761782C stays approved until then.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Within thirty calendar days of receiving the bulletin.]]></text><feedback format="html"><text><![CDATA[<p>The window is measured in flight hours, not calendar days.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Only at the next scheduled base maintenance check.]]></text><feedback format="html"><text><![CDATA[<p>The bulletin gives a flight-hour limit, not a check reference.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U17 R2 MEL</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this Minimum Equipment List (MEL) extract, then answer.</b></p>
+    <p style="background:#f3f1ea;padding:8px 12px;border-radius:6px"><b>MEL 24-11 IDG:</b> One integrated drive generator may be inoperative provided the associated generator is disconnected and an INOP placard is fitted. Category C — rectify within 10 days.</p>
+    <p>True or false: under this MEL, the aircraft may keep flying with one IDG inoperative if the generator is disconnected and placarded.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The MEL permits dispatch with one IDG inoperative, provided it is disconnected and an INOP placard is fitted, with rectification within 10 days (Category C).</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — the conditions are disconnect and placard, rectify within 10 days.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>The MEL does allow it under the stated conditions.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U17 R3 tech log</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this technical-log entry, then answer.</b></p>
+    <p style="background:#f3f1ea;padding:8px 12px;border-radius:6px"><b>Reported:</b> ENG 1 GEN caution on climb. <b>Action:</b> IDG (item 40) removed and replaced, part number 761782C. Torqued to value, lockwire and torque seal fitted. Functional test satisfactory. A/C released to service.</p>
+    <p>What did the technician do about the reported GEN caution?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The action line records that the IDG was <b>removed and replaced</b>, then torqued, lockwired, sealed and tested before release.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Removed and replaced the IDG.]]></text><feedback format="html"><text><![CDATA[<p>Correct — the IDG was removed and replaced, then tested.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Reset the caution and returned the aircraft with no part change.]]></text><feedback format="html"><text><![CDATA[<p>No — the log clearly records a part change, not a reset.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Disconnected the generator and fitted an inoperative placard.]]></text><feedback format="html"><text><![CDATA[<p>That would be an MEL deferral; here the unit was actually replaced.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Cleaned the electrical connector and re-ran the functional test.]]></text><feedback format="html"><text><![CDATA[<p>The log shows a full removal and replacement, not just cleaning.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U17 R4 torque table</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this AMM torque table note, then answer.</b></p>
+    <p style="background:#f3f1ea;padding:8px 12px;border-radius:6px"><b>AMM 24-11-01, Table 401:</b> IDG mounting bolt — torque 34 N·m. Fit lockwire after torque. Do not exceed the stated value; if the value is exceeded, replace the bolt.</p>
+    <p>True or false: if the mounting bolt is tightened past 34 N·m, the table says to replace the bolt.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The note says do not exceed 34 N·m, and if the value is exceeded, <b>replace the bolt</b> — over-torque can damage the fastener.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — exceed the value, replace the bolt.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Read the last line again — an over-torqued bolt must be replaced.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U17 R5 task card sign</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this task-card sign-off rule, then answer.</b></p>
+    <p style="background:#f3f1ea;padding:8px 12px;border-radius:6px"><b>Sign-off:</b> Sign the task card only when the installation and the functional test are both complete. The unit is serviceable when the test is satisfactory.</p>
+    <p>When may the technician sign the task card?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The rule is explicit: sign <b>only when the installation and the functional test are both complete</b>.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[When the install and the test are both complete.]]></text><feedback format="html"><text><![CDATA[<p>Correct — both the installation and the test must be finished.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[As soon as the new component is lifted onto the clamp.]]></text><feedback format="html"><text><![CDATA[<p>Too early — the torque, lockwire and test still have to be done.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Before the removal, so the paperwork is ready in advance.]]></text><feedback format="html"><text><![CDATA[<p>You never sign before the work; the test must pass first.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Once the old unit has been tagged and taken from the bay.]]></text><feedback format="html"><text><![CDATA[<p>Tagging the old unit is not the sign-off condition; the test is.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ======================= USE OF ENGLISH (6) ======================= -->
+
+  <question type="shortanswer">
+    <name><text>U17 UE1 imperative disconnect</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><b>Rewrite as an active imperative (STE).</b> "The electrical connector must be disconnected." Type the missing verb: ______ the electrical connector.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>STE names the action and starts with the verb: <b>Disconnect the electrical connector.</b> Drop "must be".</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>Disconnect</text><feedback format="html"><text><![CDATA[<p>Correct — verb first.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>disconnect</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Start with the plain verb "Disconnect".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U17 UE2 imperative fit</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><b>Rewrite as an active imperative (STE).</b> "It is necessary to fit the blanking cap." Type the missing verb: ______ the blanking cap.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Delete the empty "It is necessary to" and start with the verb: <b>Fit the blanking cap.</b></p>]]></text></generalfeedback>
+    <answer fraction="100"><text>Fit</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>fit</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The verb is "Fit".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U17 UE3 imperative torque</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><b>Rewrite as an active imperative (STE).</b> "The mounting bolt is to be torqued to 34." Type the missing verb: ______ the mounting bolt to 34.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Active and verb-first: <b>Torque the mounting bolt to 34.</b> The value stays with the object.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>Torque</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>torque</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The verb is "Torque".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U17 UE4 term torque wrench</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><b>Complete with the bank term.</b> The calibrated tool that tightens a fastener to a specified torque value is a ______ ______.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The tool set to the value and used until it clicks is the <b>torque wrench</b>.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>torque wrench</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>a torque wrench</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The term is "torque wrench".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U17 UE5 term effectivity</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><b>Complete with the bank term.</b> The IPC data that shows which aircraft a part actually applies to is the ______.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The column that confirms the part fits this tail is the <b>effectivity</b>.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>effectivity</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>the effectivity</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The term is "effectivity".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U17 UE6 imperative run</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><b>Rewrite as an active imperative (STE).</b> "A functional test must be carried out." Type the missing verb (one word or two): ______ a functional test.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Verb-first: <b>Run a functional test</b> (or <b>Carry out</b> a functional test). Both are accepted.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>Run</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>run</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>Carry out</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>carry out</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "Run" or "Carry out".</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ VOCABULARY (4) ============================ -->
+
+  <question type="matching">
+    <name><text>U17 V1 terms to meanings</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Match each term to its plain meaning.</b></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>lockwire = wire that stops a fastener turning loose; blanking cap = closes an open pipe or plug; bonding lead = earth strap to the airframe; torque seal = paint mark showing a bolt was torqued; effectivity = which aircraft a part applies to.</p>]]></text></generalfeedback>
+    <subquestion format="html"><text><![CDATA[lockwire]]></text><answer><text>wire that stops a fastener turning loose</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[blanking cap]]></text><answer><text>a cap that closes an open pipe or plug</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[bonding lead]]></text><answer><text>the strap that earths the case to the airframe</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[torque seal]]></text><answer><text>a paint mark showing a bolt was torqued</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[effectivity]]></text><answer><text>which aircraft a part applies to</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U17 V2 status and paperwork</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Match each term to its meaning.</b></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>serviceable = fit for use; unserviceable = not fit, must be repaired; item number = identifies a part in a figure; part number = the maker's unique reference; task card = the printed list of steps.</p>]]></text></generalfeedback>
+    <subquestion format="html"><text><![CDATA[serviceable]]></text><answer><text>certified fit for use</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[unserviceable]]></text><answer><text>not fit for use; must be repaired</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[item number]]></text><answer><text>identifies a part within an IPC figure</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[part number]]></text><answer><text>the maker's unique reference for a part</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[task card]]></text><answer><text>the printed list of job steps</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U17 V3 verb to noun collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Match each verb to the noun it goes with in the unit.</b></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>check the effectivity; torque the mounting bolt; fit a blanking cap; run a functional test; sign the task card.</p>]]></text></generalfeedback>
+    <subquestion format="html"><text><![CDATA[check]]></text><answer><text>the effectivity</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[torque]]></text><answer><text>the mounting bolt</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[fit]]></text><answer><text>a blanking cap</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[run]]></text><answer><text>a functional test</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[sign]]></text><answer><text>the task card</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U17 V4 actions and parts</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Match each term to its meaning.</b></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>removal = taking a component off; installation = fitting a component on; component = a single unit removed as one; fastener = a bolt, nut or screw; electrical connector = the plug to the aircraft wiring.</p>]]></text></generalfeedback>
+    <subquestion format="html"><text><![CDATA[removal]]></text><answer><text>taking a component off the aircraft</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[installation]]></text><answer><text>fitting a component onto the aircraft</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[component]]></text><answer><text>a single unit removed and replaced as one</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[fastener]]></text><answer><text>a bolt, nut or screw that holds parts together</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[electrical connector]]></text><answer><text>the plug that joins the unit to the aircraft wiring</text></answer></subquestion>
+  </question>
+
+</quiz>

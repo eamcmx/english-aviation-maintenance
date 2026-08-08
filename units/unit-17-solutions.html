@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 17 — Solutions · Coordinating a component removal and installation</title>
+<style>
+:root{--pri:#2F5496;--good:#256d36;--bad:#c0392b;--ink:#1f2230;--soft:#4a4f5c;--muted:#707582;--bg:#fbfaf6;--el:#fff;--line:#e7e3d8;--sunk:#f3f1ea;--gold:#c8821a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,Segoe UI,Roboto,sans-serif;font-size:16px;line-height:1.6}
+article{max-width:920px;margin:0 auto;padding:0 26px 90px}
+header{padding:40px 0 22px;border-bottom:2px solid var(--pri);margin-bottom:26px}
+.eyebrow{font-family:ui-monospace,Consolas,monospace;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--pri);margin:0 0 8px}
+h1{font-family:Georgia,'Times New Roman',serif;font-size:29px;margin:0 0 6px;line-height:1.15}
+h2{font-family:Georgia,serif;font-size:22px;margin:34px 0 6px;padding-bottom:6px;border-bottom:1px solid var(--line);color:#1f3a6b}
+h3{font-size:17px;margin:20px 0 6px;color:var(--pri)}
+.note{background:#fff8e1;border:1px solid #f0e6c8;border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 16px;margin:16px 0;font-size:14.5px}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14.5px}
+th,td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+th{background:var(--sunk);font-size:13px;color:var(--soft)}
+td.n{width:34px;text-align:center;font-family:ui-monospace,monospace;color:var(--muted)}
+.ans{font-weight:700;color:var(--good)}
+.why{color:var(--soft);font-size:14px}
+code{font-family:ui-monospace,Consolas,monospace;background:var(--sunk);padding:1px 5px;border-radius:4px;font-size:.9em}
+.model{background:var(--el);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.model p{margin:5px 0}
+.anno{color:var(--pri);font-size:13px;font-style:italic}
+.tag{display:inline-block;font-family:ui-monospace,monospace;font-size:11px;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--pri);border-radius:5px;padding:2px 9px;text-transform:uppercase}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:13px}
+</style></head>
+<body>
+<article>
+<header>
+  <p class="eyebrow">English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 17 · Teacher solutions (gated)</p>
+  <h1>Solutions — E1–E8, with a one-line reason for each answer</h1>
+  <p class="why">Full model answers for the eight exercises in the unit, plus the annotated model for the writing task. The exercises self-mark on the student page; this file gives the teacher the reasons to explain a wrong answer and to feed correction in the role-play and writing feedback.</p>
+</header>
+
+<h2><span class="tag">E1</span> &nbsp;Gap-fill — put the right term in each gap</h2>
+<table>
+  <tr><th class="n">#</th><th>Answer</th><th>Why</th></tr>
+  <tr><td class="n">1</td><td class="ans">illustrated parts catalogue</td><td class="why">The manual with drawings that identifies every part is the IPC — the first place you confirm a part.</td></tr>
+  <tr><td class="n">2</td><td class="ans">item number</td><td class="why">A part is located inside an IPC figure by its item number; here the generator is item 40.</td></tr>
+  <tr><td class="n">3</td><td class="ans">part number</td><td class="why">The maker's unique reference sits next to the item and is checked against the unit's label.</td></tr>
+  <tr><td class="n">4</td><td class="ans">effectivity</td><td class="why">Effectivity is the data that shows the part applies to this aircraft, not a different variant.</td></tr>
+  <tr><td class="n">5</td><td class="ans">torque value</td><td class="why">The task card states the tightness in newton metres — the torque value, never a guess by feel.</td></tr>
+  <tr><td class="n">6</td><td class="ans">torque wrench</td><td class="why">The calibrated tool set to 34 that delivers the torque value is the torque wrench.</td></tr>
+  <tr><td class="n">7</td><td class="ans">mounting bolt</td><td class="why">The bolt that secures the component to its clamp is the mounting bolt; start it by hand.</td></tr>
+  <tr><td class="n">8</td><td class="ans">blanking cap</td><td class="why">A cap that closes an open pipe or plug to keep out dirt is a blanking cap.</td></tr>
+  <tr><td class="n">9</td><td class="ans">functional test</td><td class="why">The operational check that the new unit works is the functional test, run before closing the cowl.</td></tr>
+  <tr><td class="n">10</td><td class="ans">task card</td><td class="why">The printed job card listing every step is the task card; follow it in order and sign it.</td></tr>
+</table>
+
+<h2><span class="tag">E2</span> &nbsp;Matching — match each term to its meaning</h2>
+<table>
+  <tr><th class="n">#</th><th>Term → answer</th><th>Why</th></tr>
+  <tr><td class="n">1</td><td><b>figure</b> → <span class="ans">a drawing in the IPC that shows the parts of an assembly</span></td><td class="why">A figure is the labelled drawing; the part number is the maker's number, and the wrench is a tool — so only the drawing fits.</td></tr>
+  <tr><td class="n">2</td><td><b>component</b> → <span class="ans">a single unit you can remove and replace</span></td><td class="why">A component is one assembled unit handled as a whole; not a paint mark and not a label.</td></tr>
+  <tr><td class="n">3</td><td><b>removal</b> → <span class="ans">taking a component off the aircraft</span></td><td class="why">Removal is taking off; fitting on is installation — the opposite procedure.</td></tr>
+  <tr><td class="n">4</td><td><b>installation</b> → <span class="ans">fitting a component onto the aircraft</span></td><td class="why">Installation is fitting on; removal is the reverse; tightness is the torque value.</td></tr>
+  <tr><td class="n">5</td><td><b>fastener</b> → <span class="ans">a bolt, nut or screw that holds parts together</span></td><td class="why">A fastener mechanically joins parts; a cap closes a pipe and a connector carries power.</td></tr>
+  <tr><td class="n">6</td><td><b>lockwire</b> → <span class="ans">wire that stops a fastener turning loose</span></td><td class="why">Lockwire physically locks a fastener against engine vibration; it is not a drawing or a strap.</td></tr>
+  <tr><td class="n">7</td><td><b>warning tag</b> → <span class="ans">a label you attach to mark a state</span></td><td class="why">A warning tag is a label ("do not operate"); not a bolt and not a step list.</td></tr>
+  <tr><td class="n">8</td><td><b>serviceable</b> → <span class="ans">fit to use</span></td><td class="why">Serviceable = certified fit for use on the aircraft; the opposite is unserviceable.</td></tr>
+  <tr><td class="n">9</td><td><b>unserviceable</b> → <span class="ans">not fit to use; it must be repaired</span></td><td class="why">Unserviceable (u/s) means it must be repaired before reissue; the removed unit is marked u/s.</td></tr>
+  <tr><td class="n">10</td><td><b>electrical connector</b> → <span class="ans">the plug that joins a component to the aircraft wiring</span></td><td class="why">The connector is the electrical plug; the bonding lead is the earth strap; the wrench is a tool.</td></tr>
+  <tr><td class="n">11</td><td><b>bonding lead</b> → <span class="ans">the strap that gives an electrical path to the airframe</span></td><td class="why">The bonding lead earths the case to the airframe; it is not the power plug or a cap.</td></tr>
+  <tr><td class="n">12</td><td><b>torque seal</b> → <span class="ans">a paint mark across a fastener to show it was torqued</span></td><td class="why">A torque seal is a visible paint mark for the next inspector; not wire and not a cap.</td></tr>
+</table>
+
+<h2><span class="tag">E3</span> &nbsp;Dialogue completion — complete the removal call</h2>
+<table>
+  <tr><th class="n">#</th><th>Answer</th><th>Why</th></tr>
+  <tr><td class="n">1</td><td class="ans">component</td><td class="why">You support the component (the whole unit) while the fasteners are released.</td></tr>
+  <tr><td class="n">2</td><td class="ans">electrical connector</td><td class="why">The first disconnect on an electrical unit is the electrical connector.</td></tr>
+  <tr><td class="n">3</td><td class="ans">blanking cap</td><td class="why">An open plug is closed straight away with a blanking cap to exclude dirt.</td></tr>
+  <tr><td class="n">4</td><td class="ans">bonding lead</td><td class="why">The earth strap on the case is the bonding lead, removed after the connector.</td></tr>
+  <tr><td class="n">5</td><td class="ans">lockwire</td><td class="why">Oil unions are secured with lockwire, which is cut before they are disconnected.</td></tr>
+  <tr><td class="n">6</td><td class="ans">mounting bolt</td><td class="why">The last item holding the component to the clamp is the mounting bolt.</td></tr>
+  <tr><td class="n">7</td><td class="ans">torque wrench</td><td class="why">For the install you set the torque wrench to 34 to reach the torque value.</td></tr>
+  <tr><td class="n">8</td><td class="ans">functional test</td><td class="why">Before closing the cowl you run a functional test to confirm the unit works.</td></tr>
+</table>
+
+<h2><span class="tag">E4</span> &nbsp;Grammar transformation — passive/indirect → active imperative</h2>
+<div class="note">The rule under test: name the action, start with the verb, keep the object and its article. The learner types only the verb (or verb phrase).</div>
+<table>
+  <tr><th class="n">#</th><th>Answer (full instruction)</th><th>Why</th></tr>
+  <tr><td class="n">1</td><td class="ans">Disconnect the electrical connector.</td><td class="why">"must be disconnected" (passive) → drop "must be" and lead with the verb <code>Disconnect</code>.</td></tr>
+  <tr><td class="n">2</td><td class="ans">Fit the blanking cap.</td><td class="why">"should be fitted" weakens a mandatory step; the imperative <code>Fit</code> is direct.</td></tr>
+  <tr><td class="n">3</td><td class="ans">Remove the bonding lead.</td><td class="why">"It is necessary to…" is empty introduction; delete it and start with <code>Remove</code>.</td></tr>
+  <tr><td class="n">4</td><td class="ans">Torque the mounting bolt to 34.</td><td class="why">"is to be torqued" → active <code>Torque</code>; the value stays with the object.</td></tr>
+  <tr><td class="n">5</td><td class="ans">Install the component.</td><td class="why">The bare infinitive "To install…" is not a command; the imperative is <code>Install</code>.</td></tr>
+  <tr><td class="n">6</td><td class="ans">Fit fresh lockwire on the bolt.</td><td class="why">"must be fitted" → <code>Fit</code>; keep "fresh lockwire" as the object.</td></tr>
+  <tr><td class="n">7</td><td class="ans">Carry out (Run) a functional test.</td><td class="why">"has to be carried out" → <code>Carry out</code> or the everyday <code>Run</code>; both are accepted.</td></tr>
+  <tr><td class="n">8</td><td class="ans">Attach the warning tag.</td><td class="why">"should be attached" → <code>Attach</code>, verb-first, article kept.</td></tr>
+</table>
+
+<h2><span class="tag">E5</span> &nbsp;Reading 1 — IPC page (ATA 24-11-01)</h2>
+<table>
+  <tr><th class="n">#</th><th>Answer</th><th>Why</th></tr>
+  <tr><td class="n">1</td><td class="ans">the integrated drive generator</td><td class="why">The page states item 40 is the IDG; item 45 is the clamp and item 50 is the bolt.</td></tr>
+  <tr><td class="n">2</td><td class="ans">761782C</td><td class="why">The part number listed against item 40 is 761782C — read it exactly, letter included.</td></tr>
+  <tr><td class="n">3</td><td class="ans">two</td><td class="why">Item 50, the mounting bolt, states two bolts are required.</td></tr>
+  <tr><td class="n">4</td><td class="ans">YL-BBX</td><td class="why">The effectivity says 761782C applies specifically to tail YL-BBX; others use 761782D.</td></tr>
+  <tr><td class="n">5</td><td class="ans">only when it carries a valid release tag</td><td class="why">Note 1 makes the unit serviceable only with a valid release certificate — not just off the shelf.</td></tr>
+  <tr><td class="n">6</td><td class="ans">lockwire</td><td class="why">Note 2: torque the bolt, then fit lockwire immediately afterwards.</td></tr>
+</table>
+
+<h2><span class="tag">E6</span> &nbsp;Error-spotting — rewrite eight passive steps as active imperatives</h2>
+<table>
+  <tr><th class="n">#</th><th>Answer</th><th>Why</th></tr>
+  <tr><td class="n">1</td><td class="ans">Disconnect the electrical connector.</td><td class="why">"must be disconnected" → verb-first <code>Disconnect</code>.</td></tr>
+  <tr><td class="n">2</td><td class="ans">Fit a blanking cap.</td><td class="why">"should be fitted" → <code>Fit</code>; keep the article "a".</td></tr>
+  <tr><td class="n">3</td><td class="ans">Remove the bonding lead.</td><td class="why">Delete "It is necessary to"; lead with <code>Remove</code>.</td></tr>
+  <tr><td class="n">4</td><td class="ans">Lower the component together.</td><td class="why">"is to be lowered" → active <code>Lower</code>; keep the adverb "together".</td></tr>
+  <tr><td class="n">5</td><td class="ans">Install the new unit.</td><td class="why">"is to be installed" → <code>Install</code>, the plain imperative.</td></tr>
+  <tr><td class="n">6</td><td class="ans">Torque the mounting bolt.</td><td class="why">"should be torqued" → <code>Torque</code>; the modal is removed.</td></tr>
+  <tr><td class="n">7</td><td class="ans">Fit lockwire on the bolt.</td><td class="why">"has to be fitted" → <code>Fit</code>; the object "lockwire" stays.</td></tr>
+  <tr><td class="n">8</td><td class="ans">Carry out (Run) a functional test.</td><td class="why">"must be carried out" → <code>Carry out</code> / <code>Run</code>, verb-first.</td></tr>
+</table>
+
+<h2><span class="tag">E7</span> &nbsp;Reading 2 — component-change task card</h2>
+<table>
+  <tr><th class="n">#</th><th>Answer</th><th>Why</th></tr>
+  <tr><td class="n">1</td><td class="ans">two</td><td class="why">The removal line says lower the component carefully with two people.</td></tr>
+  <tr><td class="n">2</td><td class="ans">34 newton metres</td><td class="why">The installation line gives the torque value as 34 newton metres, unless the engineering order says otherwise.</td></tr>
+  <tr><td class="n">3</td><td class="ans">a warning tag</td><td class="why">Tagging: mark the removed unit unserviceable and attach a warning tag before it leaves the bay.</td></tr>
+  <tr><td class="n">4</td><td class="ans">a torque seal</td><td class="why">After fresh lockwire, the card says add a torque seal.</td></tr>
+  <tr><td class="n">5</td><td class="ans">when the functional test is good</td><td class="why">The unit becomes serviceable only when the test is satisfactory — not before.</td></tr>
+  <tr><td class="n">6</td><td class="ans">when the installation and test are complete</td><td class="why">Sign-off: sign only when both the installation and the functional test are complete.</td></tr>
+</table>
+
+<h2><span class="tag">E8</span> &nbsp;Listening review — replay Dialogue 3</h2>
+<table>
+  <tr><th class="n">#</th><th>Answer</th><th>Why</th></tr>
+  <tr><td class="n">1</td><td class="ans">the component</td><td class="why">They lift the component onto the clamp together, on three.</td></tr>
+  <tr><td class="n">2</td><td class="ans">by hand</td><td class="why">The bolt is started by hand first so the thread cannot cross.</td></tr>
+  <tr><td class="n">3</td><td class="ans">34 newton metres</td><td class="why">The task card gives 34 newton metres; the wrench clicks at thirty-four.</td></tr>
+  <tr><td class="n">4</td><td class="ans">the torque wrench</td><td class="why">The tool that delivers and confirms the torque value is the torque wrench.</td></tr>
+  <tr><td class="n">5</td><td class="ans">lockwire</td><td class="why">Fresh lockwire is fitted so the bolt cannot turn loose in service.</td></tr>
+  <tr><td class="n">6</td><td class="ans">so the next shift can see the bolt was torqued</td><td class="why">The torque seal is a visible mark for the next shift/inspector.</td></tr>
+  <tr><td class="n">7</td><td class="ans">a functional test</td><td class="why">Before closing the cowl they power the generator and run a functional test.</td></tr>
+  <tr><td class="n">8</td><td class="ans">sign the task card</td><td class="why">Once the test is good and the unit is serviceable, they can sign the task card.</td></tr>
+</table>
+
+<h2>Writing — annotated model answer</h2>
+<div class="note"><b>Task:</b> a centre-tank fuel boost pump on an A320 is unserviceable; a pair changes it. Write the task-card steps as active imperatives (100–130 words), one instruction per line. The model below is fully compliant STE — use it to show, not to hand out before students draft.</div>
+<div class="model">
+  <p><b>TASK CARD — CENTRE-TANK FUEL BOOST PUMP CHANGE</b></p>
+  <p>1. Open the illustrated parts catalogue at figure 28-22-01. <span class="anno">— verb-first; names the IPC and the figure.</span></p>
+  <p>2. Find the pump at item number 20. Read the part number. <span class="anno">— item number then part number = correct identify sequence.</span></p>
+  <p>3. Check the effectivity for the tail number. <span class="anno">— confirms the part fits this aircraft.</span></p>
+  <p>4. Disconnect the electrical connector. Fit a blanking cap. <span class="anno">— two short imperatives; protect the open plug at once.</span></p>
+  <p>5. Remove the mounting bolts. Keep each fastener in the tray. <span class="anno">— plural "bolts" fits a pump; parts control.</span></p>
+  <p>6. Lower the component with two people. <span class="anno">— safety: a heavy unit is a two-person lift.</span></p>
+  <p>7. Mark the old pump unserviceable. Attach a warning tag. <span class="anno">— tagging before it leaves the bay.</span></p>
+  <p>8. Install the new pump on the mount. <span class="anno">— active "Install", article kept.</span></p>
+  <p>9. Torque the mounting bolts to the value. Fit lockwire. <span class="anno">— torque to the specified value, then lock.</span></p>
+  <p>10. Add a torque seal. Reconnect the electrical connector. <span class="anno">— visible torque evidence; reconnect.</span></p>
+  <p>11. Run a functional test. Sign the task card. <span class="anno">— test before sign-off, the correct closing pair.</span></p>
+</div>
+<h3>What earns full marks / what to correct</h3>
+<table>
+  <tr><th>Marking point</th><th>Look for</th></tr>
+  <tr><td>Verb-first every line</td><td class="why">Each step begins with an action verb (Open, Find, Check, Disconnect, Remove, Lower, Mark, Install, Torque, Add, Run, Sign). Any "The pump is to be…" loses the point.</td></tr>
+  <tr><td>Active voice, no modals</td><td class="why">No "must be", "should be", "it is necessary to". Recast these — the top Latvian/Russian error.</td></tr>
+  <tr><td>Article kept</td><td class="why">"Fit <b>the</b> blanking cap", not "Fit blanking cap".</td></tr>
+  <tr><td>One instruction per line, short</td><td class="why">Each line ≤ ~15 words; split long steps into two imperatives.</td></tr>
+  <tr><td>Correct sequence &amp; closing</td><td class="why">Identify → remove → tag → install → torque → lock/seal → test → sign. Ends with the functional test and the signed card.</td></tr>
+  <tr><td>Word count</td><td class="why">100–130 words. The model is ~110.</td></tr>
+</table>
+
+<footer>Unit 17 · Coordinating a component removal and installation · Teacher solutions. Gated file — full model answers. Grammar focus: the active imperative per ASD-STE100.</footer>
+</article>
+</body></html>

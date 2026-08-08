@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 17 — Teacher Key · Coordinating a component removal and installation</title>
+<style>
+:root{--pri:#2F5496;--good:#256d36;--bad:#c0392b;--ink:#1f2230;--soft:#4a4f5c;--muted:#707582;--bg:#fbfaf6;--el:#fff;--line:#e7e3d8;--sunk:#f3f1ea;--gold:#c8821a;--accent:#b1551f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,Segoe UI,Roboto,sans-serif;font-size:16px;line-height:1.6}
+article{max-width:940px;margin:0 auto;padding:0 26px 90px}
+header{padding:40px 0 22px;border-bottom:2px solid var(--pri);margin-bottom:26px}
+.eyebrow{font-family:ui-monospace,Consolas,monospace;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--pri);margin:0 0 8px}
+h1{font-family:Georgia,'Times New Roman',serif;font-size:29px;margin:0 0 6px;line-height:1.15}
+h2{font-family:Georgia,serif;font-size:22px;margin:34px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line);color:#1f3a6b}
+h3{font-size:17px;margin:20px 0 6px;color:var(--pri)}
+p{max-width:78ch}
+.muted{color:var(--soft)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14.5px}
+th,td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+th{background:var(--sunk);font-size:13px;color:var(--soft)}
+td.n{width:34px;text-align:center;font-family:ui-monospace,monospace;color:var(--muted)}
+.ans{font-weight:700;color:var(--good)}
+code{font-family:ui-monospace,Consolas,monospace;background:var(--sunk);padding:1px 5px;border-radius:4px;font-size:.9em}
+.note{background:#fff8e1;border:1px solid #f0e6c8;border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 16px;margin:16px 0;font-size:14.5px}
+.card{background:var(--el);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.tag{display:inline-block;font-family:ui-monospace,monospace;font-size:11px;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--pri);border-radius:5px;padding:2px 9px;text-transform:uppercase}
+.band td:first-child{font-weight:700;color:var(--pri);white-space:nowrap}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:13px}
+ul{max-width:78ch}
+</style></head>
+<body>
+<article>
+<header>
+  <p class="eyebrow">English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 17 · Teacher key (gated)</p>
+  <h1>Teacher key — staging, interference, extensions, rubric &amp; quiz key</h1>
+  <p class="muted">Everything the teacher needs to run Unit 17 as a 90-minute class and to assess it fairly. Grammar focus: the active imperative per Simplified Technical English (ASD-STE100).</p>
+</header>
+
+<h2>1 · Unit staging &amp; timing (90 minutes)</h2>
+<table>
+  <tr><th>Min</th><th>Stage</th><th>What the teacher does</th><th>Interaction</th></tr>
+  <tr><td class="n">0–4</td><td>Warm-up &amp; situation</td><td>Set the scene: A320 YL-BBX in bay two, work order to change the IDG on engine one. Ask who calls the steps in a two-person change.</td><td>Whole class</td></tr>
+  <tr><td class="n">4–22</td><td>Listening D1–D4</td><td>Play each dialogue twice: gist then detail. Elicit the spoken figures (figure 24-11-01, item 40, part 761782C, 34 N·m). Open transcripts only after the detail pass.</td><td>Individual → pairs</td></tr>
+  <tr><td class="n">22–36</td><td>Vocabulary bank</td><td>Sort the 22 terms into four families; drill one collocation per term. Anchor 2–3 hard terms with an L1 equivalent.</td><td>Pairs</td></tr>
+  <tr><td class="n">36–48</td><td>Grammar — active imperative (STE)</td><td>Contrast passive/indirect vs active imperative; run choral transforms; nail the article and the plain verb.</td><td>Whole class</td></tr>
+  <tr><td class="n">48–68</td><td>Exercises E1–E8</td><td>Self-marking on the page. E1–E4 controlled practice; E5–E8 reading &amp; listening review. Circulate; take a hands-up score on E4.</td><td>Individual + pairs</td></tr>
+  <tr><td class="n">68–84</td><td>Speaking — 4 role-plays</td><td>Pairs; swap roles per card. Assess with the B2 rubric (section 4). Feed two strengths + one fix per pair.</td><td>Pairs</td></tr>
+  <tr><td class="n">84–90</td><td>Writing set-up &amp; wrap-up</td><td>Launch the fuel-pump task card; read the STE self-check; exit ticket = one active-imperative instruction.</td><td>Individual</td></tr>
+</table>
+<p class="muted">The unit carries ~135 minutes of material (measured), so there is spare for a stronger group: extend the role-plays, add the extension tasks in section 3, or set E7 as a jigsaw read.</p>
+
+<h2>2 · Latvian &amp; Russian interference — why each error happens</h2>
+<p>Both first languages push learners toward the same three mistakes on instructions. Name the cause, not just the fix, so students understand the correction.</p>
+<table>
+  <tr><th>Error (typical output)</th><th>Why it happens (L1 cause)</th><th>Correction to teach</th></tr>
+  <tr><td>"The connector <b>must be disconnected</b>." (passive for a command)</td><td>Latvian and Russian written procedures and signs favour impersonal/passive forms (Latvian reflexive-passive; Russian passive and impersonal constructions). Learners transfer that register into English instructions.</td><td>STE forbids the passive for a step. Recast to the active imperative: <span class="ans">Disconnect the connector.</span> Name the doer's action, verb first.</td></tr>
+  <tr><td>"<b>It is necessary to</b> torque the bolt." (empty introduction)</td><td>Direct calque of Latvian <i>ir nepieciešams…</i> and Russian <i>необходимо…</i>, both natural ways to state a requirement. It feels polite and correct to the learner.</td><td>Delete the introduction; start with the verb: <span class="ans">Torque the bolt.</span> The requirement is already carried by the imperative.</td></tr>
+  <tr><td>"<b>To fit</b> the blanking cap." (infinitive as a command)</td><td>Russian uses the bare infinitive for written commands and prohibitions (e.g. <i>Не курить</i> = "no smoking"). Learners map that onto English "to + verb".</td><td>English commands use the bare imperative: <span class="ans">Fit the blanking cap.</span> No "to".</td></tr>
+  <tr><td>"Fit blanking cap." (missing article)</td><td>Neither Latvian nor Russian has articles, so "the/a" is routinely dropped.</td><td>Keep the article: <span class="ans">Fit the blanking cap.</span> Drill "the/a" explicitly in the collocation round.</td></tr>
+  <tr><td>"<b>Removing</b> the bolt." (-ing for the command)</td><td>Overgeneralisation of the English "-ing" form, reinforced by aspect habits from the L1 verb system.</td><td>Use the plain verb for the step: <span class="ans">Remove the bolt.</span></td></tr>
+  <tr><td>Pronunciation: "torque" → /tɔːrk/</td><td>Learners read the spelling and add a vowel or read "qu" as /kw/; "torque" is a single syllable ending /k/.</td><td>Model /tɔːk/ (BrE) or /tɔːrk/, one syllable. Drill "torque the bolt", "torque wrench", "torque seal".</td></tr>
+</table>
+
+<h2>3 · Extension activities (for strong groups / early finishers)</h2>
+<ul>
+  <li><b>Information-gap IPC.</b> Student A has the figure with item numbers hidden; Student B has the part list. They must talk (not show) to agree item 40 = 761782C, checking effectivity for YL-BBX. Trains the identify language under a real constraint.</li>
+  <li><b>Genre transfer.</b> Give a two-line tech-log entry ("ENG 2 GEN caution"); students write the matching task-card steps as active imperatives, then swap and peer-mark against the STE self-check.</li>
+  <li><b>Avionics variant.</b> Re-run role-play 2–3 for a different LRU change (e.g. a control-display unit or a BITE-fail unit): same coordination and torque/tag/test language, new component noun. Keeps both mechanics and avionics represented.</li>
+  <li><b>Handover relay.</b> Chain of three students: each hears the previous handover once and passes it on. Tests retention of the spoken figures (figure, item, torque value, serviceable/unserviceable).</li>
+  <li><b>Dictogloss.</b> Read Dialogue 2 at natural speed twice; pairs reconstruct the removal sequence in correct STE imperatives. Compare with the transcript.</li>
+  <li><b>AI partner.</b> Set one conversation-partner prompt from the speaking section as speaking homework; the page tutor stays in role at B2 and recasts errors gently.</li>
+</ul>
+
+<h2>4 · CEFR B2 speaking rubric — role-plays</h2>
+<p>Use for the four role-play cards. Score each pair (or each speaker) 1–5 per dimension. A B2 pass = mostly band 4 with no dimension below 3.</p>
+<table class="band">
+  <tr><th>Dimension</th><th>5 — strong B2/C1</th><th>4 — solid B2</th><th>3 — approaching B2</th><th>2 — below B2</th></tr>
+  <tr><td>Range</td><td>Uses the unit's specialist terms and collocations flexibly (torque the mounting bolt, fit fresh lockwire, tagged unserviceable) with natural connectors.</td><td>Uses most specialist terms accurately; connectors present (because, unless, as soon as).</td><td>Core terms used but repetitive; few connectors; leans on general words.</td><td>Frequent gaps; misses key terms; relies on gesture or L1.</td></tr>
+  <tr><td>Accuracy</td><td>Instructions are consistently active imperatives; articles and verb forms correct; errors rare and self-repaired.</td><td>Mostly correct imperatives; occasional slip (passive, dropped article) that does not block meaning.</td><td>Some correct imperatives but recurrent passive/"it is necessary to"; several article slips.</td><td>Instructions often passive or infinitive; errors block meaning.</td></tr>
+  <tr><td>Fluency</td><td>Even pace, appropriate to a live task; hesitations natural, not searching for basic words.</td><td>Generally smooth; short pauses to plan; keeps the task moving.</td><td>Noticeable hesitation; pace slows the coordination.</td><td>Halting; long pauses; partner has to prompt often.</td></tr>
+  <tr><td>Interaction</td><td>Clear turn-taking; warns before moves; confirms each step; checks partner understands ("Connector is off?").</td><td>Confirms most steps; warns before major moves; responds to partner.</td><td>Some confirmation; misses warnings; occasional overlap or dead air.</td><td>Little confirmation; steps not coordinated; talks over or ignores partner.</td></tr>
+  <tr><td>Coherence</td><td>Sequence fully logical (identify → remove → tag → install → torque → lock/seal → test → sign); signposted.</td><td>Sequence logical with minor gaps; mostly signposted (First…, Now…, Before we close…).</td><td>Sequence broadly right but steps out of order or unlinked.</td><td>Sequence unclear; steps missing or jumbled.</td></tr>
+</table>
+<p class="note"><b>Quick feedback frame:</b> name two things the pair did well (e.g. "clear warnings", "correct torque language") and one fix (e.g. "recast 'must be disconnected' → 'Disconnect the connector'"). Tie the fix to the interference table above.</p>
+
+<h2>5 · Quiz key — full answers with per-item rationale</h2>
+<p class="muted">Moodle quiz <code>quiz-rich.xml</code>, category <code>$course$/top/CF/U17-r1</code>. 23 items across five types (multichoice, true/false, numerical, short-answer, matching), split by skill. Correct options are never the longest; distractors are plausible and equal-weight.</p>
+
+<h3><span class="tag">Listening</span> L1–L8</h3>
+<table>
+  <tr><th class="n">#</th><th>Answer</th><th>Rationale</th></tr>
+  <tr><td class="n">L1</td><td class="ans">24-11-01</td><td>Rob: "Open figure twenty-four eleven zero-one." Distractors reorder the digit groups to test careful listening.</td></tr>
+  <tr><td class="n">L2</td><td class="ans">40</td><td>Numerical. "The generator is item number forty." 45 (the clamp) is the near-miss.</td></tr>
+  <tr><td class="n">L3</td><td class="ans">False</td><td>Connector is disconnected first; the mounting bolt is removed last because the unit is heavy once it is out.</td></tr>
+  <tr><td class="n">L4</td><td class="ans">a blanking cap</td><td>Fitted on the open plug to keep dirt out. Distractors are the other unit parts (bonding lead, warning tag, torque seal).</td></tr>
+  <tr><td class="n">L5</td><td class="ans">34</td><td>Numerical. "It is thirty-four newton metres." 43 tests digit reversal, a common listening slip.</td></tr>
+  <tr><td class="n">L6</td><td class="ans">So the next shift can see the bolt was torqued.</td><td>The torque seal is visible evidence. The longer distractor (blanking-cap function) guards against length bias.</td></tr>
+  <tr><td class="n">L7</td><td class="ans">True</td><td>Handover: "The functional test was good, so the generator is serviceable. The task card is signed."</td></tr>
+  <tr><td class="n">L8</td><td class="ans">1</td><td>Numerical. "We changed the IDG on engine one." Bay two is the distractor context.</td></tr>
+</table>
+
+<h3><span class="tag">Reading</span> R1–R5</h3>
+<table>
+  <tr><th class="n">#</th><th>Answer</th><th>Rationale</th></tr>
+  <tr><td class="n">R1</td><td class="ans">Within 600 flight hours.</td><td>SB extract: compliance within 600 flight hours from receipt; 761782C stays approved until then. Distractors swap the metric (calendar days) or the trigger (immediately / next check).</td></tr>
+  <tr><td class="n">R2</td><td class="ans">True</td><td>MEL permits dispatch with one IDG inoperative provided it is disconnected and placarded; Category C, rectify in 10 days.</td></tr>
+  <tr><td class="n">R3</td><td class="ans">Removed and replaced the IDG.</td><td>Tech-log action line records a part change, then torque/lockwire/seal/test. "Reset only" and "MEL deferral" are the traps.</td></tr>
+  <tr><td class="n">R4</td><td class="ans">True</td><td>AMM note: do not exceed 34 N·m; if exceeded, replace the bolt (over-torque damages the fastener).</td></tr>
+  <tr><td class="n">R5</td><td class="ans">When the install and the test are both complete.</td><td>Sign-off rule is explicit; signing early or before the work is wrong.</td></tr>
+</table>
+
+<h3><span class="tag">Use of English</span> UE1–UE6</h3>
+<table>
+  <tr><th class="n">#</th><th>Answer</th><th>Rationale</th></tr>
+  <tr><td class="n">UE1</td><td class="ans">Disconnect</td><td>Passive → active imperative; drop "must be", verb first.</td></tr>
+  <tr><td class="n">UE2</td><td class="ans">Fit</td><td>Delete "It is necessary to"; start with the verb.</td></tr>
+  <tr><td class="n">UE3</td><td class="ans">Torque</td><td>"is to be torqued" → "Torque"; value stays with the object.</td></tr>
+  <tr><td class="n">UE4</td><td class="ans">torque wrench</td><td>Bank term: the calibrated tool set to the value and used until it clicks. "a torque wrench" also accepted.</td></tr>
+  <tr><td class="n">UE5</td><td class="ans">effectivity</td><td>Bank term: the IPC data showing which aircraft a part applies to. "the effectivity" accepted.</td></tr>
+  <tr><td class="n">UE6</td><td class="ans">Run / Carry out</td><td>Both accepted; verb-first imperative for "must be carried out".</td></tr>
+</table>
+
+<h3><span class="tag">Vocabulary</span> V1–V4 (matching)</h3>
+<table>
+  <tr><th class="n">#</th><th>Correct pairs</th></tr>
+  <tr><td class="n">V1</td><td class="ans">lockwire = wire that stops a fastener turning loose · blanking cap = closes an open pipe or plug · bonding lead = earths the case to the airframe · torque seal = paint mark showing a bolt was torqued · effectivity = which aircraft a part applies to</td></tr>
+  <tr><td class="n">V2</td><td class="ans">serviceable = fit for use · unserviceable = not fit, must be repaired · item number = identifies a part in a figure · part number = the maker's unique reference · task card = the printed list of steps</td></tr>
+  <tr><td class="n">V3</td><td class="ans">check → the effectivity · torque → the mounting bolt · fit → a blanking cap · run → a functional test · sign → the task card</td></tr>
+  <tr><td class="n">V4</td><td class="ans">removal = taking a component off · installation = fitting a component on · component = a single unit removed as one · fastener = a bolt, nut or screw · electrical connector = the plug to the aircraft wiring</td></tr>
+</table>
+
+<div class="note"><b>Anti-bias note for the teacher:</b> in every multiple-choice item the correct option is not the longest and is not the most hedged; each distractor is a genuine near-miss drawn from the unit (a wrong part, a swapped metric, an over-early action). Every item carries whole-question feedback and per-option feedback for self-study.</div>
+
+<footer>Unit 17 · Coordinating a component removal and installation · Teacher key. Gated file. Can-do outcomes: identify the component by IPC figure + item number; coordinate a removal and installation with a partner; describe the torque, tagging and test on completion.</footer>
+</article>
+</body></html>

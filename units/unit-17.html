@@ -1,0 +1,649 @@
+<!DOCTYPE html><html lang="en"><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 17 of 32 · Coordinating a component removal and installation</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 component change — removal, installation, torque value</span></div></div></header><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English for Aviation Maintenance · Unit 17 — Coordinating a component removal and installation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  article{max-width:960px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 30px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:22ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:64ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:15px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:72ch}
+  a{color:var(--color-primary)}
+  code,kbd{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .card.cando{border-left:4px solid var(--color-primary)}
+  .card h4{font-size:.98rem;margin:0 0 var(--space-3);color:var(--color-primary-dark)}
+  .card ul{margin:0;padding-left:1.1em}
+  .card li{margin:6px 0;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .callout.plain{border-left-color:var(--gold);background:var(--bg-margin)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;font-family:var(--font-mono);padding:2px 9px;border-radius:20px;border:1px solid var(--border);color:var(--ink-muted);background:var(--bg-sunken)}
+  /* dialogue */
+  .dlg{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin:16px 0;box-shadow:var(--shadow-sm)}
+  .dlg h3{margin:0 0 4px}
+  .cast{font-size:13.5px;color:var(--ink-muted);margin:0 0 10px}
+  .lang-audio-slot{display:flex;align-items:center;gap:10px;min-height:52px;border:1px dashed var(--color-primary-soft);border-radius:var(--radius-sm);background:#eef2f9;color:var(--color-primary-dark);font-size:13.5px;font-family:var(--font-mono);padding:10px 14px;margin:6px 0}
+  .lang-audio-slot::before{content:"\25B6";font-size:15px}
+  .lang-audio-slot::after{content:"Audio player loads here \2014 listen first, then open the transcript.";color:var(--color-primary-dark)}
+  details.transcript{margin-top:8px;border-top:1px solid var(--border-soft);padding-top:8px}
+  details.transcript>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary);font-weight:700}
+  .turn{margin:7px 0;max-width:none}
+  .turn .who{display:inline-block;min-width:74px;font-weight:700;font-family:var(--font-mono);font-size:12.5px;color:var(--color-primary-dark);vertical-align:top}
+  .turn .said{color:#313648}
+  /* vocab */
+  table.dt{border-collapse:collapse;margin-top:12px;font-size:14.5px;width:100%}
+  table.dt th,table.dt td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.dt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-size:13px}
+  table.dt dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  table.dt td.mean{color:#3a3f4d}
+  table.dt td.eg{color:#313648}
+  table.dt td.col{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-muted)}
+  /* grammar */
+  .gtab td.wrong{color:var(--bad)} .gtab td.right{color:#256d36;font-weight:600}
+  .quote{border-left:3px solid var(--color-primary-soft);padding:4px 0 4px 14px;margin:10px 0;color:#313648;font-style:italic;font-family:var(--font-serif);font-size:16px}
+  /* exercises */
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:16px 20px;margin:16px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex h3{margin:2px 0 6px}
+  .ex ol{padding-left:1.4em} .ex ol li{margin:9px 0}
+  .ex.reading .rtext{background:var(--bg-sunken);border-radius:var(--radius-sm);padding:12px 16px;margin:10px 0;font-size:15px}
+  .ex.reading .rtext p{max-width:none;margin:6px 0}
+  .genre{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700}
+  .wordbank{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+  .wordbank span{font-family:var(--font-mono);font-size:12.5px;background:#eef2f9;border:1px solid #d6e0f0;color:var(--color-primary-dark);border-radius:14px;padding:3px 10px}
+  input.gap,select.gap{font-family:var(--font-sans);font-size:14.5px;border:1px solid var(--border);border-radius:6px;padding:5px 8px;background:#fff;color:var(--ink);min-width:150px}
+  input.gap:focus,select.gap:focus{outline:2px solid var(--color-primary-soft);border-color:var(--color-primary)}
+  input.gap.ok,select.gap.ok{border-color:var(--good);background:#eaf5ec}
+  input.gap.bad,select.gap.bad{border-color:var(--bad);background:#fbecea}
+  button.btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  button.btn:hover{border-color:var(--color-primary)}
+  button.btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .exfoot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .score{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--ink-muted)}
+  .score.done{color:#256d36}
+  details.answers{margin-top:10px;background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius-sm);padding:6px 14px}
+  details.answers>summary{cursor:pointer;font-weight:700;font-size:13.5px;color:var(--accent)}
+  details.answers li{margin:4px 0;font-size:14px}
+  /* speaking */
+  .roleplay{background:var(--bg-elevated);border:1px solid var(--border);border-top:4px solid var(--gold);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.05rem;color:var(--color-primary-dark)}
+  .roleplay .rp-row{margin:6px 0;font-size:14.5px}
+  .roleplay .rp-lab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:700;display:block}
+  .roleplay .phrases{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .roleplay .phrases span{font-size:13px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:12px;padding:3px 9px}
+  .aibox{background:#eef3fb;border:1px solid #d3e0f1;border-radius:var(--radius);padding:16px 20px;margin:18px 0}
+  .aibox h4{margin:0 0 6px;color:var(--color-primary-dark)}
+  .prompt{background:#fff;border:1px solid #d3e0f1;border-radius:var(--radius-sm);padding:10px 14px;margin:10px 0;font-size:14px;position:relative}
+  .prompt code{background:transparent;padding:0;font-family:var(--font-mono);font-size:13px;color:#313648;white-space:pre-wrap;display:block}
+  .copybtn{position:absolute;top:8px;right:8px;font-size:11px;padding:4px 9px}
+  /* writing */
+  .checklist{list-style:none;padding:0;margin:12px 0}
+  .checklist li{margin:6px 0;padding-left:26px;position:relative;font-size:14.5px}
+  .checklist li::before{content:"\2610";position:absolute;left:0;color:var(--color-primary);font-size:16px}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<article>
+
+  <header class="lec-hero">
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 17</p>
+    <h1 class="lecture-title">Coordinating a component removal and installation.</h1>
+    <p class="subtitle">Two technicians change an engine generator. First you find the correct part in the illustrated parts catalogue by its figure and item number. Then you coordinate the removal, install the new unit, torque the fasteners, tag the old part and run the test — talking to your partner in clear spoken B2 English at every step.</p>
+    <div class="hero-meta">
+      <span>Scenario<strong>Two-technician component change</strong></span>
+      <span>Vocabulary<strong>Component change — 22 terms</strong></span>
+      <span>Grammar<strong>Active imperative over passive (STE)</strong></span>
+      <span>Class length<strong>90 minutes · balanced skills</strong></span>
+    </div>
+  </header>
+
+  <div class="card cando" style="margin-bottom:2rem">
+    <h4>By the end of this unit you can &hellip;</h4>
+    <ul>
+      <li>Can identify the correct component using the IPC figure and item number.</li>
+      <li>Can coordinate a removal and installation, confirming steps with a partner.</li>
+      <li>Can describe the torque, tagging and test requirements on completion.</li>
+    </ul>
+  </div>
+
+  <!-- ============ SCENARIO ============ -->
+  <section class="lecture-section" id="scenario">
+    <h2><span class="secnum">01</span>The situation</h2>
+    <p>It is morning in the hangar at Riga. An Airbus A320, reg YL-BBX, is on jacks in bay two. There is a work order to change the integrated drive generator on engine one. The generator is unserviceable, and a fresh unit is waiting on the store shelf.</p>
+    <p>This is a two-technician task, so nobody works alone. You are the lead technician. First you and your partner identify the correct component in the illustrated parts catalogue, because fitting the wrong part is a serious error. Then you coordinate the removal methodically, one step at a time. Afterwards you install the replacement unit, torque the fasteners to the specified value, tag the old part as unserviceable, and complete a functional test before you sign the task card.</p>
+    <div class="callout plain">
+      <h4>In plain words &mdash; four ideas before you start</h4>
+      <p style="margin:0"><b>IPC</b> (illustrated parts catalogue) &mdash; the manual with drawings that show every part and its number. <b>IDG</b> (integrated drive generator) &mdash; the unit on the engine that makes electrical power. <b>Torque value</b> &mdash; the exact tightness for a bolt, in newton metres. <b>STE</b> (Simplified Technical English) &mdash; the plain writing rule for manuals: give one instruction, and start it with the action verb. Every hard word is glossed in the vocabulary bank.</p>
+    </div>
+  </section>
+
+  <!-- ============ DIALOGUES ============ -->
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">02</span>Listen &mdash; find the part, remove it, install it</h2>
+    <p>Listen to each part first. Do not read yet. Then open the transcript and check the words. Listen for how each technician gives a clear instruction to a partner. The same two voices come back in the exercises.</p>
+
+    <div class="dlg">
+      <h3>Dialogue 1 &mdash; Find the correct component in the IPC</h3>
+      <p class="cast">A = Rob, lead technician &middot; B = Lena, technician</p>
+      <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u17-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:13 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">Rob</span><span class="said">Morning, Lena. We have a work order to change the drive generator on engine one.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Morning, Rob. Is it the integrated drive generator, the one on the gearbox?</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Yes. Before we touch it, we find the correct component in the illustrated parts catalogue.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Good idea. Which figure do we open in the illustrated parts catalogue?</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Open figure 24-11-01. The generator sits in the middle of that figure.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">I see it. The generator is item number 40 in the figure. Is that right?</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">That's right, item number 40. Now read the part number next to it.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">The part number is 761782C. Let me check it against the unit on the shelf.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Good. But check the effectivity first, in case our aircraft needs a different part.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">The effectivity column lists our tail number. So this part number is correct for us.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Perfect. The store unit is tagged serviceable, so we can use it today.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">And the old one? We mark the removed unit unserviceable and fit a warning tag.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Exactly. Print the task card now, so we follow every step in order.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">The task card is printing. It lists the removal first, then the installation and test.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Good. Read me the first step while I get the tools.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Step one: open the fan cowl and gain access to the component. Let's start.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 2 &mdash; Coordinate the removal</h3>
+      <p class="cast">A = Rob, lead technician &middot; B = Lena, technician</p>
+      <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u17-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:19 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">Rob</span><span class="said">The cowl is open. Let's coordinate the removal step by step, so nobody rushes.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Agreed. I will support the component while you release the fasteners. Warn me before each move.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">First, disconnect the electrical connector. I am pulling the plug from the generator now.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Connector is off. Shall I fit a blanking cap on the open plug straight away?</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Yes. Fit the blanking cap now, so no dirt gets into the electrical connector.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Done, the cap is on. What about the bonding lead on the case?</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Remove the bonding lead next. Keep the small fastener safe in the parts tray.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">The fastener is in the tray. The bonding lead is clear of the unit.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Good. Now the oil lines. I am cutting the lockwire on the two unions.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Lockwire is off. Watch for oil. I have a blanking cap ready for each line.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Lines are disconnected. Cap both lines now, and catch the drip in the tray.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Both lines are capped. The last item is the mounting bolt on the clamp.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Correct. Hold the component firmly, because it is heavy once the mounting bolt is out.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">I have it. Take the mounting bolt out slowly. I am taking the weight now.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Bolt is out. Lower the component together, on three. One, two, three.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">It's down. We mark this unit unserviceable and attach a warning tag before it leaves.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 3 &mdash; Install, torque, tag and test</h3>
+      <p class="cast">A = Rob, lead technician &middot; B = Lena, technician</p>
+      <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u17-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:27 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">Rob</span><span class="said">The new unit is ready. Let's begin the installation. Lift the component onto the clamp together.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Lifting on three. One, two, three. The component is seated on the mounting pad.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Good. Start the mounting bolt by hand first, so we do not cross the thread.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">The bolt is started by hand. It turns freely. Now we need the torque value.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">The task card gives the torque value. It is 34 newton metres for this clamp.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Set the torque wrench to 34. Tell me when you want the final pull.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Torque the mounting bolt now. Use the torque wrench slowly until it clicks.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">It clicked at 34. The mounting bolt is at the correct torque value.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Good. Fit fresh lockwire on the bolt, so it cannot turn loose in service.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Lockwire is on. Shall I add a torque seal across the bolt head as well?</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Yes. Add a torque seal, so the next shift can see the bolt was torqued.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Torque seal is on. Reconnect the oil lines, and I will remove the blanking caps.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">Lines are on and lockwired. Now refit the bonding lead and the electrical connector.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Connector is locked and the bonding lead is tight. Every fastener is secure.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">We run a functional test before we close the cowl. Power the generator, please.</span></p>
+        <p class="turn"><span class="who">Lena</span><span class="said">Functional test is good. The generator is serviceable, so we can sign the task card.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Monologue &mdash; Shift-handover voicemail</h3>
+      <p class="cast">A = Rob, lead technician (voicemail to the next shift)</p>
+      <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u17-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:46 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">Rob</span><span class="said">Hi, this is Rob, the lead technician, leaving a handover for the next shift.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">We changed the integrated drive generator on engine one this morning, on YL-BBX.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">We found the correct component in the illustrated parts catalogue, figure 24-11-01, item number 40.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">The removal went well. The old unit is unserviceable and carries a warning tag.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">For the installation, we torqued the mounting bolt to 34 newton metres with the torque wrench.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">We fitted fresh lockwire and a torque seal, then reconnected the electrical connector and the bonding lead.</span></p>
+        <p class="turn"><span class="who">Rob</span><span class="said">The functional test was good, so the generator is serviceable. The task card is signed.</span></p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ VOCABULARY ============ -->
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">03</span>Vocabulary bank &mdash; component change</h2>
+    <p>These twenty-two terms carry the unit. Each one has a plain-words meaning, an example at your level, and one common word partner (collocation). You hear every term in the dialogues and use every term in the exercises.</p>
+    <table class="dt">
+      <thead><tr><th style="width:20%">Term</th><th style="width:32%">Plain meaning</th><th style="width:30%">Example</th><th style="width:18%">Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="illustrated parts catalogue">illustrated parts catalogue</dfn></td><td class="mean">The manual with detailed drawings that identify every part and its number (the IPC).</td><td class="eg">Before removal, we identify the component in the illustrated parts catalogue, although the location is familiar.</td><td class="col">open the illustrated parts catalogue</td></tr>
+        <tr><td><dfn data-term="figure">figure</dfn></td><td class="mean">A labelled drawing in the IPC that shows the parts of an assembly.</td><td class="eg">The figure shows the generator and its clamp, so we confirm the assembly before we begin.</td><td class="col">open a figure</td></tr>
+        <tr><td><dfn data-term="item number">item number</dfn></td><td class="mean">The number that identifies one particular part within an IPC figure.</td><td class="eg">Read the item number carefully, because a similar component sits directly beside it in the figure.</td><td class="col">read the item number</td></tr>
+        <tr><td><dfn data-term="part number">part number</dfn></td><td class="mean">The manufacturer's unique reference number for a particular part.</td><td class="eg">Check the part number against the label, unless a colleague has already verified the unit.</td><td class="col">check the part number</td></tr>
+        <tr><td><dfn data-term="effectivity">effectivity</dfn></td><td class="mean">The information showing which aircraft a part or figure actually applies to.</td><td class="eg">The effectivity confirms that this particular part applies to our aircraft, not a different variant.</td><td class="col">check the effectivity</td></tr>
+        <tr><td><dfn data-term="component">component</dfn></td><td class="mean">A single assembled unit that you can remove and replace as one item.</td><td class="eg">Two technicians support the component together, because the generator is heavy and awkward to handle.</td><td class="col">remove a component</td></tr>
+        <tr><td><dfn data-term="removal">removal</dfn></td><td class="mean">The procedure of taking a component off the aircraft.</td><td class="eg">The task card describes the removal first, although the installation is the more demanding procedure.</td><td class="col">start the removal</td></tr>
+        <tr><td><dfn data-term="installation">installation</dfn></td><td class="mean">The procedure of fitting a component onto the aircraft.</td><td class="eg">During installation, we position the component accurately before we tighten any fastener.</td><td class="col">complete the installation</td></tr>
+        <tr><td><dfn data-term="torque value">torque value</dfn></td><td class="mean">The exact tightness specified for a fastener, measured in newton metres.</td><td class="eg">The torque value is specified in newton metres, so we never estimate the tightness by feel.</td><td class="col">the correct torque value</td></tr>
+        <tr><td><dfn data-term="torque wrench">torque wrench</dfn></td><td class="mean">The calibrated tool that tightens a fastener to a specified torque value.</td><td class="eg">Set the torque wrench precisely, because an incorrect setting produces a dangerous installation.</td><td class="col">set the torque wrench</td></tr>
+        <tr><td><dfn data-term="fastener">fastener</dfn></td><td class="mean">A bolt, nut or screw that mechanically holds parts together.</td><td class="eg">Keep every fastener in the tray, unless you are refitting it to the component immediately.</td><td class="col">release a fastener</td></tr>
+        <tr><td><dfn data-term="mounting bolt">mounting bolt</dfn></td><td class="mean">The bolt that secures the component to its supporting clamp or bracket.</td><td class="eg">Start the mounting bolt by hand, so that the thread cannot cross and damage the clamp.</td><td class="col">torque the mounting bolt</td></tr>
+        <tr><td><dfn data-term="lockwire">lockwire</dfn></td><td class="mean">Locking wire that physically prevents a fastener from turning loose.</td><td class="eg">Fit fresh lockwire after torque, because the fastener must not loosen while the engine vibrates.</td><td class="col">fit lockwire</td></tr>
+        <tr><td><dfn data-term="blanking cap">blanking cap</dfn></td><td class="mean">A protective cap that closes an open pipe or plug to exclude contamination.</td><td class="eg">Fit a blanking cap immediately, so that contamination cannot enter the open connector or pipe.</td><td class="col">fit a blanking cap</td></tr>
+        <tr><td><dfn data-term="warning tag">warning tag</dfn></td><td class="mean">A label attached to identify a condition, such as "do not operate".</td><td class="eg">Attach a warning tag to the removed unit, because it is unserviceable and awaiting repair.</td><td class="col">attach a warning tag</td></tr>
+        <tr><td><dfn data-term="serviceable">serviceable</dfn></td><td class="mean">Certified as fit for use on the aircraft.</td><td class="eg">The replacement unit is serviceable, provided it carries a valid release certificate from the workshop.</td><td class="col">tagged serviceable</td></tr>
+        <tr><td><dfn data-term="unserviceable">unserviceable</dfn></td><td class="mean">Not fit for use; it must be repaired before reissue (u/s).</td><td class="eg">Mark the removed generator unserviceable immediately, although it may be repairable at the component workshop.</td><td class="col">mark it unserviceable</td></tr>
+        <tr><td><dfn data-term="electrical connector">electrical connector</dfn></td><td class="mean">The plug that electrically joins a component to the aircraft wiring.</td><td class="eg">Disconnect the electrical connector first, unless the maintenance manual specifies a different sequence.</td><td class="col">disconnect the electrical connector</td></tr>
+        <tr><td><dfn data-term="bonding lead">bonding lead</dfn></td><td class="mean">The strap that provides an electrical path from the component to the airframe.</td><td class="eg">Refit the bonding lead securely, because it provides the electrical path to the airframe structure.</td><td class="col">refit the bonding lead</td></tr>
+        <tr><td><dfn data-term="functional test">functional test</dfn></td><td class="mean">An operational check confirming that the new component works correctly.</td><td class="eg">Complete a functional test before closing the cowl, so that any fault appears immediately.</td><td class="col">run a functional test</td></tr>
+        <tr><td><dfn data-term="task card">task card</dfn></td><td class="mean">The printed job card that lists each individual step of the task.</td><td class="eg">Follow every instruction on the task card, although experienced technicians remember the general procedure.</td><td class="col">sign the task card</td></tr>
+        <tr><td><dfn data-term="torque seal">torque seal</dfn></td><td class="mean">A paint mark applied across a fastener to confirm it was torqued.</td><td class="eg">Add a torque seal across the fastener, so the next inspector confirms the bolt was tightened correctly.</td><td class="col">add a torque seal</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ GRAMMAR ============ -->
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">04</span>Grammar in context &mdash; the active imperative (STE)</h2>
+    <p>In maintenance work you give instructions to your partner. Simplified Technical English (ASD-STE100) has a clear rule for this. Name the action, and start the sentence with the verb. This is the <b>active imperative</b>. Do not hide the action in a passive form. Listen to how Rob and Lena do it.</p>
+
+    <p class="quote">Rob: "<b>Disconnect</b> the electrical connector." (not: "The electrical connector must be disconnected.")</p>
+    <p class="quote">Rob: "<b>Fit</b> the blanking cap now." (not: "A blanking cap should be fitted now.")</p>
+    <p class="quote">Rob: "<b>Torque</b> the mounting bolt now." (not: "The mounting bolt is to be torqued now.")</p>
+    <p class="quote">Rob: "<b>Run</b> a functional test." (not: "It is necessary to run a functional test.")</p>
+
+    <p>The underlying pattern is straightforward: <b>verb + object</b>. Because the doer is understood to be "you", the technician never states it. Each instruction occupies a single sentence, which keeps the individual step short, unambiguous and easy to follow under pressure &mdash; and that is precisely why STE requires it.</p>
+
+    <table class="dt gtab">
+      <thead><tr><th>Passive / indirect (avoid)</th><th>Active imperative (STE)</th><th>Why STE prefers it</th></tr></thead>
+      <tbody>
+        <tr><td class="wrong">The connector must be disconnected.</td><td class="right">Disconnect the connector.</td><td>Name the action directly, and begin the instruction with the verb.</td></tr>
+        <tr><td class="wrong">The bolt should be torqued.</td><td class="right">Torque the bolt.</td><td>Remove the modal "should be", because it weakens a mandatory instruction.</td></tr>
+        <tr><td class="wrong">It is necessary to fit the cap.</td><td class="right">Fit the cap.</td><td>Delete the empty introduction, although the meaning stays identical.</td></tr>
+        <tr><td class="wrong">The unit is to be installed.</td><td class="right">Install the unit.</td><td>A single, active instruction is clearer than an impersonal construction.</td></tr>
+      </tbody>
+    </table>
+
+    <p>Two additional points deserve attention. Retain the article "the" with the object, as in <i>Install <b>the</b> pump</i>, because a bare noun sounds incomplete. Furthermore, always select the plain verb rather than the "-ing" form: write <i>Remove the bolt</i>, although learners frequently produce the incorrect <i>Removing the bolt</i>.</p>
+
+    <h3>Three mistakes to avoid (Latvian &amp; Russian speakers)</h3>
+    <table class="dt gtab">
+      <thead><tr><th>Why it happens</th><th class="wrong">Wrong</th><th class="right">Right</th></tr></thead>
+      <tbody>
+        <tr><td>Your first language uses the passive for instructions, so you write "must be".</td><td class="wrong">The electrical connector must be disconnected.</td><td class="right">Disconnect the electrical connector.</td></tr>
+        <tr><td>You start with "it is necessary to", which STE does not allow.</td><td class="wrong">It is necessary to torque the mounting bolt.</td><td class="right">Torque the mounting bolt.</td></tr>
+        <tr><td>You use the infinitive with "to" as a command (as in Russian).</td><td class="wrong">To fit the blanking cap.</td><td class="right">Fit the blanking cap.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ EXERCISES ============ -->
+  <section class="lecture-section" id="exercises">
+    <h2><span class="secnum">05</span>Exercises</h2>
+    <p>Work through E1 to E8. Type your answers, press <b>Check</b>, and the page marks each item. Open <b>Show answers</b> only after you try. Nobody else will confirm your English &mdash; the page will.</p>
+
+    <!-- E1 -->
+    <div class="ex" id="e1">
+      <span class="tag">E1 &middot; Gap-fill</span>
+      <h3>Put the right term in each gap</h3>
+      <p>Use one term from the bank in each sentence. Type it in the box.</p>
+      <div class="wordbank"><span>illustrated parts catalogue</span><span>item number</span><span>part number</span><span>effectivity</span><span>torque value</span><span>torque wrench</span><span>mounting bolt</span><span>blanking cap</span><span>functional test</span><span>task card</span></div>
+      <ol>
+        <li>We find the correct part in the <input class="gap" data-answer="illustrated parts catalogue" size="26">.</li>
+        <li>The generator is <input class="gap" data-answer="item number" size="14"> 40 in the figure.</li>
+        <li>Read the <input class="gap" data-answer="part number" size="14"> next to the item and check it.</li>
+        <li>Check the <input class="gap" data-answer="effectivity" size="12"> so the part fits our aircraft.</li>
+        <li>The task card gives the <input class="gap" data-answer="torque value" size="14"> in newton metres.</li>
+        <li>Set the <input class="gap" data-answer="torque wrench" size="14"> to 34 before the final pull.</li>
+        <li>Start the <input class="gap" data-answer="mounting bolt" size="14"> by hand, so you do not cross the thread.</li>
+        <li>Fit a <input class="gap" data-answer="blanking cap" size="14"> on the open pipe to keep out dirt.</li>
+        <li>Run a <input class="gap" data-answer="functional test" size="16"> before you close the cowl.</li>
+        <li>Follow every step on the <input class="gap" data-answer="task card" size="12">.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e1">Check</button><span class="score" data-score="e1"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>illustrated parts catalogue</li><li>item number</li><li>part number</li><li>effectivity</li><li>torque value</li><li>torque wrench</li><li>mounting bolt</li><li>blanking cap</li><li>functional test</li><li>task card</li></ol></details>
+    </div>
+
+    <!-- E2 -->
+    <div class="ex" id="e2">
+      <span class="tag">E2 &middot; Matching</span>
+      <h3>Match each term to its meaning</h3>
+      <p>Choose the meaning that fits the term.</p>
+      <ol>
+        <li><b>figure</b> &mdash; <select class="gap" data-answer="a drawing in the ipc that shows the parts of an assembly"><option value=""></option><option>a drawing in the IPC that shows the parts of an assembly</option><option>the maker's unique number for a part</option><option>the tool that tightens a bolt</option></select></li>
+        <li><b>component</b> &mdash; <select class="gap" data-answer="a single unit you can remove and replace"><option value=""></option><option>a single unit you can remove and replace</option><option>a paint mark across a bolt</option><option>a label that marks a state</option></select></li>
+        <li><b>removal</b> &mdash; <select class="gap" data-answer="taking a component off the aircraft"><option value=""></option><option>taking a component off the aircraft</option><option>fitting a component onto the aircraft</option><option>a check that a part works</option></select></li>
+        <li><b>installation</b> &mdash; <select class="gap" data-answer="fitting a component onto the aircraft"><option value=""></option><option>fitting a component onto the aircraft</option><option>taking a component off the aircraft</option><option>the exact tightness for a bolt</option></select></li>
+        <li><b>fastener</b> &mdash; <select class="gap" data-answer="a bolt, nut or screw that holds parts together"><option value=""></option><option>a bolt, nut or screw that holds parts together</option><option>a cap that closes an open pipe</option><option>the plug that joins a component to the wiring</option></select></li>
+        <li><b>lockwire</b> &mdash; <select class="gap" data-answer="wire that stops a fastener turning loose"><option value=""></option><option>wire that stops a fastener turning loose</option><option>a drawing of an assembly</option><option>the strap that earths the case</option></select></li>
+        <li><b>warning tag</b> &mdash; <select class="gap" data-answer="a label you attach to mark a state"><option value=""></option><option>a label you attach to mark a state</option><option>a bolt on the clamp</option><option>a printed list of steps</option></select></li>
+        <li><b>serviceable</b> &mdash; <select class="gap" data-answer="fit to use"><option value=""></option><option>fit to use</option><option>not fit to use</option><option>heavy to lift</option></select></li>
+        <li><b>unserviceable</b> &mdash; <select class="gap" data-answer="not fit to use; it must be repaired"><option value=""></option><option>not fit to use; it must be repaired</option><option>fit to use straight away</option><option>fitted with a torque seal</option></select></li>
+        <li><b>electrical connector</b> &mdash; <select class="gap" data-answer="the plug that joins a component to the aircraft wiring"><option value=""></option><option>the plug that joins a component to the aircraft wiring</option><option>the strap that earths the case</option><option>the tool that sets the torque</option></select></li>
+        <li><b>bonding lead</b> &mdash; <select class="gap" data-answer="the strap that gives an electrical path to the airframe"><option value=""></option><option>the strap that gives an electrical path to the airframe</option><option>the plug that carries the power</option><option>the cap on an open line</option></select></li>
+        <li><b>torque seal</b> &mdash; <select class="gap" data-answer="a paint mark across a fastener to show it was torqued"><option value=""></option><option>a paint mark across a fastener to show it was torqued</option><option>a wire that locks the bolt</option><option>a cap that keeps out dirt</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e2">Check</button><span class="score" data-score="e2"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>a drawing in the IPC that shows the parts of an assembly</li><li>a single unit you can remove and replace</li><li>taking a component off the aircraft</li><li>fitting a component onto the aircraft</li><li>a bolt, nut or screw that holds parts together</li><li>wire that stops a fastener turning loose</li><li>a label you attach to mark a state</li><li>fit to use</li><li>not fit to use; it must be repaired</li><li>the plug that joins a component to the aircraft wiring</li><li>the strap that gives an electrical path to the airframe</li><li>a paint mark across a fastener to show it was torqued</li></ol></details>
+    </div>
+
+    <!-- E3 -->
+    <div class="ex" id="e3">
+      <span class="tag">E3 &middot; Dialogue completion</span>
+      <h3>Complete the removal call</h3>
+      <p>Fill each gap with the missing term. The call is like the ones you heard.</p>
+      <div class="wordbank"><span>component</span><span>electrical connector</span><span>blanking cap</span><span>bonding lead</span><span>lockwire</span><span>mounting bolt</span><span>torque wrench</span><span>functional test</span></div>
+      <ol>
+        <li>Rob: Support the <input class="gap" data-answer="component" size="14"> while I release the fasteners.</li>
+        <li>Rob: First, disconnect the <input class="gap" data-answer="electrical connector" size="20">.</li>
+        <li>Lena: Connector is off. I fit a <input class="gap" data-answer="blanking cap" size="14"> on the open plug.</li>
+        <li>Rob: Now remove the <input class="gap" data-answer="bonding lead" size="14"> from the case.</li>
+        <li>Rob: I am cutting the <input class="gap" data-answer="lockwire" size="12"> on the two oil unions.</li>
+        <li>Lena: The last item is the <input class="gap" data-answer="mounting bolt" size="14"> on the clamp.</li>
+        <li>Lena: For the install, set the <input class="gap" data-answer="torque wrench" size="14"> to 34.</li>
+        <li>Rob: Run a <input class="gap" data-answer="functional test" size="16"> before we close the cowl.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e3">Check</button><span class="score" data-score="e3"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>component</li><li>electrical connector</li><li>blanking cap</li><li>bonding lead</li><li>lockwire</li><li>mounting bolt</li><li>torque wrench</li><li>functional test</li></ol></details>
+    </div>
+
+    <!-- E4 -->
+    <div class="ex" id="e4">
+      <span class="tag">E4 &middot; Grammar transformation</span>
+      <h3>Change the passive into the active imperative</h3>
+      <p>Write the instruction the STE way. Start with the verb. Type only the missing verb (or verb phrase) in the box.</p>
+      <ol>
+        <li>"The electrical connector must be disconnected." &rarr; <input class="gap" data-answer="disconnect" size="12"> the electrical connector.</li>
+        <li>"A blanking cap should be fitted." &rarr; <input class="gap" data-answer="fit" size="8"> the blanking cap.</li>
+        <li>"It is necessary to remove the bonding lead." &rarr; <input class="gap" data-answer="remove" size="10"> the bonding lead.</li>
+        <li>"The mounting bolt is to be torqued to 34." &rarr; <input class="gap" data-answer="torque" size="10"> the mounting bolt to 34.</li>
+        <li>"To install the component." &rarr; <input class="gap" data-answer="install" size="10"> the component.</li>
+        <li>"Fresh lockwire must be fitted on the bolt." &rarr; <input class="gap" data-answer="fit" size="8"> fresh lockwire on the bolt.</li>
+        <li>"A functional test has to be carried out." &rarr; <input class="gap" data-answer="carry out|run" size="12"> a functional test.</li>
+        <li>"The warning tag should be attached." &rarr; <input class="gap" data-answer="attach" size="10"> the warning tag.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e4">Check</button><span class="score" data-score="e4"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>Disconnect</li><li>Fit</li><li>Remove</li><li>Torque</li><li>Install</li><li>Fit</li><li>Carry out (or Run)</li><li>Attach</li></ol></details>
+    </div>
+
+    <!-- E5 -->
+    <div class="ex reading" id="e5">
+      <span class="tag">E5 &middot; Reading 1</span> <span class="genre">Genre: Illustrated Parts Catalogue (IPC) page</span>
+      <h3>Read the IPC page, then answer</h3>
+      <div class="rtext">
+        <p><b>ILLUSTRATED PARTS CATALOGUE &mdash; ATA 24-11-01</b></p>
+        <p><b>Assembly:</b> the integrated drive generator (IDG) installed on engine one.</p>
+        <p><b>Figure 24-11-01</b> illustrates the generator together with its supporting clamp.</p>
+        <p><b>Item 40</b> is the integrated drive generator, part number 761782C, and one unit is required.</p>
+        <p><b>Item 45</b> is the mounting clamp, part number 761783A, and one unit is required.</p>
+        <p><b>Item 50</b> is the mounting bolt, part number MS21250-06, although two bolts are required.</p>
+        <p><b>Effectivity:</b> item 40, part number 761782C, applies specifically to tail YL-BBX, whereas other aircraft use part number 761782D.</p>
+        <p><b>Note 1:</b> the generator is a serviceable unit only when it carries a valid release certificate.</p>
+        <p><b>Note 2:</b> torque the mounting bolt to the value specified in the task card, and fit lockwire immediately afterwards.</p>
+      </div>
+      <ol>
+        <li>What is item number 40? <select class="gap" data-answer="the integrated drive generator"><option value=""></option><option>the integrated drive generator</option><option>the mounting clamp</option><option>the mounting bolt</option></select></li>
+        <li>What is the part number of item 40? <input class="gap" data-answer="761782c" size="12"></li>
+        <li>How many mounting bolts are listed? <select class="gap" data-answer="two"><option value=""></option><option>one</option><option>two</option><option>four</option></select></li>
+        <li>Which tail does part number 761782C apply to? <input class="gap" data-answer="yl-bbx" size="10"></li>
+        <li>When is the generator serviceable? <select class="gap" data-answer="only when it carries a valid release tag"><option value=""></option><option>only when it carries a valid release tag</option><option>as soon as it leaves the shelf</option><option>after the cowl is closed</option></select></li>
+        <li>What do you fit after torque? <select class="gap" data-answer="lockwire"><option value=""></option><option>lockwire</option><option>a blanking cap</option><option>a new figure</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e5">Check</button><span class="score" data-score="e5"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>the integrated drive generator</li><li>761782C</li><li>two</li><li>YL-BBX</li><li>only when it carries a valid release tag</li><li>lockwire</li></ol></details>
+    </div>
+
+    <!-- E6 -->
+    <div class="ex" id="e6">
+      <span class="tag">E6 &middot; Error-spotting</span>
+      <h3>Find and fix eight errors</h3>
+      <p>This task card is not in good STE. Each step hides the action in a passive or indirect form. Rewrite each step as an active imperative. Type the correct verb (or verb phrase) in each box.</p>
+      <div class="rtext" style="background:var(--bg-sunken);border-radius:6px;padding:12px 16px">
+        <p>COMPONENT CHANGE &mdash; STEPS (to correct). [1] The electrical connector must be disconnected. [2] A blanking cap should be fitted on the open plug. [3] It is necessary to remove the bonding lead. [4] The component is to be lowered together. [5] The new unit is to be installed on the clamp. [6] The mounting bolt should be torqued to 34. [7] Lockwire has to be fitted on the bolt. [8] A functional test must be carried out.</p>
+      </div>
+      <ol>
+        <li>[1] The electrical connector must be disconnected. &rarr; <input class="gap" data-answer="disconnect" size="12"> the electrical connector.</li>
+        <li>[2] A blanking cap should be fitted. &rarr; <input class="gap" data-answer="fit" size="8"> a blanking cap.</li>
+        <li>[3] It is necessary to remove the bonding lead. &rarr; <input class="gap" data-answer="remove" size="10"> the bonding lead.</li>
+        <li>[4] The component is to be lowered together. &rarr; <input class="gap" data-answer="lower" size="10"> the component together.</li>
+        <li>[5] The new unit is to be installed. &rarr; <input class="gap" data-answer="install" size="10"> the new unit.</li>
+        <li>[6] The mounting bolt should be torqued. &rarr; <input class="gap" data-answer="torque" size="10"> the mounting bolt.</li>
+        <li>[7] Lockwire has to be fitted on the bolt. &rarr; <input class="gap" data-answer="fit" size="8"> lockwire on the bolt.</li>
+        <li>[8] A functional test must be carried out. &rarr; <input class="gap" data-answer="carry out|run" size="12"> a functional test.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e6">Check</button><span class="score" data-score="e6"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>Disconnect the electrical connector.</li><li>Fit a blanking cap.</li><li>Remove the bonding lead.</li><li>Lower the component together.</li><li>Install the new unit.</li><li>Torque the mounting bolt.</li><li>Fit lockwire on the bolt.</li><li>Carry out (Run) a functional test.</li></ol></details>
+    </div>
+
+    <!-- E7 -->
+    <div class="ex reading" id="e7">
+      <span class="tag">E7 &middot; Reading 2</span> <span class="genre">Genre: Component change task card</span>
+      <h3>Read the task card, then answer</h3>
+      <div class="rtext">
+        <p><b>TASK CARD &mdash; IDG REMOVAL AND INSTALLATION</b></p>
+        <p><b>A/C reg:</b> YL-BBX. <b>ATA:</b> 24-11-01. <b>Station:</b> RIX, bay two.</p>
+        <p><b>Component:</b> integrated drive generator, item 40, part number 761782C.</p>
+        <p><b>Removal:</b> open the fan cowl and disconnect the electrical connector, then fit a blanking cap. Remove the bonding lead. Cut the lockwire before you disconnect the oil lines. Remove the mounting bolt, and lower the component carefully with two people.</p>
+        <p><b>Tagging:</b> mark the removed unit unserviceable, and attach a warning tag before it leaves the bay.</p>
+        <p><b>Installation:</b> lift the new component onto the clamp, and start the mounting bolt by hand. Torque the mounting bolt to 34 newton metres, unless the engineering order specifies otherwise. Fit fresh lockwire, and add a torque seal. Reconnect the oil lines, the bonding lead and the electrical connector.</p>
+        <p><b>Test:</b> carry out a functional test of the generator, because the installation is not complete until the test is satisfactory. The unit becomes serviceable when the test is good.</p>
+        <p><b>Sign-off:</b> sign the task card only when the installation and the functional test are both complete.</p>
+      </div>
+      <ol>
+        <li>How many people lower the component? <select class="gap" data-answer="two"><option value=""></option><option>one</option><option>two</option><option>three</option></select></li>
+        <li>What is the torque value for the mounting bolt? <input class="gap" data-answer="34 newton metres|34|34 nm" size="16"></li>
+        <li>What do you attach to the old unit? <input class="gap" data-answer="a warning tag|warning tag" size="14"></li>
+        <li>What do you add after the lockwire? <select class="gap" data-answer="a torque seal"><option value=""></option><option>a torque seal</option><option>a blanking cap</option><option>a new figure</option></select></li>
+        <li>When is the new unit serviceable? <select class="gap" data-answer="when the functional test is good"><option value=""></option><option>when the functional test is good</option><option>before the removal</option><option>when the cowl is open</option></select></li>
+        <li>When do you sign the task card? <select class="gap" data-answer="when the installation and test are complete"><option value=""></option><option>when the installation and test are complete</option><option>before you start the removal</option><option>only the next day</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e7">Check</button><span class="score" data-score="e7"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>two</li><li>34 newton metres</li><li>a warning tag</li><li>a torque seal</li><li>when the functional test is good</li><li>when the installation and test are complete</li></ol></details>
+    </div>
+
+    <!-- E8 -->
+    <div class="ex" id="e8">
+      <span class="tag">E8 &middot; Listening review</span>
+      <h3>Replay Dialogue 3, then answer</h3>
+      <p>Play Dialogue 3 again. Answer from what you hear.</p>
+      <ol>
+        <li>What do they lift onto the clamp? <select class="gap" data-answer="the component"><option value=""></option><option>the component</option><option>the task card</option><option>the cowl</option></select></li>
+        <li>How do they start the mounting bolt? <select class="gap" data-answer="by hand"><option value=""></option><option>by hand</option><option>with the torque wrench</option><option>with lockwire</option></select></li>
+        <li>What is the torque value? <input class="gap" data-answer="34 newton metres|34|34 nm" size="16"></li>
+        <li>What tool sets the torque? <input class="gap" data-answer="the torque wrench|torque wrench" size="16"></li>
+        <li>What do they fit so the bolt cannot turn loose? <select class="gap" data-answer="lockwire"><option value=""></option><option>lockwire</option><option>a blanking cap</option><option>a warning tag</option></select></li>
+        <li>Why do they add a torque seal? <select class="gap" data-answer="so the next shift can see the bolt was torqued"><option value=""></option><option>so the next shift can see the bolt was torqued</option><option>to keep out dirt</option><option>to earth the case</option></select></li>
+        <li>What do they run before they close the cowl? <input class="gap" data-answer="a functional test|functional test" size="18"></li>
+        <li>What can they do once the generator is serviceable? <select class="gap" data-answer="sign the task card"><option value=""></option><option>sign the task card</option><option>start the removal</option><option>fit a warning tag</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e8">Check</button><span class="score" data-score="e8"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>the component</li><li>by hand</li><li>34 newton metres</li><li>the torque wrench</li><li>lockwire</li><li>so the next shift can see the bolt was torqued</li><li>a functional test</li><li>sign the task card</li></ol></details>
+    </div>
+  </section>
+
+  <!-- ============ SPEAKING ============ -->
+  <section class="lecture-section" id="speaking">
+    <h2><span class="secnum">06</span>Speaking &mdash; role-plays</h2>
+    <p>Work in pairs. Take one role each, then swap after each card. Use the useful phrases, keep sentences short, and give each instruction as an active imperative &mdash; verb first.</p>
+
+    <div class="roleplay">
+      <h4>Role-play card 1 &mdash; Find the part in the IPC</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>You have a work order to change the drive generator on engine one. You must find the right part first.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A)</span>Lead technician. Open the illustrated parts catalogue and read the figure with your partner.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>Agree the figure, the item number, the part number and the effectivity before you touch the aircraft.</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>Open figure 24-11-01.</span><span>Read the part number.</span><span>Check the effectivity.</span><span>The store unit is serviceable.</span></div></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 2 &mdash; Coordinate the removal</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>The cowl is open. You remove the old component together, one step at a time.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A/B)</span>One technician calls each step; the other supports the component and confirms.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>Give clear imperatives and warn your partner before every move.</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>Disconnect the electrical connector.</span><span>Fit the blanking cap.</span><span>Remove the mounting bolt slowly.</span><span>Hold the component firmly.</span></div></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 3 &mdash; Install, torque and test</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>The new unit is on the clamp. You torque the fasteners and run the test.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A/B)</span>One technician sets the torque wrench; the other confirms the value and the test.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>State the torque value, fit lockwire and a torque seal, then confirm the functional test.</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>Set the torque wrench to 34.</span><span>Torque the mounting bolt now.</span><span>Add a torque seal.</span><span>Run a functional test.</span></div></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 4 &mdash; Shift handover</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>You hand over the finished component change to the next shift.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A)</span>Outgoing lead technician. Summarise the removal, the installation, the torque and the test.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>Make sure the next shift knows the old unit is unserviceable and the task card is signed.</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>We changed the generator on engine one.</span><span>We torqued the mounting bolt to 34.</span><span>The old unit is unserviceable.</span><span>The task card is signed.</span></div></div>
+    </div>
+
+    <div class="aibox">
+      <h4>AI conversation partner</h4>
+      <p style="margin:0 0 4px">Paste one prompt into your chat buddy and work the task in English. The buddy stays in role, speaks at B2, and gently corrects your mistakes.</p>
+      <div class="prompt"><button class="btn copybtn copy">Copy</button><code>You are Lena, a technician. I am the lead technician. We must find the correct drive generator in the illustrated parts catalogue before we change it. Play the task. Ask me one question each turn about the figure, the item number, the part number and the effectivity. Speak only at CEFR B2 with short sentences. If I make an English mistake, gently repeat my sentence the correct way, then continue. English only; you may add one Latvian word in brackets for a hard term.</code></div>
+      <div class="prompt"><button class="btn copybtn copy">Copy</button><code>You are Lena, a technician, and we are removing an integrated drive generator together. I am the lead technician. Make me give each step as an active imperative ("Disconnect the connector.", "Fit the blanking cap."). Do not accept a passive form; if I say "the connector must be disconnected", recast it as "Disconnect the connector." Speak only at CEFR B2, keep answers short, and ask me one follow-up question each turn. English only, with an optional one-word Latvian gloss for a hard term.</code></div>
+      <div class="prompt"><button class="btn copybtn copy">Copy</button><code>Role-play the install and test of a new generator. You are Lena; I am the lead technician. Ask me to state the torque value, to torque the mounting bolt, to fit lockwire and a torque seal, and to run a functional test. Make me use active imperatives, verb first. Speak at CEFR B2, one question per turn, short sentences. Recast my mistakes softly instead of lecturing. English only, with one Latvian word in brackets if a term is hard.</code></div>
+    </div>
+  </section>
+
+  <!-- ============ WRITING ============ -->
+  <section class="lecture-section" id="writing">
+    <h2><span class="secnum">07</span>Writing &mdash; a component-change task-card step list</h2>
+    <p>Write a short step list for the technical records. Use Simplified Technical English (ASD-STE100): give one instruction per step, start each step with the action verb, and use the active voice. Keep each step under about fifteen words.</p>
+    <div class="callout">
+      <h4>Task</h4>
+      <p style="margin:0">A fuel boost pump in the centre tank is unserviceable on an A320. You and a partner change it. Write the task-card steps as active imperatives. Cover: find the component in the illustrated parts catalogue (figure and item number); check the effectivity; remove the electrical connector and fit a blanking cap; remove the mounting bolts; lower the component with two people; tag the old pump unserviceable; install the new pump; torque the fasteners to the value; fit lockwire and a torque seal; run a functional test; sign the task card. Write 100&ndash;130 words, one instruction per line.</p>
+    </div>
+    <details class="answers"><summary>Show a model answer</summary>
+      <div class="rtext" style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:12px 16px;margin-top:8px">
+        <p><b>TASK CARD &mdash; CENTRE-TANK FUEL BOOST PUMP CHANGE</b></p>
+        <p>1. Open the illustrated parts catalogue at figure 28-22-01.</p>
+        <p>2. Find the pump at item number 20. Read the part number.</p>
+        <p>3. Check the effectivity for the tail number.</p>
+        <p>4. Disconnect the electrical connector. Fit a blanking cap.</p>
+        <p>5. Remove the mounting bolts. Keep each fastener in the tray.</p>
+        <p>6. Lower the component with two people.</p>
+        <p>7. Mark the old pump unserviceable. Attach a warning tag.</p>
+        <p>8. Install the new pump on the mount.</p>
+        <p>9. Torque the mounting bolts to the value. Fit lockwire.</p>
+        <p>10. Add a torque seal. Reconnect the electrical connector.</p>
+        <p>11. Run a functional test. Sign the task card.</p>
+      </div>
+    </details>
+    <p style="margin-top:14px"><b>Self-check &mdash; tick each line before you hand in:</b></p>
+    <ul class="checklist">
+      <li>Every step starts with the action verb (Remove, Install, Torque, Run).</li>
+      <li>I used the active imperative, not the passive "must be" or "should be".</li>
+      <li>Every step gives one instruction and stays short.</li>
+      <li>I ended with the functional test and the signed task card.</li>
+    </ul>
+  </section>
+
+  <footer>
+    English for Aviation Maintenance &middot; Unit 17 &mdash; Coordinating a component removal and installation &middot; CEFR B2 &middot; Self-study language unit. Terms are for training only; always work from the current approved IPC, AMM, task card and company procedures.
+  </footer>
+</article>
+
+<script>
+(function(){
+  // ---- self-checking exercises ----
+  function norm(s){return (s||"").toString().trim().toLowerCase().replace(/\s+/g," ").replace(/[’']/g,"'").replace(/[",;:.]/g,"");}
+  function ok(el){
+    var raw = el.getAttribute("data-answer")||"";
+    var alts = raw.split("|").map(norm);
+    var val = norm(el.value);
+    return val!=="" && alts.indexOf(val)!==-1;
+  }
+  document.querySelectorAll("button.check").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var box = document.getElementById(btn.getAttribute("data-ex"));
+      var fields = box.querySelectorAll("[data-answer]");
+      var good=0;
+      fields.forEach(function(f){
+        f.classList.remove("ok","bad");
+        if(ok(f)){f.classList.add("ok");good++;}
+        else{f.classList.add("bad");}
+      });
+      var sc = box.querySelector("[data-score]");
+      sc.textContent = good+" / "+fields.length+" correct";
+      sc.classList.toggle("done", good===fields.length);
+    });
+  });
+  // ---- copy buttons for AI prompts ----
+  document.querySelectorAll("button.copy").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var code = btn.parentElement.querySelector("code").textContent;
+      var done=function(){var t=btn.textContent;btn.textContent="Copied!";setTimeout(function(){btn.textContent=t;},1200);};
+      if(navigator.clipboard && navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(done,done);}
+      else{try{var ta=document.createElement("textarea");ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();done();}catch(e){done();}}
+    });
+  });
+})();
+</script>
+</body><!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 17 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body></html>
