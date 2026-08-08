@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Español A2 · Unidad 1 — Deck del profesor · En el restaurante: pedir y servir</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--rose:#ff8fc0;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:21px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:27px}
+.sm{font-size:16px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.cols{grid-template-columns:1fr}.cols3{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+.card h3{margin:.1em 0 .35em;font-size:19px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.lv{color:var(--amber);font-style:italic;font-weight:400}
+.es{color:#bfe0cb}
+.dw{width:100%;max-width:680px;min-height:300px;margin:0 auto}
+.dw:empty::before{content:"widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:300px;
+  border:1px dashed var(--line);border-radius:14px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 12px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:6px 9px;font-size:15px}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:56px;font-size:15px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.good-b{color:var(--good)} .bad-b{color:var(--hot)}
+.quote{background:#0c1622;border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:8px 14px;margin:8px 0;font-size:18px;color:#d6e3f1}
+.rp{border:1px solid var(--line);border-top:3px solid var(--rose);border-radius:12px;padding:12px 14px;background:#0f1726}
+.rp h4{margin:0 0 6px;color:var(--rose);font-size:16px}
+.rp .f{font-size:14.5px;margin:3px 0;color:#cfe0ee}
+.rp .fl{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#7fd0ff;font-weight:700}
+table.t{border-collapse:collapse;width:100%;font-size:15.5px}
+table.t th,table.t td{border:1px solid var(--line);padding:6px 11px;text-align:left}
+table.t th{background:#16263a;color:#cfe5ff;font-weight:700}
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Abrir la ventana del presentador (P)">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Espacio · ← atrás · F pantalla · P presentador · L subtítulos</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="Welcome the room in Spanish and keep it in Spanish from here on — the deck models the target language. This is a 90-minute A2 class, skill focus SPEAKING. The whole hour builds to two spoken roles: the student is first the CLIENT (orders, asks a price, pays) and then the WAITER (takes an order and repeats it). Set the promise on this slide: by the bell they will order lunch and take an order out loud. Timing map for the session — Opener + warm-up 8 min · Dialogue 1 + vocabulary + bill widget 18 min · Pronunciation + grammar 18 min · Dialogue 2 + exercises E1-E4 15 min · Reading + Dialogue 3 + E8 12 min · Role-plays 14 min · Writing + wrap 5 min. Tell them the class is mostly TALKING, and mistakes are how we learn. Students are near-beginners whose first language is Latvian, so every new word on the slides carries a Latvian gloss in yellow.">
+    <div class="kick">Español A2 · Comida y servicio · Unidad 1 · 90 min · Hablar</div>
+    <h1>En el restaurante: pedir y servir</h1>
+    <p class="big muted">Marta es de Letonia. Estudia en Valencia. Hoy come en el Café Sol y luego trabaja allí. Aprende a pedir, a preguntar y a tomar una comanda <span class="lv">[pasūtījums]</span>.</p>
+    <p class="pill">Hoy hablas tú &nbsp;·&nbsp; primero cliente, después camarero &nbsp;·&nbsp; querer + infinitivo · gustar · usted</p>
+  </section>
+
+  <!-- 2 · OBJETIVOS -->
+  <section class="slide" data-notes="Read the three can-do goals aloud and have the room repeat the Spanish verbs: pedir, preguntar, repetir. Keep this short — 90 seconds. Point out that there is no grammar test today; the assessment is spoken performance in the role-plays plus a short written comanda. The right column is the timing contract for the class — show it so students know the shape of the hour and that the talking comes in the second half. Emphasise the golden rule bottom-right: escuchar → leer → hablar (listen, then read, then speak). Every dialogue follows that order.">
+    <div class="kick">Objetivos de hoy · can-do</div>
+    <h2>Al final de la clase, tú puedes…</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="good-b">1 · Pedir.</b> Pides comida y bebida con cortesía. «Quiero un café, por favor.»</p>
+        <p><b style="color:var(--accent)">2 · Preguntar.</b> Preguntas qué es un plato y cuánto cuesta. «¿Qué es una tapa <span class="lv">[uzkoda]</span>? ¿Cuánto cuesta?»</p>
+        <p><b style="color:var(--purple)">3 · Tomar la comanda.</b> Tomas un pedido y lo repites para revisar.</p>
+      </div>
+      <div>
+        <p class="sm muted">Ruta de la clase (90 min):</p>
+        <ul class="sm muted">
+          <li>Diálogo 1 + palabras — 18 min</li>
+          <li>Pronunciación + gramática — 18 min</li>
+          <li>Ejercicios E1–E4 — 15 min</li>
+          <li>Lectura + Diálogo 3 + E8 — 12 min</li>
+          <li>Juegos de rol — 14 min</li>
+          <li>Escribir + cierre — 5 min</li>
+        </ul>
+        <p class="pill">Regla de oro: escuchar → leer → hablar</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · WARM-UP -->
+  <section class="slide" data-center data-notes="Warm-up, 4 minutes, whole class then quick pairs. Ask the questions on the slide and take three or four answers in Spanish. Accept single words — you only want them talking. Write the drinks they name on the board and add the Latvian gloss beside anything new. This activates the food/drink field before Dialogue 1. If the room is silent, model your own answer first: 'Yo quiero un té con limón.' Then nominate two students by name. Do not correct grammar here; just build willingness to speak.">
+    <div class="kick">Para empezar · calienta la voz</div>
+    <h2>¿Qué pides tú en un café?</h2>
+    <p class="big">¿Un café <span class="lv">[kafija]</span>, un té o un zumo <span class="lv">[sula]</span>?<br>¿Comes algo dulce o algo salado?</p>
+    <p class="muted">Habla con tu compañero. Una frase cada uno. «Yo quiero…»</p>
+    <p class="pill">2 minutos · una frase por persona · en español</p>
+  </section>
+
+  <!-- 4 · DIÁLOGO 1 -->
+  <section class="slide" data-notes="Dialogue 1, 8 minutes. Play the audio in the body page (audio 1) with books closed — students just listen the first time. Ask one gist question in Spanish: '¿Qué bebida quiere Marta?' (un café con leche y agua). Play a second time with the transcript open. Then drill the four target lines on this slide chorally: whole class, then half the room as waiter and half as Marta. Watch the polite forms: siéntese, tómese su tiempo, ¿qué quiere tomar? Flag that the waiter uses USTED with the customer — you will formalise that in the grammar block. New words are glossed on the slide; make the class say each Spanish word twice.">
+    <div class="kick">Diálogo 1 · Marta pide comida</div>
+    <h2>Escucha primero, lee después</h2>
+    <div class="cols">
+      <div class="card">
+        <div class="quote">Camarero: «¿<b>Tiene</b> usted una reserva <span class="lv">[rezervācija]</span>?»</div>
+        <div class="quote">Marta: «¿Me <b>trae</b> la carta <span class="lv">[ēdienkarte]</span>? <b>Quiero ver</b> el menú.»</div>
+        <div class="quote">Camarero: «¿Qué <b>quiere</b> tomar para beber <span class="lv">[dzert]</span>?»</div>
+        <div class="quote">Marta: «<b>Quiero</b> un café con leche <span class="lv">[piens]</span>, por favor.»</div>
+      </div>
+      <div>
+        <p class="es">🎧 Audio 1 está en la página del alumno (body).</p>
+        <ul class="muted sm">
+          <li>1.ª vez: solo escuchar (libros cerrados).</li>
+          <li>2.ª vez: leer y repetir en voz alta.</li>
+          <li>Pregunta rápida: <b>¿Qué quiere beber Marta?</b></li>
+        </ul>
+        <p class="pill">Coro: toda la clase repite cada línea</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · VOCAB + BILL WIDGET -->
+  <section class="slide" data-notes="Vocabulary + numbers, 8 minutes. This is the interactive money widget — click on the menu buttons to build a bill and the total climbs on the canvas. Use it to teach the prices AND how to say them: 'Son ocho euros con cincuenta.' Call a student to the board, ask them to order three items by clicking, then the whole class says the total out loud before you reveal it. This rehearses euros and the numbers 1-20 in a real context. Reset with Limpiar and do it again with a different student. Numbers said aloud is a listening sub-skill the quiz tests, so make everyone speak the figure, not just read it.">
+    <div class="kick">Banco de palabras · los precios</div>
+    <h2>La cuenta <span class="lv" style="font-size:22px">[rēķins]</span>: pide y suma</h2>
+    <div class="dw" data-widget="bill"></div>
+    <p class="muted sm">Toca los platos. Di el total en voz alta: «Son … euros con … .»</p>
+  </section>
+
+  <!-- 6 · PRONUNCIATION + STRESS WIDGET -->
+  <section class="slide" data-notes="Pronunciation, 6 minutes. This is the predictable Latvian slip: Latvian stresses the FIRST syllable of every word, so students say CA-fe, ME-nu, POR-favor. Spanish often puts the stress at the end. The widget shows the syllables as blocks and pulses the stressed one; press Escuchar to hear it (browser voice, es-ES). Drill café, menú, por favor, propina with an exaggerated push on the strong syllable — clap on the stressed beat. Then have pairs say all four words to each other. Also flag the three consonant traps on the slide: v≈b, ll≈y, z≈soft th. Keep it playful and physical.">
+    <div class="kick">Pronunciación · trampa del letón</div>
+    <h2>El acento no va al principio</h2>
+    <div class="cols">
+      <div class="dw" data-widget="stress"></div>
+      <div>
+        <p>En letón, la fuerza va en la 1.ª sílaba. En español, muchas veces va al final:</p>
+        <p class="big">ca-<b class="good-b">FÉ</b> · me-<b class="good-b">NÚ</b> · por fa-<b class="good-b">VOR</b></p>
+        <p class="sm muted">Tres sonidos: <b>v</b> de vino ≈ «b» · <b>ll</b> de tortilla ≈ «y» · <b>z</b> de cerveza ≈ «th» suave.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · GRAMMAR 1 querer + inf, POLITE WIDGET -->
+  <section class="slide" data-notes="Grammar block 1, querer + infinitive, 6 minutes. The rule is tiny: querer + a second verb in the infinitive, with NO 'a' between them. Latvian and English learners want to insert a linker; here there is none. Use the transformer widget — press the button to flip a sentence from tú to usted and watch the verb change; the same widget shows querer + infinitive examples. Drill: 'Quiero ver la carta', 'Quiero pagar', '¿Quiere comer algo?'. Ban the wrong form out loud: 'Quiero A comer' is wrong. Have the class shout BIEN or MAL as you say pairs. Keep it to six minutes; they practise it in E4.">
+    <div class="kick">Gramática 1 · querer + infinitivo</div>
+    <h2>Querer + verbo, sin «a»</h2>
+    <div class="cols">
+      <div class="dw" data-widget="polite"></div>
+      <div>
+        <p class="quote"><span class="good-b">BIEN:</span> Quiero <b>beber</b> agua.</p>
+        <p class="quote"><span class="bad-b">MAL:</span> Quiero <s>a</s> beber agua.</p>
+        <p class="sm muted">querer + un verbo en infinitivo <span class="lv">[nenoteiksme]</span>. Nada en medio.</p>
+        <p class="pill">La clase grita: ¿BIEN o MAL?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · GRAMMAR 2 gustar -->
+  <section class="slide" data-notes="Grammar block 2, gustar, 6 minutes. The classic Latvian/English interference: they translate 'I like' as a subject-verb and say 'yo gusto'. In Spanish the thing liked is the subject and the person is me/te/le. Latvian 'man patīk' actually has the same shape (dative person), so lean on that L1 parallel: 'man patīk = me gusta'. Drill me gusta / te gusta / le gusta with foods from the menu. Use USTED with a customer: '¿Le gusta el tomate?'. Get everyone to say three true sentences about themselves: 'Me gusta el café, no me gusta el té.' Correct 'yo gusto' instantly every time.">
+    <div class="kick">Gramática 2 · gustar</div>
+    <h2>Di «me gusta», no «yo gusto»</h2>
+    <div class="cols3">
+      <div class="card"><h3>me gusta</h3><p class="sm">yo → «<b>Me</b> gusta el café.»</p></div>
+      <div class="card"><h3>te gusta</h3><p class="sm">tú → «¿<b>Te</b> gusta el vino?»</p></div>
+      <div class="card"><h3>le gusta</h3><p class="sm">usted → «¿<b>Le</b> gusta el pan?»</p></div>
+    </div>
+    <p class="quote"><span class="bad-b">MAL:</span> Yo gusto el vino. → <span class="good-b">BIEN:</span> Me gusta el vino.</p>
+    <p class="sm muted">En letón: «man patīk» = «me gusta». No traduzcas «yo». La persona va delante: me / te / le.</p>
+  </section>
+
+  <!-- 9 · GRAMMAR 3 usted -->
+  <section class="slide" data-notes="Grammar block 3, usted, 6 minutes. With a customer the waiter uses usted, and the verb takes the él/ella ending: quiere, tiene, desea. Contrast the tú column and the usted column on the table. This is the single most useful thing for the waiter role later, so drill the four service questions in usted: '¿Qué quiere tomar?', '¿Tiene una reserva?', '¿Le gusta…?', '¿Quiere un postre?'. Point out there is no new verb to memorise — it is the same form as él/ella, which they already know. Practised heavily in E4 and E6, and it is a marked criterion in the speaking rubric.">
+    <div class="kick">Gramática 3 · usted</div>
+    <h2>Con el cliente, usa «usted»</h2>
+    <table class="t">
+      <tr><th>&nbsp;</th><th>tú (amigo)</th><th>usted <span class="lv">[Jūs, pieklājīgi]</span></th></tr>
+      <tr><td>querer</td><td>¿Qué quieres?</td><td>¿Qué <b>quiere</b>?</td></tr>
+      <tr><td>tener</td><td>¿Tienes reserva?</td><td>¿<b>Tiene</b> reserva?</td></tr>
+      <tr><td>gustar</td><td>¿Te gusta?</td><td>¿<b>Le</b> gusta?</td></tr>
+    </table>
+    <p class="sm muted">El verbo de «usted» es igual que «él/ella». Ya lo sabes. Solo cambia «quieres» → «quiere».</p>
+  </section>
+
+  <!-- 10 · DIÁLOGO 2 -->
+  <section class="slide" data-notes="Dialogue 2, 6 minutes. Play audio 2. The two jobs here are asking what a dish is ('¿Qué es una tapa?') and paying ('La cuenta, por favor', paying by card, leaving a tip). Teach the survival question on the slide — it works for any unknown word on any menu. Drill the paying sequence chorally. Note the number said in the audio: 'ocho euros con cincuenta' — ask the class to write the figure 8,50 to check they caught it; this is exactly the kind of spoken-number item the quiz has. Culture note in one line: tips in Spain are small and optional.">
+    <div class="kick">Diálogo 2 · pregunta y paga</div>
+    <h2>«¿Qué es esto?» y pagar la cuenta</h2>
+    <div class="cols">
+      <div class="card">
+        <div class="quote">«Perdone, ¿<b>qué es</b> una tapa?»</div>
+        <div class="quote">«¿<b>Cuánto cuesta</b> una tapa?» — «Dos euros.»</div>
+        <div class="quote">«La <b>cuenta</b>, por favor.» — «Son <b>ocho euros con cincuenta</b>.»</div>
+        <div class="quote">«¿Puedo <b>pagar con tarjeta</b> <span class="lv">[karte]</span>?»</div>
+      </div>
+      <div>
+        <p class="es">🎧 Audio 2 en la página del alumno.</p>
+        <p class="sm muted">Escribe el precio que oyes: <b>8,50 €</b>. ¿Lo has oído bien?</p>
+        <p class="pill">Cultura: la propina es pequeña y no es obligatoria</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · EXERCISES E1–E4 -->
+  <section class="slide" data-notes="Exercise staging E1-E4, 15 minutes, on the body page. Every task has a worked example already done for the student, so point at the example, then set them off. E1 gap-fill (words) and E2 matching (meaning) are quick individual work — 3 minutes each, then check with the class. E3 completes a dialogue and E4 transforms tú→usted and drills querer/gustar — these are the ones that feed the speaking, so do E4 in pairs and check every answer aloud. Circulate and catch the three Latvian errors (missing article, 'yo gusto', 'quiero a'). The Comprobar button self-scores. Do not let E-work run long; the talking is the point.">
+    <div class="kick">Ejercicios · E1–E4</div>
+    <h2>Practica: palabras y formas</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>E1</b> · Rellenar huecos — palabras del banco.</p>
+        <p><b>E2</b> · Emparejar — palabra y significado.</p>
+        <p><b>E3</b> · Completar el diálogo — ¿qué falta?</p>
+        <p><b>E4</b> · Transformar — de «tú» a «usted».</p>
+      </div>
+      <div>
+        <p class="muted sm">Cada ejercicio tiene un ejemplo hecho. Míralo primero.</p>
+        <p class="muted sm">E1–E2 solo · E3–E4 en pareja.</p>
+        <p class="muted sm">Botón <code>Comprobar</code>: da tu nota al momento.</p>
+        <p class="pill">Vigila: falta artículo · «yo gusto» · «quiero a»</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · READING E5 + E7 -->
+  <section class="slide" data-notes="Reading, 6 minutes. Two texts on the body page. E5 is the Café Sol menu — a scanning task: students find prices and the plato del día. E7 is a customer review — a gist task with easy comprehension questions. Run E5 as a race: 'Find the price of the cerveza — go.' It rehearses the euros again. For E7, read the first two sentences aloud to model pace, then let pairs answer the six questions. Both feed the quiz reading items. Keep instructions simpler than the text: 'Read. Choose the answer.' Do not pre-teach — the vocabulary is all recycled from what they already have.">
+    <div class="kick">Lectura · E5 y E7</div>
+    <h2>Lee la carta y una reseña</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>E5 · La carta del Café Sol</h3>
+        <p class="sm">Busca los precios. ¿Cuál es el plato del día? ¿Puedes pagar con tarjeta?</p>
+      </div>
+      <div class="card">
+        <h3>E7 · La reseña del cliente</h3>
+        <p class="sm">¿Cómo fue el camarero? ¿Qué comió? ¿Cómo pagó? ¿Dejó propina?</p>
+      </div>
+    </div>
+    <p class="sm muted">Instrucción para el alumno: «Lee. Elige la respuesta.» Sin diccionario.</p>
+  </section>
+
+  <!-- 13 · DIÁLOGO 3 + ORDER WIDGET -->
+  <section class="slide" data-notes="Dialogue 3 + E8, 8 minutes. Now Marta is the WAITER and takes a two-person order, then repeats it back to check: 'Repito la comanda para no fallar.' This repeat-back is a can-do outcome and the heart of the second role-play. Play audio 3, then use the widget: click items to build the order, press Repetir and the tray reads the comanda back in a full Spanish sentence with 'y' before the last item. Have a student be the waiter, build an order the class dictates, then repeat it aloud before pressing Repetir to check. Then run E8 (listen again, choose answers). This directly rehearses the waiter role-play that comes next.">
+    <div class="kick">Diálogo 3 · Marta toma la comanda</div>
+    <h2>Repite el pedido para no fallar</h2>
+    <div class="cols">
+      <div class="dw" data-widget="order"></div>
+      <div>
+        <p class="quote">«Repito la comanda: una cerveza, un zumo, un pollo, una tortilla <b>y</b> una ensalada.»</p>
+        <p class="sm muted">🎧 Audio 3 + ejercicio E8. Escucha otra vez y responde.</p>
+        <p class="pill">Toca los platos, luego di la comanda en voz alta</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 · EXERCISES E5–E8 -->
+  <section class="slide" data-notes="Exercise staging E5-E8, quick recap slide — you have already touched these across the reading and Dialogue 3 blocks, so this is a 2-minute checkpoint to make sure nobody is behind. E6 is the error-hunt: eight mistakes in a comanda covering all three grammar points plus the plural of euro and singular of fruta — a strong diagnostic, do at least the first two together. E8 is listening comprehension of Dialogue 3. If time is short, set E5/E7 reading as spillover and protect the role-play time on the next slides. The solutions file has full answers with a one-line why for each, for the exemplars you unlock after the class.">
+    <div class="kick">Ejercicios · E5–E8</div>
+    <h2>Lee, corrige y escucha</h2>
+    <table class="t">
+      <tr><th>Ej.</th><th>Tipo</th><th>Foco</th></tr>
+      <tr><td>E5</td><td>Lectura 1 · la carta</td><td>precios, plato del día</td></tr>
+      <tr><td>E6</td><td>Buscar fallos</td><td>usted · gustar · artículo · plural</td></tr>
+      <tr><td>E7</td><td>Lectura 2 · reseña</td><td>comprensión general</td></tr>
+      <tr><td>E8</td><td>Escuchar otra vez</td><td>la comanda del Diálogo 3</td></tr>
+    </table>
+    <p class="sm muted">E6 tiene ocho fallos. Haz los dos primeros con toda la clase.</p>
+  </section>
+
+  <!-- 15 · ROLE-PLAYS -->
+  <section class="slide" data-notes="Role-plays, 14 minutes — this is the summit of the class and the main assessed speaking. Four cards on the body page. Run them in pairs, A and B, then swap so everyone plays both client and waiter. Rotate partners once. Cards 1 and 4 are the client (order a drink, ask a price; pay and tip). Cards 2 and 3 are asking about a dish and taking + repeating an order. Insist on usted, on the repeat-back in card 3, and on 'por favor / gracias'. Circulate with the CEFR A2 speaking rubric (in the key file) and give one spoken glow and one grow per pair. Use the caption translator (press L) if a pair needs an English or Latvian gloss of your instruction on screen. Do not over-correct mid-task; note errors and feed back at the end.">
+    <div class="kick">Hablar · juegos de rol</div>
+    <h2>Cuatro tarjetas · cambia de papel</h2>
+    <div class="cols">
+      <div class="rp"><h4>Tarjeta 1 · Cliente</h4><div class="f"><span class="fl">Meta</span> Pide una bebida y pregunta el precio.</div></div>
+      <div class="rp"><h4>Tarjeta 2 · Cliente curioso</h4><div class="f"><span class="fl">Meta</span> «¿Qué es una tapa?» y pide una.</div></div>
+      <div class="rp"><h4>Tarjeta 3 · Camarero</h4><div class="f"><span class="fl">Meta</span> Toma la comanda y repítela con usted.</div></div>
+      <div class="rp"><h4>Tarjeta 4 · Cliente</h4><div class="f"><span class="fl">Meta</span> Pide la cuenta, paga y deja propina.</div></div>
+    </div>
+    <p class="sm muted">Habla despacio. Usa «usted». Repite la comanda. Di «por favor» y «gracias».</p>
+  </section>
+
+  <!-- 16 · PHRASE BANK + AI -->
+  <section class="slide" data-notes="Support slide for the role-plays, keep it on screen while pairs work. These are the survival phrases: the waiter's questions, the client's requests, and the 'I don't understand' repair phrases — the last set matters because it keeps a real conversation alive when a beginner is stuck. Point at 'Perdone, ¿puede repetir?' and 'Más despacio, por favor' before pairs start. The body page also has an AI conversation partner (three copy-paste prompts) tuned to A2 waiter/client at temperature 0.3 — students who finish early can practise one more round with it on their phone. It stays in the café, speaks slowly, and recasts errors gently; it will not give away exercise answers.">
+    <div class="kick">Frases útiles · apoyo para hablar</div>
+    <h2>Si te bloqueas, usa estas frases</h2>
+    <div class="cols3">
+      <div class="card"><h3>Camarero</h3><p class="sm">«¿Qué quiere tomar?» · «¿Y para comer?» · «Repito la comanda.» · «¿Algo más?»</p></div>
+      <div class="card"><h3>Cliente</h3><p class="sm">«Quiero…, por favor.» · «¿Cuánto cuesta?» · «La cuenta, por favor.» · «¿Con tarjeta?»</p></div>
+      <div class="card"><h3>No entiendo</h3><p class="sm">«Perdone, ¿puede repetir?» · «Más despacio, por favor.» · «¿Cómo se dice esto?»</p></div>
+    </div>
+    <p class="sm muted">¿Terminas pronto? Practica con el compañero de IA en la página del alumno.</p>
+  </section>
+
+  <!-- 17 · WRITING -->
+  <section class="slide" data-notes="Writing task, 4-5 minutes, individual, on the body page. They write a comanda of 5-6 lines as the waiter: greet, take the order in usted, and repeat it back to check. This consolidates everything and gives you a written trace of the grammar. Put the 4-point self-check on the board (usted? repeat-back? articles? me gusta not yo gusto?). Collect a couple to read aloud. The annotated model answer is in the solutions file for the exemplars you unlock. If you run out of time, set it as homework alongside one more round with the AI partner.">
+    <div class="kick">Escribir · una comanda</div>
+    <h2>Escribe el pedido, como un camarero</h2>
+    <p class="big">Un cliente pide una cerveza, un zumo, un pollo con arroz y una tortilla. Escribe la comanda en 5–6 líneas.</p>
+    <p class="muted">Empieza con el saludo. Usa «usted». Repite el pedido al final.</p>
+    <p class="pill">Revisa: usted · repetir · artículo · «me gusta»</p>
+  </section>
+
+  <!-- 18 · CIERRE -->
+  <section class="slide" data-center data-notes="Wrap-up and exit ticket, 3 minutes. Round the class off in Spanish. Quick oral exit ticket: go round and every student says ONE thing they can now do in the café — 'Puedo pedir un café', 'Puedo repetir la comanda'. That is the can-do check done out loud. Set homework: the formative quiz (listening, reading, use of Spanish, vocabulary), one more conversation with the AI partner, and finishing the written comanda if unfinished. Passing the quiz at the set threshold unlocks the worked solutions and the next unit. End on the class slogan: hablar despacio y claro — mistakes are how we learn. Adiós y buen provecho.">
+    <div class="kick">Cierre · ticket de salida</div>
+    <h2>Hoy tú puedes pedir y servir</h2>
+    <p class="big">Di una cosa: «Hoy puedo _____ en el café.»</p>
+    <p class="muted">Deberes: el quiz de la unidad · una charla más con el compañero de IA · termina la comanda escrita.</p>
+    <p class="pill">Habla despacio y claro · no pasa nada si fallas · ¡buen provecho!</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (canvas + rAF, student-driven) ===================== -->
+<script>
+window.DeckW = {};
+
+/* ---- W1: LA CUENTA — bill builder (rAF canvas) ---- */
+window.DeckW.bill = function(el){
+  var MENU = [
+    {n:"Café con leche",p:1.50},{n:"Zumo de naranja",p:2.00},{n:"Agua",p:1.00},
+    {n:"Cerveza",p:2.20},{n:"Vino (vaso)",p:2.50},{n:"Tapa de queso",p:2.00},
+    {n:"Tapa de jamón",p:2.80},{n:"Tortilla",p:4.50},{n:"Pollo con arroz",p:6.00},
+    {n:"Ensalada",p:4.00},{n:"Postre",p:2.50}
+  ];
+  var btns = MENU.map(function(m,i){return '<button data-i="'+i+'">'+m.n+' · '+m.p.toFixed(2).replace('.',',')+' €</button>';}).join('');
+  el.innerHTML='<div class="wk"><div class="bar">'+btns+'</div>'+
+    '<div class="bar"><button class="prim" data-clr>Limpiar</button></div>'+
+    '<canvas width="680" height="150"></canvas>'+
+    '<div class="info" data-read><h4>La cuenta</h4>Toca un plato para empezar.</div></div>';
+  var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]');
+  var W=cv.width,H=cv.height,order=[],target=0,disp=0;
+  function recalc(){target=order.reduce(function(a,b){return a+b.p;},0);}
+  function say(v){var e=Math.floor(v+1e-6),c=Math.round((v-e)*100);
+    return "Son "+e+" euro"+(e===1?"":"s")+(c?(" con "+c):"")+".";}
+  el.querySelectorAll('[data-i]').forEach(function(b){b.addEventListener('click',function(){
+    order.push(MENU[+b.getAttribute('data-i')]);recalc();update();});});
+  el.querySelector('[data-clr]').addEventListener('click',function(){order=[];recalc();update();});
+  function update(){
+    if(!order.length){read.innerHTML="<h4>La cuenta</h4>Toca un plato para empezar.";return;}
+    var list=order.map(function(o){return o.n;}).join(" · ");
+    read.innerHTML="<h4>La cuenta ("+order.length+")</h4>"+list+"<br><b class='good-b'>"+say(target)+"</b>";
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var pad=20,barW=W-2*pad,y=H/2;
+    ctx.strokeStyle="#26384e";ctx.lineWidth=1;ctx.strokeRect(pad,y-22,barW,44);
+    var max=25,frac=Math.min(1,disp/max);
+    var grad=ctx.createLinearGradient(pad,0,pad+barW,0);grad.addColorStop(0,"#38b6ff");grad.addColorStop(1,"#a78bfa");
+    ctx.fillStyle=grad;ctx.fillRect(pad,y-22,barW*frac,44);
+    ctx.fillStyle="#e9f0f7";ctx.font="bold 30px ui-monospace,monospace";ctx.textBaseline="middle";
+    ctx.fillText(disp.toFixed(2).replace('.',',')+" €",pad+8,y);
+    ctx.fillStyle="#7e98ad";ctx.font="12px ui-monospace,monospace";ctx.textBaseline="alphabetic";
+    ctx.fillText("0 €",pad,y+38);ctx.fillText("25 €",pad+barW-30,y+38);
+    var d=target-disp;if(Math.abs(d)>0.01){disp+=d*0.16;}else disp=target;
+    requestAnimationFrame(draw);
+  }
+  update();requestAnimationFrame(draw);
+};
+
+/* ---- W2: ACENTO — stress meter (rAF canvas) ---- */
+window.DeckW.stress = function(el){
+  var WORDS=[
+    {w:"café",syl:["ca","fé"],hit:1},
+    {w:"menú",syl:["me","nú"],hit:1},
+    {w:"por favor",syl:["por","fa","vor"],hit:2},
+    {w:"propina",syl:["pro","pi","na"],hit:1},
+    {w:"camarero",syl:["ca","ma","re","ro"],hit:2},
+    {w:"tortilla",syl:["tor","ti","lla"],hit:1}
+  ];
+  var opts=WORDS.map(function(o,i){return '<option value="'+i+'">'+o.w+'</option>';}).join('');
+  el.innerHTML='<div class="wk"><div class="bar"><select data-sel>'+opts+'</select>'+
+    '<button class="prim" data-play>🔊 Escuchar</button></div>'+
+    '<canvas width="680" height="150"></canvas>'+
+    '<div class="info" data-read></div></div>';
+  var sel=el.querySelector('[data-sel]'),cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]');
+  var W=cv.width,H=cv.height,cur=0,t=0;
+  function set(i){cur=+i;var o=WORDS[cur];
+    read.innerHTML="<h4>Fuerza en la sílaba fuerte</h4>Di <b>"+o.syl.map(function(s,k){return k===o.hit?("<span class='good-b'>"+s.toUpperCase()+"</span>"):s;}).join("-")+"</b>. La sílaba amarilla es más fuerte y más larga.";}
+  sel.addEventListener('change',function(){set(sel.value);});
+  el.querySelector('[data-play]').addEventListener('click',function(){
+    try{var u=new SpeechSynthesisUtterance(WORDS[cur].w);u.lang="es-ES";u.rate=0.8;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}
+  });
+  function draw(){
+    ctx.clearRect(0,0,W,H);var o=WORDS[cur],n=o.syl.length,gap=16,bw=(W-2*30-(n-1)*gap)/n,x=30;
+    for(var i=0;i<n;i++){
+      var strong=i===o.hit,pulse=strong?(6*Math.abs(Math.sin(t*0.06))):0,h=48+(strong?26:0)+pulse;
+      var y=H/2-h/2+18;
+      ctx.fillStyle=strong?"#fbbf24":"#16324c";ctx.strokeStyle=strong?"#fbbf24":"#314865";ctx.lineWidth=2;
+      ctx.beginPath();var r=10;ctx.roundRect(x,y,bw,h,r);ctx.fill();
+      ctx.fillStyle=strong?"#020E27":"#cfe5ff";ctx.font=(strong?"bold ":"")+"22px -apple-system,Segoe UI,sans-serif";
+      ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(o.syl[i],x+bw/2,y+h/2);
+      x+=bw+gap;
+    }
+    ctx.textAlign="left";t++;requestAnimationFrame(draw);
+  }
+  set(0);requestAnimationFrame(draw);
+};
+
+/* ---- W3: TÚ → USTED — polite transformer (rAF canvas) ---- */
+window.DeckW.polite = function(el){
+  var PAIRS=[
+    {tu:"¿Quieres ver la carta?",ud:"¿Quiere ver la carta?",word:"Quiere"},
+    {tu:"¿Tienes una reserva?",ud:"¿Tiene una reserva?",word:"Tiene"},
+    {tu:"¿Qué deseas tomar?",ud:"¿Qué desea tomar?",word:"desea"},
+    {tu:"¿Te gusta el vino?",ud:"¿Le gusta el vino?",word:"Le"},
+    {tu:"¿Quieres un postre?",ud:"¿Quiere un postre?",word:"Quiere"}
+  ];
+  el.innerHTML='<div class="wk"><div class="bar"><button data-prev>◀</button>'+
+    '<button class="prim" data-flip>Cambiar a USTED</button><button data-next>▶</button></div>'+
+    '<canvas width="680" height="130"></canvas>'+
+    '<div class="info" data-read></div></div>';
+  var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]');
+  var W=cv.width,H=cv.height,cur=0,ud=false,glow=0;
+  function refresh(){var p=PAIRS[cur];
+    read.innerHTML=ud?("<h4>usted (cliente)</h4>Verbo como «él/ella»: <b class='good-b'>"+p.word+"</b>."):"<h4>tú (amigo)</h4>Pulsa «Cambiar a USTED».";}
+  function draw(){
+    ctx.clearRect(0,0,W,H);var p=PAIRS[cur],txt=ud?p.ud:p.tu;
+    ctx.textAlign="center";ctx.textBaseline="middle";
+    ctx.fillStyle=ud?"#34d399":"#cfe5ff";ctx.font="bold 26px -apple-system,Segoe UI,sans-serif";
+    if(ud&&glow>0){ctx.save();ctx.shadowColor="#34d399";ctx.shadowBlur=18*Math.abs(Math.sin(glow*0.1));}
+    ctx.fillText(txt,W/2,H/2-6);
+    if(ud&&glow>0){ctx.restore();glow--;}
+    ctx.fillStyle="#7e98ad";ctx.font="13px ui-monospace,monospace";
+    ctx.fillText((cur+1)+" / "+PAIRS.length,W/2,H-16);
+    ctx.textAlign="left";requestAnimationFrame(draw);
+  }
+  el.querySelector('[data-flip]').addEventListener('click',function(){ud=!ud;if(ud)glow=60;refresh();});
+  el.querySelector('[data-next]').addEventListener('click',function(){cur=(cur+1)%PAIRS.length;ud=false;refresh();});
+  el.querySelector('[data-prev]').addEventListener('click',function(){cur=(cur-1+PAIRS.length)%PAIRS.length;ud=false;refresh();});
+  refresh();requestAnimationFrame(draw);
+};
+
+/* ---- W4: REPITE LA COMANDA — order tray (rAF canvas) ---- */
+window.DeckW.order = function(el){
+  var ITEMS=[["una cerveza","cerveza"],["un zumo","zumo"],["un pollo","pollo"],
+    ["una tortilla","tortilla"],["una ensalada","ensalada"],["un pan","pan"],["un café","café"]];
+  var btns=ITEMS.map(function(o,i){return '<button data-i="'+i+'">+ '+o[1]+'</button>';}).join('');
+  el.innerHTML='<div class="wk"><div class="bar">'+btns+'</div>'+
+    '<div class="bar"><button class="prim" data-say>🔁 Repetir la comanda</button><button data-clr>Limpiar</button></div>'+
+    '<canvas width="680" height="150"></canvas>'+
+    '<div class="info" data-read><h4>La comanda</h4>Toca los platos del pedido.</div></div>';
+  var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]');
+  var W=cv.width,H=cv.height,list=[],anim=[];
+  el.querySelectorAll('[data-i]').forEach(function(b){b.addEventListener('click',function(){
+    var o=ITEMS[+b.getAttribute('data-i')];list.push(o);anim.push(0);});});
+  el.querySelector('[data-clr]').addEventListener('click',function(){list=[];anim=[];read.innerHTML="<h4>La comanda</h4>Toca los platos del pedido.";});
+  el.querySelector('[data-say]').addEventListener('click',function(){
+    if(!list.length){return;}
+    var names=list.map(function(o){return o[0];});
+    var s;
+    if(names.length===1)s=names[0];
+    else s=names.slice(0,-1).join(", ")+" y "+names[names.length-1];
+    var full="Repito la comanda: "+s+".";
+    read.innerHTML="<h4>La comanda</h4><b class='good-b'>"+full+"</b>";
+    try{var u=new SpeechSynthesisUtterance(full);u.lang="es-ES";u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}
+  });
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var x=20,y=24;
+    ctx.font="16px -apple-system,Segoe UI,sans-serif";ctx.textBaseline="middle";
+    if(!list.length){ctx.fillStyle="#4a5f78";ctx.fillText("bandeja vacía",x,H/2);}
+    list.forEach(function(o,i){
+      if(anim[i]<1)anim[i]+=0.08;var a=Math.min(1,anim[i]);
+      var cx=x+(1-a)*30;
+      ctx.globalAlpha=a;
+      ctx.fillStyle="#16324c";ctx.strokeStyle="#2a557e";ctx.lineWidth=1.5;
+      var w=ctx.measureText(o[0]).width+24;
+      ctx.beginPath();ctx.roundRect(cx,y-13,w,26,8);ctx.fill();ctx.stroke();
+      ctx.fillStyle="#7fd0ff";ctx.fillText(o[0],cx+12,y);
+      ctx.globalAlpha=1;
+      y+=32;if(y>H-16){y=24;x+=Math.max(160,w+30);}
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+};
+
+/* roundRect polyfill for older engines */
+if(!CanvasRenderingContext2D.prototype.roundRect){
+  CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){
+    if(typeof r==='number')r={tl:r,tr:r,br:r,bl:r};else r=r||{tl:0,tr:0,br:0,bl:0};
+    this.beginPath();this.moveTo(x+r.tl,y);this.lineTo(x+w-r.tr,y);this.arcTo(x+w,y,x+w,y+r.tr,r.tr);
+    this.lineTo(x+w,y+h-r.br);this.arcTo(x+w,y+h,x+w-r.br,y+h,r.br);
+    this.lineTo(x+r.bl,y+h);this.arcTo(x,y+h,x,y+h-r.bl,r.bl);
+    this.lineTo(x,y+r.tl);this.arcTo(x,y,x+r.tl,y,r.tl);this.closePath();return this;};
+}
+window.DeckWReady = true;
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('esa2u1_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','esa2u1_presenter','width=560,height=720');
+  if(!presenter){ alert('Permite las ventanas emergentes para abrir el presentador.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presentador — Español A2 · U1</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:24px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:20px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Diapositiva actual</div><div class="title" id="title"></div>',
+'<div class="cur">Notas del profesor</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Anterior</button><button onclick="post(1)">Siguiente ›</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("esa2u1_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Diapositiva "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(sin notas)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Siguiente: "+(s.titles[i+1]||"")):"— fin del deck —";}',
+'function post(d){localStorage.setItem("esa2u1_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="esa2u1_deck_state")render();});',
+'setInterval(render,400);render();',
+'<\/scr'+'ipt></body></html>'
+].join('');
+window.addEventListener('storage',function(e){
+  if(e.key==='esa2u1_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+if(document.readyState!=='loading') init();
+</script>
+
+<!-- ════════════ LIVE CAPTION TRANSLATOR — speaker speech → live translated subtitle. Toggle: CC button or "L". ════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:system-ui,Arial,sans-serif; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:system-ui,sans-serif; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Subtítulos + traducción en vivo (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Idiomas de los subtítulos" aria-label="Idiomas de los subtítulos">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="lengua hablada">
+    <option value="es-ES">Español</option>
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="traducir a">
+    <option value="lv">Latviešu</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="ru">Русский</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'),line=document.getElementById('lctLine');
+  var lineTop=document.getElementById('lctLineTop'),lineBot=document.getElementById('lctLineBot');
+  var srcEl=document.getElementById('lctSrc'),btn=document.getElementById('lctBtn'),gear=document.getElementById('lctGear');
+  var status=document.getElementById('lctStatus'),langBar=document.getElementById('lctLangBar');
+  var srcSel=document.getElementById('lctSrcSel'),tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken='es-ES', src='es', target='lv';
+  var rec=null, active=false;
+  var lastInterim='', pending=''; var capTopB='', capBotB='';
+  var finalTimer=null, silenceTimer=null, lctIdeaTimer=null;
+  var lastTrAt=0, lastTrText='', lastTrLen=0, netErrors=0;
+  var cache=new Map(); var POLL_GAP_MS=700;
+  function setStatus(t){ status.textContent=t; status.classList.toggle('show', active || t==='mic blocked' || t==='use Chrome'); }
+  function tail(text,maxWords){ if(!text) return ''; var t=String(text).trim().replace(/\s+/g,' '); if(!t) return ''; var parts=t.split(' '); if(parts.length<=maxWords) return t; var s=parts.slice(-maxWords).join(' '); var m=s.match(/[.!?…]\s+(.+)$/)||s.match(/[,;:]\s+(.+)$/); return m?m[1]:s; }
+  async function translateRemote(text){
+    try{ if(src===target) return text;
+      var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text);
+      var ctrl=new AbortController(); var tmo=setTimeout(function(){ ctrl.abort(); },3000);
+      var r=await fetch(url,{signal:ctrl.signal}); clearTimeout(tmo);
+      if(!r.ok) return null; var j=await r.json();
+      if(Array.isArray(j)&&Array.isArray(j[0])){ var out=''; j[0].forEach(function(seg){ if(seg&&seg[0]) out+=seg[0]; }); return out||null; }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){ if(!text||!text.trim()) return ''; var key=src+'|'+target+'|'+text.trim().toLowerCase(); if(cache.has(key)) return cache.get(key); var out=await translateRemote(text); if(!out) out=text; cache.set(key,out); if(cache.size>250){ cache.delete(cache.keys().next().value); } return out; }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB=capBotB?(capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capBotB=''; } lctDraw(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctEndIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer=setTimeout(function(){ capTopB=''; capBotB=''; lastInterim=''; pending=''; render(); },30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer=null; } }
+  async function commitFinal(chunk){ chunk=chunk.trim(); if(!chunk) return; srcEl.textContent=tail(chunk,18); var tr=await translate(chunk); lctCommit(tr); lastInterim=''; lastTrLen=0; render(); }
+  async function translateInterim(text){ var now=performance.now(); if(now-lastTrAt<POLL_GAP_MS) return; if(text.length-lastTrLen<10 && text.length>0) return; if(text===lastTrText) return; lastTrAt=now; lastTrLen=text.length; lastTrText=text; try{ var tr=await translate(text); if(tr&&active){ lastInterim=tr; render(); } }catch(e){} }
+  function startRec(){
+    rec=new SR(); rec.continuous=true; rec.interimResults=true; rec.lang=spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives=1;
+    rec.onresult=function(e){ netErrors=0; cancelSilence(); var interim='',fin='';
+      for(var i=e.resultIndex;i<e.results.length;i++){ var r=e.results[i]; if(r.isFinal) fin+=' '+r[0].transcript; else interim+=' '+r[0].transcript; }
+      if(fin){ pending+=' '+fin; if(finalTimer) clearTimeout(finalTimer); finalTimer=setTimeout(function(){ var c=pending; pending=''; commitFinal(c).then(armSilence); },120); }
+      if(interim){ srcEl.textContent=tail(interim.trim(),18); translateInterim(interim.trim()); }
+      render(); setStatus('live · '+src+'→'+target); };
+    rec.onerror=function(ev){ if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active=false; }
+      else if(ev.error==='no-speech'||ev.error==='aborted'){}
+      else if(ev.error==='network'){ netErrors++; if(netErrors>=3){ active=false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect '+netErrors+'/3'); }
+      else setStatus(ev.error); };
+    rec.onend=function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active&&rec){ try{ rec.start(); }catch(_){} } },350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){ active=false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend=null; rec.stop(); }catch(e){} rec=null; } capTopB=''; capBotB=''; lastInterim=''; pending=''; render();
+    } else { active=true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on'); setStatus('starting…'); __holdMic().then(startRec); }
+  }
+  btn.addEventListener('click',function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click',function(e){ e.stopPropagation(); var open=langBar.classList.toggle('open'); gear.classList.toggle('on',open); });
+  document.addEventListener('keydown',function(e){ if((e.key==='l'||e.key==='L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle(); });
+  srcSel.addEventListener('change',function(e){ e.stopPropagation(); spoken=srcSel.value; src=spoken.slice(0,2); cache.clear(); if(active&&rec){ rec.onend=null; try{ rec.stop(); }catch(_){} rec=null; __holdMic().then(startRec); } if(active) setStatus('live · '+src+'→'+target); });
+  tgtSel.addEventListener('change',function(e){ e.stopPropagation(); target=tgtSel.value; cache.clear(); capTopB=''; capBotB=''; lastInterim=''; lastTrText=''; lastTrLen=0; render(); if(active) setStatus('live · '+src+'→'+target); });
+  [srcSel,tgtSel].forEach(function(s){ s.addEventListener('click',function(e){ e.stopPropagation(); }); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U01-r1</text></category>
+    <info format="html"><text><![CDATA[Español A2 · Unidad 1 — En el restaurante: pedir y servir. Quiz formativo por destrezas: escuchar, leer, uso del español y vocabulario.]]></text></info>
+  </question>
+
+  <!-- ══════════════ LISTENING (8) ══════════════ -->
+
+  <question type="multichoice">
+    <name><text>U1-L01 · Diálogo 1 · bebida</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Escuchar · Diálogo 1.</b> Escucha otra vez el Diálogo 1. ¿Qué bebida caliente pide Marta?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Marta dice: «Quiero un café con leche, por favor.» El café es la bebida caliente. Después pide un vaso de agua.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Un café con leche.]]></text><feedback format="html"><text><![CDATA[Correcto. «Quiero un café con leche, por favor.»]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Un zumo de naranja natural.]]></text><feedback format="html"><text><![CDATA[No. El zumo de naranja lo ofrece el camarero, pero Marta no lo pide.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Una cerveza bien fría.]]></text><feedback format="html"><text><![CDATA[No. La cerveza aparece en el Diálogo 3, no en el 1.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U1-L02 · Diálogo 1 · reserva</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Escuchar · Diálogo 1.</b> Marta tiene una reserva para hoy. ¿Verdadero o falso?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Falso. Marta dice: «No, no tengo reserva. ¿Hay una mesa libre para una persona?»</p>]]></text></generalfeedback>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[No. Marta no tiene reserva; pregunta por una mesa libre.]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[Correcto. «No, no tengo reserva.»]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U1-L03 · Diálogo 2 · la cuenta</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Escuchar · Diálogo 2.</b> El camarero dice el total de la cuenta. Escribe el número en euros (usa un punto: 8.5).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>«Son ocho euros con cincuenta» = 8,50 €. Entender los números y precios hablados es una destreza de escucha.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="moodle_auto_format"><text>8.5</text><feedback format="html"><text><![CDATA[Correcto: ocho euros con cincuenta = 8,50 €.]]></text></feedback><tolerance>0.05</tolerance></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>8</text><feedback format="html"><text><![CDATA[Casi. Escucha el final: «con cincuenta» = 0,50 más. Son 8,50.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U1-L04 · Diálogo 2 · precio de la tapa</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Escuchar · Diálogo 2.</b> ¿Cuánto cuesta una tapa? Escribe el número en euros.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>«Una tapa cuesta solo dos euros» = 2 €.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="moodle_auto_format"><text>2</text><feedback format="html"><text><![CDATA[Correcto: dos euros.]]></text></feedback><tolerance>0.05</tolerance></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U1-L05 · Diálogo 3 · repetir la comanda</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Escuchar · Diálogo 3.</b> ¿Qué hace Marta con la comanda antes de irse a la cocina?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Marta dice: «Repito la comanda para no fallar.» Repetir el pedido en voz alta es el objetivo clave del camarero.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[La repite en voz alta.]]></text><feedback format="html"><text><![CDATA[Correcto. «Repito la comanda para no fallar.»]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[No la escribe en ningún papel.]]></text><feedback format="html"><text><![CDATA[No. Marta la repite para revisar, no la ignora.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[La olvida enseguida.]]></text><feedback format="html"><text><![CDATA[No. Justo hace lo contrario: la repite para no fallar.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U1-L06 · Mensaje de voz · hora</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Escuchar · Mensaje de voz (Café Sol).</b> ¿A qué hora es la reserva? Escribe solo el número de la hora.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>«Su reserva es para hoy, a las dos de la tarde» = las 2.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="moodle_auto_format"><text>2</text><feedback format="html"><text><![CDATA[Correcto: a las dos de la tarde.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U1-L07 · Mensaje de voz · personas</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Escuchar · Mensaje de voz (Café Sol).</b> ¿Para cuántas personas es la mesa? Escribe el número.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>«Es una mesa para dos personas, cerca de la ventana» = 2.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="moodle_auto_format"><text>2</text><feedback format="html"><text><![CDATA[Correcto: una mesa para dos personas.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U1-L08 · Mensaje de voz · pago</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Escuchar · Mensaje de voz (Café Sol).</b> Se puede pagar con tarjeta o con dinero en efectivo. ¿Verdadero o falso?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Verdadero. «Puede pagar con tarjeta o con dinero en efectivo.»</p>]]></text></generalfeedback>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[Correcto: con tarjeta o en efectivo.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[No. El mensaje dice claramente que hay dos formas de pago.]]></text></feedback></answer>
+  </question>
+
+  <!-- ══════════════ READING (5) ══════════════ -->
+
+  <question type="multichoice">
+    <name><text>U1-R01 · el menú del día</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Leer.</b> Lee esta nota del café:</p><p style="background:#f3f1ea;border-radius:6px;padding:8px 12px"><em>«En el Café Sol, el menú del día cuesta diez euros. Lleva un plato, el pan y el agua. El postre no está en el menú.»</em></p><p>¿Qué lleva el menú del día?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>La nota dice: «Lleva un plato, el pan y el agua.» El postre no está incluido.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Un plato, el pan y el agua.]]></text><feedback format="html"><text><![CDATA[Correcto, tal cual dice la nota.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Un postre, un café y un vino tinto.]]></text><feedback format="html"><text><![CDATA[No. El postre no está en el menú del día.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Una tapa pequeña de queso.]]></text><feedback format="html"><text><![CDATA[No. La tapa no se menciona en esta nota.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U1-R02 · el postre</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Leer.</b> Con la nota de arriba (el menú del día de diez euros): <em>El postre está en el menú del día.</em> ¿Verdadero o falso?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Falso. La nota dice: «El postre no está en el menú.»</p>]]></text></generalfeedback>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[No. Lee otra vez: el postre no está incluido.]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[Correcto: el postre no está en el menú.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U1-R03 · horario</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Leer.</b> Lee el horario:</p><p style="background:#f3f1ea;border-radius:6px;padding:8px 12px"><em>«El Café Sol abre a las ocho de la mañana y cierra a las once de la noche. Los lunes no abre.»</em></p><p>¿Cuándo no abre el café?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>«Los lunes no abre.» El resto de la semana sí abre, de 8:00 a 23:00.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Los lunes.]]></text><feedback format="html"><text><![CDATA[Correcto: «Los lunes no abre.»]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Los domingos por la tarde.]]></text><feedback format="html"><text><![CDATA[No. El texto habla de los lunes, no de los domingos.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Por la mañana temprano.]]></text><feedback format="html"><text><![CDATA[No. Por la mañana sí abre, a las ocho.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U1-R04 · hora de abrir</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Leer.</b> Con el horario de arriba: <em>El café abre a las ocho de la mañana.</em> ¿Verdadero o falso?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Verdadero. «Abre a las ocho de la mañana.»</p>]]></text></generalfeedback>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[Correcto: abre a las 8:00.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[No. El texto dice claramente «a las ocho de la mañana».]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U1-R05 · la reseña</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Leer.</b> Lee la reseña corta:</p><p style="background:#f3f1ea;border-radius:6px;padding:8px 12px"><em>«La ensalada de la casa está muy rica y no es cara. El servicio es rápido y el camarero es muy amable.»</em></p><p>¿Cómo es el servicio en el café?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>«El servicio es rápido.» Además, el camarero es amable y la ensalada no es cara.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Rápido.]]></text><feedback format="html"><text><![CDATA[Correcto: «El servicio es rápido.»]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Un poco lento hoy.]]></text><feedback format="html"><text><![CDATA[No. La reseña dice que el servicio es rápido.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Bastante caro.]]></text><feedback format="html"><text><![CDATA[No. «Caro» describiría el precio; además dice que no es cara.]]></text></feedback></answer>
+  </question>
+
+  <!-- ══════════════ USE OF SPANISH (7) ══════════════ -->
+
+  <question type="shortanswer">
+    <name><text>U1-U01 · tú → usted (querer)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Uso del español.</b> Pasa a la forma de <b>usted</b>. Escribe una palabra.</p><p>«¿Quieres un postre?» → «¿______ un postre?»</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>quiere</b>. Con el cliente usamos usted; el verbo va como él/ella: quieres → quiere.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>quiere</text><feedback format="html"><text><![CDATA[Correcto: «¿Quiere un postre?»]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[La forma de usted de «quieres» es «quiere».]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U1-U02 · querer + infinitivo</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Uso del español.</b> Completa con el verbo en infinitivo. Sin «a».</p>
+<p>«Quiero ______ (beber) agua, por favor.»</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>beber</b>. querer + infinitivo, sin «a» en medio: «Quiero beber», no «Quiero a beber».</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>beber</text><feedback format="html"><text><![CDATA[Correcto: «Quiero beber agua.»]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>a beber</text><feedback format="html"><text><![CDATA[Sin «a». Solo el infinitivo: «beber».]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[querer + infinitivo: «beber».]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U1-U03 · gustar (me)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Uso del español.</b> Completa. No escribas «yo».</p><p>«______ gusta el vino tinto.»</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>Me</b>. Con gustar, la persona va delante: me/te/le. Nunca «yo gusto».</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>me</text><feedback format="html"><text><![CDATA[Correcto: «Me gusta el vino tinto.»]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>yo</text><feedback format="html"><text><![CDATA[No. Se dice «Me gusta», no «Yo gusto».]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[La palabra correcta es «Me».]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U1-U04 · el artículo</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Uso del español.</b> Falta el artículo. Escribe una palabra.</p><p>«¿Me trae ______ carta, por favor?»</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>la</b>. El español necesita artículo (la carta), aunque el letón no lo tenga.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>la</text><feedback format="html"><text><![CDATA[Correcto: «¿Me trae la carta?»]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[«carta» es femenina: «la carta».]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U1-U05 · usted (tener)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Uso del español.</b> Escribe el verbo en la forma de <b>usted</b>.</p><p>«¿______ usted una reserva para hoy?»</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>Tiene</b>. usted + tener = tiene (como él/ella).</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>tiene</text><feedback format="html"><text><![CDATA[Correcto: «¿Tiene usted una reserva?»]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>tienes</text><feedback format="html"><text><![CDATA[«tienes» es de tú. Con usted: «tiene».]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[La forma de usted es «tiene».]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U1-U06 · plural (euro)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Uso del español.</b> Escribe el plural correcto.</p><p>«La cuenta son ocho ______ (euro).»</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>euros</b>. Ocho es más de uno, así que el plural: euros.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>euros</text><feedback format="html"><text><![CDATA[Correcto: «ocho euros».]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>euro</text><feedback format="html"><text><![CDATA[Con ocho hace falta el plural: «euros».]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[El plural de «euro» es «euros».]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U1-U07 · para (finalidad)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Uso del español.</b> Completa con la palabra de finalidad.</p><p>«Repito la comanda ______ no fallar.»</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>para</b>. «para + infinitivo» expresa la finalidad: para no fallar.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>para</text><feedback format="html"><text><![CDATA[Correcto: «para no fallar».]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>por</text><feedback format="html"><text><![CDATA[Aquí es finalidad: «para no fallar», no «por».]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[La palabra de finalidad es «para».]]></text></feedback></answer>
+  </question>
+
+  <!-- ══════════════ VOCABULARY (4 · matching) ══════════════ -->
+
+  <question type="matching">
+    <name><text>U1-V01 · palabra y significado</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Vocabulario.</b> Une cada palabra con su significado.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>menú = la lista del día · camarero = quien sirve la mesa · propina = dinero extra al camarero · cuenta = lo que pagas al final.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[el menú]]></text><answer><text>la lista del día</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[el camarero]]></text><answer><text>quien sirve la mesa</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[la propina]]></text><answer><text>dinero extra al camarero</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[la cuenta]]></text><answer><text>lo que pagas al final</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U1-V02 · bebidas y comida</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Vocabulario.</b> Une cada palabra con su significado.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>cerveza = bebida rubia con gas · zumo = bebida de fruta · agua = bebida sin color · postre = lo dulce del final.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[la cerveza]]></text><answer><text>bebida rubia con gas</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[el zumo]]></text><answer><text>bebida de fruta</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[el agua]]></text><answer><text>bebida sin color</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[el postre]]></text><answer><text>lo dulce del final</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U1-V03 · colocaciones</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Vocabulario.</b> Une cada palabra con la palabra que va con ella (colocación).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>café → con leche · vino → tinto · vaso → de agua · plato → del día.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[café]]></text><answer><text>con leche</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[vino]]></text><answer><text>tinto</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[vaso]]></text><answer><text>de agua</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[plato]]></text><answer><text>del día</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U1-V04 · verbo y palabra</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Vocabulario.</b> Une el verbo con la palabra correcta.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>pedir → la cuenta · tomar → un café · dejar → una propina · traer → la carta.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[pedir]]></text><answer><text>la cuenta</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[tomar]]></text><answer><text>un café</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[dejar]]></text><answer><text>una propina</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[traer]]></text><answer><text>la carta</text></answer></subquestion>
+  </question>
+
+</quiz>
