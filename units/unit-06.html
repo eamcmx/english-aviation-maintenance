@@ -341,6 +341,22 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 .pron-score.poor { color: #8c2f27; }
 .pron-heard { font-size: 13px; color: var(--ink-2, #5a6b7d); margin-top: 7px; font-style: italic; }
 .pron-note { font-size: 12.5px; color: var(--ink-2, #5a6b7d); margin-top: 12px; }
+
+/* ---- unit figures --------------------------------------------------------------------------- */
+.lang-fig { margin: 26px 0; padding: 0; background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; overflow: hidden; }
+.lang-fig .fig-head { padding: 13px 20px; border-bottom: 1px solid var(--line, #e2e6ec); background: #fbfcfe; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.lang-fig .fig-head b { color: var(--brand, #2F5496); font-weight: 600; }
+.lang-fig .fig-body { padding: 18px 16px; overflow-x: auto; }
+.lang-fig .fig-cap { margin: 0; padding: 0 20px 16px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); line-height: 1.55; }
+.lang-fig .fig-bar { padding: 0 20px 16px; }
+.fig-btn { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px; padding: 7px 15px; font-size: 12.5px; font-family: inherit; color: var(--brand, #2F5496); cursor: pointer; }
+.fig-btn:hover { border-color: var(--brand, #2F5496); background: #f6f9fd; }
+.fig-quiz { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 9px; padding: 0 20px 18px; }
+.fig-quiz label { display: flex; align-items: center; gap: 8px; }
+.fig-quiz label span { width: 22px; height: 22px; flex: none; border-radius: 50%; background: var(--brand, #2F5496); color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.fig-quiz input { flex: 1; min-width: 0; padding: 7px 10px; border: 1px solid var(--line, #e2e6ec); border-radius: 8px; font-size: 13px; font-family: inherit; }
+.fig-quiz input.ok { border-color: #0f6e56; background: #e6f6ee; color: #0f6e56; }
+.fig-quiz input.bad { border-color: #c0392b; background: #fdeceb; color: #8c2f27; }
 </style><!--/CF-LANG-UI--></head>
 <body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 6 of 32 · Toolbox talk and the Dirty Dozen (human factors)</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 human factors, complacency, fatigue, distraction</span></div></div></header>
 <article>
@@ -1087,7 +1103,7 @@ if(window.TSIBuddy){ TSIBuddy.mount({
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "human factors", "def": "the things about people that affect safe work"}, {"term": "Dirty Dozen", "def": "the twelve common causes of maintenance error"}, {"term": "toolbox talk", "def": "a short safety briefing before a job"}, {"term": "near-miss", "def": "an event that almost caused harm"}, {"term": "complacency", "def": "over-confidence from routine; you stop checking"}, {"term": "fatigue", "def": "being very tired, so you make mistakes"}, {"term": "distraction", "def": "something that takes your attention off the task"}, {"term": "pressure", "def": "being pushed to work fast, often by time"}, {"term": "norms", "def": "the unsafe habits a team quietly accepts"}, {"term": "assertiveness", "def": "speaking up firmly about a safety concern"}, {"term": "awareness", "def": "knowing what is going on around you"}, {"term": "checklist", "def": "a list of steps you tick off in order"}, {"term": "cross-check", "def": "a check of your work by a second person"}, {"term": "double-check", "def": "to check something a second time yourself"}, {"term": "torque", "def": "the tightness set on a bolt with a wrench"}, {"term": "lockwire", "def": "thin wire that stops a bolt turning loose"}, {"term": "safety-critical", "def": "able to affect flight safety directly"}, {"term": "incident report", "def": "a written record of an unsafe event"}, {"term": "debrief", "def": "a short review talk after a job"}, {"term": "error chain", "def": "the series of small errors that lead to harm"}], "lines": ["Good morning, everyone. Before we start work, let us hold a short toolbox talk.", "Good idea. I heard there was a near-miss on the late shift yesterday.", "Yes, exactly. A technician almost left a spanner beside a control cable.", "That is frightening. What actually distracted him during the flap inspection?", "A phone call distracted him, so his attention left the job completely.", "So distraction was the main human factor behind this near-miss?", "Correct. Distraction is one of the twelve items in the Dirty Dozen.", "I agree, and I would add that complacency also played a part.", "Good point. He had done that task many times, so he felt over-confident.", "That is classic complacency, because routine work quietly lowers our awareness.", "Well said. When awareness drops, small mistakes begin to link together.", "You mean an error chain, where one slip leads straight to the next?", "Exactly. The phone call, the routine, and the noise formed an error chain.", "So human factors, not a technical fault, nearly caused the accident?", "Yes. That is why every toolbox talk should start with people, not tools.", "Understood. Please carry on, because I want to hear the full story.", "Let us open the floor now, so please add your own examples.", "For me, fatigue is the biggest risk on a long night shift.", "That is very true. Fatigue slows your thinking and hides simple errors.", "And pressure makes it worse, because we must release the aircraft on time.", "Agreed. Time pressure pushes people to skip a step or two.", "I would also add that some unsafe norms have crept into our team.", "Which norms do you mean? Please be specific for everyone here.", "We sometimes sign the checklist first, and then finish the task afterwards."], "roleplays": ["It is 07:00. Yesterday there was a near-miss caused by distraction.", "Your colleague has just described the distraction near-miss.", "The team sometimes signs the checklist before the task is finished.", "The talk is ending. You must agree the actions for the team."], "grammar": "In a toolbox talk, you recommend safe actions. You use modal verbs to do this. You use should and ought to for advice. You use must and have to for a strong rule. You use must not for something that is not allowed. Look at these lines from the dialogues.", "scenario": "It is 07:00 in a Part-145 hangar. Yesterday, on the late shift, a technician took a phone call during a flap inspection. He was distracted, and he left a spanner near a control cable. A colleague found it during a cross-check, so no damage occurred. It was a near-miss, not an accident. This morning you must lead a shor", "pron": ["Good morning, everyone. Before we start work, let us hold a short toolbox talk.", "Good idea. I heard there was a near-miss on the late shift yesterday.", "Yes, exactly. A technician almost left a spanner beside a control cable.", "That is frightening. What actually distracted him during the flap inspection?"], "course": "English for Aviation Maintenance", "unit": 6, "total": 32, "title": "Toolbox talk and the Dirty Dozen (human factors)", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "human factors", "def": "the things about people that affect safe work"}, {"term": "Dirty Dozen", "def": "the twelve common causes of maintenance error"}, {"term": "toolbox talk", "def": "a short safety briefing before a job"}, {"term": "near-miss", "def": "an event that almost caused harm"}, {"term": "complacency", "def": "over-confidence from routine; you stop checking"}, {"term": "fatigue", "def": "being very tired, so you make mistakes"}, {"term": "distraction", "def": "something that takes your attention off the task"}, {"term": "pressure", "def": "being pushed to work fast, often by time"}, {"term": "norms", "def": "the unsafe habits a team quietly accepts"}, {"term": "assertiveness", "def": "speaking up firmly about a safety concern"}, {"term": "awareness", "def": "knowing what is going on around you"}, {"term": "checklist", "def": "a list of steps you tick off in order"}, {"term": "cross-check", "def": "a check of your work by a second person"}, {"term": "double-check", "def": "to check something a second time yourself"}, {"term": "torque", "def": "the tightness set on a bolt with a wrench"}, {"term": "lockwire", "def": "thin wire that stops a bolt turning loose"}, {"term": "safety-critical", "def": "able to affect flight safety directly"}, {"term": "incident report", "def": "a written record of an unsafe event"}, {"term": "debrief", "def": "a short review talk after a job"}, {"term": "error chain", "def": "the series of small errors that lead to harm"}], "lines": ["Good morning, everyone. Before we start work, let us hold a short toolbox talk.", "Good idea. I heard there was a near-miss on the late shift yesterday.", "Yes, exactly. A technician almost left a spanner beside a control cable.", "That is frightening. What actually distracted him during the flap inspection?", "A phone call distracted him, so his attention left the job completely.", "So distraction was the main human factor behind this near-miss?", "Correct. Distraction is one of the twelve items in the Dirty Dozen.", "I agree, and I would add that complacency also played a part.", "Good point. He had done that task many times, so he felt over-confident.", "That is classic complacency, because routine work quietly lowers our awareness.", "Well said. When awareness drops, small mistakes begin to link together.", "You mean an error chain, where one slip leads straight to the next?", "Exactly. The phone call, the routine, and the noise formed an error chain.", "So human factors, not a technical fault, nearly caused the accident?", "Yes. That is why every toolbox talk should start with people, not tools.", "Understood. Please carry on, because I want to hear the full story.", "Let us open the floor now, so please add your own examples.", "For me, fatigue is the biggest risk on a long night shift.", "That is very true. Fatigue slows your thinking and hides simple errors.", "And pressure makes it worse, because we must release the aircraft on time.", "Agreed. Time pressure pushes people to skip a step or two.", "I would also add that some unsafe norms have crept into our team.", "Which norms do you mean? Please be specific for everyone here.", "We sometimes sign the checklist first, and then finish the task afterwards."], "roleplays": ["It is 07:00. Yesterday there was a near-miss caused by distraction.", "Your colleague has just described the distraction near-miss.", "The team sometimes signs the checklist before the task is finished.", "The talk is ending. You must agree the actions for the team."], "grammar": "In a toolbox talk, you recommend safe actions. You use modal verbs to do this. You use should and ought to for advice. You use must and have to for a strong rule. You use must not for something that is not allowed. Look at these lines from the dialogues.", "scenario": "It is 07:00 in a Part-145 hangar. Yesterday, on the late shift, a technician took a phone call during a flap inspection. He was distracted, and he left a spanner near a control cable. A colleague found it during a cross-check, so no damage occurred. It was a near-miss, not an accident. This morning you must lead a shor", "pron": ["Good morning, everyone. Before we start work, let us hold a short toolbox talk.", "Good idea. I heard there was a near-miss on the late shift yesterday.", "Yes, exactly. A technician almost left a spanner beside a control cable.", "That is frightening. What actually distracted him during the flap inspection?"], "course": "English for Aviation Maintenance", "unit": 6, "total": 32, "title": "Toolbox talk and the Dirty Dozen (human factors)", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}, "figures": [{"type": "doc", "where": "scenario", "title": "Incident report: flap inspection near-miss", "docTitle": "Incident Report Form", "caption": "the report uses precise past tense verbs to describe the sequence of events", "rows": [{"label": "Shift", "note": "The event happened on the late shift yesterday."}, {"label": "Task", "note": "The technician was carrying out a flap inspection."}, {"label": "Distraction", "note": "A phone call took his attention away from the job."}, {"label": "Hazard left", "note": "He left a spanner beside a control cable."}, {"label": "Discovery", "note": "A colleague found the spanner during a cross-check."}, {"label": "Classification", "note": "No damage occurred, so this was a near-miss, not an accident."}]}, {"type": "tree", "where": "grammar", "title": "Which modal verb do you need?", "caption": "each branch practises must, have to, should, ought to and must not for hangar rules", "levels": [{"q": "Is the action a strong regulatory rule?", "yes": "Use must or have to.", "no": "Go to the next question."}, {"q": "Is the action forbidden for safety?", "yes": "Use must not.", "no": "Go to the next question."}, {"q": "Is it only good practice, not a rule?", "yes": "Use should or ought to.", "no": "Check the checklist again."}]}, {"type": "compare", "where": "vocabulary", "title": "Two Dirty Dozen factors compared", "a": "Distraction", "b": "Complacency", "caption": "notice how each noun pairs with its own causes and defences in the Dirty Dozen", "rows": [["Definition", "Your attention leaves the task for something else", "You feel too confident and stop checking carefully"], ["Cause in this unit", "A phone call during the flap inspection", "Believing the job is always routine and safe"], ["Warning sign", "You forget where you put a tool", "You skip a double-check because it seems unnecessary"], ["Best defence", "Remove phones from safety-critical tasks", "Always use a checklist and cross-check"]]}, {"type": "timeline", "where": "speaking", "title": "From near-miss to toolbox talk", "caption": "practise past tense for the incident, then present tense for this morning's talk", "events": [{"t": "Late shift, yesterday", "e": "A technician takes a phone call.", "note": "The call distracts him during the flap inspection."}, {"t": "Yesterday, minutes later", "e": "He leaves a spanner near a control cable.", "note": "He does not notice the danger he has created."}, {"t": "Yesterday, cross-check", "e": "A colleague finds the spanner.", "note": "No damage occurs, so it becomes a near-miss."}, {"t": "Yesterday, end of shift", "e": "Someone writes an incident report.", "note": "The report records the whole error chain."}, {"t": "07:00 this morning", "e": "The team holds a toolbox talk.", "note": "They discuss the near-miss before starting work."}, {"t": "During the talk", "e": "The technicians name distraction as the cause.", "note": "They agree on safe actions for today's shift."}]}]};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -1484,5 +1500,277 @@ if(window.TSIBuddy){ TSIBuddy.mount({
     '<p class="pron-note">Scoring counts the words the browser recognised, so it rewards clear '
     + 'consonants and word stress. It is practice, not an exam.</p>');
   host.appendChild(card);
+})();
+</script><script>// LANG edition: unit figures.
+//
+// Every figure is DRAWN here from a small JSON spec the authoring agent writes, never hand-drawn
+// as SVG by the agent. That is deliberate: agent-authored SVG comes out different (and often
+// broken) in every unit, while a shared renderer gives one house style across a whole course.
+//
+// The types are chosen so each one carries a language function, not just a picture:
+//   doc      anatomy of a real document, callouts -> the vocabulary of its parts
+//   flow     ordered steps                        -> sequencing language, imperatives
+//   tree     a yes/no decision                    -> conditionals
+//   compare  two things side by side              -> comparatives
+//   timeline events across a shift or a check     -> tenses
+//
+// Figures with labels can be switched into "label it" mode, where the labels are blanked and the
+// learner types them back. That turns an illustration into a vocabulary exercise for free.
+(function () {
+  var SPEC = (window.__LANG_BUDDY__ || {}).figures;
+  if (!SPEC || !SPEC.length) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var INK = '#1b2733', INK2 = '#5a6b7d', BRAND = '#2F5496', AMBER = '#e0a53d', LINE = '#dbe1e9';
+
+  function el(name, attrs, text) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) if (attrs.hasOwnProperty(k)) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function svg(w, h) {
+    var s = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: '100%',
+      preserveAspectRatio: 'xMidYMid meet', role: 'img' });
+    s.style.maxWidth = w + 'px';
+    s.style.display = 'block';
+    s.style.margin = '0 auto';
+    return s;
+  }
+  // crude but reliable line wrapping: SVG has none of its own
+  function wrap(s, max) {
+    var out = [], line = '';
+    String(s || '').split(/\s+/).forEach(function (w) {
+      if ((line + ' ' + w).trim().length > max) { if (line) out.push(line); line = w; }
+      else line = (line ? line + ' ' : '') + w;
+    });
+    if (line) out.push(line);
+    return out;
+  }
+  function textBlock(parent, str, x, y, max, size, fill, lh) {
+    var lines = wrap(str, max);
+    lines.forEach(function (l, i) {
+      parent.appendChild(el('text', { x: x, y: y + i * (lh || size + 4),
+        'font-size': size, fill: fill, 'font-family': 'Inter, Segoe UI, sans-serif' }, l));
+    });
+    return lines.length * (lh || size + 4);
+  }
+  function box(parent, x, y, w, h, fill, stroke, r) {
+    parent.appendChild(el('rect', { x: x, y: y, width: w, height: h, rx: r == null ? 9 : r,
+      fill: fill || '#fff', stroke: stroke || LINE, 'stroke-width': 1.2 }));
+  }
+
+  // ---- doc: the anatomy of a document, with numbered callouts ------------------------------
+  // Rows are measured before they are drawn: a note that wraps to three lines gets a taller box
+  // instead of spilling out of it.
+  function drawDoc(f) {
+    var rows = f.rows || [], W = 720, gap = 8;
+    var hs = rows.map(function (r) { return Math.max(52, 34 + wrap(r.note || '', 78).length * 17); });
+    var H = 74 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Document'));
+    box(s, 20, 18, W - 40, H - 36, '#fdfdfb', LINE, 12);
+    s.appendChild(el('text', { x: 40, y: 48, 'font-size': 15, 'font-weight': '600',
+      fill: BRAND, 'font-family': 'Inter, sans-serif' }, f.docTitle || f.title || ''));
+    var y = 66;
+    rows.forEach(function (r, i) {
+      var rowH = hs[i];
+      box(s, 40, y, W - 80, rowH, '#fff', LINE, 8);
+      s.appendChild(el('circle', { cx: 62, cy: y + 26, r: 13, fill: BRAND }));
+      s.appendChild(el('text', { x: 62, y: y + 31, 'font-size': 13, fill: '#fff',
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 86, y: y + 21, 'font-size': 13.5, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, r.label || ''));
+      textBlock(s, r.note || '', 86, y + 39, 78, 12.5, INK2, 17);
+      y += rowH + gap;
+    });
+    return s;
+  }
+
+  // ---- flow: ordered steps -------------------------------------------------------------------
+  function drawFlow(f) {
+    var st = f.steps || [], W = 720, gap = 20;
+    var hs = st.map(function (t) {
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      return Math.max(56, 34 + wrap(note, 74).length * 17);
+    });
+    var H = 30 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Process'));
+    var yy = 16;
+    st.forEach(function (t, i) {
+      var bh = hs[i], y = yy;
+      yy += bh + gap;
+      var label = typeof t === 'string' ? t : (t.label || '');
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      box(s, 60, y, W - 120, bh, i === st.length - 1 ? '#fffdf5' : '#fff',
+        i === st.length - 1 ? '#f0dfbe' : LINE, 10);
+      s.appendChild(el('circle', { cx: 60, cy: y + bh / 2, r: 16, fill: i === st.length - 1 ? AMBER : BRAND }));
+      s.appendChild(el('text', { x: 60, y: y + bh / 2 + 5, 'font-size': 14,
+        fill: i === st.length - 1 ? '#2c1e05' : '#fff', 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 92, y: y + (note ? 26 : 34), 'font-size': 14, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, label));
+      if (note) textBlock(s, note, 92, y + 44, 74, 12.5, INK2, 17);
+      if (i < st.length - 1) {
+        s.appendChild(el('path', { d: 'M60 ' + (y + bh + 2) + ' L60 ' + (y + bh + gap - 4),
+          stroke: LINE, 'stroke-width': 2 }));
+        s.appendChild(el('path', { d: 'M55 ' + (y + bh + gap - 10) + ' L60 ' + (y + bh + gap - 3)
+          + ' L65 ' + (y + bh + gap - 10), stroke: INK2, 'stroke-width': 1.6, fill: 'none' }));
+      }
+    });
+    return s;
+  }
+
+  // ---- tree: one yes/no decision per level ---------------------------------------------------
+  function drawTree(f) {
+    var levels = f.levels || [], W = 720, H = 40 + levels.length * 118;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Decision'));
+    levels.forEach(function (lv, i) {
+      var y = 20 + i * 118;
+      box(s, 200, y, 320, 46, '#eef3fa', '#c9d9ee', 10);
+      s.appendChild(el('text', { x: 360, y: y + 28, 'font-size': 13.5, 'text-anchor': 'middle',
+        fill: BRAND, 'font-weight': '600', 'font-family': 'Inter, sans-serif' },
+        wrap(lv.q || '', 46)[0] || ''));
+      [['yes', 40, '#e6f6ee', '#a9dcc6', '#0f6e56'], ['no', 400, '#fdeceb', '#f3c6c2', '#8c2f27']]
+        .forEach(function (o) {
+          var t = lv[o[0]];
+          if (!t) return;
+          var x = o[1] + 40;
+          box(s, x, y + 66, 280, 40, o[2], o[3], 9);
+          s.appendChild(el('text', { x: x + 12, y: y + 84, 'font-size': 11.5, fill: o[4],
+            'font-weight': '600', 'font-family': 'Inter, sans-serif' }, o[0].toUpperCase()));
+          s.appendChild(el('text', { x: x + 48, y: y + 91, 'font-size': 12.5, fill: INK,
+            'font-family': 'Inter, sans-serif' }, wrap(t, 34)[0] || ''));
+          s.appendChild(el('path', { d: 'M360 ' + (y + 46) + ' L360 ' + (y + 56)
+            + ' L' + (x + 140) + ' ' + (y + 56) + ' L' + (x + 140) + ' ' + (y + 64),
+            stroke: LINE, 'stroke-width': 1.6, fill: 'none' }));
+        });
+    });
+    return s;
+  }
+
+  // ---- compare: two things, attribute by attribute -------------------------------------------
+  function drawCompare(f) {
+    var rows = f.rows || [], W = 720, rh = 44, H = 78 + rows.length * rh;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Comparison'));
+    box(s, 20, 18, W - 40, H - 36, '#fff', LINE, 12);
+    [[250, f.a], [500, f.b]].forEach(function (c) {
+      s.appendChild(el('text', { x: c[0], y: 48, 'font-size': 14, 'font-weight': '600', fill: BRAND,
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, c[1] || ''));
+    });
+    rows.forEach(function (r, i) {
+      var y = 62 + i * rh;
+      if (i) s.appendChild(el('path', { d: 'M40 ' + y + ' L' + (W - 40) + ' ' + y, stroke: '#eef1f5' }));
+      s.appendChild(el('text', { x: 44, y: y + 27, 'font-size': 12.5, fill: INK2,
+        'font-family': 'Inter, sans-serif' }, wrap(r[0], 22)[0] || ''));
+      s.appendChild(el('text', { x: 250, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[1], 26)[0] || ''));
+      s.appendChild(el('text', { x: 500, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[2], 26)[0] || ''));
+    });
+    return s;
+  }
+
+  // ---- timeline ------------------------------------------------------------------------------
+  function drawTimeline(f) {
+    var ev = f.events || [], W = 720, H = 60 + ev.length * 62;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Timeline'));
+    s.appendChild(el('path', { d: 'M120 30 L120 ' + (H - 26), stroke: LINE, 'stroke-width': 2 }));
+    ev.forEach(function (e, i) {
+      var y = 46 + i * 62;
+      s.appendChild(el('circle', { cx: 120, cy: y, r: 8, fill: BRAND }));
+      s.appendChild(el('text', { x: 104, y: y + 5, 'font-size': 12.5, fill: INK2, 'text-anchor': 'end',
+        'font-family': 'JetBrains Mono, monospace' }, e.t || ''));
+      s.appendChild(el('text', { x: 146, y: y - 2, 'font-size': 13.5, 'font-weight': '600', fill: INK,
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(e.e || '', 58)[0] || ''));
+      if (e.note) textBlock(s, e.note, 146, y + 16, 62, 12.5, INK2);
+    });
+    return s;
+  }
+
+  var DRAW = { doc: drawDoc, flow: drawFlow, tree: drawTree, compare: drawCompare, timeline: drawTimeline };
+
+  // Number the figures in READING order, not in the order the spec happens to list them: a figure
+  // written third but placed in the vocabulary section must not be called Figure 3 on a page where
+  // it appears second.
+  var ORDER = ['scenario', 'dialogues', 'reading', 'vocabulary', 'grammar', 'exercises',
+    'speaking', 'writing'];
+  var ordered = SPEC.slice().sort(function (a, b) {
+    return ORDER.indexOf(a.where || 'scenario') - ORDER.indexOf(b.where || 'scenario');
+  });
+
+  ordered.forEach(function (f, idx) {
+    var host = document.getElementById(f.where || 'scenario')
+      || document.getElementById('scenario') || document.querySelector('article') || document.body;
+    var draw = DRAW[f.type];
+    if (!draw) return;
+
+    var fig = document.createElement('figure');
+    fig.className = 'lang-fig';
+    var head = document.createElement('figcaption');
+    head.className = 'fig-head';
+    head.innerHTML = '<b>Figure ' + (idx + 1) + '. ' + (f.title || '') + '</b>';
+    fig.appendChild(head);
+
+    var holder = document.createElement('div');
+    holder.className = 'fig-body';
+    var node;
+    try { node = draw(f); } catch (e) { return; }
+    holder.appendChild(node);
+    fig.appendChild(holder);
+
+    if (f.caption) {
+      var cap = document.createElement('p');
+      cap.className = 'fig-cap';
+      cap.textContent = f.caption;
+      fig.appendChild(cap);
+    }
+
+    // "label it": blank the labels, let the learner type them back, check on blur
+    var labels = [].slice.call(node.querySelectorAll('.figlab'));
+    if (labels.length >= 3) {
+      var bar = document.createElement('div');
+      bar.className = 'fig-bar';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'fig-btn';
+      btn.textContent = 'Hide the labels and test me';
+      var answers = labels.map(function (l) { return l.textContent; });
+      var on = false;
+      btn.addEventListener('click', function () {
+        on = !on;
+        btn.textContent = on ? 'Show the labels again' : 'Hide the labels and test me';
+        labels.forEach(function (l, i) { l.textContent = on ? '?' : answers[i]; });
+        quiz.hidden = !on;
+      });
+      bar.appendChild(btn);
+      fig.appendChild(bar);
+
+      var quiz = document.createElement('div');
+      quiz.className = 'fig-quiz';
+      quiz.hidden = true;
+      answers.forEach(function (a, i) {
+        var row = document.createElement('label');
+        row.innerHTML = '<span>' + (i + 1) + '</span>';
+        var inp = document.createElement('input');
+        inp.placeholder = 'type the label';
+        inp.addEventListener('blur', function () {
+          if (!inp.value.trim()) return;
+          var ok = inp.value.trim().toLowerCase() === a.trim().toLowerCase();
+          inp.className = ok ? 'ok' : 'bad';
+          if (ok) labels[i].textContent = a;
+        });
+        row.appendChild(inp);
+        quiz.appendChild(row);
+      });
+      fig.appendChild(quiz);
+    }
+
+    host.appendChild(fig);
+  });
 })();
 </script><!--/CF-LANG-UI--></body></html>

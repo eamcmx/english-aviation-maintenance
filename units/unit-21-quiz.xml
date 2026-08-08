@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English for Aviation Maintenance · Unit 21 · Coordinating a functional test · CEFR B2
+     21 items · 5 types (multichoice, truefalse, numerical, shortanswer, matching) · no cloze
+     Split by skill: Listening x7 · Reading x4 · Use of English x6 · Vocabulary x4 -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U21-r1</text></category>
+    <info format="html"><text><![CDATA[Unit 21 — Coordinating a functional/operational test. Listening, reading, use of English and vocabulary.]]></text></info>
+  </question>
+
+  <!-- ================= LISTENING (7) ================= -->
+
+  <question type="multichoice">
+    <name><text>L1 · Dialogue 1 — the pre-test brief</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> Before the test continues, what does B fit on the other hydraulic system?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[B asks, "Should I fit the lockout on the other system before we continue?" and A agrees. The lockout tag stops anyone pressurising the system by accident.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The lockout tag]]></text><feedback format="html"><text><![CDATA[Correct. B fits the lockout tag in case somebody pressurises the system accidentally.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A new left flap actuator]]></text><feedback format="html"><text><![CDATA[No. No component is replaced during the brief; the actuator is only tested.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A placard on the flap lever]]></text><feedback format="html"><text><![CDATA[Not here. A placard is fitted later, only after the test fails.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L2 · Dialogue 2 — limit switch</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> The limit switch made at the fifteen setting, and the indication light was green.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[B reports: "The limit switch made at fifteen, and the indication light is green." "Made" means the switch closed and confirmed the position.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — the switch made at fifteen with a green indication.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Listen again: B clearly confirms the switch made at fifteen with a green light.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L3 · Dialogue 2 — switch setting</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> At which flap setting (in the number of degrees called) did the limit switch make? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The caller says "Flaps to fifteen", and B confirms the limit switch made at fifteen. The answer is 15.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>15</text><feedback format="html"><text><![CDATA[Correct — the switch made at the fifteen setting.]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Not quite. The caller says "Flaps to fifteen" and B confirms the switch made there.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L4 · Dialogue 4 — snag number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 4 again (the voicemail).</strong> What is the snag number raised in the tech log? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Rihards says: "I raised a snag in the tech log, number four four seven one." The answer is 4471.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>4471</text><feedback format="html"><text><![CDATA[Correct — snag number 4471.]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Listen to the digits again: "four four seven one" = 4471.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L5 · Dialogue 3 — why it fails</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> Why does the test fail?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[At full deflection the left flap lags the right by several degrees. That is visible asymmetry, and the AMM allows none, so the test fails.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The left flap lags the right.]]></text><feedback format="html"><text><![CDATA[Correct. The left flap trails at full deflection — visible asymmetry.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The hydraulic pressure dropped below normal.]]></text><feedback format="html"><text><![CDATA[No. The pressure stays normal throughout; the problem is asymmetry.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The limit switch never made at any stop.]]></text><feedback format="html"><text><![CDATA[No. The switch does make; it may be late, but the stated fail cause is asymmetry.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L6 · Dialogue 4 — safety state</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 4 again (the voicemail).</strong> The lockout tag has now been removed from the green system.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The voicemail says "The lockout tag is still fitted on the green system" and asks the next shift not to pressurise it. It has not been removed.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No — the tag is still fitted, because the aircraft stays unserviceable.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — the lockout tag is still fitted.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L7 · Dialogue 2 — number of settings called</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> How many flap settings does the caller name before "Flaps up"? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The caller names three settings — five, fifteen, and full deflection — before selecting flaps up. The answer is 3.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>3</text><feedback format="html"><text><![CDATA[Correct — five, fifteen, and full.]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Count them: five, fifteen, full = 3 settings before "Flaps up".]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <!-- ================= READING (4) ================= -->
+
+  <question type="multichoice">
+    <name><text>R1 · Reading — MEL entry</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the MEL entry, then answer.</strong></p>
+    <blockquote><strong>MEL 27-51 — Flap Position Indication.</strong> One flap position indicator may be inoperative provided the flap system passes a functional test before each flight and the flight crew is advised. Repair interval: Category C (10 days).</blockquote>
+    <p>Under this MEL, what must happen before each flight?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The MEL allows dispatch only "provided the flap system passes a functional test before each flight". The functional test is the condition.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[A flap functional test.]]></text><feedback format="html"><text><![CDATA[Correct — the flap system must pass a functional test before each flight.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Both flap position indicators must be replaced.]]></text><feedback format="html"><text><![CDATA[No. The MEL permits one indicator to be inoperative; it does not require replacement.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The repair interval must be extended to ten days.]]></text><feedback format="html"><text><![CDATA[No. Category C simply allows up to 10 days for the repair; it is not a pre-flight action.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R2 · Reading — BITE readout</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the BITE readout, then answer.</strong></p>
+    <blockquote><strong>BITE MENU 3 — FLAP.</strong> LH ACTUATION CHANNEL — FAULT 27-51-34. RH ACTUATION CHANNEL — NORMAL. LIMIT SW LH — LATE. RECOMMENDED: INSPECT LH ACTUATOR AND WIRING.</blockquote>
+    <p>The readout reports the right (RH) actuation channel as normal.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The readout shows "RH ACTUATION CHANNEL — NORMAL"; the fault is on the left (LH) channel, with a late left limit switch.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — the right channel is normal; only the left channel has a fault.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Read again: "RH ACTUATION CHANNEL — NORMAL." The right channel is normal.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R3 · Reading — service bulletin</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the service bulletin, then answer.</strong></p>
+    <blockquote><strong>SB A27-042 — Flap Actuator, Left.</strong> Operators must inspect the left flap actuator attachment bolts within 200 flight hours. If asymmetry is reported, inspect before further flight.</blockquote>
+    <p>If flap asymmetry is reported, when must the inspection happen?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The bulletin sets a routine limit of 200 flight hours, but adds that a reported asymmetry brings the inspection forward — "inspect before further flight".]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Before further flight.]]></text><feedback format="html"><text><![CDATA[Correct — a reported asymmetry requires inspection before further flight.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Only at the next scheduled maintenance check.]]></text><feedback format="html"><text><![CDATA[No. Waiting for the next check ignores the "before further flight" clause.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Any time within the next 200 flight hours.]]></text><feedback format="html"><text><![CDATA[No. The 200-hour limit is the routine case; a reported asymmetry overrides it.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 · Reading — work order note</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the work order note, then answer.</strong></p>
+    <blockquote><strong>WORK ORDER 7788.</strong> Do not pressurise the green hydraulic system until this work order is closed. Keep clearance from the flaps at all times.</blockquote>
+    <p>You may pressurise the green system while the work order is still open.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The note gives a direct order: "Do not pressurise the green hydraulic system until this work order is closed." Open work order means no pressurising.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No. The order forbids pressurising until the work order is closed.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — do not pressurise until the work order is closed.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= USE OF ENGLISH (6) ================= -->
+
+  <question type="shortanswer">
+    <name><text>U1 · Transform — negative imperative</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Rewrite as a short safety warning (imperative). Use the base verb, no subject.</p><p><em>You must not touch the actuator.</em> &rarr; ______</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[A negative order uses "Do not" + base verb, with no subject: <strong>Do not touch the actuator.</strong> "Don't touch the actuator" is also correct.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>Do not touch the actuator</text><feedback format="html"><text><![CDATA[Correct — "Do not" + base verb, no subject.]]></text></feedback></answer>
+    <answer fraction="100"><text>Do not touch the actuator.</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>Don't touch the actuator</text><feedback format="html"><text><![CDATA[Correct — the contraction is fine.]]></text></feedback></answer>
+    <answer fraction="100"><text>Don't touch the actuator.</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use "Do not + base verb" with no subject: Do not touch the actuator.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 · Transform — positive imperative</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Rewrite as a short order (imperative).</p><p><em>It is necessary to fit a lockout.</em> &rarr; ______</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Drop "It is necessary to" and use the bare base verb: <strong>Fit a lockout.</strong> "Fit the lockout" is also accepted.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>Fit a lockout</text><feedback format="html"><text><![CDATA[Correct — base verb only.]]></text></feedback></answer>
+    <answer fraction="100"><text>Fit a lockout.</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>Fit the lockout</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>Fit the lockout.</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use the base verb with no subject: Fit a lockout.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 · Transform — drop the modal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Rewrite as a short order (imperative).</p><p><em>You should keep clearance.</em> &rarr; ______</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Drop "You should" and start with the base verb: <strong>Keep clearance.</strong> No subject, no modal.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>Keep clearance</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>Keep clearance.</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>Keep your clearance</text><feedback format="html"><text><![CDATA[Correct — "your" is natural here.]]></text></feedback></answer>
+    <answer fraction="100"><text>Keep your clearance.</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use the base verb with no subject: Keep clearance.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 · Collocation — raise a snag</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing verb.</p><p>When a functional test fails, we ______ a snag in the tech log.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The fixed collocation is to <strong>raise</strong> a snag — you write it up for repair.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>raise</text><feedback format="html"><text><![CDATA[Correct — raise a snag.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The verb is "raise": raise a snag in the tech log.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 · Term — full deflection</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing testing term.</p><p>The pass criteria require both flaps to reach full ______ together, with no visible asymmetry.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA["Full <strong>deflection</strong>" means the surface has moved to its end travel from the neutral position.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>deflection</text><feedback format="html"><text><![CDATA[Correct — full deflection.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The term is "deflection" — how far the surface moves from neutral.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 · Correct the error</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Correct the English. Write the whole warning correctly.</p><p><em>No stand near the flaps.</em> &rarr; ______</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA["No + verb" is a first-language habit. English uses "Do not + base verb": <strong>Do not stand near the flaps.</strong> "Don't stand near the flaps" is also correct.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>Do not stand near the flaps</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>Do not stand near the flaps.</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="100"><text>Don't stand near the flaps</text><feedback format="html"><text><![CDATA[Correct — the contraction is fine.]]></text></feedback></answer>
+    <answer fraction="100"><text>Don't stand near the flaps.</text><feedback format="html"><text><![CDATA[Correct.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use "Do not + base verb": Do not stand near the flaps.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= VOCABULARY (4) ================= -->
+
+  <question type="matching">
+    <name><text>V1 · Match the testing term to its meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Keep "actuation" (the movement) apart from "actuator" (the device). Pass criteria = the result to reach; a snag = a written-up fault.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[actuation]]></text><answer><text>the movement of a part when a force drives it</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[actuator]]></text><answer><text>the device that turns pressure into movement</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[pass criteria]]></text><answer><text>the exact result a test must reach to pass</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[snag]]></text><answer><text>a fault that you write up for repair</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 · Match the safety/paperwork term to its meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Lockout and placard both warn, but a lockout stops the system while a placard marks the hazard. BITE is the system's self-test; clearance is a safe distance.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[lockout]]></text><answer><text>a tag or lock that stops a system being used</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[placard]]></text><answer><text>a warning card fitted to mark a hazard</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>the system's own built-in self-test</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[clearance]]></text><answer><text>a safe distance from a moving part</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V3 · Match the verb to the noun (collocation)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each verb to the noun it goes with.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[These verb+noun pairs are fixed: raise a snag, fit the lockout, keep clearance, meet the pass criteria. Learn the whole chunk, not the bare noun.]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[raise]]></text><answer><text>a snag</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[fit]]></text><answer><text>the lockout</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[keep]]></text><answer><text>clearance</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[meet]]></text><answer><text>the pass criteria</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V4 · Match the result term to its meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[These are the terms you use to read the result: deflection (distance from neutral), asymmetry (one side unlike the other), limit switch (end-point signal), rigging (the alignment setting).]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[deflection]]></text><answer><text>how far a surface moves from its neutral place</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[asymmetry]]></text><answer><text>one side moving differently from the other</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[limit switch]]></text><answer><text>a switch that signals a part has reached its end point</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[rigging]]></text><answer><text>the setting that aligns a surface correctly</text></answer></subquestion>
+  </question>
+
+</quiz>

@@ -337,6 +337,22 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 .pron-score.poor { color: #8c2f27; }
 .pron-heard { font-size: 13px; color: var(--ink-2, #5a6b7d); margin-top: 7px; font-style: italic; }
 .pron-note { font-size: 12.5px; color: var(--ink-2, #5a6b7d); margin-top: 12px; }
+
+/* ---- unit figures --------------------------------------------------------------------------- */
+.lang-fig { margin: 26px 0; padding: 0; background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; overflow: hidden; }
+.lang-fig .fig-head { padding: 13px 20px; border-bottom: 1px solid var(--line, #e2e6ec); background: #fbfcfe; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.lang-fig .fig-head b { color: var(--brand, #2F5496); font-weight: 600; }
+.lang-fig .fig-body { padding: 18px 16px; overflow-x: auto; }
+.lang-fig .fig-cap { margin: 0; padding: 0 20px 16px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); line-height: 1.55; }
+.lang-fig .fig-bar { padding: 0 20px 16px; }
+.fig-btn { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px; padding: 7px 15px; font-size: 12.5px; font-family: inherit; color: var(--brand, #2F5496); cursor: pointer; }
+.fig-btn:hover { border-color: var(--brand, #2F5496); background: #f6f9fd; }
+.fig-quiz { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 9px; padding: 0 20px 18px; }
+.fig-quiz label { display: flex; align-items: center; gap: 8px; }
+.fig-quiz label span { width: 22px; height: 22px; flex: none; border-radius: 50%; background: var(--brand, #2F5496); color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.fig-quiz input { flex: 1; min-width: 0; padding: 7px 10px; border: 1px solid var(--line, #e2e6ec); border-radius: 8px; font-size: 13px; font-family: inherit; }
+.fig-quiz input.ok { border-color: #0f6e56; background: #e6f6ee; color: #0f6e56; }
+.fig-quiz input.bad { border-color: #c0392b; background: #fdeceb; color: #8c2f27; }
 </style><!--/CF-LANG-UI--></head>
 <body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 9 of 32 · Talking through a troubleshooting approach</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 fault isolation, symptom, root cause, isolate</span></div></div></header>
 <article>
@@ -859,7 +875,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "symptom", "def": "A visible sign that clearly tells you something is wrong."}, {"term": "root cause", "def": "The real underlying reason for the fault, not just the visible sign."}, {"term": "isolate", "def": "To narrow the fault down systematically to one part or area."}, {"term": "fault", "def": "Something broken, or something not working the way it should."}, {"term": "intermittent", "def": "A fault that appears and disappears, rather than being there constantly."}, {"term": "troubleshoot", "def": "To find the underlying cause of a fault methodically, step by step."}, {"term": "BITE", "def": "Built-in test equipment; the automated self-test that displays fault codes."}, {"term": "wiring diagram", "def": "A technical drawing that shows exactly how the wires connect together."}, {"term": "harness", "def": "A bundle of electrical wires wrapped and routed together."}, {"term": "connector", "def": "A plug that mechanically joins two wires or two units together."}, {"term": "continuity", "def": "An unbroken electrical path for the current along a wire."}, {"term": "short circuit", "def": "When the current takes a wrong, direct path it should not take."}, {"term": "open circuit", "def": "A complete break in the path, so no current can flow at all."}, {"term": "circuit breaker", "def": "A protective switch that trips automatically to protect a circuit."}, {"term": "bench test", "def": "A controlled test of a unit on the workbench, away from the aircraft."}, {"term": "swap", "def": "To exchange one unit for another, usually in order to check it."}, {"term": "serviceable", "def": "Fit to use, and legally acceptable to fit or to fly."}, {"term": "tech log", "def": "The aircraft logbook that records each fault and each action taken."}, {"term": "AMM", "def": "The Aircraft Maintenance Manual, which contains the approved repair steps."}, {"term": "defer", "def": "To carry a fault now and rectify it later, under the MEL."}, {"term": "MEL", "def": "The minimum equipment list; it states what may be unserviceable for dispatch."}], "lines": ["The right flap moves slowly today, although the left one behaves normally. That sluggish movement is our main symptom.", "Right, so our first job is to isolate the fault systematically. Is the underlying problem electrical or mechanical?", "Good question. If the motor runs but the flap still sticks, the root cause is almost certainly mechanical.", "However, if the motor stays completely silent, the fault is probably electrical instead.", "Exactly, so let us not guess randomly. Instead, we should follow a logical, repeatable sequence.", "Agreed. First I will check the circuit breaker on panel P6, because a tripped breaker would explain everything.", "If the breaker is tripped, reset it once and then watch it carefully for a moment.", "The breaker looks perfectly fine, however, because it has clearly not tripped at all.", "Then we should test the connector at the actuator, since a loose connector often causes an intermittent fault.", "True, because the fault comes and goes unpredictably, so a loose connection fits the evidence well.", "I will run a continuity check along the wire, and if there is no continuity, the wire is broken.", "Meanwhile, I will feel along the flap track carefully, checking for any stiffness or obstruction.", "The continuity reading is good, so the wiring is definitely not the root cause here.", "And the track moves completely freely, so it is clearly not a mechanical jam either.", "Then the actuator itself must be weak, although we should not replace it prematurely.", "Agreed. If it fails the bench test tomorrow, we will replace the actuator immediately.", "The VHF radio keeps dropping out during flight, so the crew recorded the complaint in the tech log.", "An intermittent fault is genuinely the hardest kind to troubleshoot, because it usually hides on the ground.", "Let us start with the BITE, since the built-in test may have stored a useful fault code.", "Good idea. The BITE reports a fault on the antenna feeder line, which narrows things down nicely.", "So we open the wiring diagram and carefully trace that particular feeder line.", "The diagram shows one connector hidden behind the panel, so let us inspect it first.", "The connector pins look perfectly clean, although the harness behind it is badly chafed.", "A chafed harness can easily cause a short circuit against the metal frame."], "roleplays": ["The right flap moves slowly, although the cause is not clear yet.", "The VHF radio has an intermittent fault, and the BITE points to the feeder line.", "A brake seal is leaking, and the seal kit is not in stock today.", "Your colleague wants to change the actuator at once, although you are not sure."], "grammar": "In troubleshooting you constantly link a likely test to a likely result, and English does this neatly with the first conditional. You state what you will do, and you state what happens if the condition turns out to be true. Look carefully at these three lines taken directly from the dialogues.", "scenario": "You are in the hangar with a colleague, although neither of you knows yet why the right flap moves so slowly. One of you suspects the fault is electrical, while the other is convinced it is mechanical. You cannot simply change parts at random, because that approach wastes both time and serviceable units. Instead, you m", "pron": ["However, if the motor stays completely silent, the fault is probably electrical instead.", "Exactly, so let us not guess randomly. Instead, we should follow a logical, repeatable sequence.", "If the breaker is tripped, reset it once and then watch it carefully for a moment.", "The breaker looks perfectly fine, however, because it has clearly not tripped at all."], "course": "English for Aviation Maintenance", "unit": 9, "total": 32, "title": "Talking through a troubleshooting approach", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "symptom", "def": "A visible sign that clearly tells you something is wrong."}, {"term": "root cause", "def": "The real underlying reason for the fault, not just the visible sign."}, {"term": "isolate", "def": "To narrow the fault down systematically to one part or area."}, {"term": "fault", "def": "Something broken, or something not working the way it should."}, {"term": "intermittent", "def": "A fault that appears and disappears, rather than being there constantly."}, {"term": "troubleshoot", "def": "To find the underlying cause of a fault methodically, step by step."}, {"term": "BITE", "def": "Built-in test equipment; the automated self-test that displays fault codes."}, {"term": "wiring diagram", "def": "A technical drawing that shows exactly how the wires connect together."}, {"term": "harness", "def": "A bundle of electrical wires wrapped and routed together."}, {"term": "connector", "def": "A plug that mechanically joins two wires or two units together."}, {"term": "continuity", "def": "An unbroken electrical path for the current along a wire."}, {"term": "short circuit", "def": "When the current takes a wrong, direct path it should not take."}, {"term": "open circuit", "def": "A complete break in the path, so no current can flow at all."}, {"term": "circuit breaker", "def": "A protective switch that trips automatically to protect a circuit."}, {"term": "bench test", "def": "A controlled test of a unit on the workbench, away from the aircraft."}, {"term": "swap", "def": "To exchange one unit for another, usually in order to check it."}, {"term": "serviceable", "def": "Fit to use, and legally acceptable to fit or to fly."}, {"term": "tech log", "def": "The aircraft logbook that records each fault and each action taken."}, {"term": "AMM", "def": "The Aircraft Maintenance Manual, which contains the approved repair steps."}, {"term": "defer", "def": "To carry a fault now and rectify it later, under the MEL."}, {"term": "MEL", "def": "The minimum equipment list; it states what may be unserviceable for dispatch."}], "lines": ["The right flap moves slowly today, although the left one behaves normally. That sluggish movement is our main symptom.", "Right, so our first job is to isolate the fault systematically. Is the underlying problem electrical or mechanical?", "Good question. If the motor runs but the flap still sticks, the root cause is almost certainly mechanical.", "However, if the motor stays completely silent, the fault is probably electrical instead.", "Exactly, so let us not guess randomly. Instead, we should follow a logical, repeatable sequence.", "Agreed. First I will check the circuit breaker on panel P6, because a tripped breaker would explain everything.", "If the breaker is tripped, reset it once and then watch it carefully for a moment.", "The breaker looks perfectly fine, however, because it has clearly not tripped at all.", "Then we should test the connector at the actuator, since a loose connector often causes an intermittent fault.", "True, because the fault comes and goes unpredictably, so a loose connection fits the evidence well.", "I will run a continuity check along the wire, and if there is no continuity, the wire is broken.", "Meanwhile, I will feel along the flap track carefully, checking for any stiffness or obstruction.", "The continuity reading is good, so the wiring is definitely not the root cause here.", "And the track moves completely freely, so it is clearly not a mechanical jam either.", "Then the actuator itself must be weak, although we should not replace it prematurely.", "Agreed. If it fails the bench test tomorrow, we will replace the actuator immediately.", "The VHF radio keeps dropping out during flight, so the crew recorded the complaint in the tech log.", "An intermittent fault is genuinely the hardest kind to troubleshoot, because it usually hides on the ground.", "Let us start with the BITE, since the built-in test may have stored a useful fault code.", "Good idea. The BITE reports a fault on the antenna feeder line, which narrows things down nicely.", "So we open the wiring diagram and carefully trace that particular feeder line.", "The diagram shows one connector hidden behind the panel, so let us inspect it first.", "The connector pins look perfectly clean, although the harness behind it is badly chafed.", "A chafed harness can easily cause a short circuit against the metal frame."], "roleplays": ["The right flap moves slowly, although the cause is not clear yet.", "The VHF radio has an intermittent fault, and the BITE points to the feeder line.", "A brake seal is leaking, and the seal kit is not in stock today.", "Your colleague wants to change the actuator at once, although you are not sure."], "grammar": "In troubleshooting you constantly link a likely test to a likely result, and English does this neatly with the first conditional. You state what you will do, and you state what happens if the condition turns out to be true. Look carefully at these three lines taken directly from the dialogues.", "scenario": "You are in the hangar with a colleague, although neither of you knows yet why the right flap moves so slowly. One of you suspects the fault is electrical, while the other is convinced it is mechanical. You cannot simply change parts at random, because that approach wastes both time and serviceable units. Instead, you m", "pron": ["However, if the motor stays completely silent, the fault is probably electrical instead.", "Exactly, so let us not guess randomly. Instead, we should follow a logical, repeatable sequence.", "If the breaker is tripped, reset it once and then watch it carefully for a moment.", "The breaker looks perfectly fine, however, because it has clearly not tripped at all."], "course": "English for Aviation Maintenance", "unit": 9, "total": 32, "title": "Talking through a troubleshooting approach", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}, "figures": [{"type": "doc", "where": "scenario", "title": "Right flap fault report", "docTitle": "Tech Log Entry — Right Flap Slow", "caption": "Read the entry the way the mechanics do: symptom first, then the plan, then the first conditional tests.", "rows": [{"label": "Symptom", "note": "The right flap moves slowly today, although the left flap behaves normally."}, {"label": "Open question", "note": "Nobody yet knows if the underlying problem is electrical or mechanical."}, {"label": "First job", "note": "Isolate the fault systematically instead of changing parts at random."}, {"label": "Mechanical test", "note": "If the motor runs but the flap still sticks, the root cause is almost certainly mechanical."}, {"label": "Electrical test", "note": "If the motor stays completely silent, the fault is probably electrical instead."}, {"label": "First check", "note": "Check the circuit breaker on panel P6, because a tripped breaker would explain everything."}]}, {"type": "tree", "where": "grammar", "title": "If the motor runs... first conditional decisions", "caption": "Each question is a first conditional: if + present simple, then a likely result with will or an almost certain conclusion.", "levels": [{"q": "If you run the motor, does the flap still stick?", "yes": "Then the root cause is almost certainly mechanical.", "no": "Then the motor is not the cause; check further."}, {"q": "If the motor stays completely silent, is power reaching it?", "yes": "Then the fault is probably electrical instead.", "no": "Then check the harness and connector for damage."}, {"q": "Will you check the circuit breaker on panel P6 first?", "yes": "Then a tripped breaker would explain everything.", "no": "Then move to the wiring diagram and test continuity."}]}, {"type": "compare", "where": "vocabulary", "title": "Electrical fault vs mechanical fault", "a": "Electrical fault", "b": "Mechanical fault", "caption": "Same symptom, two fault families: match each clue and tool to the right side of the troubleshooting logic.", "rows": [["Motor behaviour", "Motor stays completely silent", "Motor runs but flap still sticks"], ["Where you look first", "Circuit breaker, wiring diagram, harness", "Linkage, actuator, physical inspection"], ["Typical fault word", "Short circuit or open circuit", "Jammed or worn mechanical part"], ["How you isolate it", "Test continuity through the connector", "Bench test or swap the component"], ["Record if unresolved", "Note in tech log; check MEL to defer", "Note in tech log; check MEL to defer"]]}, {"type": "flow", "where": "grammar", "title": "A logical, repeatable sequence", "caption": "Each step states an action; the note attached is the if-clause that justifies it, just like in the dialogue.", "steps": [{"label": "Identify the symptom", "note": "Name exactly what is wrong, for example the sluggish right flap movement."}, {"label": "Isolate the fault", "note": "Decide first whether the problem is electrical or mechanical."}, {"label": "Don't guess randomly", "note": "Follow a logical, repeatable sequence instead of swapping serviceable parts."}, {"label": "Check the circuit breaker", "note": "Check panel P6 first, because a tripped breaker would explain everything."}, {"label": "Confirm with BITE data", "note": "Use BITE or a bench test to confirm the root cause before ordering parts."}, {"label": "Record and defer if needed", "note": "Log the finding in the tech log, and check the MEL if you must defer it."}]}, {"type": "timeline", "where": "speaking", "title": "How the troubleshooting conversation unfolds", "caption": "Notice the order words and conditionals that move the dialogue from symptom to a first concrete action.", "events": [{"t": "00:00", "e": "State the symptom", "note": "The right flap moves slowly today, although the left one behaves normally."}, {"t": "00:20", "e": "Name the main symptom", "note": "That sluggish movement is our main symptom."}, {"t": "00:45", "e": "Set the first job", "note": "Our first job is to isolate the fault systematically."}, {"t": "01:05", "e": "Ask the key question", "note": "Is the underlying problem electrical or mechanical?"}, {"t": "01:30", "e": "Give the mechanical test", "note": "If the motor runs but the flap still sticks, the root cause is almost certainly mechanical."}, {"t": "02:00", "e": "Commit to the first action", "note": "First I will check the circuit breaker on panel P6, because a tripped breaker would explain everything."}]}]};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -1256,5 +1272,277 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     '<p class="pron-note">Scoring counts the words the browser recognised, so it rewards clear '
     + 'consonants and word stress. It is practice, not an exam.</p>');
   host.appendChild(card);
+})();
+</script><script>// LANG edition: unit figures.
+//
+// Every figure is DRAWN here from a small JSON spec the authoring agent writes, never hand-drawn
+// as SVG by the agent. That is deliberate: agent-authored SVG comes out different (and often
+// broken) in every unit, while a shared renderer gives one house style across a whole course.
+//
+// The types are chosen so each one carries a language function, not just a picture:
+//   doc      anatomy of a real document, callouts -> the vocabulary of its parts
+//   flow     ordered steps                        -> sequencing language, imperatives
+//   tree     a yes/no decision                    -> conditionals
+//   compare  two things side by side              -> comparatives
+//   timeline events across a shift or a check     -> tenses
+//
+// Figures with labels can be switched into "label it" mode, where the labels are blanked and the
+// learner types them back. That turns an illustration into a vocabulary exercise for free.
+(function () {
+  var SPEC = (window.__LANG_BUDDY__ || {}).figures;
+  if (!SPEC || !SPEC.length) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var INK = '#1b2733', INK2 = '#5a6b7d', BRAND = '#2F5496', AMBER = '#e0a53d', LINE = '#dbe1e9';
+
+  function el(name, attrs, text) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) if (attrs.hasOwnProperty(k)) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function svg(w, h) {
+    var s = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: '100%',
+      preserveAspectRatio: 'xMidYMid meet', role: 'img' });
+    s.style.maxWidth = w + 'px';
+    s.style.display = 'block';
+    s.style.margin = '0 auto';
+    return s;
+  }
+  // crude but reliable line wrapping: SVG has none of its own
+  function wrap(s, max) {
+    var out = [], line = '';
+    String(s || '').split(/\s+/).forEach(function (w) {
+      if ((line + ' ' + w).trim().length > max) { if (line) out.push(line); line = w; }
+      else line = (line ? line + ' ' : '') + w;
+    });
+    if (line) out.push(line);
+    return out;
+  }
+  function textBlock(parent, str, x, y, max, size, fill, lh) {
+    var lines = wrap(str, max);
+    lines.forEach(function (l, i) {
+      parent.appendChild(el('text', { x: x, y: y + i * (lh || size + 4),
+        'font-size': size, fill: fill, 'font-family': 'Inter, Segoe UI, sans-serif' }, l));
+    });
+    return lines.length * (lh || size + 4);
+  }
+  function box(parent, x, y, w, h, fill, stroke, r) {
+    parent.appendChild(el('rect', { x: x, y: y, width: w, height: h, rx: r == null ? 9 : r,
+      fill: fill || '#fff', stroke: stroke || LINE, 'stroke-width': 1.2 }));
+  }
+
+  // ---- doc: the anatomy of a document, with numbered callouts ------------------------------
+  // Rows are measured before they are drawn: a note that wraps to three lines gets a taller box
+  // instead of spilling out of it.
+  function drawDoc(f) {
+    var rows = f.rows || [], W = 720, gap = 8;
+    var hs = rows.map(function (r) { return Math.max(52, 34 + wrap(r.note || '', 78).length * 17); });
+    var H = 74 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Document'));
+    box(s, 20, 18, W - 40, H - 36, '#fdfdfb', LINE, 12);
+    s.appendChild(el('text', { x: 40, y: 48, 'font-size': 15, 'font-weight': '600',
+      fill: BRAND, 'font-family': 'Inter, sans-serif' }, f.docTitle || f.title || ''));
+    var y = 66;
+    rows.forEach(function (r, i) {
+      var rowH = hs[i];
+      box(s, 40, y, W - 80, rowH, '#fff', LINE, 8);
+      s.appendChild(el('circle', { cx: 62, cy: y + 26, r: 13, fill: BRAND }));
+      s.appendChild(el('text', { x: 62, y: y + 31, 'font-size': 13, fill: '#fff',
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 86, y: y + 21, 'font-size': 13.5, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, r.label || ''));
+      textBlock(s, r.note || '', 86, y + 39, 78, 12.5, INK2, 17);
+      y += rowH + gap;
+    });
+    return s;
+  }
+
+  // ---- flow: ordered steps -------------------------------------------------------------------
+  function drawFlow(f) {
+    var st = f.steps || [], W = 720, gap = 20;
+    var hs = st.map(function (t) {
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      return Math.max(56, 34 + wrap(note, 74).length * 17);
+    });
+    var H = 30 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Process'));
+    var yy = 16;
+    st.forEach(function (t, i) {
+      var bh = hs[i], y = yy;
+      yy += bh + gap;
+      var label = typeof t === 'string' ? t : (t.label || '');
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      box(s, 60, y, W - 120, bh, i === st.length - 1 ? '#fffdf5' : '#fff',
+        i === st.length - 1 ? '#f0dfbe' : LINE, 10);
+      s.appendChild(el('circle', { cx: 60, cy: y + bh / 2, r: 16, fill: i === st.length - 1 ? AMBER : BRAND }));
+      s.appendChild(el('text', { x: 60, y: y + bh / 2 + 5, 'font-size': 14,
+        fill: i === st.length - 1 ? '#2c1e05' : '#fff', 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 92, y: y + (note ? 26 : 34), 'font-size': 14, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, label));
+      if (note) textBlock(s, note, 92, y + 44, 74, 12.5, INK2, 17);
+      if (i < st.length - 1) {
+        s.appendChild(el('path', { d: 'M60 ' + (y + bh + 2) + ' L60 ' + (y + bh + gap - 4),
+          stroke: LINE, 'stroke-width': 2 }));
+        s.appendChild(el('path', { d: 'M55 ' + (y + bh + gap - 10) + ' L60 ' + (y + bh + gap - 3)
+          + ' L65 ' + (y + bh + gap - 10), stroke: INK2, 'stroke-width': 1.6, fill: 'none' }));
+      }
+    });
+    return s;
+  }
+
+  // ---- tree: one yes/no decision per level ---------------------------------------------------
+  function drawTree(f) {
+    var levels = f.levels || [], W = 720, H = 40 + levels.length * 118;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Decision'));
+    levels.forEach(function (lv, i) {
+      var y = 20 + i * 118;
+      box(s, 200, y, 320, 46, '#eef3fa', '#c9d9ee', 10);
+      s.appendChild(el('text', { x: 360, y: y + 28, 'font-size': 13.5, 'text-anchor': 'middle',
+        fill: BRAND, 'font-weight': '600', 'font-family': 'Inter, sans-serif' },
+        wrap(lv.q || '', 46)[0] || ''));
+      [['yes', 40, '#e6f6ee', '#a9dcc6', '#0f6e56'], ['no', 400, '#fdeceb', '#f3c6c2', '#8c2f27']]
+        .forEach(function (o) {
+          var t = lv[o[0]];
+          if (!t) return;
+          var x = o[1] + 40;
+          box(s, x, y + 66, 280, 40, o[2], o[3], 9);
+          s.appendChild(el('text', { x: x + 12, y: y + 84, 'font-size': 11.5, fill: o[4],
+            'font-weight': '600', 'font-family': 'Inter, sans-serif' }, o[0].toUpperCase()));
+          s.appendChild(el('text', { x: x + 48, y: y + 91, 'font-size': 12.5, fill: INK,
+            'font-family': 'Inter, sans-serif' }, wrap(t, 34)[0] || ''));
+          s.appendChild(el('path', { d: 'M360 ' + (y + 46) + ' L360 ' + (y + 56)
+            + ' L' + (x + 140) + ' ' + (y + 56) + ' L' + (x + 140) + ' ' + (y + 64),
+            stroke: LINE, 'stroke-width': 1.6, fill: 'none' }));
+        });
+    });
+    return s;
+  }
+
+  // ---- compare: two things, attribute by attribute -------------------------------------------
+  function drawCompare(f) {
+    var rows = f.rows || [], W = 720, rh = 44, H = 78 + rows.length * rh;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Comparison'));
+    box(s, 20, 18, W - 40, H - 36, '#fff', LINE, 12);
+    [[250, f.a], [500, f.b]].forEach(function (c) {
+      s.appendChild(el('text', { x: c[0], y: 48, 'font-size': 14, 'font-weight': '600', fill: BRAND,
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, c[1] || ''));
+    });
+    rows.forEach(function (r, i) {
+      var y = 62 + i * rh;
+      if (i) s.appendChild(el('path', { d: 'M40 ' + y + ' L' + (W - 40) + ' ' + y, stroke: '#eef1f5' }));
+      s.appendChild(el('text', { x: 44, y: y + 27, 'font-size': 12.5, fill: INK2,
+        'font-family': 'Inter, sans-serif' }, wrap(r[0], 22)[0] || ''));
+      s.appendChild(el('text', { x: 250, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[1], 26)[0] || ''));
+      s.appendChild(el('text', { x: 500, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[2], 26)[0] || ''));
+    });
+    return s;
+  }
+
+  // ---- timeline ------------------------------------------------------------------------------
+  function drawTimeline(f) {
+    var ev = f.events || [], W = 720, H = 60 + ev.length * 62;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Timeline'));
+    s.appendChild(el('path', { d: 'M120 30 L120 ' + (H - 26), stroke: LINE, 'stroke-width': 2 }));
+    ev.forEach(function (e, i) {
+      var y = 46 + i * 62;
+      s.appendChild(el('circle', { cx: 120, cy: y, r: 8, fill: BRAND }));
+      s.appendChild(el('text', { x: 104, y: y + 5, 'font-size': 12.5, fill: INK2, 'text-anchor': 'end',
+        'font-family': 'JetBrains Mono, monospace' }, e.t || ''));
+      s.appendChild(el('text', { x: 146, y: y - 2, 'font-size': 13.5, 'font-weight': '600', fill: INK,
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(e.e || '', 58)[0] || ''));
+      if (e.note) textBlock(s, e.note, 146, y + 16, 62, 12.5, INK2);
+    });
+    return s;
+  }
+
+  var DRAW = { doc: drawDoc, flow: drawFlow, tree: drawTree, compare: drawCompare, timeline: drawTimeline };
+
+  // Number the figures in READING order, not in the order the spec happens to list them: a figure
+  // written third but placed in the vocabulary section must not be called Figure 3 on a page where
+  // it appears second.
+  var ORDER = ['scenario', 'dialogues', 'reading', 'vocabulary', 'grammar', 'exercises',
+    'speaking', 'writing'];
+  var ordered = SPEC.slice().sort(function (a, b) {
+    return ORDER.indexOf(a.where || 'scenario') - ORDER.indexOf(b.where || 'scenario');
+  });
+
+  ordered.forEach(function (f, idx) {
+    var host = document.getElementById(f.where || 'scenario')
+      || document.getElementById('scenario') || document.querySelector('article') || document.body;
+    var draw = DRAW[f.type];
+    if (!draw) return;
+
+    var fig = document.createElement('figure');
+    fig.className = 'lang-fig';
+    var head = document.createElement('figcaption');
+    head.className = 'fig-head';
+    head.innerHTML = '<b>Figure ' + (idx + 1) + '. ' + (f.title || '') + '</b>';
+    fig.appendChild(head);
+
+    var holder = document.createElement('div');
+    holder.className = 'fig-body';
+    var node;
+    try { node = draw(f); } catch (e) { return; }
+    holder.appendChild(node);
+    fig.appendChild(holder);
+
+    if (f.caption) {
+      var cap = document.createElement('p');
+      cap.className = 'fig-cap';
+      cap.textContent = f.caption;
+      fig.appendChild(cap);
+    }
+
+    // "label it": blank the labels, let the learner type them back, check on blur
+    var labels = [].slice.call(node.querySelectorAll('.figlab'));
+    if (labels.length >= 3) {
+      var bar = document.createElement('div');
+      bar.className = 'fig-bar';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'fig-btn';
+      btn.textContent = 'Hide the labels and test me';
+      var answers = labels.map(function (l) { return l.textContent; });
+      var on = false;
+      btn.addEventListener('click', function () {
+        on = !on;
+        btn.textContent = on ? 'Show the labels again' : 'Hide the labels and test me';
+        labels.forEach(function (l, i) { l.textContent = on ? '?' : answers[i]; });
+        quiz.hidden = !on;
+      });
+      bar.appendChild(btn);
+      fig.appendChild(bar);
+
+      var quiz = document.createElement('div');
+      quiz.className = 'fig-quiz';
+      quiz.hidden = true;
+      answers.forEach(function (a, i) {
+        var row = document.createElement('label');
+        row.innerHTML = '<span>' + (i + 1) + '</span>';
+        var inp = document.createElement('input');
+        inp.placeholder = 'type the label';
+        inp.addEventListener('blur', function () {
+          if (!inp.value.trim()) return;
+          var ok = inp.value.trim().toLowerCase() === a.trim().toLowerCase();
+          inp.className = ok ? 'ok' : 'bad';
+          if (ok) labels[i].textContent = a;
+        });
+        row.appendChild(inp);
+        quiz.appendChild(row);
+      });
+      fig.appendChild(quiz);
+    }
+
+    host.appendChild(fig);
+  });
 })();
 </script><!--/CF-LANG-UI--></body></html>

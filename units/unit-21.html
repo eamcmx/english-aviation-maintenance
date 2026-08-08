@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>English for Aviation Maintenance · Unit 19, Writing a defect report in Simplified Technical English</title>
+<title>English for Aviation Maintenance · Unit 21, Coordinating a functional test</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@
   .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
   .hero-meta strong{font-family:var(--font-sans);font-size:14px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
   .cando{margin:var(--space-5) 0 0;padding:var(--space-4) var(--space-5);background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius)}
-  .cando h4{font-size:.95rem;margin:0 0 var(--space-3);color:var(--color-primary-dark);font-family:var(--font-sans);text-transform:uppercase;letter-spacing:.06em;font-size:12px}
+  .cando h4{margin:0 0 var(--space-3);color:var(--color-primary-dark);font-family:var(--font-sans);text-transform:uppercase;letter-spacing:.06em;font-size:12px}
   .cando ul{margin:0;padding-left:1.2em}
   .cando li{margin:6px 0;color:#33384a}
   .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
@@ -54,7 +54,7 @@
   .dlg-head{background:var(--bg-sunken);padding:12px 18px;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary-dark);font-weight:600}
   .dlg-body{padding:8px 18px 16px}
   .lang-audio-slot{margin:12px 0;padding:14px 16px;border:1px dashed var(--color-primary-soft);border-radius:var(--radius-sm);background:#eef2f9;font-family:var(--font-mono);font-size:12px;color:var(--color-primary-dark);text-align:center}
-  .lang-audio-slot:before{content:"🎧 Audio track "counter(x);}
+  .lang-audio-slot:before{content:"🎧 Audio track, players are embedded here automatically."}
   details.transcript{margin-top:6px}
   details.transcript>summary{cursor:pointer;font-weight:600;color:var(--color-primary);font-size:14px;padding:6px 0}
   .turn{margin:6px 0;max-width:none;display:flex;gap:10px;align-items:baseline}
@@ -86,7 +86,8 @@
   .ex .wordbank{font-family:var(--font-mono);font-size:13px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;margin:6px 0 12px;line-height:1.9}
   .reading-text{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin:8px 0 12px;font-size:15px}
   .reading-text .doc-head{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-primary);font-weight:700;margin-bottom:6px}
-  input.gap{font-family:var(--font-mono);font-size:14px;border:1px solid var(--border);border-radius:5px;padding:4px 8px;min-width:120px;background:#fff}
+  .reading-text p{margin:6px 0}
+  input.gap{font-family:var(--font-mono);font-size:14px;border:1px solid var(--border);border-radius:5px;padding:4px 8px;min-width:90px;background:#fff}
   input.gap.right{border-color:var(--good);background:#eaf5ec}
   input.gap.wrong{border-color:var(--bad);background:#fbecea}
   select.gap{font-family:var(--font-sans);font-size:14px;border:1px solid var(--border);border-radius:5px;padding:4px 8px;background:#fff}
@@ -366,440 +367,458 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 .fig-quiz input.ok { border-color: #0f6e56; background: #e6f6ee; color: #0f6e56; }
 .fig-quiz input.bad { border-color: #c0392b; background: #fdeceb; color: #8c2f27; }
 </style><!--/CF-LANG-UI--></head>
-<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 19 of 32 · Writing a defect report in Simplified Technical English</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 STE writing, approved word, one meaning, procedural sentence</span></div></div></header>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 21 of 32 · Coordinating a functional/operational test</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 testing, functional test, actuation, pass criteria</span></div></div></header>
 <article>
 
   <header class="lec-hero">
-    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · EASA Part-66/145 · Unit 19 · CEFR B2</p>
-    <h1 class="lecture-title">Writing a defect report in Simplified Technical English.</h1>
-    <p class="subtitle">A rambling shift note is not a defect report. In this unit you learn to rewrite messy notes into clear, safe, STE-compliant reports, approved words, one meaning per word, short sentences, and the articles English needs but your first language drops.</p>
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · Unit 21 · EASA Part-66/145 · CEFR B2</p>
+    <h1 class="lecture-title">Coordinating a functional/operational test</h1>
+    <p class="subtitle">Two people, one moving control surface, and a manual that must be followed word for word. In this unit you learn to brief the test, call and confirm each action, and read the pass/fail result, safely and clearly.</p>
     <div class="hero-meta">
-      <span>Unit<strong>19, Defect reports in STE</strong></span>
-      <span>Specialism<strong>Mechanics &amp; avionics</strong></span>
-      <span>Grammar<strong>Obligatory articles (the / a)</strong></span>
-      <span>Class length<strong>90 minutes</strong></span>
+      <span>Unit<strong>21 of 32, Functional test</strong></span>
+      <span>Field<strong>Testing: functional test, actuation, pass criteria</strong></span>
+      <span>Grammar<strong>Imperatives + safety warnings</strong></span>
+      <span>Scenario<strong>Flap functional test with a partner</strong></span>
     </div>
     <div class="cando">
       <h4>By the end of this unit you can …</h4>
       <ul>
-        <li>Can write a defect report using approved STE words and short sentences.</li>
-        <li>Can remove ambiguity by applying one-meaning-per-word discipline.</li>
-        <li>Can self-check a report against the core STE writing rules.</li>
+        <li>Can brief a partner on a functional test's steps and safety precautions.</li>
+        <li>Can call and confirm test actions clearly while the test runs.</li>
+        <li>Can state and interpret the pass/fail criteria.</li>
       </ul>
     </div>
   </header>
 
+  <!-- ================= SCENARIO ================= -->
   <section class="lecture-section" id="scenario">
-    <h2><span class="secnum">00</span>The situation</h2>
-    <p class="lede">It is the end of a late shift at the line station. You found a fault on the aircraft, and you scribbled a quick note before you went home. The note made sense to you at midnight, although it will not make sense to the next technician.</p>
-    <p>Tomorrow, the day shift must act on your words. If your report is vague, they waste time, or worse, they miss the danger. This is why maintenance organisations write in <strong>Simplified Technical English</strong>, a controlled language with approved words and short sentences, so that one report means one thing to everyone who reads it.</p>
-    <p>Your task in this unit is simple to say and hard to do well. You will take a rambling shift note and rewrite it, on your own, into an STE-compliant defect report. Then you will swap with a partner and peer-review each other's version, unless the instructor pairs you differently. Read the model dialogues first, and listen before you read.</p>
-    <p>Simplified Technical English was originally developed for the aerospace industry, precisely because ambiguous maintenance instructions were causing expensive and dangerous mistakes. The standard reduces the vocabulary deliberately, so that a single approved word carries a single meaning across every manual. For a technician whose first language is Latvian or Russian, this discipline is genuinely helpful, although the missing articles remain a persistent challenge in English.</p>
-    <p>Consider what happens when documentation fails at a busy line station. An instruction that a native speaker reads as obvious can appear genuinely ambiguous to a colleague from another linguistic background. In aviation, that single misunderstanding can propagate quietly into an incorrect installation or a missed inspection. Investigators repeatedly identify unclear procedures as a contributing factor in maintenance errors, alongside fatigue and interruption. By constraining vocabulary and sentence length together, Simplified Technical English attacks the linguistic component of that risk directly, which explains its wide adoption across manufacturers and regulators.</p>
-  </section>
-
-  <section class="lecture-section" id="dialogues">
-    <h2><span class="secnum">01</span>Model dialogues</h2>
-    <p class="instr" style="color:var(--ink-soft)">Listen to each track first, with the transcript closed. Then open the transcript and read.</p>
-
-    <div class="dlg">
-      <div class="dlg-head">Dialogue 1, From shift note to defect report</div>
-      <div class="dlg-body">
-        <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u19-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:30 · listen first, then open the transcript</figcaption></figure>
-        <details class="transcript"><summary>Transcript</summary>
-          <p class="turn"><span class="spk">A</span><span class="said">Toms, I read your shift note from last night. It is hard to follow.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">I wrote it fast at the end of the shift. What is wrong with it?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">A defect report is not a shift note. It is a formal record, so it must use Simplified Technical English.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">So I cannot write it the way I speak?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">No. Every word must be an approved word with one meaning. That removes ambiguity.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">Show me. My note says the part near the door looked bad.</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">That is the problem. Did you find corrosion, a crack, or a loose bolt?</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">There was corrosion on the bracket below the panel.</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Good. Now write it as a fact. The bracket has corrosion. Short and clear.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">That does sound better than my note.</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">The tech log needs the same clear style, because the next technician depends on it. Put one idea in each short sentence.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">My note also says it seemed like it might be leaking. Is that wrong?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Yes. Seemed and might give ambiguity. Write what you saw, not what you guessed.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">So I should write that fuel is on the floor below the bracket?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Exactly. That is a fact an inspector can check. That is a defect report.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">I understand now. Short sentences, approved words, one meaning.</span></p>
-        </details>
-      </div>
-    </div>
-
-    <div class="dlg">
-      <div class="dlg-head">Dialogue 2, Write the procedure in STE</div>
-      <div class="dlg-body">
-        <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u19-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:18 · listen first, then open the transcript</figcaption></figure>
-        <details class="transcript"><summary>Transcript</summary>
-          <p class="turn"><span class="spk">A</span><span class="said">Your report is clear. But the repair steps are not in Simplified Technical English yet.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">What should the steps look like?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Each step is a procedural sentence. It is a command in the active voice.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">Can you give me an example?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Start with a technical verb. Write: Remove the bolt from the bracket.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">My draft says the removal of the bolt should be done. That is heavy.</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">It is heavy and passive. Use the active voice instead, and put one clear instruction in each line.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">You also marked wing attachment fitting bolt hole. Why?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">That is a long noun cluster. Three nouns together create ambiguity.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">How do I fix a noun cluster?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Use the technical name and small words. Write: the bolt hole in the fitting.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">That is easier to read. What about danger notes?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Put a warning before the step when a person can be hurt.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">And when only the part can be damaged?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Then you write a caution. A warning is for people, a caution is for the part.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">So every approved word has one meaning, and each instruction stays short.</span></p>
-        </details>
-      </div>
-    </div>
-
-    <div class="dlg">
-      <div class="dlg-head">Dialogue 3, Peer review before sign-off</div>
-      <div class="dlg-body">
-        <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u19-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:30 · listen first, then open the transcript</figcaption></figure>
-        <details class="transcript"><summary>Transcript</summary>
-          <p class="turn"><span class="spk">A</span><span class="said">Before I sign the work order, let us peer-review your defect report together.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">I made the sentences short and used approved words.</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Good. But here you dropped an article. You wrote: Remove bolt from bracket.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">In my language we do not use articles, so I forget them.</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">In English they are not optional. Write: Remove the bolt from the bracket.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">I see. So every noun needs the or a.</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Usually, yes. You write a crack the first time you mention it, and then the crack after that.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">Here I wrote that the part is okay. Is that an approved word?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">No. Write serviceable if it is good, or unserviceable if it is not.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">The bracket has corrosion, so it is unserviceable.</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Correct, so tag it now. Then add the caution about the sealant near the panel, unless it is already there.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">Should the warning about the live circuit go first?</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Yes. The warning protects the person, so it comes before the step.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">I will update the tech log with the same words.</span></p>
-          <p class="turn"><span class="spk">A</span><span class="said">Good. Now the report is clear, and I can sign the work order.</span></p>
-          <p class="turn"><span class="spk">B</span><span class="said">Thank you. Next time I will add the articles before you ask.</span></p>
-        </details>
-      </div>
-    </div>
-
-    <div class="dlg">
-      <div class="dlg-head">Dialogue 4, Line supervisor voicemail (monologue)</div>
-      <div class="dlg-body">
-        <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u19-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:51 · listen first, then open the transcript</figcaption></figure>
-        <details class="transcript"><summary>Transcript</summary>
-          <p class="turn mono"><span class="said">Hi, this is the line supervisor with a short message for the late shift. Please listen to the whole note.</span></p>
-          <p class="turn mono"><span class="said">We have an important new rule for every defect report. From today, without exception, all reports must use Simplified Technical English.</span></p>
-          <p class="turn mono"><span class="said">Do not copy your rough shift note straight into the tech log. Rewrite it first.</span></p>
-          <p class="turn mono"><span class="said">Use approved words, and give each word one meaning. Keep every sentence short and clear.</span></p>
-          <p class="turn mono"><span class="said">If you find corrosion on a bracket, write it as a plain fact. Do not guess.</span></p>
-          <p class="turn mono"><span class="said">Add a warning before any step that can hurt a person. Add a caution when only the part can be damaged.</span></p>
-          <p class="turn mono"><span class="said">When the report is ready, attach it to the work order and call me. Thank you, and have a safe shift.</span></p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section class="lecture-section" id="vocabulary">
-    <h2><span class="secnum">02</span>Vocabulary bank</h2>
-    <p class="instr" style="color:var(--ink-soft)">These are the words for this unit. Each one has a plain meaning, an example, and a common partner word.</p>
-    <table class="vocab">
-      <thead><tr><th>Term</th><th>Plain meaning</th><th>Example</th><th>Collocation</th></tr></thead>
-      <tbody>
-        <tr><td><dfn data-term="defect report">defect report</dfn></td><td>A short, formal written record of an aircraft fault that the organisation keeps on file.</td><td class="ex">The technician raised a defect report, because the corrosion on the bracket was outside limits.</td><td class="col">raise a defect report</td></tr>
-        <tr><td><dfn data-term="Simplified Technical English">Simplified Technical English</dfn></td><td>A controlled writing standard that limits you to approved words and short, clear sentences.</td><td class="ex">Aircraft manuals and defect reports use Simplified Technical English, so every reader understands them equally.</td><td class="col">write in Simplified Technical English</td></tr>
-        <tr><td><dfn data-term="approved word">approved word</dfn></td><td>A word that the Simplified Technical English dictionary allows you to use in a report.</td><td class="ex">In this standard, "remove" is an approved word, although the everyday phrase "take off" is not.</td><td class="col">use an approved word</td></tr>
-        <tr><td><dfn data-term="one meaning">one meaning</dfn></td><td>The discipline of using each word for only one idea, which removes confusion.</td><td class="ex">Give each word one meaning, because a word with two meanings creates dangerous ambiguity.</td><td class="col">one meaning per word</td></tr>
-        <tr><td><dfn data-term="procedural sentence">procedural sentence</dfn></td><td>A short command that tells the reader to perform exactly one step in a task.</td><td class="ex">Every repair step becomes a procedural sentence that begins with an approved technical verb.</td><td class="col">write a procedural sentence</td></tr>
-        <tr><td><dfn data-term="ambiguity">ambiguity</dfn></td><td>The situation where a sentence can be understood in more than one different way.</td><td class="ex">The words "seemed" and "might" create ambiguity, so the inspector cannot trust the report.</td><td class="col">remove ambiguity</td></tr>
-        <tr><td><dfn data-term="noun cluster">noun cluster</dfn></td><td>Three or more nouns joined in a row, which becomes difficult to read and understand.</td><td class="ex">Break the long noun cluster "wing attachment fitting bolt hole" into smaller, clearer parts.</td><td class="col">a long noun cluster</td></tr>
-        <tr><td><dfn data-term="active voice">active voice</dfn></td><td>A sentence pattern where the person or tool that acts comes before the action.</td><td class="ex">Simplified Technical English prefers the active voice, so the instructions stay direct and easy to follow.</td><td class="col">use the active voice</td></tr>
-        <tr><td><dfn data-term="technical name">technical name</dfn></td><td>The single correct name of a component or a tool, used consistently everywhere.</td><td class="ex">Always use the technical name of the component, because a nickname introduces unnecessary ambiguity.</td><td class="col">the correct technical name</td></tr>
-        <tr><td><dfn data-term="technical verb">technical verb</dfn></td><td>An approved action word for a maintenance task, for example remove, install, or torque.</td><td class="ex">Begin each procedural sentence with a technical verb, such as "remove", "install", or "inspect".</td><td class="col">an approved technical verb</td></tr>
-        <tr><td><dfn data-term="warning">warning</dfn></td><td>A safety note that tells the reader a step can injure or kill a person.</td><td class="ex">Position the warning before the step, because it must protect the technician from injury.</td><td class="col">a safety warning</td></tr>
-        <tr><td><dfn data-term="caution">caution</dfn></td><td>A note that tells the reader a step can damage the aircraft or the component.</td><td class="ex">The caution reminds you not to use a steel brush, which would damage the protective coating.</td><td class="col">a caution note</td></tr>
-        <tr><td><dfn data-term="instruction">instruction</dfn></td><td>One clear, single step that tells the technician exactly what action to perform.</td><td class="ex">Write one instruction on each line, so that nobody performs two actions by mistake.</td><td class="col">a clear instruction</td></tr>
-        <tr><td><dfn data-term="shift note">shift note</dfn></td><td>A quick, informal note that a technician writes for personal use during a shift.</td><td class="ex">My rough shift note made sense at midnight, although the day shift could not follow it.</td><td class="col">a rough shift note</td></tr>
-        <tr><td><dfn data-term="tech log">tech log</dfn></td><td>The official aircraft technical log that records every fault and every maintenance action.</td><td class="ex">Copy the confirmed defect into the tech log, using exactly the same approved words.</td><td class="col">sign the tech log</td></tr>
-        <tr><td><dfn data-term="work order">work order</dfn></td><td>A formal document that tells a technician which maintenance task to carry out.</td><td class="ex">The supervisor keeps the work order open until the inspector confirms the bracket.</td><td class="col">close the work order</td></tr>
-        <tr><td><dfn data-term="serviceable">serviceable</dfn></td><td>In good condition, within limits, and therefore safe to use on the aircraft.</td><td class="ex">After the inspection, the valve is serviceable, so the aircraft can return to service.</td><td class="col">a serviceable part</td></tr>
-        <tr><td><dfn data-term="unserviceable">unserviceable</dfn></td><td>Not safe to use, and it must be repaired or replaced before further flight.</td><td class="ex">Because the bracket has corrosion beyond the limit, the technician tagged it unserviceable.</td><td class="col">tag it unserviceable</td></tr>
-        <tr><td><dfn data-term="corrosion">corrosion</dfn></td><td>Gradual damage to metal caused by moisture, air, and chemicals over a long period.</td><td class="ex">Surface corrosion had reduced the thickness of the bracket near the lower bolt hole.</td><td class="col">surface corrosion</td></tr>
-        <tr><td><dfn data-term="bracket">bracket</dfn></td><td>A metal fitting that holds another component firmly in its correct position.</td><td class="ex">The mounting bracket holds the antenna, so any corrosion on it is a genuine concern.</td><td class="col">a mounting bracket</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section class="lecture-section" id="grammar">
-    <h2><span class="secnum">03</span>Grammar in context, obligatory articles</h2>
-    <p class="lede">STE keeps sentences short, so every word must earn its place. Even so, English still needs its articles. You cannot drop <em>the</em> or <em>a</em>, although Latvian and Russian have no articles at all. This is the error the instructor will spot first.</p>
-    <p>Look again at two lines from the dialogues. In Dialogue 2, the mentor gives the model step:</p>
-    <div class="quote">"Start with a technical verb. Write: Remove the bolt from the bracket."</div>
-    <p>Every noun has an article. It is <em>the</em> bolt and <em>the</em> bracket, because the reader already knows which ones. In Dialogue 3, the supervisor corrects a dropped article:</p>
-    <div class="quote">"You dropped an article. You wrote: Remove bolt from bracket."</div>
-    <p>The naked nouns feel normal in Latvian or Russian, yet in an English report they read as broken. The difficulty is understandable, because neither language marks a noun as definite or indefinite with a separate word. Consequently, the article is often the very last feature a fluent speaker masters, unless they practise it deliberately in their own writing. Use the table below to choose the right article, and then check every noun in your defect report against it.</p>
-    <table class="form">
-      <thead><tr><th>Case</th><th>Rule</th><th>STE example</th></tr></thead>
-      <tbody>
-        <tr><td>Known thing</td><td>Use <b>the</b> when the reader knows which one.</td><td>Remove <b>the</b> bolt from <b>the</b> bracket.</td></tr>
-        <tr><td>First mention</td><td>Use <b>a / an</b> the first time; use <b>the</b> after that.</td><td>Find <b>a</b> crack. Measure <b>the</b> crack.</td></tr>
-        <tr><td>One of many</td><td>Use <b>a / an</b> for any one, not a special one.</td><td>Install <b>a</b> new seal.</td></tr>
-        <tr><td>General / uncountable</td><td>Use <b>no</b> article for a material or a plural in general.</td><td>Check for corrosion. Torque all bolts.</td></tr>
-      </tbody>
-    </table>
-
-    <h3>Three mistakes to avoid (Latvian / Russian speakers)</h3>
+    <h2><span class="secnum">01</span>The situation</h2>
+    <p class="lede">It is the late shift in Hangar 2. Aircraft D-AXLR is on jacks for a flap system check. The task card in the AMM asks for a flap functional test with two people.</p>
+    <p>One technician reads the manual and calls each action out loud. The other technician stands clear, watches the flaps, and confirms each step. The flaps are heavy control surfaces. They move fast under hydraulic pressure, so the safety words matter as much as the test itself. At the end, the two of you compare the result against the pass criteria and decide: pass or fail. If it fails, you raise a snag and the aircraft stays on the ground.</p>
+    <p>This coordination is a professional skill in itself, because a functional test is never a solo activity. The technician who calls the actuation must communicate precisely, while the observer confirms exactly what the control surface actually does. Although the procedure looks simple, a single unclear callout can send a person into a hazard. Therefore you brief the safety precautions before you touch the flap lever, and you repeat them whenever the situation changes. As soon as an indication looks abnormal, you stop, unless the AMM tells you otherwise. The language of the test is deliberately short, direct, and unambiguous.</p>
     <div class="callout">
-      <h4>Why the article matters for safety</h4>
-      <p>An article is not decoration; in a maintenance instruction it identifies exactly which component the technician must handle. Whenever you write "the bracket", you are signalling that a particular, already-mentioned bracket is meant, rather than any similar component nearby. When you drop the article, you quietly reintroduce the very ambiguity that Simplified Technical English exists to eliminate. Therefore, experienced reviewers treat every missing article as a genuine documentation defect, comparable to an omitted torque value.</p>
+      <h4>How to use this unit</h4>
+      <p style="margin:0">Listen to each dialogue first with the transcript closed. Then open the transcript and read. Study the vocabulary and the grammar. Do the eight exercises and check your answers. Finish with the speaking cards and the writing task.</p>
     </div>
-    <p>Articles also interact with countability in ways that reward a little study. A singular countable noun, such as "bolt" or "bracket", almost always needs an article or another determiner in front of it. An uncountable noun, such as "corrosion" or "fuel", takes no article when you mean the substance in general, although it takes "the" once you specify a particular quantity. Recognising this distinction quickly will eliminate the majority of the article errors that currently appear in your reports.</p>
-    <div class="wr"><b>Wrong ✗</b>, Technician found crack in panel and replaced bracket.</div>
-    <div class="ri"><b>Right ✓</b>, The technician found a crack in the panel and replaced the bracket.</div>
-    <div class="wr"><b>Wrong ✗</b>, Fault is in left hydraulic system.</div>
-    <div class="ri"><b>Right ✓</b>, The fault is in the left hydraulic system.</div>
-    <div class="wr"><b>Wrong ✗</b>, Remove bolt, then install new seal on valve.</div>
-    <div class="ri"><b>Right ✓</b>, Remove the bolt, then install a new seal on the valve.</div>
   </section>
 
+  <!-- ================= DIALOGUES ================= -->
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">02</span>Listen: three model dialogues</h2>
+    <p class="instr">Listen first. Keep the transcript closed. Then open it and read.</p>
+    <p>Each dialogue demonstrates the same test from a different perspective: the preparatory briefing, the live coordination, and the interpretation of the result. Listen for the connectors, because they carry the professional reasoning behind every instruction. Although the sentences are short, the register is genuinely technical, so concentrate on the terminology as you listen.</p>
+
+    <div class="dlg">
+      <div class="dlg-head">Dialogue 1, The pre-test brief (before you start)</div>
+      <div class="dlg-body">
+        <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u21-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:23 · listen first, then open the transcript</figcaption></figure>
+        <details class="transcript"><summary>Transcript, Dialogue 1</summary>
+          <p class="turn"><span class="spk">A</span><span class="said">We run the flap functional test now, so I will brief you before we begin.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Understood. Which AMM task card covers this operational test?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Task card 27-51-00, which lists every procedure and each safety precaution.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Copy. Before we start, what exactly is the pass criteria?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Both flaps must reach full deflection together, with no visible asymmetry.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">So I monitor the control surface for asymmetry throughout the actuation?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Correct. You observe the left flap, while I call each actuation from the manual.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Understood. Do we need hydraulic pressure before the first actuation?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Yes, because the actuator cannot move unless the green system is pressurised.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">And the BITE check, do we complete it before the functional test?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">We run BITE first, since it confirms the actuator is serviceable.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Clear. One safety precaution: do not stand near the flaps during travel.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Correct. Stay behind the placard line, and keep your clearance at all times.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Should I fit the lockout on the other system before we continue?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Yes, fit the lockout tag now, in case somebody pressurises it accidentally.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">The lockout is fitted, and I am positioned clear. Call the first actuation whenever ready.</span></p>
+        </details>
+      </div>
+    </div>
+
+    <div class="dlg">
+      <div class="dlg-head">Dialogue 2, Running the test (call and confirm)</div>
+      <div class="dlg-body">
+        <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u21-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:29 · listen first, then open the transcript</figcaption></figure>
+        <details class="transcript"><summary>Transcript, Dialogue 2</summary>
+          <p class="turn"><span class="spk">A</span><span class="said">Pressure is up and the green system is normal. Ready for the first callout?</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Ready. I am positioned clear of the flaps, so go ahead.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Flaps to five. Actuating now. Confirm the left flap begins to move.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Left flap moving smoothly. The deflection looks even, with no asymmetry yet.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Good. Flaps to fifteen. Watch the limit switch indication as it travels.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">The limit switch made at fifteen, and the indication light is green.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Flaps to full deflection. This actuation is the largest, so stand well clear.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">I am clear. Both control surfaces are approaching full deflection together.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Hold there. Does either flap lag behind, or is there any asymmetry?</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">No lag at all. The travel is symmetric, and both flaps match within limits.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Copy. Flaps up now. Confirm the hydraulic pressure remains normal throughout.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Pressure is normal throughout, and the flaps are returning together without a snag.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Good callout. The actuator sounds smooth, with no unusual noise or judder.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Agreed. It looks serviceable to me, and the rigging appears correctly adjusted.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">One more cycle to confirm, before we compare the result against the pass criteria.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Understood. I remain clear, so call the actuation as soon as you are ready.</span></p>
+        </details>
+      </div>
+    </div>
+
+    <div class="dlg">
+      <div class="dlg-head">Dialogue 3, Reading the result (pass or fail?)</div>
+      <div class="dlg-body">
+        <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u21-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:25 · listen first, then open the transcript</figcaption></figure>
+        <details class="transcript"><summary>Transcript, Dialogue 3</summary>
+          <p class="turn"><span class="spk">A</span><span class="said">This is the final cycle. Flaps to full, and watch both control surfaces closely.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Actuating. Wait, the left flap is lagging behind the right one.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Stop the test and select flaps up. Confirm that you can see asymmetry.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Confirmed. The left flap trails by several degrees at full deflection.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">That fails the pass criteria, unless the AMM allows a small tolerance.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">The AMM allows no visible asymmetry, so this result is definitely a fail.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Agreed. Do not sign it serviceable, because we must raise a snag first.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">I will record the snag in the tech log. What is the likely cause?</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Possibly a rigging error, or a sluggish actuator on the left side.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Could the limit switch be late? The indication seemed to arrive slowly.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Possibly. The BITE readout may show a fault code, so let me check it.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">While you check the readout, I will keep everybody clear of the flaps.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">BITE shows a fault on the left actuation channel, which fits the symptom.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">So it is the actuator, or its wiring. I will note that in the snag.</span></p>
+          <p class="turn"><span class="spk">A</span><span class="said">Good. Keep the lockout fitted, because the aircraft stays unserviceable tonight.</span></p>
+          <p class="turn"><span class="spk">B</span><span class="said">Understood. I will add the placard and update the work order accordingly.</span></p>
+        </details>
+      </div>
+    </div>
+
+    <div class="dlg">
+      <div class="dlg-head">Track 4, Shift-handover voicemail (monologue)</div>
+      <div class="dlg-body">
+        <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u21-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:51 · listen first, then open the transcript</figcaption></figure>
+        <details class="transcript"><summary>Transcript, Voicemail</summary>
+          <p class="turn mono"><span class="said">Hi, this is Rihards, late shift, bay two. Here is a quick handover on the flap functional test.</span></p>
+          <p class="turn mono"><span class="said">We ran the test on aircraft D-AXLR. The result is a fail. At full deflection, the left flap lagged the right. That breaks the pass criteria, so I did not sign it serviceable.</span></p>
+          <p class="turn mono"><span class="said">The BITE readout shows a fault on the left actuation channel. It points to the actuator or its wiring. I raised a snag in the tech log, number 4471. The lockout tag is still fitted on the green system. A placard is on the flap lever. Please do not pressurise the system, and keep your clearance from the control surfaces. Call me if the rigging data is unclear. Thanks.</span></p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VOCABULARY ================= -->
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">03</span>Vocabulary bank</h2>
+    <p class="instr">These are the taught terms. Each one has a plain meaning, an example, and a common word partner.</p>
+    <table class="vocab">
+      <thead><tr><th>Term</th><th>Plain meaning</th><th>Example sentence</th><th>Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="functional test">functional test</dfn></td><td>a check that a system works as it should</td><td class="ex">We run a functional test before delivery, to prove the system operates correctly.</td><td class="col">run a functional test</td></tr>
+        <tr><td><dfn data-term="actuation">actuation</dfn></td><td>the movement of a part when a force or signal drives it</td><td class="ex">Each actuation extends the flap one position, provided the system is pressurised.</td><td class="col">call an actuation</td></tr>
+        <tr><td><dfn data-term="actuator">actuator</dfn></td><td>the device that turns pressure or a signal into movement</td><td class="ex">The hydraulic actuator converts pressure into movement, and drives the flap out and in.</td><td class="col">a hydraulic actuator</td></tr>
+        <tr><td><dfn data-term="pass criteria">pass criteria</dfn></td><td>the exact result a test must reach to pass</td><td class="ex">The pass criteria require both flaps together, without any measurable asymmetry.</td><td class="col">meet the pass criteria</td></tr>
+        <tr><td><dfn data-term="flap">flap</dfn></td><td>a panel on the wing that changes lift</td><td class="ex">The flap extends downward for landing, which increases lift at low speed.</td><td class="col">extend the flap</td></tr>
+        <tr><td><dfn data-term="deflection">deflection</dfn></td><td>how far a surface moves from its neutral place</td><td class="ex">Full deflection here is forty degrees, measured from the neutral position.</td><td class="col">full deflection</td></tr>
+        <tr><td><dfn data-term="asymmetry">asymmetry</dfn></td><td>one side moving differently from the other</td><td class="ex">Any asymmetry between the flaps is a fault, because the surfaces must match.</td><td class="col">flap asymmetry</td></tr>
+        <tr><td><dfn data-term="control surface">control surface</dfn></td><td>a moving panel that steers or slows the aircraft</td><td class="ex">The flap is a control surface, so its movement affects how the aircraft flies.</td><td class="col">a moving control surface</td></tr>
+        <tr><td><dfn data-term="limit switch">limit switch</dfn></td><td>a switch that signals a part has reached its end point</td><td class="ex">The limit switch signals the computer as soon as the flap reaches full travel.</td><td class="col">the limit switch made</td></tr>
+        <tr><td><dfn data-term="hydraulic pressure">hydraulic pressure</dfn></td><td>the fluid force that drives many aircraft systems</td><td class="ex">Without normal hydraulic pressure, the actuator cannot move the control surface.</td><td class="col">normal hydraulic pressure</td></tr>
+        <tr><td><dfn data-term="clearance">clearance</dfn></td><td>a safe distance from a moving part</td><td class="ex">Keep your clearance from the flaps, because the actuation is powerful and fast.</td><td class="col">keep clearance</td></tr>
+        <tr><td><dfn data-term="serviceable">serviceable</dfn></td><td>fit and safe to use</td><td class="ex">The BITE check confirms the actuator is serviceable, so the component stays fitted.</td><td class="col">sign it serviceable</td></tr>
+        <tr><td><dfn data-term="snag">snag</dfn></td><td>a fault that you write up for repair</td><td class="ex">We raise a snag in the tech log whenever a functional test fails.</td><td class="col">raise a snag</td></tr>
+        <tr><td><dfn data-term="rigging">rigging</dfn></td><td>the setting that aligns a surface correctly</td><td class="ex">A rigging error misaligns the surface, which often produces visible asymmetry.</td><td class="col">a rigging error</td></tr>
+        <tr><td><dfn data-term="BITE">BITE</dfn></td><td>built-in test equipment; the system's own self-test</td><td class="ex">The BITE readout displays a fault code, which points to the failed channel.</td><td class="col">a BITE readout</td></tr>
+        <tr><td><dfn data-term="AMM">AMM</dfn></td><td>the Aircraft Maintenance Manual, with every task</td><td class="ex">The AMM lists each procedure and every warning, so we follow it precisely.</td><td class="col">follow the AMM</td></tr>
+        <tr><td><dfn data-term="indication">indication</dfn></td><td>a light or reading that shows a system state</td><td class="ex">A green indication confirms the system is normal and correctly pressurised.</td><td class="col">a normal indication</td></tr>
+        <tr><td><dfn data-term="placard">placard</dfn></td><td>a warning card fitted to mark a hazard</td><td class="ex">A placard on the flap lever warns the next technician about the hazard.</td><td class="col">fit a placard</td></tr>
+        <tr><td><dfn data-term="lockout">lockout</dfn></td><td>a tag or lock that stops a system being used</td><td class="ex">Fit the lockout before you work, so nobody pressurises the system accidentally.</td><td class="col">fit the lockout</td></tr>
+        <tr><td><dfn data-term="callout">callout</dfn></td><td>a spoken command said clearly during a test</td><td class="ex">I make the callout clearly, and you confirm each action as it happens.</td><td class="col">a clear callout</td></tr>
+      </tbody>
+    </table>
+    <p>These terms belong to the vocabulary of testing, so learn them as active language, not as a passive list. During a functional test, you must produce them instantly, because the actuation will not wait for you. Notice how the collocations combine: you run a functional test, you meet the pass criteria, and you raise a snag whenever the result is unacceptable. Whenever you describe a control surface, be specific about the deflection, the asymmetry, and the indication you observed. Precise terminology prevents confusion between the two technicians, and confusion during a live test is genuinely dangerous.</p>
+  </section>
+
+  <!-- ================= GRAMMAR ================= -->
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">04</span>Grammar in context, the imperative with safety warnings</h2>
+    <p class="lede">A live test moves real surfaces. So the manual and the technician give short, direct orders. This is the <b>imperative</b>. You use the base verb, with no subject.</p>
+    <p>Look at these lines from the dialogues. Each one is an imperative. Notice how short and clear it is.</p>
+    <div class="quote">"Do not stand near the flaps during travel.", Dialogue 1</div>
+    <div class="quote">"Stay behind the placard line. Keep your clearance at all times.", Dialogue 1</div>
+    <div class="quote">"Stop the test. Flaps up. Confirm that you see asymmetry.", Dialogue 3</div>
+    <p>To make an order, use the base verb: <b>Stand clear. Confirm the step. Fit the lockout.</b> To make a warning, put <b>Do not</b> before the base verb: <b>Do not stand near the flaps. Do not touch the actuator.</b> Say the warning first, then the action. A warning protects the person; the order tells them what to do.</p>
+    <p>In this professional register, the imperative is not impolite; it is efficient, because the actuation happens quickly and a long sentence wastes time. Notice that Simplified Technical English prefers one instruction per sentence, so you avoid joining two orders with a comma. You may add a short reason with <b>because</b>, <b>in case</b>, or <b>unless</b>, provided the sentence stays clear. For example: "Do not pressurise the system, in case the flap moves unexpectedly." The auxiliary <b>do</b> is compulsory in a negative order, although many learners omit it under pressure. When you rehearse the callouts aloud, the correct form becomes automatic.</p>
+    <table class="form">
+      <thead><tr><th>Form</th><th>Pattern</th><th>Example</th><th>When you use it</th></tr></thead>
+      <tbody>
+        <tr><td>Positive order</td><td>base verb (+ object)</td><td>Fit the lockout.</td><td>tell your partner to act</td></tr>
+        <tr><td>Negative warning</td><td>Do not + base verb</td><td>Do not stand near the flaps.</td><td>stop a dangerous action</td></tr>
+        <tr><td>Short safety call</td><td>base verb + adverb</td><td>Stand well clear.</td><td>a fast call during the test</td></tr>
+        <tr><td>Order + reason</td><td>order + because / in case</td><td>Keep clear in case the flap moves.</td><td>give the order and the why</td></tr>
+      </tbody>
+    </table>
+    <h3>Three common mistakes (Latvian and Russian speakers)</h3>
+    <div class="wr"><b>Wrong</b>, Not stand near the flaps.</div>
+    <div class="ri"><b>Right</b>, Do not stand near the flaps. <span class="note">(Add "Do" for a negative order. English needs the auxiliary "do".)</span></div>
+    <div class="wr"><b>Wrong</b>, No touch the actuator.</div>
+    <div class="ri"><b>Right</b>, Do not touch the actuator. <span class="note">("No + verb" comes from the first language. Use "Do not + verb".)</span></div>
+    <div class="wr"><b>Wrong</b>, You stand clear now!</div>
+    <div class="ri"><b>Right</b>, Stand clear now! <span class="note">(An English imperative has no subject. Drop "you".)</span></div>
+  </section>
+
+  <!-- ================= EXERCISES ================= -->
   <section class="lecture-section" id="exercises">
-    <h2><span class="secnum">04</span>Exercises</h2>
-    <p class="instr" style="color:var(--ink-soft)">Do each exercise, then press <em>Check</em>. Green means correct. You can also open the answer key.</p>
-    <p>These exercises deliberately progress from recognition towards production, because that sequence mirrors how professionals genuinely acquire specialist terminology. In the early tasks you simply identify the correct approved word, whereas the later tasks require you to reconstruct an entire procedural sentence. Work through them in order, and resist revealing an answer until you have committed to your own response, since verification only helps once you have actually decided.</p>
+    <h2><span class="secnum">05</span>Exercises</h2>
+    <p class="instr">Do each exercise. Click <b>Check</b> to mark your answers. Open <b>Answers</b> only after you try.</p>
+    <p>The following exercises progress from recognition toward independent production. The early tasks reinforce the terminology, whereas the later tasks demand accurate imperatives and genuine comprehension of authentic documentation. Complete each exercise carefully, because the vocabulary and the grammar reappear continuously throughout the unit and the assessment.</p>
 
     <!-- E1 -->
     <div class="ex" id="e1">
       <span class="tag">E1 · Gap-fill</span>
       <h3>Put the right term in each gap</h3>
-      <p class="instr">Use a term from the word bank. Type it in the gap, then press Check.</p>
-      <div class="wordbank">defect report · Simplified Technical English · approved word · one meaning · procedural sentence · ambiguity · noun cluster · active voice · technical name · technical verb · warning · caution · instruction · shift note · tech log · work order · serviceable · unserviceable · corrosion · bracket</div>
-      <ol>
-        <li>A quick note you write during your shift is a <input class="gap" data-answer="shift note" size="12">.</li>
-        <li>The clear, formal record of a fault is a <input class="gap" data-answer="defect report" size="12">.</li>
-        <li>When a sentence has two meanings, it has <input class="gap" data-answer="ambiguity" size="10">.</li>
-        <li>A command that gives one step is a <input class="gap" data-answer="procedural sentence" size="14">.</li>
-        <li>The note that protects a person is a <input class="gap" data-answer="warning" size="8">.</li>
-        <li>The note that protects the part is a <input class="gap" data-answer="caution" size="8">.</li>
-        <li>Damage on metal from air and water is <input class="gap" data-answer="corrosion" size="9">.</li>
-        <li>A part that is safe to use is <input class="gap" data-answer="serviceable" size="10">.</li>
-        <li>A part that is not safe to use is <input class="gap" data-answer="unserviceable" size="12">.</li>
-        <li>The controlled writing style for manuals is <input class="gap" data-answer="Simplified Technical English" size="20">.</li>
+      <p class="instr">Use terms from the vocabulary bank. Write one term in each gap.</p>
+      <ol class="qs">
+        <li>Keep your <input class="gap" data-answer="clearance" size="10"> from the flaps at all times.</li>
+        <li>The BITE check confirms the actuator is <input class="gap" data-answer="serviceable" size="12">.</li>
+        <li>When a test fails, we raise a <input class="gap" data-answer="snag" size="8"> in the tech log.</li>
+        <li>A <input class="gap" data-answer="rigging" size="9"> error can make one flap lag the other.</li>
+        <li>The <input class="gap" data-answer="BITE" size="6"> readout shows a fault on the left channel.</li>
+        <li>Follow the <input class="gap" data-answer="AMM" size="6"> for every step and every warning.</li>
+        <li>A green <input class="gap" data-answer="indication" size="11"> tells us the system is normal.</li>
+        <li>Fit a <input class="gap" data-answer="placard" size="9"> on the flap lever to mark the hazard.</li>
+        <li>Fit the <input class="gap" data-answer="lockout" size="9"> tag so nobody pressurises the system.</li>
+        <li>I make the <input class="gap" data-answer="callout" size="9">, and you confirm each action.</li>
       </ol>
       <button class="btn primary" data-check="e1">Check</button><span class="exscore"></span>
-      <details class="answers"><summary>Answer key</summary><div class="abody">1 shift note · 2 defect report · 3 ambiguity · 4 procedural sentence · 5 warning · 6 caution · 7 corrosion · 8 serviceable · 9 unserviceable · 10 Simplified Technical English</div></details>
+      <details class="answers"><summary>Answers</summary><div class="abody">1 clearance · 2 serviceable · 3 snag · 4 rigging · 5 BITE · 6 AMM · 7 indication · 8 placard · 9 lockout · 10 callout</div></details>
     </div>
 
     <!-- E2 -->
     <div class="ex" id="e2">
       <span class="tag">E2 · Matching</span>
-      <h3>Match the term to its meaning</h3>
-      <p class="instr">Choose the letter of the correct meaning for each term.</p>
-      <ol>
-        <li>approved word, <select class="gap" data-answer="C"><option value="">, </option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
-        <li>noun cluster, <select class="gap" data-answer="A"><option value="">, </option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
-        <li>active voice, <select class="gap" data-answer="F"><option value="">, </option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
-        <li>technical verb, <select class="gap" data-answer="B"><option value="">, </option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
-        <li>tech log, <select class="gap" data-answer="E"><option value="">, </option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
-        <li>work order, <select class="gap" data-answer="D"><option value="">, </option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
-        <li>caution, <select class="gap" data-answer="H"><option value="">, </option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
-        <li>unserviceable, <select class="gap" data-answer="G"><option value="">, </option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></li>
-      </ol>
-      <p style="font-size:14px;color:#3a3f4d"><b>Meanings:</b> A a long string of nouns · B an approved action word · C a word the STE rules allow · D a document that sets the task · E the log that records faults · F doer before the action · G not safe to use · H a note that protects the part</p>
+      <h3>Match the meaning to the term</h3>
+      <p class="instr">Read each plain meaning. Choose the correct term from the menu.</p>
+      <table class="form">
+        <tbody>
+          <tr><td>the movement of a part when a force drives it</td><td><select class="gap" data-answer="actuation"><option value=""></option><option>actuation</option><option>actuator</option><option>deflection</option><option>asymmetry</option></select></td></tr>
+          <tr><td>the device that turns pressure into movement</td><td><select class="gap" data-answer="actuator"><option value=""></option><option>actuation</option><option>actuator</option><option>limit switch</option><option>flap</option></select></td></tr>
+          <tr><td>a check that a system works as it should</td><td><select class="gap" data-answer="functional test"><option value=""></option><option>functional test</option><option>pass criteria</option><option>indication</option><option>rigging</option></select></td></tr>
+          <tr><td>the exact result a test must reach to pass</td><td><select class="gap" data-answer="pass criteria"><option value=""></option><option>pass criteria</option><option>functional test</option><option>callout</option><option>clearance</option></select></td></tr>
+          <tr><td>a panel on the wing that changes lift</td><td><select class="gap" data-answer="flap"><option value=""></option><option>flap</option><option>placard</option><option>actuator</option><option>lockout</option></select></td></tr>
+          <tr><td>how far a surface moves from its neutral place</td><td><select class="gap" data-answer="deflection"><option value=""></option><option>deflection</option><option>asymmetry</option><option>clearance</option><option>indication</option></select></td></tr>
+          <tr><td>one side moving differently from the other</td><td><select class="gap" data-answer="asymmetry"><option value=""></option><option>asymmetry</option><option>deflection</option><option>rigging</option><option>snag</option></select></td></tr>
+          <tr><td>a moving panel that steers or slows the aircraft</td><td><select class="gap" data-answer="control surface"><option value=""></option><option>control surface</option><option>limit switch</option><option>placard</option><option>actuator</option></select></td></tr>
+          <tr><td>a switch that signals a part has reached its end point</td><td><select class="gap" data-answer="limit switch"><option value=""></option><option>limit switch</option><option>control surface</option><option>callout</option><option>BITE</option></select></td></tr>
+          <tr><td>the fluid force that drives many systems</td><td><select class="gap" data-answer="hydraulic pressure"><option value=""></option><option>hydraulic pressure</option><option>deflection</option><option>indication</option><option>clearance</option></select></td></tr>
+        </tbody>
+      </table>
       <button class="btn primary" data-check="e2">Check</button><span class="exscore"></span>
-      <details class="answers"><summary>Answer key</summary><div class="abody">approved word=C · noun cluster=A · active voice=F · technical verb=B · tech log=E · work order=D · caution=H · unserviceable=G</div></details>
+      <details class="answers"><summary>Answers</summary><div class="abody">actuation · actuator · functional test · pass criteria · flap · deflection · asymmetry · control surface · limit switch · hydraulic pressure</div></details>
     </div>
 
     <!-- E3 -->
     <div class="ex" id="e3">
       <span class="tag">E3 · Dialogue completion</span>
-      <h3>Complete the missing words</h3>
-      <p class="instr">These lines come from the dialogues. Type the missing word in each gap.</p>
-      <ol>
-        <li>A: Every word must be an approved word with <input class="gap" data-answer="one" size="6"> meaning.</li>
-        <li>A: The <input class="gap" data-answer="bracket" size="9"> has corrosion. Short and clear.</li>
-        <li>A: Each step is a procedural sentence. It is a command in the <input class="gap" data-answer="active" size="7"> voice.</li>
-        <li>A: Start with a technical <input class="gap" data-answer="verb" size="6">. Write: Remove the bolt.</li>
-        <li>A: Three nouns together create <input class="gap" data-answer="ambiguity" size="10">.</li>
-        <li>A: A warning is for people, a <input class="gap" data-answer="caution" size="9"> is for the part.</li>
-        <li>A: Write serviceable if it is good, or <input class="gap" data-answer="unserviceable" size="12"> if it is not.</li>
-        <li>A: Now the report is clear, and I can sign the <input class="gap" data-answer="work order" size="11">.</li>
+      <h3>Complete the pre-test brief</h3>
+      <p class="instr">Read the short brief. Write one word in each gap. The context helps you.</p>
+      <ol class="qs">
+        <li>A: We run the flap <input class="gap" data-answer="functional" size="11"> test now.</li>
+        <li>B: What is the pass <input class="gap" data-answer="criteria" size="10">?</li>
+        <li>A: Both flaps at full <input class="gap" data-answer="deflection" size="11">, with no asymmetry.</li>
+        <li>B: Do I keep <input class="gap" data-answer="clearance" size="10"> from the flaps?</li>
+        <li>A: Yes. And fit the <input class="gap" data-answer="lockout" size="9"> tag first.</li>
+        <li>B: Should I watch the limit <input class="gap" data-answer="switch" size="8">?</li>
+        <li>A: Yes. I call each <input class="gap" data-answer="actuation" size="11">; you confirm.</li>
+        <li>B: Do not <input class="gap" data-answer="stand" size="8"> near the flaps during travel, understood.</li>
       </ol>
       <button class="btn primary" data-check="e3">Check</button><span class="exscore"></span>
-      <details class="answers"><summary>Answer key</summary><div class="abody">1 one · 2 bracket · 3 active · 4 verb · 5 ambiguity · 6 caution · 7 unserviceable · 8 work order</div></details>
+      <details class="answers"><summary>Answers</summary><div class="abody">1 functional · 2 criteria · 3 deflection · 4 clearance · 5 lockout · 6 switch · 7 actuation · 8 stand</div></details>
     </div>
 
     <!-- E4 -->
     <div class="ex" id="e4">
       <span class="tag">E4 · Grammar transformation</span>
-      <h3>Add the missing articles</h3>
-      <p class="instr">Type only the missing article (<code>the</code> or <code>a</code>) in each gap. Read the whole sentence first.</p>
-      <ol>
-        <li>Remove <input class="gap" data-answer="the" size="4"> bolt from <input class="gap" data-answer="the" size="4"> bracket.</li>
-        <li>The technician found <input class="gap" data-answer="a" size="4"> crack in the panel.</li>
-        <li>Install <input class="gap" data-answer="a" size="4"> new seal on the valve.</li>
-        <li>The fault is in <input class="gap" data-answer="the" size="4"> left hydraulic system.</li>
-        <li>Read <input class="gap" data-answer="the" size="4"> warning before you start <input class="gap" data-answer="the" size="4"> step.</li>
-        <li>There is <input class="gap" data-answer="a" size="4"> caution about <input class="gap" data-answer="the" size="4"> sealant.</li>
-        <li>Attach the report to <input class="gap" data-answer="the" size="4"> work order.</li>
+      <h3>Rewrite as a short imperative</h3>
+      <p class="instr">Change each sentence into a direct order or a safety warning. Use the base verb, with no subject.</p>
+      <ol class="qs">
+        <li>You must not stand near the flaps. → <input class="gap" data-answer="do not stand near the flaps|don't stand near the flaps" size="30"></li>
+        <li>It is necessary to fit a lockout. → <input class="gap" data-answer="fit a lockout|fit the lockout" size="24"></li>
+        <li>You should keep clearance. → <input class="gap" data-answer="keep clearance" size="20"></li>
+        <li>Workers must not touch the actuator. → <input class="gap" data-answer="do not touch the actuator|don't touch the actuator" size="30"></li>
+        <li>You have to run the BITE check first. → <input class="gap" data-answer="run the bite check first|run bite first" size="30"></li>
+        <li>It is important to confirm each callout. → <input class="gap" data-answer="confirm each callout" size="26"></li>
+        <li>You must not pressurise the system. → <input class="gap" data-answer="do not pressurise the system|don't pressurise the system" size="30"></li>
+        <li>You should raise a snag. → <input class="gap" data-answer="raise a snag" size="20"></li>
       </ol>
       <button class="btn primary" data-check="e4">Check</button><span class="exscore"></span>
-      <details class="answers"><summary>Answer key</summary><div class="abody">1 the / the · 2 a · 3 a · 4 the · 5 the / the · 6 a / the · 7 the</div></details>
+      <details class="answers"><summary>Answers</summary><div class="abody">1 Do not stand near the flaps. · 2 Fit a lockout. · 3 Keep clearance. · 4 Do not touch the actuator. · 5 Run the BITE check first. · 6 Confirm each callout. · 7 Do not pressurise the system. · 8 Raise a snag.</div></details>
     </div>
 
     <!-- E5 -->
     <div class="ex" id="e5">
-      <span class="tag">E5 · Reading 1</span>
-      <h3>Read a completed defect report</h3>
+      <span class="tag">E5 · Reading 1 (AMM task card)</span>
+      <h3>Read the task card, then answer</h3>
       <div class="reading-text">
-        <div class="doc-head">Tech Log, Defect Report · A/C reg YL-BAM · ATA 32 Landing Gear</div>
-        <p>Defect: During the walk-around check, the technician found corrosion on the left main gear bracket. The corrosion is on the lower face of the bracket, near the bolt hole. The area is about two centimetres wide. There is no crack in the bracket, and no fluid is present.</p>
-        <p>Action: The technician cleaned the surface and measured the depth of the corrosion. The depth is within the limit in the maintenance manual, although it is close to the limit. The technician tagged the bracket as serviceable for now. A repeat check is due at the next A-check, unless the depth grows.</p>
-        <p>Warning: Do not apply load to the gear before the area is clean and dry. Caution: Do not use a steel brush on the surface, because it can damage the coating. The work order stays open until the repeat check is complete.</p>
-        <p>Note for the reviewer: the original technician recorded the observation immediately, rather than relying on memory at the end of the shift. Consequently, the measurements remain precise, and a second engineer can repeat the inspection and reach an identical conclusion. This traceability is precisely what distinguishes a professional defect report from a hurried personal note.</p>
+        <div class="doc-head">AMM Task 27-51-00-710-801, Flap System Functional Test</div>
+        <p><b>Warning:</b> Do not stand near the flaps during the test. The control surfaces move fast and can crush.</p>
+        <p>1. Fit a lockout on the green hydraulic system before you begin.</p>
+        <p>2. Set the flap lever to zero. Confirm that the flaps are up.</p>
+        <p>3. Apply hydraulic pressure. Check that the indication is normal and green.</p>
+        <p>4. Run the BITE check. Confirm that the actuator reports serviceable.</p>
+        <p>5. Call each actuation from this card. Your partner confirms each step.</p>
+        <p>6. Extend the flaps to five, then fifteen, then full deflection.</p>
+        <p>7. Watch both flaps. There must be no asymmetry between the two control surfaces.</p>
+        <p>8. The limit switch must make at each stop.</p>
+        <p><b>Pass criteria:</b> both flaps reach full deflection together, with no visible asymmetry, and every indication is normal. If the test fails, do not sign the aircraft serviceable. Raise a snag and fit a placard.</p>
       </div>
-      <p class="instr">Choose the best answer.</p>
+      <p>This task card is authentic in structure, although the numbers are simplified for practice. Read every warning first, because the sequence deliberately protects both technicians during the actuation. Notice that each subtask is a single, unambiguous instruction, which is the essence of Simplified Technical English.</p>
+      <p class="instr">Choose the correct answer for each question.</p>
       <ol class="qs">
-        <li>Where is the corrosion? <select class="gap" data-answer="B"><option value="">, </option><option value="A">A on the bolt</option><option value="B">B on the left main gear bracket</option><option value="C">C on the panel</option></select></li>
-        <li>Is there a crack? <select class="gap" data-answer="A"><option value="">, </option><option value="A">A no crack</option><option value="B">B a long crack</option><option value="C">C two cracks</option></select></li>
-        <li>What is the depth compared with the limit? <select class="gap" data-answer="C"><option value="">, </option><option value="A">A over the limit</option><option value="B">B far below it</option><option value="C">C within, but close to it</option></select></li>
-        <li>What is the state of the bracket now? <select class="gap" data-answer="A"><option value="">, </option><option value="A">A serviceable</option><option value="B">B unserviceable</option><option value="C">C removed</option></select></li>
-        <li>Why the caution about the steel brush? <select class="gap" data-answer="B"><option value="">, </option><option value="A">A it is slow</option><option value="B">B it can damage the coating</option><option value="C">C it is heavy</option></select></li>
-        <li>Is the work order closed? <select class="gap" data-answer="C"><option value="">, </option><option value="A">A yes, fully</option><option value="B">B it was never opened</option><option value="C">C no, it stays open</option></select></li>
+        <li>What must you fit before you begin? <select class="gap" data-answer="a lockout"><option value=""></option><option>a lockout</option><option>a placard</option><option>a new actuator</option></select></li>
+        <li>What confirms the actuator is serviceable? <select class="gap" data-answer="the BITE check"><option value=""></option><option>the BITE check</option><option>the flap lever</option><option>the tech log</option></select></li>
+        <li>How many flap steps are there? <select class="gap" data-answer="three"><option value=""></option><option>two</option><option>three</option><option>five</option></select></li>
+        <li>What must there be no of between the surfaces? <select class="gap" data-answer="asymmetry"><option value=""></option><option>asymmetry</option><option>pressure</option><option>clearance</option></select></li>
+        <li>When do both flaps reach full deflection? <select class="gap" data-answer="together"><option value=""></option><option>together</option><option>one after the other</option><option>at zero</option></select></li>
+        <li>What do you do if the test fails? <select class="gap" data-answer="raise a snag"><option value=""></option><option>sign it serviceable</option><option>raise a snag</option><option>remove the lockout</option></select></li>
       </ol>
       <button class="btn primary" data-check="e5">Check</button><span class="exscore"></span>
-      <details class="answers"><summary>Answer key</summary><div class="abody">1 B · 2 A · 3 C · 4 A · 5 B · 6 C</div></details>
+      <details class="answers"><summary>Answers</summary><div class="abody">1 a lockout · 2 the BITE check · 3 three · 4 asymmetry · 5 together · 6 raise a snag</div></details>
     </div>
 
     <!-- E6 -->
     <div class="ex" id="e6">
       <span class="tag">E6 · Error-spotting</span>
-      <h3>Fix the eight errors in this shift note</h3>
-      <p class="instr">This rough shift note breaks the STE rules and drops articles. Each line has one error. Type the corrected word or article in the gap.</p>
-      <ol>
-        <li>Found corrosion on <input class="gap" data-answer="the" size="4"> bracket. <span class="instr" style="display:inline">(missing article)</span></li>
-        <li>The removal of the bolt should be done. → Use a technical <input class="gap" data-answer="verb" size="6"> and the active voice.</li>
-        <li>Part looked bad and might be leaking. → Replace "bad" with an approved <input class="gap" data-answer="word" size="6">.</li>
-        <li>Wrote it in shift note style, but a report needs Simplified Technical <input class="gap" data-answer="English" size="8">.</li>
-        <li>The wing attachment fitting bolt hole is a long noun <input class="gap" data-answer="cluster" size="8">.</li>
-        <li>The part is okay. → Write <input class="gap" data-answer="serviceable" size="11"> instead of "okay".</li>
-        <li>Danger note for the live circuit must be a <input class="gap" data-answer="warning" size="8">, not a caution.</li>
-        <li>Copy result into <input class="gap" data-answer="the" size="4"> tech log with the same words.</li>
+      <h3>Find and fix the eight mistakes</h3>
+      <p class="instr">This spoken brief has eight errors. Write the correct form for each numbered part.</p>
+      <div class="reading-text">
+        <div class="doc-head">Flawed brief, before the test</div>
+        <p>First, <b>(1) you not stand</b> near the flaps. <b>(2) No touch</b> the actuator. <b>(3) We must to run</b> the BITE first. Watch for asymmetry, if the <b>(4) flaps is</b> not equal, <b>(5) is</b> a fail. Do not <b>(6) signs</b> it serviceable. Raise <b>(7) snag</b> in the log. Keep the clearance, <b>(8) isn't it?</b></p>
+      </div>
+      <ol class="qs">
+        <li>(1) → <input class="gap" data-answer="do not stand|you do not stand" size="20"></li>
+        <li>(2) → <input class="gap" data-answer="do not touch|don't touch" size="18"></li>
+        <li>(3) → <input class="gap" data-answer="we must run|must run" size="18"></li>
+        <li>(4) → <input class="gap" data-answer="flaps are" size="14"></li>
+        <li>(5) → <input class="gap" data-answer="it is|it's" size="12"></li>
+        <li>(6) → <input class="gap" data-answer="sign" size="10"></li>
+        <li>(7) → <input class="gap" data-answer="a snag" size="12"></li>
+        <li>(8) → <input class="gap" data-answer="keep clear|keep clearance" size="18"></li>
       </ol>
       <button class="btn primary" data-check="e6">Check</button><span class="exscore"></span>
-      <details class="answers"><summary>Answer key</summary><div class="abody">1 the · 2 verb · 3 word · 4 English · 5 cluster · 6 serviceable · 7 warning · 8 the</div></details>
+      <details class="answers"><summary>Answers</summary><div class="abody">1 do not stand · 2 do not touch · 3 we must run · 4 flaps are · 5 it is · 6 sign · 7 a snag · 8 keep clear (drop the question tag; use a plain order)</div></details>
     </div>
 
     <!-- E7 -->
     <div class="ex" id="e7">
-      <span class="tag">E7 · Reading 2</span>
-      <h3>Read a Service Bulletin summary</h3>
+      <span class="tag">E7 · Reading 2 (tech log + work order)</span>
+      <h3>Read the records, then answer</h3>
       <div class="reading-text">
-        <div class="doc-head">Service Bulletin SB-737-27-1145 · Rudder PCU Bracket · Summary for line stations</div>
-        <p>Reason: The manufacturer has received reports of corrosion on the bracket that holds the rudder power control unit. In a small number of aircraft, the corrosion reduces the strength of the bracket over time. If the bracket becomes unserviceable, the rudder control can be affected.</p>
-        <p>Action required: At the next scheduled check, inspect the bracket for corrosion and cracks. Use the technical name of each part in the defect report. Write every step as a procedural sentence in Simplified Technical English, so that the record has no ambiguity for the next technician.</p>
-        <p>Compliance: This bulletin is recommended, unless your authority makes it mandatory. Record the inspection in the tech log and close the work order only when the bracket is confirmed serviceable. A warning applies during the check: support the rudder before you remove any bracket bolt, because the surface can move without warning.</p>
-        <p>Additional guidance: line stations should treat this recommendation seriously even before it becomes mandatory, because corrosion progresses gradually and often unpredictably. Where an aircraft operates near the coast, atmospheric humidity accelerates the deterioration, and the interval between inspections may therefore need shortening. Record any such decision, together with its justification, so that the reasoning remains visible to every subsequent technician.</p>
+        <div class="doc-head">Tech Log, Snag Entry</div>
+        <p>Aircraft: D-AXLR. Date: 8 AUG. Snag number: 4471. Reported by: R. Ozols, late shift.</p>
+        <p><b>Snag:</b> The flap functional test failed. At full deflection, the left flap lags the right flap. There is visible asymmetry between the two control surfaces. This breaks the pass criteria in AMM 27-51-00.</p>
+        <p><b>Action taken:</b> The aircraft is not serviceable. A lockout is fitted on the green system. A placard is on the flap lever. A BITE readout shows a fault on the left actuation channel.</p>
+        <div class="doc-head" style="margin-top:8px">Work Order, Raised</div>
+        <p><b>Task:</b> Inspect the left flap actuator and its wiring. Check the rigging on the left side. Confirm the limit switch works. Re-run the flap functional test after the repair.</p>
+        <p><b>Note:</b> Do not pressurise the green system until the work order is closed. Keep clearance from the flaps at all times.</p>
       </div>
-      <p class="instr">Choose the best answer.</p>
+      <p>A tech log entry and a work order together form a documentation trail, which the next shift and any auditor can follow. Notice how each record cross-references the AMM and the identified fault, because traceability depends on that connection. The corrective action stays open until a repeat functional test confirms the aircraft is serviceable.</p>
+      <p class="instr">Write a short answer for each question.</p>
       <ol class="qs">
-        <li>What part does the bulletin cover? <select class="gap" data-answer="B"><option value="">, </option><option value="A">A the engine mount</option><option value="B">B the rudder PCU bracket</option><option value="C">C the landing gear</option></select></li>
-        <li>What can corrosion do over time? <select class="gap" data-answer="A"><option value="">, </option><option value="A">A reduce the strength of the bracket</option><option value="B">B change the colour only</option><option value="C">C add weight</option></select></li>
-        <li>How should each step be written? <select class="gap" data-answer="C"><option value="">, </option><option value="A">A as a long paragraph</option><option value="B">B as a shift note</option><option value="C">C as a procedural sentence in STE</option></select></li>
-        <li>When is the bulletin mandatory? <select class="gap" data-answer="B"><option value="">, </option><option value="A">A always</option><option value="B">B when the authority makes it mandatory</option><option value="C">C never</option></select></li>
-        <li>When can you close the work order? <select class="gap" data-answer="A"><option value="">, </option><option value="A">A when the bracket is confirmed serviceable</option><option value="B">B at once</option><option value="C">C after one year</option></select></li>
-        <li>What does the warning ask you to do? <select class="gap" data-answer="C"><option value="">, </option><option value="A">A remove all bolts fast</option><option value="B">B ignore the surface</option><option value="C">C support the rudder before removing a bolt</option></select></li>
+        <li>Why did the test fail? <input class="gap" data-answer="asymmetry|the left flap lags|visible asymmetry" size="26"></li>
+        <li>What does the BITE readout show? <input class="gap" data-answer="a fault|a fault on the left actuation channel|fault" size="26"></li>
+        <li>What is fitted on the green system? <input class="gap" data-answer="a lockout|lockout" size="18"></li>
+        <li>What must the mechanic inspect first? <input class="gap" data-answer="the actuator|the left flap actuator|actuator" size="24"></li>
+        <li>Can you pressurise the green system now? <input class="gap" data-answer="no" size="10"></li>
+        <li>What must you do after the repair? <input class="gap" data-answer="re-run the test|re-run the functional test|run the test again" size="28"></li>
       </ol>
       <button class="btn primary" data-check="e7">Check</button><span class="exscore"></span>
-      <details class="answers"><summary>Answer key</summary><div class="abody">1 B · 2 A · 3 C · 4 B · 5 A · 6 C</div></details>
+      <details class="answers"><summary>Answers</summary><div class="abody">1 (visible) asymmetry / the left flap lags · 2 a fault on the left actuation channel · 3 a lockout · 4 the (left flap) actuator · 5 no · 6 re-run the functional test</div></details>
     </div>
 
     <!-- E8 -->
     <div class="ex" id="e8">
-      <span class="tag">E8 · Listening review</span>
-      <h3>Questions on Dialogue 3</h3>
-      <p class="instr">Replay Audio track 3 (Peer review before sign-off). Then choose the best answer.</p>
+      <span class="tag">E8 · Listening review (Dialogue 3)</span>
+      <h3>Replay Dialogue 3 and answer</h3>
+      <p class="instr">Play Track 3 again. Then write a short answer for each question.</p>
       <ol class="qs">
-        <li>What does A want to do before signing? <select class="gap" data-answer="B"><option value="">, </option><option value="A">A close the hangar</option><option value="B">B peer-review the defect report</option><option value="C">C order a new part</option></select></li>
-        <li>What error did B make in "Remove bolt from bracket"? <select class="gap" data-answer="A"><option value="">, </option><option value="A">A dropped the articles</option><option value="B">B wrong verb</option><option value="C">C too long</option></select></li>
-        <li>Why does B forget articles? <select class="gap" data-answer="C"><option value="">, </option><option value="A">A B is tired</option><option value="B">B B writes fast</option><option value="C">C B's first language has no articles</option></select></li>
-        <li>Which word replaces "okay"? <select class="gap" data-answer="B"><option value="">, </option><option value="A">A fine</option><option value="B">B serviceable</option><option value="C">C good</option></select></li>
-        <li>Why is the bracket unserviceable? <select class="gap" data-answer="A"><option value="">, </option><option value="A">A it has corrosion</option><option value="B">B it is new</option><option value="C">C it is painted</option></select></li>
-        <li>Where should the warning go? <select class="gap" data-answer="C"><option value="">, </option><option value="A">A at the end</option><option value="B">B in a footnote</option><option value="C">C before the step</option></select></li>
+        <li>Which flap lags behind? <input class="gap" data-answer="left|the left|the left flap|left flap" size="16"></li>
+        <li>Does the test pass or fail? <input class="gap" data-answer="fail|it fails" size="12"></li>
+        <li>What do they raise? <input class="gap" data-answer="a snag|snag" size="14"></li>
+        <li>Where do they write it? <input class="gap" data-answer="the tech log|tech log" size="16"></li>
+        <li>What does the BITE readout show? <input class="gap" data-answer="a fault|fault|a fault code" size="18"></li>
+        <li>What stays fitted overnight? <input class="gap" data-answer="the lockout|lockout" size="16"></li>
       </ol>
       <button class="btn primary" data-check="e8">Check</button><span class="exscore"></span>
-      <details class="answers"><summary>Answer key</summary><div class="abody">1 B · 2 A · 3 C · 4 B · 5 A · 6 C</div></details>
+      <details class="answers"><summary>Answers</summary><div class="abody">1 the left flap · 2 fail · 3 a snag · 4 the tech log · 5 a fault (code) on the left actuation channel · 6 the lockout</div></details>
     </div>
   </section>
 
+  <!-- ================= SPEAKING ================= -->
   <section class="lecture-section" id="speaking">
-    <h2><span class="secnum">05</span>Speaking, role-play</h2>
-    <p class="instr" style="color:var(--ink-soft)">Work in pairs. Take a card each. Use the useful phrases. Swap roles after five minutes.</p>
-    <p>Speaking about a defect out loud is surprisingly different from writing one, because conversation constantly tempts you back into vague, everyday vocabulary. During each role-play, discipline yourself to describe the fault using the very same approved words that your written report would contain. If your partner hears any ambiguity, they should interrupt immediately, so that you practise correcting yourself under mild but realistic professional pressure.</p>
+    <h2><span class="secnum">06</span>Speaking, role-play cards</h2>
+    <p class="instr">Work with a partner. Take one card each. Use the useful phrases. Then swap roles.</p>
+    <p>Speaking is where this language becomes automatic. Rehearse the callouts aloud until the imperative forms feel natural, because hesitation during an actuation is unacceptable. Concentrate on clarity: a confirmation must be unambiguous, and a safety warning must be immediate. Compare your pronunciation against the audio tracks, and notice how the intonation stays calm even when the instruction is urgent.</p>
 
     <div class="rp-grid">
       <div class="roleplay">
-        <h4>Role-play Card 1: Mentor and junior</h4>
-        <div class="field"><span class="flab">Situation</span>A junior brings a rough shift note to the mentor at shift handover.</div>
-        <div class="field"><span class="flab">Your role (A)</span>You are the mentor. You help the junior rewrite the note.</div>
-        <div class="field"><span class="flab">Your goal</span>Turn the note into a clear defect report with approved words.</div>
-        <div class="field"><span class="flab">Useful phrases</span>"That word has ambiguity." · "Give each word one meaning." · "Write it as a fact."</div>
+        <h4>Card 1: The pre-test brief (lead)</h4>
+        <div class="field"><span class="flab">Situation</span>You start a flap functional test. Your partner is new.</div>
+        <div class="field"><span class="flab">Your role</span>You are the lead technician. You read the AMM.</div>
+        <div class="field"><span class="flab">Your goal</span>Brief the steps and the safety precautions clearly.</div>
+        <div class="field"><span class="flab">Useful phrases</span>"We follow task card 27-51-00." · "The pass criteria is …" · "Do not stand near the flaps." · "Keep your clearance."</div>
       </div>
 
       <div class="roleplay">
-        <h4>Role-play Card 2: Technician and tech author</h4>
-        <div class="field"><span class="flab">Situation</span>A technician has written the repair steps. The tech author checks the STE.</div>
-        <div class="field"><span class="flab">Your role (B)</span>You are the technician. You explain your steps and ask for help.</div>
-        <div class="field"><span class="flab">Your goal</span>Rewrite each step as a procedural sentence in the active voice.</div>
-        <div class="field"><span class="flab">Useful phrases</span>"Is this a procedural sentence?" · "Start with a technical verb." · "Break the noun cluster."</div>
+        <h4>Card 2: Call and confirm (partner)</h4>
+        <div class="field"><span class="flab">Situation</span>The test is running. The lead calls each action.</div>
+        <div class="field"><span class="flab">Your role</span>You watch the flap and confirm each step.</div>
+        <div class="field"><span class="flab">Your goal</span>Confirm clearly. Report what you see.</div>
+        <div class="field"><span class="flab">Useful phrases</span>"I am clear." · "Left flap moving." · "Limit switch made." · "No asymmetry." · "Confirm the next actuation."</div>
       </div>
 
       <div class="roleplay">
-        <h4>Role-play Card 3: Peer review</h4>
-        <div class="field"><span class="flab">Situation</span>Two technicians peer-review each other's defect report before sign-off.</div>
-        <div class="field"><span class="flab">Your role (A)</span>You are the reviewer. You check the articles and the approved words.</div>
-        <div class="field"><span class="flab">Your goal</span>Find dropped articles and any word with more than one meaning.</div>
-        <div class="field"><span class="flab">Useful phrases</span>"You dropped an article here." · "Is the part serviceable or unserviceable?" · "This needs a warning."</div>
+        <h4>Card 3: Read the result (both)</h4>
+        <div class="field"><span class="flab">Situation</span>The left flap lags at full deflection.</div>
+        <div class="field"><span class="flab">Your role</span>You and your partner decide pass or fail.</div>
+        <div class="field"><span class="flab">Your goal</span>State the pass criteria. Decide. Agree the next step.</div>
+        <div class="field"><span class="flab">Useful phrases</span>"That fails the pass criteria." · "Do not sign it serviceable." · "We raise a snag." · "Keep the lockout fitted."</div>
       </div>
 
       <div class="roleplay">
-        <h4>Role-play Card 4: Supervisor and technician</h4>
-        <div class="field"><span class="flab">Situation</span>The supervisor calls about a defect report before closing the work order.</div>
-        <div class="field"><span class="flab">Your role (B)</span>You are the technician. You report the fault and the action clearly.</div>
-        <div class="field"><span class="flab">Your goal</span>Describe the corrosion, the warning, and the caution in short sentences.</div>
-        <div class="field"><span class="flab">Useful phrases</span>"There is corrosion on the bracket." · "I added a warning first." · "The tech log is updated."</div>
+        <h4>Card 4: Shift handover (phone)</h4>
+        <div class="field"><span class="flab">Situation</span>Your shift ends. The test failed.</div>
+        <div class="field"><span class="flab">Your role</span>You call the next shift with a handover.</div>
+        <div class="field"><span class="flab">Your goal</span>Report the result, the snag, and the safety state.</div>
+        <div class="field"><span class="flab">Useful phrases</span>"The result is a fail." · "The BITE shows a fault." · "The lockout is fitted." · "Do not pressurise the system."</div>
       </div>
     </div>
 
     <div class="ai-box">
-      <h4>AI conversation partner: copy a prompt into the chat buddy</h4>
-      <p style="font-size:14px;margin:0 0 6px">Paste one prompt below into the chat buddy and speak your part. The AI will stay in role and gently correct your English.</p>
-      <div class="ai-prompt">You are my mentor at a Part-145 line station. I bring you a rough shift note about corrosion on a bracket. Play the mentor and help me rewrite it as a defect report. Speak at CEFR B2 with short sentences. Ask me one question each turn. When I make an error, gently repeat my sentence the correct way, then continue.</div>
-      <div class="ai-prompt">You are a tech author. I am a technician. I read you my repair steps, and you help me rewrite each one as a procedural sentence in the active voice. Speak at CEFR B2, keep it short, and ask one follow-up question each turn. If I drop an article or use a heavy phrase, recast my line correctly without a lecture.</div>
-      <div class="ai-prompt">You are my peer reviewer. I read you my defect report, and you check it against the STE rules. Speak at CEFR B2 in short sentences. Each turn, point out one issue (a dropped article, ambiguity, or a missing warning), recast my line correctly, and ask me one question.</div>
+      <h4>AI conversation partner: three prompts to copy</h4>
+      <p class="instr">Paste one prompt into the chat buddy. It plays the role and speaks at your level. It will gently fix your errors.</p>
+      <div class="ai-prompt">You are my test partner in the hangar. I am the lead technician. I brief you for a flap functional test. Play the partner. Speak at CEFR B2 with short sentences. Ask me one question each turn. If I make an English error, say my sentence back the correct way, then continue.</div>
+      <div class="ai-prompt">You are the lead technician. I am the partner on a flap functional test. Call each actuation. I will confirm and report what I see. Speak at CEFR B2, short and clear. Ask me to confirm each step. Gently recast any error I make, then carry on.</div>
+      <div class="ai-prompt">You are the next-shift technician. I phone you with a handover. The flap test failed. Let me report the result, the snag, and the safety state. Speak at CEFR B2. Ask one follow-up question each turn. If I make a mistake, repeat my line correctly, then reply.</div>
     </div>
   </section>
 
+  <!-- ================= WRITING ================= -->
   <section class="lecture-section" id="writing">
-    <h2><span class="secnum">06</span>Writing task</h2>
-    <p class="lede">Now do the unit task on your own. Below is a rambling shift note. Rewrite it as a clean defect report in Simplified Technical English. Then use the self-check list, and peer-review a partner's version.</p>
-    <p>Professional maintenance writing is judged not by elegance but by whether an independent inspector can act on it without asking a single clarifying question. As you rewrite the note below, imagine that particular reader precisely, and remove anything that would force them to guess your intention. A report that survives that imagined inspection, with every article present and every word carrying exactly one meaning, meets the standard this entire unit has been training you towards.</p>
-    <div class="reading-text">
-      <div class="doc-head">Rough shift note (rewrite this)</div>
-      <p>"So basically when I was doing the walk-round on the right side I noticed the little metal thing that holds the antenna, it looked kind of rough near the bottom, might be some corrosion or maybe just dirt, hard to tell in the dark, anyway I wiped it and it still looked bad so probably someone should look at it, also there was a bolt that felt a bit loose but I didn't have the torque wrench so I left it, tell the day shift."</p>
+    <h2><span class="secnum">07</span>Writing, a tech log snag entry</h2>
+    <p class="lede">The test failed. Write the snag entry for the tech log. Use Simplified Technical English (STE): short sentences, one order per sentence, and a simple, approved word for each idea.</p>
+    <p class="instr">Write 50–70 words. Say what failed, what you saw, the safety action, and the next step. Use the imperative for the warnings.</p>
+    <p>Simplified Technical English exists precisely to remove ambiguity from maintenance documentation. It restricts the vocabulary, shortens the sentences, and enforces one instruction per sentence, so that a non-native reader interprets the procedure identically to a native reader. When you write the snag entry, apply those habits deliberately: choose the approved word, keep the sentence short, and separate every order. A disciplined entry protects the next technician and satisfies the auditor.</p>
+    <div class="callout">
+      <h4>Plan your entry</h4>
+      <p style="margin:0">Line 1: the test and the result. Line 2: what you saw (the asymmetry). Line 3: the safety action (lockout, placard). Line 4: the next step (inspect, re-run). Keep each sentence short.</p>
     </div>
-    <p class="instr">Write six to eight short lines. Use a defect line, an action line, a warning or caution, and the state of the part (serviceable or unserviceable).</p>
-    <details class="answers"><summary>Model answer (open after you write)</summary><div class="abody">
-      <p><b>Defect:</b> There is corrosion on the antenna bracket on the right side. The corrosion is near the lower edge, close to the bolt hole.</p>
-      <p><b>Action:</b> The technician cleaned the surface. The corrosion is still visible. The technician did not torque the loose bolt, because the torque wrench was not available.</p>
-      <p><b>State:</b> The bracket is unserviceable until an inspector checks it.</p>
-      <p><b>Caution:</b> Do not apply load to the antenna before the bolt is torqued to the correct value. Record this in the tech log and keep the work order open.</p>
-    </div></details>
-    <h3>Self-check list</h3>
+    <details class="answers"><summary>Show a model answer</summary>
+      <div class="writing-model">
+        <b>SNAG 4471, D-AXLR.</b> The flap functional test failed. At full deflection, the left flap lags the right flap. There is visible asymmetry between the control surfaces. This breaks the pass criteria in AMM 27-51-00. The aircraft is not serviceable. A lockout is fitted on the green system. A placard is on the flap lever. Do not pressurise the system. Inspect the left actuator and the rigging, then re-run the test.
+      </div>
+    </details>
+    <p style="margin-top:14px"><b>Self-check, tick each line before you hand it in:</b></p>
     <ul class="checklist">
-      <li><label><input type="checkbox"> Every sentence is short, and each one gives one idea.</label></li>
-      <li><label><input type="checkbox"> Every noun has the right article (the / a), with none dropped.</label></li>
-      <li><label><input type="checkbox"> I used approved words, and each word has one meaning (no ambiguity).</label></li>
-      <li><label><input type="checkbox"> I stated the part as serviceable or unserviceable, with a warning or caution if needed.</label></li>
+      <li>☐ Every sentence is short (about 18 words or fewer).</li>
+      <li>☐ Each warning uses the imperative (Do not …).</li>
+      <li>☐ I named the result, the fault, the safety action, and the next step.</li>
+      <li>☐ I used the taught terms correctly (asymmetry, pass criteria, lockout, snag).</li>
     </ul>
   </section>
 
-  <footer>
-    English for Aviation Maintenance · Unit 19 · Writing a defect report in Simplified Technical English · CEFR B2 · Self-study language unit.
-  </footer>
+  <footer>English for Aviation Maintenance · Unit 21 of 32, Coordinating a functional/operational test · CEFR B2 · EASA Part-66/145</footer>
+
+</article>
 
 <script>
 (function(){
@@ -824,8 +843,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   });
 })();
 </script>
-</article>
-<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 19 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 21 of 32</span><span>Made with CourseForge LANG</span></footer><script>
 (function(){
   // section nav: built from the sections that exist, highlights on scroll
   var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
@@ -860,7 +878,7 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "defect report", "def": "A short, formal written record of an aircraft fault that the organisation keeps on file."}, {"term": "Simplified Technical English", "def": "A controlled writing standard that limits you to approved words and short, clear sentences."}, {"term": "approved word", "def": "A word that the Simplified Technical English dictionary allows you to use in a report."}, {"term": "one meaning", "def": "The discipline of using each word for only one idea, which removes confusion."}, {"term": "procedural sentence", "def": "A short command that tells the reader to perform exactly one step in a task."}, {"term": "ambiguity", "def": "The situation where a sentence can be understood in more than one different way."}, {"term": "noun cluster", "def": "Three or more nouns joined in a row, which becomes difficult to read and understand."}, {"term": "active voice", "def": "A sentence pattern where the person or tool that acts comes before the action."}, {"term": "technical name", "def": "The single correct name of a component or a tool, used consistently everywhere."}, {"term": "technical verb", "def": "An approved action word for a maintenance task, for example remove, install, or torque."}, {"term": "warning", "def": "A safety note that tells the reader a step can injure or kill a person."}, {"term": "caution", "def": "A note that tells the reader a step can damage the aircraft or the component."}, {"term": "instruction", "def": "One clear, single step that tells the technician exactly what action to perform."}, {"term": "shift note", "def": "A quick, informal note that a technician writes for personal use during a shift."}, {"term": "tech log", "def": "The official aircraft technical log that records every fault and every maintenance action."}, {"term": "work order", "def": "A formal document that tells a technician which maintenance task to carry out."}, {"term": "serviceable", "def": "In good condition, within limits, and therefore safe to use on the aircraft."}, {"term": "unserviceable", "def": "Not safe to use, and it must be repaired or replaced before further flight."}, {"term": "corrosion", "def": "Gradual damage to metal caused by moisture, air, and chemicals over a long period."}, {"term": "bracket", "def": "A metal fitting that holds another component firmly in its correct position."}], "lines": ["Toms, I read your shift note from last night. It is hard to follow.", "I wrote it fast at the end of the shift. What is wrong with it?", "A defect report is not a shift note. It is a formal record, so it must use Simplified Technical English.", "So I cannot write it the way I speak?", "No. Every word must be an approved word with one meaning. That removes ambiguity.", "Show me. My note says the part near the door looked bad.", "That is the problem. Did you find corrosion, a crack, or a loose bolt?", "There was corrosion on the bracket below the panel.", "Good. Now write it as a fact. The bracket has corrosion. Short and clear.", "That does sound better than my note.", "The tech log needs the same clear style, because the next technician depends on it. Put one idea in each short sentence.", "My note also says it seemed like it might be leaking. Is that wrong?", "Yes. Seemed and might give ambiguity. Write what you saw, not what you guessed.", "So I should write that fuel is on the floor below the bracket?", "Exactly. That is a fact an inspector can check. That is a defect report.", "I understand now. Short sentences, approved words, one meaning.", "Your report is clear. But the repair steps are not in Simplified Technical English yet.", "What should the steps look like?", "Each step is a procedural sentence. It is a command in the active voice.", "Can you give me an example?", "Start with a technical verb. Write: Remove the bolt from the bracket.", "My draft says the removal of the bolt should be done. That is heavy.", "It is heavy and passive. Use the active voice instead, and put one clear instruction in each line.", "You also marked wing attachment fitting bolt hole. Why?"], "roleplays": ["A junior brings a rough shift note to the mentor at shift handover.", "A technician has written the repair steps. The tech author checks the STE.", "Two technicians peer-review each other's defect report before sign-off.", "The supervisor calls about a defect report before closing the work order."], "grammar": "STE keeps sentences short, so every word must earn its place. Even so, English still needs its articles. You cannot drop the or a , although Latvian and Russian have no articles at all. This is the error the instructor will spot first.", "scenario": "It is the end of a late shift at the line station. You found a fault on the aircraft, and you scribbled a quick note before you went home. The note made sense to you at midnight, although it will not make sense to the next technician.", "pron": ["Toms, I read your shift note from last night. It is hard to follow.", "I wrote it fast at the end of the shift. What is wrong with it?", "So I cannot write it the way I speak?", "No. Every word must be an approved word with one meaning. That removes ambiguity."], "course": "English for Aviation Maintenance", "unit": 19, "total": 32, "title": "Writing a defect report in Simplified Technical English", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}, "figures": [{"type": "doc", "where": "scenario", "title": "From shift note to defect report", "docTitle": "Defect Report - Line Station", "caption": "Each field uses one approved word and keeps its article - notice a bracket and the bracket, never 'the part'.", "rows": [{"label": "Tech log ref", "note": "Write the tech log number so the next technician can find the record."}, {"label": "Technical name", "note": "Name the part exactly, for example 'door hinge bracket', not 'the part'."}, {"label": "Location", "note": "Give the exact location, for example 'the left forward door'."}, {"label": "Defect", "note": "Write one procedural sentence, for example 'Corrosion damaged the bracket.'"}, {"label": "Status", "note": "Mark the item serviceable or unserviceable, not 'looked bad'."}]}, {"type": "tree", "where": "grammar", "title": "Choose a, an, or the", "caption": "Follow the yes/no path - you cannot drop the article, even though Latvian and Russian have none.", "levels": [{"q": "Is the noun a countable part?", "yes": "Ask question 2", "no": "Use no article (corrosion)"}, {"q": "Is this the first mention?", "yes": "Use a or an (a bracket)", "no": "Use the (the bracket)"}, {"q": "Is there only one on the aircraft?", "yes": "Use the (the fuselage)", "no": "Use a for one of many"}]}, {"type": "compare", "where": "vocabulary", "title": "Shift note vs. defect report", "a": "Shift note", "b": "Defect report (STE)", "caption": "Compare vague, personal language with approved STE words - notice the article is never dropped.", "rows": [["Word choice", "any word, even slang", "only approved words, one meaning"], ["Naming a part", "the part near the door", "the technical name, e.g. door hinge bracket"], ["Sentence type", "casual, personal note", "procedural sentence, active voice"], ["Article use", "often dropped", "always kept: a bracket, the bracket"], ["Purpose", "reminder for yourself", "formal record for the next technician"]]}, {"type": "flow", "where": "grammar", "title": "Write a defect report sentence", "caption": "Follow each imperative step - keep the article every time: a bracket, the bracket.", "steps": [{"label": "Name the part", "note": "Use its technical name instead of a vague word like 'the part'."}, {"label": "Pick one approved word", "note": "Choose a word with one meaning to remove ambiguity."}, {"label": "Keep the article", "note": "Do not drop a or the, even though Latvian and Russian have none."}, {"label": "Use active voice", "note": "State who or what acts, for example 'Corrosion damaged the bracket.'"}, {"label": "Write one sentence", "note": "Keep it a short procedural sentence, one fact only."}]}]};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "functional test", "def": "a check that a system works as it should"}, {"term": "actuation", "def": "the movement of a part when a force or signal drives it"}, {"term": "actuator", "def": "the device that turns pressure or a signal into movement"}, {"term": "pass criteria", "def": "the exact result a test must reach to pass"}, {"term": "flap", "def": "a panel on the wing that changes lift"}, {"term": "deflection", "def": "how far a surface moves from its neutral place"}, {"term": "asymmetry", "def": "one side moving differently from the other"}, {"term": "control surface", "def": "a moving panel that steers or slows the aircraft"}, {"term": "limit switch", "def": "a switch that signals a part has reached its end point"}, {"term": "hydraulic pressure", "def": "the fluid force that drives many aircraft systems"}, {"term": "clearance", "def": "a safe distance from a moving part"}, {"term": "serviceable", "def": "fit and safe to use"}, {"term": "snag", "def": "a fault that you write up for repair"}, {"term": "rigging", "def": "the setting that aligns a surface correctly"}, {"term": "BITE", "def": "built-in test equipment; the system's own self-test"}, {"term": "AMM", "def": "the Aircraft Maintenance Manual, with every task"}, {"term": "indication", "def": "a light or reading that shows a system state"}, {"term": "placard", "def": "a warning card fitted to mark a hazard"}, {"term": "lockout", "def": "a tag or lock that stops a system being used"}, {"term": "callout", "def": "a spoken command said clearly during a test"}], "lines": ["We run the flap functional test now, so I will brief you before we begin.", "Understood. Which AMM task card covers this operational test?", "Task card 27-51-00, which lists every procedure and each safety precaution.", "Copy. Before we start, what exactly is the pass criteria?", "Both flaps must reach full deflection together, with no visible asymmetry.", "So I monitor the control surface for asymmetry throughout the actuation?", "Correct. You observe the left flap, while I call each actuation from the manual.", "Understood. Do we need hydraulic pressure before the first actuation?", "Yes, because the actuator cannot move unless the green system is pressurised.", "And the BITE check, do we complete it before the functional test?", "We run BITE first, since it confirms the actuator is serviceable.", "Clear. One safety precaution: do not stand near the flaps during travel.", "Correct. Stay behind the placard line, and keep your clearance at all times.", "Should I fit the lockout on the other system before we continue?", "Yes, fit the lockout tag now, in case somebody pressurises it accidentally.", "The lockout is fitted, and I am positioned clear. Call the first actuation whenever ready.", "Pressure is up and the green system is normal. Ready for the first callout?", "Ready. I am positioned clear of the flaps, so go ahead.", "Flaps to five. Actuating now. Confirm the left flap begins to move.", "Left flap moving smoothly. The deflection looks even, with no asymmetry yet.", "Good. Flaps to fifteen. Watch the limit switch indication as it travels.", "The limit switch made at fifteen, and the indication light is green.", "Flaps to full deflection. This actuation is the largest, so stand well clear.", "I am clear. Both control surfaces are approaching full deflection together."], "roleplays": ["You start a flap functional test. Your partner is new.", "The test is running. The lead calls each action.", "The left flap lags at full deflection.", "Your shift ends. The test failed."], "grammar": "A live test moves real surfaces. So the manual and the technician give short, direct orders. This is the imperative . You use the base verb, with no subject.", "scenario": "It is the late shift in Hangar 2. Aircraft D-AXLR is on jacks for a flap system check. The task card in the AMM asks for a flap functional test with two people.", "pron": ["We run the flap functional test now, so I will brief you before we begin.", "Understood. Which AMM task card covers this operational test?", "Task card 27-51-00, which lists every procedure and each safety precaution.", "Copy. Before we start, what exactly is the pass criteria?"], "course": "English for Aviation Maintenance", "unit": 21, "total": 32, "title": "Coordinating a functional/operational test", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}, "figures": [{"type": "doc", "where": "scenario", "title": "Reading the task card", "docTitle": "AMM Task Card 27-51-00 — Flap Functional Test", "caption": "The task card uses precise technical nouns, not everyday words; learn each one before the test.", "rows": [{"label": "functional test", "note": "The AMM requires two technicians to run this live test on the flap system."}, {"label": "pass criteria", "note": "Both flaps must reach full deflection together, with no visible asymmetry."}, {"label": "hydraulic pressure", "note": "The system needs correct hydraulic pressure before the actuator can move the flap."}, {"label": "limit switch", "note": "The limit switch stops the actuation when the flap reaches full deflection."}, {"label": "lockout", "note": "Ground crew apply a lockout so no one moves the flaps by accident during the test."}, {"label": "clearance", "note": "Check clearance around the flap before every actuation."}]}, {"type": "flow", "where": "grammar", "title": "Giving orders during the test", "caption": "Notice the order words: each step starts with the base verb, with no subject — this is the imperative.", "steps": [{"label": "Brief the team", "note": "Explain the task and every safety precaution before you begin."}, {"label": "Confirm the pass criteria", "note": "State exactly what a successful actuation looks like."}, {"label": "Check hydraulic pressure", "note": "Verify pressure is correct before you start the actuation."}, {"label": "Call out the actuation", "note": "Announce each movement so your partner is ready and watching."}, {"label": "Monitor for asymmetry", "note": "Watch both flaps together throughout the full deflection."}, {"label": "Record the indication", "note": "Write the result on the task card as serviceable or snag."}]}, {"type": "tree", "where": "grammar", "title": "Deciding pass or fail", "caption": "Each question tests one real yes/no condition from the pass criteria — answer it, then act on it.", "levels": [{"q": "Do both flaps reach full deflection together?", "yes": "Continue; check the limit switch indication next.", "no": "Stop the actuation immediately and inspect the actuator."}, {"q": "Is there visible asymmetry between the flaps?", "yes": "Raise a snag and apply a lockout on the flap system.", "no": "Check the limit switch indication next."}, {"q": "Does the limit switch give the correct indication?", "yes": "Mark the flap system serviceable on the task card.", "no": "Raise a snag and consult the AMM for rigging."}]}, {"type": "compare", "where": "vocabulary", "title": "Actuator vs. actuation", "a": "Actuator", "b": "Actuation", "caption": "Latvian and Russian speakers often mix these two nouns; one is a part, the other is a process.", "rows": [["What it is", "The hydraulic component that moves the flap", "The movement itself, while the actuator operates"], ["Word type", "A physical part you can inspect for leaks", "A process that happens over time, from start to full deflection"], ["Example use", "Check the actuator for hydraulic leaks", "Monitor the control surface throughout the actuation"], ["Question it answers", "Which part moves the flap?", "What is happening right now?"]]}, {"type": "timeline", "where": "speaking", "title": "Coordinating the test on Hangar 2 late shift", "caption": "Follow how a question, then a confirmation, moves the coordination forward before any surface is actuated.", "events": [{"t": "22:00", "e": "Brief the team", "note": "We run the flap functional test now, so I will brief you before we begin."}, {"t": "22:05", "e": "Confirm the task card", "note": "Task card 27-51-00 lists every procedure and each safety precaution."}, {"t": "22:10", "e": "State the pass criteria", "note": "Both flaps must reach full deflection together, with no visible asymmetry."}, {"t": "22:15", "e": "Assign the monitoring role", "note": "So I monitor the control surface for asymmetry throughout the actuation?"}, {"t": "22:20", "e": "Begin the actuation", "note": "The technician calls out each movement so the flaps move together, on command."}]}]};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the

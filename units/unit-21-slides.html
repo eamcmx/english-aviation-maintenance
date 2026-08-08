@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 21 — Teacher Deck · Coordinating a functional test</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:30px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}small{font-size:14px;color:var(--muted)}
+.dw{width:100%;max-width:720px;min-height:300px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:300px;border:1px dashed var(--line);border-radius:14px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:56px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.tbl{width:100%;border-collapse:collapse;font-size:16px;margin-top:8px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 11px;text-align:left;vertical-align:top}
+.tbl th{background:#16263a;color:#9ec9ff;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.wr{background:#241316;border-left:3px solid var(--hot);padding:6px 12px;border-radius:6px;margin:6px 0;font-size:17px}
+.ri{background:#10271e;border-left:3px solid var(--good);padding:6px 12px;border-radius:6px;margin:6px 0;font-size:17px}
+.turn{margin:5px 0;font-size:18px}.turn b{color:#7fd0ff;font-family:var(--mono)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="[0:00–0:03] Open the class. This is Unit 21 — coordinating a functional/operational test. Set the frame: a functional test is never a solo job, so the language of teamwork carries the safety. Two people, one moving control surface, one manual followed word for word. Name the three can-do outcomes out loud: brief the steps and precautions, call and confirm each action, state and read the pass/fail result. Tell the room the grammar spine is the imperative with safety warnings — short direct orders, because a live test moves real surfaces fast. Promise a 90-minute arc: listen, build the words, drill the grammar, practise, then role-play and write. Keep the energy calm and procedural — that is the register we are teaching.">
+    <div class="kick">English for Aviation Maintenance · Unit 21 of 32 · CEFR B2 · EASA Part-66/145</div>
+    <h1>Coordinating a functional test</h1>
+    <p class="big muted">Brief the steps and the safety precautions · call and confirm each action · state and read the pass/fail result. The grammar that carries the safety: the imperative — "Do not stand near the flaps."</p>
+    <p class="pill">90-minute class &nbsp;·&nbsp; Field: testing — functional test, actuation, pass criteria &nbsp;·&nbsp; Scenario: a flap functional test with a partner</p>
+  </section>
+
+  <!-- 2 · HOW THE CLASS RUNS -->
+  <section class="slide" data-notes="[0:03–0:06] Show the map for the 90 minutes so students know where they are going. Warm-up and scenario 4 min; listening x4 with comprehension 15 min; vocabulary bank 12 min; grammar in context 12 min; controlled practice E1–E8 20 min; speaking role-plays 17 min; writing the snag entry 10 min. Restate the three outcomes as the exit test: by the end they can brief, call-and-confirm, and read pass/fail. Stress the professional point — a single unclear callout can send a person into a hazard, so precision is the skill, not decoration. Everything before speaking is preparation for the two role-plays that follow.">
+    <h2>How the 90 minutes run</h2>
+    <div class="cols">
+      <div>
+        <table class="tbl">
+          <tr><th>Stage</th><th>Min</th></tr>
+          <tr><td>Warm-up + the situation</td><td>4</td></tr>
+          <tr><td>Listening ×4 (brief · run · result · handover)</td><td>15</td></tr>
+          <tr><td>Vocabulary bank (testing field)</td><td>12</td></tr>
+          <tr><td>Grammar: imperative + safety warning</td><td>12</td></tr>
+          <tr><td>Controlled practice E1–E8</td><td>20</td></tr>
+          <tr><td>Speaking: 4 role-play cards</td><td>17</td></tr>
+          <tr><td>Writing: a tech-log snag entry (STE)</td><td>10</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <p class="kick">By the end, a student can …</p>
+        <ul>
+          <li>Brief a partner on a test's steps and safety precautions.</li>
+          <li>Call and confirm test actions clearly while the test runs.</li>
+          <li>State and interpret the pass/fail criteria.</li>
+        </ul>
+        <p class="note">The register is short, direct, unambiguous — like the manual it comes from.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE SITUATION -->
+  <section class="slide" data-notes="[0:06–0:08] Paint the scene before any English. Late shift, Hangar 2, aircraft D-AXLR on jacks for a flap system check. The AMM task card asks for a two-person flap functional test. One technician reads the manual and calls each action aloud; the other stands clear, watches the flaps, and confirms each step. The flaps are heavy control surfaces that move fast under hydraulic pressure, so the safety words matter as much as the test. Ask the room: who has coordinated a two-person task where wording mattered? Elicit one example. Then flip to listening — they will hear this exact test unfold across four tracks.">
+    <h2><span class="tag">01 · Scenario</span> The situation</h2>
+    <div class="cols">
+      <div>
+        <p>Late shift, Hangar 2. Aircraft <b>D-AXLR</b> is on jacks for a flap system check. The task card in the AMM asks for a flap functional test — with <b>two people</b>.</p>
+        <p>One reads the manual and <b>calls</b> each action. The other stands clear, watches, and <b>confirms</b>. At the end, you compare the result with the <b>pass criteria</b>: pass or fail.</p>
+      </div>
+      <div class="card">
+        <p class="kick">Why the language matters</p>
+        <p>The flaps move fast under hydraulic pressure. A single unclear callout can send a person into a hazard — so the words are part of the safety, not extra.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · LISTEN 1 -->
+  <section class="slide" data-notes="[0:08–0:11] Track 1 — the pre-test brief. First play: transcripts closed, gist task on the board — 'What must B fit, and where must B stand?' (answer: the lockout tag; behind the placard line, clear of the flaps). Second play: transcripts open, focus on the function 'briefing' — notice how A states the pass criteria and the safety precautions before any actuation. Pull out two safety imperatives from the track: 'Do not stand near the flaps during travel.' / 'Stay behind the placard line.' Drill chorally, calm and clear. Check the BITE-before-test point: they run BITE first because it confirms the actuator is serviceable.">
+    <h2><span class="tag">02 · Listen</span> Track 1 — The pre-test brief</h2>
+    <div class="cols">
+      <div>
+        <p class="turn"><b>A</b> We run the flap functional test now, so I will brief you before we begin.</p>
+        <p class="turn"><b>B</b> Which AMM task card covers this operational test?</p>
+        <p class="turn"><b>A</b> Both flaps must reach full deflection together, with no visible asymmetry.</p>
+        <p class="turn"><b>B</b> Do not stand near the flaps during travel.</p>
+      </div>
+      <div class="card">
+        <p class="kick">Play it twice</p>
+        <p><b>1st (books closed):</b> What must B fit, and where must B stand?</p>
+        <p><b>2nd (books open):</b> Find the pass criteria and two safety warnings.</p>
+        <p class="note">Function today: <b>briefing</b> — steps + precautions before you touch the lever.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · LISTEN 2 -->
+  <section class="slide" data-notes="[0:11–0:13] Track 2 — running the test. This is the heart of the unit: call and confirm. Highlight the pattern — A calls a command ('Flaps to five. Actuating now.'), B confirms what is observed ('Left flap moving smoothly. No asymmetry yet.'). Point at the three flap settings that are spoken: five, fifteen, full. Note the limit-switch confirmation at fifteen with a green light — this is a numerical detail worth catching (it returns in the quiz). Drill the confirm phrases: 'I am clear.' / 'Limit switch made.' / 'No asymmetry.' Keep intonation flat and certain — a confirmation must be unambiguous.">
+    <h2><span class="tag">02 · Listen</span> Track 2 — Running the test (call &amp; confirm)</h2>
+    <div class="cols">
+      <div>
+        <p class="turn"><b>A</b> Flaps to five. Actuating now. Confirm the left flap begins to move.</p>
+        <p class="turn"><b>B</b> Left flap moving smoothly. The deflection looks even, with no asymmetry yet.</p>
+        <p class="turn"><b>A</b> Flaps to fifteen. Watch the limit switch indication as it travels.</p>
+        <p class="turn"><b>B</b> The limit switch made at fifteen, and the indication light is green.</p>
+      </div>
+      <div class="card">
+        <p class="kick">Listen for numbers</p>
+        <p>Which three flap settings are called? <span class="muted">(five · fifteen · full)</span></p>
+        <p>At what setting does the limit switch make? <span class="muted">(fifteen)</span></p>
+        <p class="note">Pattern: A <b>calls</b> the command → B <b>confirms</b> what is seen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · LISTEN 3 -->
+  <section class="slide" data-notes="[0:13–0:15] Track 3 — reading the result. Now it goes wrong: at full deflection the left flap lags the right. B calls it, A stops the test and selects flaps up. Teach the decision language: 'That fails the pass criteria.' / 'Do not sign it serviceable.' / 'We raise a snag.' Point out the diagnosis chain — possible rigging error or sluggish actuator; the BITE readout then shows a fault on the left actuation channel, which fits the symptom. End on the safety state: keep the lockout fitted, add a placard, update the work order. This track feeds the writing task directly.">
+    <h2><span class="tag">02 · Listen</span> Track 3 — Reading the result (pass or fail?)</h2>
+    <div class="cols">
+      <div>
+        <p class="turn"><b>B</b> Actuating. Wait — the left flap is lagging behind the right one.</p>
+        <p class="turn"><b>A</b> Stop the test and select flaps up. Confirm that you can see asymmetry.</p>
+        <p class="turn"><b>B</b> The AMM allows no visible asymmetry, so this result is definitely a fail.</p>
+        <p class="turn"><b>A</b> Do not sign it serviceable, because we must raise a snag first.</p>
+      </div>
+      <div class="card">
+        <p class="kick">Decision language</p>
+        <p>State the criteria → decide → agree the next step.</p>
+        <p>What does the BITE readout show? <span class="muted">(a fault on the left actuation channel)</span></p>
+        <p class="note">Fail → snag in the tech log · lockout stays · placard on the lever.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · LISTEN 4 -->
+  <section class="slide" data-notes="[0:15–0:17] Track 4 — the shift-handover voicemail (a monologue). Different sub-skill: listening to a phone handover for exact facts. Give a note-taking grid: aircraft, result, cause, snag number, safety state. Answers: D-AXLR; fail; BITE fault on the left actuation channel — actuator or wiring; snag 4471; lockout still fitted, placard on the lever, do not pressurise. The snag number four four seven one is a numerical catch — play that line twice if needed. This models Card 4 in the role-play, so tell the room they will produce a handover like this later.">
+    <h2><span class="tag">02 · Listen</span> Track 4 — Shift-handover voicemail</h2>
+    <div class="cols">
+      <div>
+        <p class="turn"><b>M</b> Here is a quick handover on the flap functional test.</p>
+        <p class="turn"><b>M</b> We ran the test on aircraft D-A-X-L-R. The result is a fail. At full deflection, the left flap lagged the right.</p>
+        <p class="turn"><b>M</b> I raised a snag in the tech log, number four four seven one. The lockout tag is still fitted. Please do not pressurise the system.</p>
+      </div>
+      <div class="card">
+        <p class="kick">Note-taking grid</p>
+        <p>Aircraft · result · cause · <b>snag number</b> · safety state.</p>
+        <p class="note">Catch the number: <b>4471</b>. This models the Card 4 handover you produce later.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · VOCAB BANK -->
+  <section class="slide" data-notes="[0:17–0:22] Vocabulary — the testing field. Twenty terms live in the bank; each has a plain-words gloss and a spoken example. Do not lecture the whole list — activate it. Quick round: read a plain meaning, students call the term (matching). Group the terms into three families on the board: THE TEST (functional test, actuation, actuator, deflection, limit switch, hydraulic pressure), THE JUDGEMENT (pass criteria, asymmetry, control surface, indication, serviceable, rigging), THE PAPERWORK/SAFETY (snag, BITE, AMM, placard, lockout, clearance, callout). Drill the tricky pronunciations: actuation, asymmetry, serviceable, deflection. Every term is reused in E1/E2 and spoken in a track.">
+    <h2><span class="tag">03 · Vocabulary</span> The testing field — 20 terms, three families</h2>
+    <div class="grid2">
+      <div class="card"><p class="kick">The test</p><p>functional test · actuation · actuator · deflection · limit switch · hydraulic pressure</p></div>
+      <div class="card"><p class="kick">The judgement</p><p>pass criteria · asymmetry · control surface · indication · serviceable · rigging</p></div>
+      <div class="card"><p class="kick">Paperwork &amp; safety</p><p>snag · BITE · AMM · placard · lockout · clearance · callout</p></div>
+      <div class="card"><p class="kick">Activate, don't lecture</p><p>Read a plain meaning → the room calls the term. Then reverse. Drill: <b>actuation · asymmetry · serviceable · deflection</b>.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · VOCAB COLLOCATION -->
+  <section class="slide" data-notes="[0:22–0:24] Collocation is where B2 lives. A term is only useful inside its natural verb+noun pair. Put the collocations on the board and have students say the full chunk, not the bare noun: run a functional test; call an actuation; meet the pass criteria; keep clearance; raise a snag; fit the lockout; sign it serviceable; a BITE readout; full deflection; the limit switch made. Point out 'the limit switch made' — 'make' here means 'closed / completed the circuit', a real hangar idiom. Then run a 60-second pair race: partner A says a noun, partner B adds the correct verb. This primes the exercises.">
+    <h2><span class="tag">03 · Vocabulary</span> Say the whole chunk (collocation)</h2>
+    <div class="cols">
+      <div>
+        <table class="tbl">
+          <tr><th>Verb + noun</th><th>Verb + noun</th></tr>
+          <tr><td>run a functional test</td><td>keep clearance</td></tr>
+          <tr><td>call an actuation</td><td>raise a snag</td></tr>
+          <tr><td>meet the pass criteria</td><td>fit the lockout</td></tr>
+          <tr><td>sign it serviceable</td><td>read the BITE</td></tr>
+          <tr><td>full deflection</td><td>the limit switch made</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <p class="kick">Idiom to flag</p>
+        <p>"The limit switch <b>made</b>." Here <i>make</i> = closed / completed the circuit. It is not "made" as in built.</p>
+        <p class="note">60-sec pair race: A says the noun, B adds the verb.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · GRAMMAR: IMPERATIVE + WIDGET -->
+  <section class="slide" data-notes="[0:24–0:30] Grammar in context — the imperative with safety warnings. Teach the shape, not the label first: an order uses the base verb with no subject ('Fit the lockout.'); a warning puts 'Do not' before the base verb ('Do not stand near the flaps.'). Rule of sequence: say the warning first, then the order — the warning protects the person, the order tells them what to do. Note the professional register: the imperative is efficient, not rude, because the actuation happens fast. Now use the widget live: drag the technician toward the flap and read the sweep. Inside the placard line the page fires the exact warning 'Do not stand near the flaps.' Ask the room to SAY the warning as the bar turns red. This binds the grammar to the hazard.">
+    <h2><span class="tag">04 · Grammar</span> The imperative — order &amp; safety warning</h2>
+    <div class="cols">
+      <div>
+        <p><b>Order:</b> base verb, no subject → <i>Fit the lockout. Keep clearance.</i></p>
+        <p><b>Warning:</b> <code>Do not</code> + base verb → <i>Do not stand near the flaps.</i></p>
+        <p class="note">Say the warning first, then the order. Short = safe, because the flap moves fast.</p>
+      </div>
+      <div class="dw" data-widget="clearance"></div>
+    </div>
+  </section>
+
+  <!-- 11 · GRAMMAR: L1 INTERFERENCE -->
+  <section class="slide" data-notes="[0:30–0:33] The three mistakes Latvian and Russian speakers make with the imperative. One: dropping the auxiliary in negatives — 'Not stand near the flaps' instead of 'Do not stand…'; both Latvian ('nestāviet') and Russian ('не стойте') form the negative with a single particle plus the verb, so English 'do not' feels redundant. Two: 'No + verb' ('No touch the actuator') — transfer of Latvian 'nē'/Russian 'нет' as a blanket negator. Three: keeping the subject — 'You stand clear!' — because Russian and Latvian often keep or imply the pronoun. Drill the correct forms chorally three times each. Tell them the fix is rehearsal — under pressure the wrong form returns, so the callouts must be automatic.">
+    <h2><span class="tag">04 · Grammar</span> Three L1 traps (Latvian · Russian)</h2>
+    <div class="grid2">
+      <div><div class="wr"><b>✗</b> Not stand near the flaps.</div><div class="ri"><b>✓</b> Do not stand near the flaps.</div><p class="note">L1 negates with one particle (nestāviet / не стойте) → learners drop "do".</p></div>
+      <div><div class="wr"><b>✗</b> No touch the actuator.</div><div class="ri"><b>✓</b> Do not touch the actuator.</div><p class="note">"No + verb" transfers nē / нет as a blanket negator.</p></div>
+      <div><div class="wr"><b>✗</b> You stand clear now!</div><div class="ri"><b>✓</b> Stand clear now!</div><p class="note">English imperative drops the subject; L1 keeps/implies the pronoun.</p></div>
+      <div class="card"><p class="kick">The fix</p><p>Rehearse aloud until automatic. Under pressure the L1 form returns — so drill the callouts, don't just explain them.</p></div>
+    </div>
+  </section>
+
+  <!-- 12 · PASS CRITERIA WIDGET -->
+  <section class="slide" data-notes="[0:33–0:37] Pass criteria and asymmetry — make the abstract rule visible. The criteria: both flaps reach full deflection TOGETHER, with no visible asymmetry. Use the widget: the right flap sits at full (40°); drag the slider to add lag to the left flap. At zero lag the read-out says PASS; any visible lag flips it to FAIL and prompts 'raise a snag'. Tie it to Track 3 — the left flap trailed by several degrees, so it failed. Push the language: have students state the verdict in one sentence — 'That fails the pass criteria; the AMM allows no visible asymmetry.' Then ask the interpretation question: what if the AMM allowed a small tolerance? (Then a tiny lag could still pass — the criteria decide, not the eye.)">
+    <h2><span class="tag">05 · Read the result</span> Pass criteria vs asymmetry</h2>
+    <div class="cols">
+      <div>
+        <p>Criteria: both flaps at <b>full deflection together</b>, with <b>no visible asymmetry</b>.</p>
+        <p>Drag the left flap's lag. Read the verdict, then say it in one sentence.</p>
+        <p class="note">Interpretation: if the AMM allowed a tolerance, a tiny lag could still pass — the criteria decide, not the eye.</p>
+      </div>
+      <div class="dw" data-widget="flaptest"></div>
+    </div>
+  </section>
+
+  <!-- 13 · SEQUENCE WIDGET -->
+  <section class="slide" data-notes="[0:37–0:40] Call-and-confirm choreography — drill the sequence with the widget. Press the buttons in order: Flaps 5, Flaps 15, Flaps full, Flaps up. Each press eases the flap to the setting, shows the caller's line and the partner's confirmation, and lights the limit switch at each detent. Run it as a two-role drill: one student reads the CALL line on screen, the partner produces the CONFIRM line from memory. Then swap. Insist on the confirm formula — observe + state: 'Left flap moving.' 'Limit switch made.' 'No asymmetry.' This is the exact rehearsal they need before Card 2. Keep it brisk; three passes is enough.">
+    <h2><span class="tag">05 · Call &amp; confirm</span> The actuation sequence</h2>
+    <div class="cols">
+      <div>
+        <p>Press the calls in order. One student reads the <b>CALL</b>; the partner gives the <b>CONFIRM</b> from memory. Then swap.</p>
+        <p class="note">Confirm = observe + state: "Left flap moving." · "Limit switch made." · "No asymmetry."</p>
+      </div>
+      <div class="dw" data-widget="sequence"></div>
+    </div>
+  </section>
+
+  <!-- 14 · EXERCISES E1-E4 -->
+  <section class="slide" data-notes="[0:40–0:50] Controlled practice, first half. Stage these on the page — students work, then Check. E1 gap-fill puts a bank term in each gap (recognition). E2 matching links plain meaning to term. E3 dialogue completion rebuilds the pre-test brief one word at a time. E4 grammar transformation is the key one — turn 'You must not stand near the flaps' into 'Do not stand near the flaps', dropping the subject and using the auxiliary. Circulate; the common error will be E4 keeping 'you' or dropping 'do'. Take feedback on E4 as a whole class, boarding two correct transformations. Solutions with a one-line why sit in the gated solutions file — do not open it for them here.">
+    <h2><span class="tag">06 · Practice</span> Staging E1–E4</h2>
+    <div class="cols">
+      <div>
+        <table class="tbl">
+          <tr><th>Ex</th><th>Type</th><th>Focus</th></tr>
+          <tr><td>E1</td><td>Gap-fill</td><td>bank term in each gap</td></tr>
+          <tr><td>E2</td><td>Matching</td><td>meaning → term</td></tr>
+          <tr><td>E3</td><td>Dialogue completion</td><td>rebuild the brief</td></tr>
+          <tr><td>E4</td><td>Transformation</td><td>make the imperative</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <p class="kick">Watch for (E4)</p>
+        <p>Learners keep "you" or drop "do". Board two correct transformations at feedback:</p>
+        <p class="ri">Do not stand near the flaps. · Fit a lockout.</p>
+        <p class="note">Students Check on the page; take E4 feedback as a class.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · EXERCISES E5-E8 -->
+  <section class="slide" data-notes="[0:50–1:00] Controlled practice, second half — comprehension of real genres. E5 reads an AMM task card (27-51-00) and asks six questions; point out that each subtask is one unambiguous instruction — that IS Simplified Technical English. E6 is error-spotting: eight planted mistakes in a flawed spoken brief, including the L1 imperative errors from earlier — a nice loop back. E7 reads a tech-log snag plus a work order and asks short questions; this is the model for the writing task. E8 is a listening review of Track 3. Keep pace: reading tasks silent-first, then pair-check, then whole-class answers. Watch the clock — leave a full 17 minutes for speaking.">
+    <h2><span class="tag">06 · Practice</span> Staging E5–E8</h2>
+    <div class="cols">
+      <div>
+        <table class="tbl">
+          <tr><th>Ex</th><th>Genre / skill</th></tr>
+          <tr><td>E5</td><td>Reading 1 — AMM task card 27-51-00</td></tr>
+          <tr><td>E6</td><td>Error-spotting — 8 planted mistakes</td></tr>
+          <tr><td>E7</td><td>Reading 2 — tech log + work order</td></tr>
+          <tr><td>E8</td><td>Listening review — Track 3</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <p class="kick">Run it as</p>
+        <p>Reading silent-first → pair-check → class answers. E6 loops back to the L1 imperative traps.</p>
+        <p class="note">E7 is the model for the writing task. Keep 17 min for speaking.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · SPEAKING / ROLE-PLAYS -->
+  <section class="slide" data-notes="[1:00–1:17] Speaking — the four role-play cards, the heart of the assessment practice. Pair the class and give one card each; the four cards are Card 1 pre-test brief (lead), Card 2 call and confirm (partner), Card 3 read the result (both), Card 4 shift handover (phone). Set the rule: use the useful phrases, then swap roles so everyone leads and confirms. Model Card 1 with a strong pair for thirty seconds first. Circulate with the B2 speaking rubric from the teacher key — listen for range, accuracy of the imperative, fluency of the callouts, interaction (confirming and turn-taking), and coherence. Note errors silently; do a delayed correction slot at the end, not mid-flow. For extra reps, the three AI-partner prompts let a student rehearse with the chat buddy at level.">
+    <h2><span class="tag">07 · Speaking</span> Four role-play cards</h2>
+    <div class="grid2">
+      <div class="card"><p class="kick">Card 1 · Lead</p><p>Brief the steps + precautions. "We follow task card 27-51-00." "Do not stand near the flaps."</p></div>
+      <div class="card"><p class="kick">Card 2 · Partner</p><p>Confirm each call. "I am clear." "Limit switch made." "No asymmetry."</p></div>
+      <div class="card"><p class="kick">Card 3 · Both</p><p>Read pass/fail. "That fails the pass criteria." "We raise a snag."</p></div>
+      <div class="card"><p class="kick">Card 4 · Phone</p><p>Hand over the shift. "The result is a fail." "Do not pressurise the system."</p></div>
+    </div>
+    <p class="note">Model Card 1 first · swap roles · circulate with the B2 rubric (teacher key) · delayed correction at the end. Extra reps: the three AI-partner prompts on the page.</p>
+  </section>
+
+  <!-- 17 · WRITING -->
+  <section class="slide" data-notes="[1:17–1:27] Writing — a tech-log snag entry in Simplified Technical English. Start it in class; students finish for homework if needed. Give the STE habits explicitly: short sentences (about 18 words or fewer), one instruction per sentence, an approved plain word for each idea, imperative for the warnings. Use the four-line plan on the board: line 1 the test and result; line 2 what you saw (the asymmetry); line 3 the safety action (lockout, placard); line 4 the next step (inspect, re-run). Point them at E7 as the model input and the annotated model answer in the gated solutions. Run the self-check list before hand-in: short sentences, imperative warnings, all four facts named, taught terms used correctly.">
+    <h2><span class="tag">08 · Writing</span> A snag entry in Simplified Technical English</h2>
+    <div class="cols">
+      <div>
+        <p class="kick">STE habits</p>
+        <ul>
+          <li>Short sentences — about 18 words or fewer.</li>
+          <li>One instruction per sentence.</li>
+          <li>An approved plain word for each idea.</li>
+          <li>Imperative for the warnings: <i>Do not pressurise the system.</i></li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="kick">Four-line plan</p>
+        <p>1 test + result · 2 what you saw · 3 safety action · 4 next step.</p>
+        <p class="note">Model input: E7. Annotated model answer: gated solutions file. Run the self-check before hand-in.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP-UP -->
+  <section class="slide" data-center data-notes="[1:27–1:30] Close and check. Three one-liners for the exit: a functional test is a two-person language task — brief, call-and-confirm, read the result. The imperative carries the safety — order = base verb, warning = 'Do not' + base verb, warning first. Pass/fail is decided by the criteria, not the eye — no visible asymmetry means raise a snag. Exit ticket (30 seconds on paper): write one safety warning as an imperative and one confirm line. Preview the assessment: the quiz splits by skill — listening for spoken figures, reading real genres, use of English on the imperative, and vocabulary matching. Next unit continues the maintenance-communication thread. End calm, procedural, on time.">
+    <div class="kick">Wrap-up · exit ticket</div>
+    <h1>Brief · call &amp; confirm · read the result</h1>
+    <p class="big muted">The imperative carries the safety: order = base verb; warning = "Do not" + base verb; warning first. Pass/fail is the criteria's call, not the eye's — no visible asymmetry → raise a snag.</p>
+    <p class="pill">Exit ticket: write one safety warning + one confirm line &nbsp;·&nbsp; Next: the quiz splits by skill — listening · reading · use of English · vocabulary</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (canvas + rAF, student-driven) ===================== -->
+<script>
+(function(){
+  window.DeckW = {};
+
+  /* ---- W1: CLEARANCE / SAFETY-WARNING (rAF canvas) ---- */
+  window.DeckW.clearance = function(el){
+    el.innerHTML = '<div class="wk">'+
+      '<div class="bar"><label style="font-size:13px;color:#9db0c6;font-weight:600">Technician distance from the flap</label>'+
+      '<input type="range" data-d min="0" max="500" value="90" style="max-width:260px"><span data-dv style="font-family:ui-monospace,monospace;color:#7fd0ff;font-weight:700">0.9 m</span></div>'+
+      '<canvas width="720" height="240"></canvas><div class="info" data-read></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]');
+    var d=el.querySelector('[data-d]'),dv=el.querySelector('[data-dv]');
+    var W=cv.width,H=cv.height,t=0,CLEAR=200; // 200 units = 2.0 m placard line
+    function dist(){return +d.value;}
+    function update(){
+      var m=(dist()/100).toFixed(1);dv.textContent=m+' m';
+      var safe=dist()>=CLEAR;
+      read.innerHTML = safe
+        ? '<h4 style="color:#9af0c8">Clear</h4>Behind the placard line. Say the order: <b>Keep your clearance.</b>'
+        : '<h4 style="color:#ff9aa2">Hazard — inside the sweep</h4>The flap can crush. Say the warning first: <b>Do not stand near the flaps.</b> Then the order: <b>Stand clear.</b>';
+    }
+    d.addEventListener('input',update);
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      var hinge={x:150,y:70};
+      // sweep zone
+      ctx.fillStyle='rgba(255,86,103,.10)';ctx.beginPath();ctx.moveTo(hinge.x,hinge.y);ctx.arc(hinge.x,hinge.y,150,0,Math.PI*0.62);ctx.closePath();ctx.fill();
+      // wing
+      ctx.strokeStyle='#5f7a99';ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(20,70);ctx.lineTo(hinge.x,hinge.y);ctx.stroke();
+      // flap sweeping (rAF driven)
+      var a=Math.PI*0.62*(0.5+0.5*Math.sin(t/45));
+      ctx.strokeStyle='#38b6ff';ctx.lineWidth=9;ctx.beginPath();ctx.moveTo(hinge.x,hinge.y);
+      ctx.lineTo(hinge.x+Math.cos(a)*150,hinge.y+Math.sin(a)*150);ctx.stroke();
+      // placard line
+      var px=hinge.x+CLEAR;
+      ctx.strokeStyle='#fbbf24';ctx.setLineDash([6,5]);ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(px,20);ctx.lineTo(px,H-20);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='#fbbf24';ctx.font='12px ui-monospace,monospace';ctx.fillText('placard line',px+6,34);
+      // technician
+      var tx=hinge.x+dist(),safe=dist()>=CLEAR;
+      ctx.fillStyle=safe?'#34d399':'#ff5667';
+      ctx.beginPath();ctx.arc(tx,H-70,11,0,7);ctx.fill();
+      ctx.fillRect(tx-7,H-58,14,34);
+      ctx.fillStyle='#cfe0ee';ctx.font='12px Inter,sans-serif';ctx.fillText((dist()/100).toFixed(1)+' m',tx-12,H-6);
+      t++;requestAnimationFrame(draw);
+    }
+    update();requestAnimationFrame(draw);
+  };
+
+  /* ---- W2: PASS CRITERIA / ASYMMETRY (rAF canvas) ---- */
+  window.DeckW.flaptest = function(el){
+    el.innerHTML = '<div class="wk">'+
+      '<div class="bar"><label style="font-size:13px;color:#9db0c6;font-weight:600">Left-flap lag at full deflection</label>'+
+      '<input type="range" data-lag min="0" max="12" value="0" style="max-width:260px"><span data-lagv style="font-family:ui-monospace,monospace;color:#7fd0ff;font-weight:700">0°</span></div>'+
+      '<canvas width="720" height="240"></canvas><div class="info" data-read></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]');
+    var lag=el.querySelector('[data-lag]'),lagv=el.querySelector('[data-lagv]');
+    var W=cv.width,H=cv.height,dispL=0,FULL=40;
+    function target(){return FULL-(+lag.value);}
+    function update(){
+      lagv.textContent=(+lag.value)+'°';
+      var pass=(+lag.value)===0;
+      read.innerHTML = pass
+        ? '<h4 style="color:#9af0c8">PASS</h4>Both flaps reach full deflection together, with no visible asymmetry.'
+        : '<h4 style="color:#ff9aa2">FAIL — visible asymmetry</h4>The left flap trails by '+(+lag.value)+'°. The AMM allows no visible asymmetry, so <b>raise a snag</b> and do not sign it serviceable.';
+    }
+    lag.addEventListener('input',update);
+    function deg(v){return v*Math.PI/180;}
+    function wing(cx,cy,dir,ang){
+      ctx.strokeStyle='#5f7a99';ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+dir*120,cy);ctx.stroke();
+      var hx=cx+dir*120,hy=cy;
+      ctx.strokeStyle='#38b6ff';ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(hx,hy);
+      ctx.lineTo(hx+dir*Math.cos(deg(ang))*70,hy+Math.sin(deg(ang))*70);ctx.stroke();
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      var tg=target();dispL+=(tg-dispL)*0.15;
+      // fuselage
+      ctx.fillStyle='#26384e';ctx.fillRect(W/2-14,40,28,150);
+      ctx.fillStyle='#9db0c6';ctx.font='12px Inter,sans-serif';ctx.textAlign='center';
+      ctx.fillText('rear view',W/2,210);
+      // right flap at full, left flap eased toward target
+      wing(W/2,110,1,FULL);
+      wing(W/2,110,-1,dispL);
+      ctx.textAlign='left';
+      ctx.fillStyle='#7fd0ff';ctx.fillText('LEFT '+Math.round(dispL)+'°',40,30);
+      ctx.fillStyle='#7fd0ff';ctx.textAlign='right';ctx.fillText('RIGHT '+FULL+'°',W-40,30);ctx.textAlign='left';
+      requestAnimationFrame(draw);
+    }
+    update();requestAnimationFrame(draw);
+  };
+
+  /* ---- W3: ACTUATION SEQUENCE / CALL & CONFIRM (rAF canvas) ---- */
+  window.DeckW.sequence = function(el){
+    el.innerHTML = '<div class="wk">'+
+      '<div class="bar">'+
+      '<button data-s="0">Flaps up</button><button data-s="5">Flaps 5</button>'+
+      '<button data-s="15">Flaps 15</button><button data-s="40">Flaps full</button></div>'+
+      '<canvas width="720" height="210"></canvas><div class="info" data-read></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]');
+    var W=cv.width,H=cv.height,disp=0,tgt=0;
+    var lines={0:['A: Flaps up now. Confirm the pressure stays normal.','B: Pressure normal. Flaps returning together, no snag.'],
+               5:['A: Flaps to five. Actuating now.','B: Left flap moving smoothly. No asymmetry yet.'],
+               15:['A: Flaps to fifteen. Watch the limit switch.','B: Limit switch made at fifteen. Indication green.'],
+               40:['A: Flaps to full deflection. Stand well clear.','B: Both surfaces at full, together, within limits.']};
+    el.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click',function(){
+        tgt=+b.getAttribute('data-s');
+        el.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');
+        var L=lines[tgt];read.innerHTML='<h4>Call &amp; confirm</h4><b style="color:#7fd0ff">'+L[0]+'</b><br>'+L[1];
+      });
+    });
+    function deg(v){return v*Math.PI/180;}
+    function draw(){
+      ctx.clearRect(0,0,W,H);disp+=(tgt-disp)*0.14;
+      var hx=210,hy=70;
+      ctx.strokeStyle='#5f7a99';ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(40,hy);ctx.lineTo(hx,hy);ctx.stroke();
+      ctx.strokeStyle='#38b6ff';ctx.lineWidth=9;ctx.beginPath();ctx.moveTo(hx,hy);
+      ctx.lineTo(hx+Math.cos(deg(disp))*150,hy+Math.sin(deg(disp))*150);ctx.stroke();
+      // detent ticks + limit switch
+      [5,15,40].forEach(function(v){
+        var made=disp>=v-0.6;
+        ctx.fillStyle=made?'#34d399':'#54708c';ctx.font='12px ui-monospace,monospace';
+        ctx.fillText((v===40?'full':v+'°')+(made?' ✓ switch made':''),470,60+[5,15,40].indexOf(v)*40);
+      });
+      ctx.fillStyle='#9db0c6';ctx.font='13px Inter,sans-serif';ctx.fillText('flap = '+Math.round(disp)+'°',hx-30,H-14);
+      requestAnimationFrame(draw);
+    }
+    read.innerHTML='<h4>Call &amp; confirm</h4>Press a call button to run the actuation.';
+    requestAnimationFrame(draw);
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u21_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u21_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();presenter.document.write(PRES_HTML);presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 21</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:26px;color:#9db0c6;font-size:17px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u21_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u21_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u21_deck_state")render();});',
+'render();',
+'<\/scr'+'ipt></body></html>'
+].join('');
+window.addEventListener('storage',function(e){
+  if(e.key==='u21_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+if(document.readyState!=='loading') init(); else window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════ LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle. Toggle: CC or "L". ════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px)*var(--cap-scale,1));line-height:1.18;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-src{ display:none; font-family:system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:monospace; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:monospace; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src" id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn" id="lctBtn" title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option><option value="lv-LV">Latviešu</option><option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option><option value="de-DE">Deutsch</option><option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option><option value="ru">Русский</option><option value="en">English</option>
+    <option value="es">Español</option><option value="de">Deutsch</option><option value="uk">Українська</option><option value="pl">Polski</option>
+  </select>
+</div>
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'),line=document.getElementById('lctLine');
+  var lineTop=document.getElementById('lctLineTop'),lineBot=document.getElementById('lctLineBot');
+  var srcEl=document.getElementById('lctSrc'),btn=document.getElementById('lctBtn'),gear=document.getElementById('lctGear');
+  var status=document.getElementById('lctStatus'),langBar=document.getElementById('lctLangBar');
+  var srcSel=document.getElementById('lctSrcSel'),tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition,__micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){__micStream=s;}).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{__micStream.getTracks().forEach(function(t){t.stop();});}catch(e){} __micStream=null; } }
+  var spoken='en-US',src='en',target='lv',rec=null,active=false;
+  var pending='',lastInterim='',capTopB='',capBotB='',lctIdeaTimer=null;
+  var finalTimer=null,silenceTimer=null,lastTrAt=0,lastTrText='',lastTrLen=0,netErrors=0;
+  var cache=new Map(),POLL_GAP_MS=700;
+  function setStatus(t){ status.textContent=t; status.classList.toggle('show',active||t==='mic blocked'||t==='use Chrome'); }
+  function tail(text,maxWords){ if(!text) return ''; var t=String(text).trim().replace(/\s+/g,' '); if(!t) return ''; var p=t.split(' '); if(p.length<=maxWords) return t; var s=p.slice(-maxWords).join(' '); var m=s.match(/[.!?…]\s+(.+)$/)||s.match(/[,;:]\s+(.+)$/); return m?m[1]:s; }
+  async function translateRemote(text){ try{ if(src===target) return text; var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text); var ctrl=new AbortController(),tmo=setTimeout(function(){ctrl.abort();},3000); var r=await fetch(url,{signal:ctrl.signal}); clearTimeout(tmo); if(!r.ok) return null; var j=await r.json(); if(Array.isArray(j)&&Array.isArray(j[0])){ var out='';j[0].forEach(function(seg){if(seg&&seg[0])out+=seg[0];});return out||null; } return null; }catch(e){ return null; } }
+  async function translate(text){ if(!text||!text.trim()) return ''; var key=src+'|'+target+'|'+text.trim().toLowerCase(); if(cache.has(key)) return cache.get(key); var out=await translateRemote(text); if(!out) out=text; cache.set(key,out); if(cache.size>250){cache.delete(cache.keys().next().value);} return out; }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.9)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16,Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0?s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB&&(capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail(pending||'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB=capBotB?(capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capBotB=''; } lctDraw(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctEndIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer=setTimeout(function(){ capTopB='';capBotB='';lastInterim='';pending='';render(); },30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer=null; } }
+  async function commitFinal(chunk){ chunk=chunk.trim(); if(!chunk) return; srcEl.textContent=tail(chunk,18); var tr=await translate(chunk); lctCommit(tr); lastInterim=''; lastTrLen=0; render(); }
+  async function translateInterim(text){ var now=performance.now(); if(now-lastTrAt<POLL_GAP_MS) return; if(text.length-lastTrLen<10&&text.length>0) return; if(text===lastTrText) return; lastTrAt=now; lastTrLen=text.length; lastTrText=text; try{ var tr=await translate(text); if(tr&&active){ lastInterim=tr; render(); } }catch(e){} }
+  function startRec(){
+    rec=new SR(); rec.continuous=true; rec.interimResults=true; rec.lang=spoken; if('maxAlternatives' in rec) rec.maxAlternatives=1;
+    rec.onresult=function(e){ netErrors=0; cancelSilence(); var interim='',fin='';
+      for(var i=e.resultIndex;i<e.results.length;i++){ var r=e.results[i]; if(r.isFinal) fin+=' '+r[0].transcript; else interim+=' '+r[0].transcript; }
+      if(fin){ pending+=' '+fin; if(finalTimer) clearTimeout(finalTimer); finalTimer=setTimeout(function(){ var c=pending; pending=''; commitFinal(c).then(armSilence); },120); }
+      if(interim){ srcEl.textContent=tail(interim.trim(),18); translateInterim(interim.trim()); }
+      render(); setStatus('live · '+src+'→'+target); };
+    rec.onerror=function(ev){ if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active=false; } else if(ev.error==='no-speech'||ev.error==='aborted'){} else if(ev.error==='network'){ netErrors++; if(netErrors>=3){ active=false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect '+netErrors+'/3'); } else setStatus(ev.error); };
+    rec.onend=function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active&&rec){ try{ rec.start(); }catch(_){} } },350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){ active=false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic(); if(rec){ try{ rec.onend=null; rec.stop(); }catch(e){} rec=null; } capTopB='';capBotB='';lastInterim='';pending='';render(); }
+    else { active=true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on'); setStatus('starting…'); __holdMic().then(startRec); }
+  }
+  btn.addEventListener('click',function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click',function(e){ e.stopPropagation(); var open=langBar.classList.toggle('open'); gear.classList.toggle('on',open); });
+  document.addEventListener('keydown',function(e){ if((e.key==='l'||e.key==='L')&&!/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle(); });
+  srcSel.addEventListener('change',function(e){ e.stopPropagation(); spoken=srcSel.value; src=spoken.slice(0,2); cache.clear(); if(active&&rec){ rec.onend=null; try{ rec.stop(); }catch(_){} rec=null; __holdMic().then(startRec); } if(active) setStatus('live · '+src+'→'+target); });
+  tgtSel.addEventListener('change',function(e){ e.stopPropagation(); target=tgtSel.value; cache.clear(); capTopB='';capBotB='';lastInterim='';lastTrText='';lastTrLen=0; render(); if(active) setStatus('live · '+src+'→'+target); });
+  [srcSel,tgtSel].forEach(function(s){ s.addEventListener('click',function(e){ e.stopPropagation(); }); });
+})();
+</script>
+</body>
+</html>

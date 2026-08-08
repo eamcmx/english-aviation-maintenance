@@ -337,6 +337,22 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 .pron-score.poor { color: #8c2f27; }
 .pron-heard { font-size: 13px; color: var(--ink-2, #5a6b7d); margin-top: 7px; font-style: italic; }
 .pron-note { font-size: 12.5px; color: var(--ink-2, #5a6b7d); margin-top: 12px; }
+
+/* ---- unit figures --------------------------------------------------------------------------- */
+.lang-fig { margin: 26px 0; padding: 0; background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; overflow: hidden; }
+.lang-fig .fig-head { padding: 13px 20px; border-bottom: 1px solid var(--line, #e2e6ec); background: #fbfcfe; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.lang-fig .fig-head b { color: var(--brand, #2F5496); font-weight: 600; }
+.lang-fig .fig-body { padding: 18px 16px; overflow-x: auto; }
+.lang-fig .fig-cap { margin: 0; padding: 0 20px 16px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); line-height: 1.55; }
+.lang-fig .fig-bar { padding: 0 20px 16px; }
+.fig-btn { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px; padding: 7px 15px; font-size: 12.5px; font-family: inherit; color: var(--brand, #2F5496); cursor: pointer; }
+.fig-btn:hover { border-color: var(--brand, #2F5496); background: #f6f9fd; }
+.fig-quiz { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 9px; padding: 0 20px 18px; }
+.fig-quiz label { display: flex; align-items: center; gap: 8px; }
+.fig-quiz label span { width: 22px; height: 22px; flex: none; border-radius: 50%; background: var(--brand, #2F5496); color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.fig-quiz input { flex: 1; min-width: 0; padding: 7px 10px; border: 1px solid var(--line, #e2e6ec); border-radius: 8px; font-size: 13px; font-family: inherit; }
+.fig-quiz input.ok { border-color: #0f6e56; background: #e6f6ee; color: #0f6e56; }
+.fig-quiz input.bad { border-color: #c0392b; background: #fdeceb; color: #8c2f27; }
 </style><!--/CF-LANG-UI--></head>
 <body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 7 of 32 · Requesting parts from stores</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 parts and logistics, part number, serviceable tag, backorder</span></div></div></header>
 <article>
@@ -1185,7 +1201,7 @@ Could / Would + you + BASE VERB + object ( + please )
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "part number", "def": "The code that identifies one exact component, so stores can locate it immediately."}, {"term": "quantity", "def": "How many units you require, which you must state clearly on every request."}, {"term": "stores", "def": "The department that keeps the components and issues them when you raise a request."}, {"term": "work order", "def": "The job document that lists the task and the components you require."}, {"term": "requisition", "def": "A formal request that authorises you to take a component out of stores."}, {"term": "serviceable tag", "def": "A label that confirms a component is fit to install on the aircraft."}, {"term": "Form 1", "def": "The EASA release certificate that accompanies a component as its documentation."}, {"term": "certification status", "def": "Whether a component is released and legal to install, or still restricted."}, {"term": "unserviceable", "def": "Not fit to install, so you must remove it and never use it again."}, {"term": "quarantine", "def": "A restricted area for components you must not use until quality clears them."}, {"term": "backorder", "def": "An order that waits, because the available stock in stores is already zero."}, {"term": "shortage", "def": "The situation when stores holds too few components, or none, to satisfy requests."}, {"term": "lead time", "def": "The period you must wait for a component to arrive from the supplier."}, {"term": "alternative", "def": "A different component that you may install instead, provided it is interchangeable."}, {"term": "interchangeability", "def": "Whether two components can substitute safely, which the IPC confirms for you."}, {"term": "cross-reference", "def": "A link in the catalogue from one part number to another number."}, {"term": "IPC", "def": "The illustrated parts catalogue, the document that displays and lists every component."}, {"term": "batch number", "def": "The code for one production batch, which you record for traceability."}, {"term": "shelf life", "def": "The period a component may remain in store, before it is too old to use."}, {"term": "expiry date", "def": "The final date on which you may still install the component safely."}, {"term": "AOG", "def": "Aircraft on ground, which means a missing component is preventing a departure."}], "lines": ["Good morning, stores. This is M&#257;rti&#326;&scaron; on the A320 line, and I require a component urgently.", "Good morning, M&#257;rti&#326;&scaron;. Certainly, I can assist you, so please explain what you need from stores.", "I require a hydraulic filter, so could you confirm the stock for me, please?", "Yes, certainly, but could you provide the exact part number first?", "The part number is 2-6-1-1-4-5-0-1, and it appears on my work order.", "Thank you. And how many units do you require, because I must record the quantity?", "I require a quantity of two, because I am performing a double filter change.", "Two units, excellent. And could you explain the reason, so I can document it?", "One filter is unserviceable, and the second is a spare, in case the first component fails.", "That is clear. Let me examine the system. Yes, we currently hold four in stores.", "Excellent news, so would you deliver them to the A320 line, please?", "Certainly, and each filter arrives with a serviceable tag and an EASA Form 1.", "Perfect, because I must retain the Form 1 for the documentation on the work order.", "No problem. I will attach the certificate to each carton before I dispatch it.", "Thank you very much. Could you also confirm the requisition number, please?", "Yes, your requisition number is R-7-7-4-2, so I will release the components immediately.", "Hello, stores. This is Anna from the avionics bay, and I have a question about an alternative component.", "Hello, Anna. Certainly, go ahead, and tell me which part number you are enquiring about.", "It is the relay 5-9-2-0-1-1, but the stores list displays a different number for it.", "That is the current part number, because the original was superseded last year.", "I see, so could you confirm the interchangeability for me, because I must be certain?", "Let me open the IPC, because the illustrated parts catalogue provides a cross-reference here.", "Good. Does the cross-reference indicate that the two relays are fully interchangeable?", "Yes, the interchangeability is confirmed, provided that the mod status matches on both."], "roleplays": ["A filter has failed on the A320 line, so you telephone stores immediately.", "The number on the shelf is different from the number on your work order.", "The aircraft is AOG, and the part you need is on backorder.", "A technician calls with an AOG, but your stock of the part is zero."], "grammar": "Stores requests are cooperative, not commanding, because you are asking a colleague for assistance and not issuing an instruction. In English, could and would perform this softening work, so the request resembles teamwork. Examine these three lines from the dialogues, and notice the identical simple shape in each one.", "scenario": "You are a technician on the A320 line, and a filter has just failed on test, so the aircraft cannot depart until you replace the component. You telephone stores immediately, because you must provide the part number, the quantity and the reason, and you must request politely. Then the situation deteriorates, because the", "pron": ["Good morning, stores. This is M&#257;rti&#326;&scaron; on the A320 line, and I require a component urgently.", "Good morning, M&#257;rti&#326;&scaron;. Certainly, I can assist you, so please explain what you need from stores.", "I require a hydraulic filter, so could you confirm the stock for me, please?", "Yes, certainly, but could you provide the exact part number first?"], "course": "English for Aviation Maintenance", "unit": 7, "total": 32, "title": "Requesting parts from stores", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "part number", "def": "The code that identifies one exact component, so stores can locate it immediately."}, {"term": "quantity", "def": "How many units you require, which you must state clearly on every request."}, {"term": "stores", "def": "The department that keeps the components and issues them when you raise a request."}, {"term": "work order", "def": "The job document that lists the task and the components you require."}, {"term": "requisition", "def": "A formal request that authorises you to take a component out of stores."}, {"term": "serviceable tag", "def": "A label that confirms a component is fit to install on the aircraft."}, {"term": "Form 1", "def": "The EASA release certificate that accompanies a component as its documentation."}, {"term": "certification status", "def": "Whether a component is released and legal to install, or still restricted."}, {"term": "unserviceable", "def": "Not fit to install, so you must remove it and never use it again."}, {"term": "quarantine", "def": "A restricted area for components you must not use until quality clears them."}, {"term": "backorder", "def": "An order that waits, because the available stock in stores is already zero."}, {"term": "shortage", "def": "The situation when stores holds too few components, or none, to satisfy requests."}, {"term": "lead time", "def": "The period you must wait for a component to arrive from the supplier."}, {"term": "alternative", "def": "A different component that you may install instead, provided it is interchangeable."}, {"term": "interchangeability", "def": "Whether two components can substitute safely, which the IPC confirms for you."}, {"term": "cross-reference", "def": "A link in the catalogue from one part number to another number."}, {"term": "IPC", "def": "The illustrated parts catalogue, the document that displays and lists every component."}, {"term": "batch number", "def": "The code for one production batch, which you record for traceability."}, {"term": "shelf life", "def": "The period a component may remain in store, before it is too old to use."}, {"term": "expiry date", "def": "The final date on which you may still install the component safely."}, {"term": "AOG", "def": "Aircraft on ground, which means a missing component is preventing a departure."}], "lines": ["Good morning, stores. This is M&#257;rti&#326;&scaron; on the A320 line, and I require a component urgently.", "Good morning, M&#257;rti&#326;&scaron;. Certainly, I can assist you, so please explain what you need from stores.", "I require a hydraulic filter, so could you confirm the stock for me, please?", "Yes, certainly, but could you provide the exact part number first?", "The part number is 2-6-1-1-4-5-0-1, and it appears on my work order.", "Thank you. And how many units do you require, because I must record the quantity?", "I require a quantity of two, because I am performing a double filter change.", "Two units, excellent. And could you explain the reason, so I can document it?", "One filter is unserviceable, and the second is a spare, in case the first component fails.", "That is clear. Let me examine the system. Yes, we currently hold four in stores.", "Excellent news, so would you deliver them to the A320 line, please?", "Certainly, and each filter arrives with a serviceable tag and an EASA Form 1.", "Perfect, because I must retain the Form 1 for the documentation on the work order.", "No problem. I will attach the certificate to each carton before I dispatch it.", "Thank you very much. Could you also confirm the requisition number, please?", "Yes, your requisition number is R-7-7-4-2, so I will release the components immediately.", "Hello, stores. This is Anna from the avionics bay, and I have a question about an alternative component.", "Hello, Anna. Certainly, go ahead, and tell me which part number you are enquiring about.", "It is the relay 5-9-2-0-1-1, but the stores list displays a different number for it.", "That is the current part number, because the original was superseded last year.", "I see, so could you confirm the interchangeability for me, because I must be certain?", "Let me open the IPC, because the illustrated parts catalogue provides a cross-reference here.", "Good. Does the cross-reference indicate that the two relays are fully interchangeable?", "Yes, the interchangeability is confirmed, provided that the mod status matches on both."], "roleplays": ["A filter has failed on the A320 line, so you telephone stores immediately.", "The number on the shelf is different from the number on your work order.", "The aircraft is AOG, and the part you need is on backorder.", "A technician calls with an AOG, but your stock of the part is zero."], "grammar": "Stores requests are cooperative, not commanding, because you are asking a colleague for assistance and not issuing an instruction. In English, could and would perform this softening work, so the request resembles teamwork. Examine these three lines from the dialogues, and notice the identical simple shape in each one.", "scenario": "You are a technician on the A320 line, and a filter has just failed on test, so the aircraft cannot depart until you replace the component. You telephone stores immediately, because you must provide the part number, the quantity and the reason, and you must request politely. Then the situation deteriorates, because the", "pron": ["Good morning, stores. This is M&#257;rti&#326;&scaron; on the A320 line, and I require a component urgently.", "Good morning, M&#257;rti&#326;&scaron;. Certainly, I can assist you, so please explain what you need from stores.", "I require a hydraulic filter, so could you confirm the stock for me, please?", "Yes, certainly, but could you provide the exact part number first?"], "course": "English for Aviation Maintenance", "unit": 7, "total": 32, "title": "Requesting parts from stores", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}, "figures": [{"type": "doc", "where": "scenario", "title": "What stores needs from you", "docTitle": "Stores Request - Verbal Order", "caption": "Notice the exact information a stores clerk needs, in the order they ask for it.", "rows": [{"label": "Part number", "note": "You give the exact part number, for example 2-6-1-1-4-5-0-1."}, {"label": "Quantity", "note": "You state how many units you require."}, {"label": "Reason", "note": "You explain why you need the part, for example a filter that failed on test."}, {"label": "Work order", "note": "You confirm the part number appears on your work order."}, {"label": "Urgency", "note": "You say if the aircraft cannot depart until the part is fitted."}]}, {"type": "flow", "where": "grammar", "title": "Making a polite stores request", "caption": "Notice the identical simple structure: could or would plus you, so the request sounds like teamwork, not an order.", "steps": [{"label": "State name and location", "note": "Say who you are and which aircraft line you are calling from."}, {"label": "Say the part needed", "note": "Name the component, for example a hydraulic filter."}, {"label": "Ask with could", "note": "Say 'could you confirm the stock for me, please?'"}, {"label": "Give the part number", "note": "Read the exact part number from your work order."}, {"label": "Confirm the quantity", "note": "Say how many units you require so stores can record it."}]}, {"type": "tree", "where": "grammar", "title": "Checking stock at the stores counter", "caption": "Each branch answers one yes/no question, and every question still uses could or would to stay polite.", "levels": [{"q": "Is the part in stock?", "yes": "Stores confirms the quantity available.", "no": "Stores checks for a backorder or an alternative part."}, {"q": "Does it have a serviceable tag and Form 1?", "yes": "Stores issues it against your requisition.", "no": "It is unserviceable, so it goes to quarantine."}, {"q": "Is the batch within its shelf life?", "yes": "Stores releases the part for immediate use.", "no": "Stores rejects the batch because of the expiry date."}]}, {"type": "compare", "where": "vocabulary", "title": "Serviceable vs unserviceable", "a": "Serviceable", "b": "Unserviceable", "caption": "Notice how the prefix un- reverses the certification status of a part.", "rows": [["Certification status", "Has a valid Form 1 and serviceable tag", "Failed inspection, no valid tag"], ["Where it is kept", "Ready for issue from stores", "Sent to quarantine"], ["Can it be fitted?", "Yes, on a requisition", "No, it must not be fitted"], ["Example in this unit", "The replacement hydraulic filter", "The failed filter removed from the A320"]]}, {"type": "timeline", "where": "speaking", "title": "The stores telephone call", "caption": "Follow the turns in order, and notice how each question waits for the previous answer.", "events": [{"t": "0:00", "e": "Technician calls stores", "note": "Martins names himself and says he needs a component urgently."}, {"t": "0:10", "e": "Stores offers help", "note": "The clerk agrees to assist and asks what is needed."}, {"t": "0:20", "e": "Technician names the part", "note": "Martins asks the clerk to confirm stock of a hydraulic filter."}, {"t": "0:30", "e": "Clerk asks for part number", "note": "The clerk asks for the exact part number before checking stock."}, {"t": "0:40", "e": "Technician gives part number", "note": "Martins reads the part number from his work order."}, {"t": "0:50", "e": "Clerk asks for quantity", "note": "The clerk asks how many units are needed to record the order."}]}]};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -1582,5 +1598,277 @@ Could / Would + you + BASE VERB + object ( + please )
     '<p class="pron-note">Scoring counts the words the browser recognised, so it rewards clear '
     + 'consonants and word stress. It is practice, not an exam.</p>');
   host.appendChild(card);
+})();
+</script><script>// LANG edition: unit figures.
+//
+// Every figure is DRAWN here from a small JSON spec the authoring agent writes, never hand-drawn
+// as SVG by the agent. That is deliberate: agent-authored SVG comes out different (and often
+// broken) in every unit, while a shared renderer gives one house style across a whole course.
+//
+// The types are chosen so each one carries a language function, not just a picture:
+//   doc      anatomy of a real document, callouts -> the vocabulary of its parts
+//   flow     ordered steps                        -> sequencing language, imperatives
+//   tree     a yes/no decision                    -> conditionals
+//   compare  two things side by side              -> comparatives
+//   timeline events across a shift or a check     -> tenses
+//
+// Figures with labels can be switched into "label it" mode, where the labels are blanked and the
+// learner types them back. That turns an illustration into a vocabulary exercise for free.
+(function () {
+  var SPEC = (window.__LANG_BUDDY__ || {}).figures;
+  if (!SPEC || !SPEC.length) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var INK = '#1b2733', INK2 = '#5a6b7d', BRAND = '#2F5496', AMBER = '#e0a53d', LINE = '#dbe1e9';
+
+  function el(name, attrs, text) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) if (attrs.hasOwnProperty(k)) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function svg(w, h) {
+    var s = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: '100%',
+      preserveAspectRatio: 'xMidYMid meet', role: 'img' });
+    s.style.maxWidth = w + 'px';
+    s.style.display = 'block';
+    s.style.margin = '0 auto';
+    return s;
+  }
+  // crude but reliable line wrapping: SVG has none of its own
+  function wrap(s, max) {
+    var out = [], line = '';
+    String(s || '').split(/\s+/).forEach(function (w) {
+      if ((line + ' ' + w).trim().length > max) { if (line) out.push(line); line = w; }
+      else line = (line ? line + ' ' : '') + w;
+    });
+    if (line) out.push(line);
+    return out;
+  }
+  function textBlock(parent, str, x, y, max, size, fill, lh) {
+    var lines = wrap(str, max);
+    lines.forEach(function (l, i) {
+      parent.appendChild(el('text', { x: x, y: y + i * (lh || size + 4),
+        'font-size': size, fill: fill, 'font-family': 'Inter, Segoe UI, sans-serif' }, l));
+    });
+    return lines.length * (lh || size + 4);
+  }
+  function box(parent, x, y, w, h, fill, stroke, r) {
+    parent.appendChild(el('rect', { x: x, y: y, width: w, height: h, rx: r == null ? 9 : r,
+      fill: fill || '#fff', stroke: stroke || LINE, 'stroke-width': 1.2 }));
+  }
+
+  // ---- doc: the anatomy of a document, with numbered callouts ------------------------------
+  // Rows are measured before they are drawn: a note that wraps to three lines gets a taller box
+  // instead of spilling out of it.
+  function drawDoc(f) {
+    var rows = f.rows || [], W = 720, gap = 8;
+    var hs = rows.map(function (r) { return Math.max(52, 34 + wrap(r.note || '', 78).length * 17); });
+    var H = 74 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Document'));
+    box(s, 20, 18, W - 40, H - 36, '#fdfdfb', LINE, 12);
+    s.appendChild(el('text', { x: 40, y: 48, 'font-size': 15, 'font-weight': '600',
+      fill: BRAND, 'font-family': 'Inter, sans-serif' }, f.docTitle || f.title || ''));
+    var y = 66;
+    rows.forEach(function (r, i) {
+      var rowH = hs[i];
+      box(s, 40, y, W - 80, rowH, '#fff', LINE, 8);
+      s.appendChild(el('circle', { cx: 62, cy: y + 26, r: 13, fill: BRAND }));
+      s.appendChild(el('text', { x: 62, y: y + 31, 'font-size': 13, fill: '#fff',
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 86, y: y + 21, 'font-size': 13.5, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, r.label || ''));
+      textBlock(s, r.note || '', 86, y + 39, 78, 12.5, INK2, 17);
+      y += rowH + gap;
+    });
+    return s;
+  }
+
+  // ---- flow: ordered steps -------------------------------------------------------------------
+  function drawFlow(f) {
+    var st = f.steps || [], W = 720, gap = 20;
+    var hs = st.map(function (t) {
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      return Math.max(56, 34 + wrap(note, 74).length * 17);
+    });
+    var H = 30 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Process'));
+    var yy = 16;
+    st.forEach(function (t, i) {
+      var bh = hs[i], y = yy;
+      yy += bh + gap;
+      var label = typeof t === 'string' ? t : (t.label || '');
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      box(s, 60, y, W - 120, bh, i === st.length - 1 ? '#fffdf5' : '#fff',
+        i === st.length - 1 ? '#f0dfbe' : LINE, 10);
+      s.appendChild(el('circle', { cx: 60, cy: y + bh / 2, r: 16, fill: i === st.length - 1 ? AMBER : BRAND }));
+      s.appendChild(el('text', { x: 60, y: y + bh / 2 + 5, 'font-size': 14,
+        fill: i === st.length - 1 ? '#2c1e05' : '#fff', 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 92, y: y + (note ? 26 : 34), 'font-size': 14, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, label));
+      if (note) textBlock(s, note, 92, y + 44, 74, 12.5, INK2, 17);
+      if (i < st.length - 1) {
+        s.appendChild(el('path', { d: 'M60 ' + (y + bh + 2) + ' L60 ' + (y + bh + gap - 4),
+          stroke: LINE, 'stroke-width': 2 }));
+        s.appendChild(el('path', { d: 'M55 ' + (y + bh + gap - 10) + ' L60 ' + (y + bh + gap - 3)
+          + ' L65 ' + (y + bh + gap - 10), stroke: INK2, 'stroke-width': 1.6, fill: 'none' }));
+      }
+    });
+    return s;
+  }
+
+  // ---- tree: one yes/no decision per level ---------------------------------------------------
+  function drawTree(f) {
+    var levels = f.levels || [], W = 720, H = 40 + levels.length * 118;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Decision'));
+    levels.forEach(function (lv, i) {
+      var y = 20 + i * 118;
+      box(s, 200, y, 320, 46, '#eef3fa', '#c9d9ee', 10);
+      s.appendChild(el('text', { x: 360, y: y + 28, 'font-size': 13.5, 'text-anchor': 'middle',
+        fill: BRAND, 'font-weight': '600', 'font-family': 'Inter, sans-serif' },
+        wrap(lv.q || '', 46)[0] || ''));
+      [['yes', 40, '#e6f6ee', '#a9dcc6', '#0f6e56'], ['no', 400, '#fdeceb', '#f3c6c2', '#8c2f27']]
+        .forEach(function (o) {
+          var t = lv[o[0]];
+          if (!t) return;
+          var x = o[1] + 40;
+          box(s, x, y + 66, 280, 40, o[2], o[3], 9);
+          s.appendChild(el('text', { x: x + 12, y: y + 84, 'font-size': 11.5, fill: o[4],
+            'font-weight': '600', 'font-family': 'Inter, sans-serif' }, o[0].toUpperCase()));
+          s.appendChild(el('text', { x: x + 48, y: y + 91, 'font-size': 12.5, fill: INK,
+            'font-family': 'Inter, sans-serif' }, wrap(t, 34)[0] || ''));
+          s.appendChild(el('path', { d: 'M360 ' + (y + 46) + ' L360 ' + (y + 56)
+            + ' L' + (x + 140) + ' ' + (y + 56) + ' L' + (x + 140) + ' ' + (y + 64),
+            stroke: LINE, 'stroke-width': 1.6, fill: 'none' }));
+        });
+    });
+    return s;
+  }
+
+  // ---- compare: two things, attribute by attribute -------------------------------------------
+  function drawCompare(f) {
+    var rows = f.rows || [], W = 720, rh = 44, H = 78 + rows.length * rh;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Comparison'));
+    box(s, 20, 18, W - 40, H - 36, '#fff', LINE, 12);
+    [[250, f.a], [500, f.b]].forEach(function (c) {
+      s.appendChild(el('text', { x: c[0], y: 48, 'font-size': 14, 'font-weight': '600', fill: BRAND,
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, c[1] || ''));
+    });
+    rows.forEach(function (r, i) {
+      var y = 62 + i * rh;
+      if (i) s.appendChild(el('path', { d: 'M40 ' + y + ' L' + (W - 40) + ' ' + y, stroke: '#eef1f5' }));
+      s.appendChild(el('text', { x: 44, y: y + 27, 'font-size': 12.5, fill: INK2,
+        'font-family': 'Inter, sans-serif' }, wrap(r[0], 22)[0] || ''));
+      s.appendChild(el('text', { x: 250, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[1], 26)[0] || ''));
+      s.appendChild(el('text', { x: 500, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[2], 26)[0] || ''));
+    });
+    return s;
+  }
+
+  // ---- timeline ------------------------------------------------------------------------------
+  function drawTimeline(f) {
+    var ev = f.events || [], W = 720, H = 60 + ev.length * 62;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Timeline'));
+    s.appendChild(el('path', { d: 'M120 30 L120 ' + (H - 26), stroke: LINE, 'stroke-width': 2 }));
+    ev.forEach(function (e, i) {
+      var y = 46 + i * 62;
+      s.appendChild(el('circle', { cx: 120, cy: y, r: 8, fill: BRAND }));
+      s.appendChild(el('text', { x: 104, y: y + 5, 'font-size': 12.5, fill: INK2, 'text-anchor': 'end',
+        'font-family': 'JetBrains Mono, monospace' }, e.t || ''));
+      s.appendChild(el('text', { x: 146, y: y - 2, 'font-size': 13.5, 'font-weight': '600', fill: INK,
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(e.e || '', 58)[0] || ''));
+      if (e.note) textBlock(s, e.note, 146, y + 16, 62, 12.5, INK2);
+    });
+    return s;
+  }
+
+  var DRAW = { doc: drawDoc, flow: drawFlow, tree: drawTree, compare: drawCompare, timeline: drawTimeline };
+
+  // Number the figures in READING order, not in the order the spec happens to list them: a figure
+  // written third but placed in the vocabulary section must not be called Figure 3 on a page where
+  // it appears second.
+  var ORDER = ['scenario', 'dialogues', 'reading', 'vocabulary', 'grammar', 'exercises',
+    'speaking', 'writing'];
+  var ordered = SPEC.slice().sort(function (a, b) {
+    return ORDER.indexOf(a.where || 'scenario') - ORDER.indexOf(b.where || 'scenario');
+  });
+
+  ordered.forEach(function (f, idx) {
+    var host = document.getElementById(f.where || 'scenario')
+      || document.getElementById('scenario') || document.querySelector('article') || document.body;
+    var draw = DRAW[f.type];
+    if (!draw) return;
+
+    var fig = document.createElement('figure');
+    fig.className = 'lang-fig';
+    var head = document.createElement('figcaption');
+    head.className = 'fig-head';
+    head.innerHTML = '<b>Figure ' + (idx + 1) + '. ' + (f.title || '') + '</b>';
+    fig.appendChild(head);
+
+    var holder = document.createElement('div');
+    holder.className = 'fig-body';
+    var node;
+    try { node = draw(f); } catch (e) { return; }
+    holder.appendChild(node);
+    fig.appendChild(holder);
+
+    if (f.caption) {
+      var cap = document.createElement('p');
+      cap.className = 'fig-cap';
+      cap.textContent = f.caption;
+      fig.appendChild(cap);
+    }
+
+    // "label it": blank the labels, let the learner type them back, check on blur
+    var labels = [].slice.call(node.querySelectorAll('.figlab'));
+    if (labels.length >= 3) {
+      var bar = document.createElement('div');
+      bar.className = 'fig-bar';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'fig-btn';
+      btn.textContent = 'Hide the labels and test me';
+      var answers = labels.map(function (l) { return l.textContent; });
+      var on = false;
+      btn.addEventListener('click', function () {
+        on = !on;
+        btn.textContent = on ? 'Show the labels again' : 'Hide the labels and test me';
+        labels.forEach(function (l, i) { l.textContent = on ? '?' : answers[i]; });
+        quiz.hidden = !on;
+      });
+      bar.appendChild(btn);
+      fig.appendChild(bar);
+
+      var quiz = document.createElement('div');
+      quiz.className = 'fig-quiz';
+      quiz.hidden = true;
+      answers.forEach(function (a, i) {
+        var row = document.createElement('label');
+        row.innerHTML = '<span>' + (i + 1) + '</span>';
+        var inp = document.createElement('input');
+        inp.placeholder = 'type the label';
+        inp.addEventListener('blur', function () {
+          if (!inp.value.trim()) return;
+          var ok = inp.value.trim().toLowerCase() === a.trim().toLowerCase();
+          inp.className = ok ? 'ok' : 'bad';
+          if (ok) labels[i].textContent = a;
+        });
+        row.appendChild(inp);
+        quiz.appendChild(row);
+      });
+      fig.appendChild(quiz);
+    }
+
+    host.appendChild(fig);
+  });
 })();
 </script><!--/CF-LANG-UI--></body></html>

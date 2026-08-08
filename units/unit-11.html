@@ -233,6 +233,22 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
 .pron-score.poor { color: #8c2f27; }
 .pron-heard { font-size: 13px; color: var(--ink-2, #5a6b7d); margin-top: 7px; font-style: italic; }
 .pron-note { font-size: 12.5px; color: var(--ink-2, #5a6b7d); margin-top: 12px; }
+
+/* ---- unit figures --------------------------------------------------------------------------- */
+.lang-fig { margin: 26px 0; padding: 0; background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; overflow: hidden; }
+.lang-fig .fig-head { padding: 13px 20px; border-bottom: 1px solid var(--line, #e2e6ec); background: #fbfcfe; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.lang-fig .fig-head b { color: var(--brand, #2F5496); font-weight: 600; }
+.lang-fig .fig-body { padding: 18px 16px; overflow-x: auto; }
+.lang-fig .fig-cap { margin: 0; padding: 0 20px 16px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); line-height: 1.55; }
+.lang-fig .fig-bar { padding: 0 20px 16px; }
+.fig-btn { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px; padding: 7px 15px; font-size: 12.5px; font-family: inherit; color: var(--brand, #2F5496); cursor: pointer; }
+.fig-btn:hover { border-color: var(--brand, #2F5496); background: #f6f9fd; }
+.fig-quiz { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 9px; padding: 0 20px 18px; }
+.fig-quiz label { display: flex; align-items: center; gap: 8px; }
+.fig-quiz label span { width: 22px; height: 22px; flex: none; border-radius: 50%; background: var(--brand, #2F5496); color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.fig-quiz input { flex: 1; min-width: 0; padding: 7px 10px; border: 1px solid var(--line, #e2e6ec); border-radius: 8px; font-size: 13px; font-family: inherit; }
+.fig-quiz input.ok { border-color: #0f6e56; background: #e6f6ee; color: #0f6e56; }
+.fig-quiz input.bad { border-color: #c0392b; background: #fdeceb; color: #8c2f27; }
 </style><!--/CF-LANG-UI--></head><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 11 of 32 · Reading a wiring diagram and connector/pin talk</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 wiring, pin, connector, continuity, open circuit</span></div></div></header><article>
 <style>
   :root{
@@ -815,7 +831,7 @@ function copyPrompt(el){
     exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
   }
 })();
-</script><script>window.__LANG_BUDDY__={"terms": [{"term": "wiring diagram", "def": "The master drawing that shows how the conductors link the parts."}, {"term": "connector", "def": "A fitting that joins two separate sets of conductors."}, {"term": "pin", "def": "A small male metal contact inside a connector."}, {"term": "socket", "def": "The female cavity that receives a pin."}, {"term": "contact", "def": "The metal part inside a connector that carries the current."}, {"term": "continuity", "def": "An unbroken electrical path from one end to the other."}, {"term": "open circuit", "def": "A complete break in the path, so no current flows."}, {"term": "short circuit", "def": "An unwanted path, usually to ground."}, {"term": "harness", "def": "A bundle of conductors tied or taped together."}, {"term": "terminal", "def": "A point where a conductor is fixed and connected."}, {"term": "receptacle", "def": "The fixed connector half, mounted on a unit or structure."}, {"term": "plug", "def": "The connector half that you push into the receptacle."}, {"term": "insulation", "def": "The protective cover around a conductor."}, {"term": "resistance", "def": "How strongly a path opposes the current, measured in ohms."}, {"term": "multimeter", "def": "A tool that reads voltage, resistance and continuity."}, {"term": "ground", "def": "The return path to the airframe, normally at zero volts."}, {"term": "bonding", "def": "A low-resistance link between equipment and the airframe."}, {"term": "shield", "def": "A metal braid around a conductor that blocks interference."}, {"term": "splice", "def": "A joint where two conductors are permanently joined."}, {"term": "routing", "def": "The path a conductor takes through the aircraft."}], "lines": ["Right, pull up the wiring diagram for the landing-gear warning, because the gear-down lamp stays off.", "It is on the screen now, although the drawing is crowded here; which conductor are we chasing?", "Wire W241, which originates at pin 3 on connector P1, near the avionics rack.", "Understood, but from P1 the route splits, so where exactly does the conductor terminate?", "It travels through the harness behind the instrument panel, and then continues onward to connector J12.", "So the routing is P1 pin 3, along the loom, and finally into connector J12.", "Exactly right; now read me the socket number where the conductor lands inside J12.", "The diagram clearly indicates socket B on J12, immediately beside the shielded pair.", "Good, because that particular contact feeds the gear-down warning lamp in the cockpit.", "And the return path? I still need to know where the ground reference actually sits.", "The ground is on pin 4, connected by a bonding strap to the airframe structure.", "Understood, so unless the ground connection is broken, the warning lamp should illuminate normally.", "Correct, although as soon as continuity breaks anywhere, the lamp immediately goes dark.", "In that case we should test continuity from P1 through to J12 before anything else.", "Agreed; grab the multimeter, select the continuity range, and back-probe the plug carefully.", "On it, and I will also read the receptacle end so that we compare both connectors.", "I will call the references from the diagram while you locate each item on the harness.", "Ready when you are; give me the first connector, and please say the code slowly.", "Connector P4, which is the round plug positioned near the forward frame.", "Found P4 already, and it has a woven metal shield surrounding the conductors.", "Good, now find pin 7 specifically, and be careful not to confuse it with pin 1.", "Pin 7 located; it is a socket contact sitting in the top row of the connector.", "Excellent, but say the whole reference back to me, exactly as you understood it.", "Connector P4, pin 7, top row of the socket, next to the shielded conductor."], "roleplays": ["You are standing at a mock harness with the wiring diagram open on the screen.", "The gear-down lamp stays off, and you have just completed a continuity test.", "A circuit breaker trips, and you suspect a conductor is touching the airframe.", "Your shift is ending, but the wiring job on the aircraft is not yet finished."], "grammar": "Pin routing must be spatially exact, because a single wrong preposition sends your colleague to entirely the wrong place. For that reason we describe the position of a contact and the path of a conductor with real precision.", "scenario": "You are working a landing-gear warning fault at a Part-145 line station this afternoon. The gear-down lamp stays off during the extension check, so the flight crew has written the snag into the tech log. Your task is to trace the affected conductor on the wiring diagram, which is the master drawing of every wire in the", "pron": ["Right, pull up the wiring diagram for the landing-gear warning, because the gear-down lamp stays off.", "Wire W241, which originates at pin 3 on connector P1, near the avionics rack.", "Understood, but from P1 the route splits, so where exactly does the conductor terminate?", "It travels through the harness behind the instrument panel, and then continues onward to connector J12."], "course": "English for Aviation Maintenance", "unit": 11, "total": 32, "title": "Reading a wiring diagram and connector/pin talk", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "wiring diagram", "def": "The master drawing that shows how the conductors link the parts."}, {"term": "connector", "def": "A fitting that joins two separate sets of conductors."}, {"term": "pin", "def": "A small male metal contact inside a connector."}, {"term": "socket", "def": "The female cavity that receives a pin."}, {"term": "contact", "def": "The metal part inside a connector that carries the current."}, {"term": "continuity", "def": "An unbroken electrical path from one end to the other."}, {"term": "open circuit", "def": "A complete break in the path, so no current flows."}, {"term": "short circuit", "def": "An unwanted path, usually to ground."}, {"term": "harness", "def": "A bundle of conductors tied or taped together."}, {"term": "terminal", "def": "A point where a conductor is fixed and connected."}, {"term": "receptacle", "def": "The fixed connector half, mounted on a unit or structure."}, {"term": "plug", "def": "The connector half that you push into the receptacle."}, {"term": "insulation", "def": "The protective cover around a conductor."}, {"term": "resistance", "def": "How strongly a path opposes the current, measured in ohms."}, {"term": "multimeter", "def": "A tool that reads voltage, resistance and continuity."}, {"term": "ground", "def": "The return path to the airframe, normally at zero volts."}, {"term": "bonding", "def": "A low-resistance link between equipment and the airframe."}, {"term": "shield", "def": "A metal braid around a conductor that blocks interference."}, {"term": "splice", "def": "A joint where two conductors are permanently joined."}, {"term": "routing", "def": "The path a conductor takes through the aircraft."}], "lines": ["Right, pull up the wiring diagram for the landing-gear warning, because the gear-down lamp stays off.", "It is on the screen now, although the drawing is crowded here; which conductor are we chasing?", "Wire W241, which originates at pin 3 on connector P1, near the avionics rack.", "Understood, but from P1 the route splits, so where exactly does the conductor terminate?", "It travels through the harness behind the instrument panel, and then continues onward to connector J12.", "So the routing is P1 pin 3, along the loom, and finally into connector J12.", "Exactly right; now read me the socket number where the conductor lands inside J12.", "The diagram clearly indicates socket B on J12, immediately beside the shielded pair.", "Good, because that particular contact feeds the gear-down warning lamp in the cockpit.", "And the return path? I still need to know where the ground reference actually sits.", "The ground is on pin 4, connected by a bonding strap to the airframe structure.", "Understood, so unless the ground connection is broken, the warning lamp should illuminate normally.", "Correct, although as soon as continuity breaks anywhere, the lamp immediately goes dark.", "In that case we should test continuity from P1 through to J12 before anything else.", "Agreed; grab the multimeter, select the continuity range, and back-probe the plug carefully.", "On it, and I will also read the receptacle end so that we compare both connectors.", "I will call the references from the diagram while you locate each item on the harness.", "Ready when you are; give me the first connector, and please say the code slowly.", "Connector P4, which is the round plug positioned near the forward frame.", "Found P4 already, and it has a woven metal shield surrounding the conductors.", "Good, now find pin 7 specifically, and be careful not to confuse it with pin 1.", "Pin 7 located; it is a socket contact sitting in the top row of the connector.", "Excellent, but say the whole reference back to me, exactly as you understood it.", "Connector P4, pin 7, top row of the socket, next to the shielded conductor."], "roleplays": ["You are standing at a mock harness with the wiring diagram open on the screen.", "The gear-down lamp stays off, and you have just completed a continuity test.", "A circuit breaker trips, and you suspect a conductor is touching the airframe.", "Your shift is ending, but the wiring job on the aircraft is not yet finished."], "grammar": "Pin routing must be spatially exact, because a single wrong preposition sends your colleague to entirely the wrong place. For that reason we describe the position of a contact and the path of a conductor with real precision.", "scenario": "You are working a landing-gear warning fault at a Part-145 line station this afternoon. The gear-down lamp stays off during the extension check, so the flight crew has written the snag into the tech log. Your task is to trace the affected conductor on the wiring diagram, which is the master drawing of every wire in the", "pron": ["Right, pull up the wiring diagram for the landing-gear warning, because the gear-down lamp stays off.", "Wire W241, which originates at pin 3 on connector P1, near the avionics rack.", "Understood, but from P1 the route splits, so where exactly does the conductor terminate?", "It travels through the harness behind the instrument panel, and then continues onward to connector J12."], "course": "English for Aviation Maintenance", "unit": 11, "total": 32, "title": "Reading a wiring diagram and connector/pin talk", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}, "figures": [{"type": "doc", "where": "scenario", "title": "Reading the Fault on Wiring Diagram WD-241", "docTitle": "Wiring Diagram WD-241 — Landing Gear Warning", "caption": "these are the exact labels printed on the diagram you are chasing", "rows": [{"label": "P1", "note": "Connector P1 is the starting point of wire W241, near the avionics rack."}, {"label": "Pin 3", "note": "Pin 3 on P1 is the contact where wire W241 begins its route."}, {"label": "W241", "note": "W241 is the wire number that identifies this conductor on the diagram."}, {"label": "Harness", "note": "The harness carries W241 behind the instrument panel."}, {"label": "J12", "note": "Connector J12 is where wire W241 terminates."}, {"label": "Gear-down lamp", "note": "The lamp stays off, so this is the circuit you must trace."}]}, {"type": "flow", "where": "grammar", "title": "Describing the Route of Wire W241", "caption": "notice the precise prepositions: at, through, behind, onward to", "steps": [{"label": "State the origin pin", "note": "Say the wire originates at pin 3 on connector P1."}, {"label": "State the harness path", "note": "Say the conductor travels through the harness behind the instrument panel."}, {"label": "State the direction", "note": "Say the route continues onward to the next connector."}, {"label": "State the destination", "note": "Say the wire finally terminates at connector J12."}]}, {"type": "tree", "where": "grammar", "title": "Locating the Break Along W241", "caption": "each question pins down an exact location, so answer with precise position words", "levels": [{"q": "Is there continuity between P1 pin 3 and J12?", "yes": "The circuit is intact, so check the lamp itself.", "no": "There is a break somewhere along the harness."}, {"q": "Does the multimeter show infinite resistance?", "yes": "This indicates an open circuit in the wire.", "no": "Check instead for a short circuit to ground."}, {"q": "Is the reading still present at the splice?", "yes": "The fault lies between the splice and J12.", "no": "The fault lies between P1 and the splice."}]}, {"type": "compare", "where": "vocabulary", "title": "Open Circuit vs Short Circuit", "a": "Open Circuit", "b": "Short Circuit", "caption": "same multimeter, opposite readings — notice how each noun pairs with a different verb", "rows": [["Definition", "the conductor path is broken", "the conductor touches another path by accident"], ["Multimeter reading", "shows infinite resistance", "shows very low or zero resistance"], ["Typical cause", "a broken wire or a bad pin contact", "damaged insulation touching the shield or ground"], ["Where you check it", "between two pins across the harness", "between a pin and the airframe ground"]]}]};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
 //
 // It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
 // the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
@@ -1212,5 +1228,277 @@ function copyPrompt(el){
     '<p class="pron-note">Scoring counts the words the browser recognised, so it rewards clear '
     + 'consonants and word stress. It is practice, not an exam.</p>');
   host.appendChild(card);
+})();
+</script><script>// LANG edition: unit figures.
+//
+// Every figure is DRAWN here from a small JSON spec the authoring agent writes, never hand-drawn
+// as SVG by the agent. That is deliberate: agent-authored SVG comes out different (and often
+// broken) in every unit, while a shared renderer gives one house style across a whole course.
+//
+// The types are chosen so each one carries a language function, not just a picture:
+//   doc      anatomy of a real document, callouts -> the vocabulary of its parts
+//   flow     ordered steps                        -> sequencing language, imperatives
+//   tree     a yes/no decision                    -> conditionals
+//   compare  two things side by side              -> comparatives
+//   timeline events across a shift or a check     -> tenses
+//
+// Figures with labels can be switched into "label it" mode, where the labels are blanked and the
+// learner types them back. That turns an illustration into a vocabulary exercise for free.
+(function () {
+  var SPEC = (window.__LANG_BUDDY__ || {}).figures;
+  if (!SPEC || !SPEC.length) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var INK = '#1b2733', INK2 = '#5a6b7d', BRAND = '#2F5496', AMBER = '#e0a53d', LINE = '#dbe1e9';
+
+  function el(name, attrs, text) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) if (attrs.hasOwnProperty(k)) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function svg(w, h) {
+    var s = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: '100%',
+      preserveAspectRatio: 'xMidYMid meet', role: 'img' });
+    s.style.maxWidth = w + 'px';
+    s.style.display = 'block';
+    s.style.margin = '0 auto';
+    return s;
+  }
+  // crude but reliable line wrapping: SVG has none of its own
+  function wrap(s, max) {
+    var out = [], line = '';
+    String(s || '').split(/\s+/).forEach(function (w) {
+      if ((line + ' ' + w).trim().length > max) { if (line) out.push(line); line = w; }
+      else line = (line ? line + ' ' : '') + w;
+    });
+    if (line) out.push(line);
+    return out;
+  }
+  function textBlock(parent, str, x, y, max, size, fill, lh) {
+    var lines = wrap(str, max);
+    lines.forEach(function (l, i) {
+      parent.appendChild(el('text', { x: x, y: y + i * (lh || size + 4),
+        'font-size': size, fill: fill, 'font-family': 'Inter, Segoe UI, sans-serif' }, l));
+    });
+    return lines.length * (lh || size + 4);
+  }
+  function box(parent, x, y, w, h, fill, stroke, r) {
+    parent.appendChild(el('rect', { x: x, y: y, width: w, height: h, rx: r == null ? 9 : r,
+      fill: fill || '#fff', stroke: stroke || LINE, 'stroke-width': 1.2 }));
+  }
+
+  // ---- doc: the anatomy of a document, with numbered callouts ------------------------------
+  // Rows are measured before they are drawn: a note that wraps to three lines gets a taller box
+  // instead of spilling out of it.
+  function drawDoc(f) {
+    var rows = f.rows || [], W = 720, gap = 8;
+    var hs = rows.map(function (r) { return Math.max(52, 34 + wrap(r.note || '', 78).length * 17); });
+    var H = 74 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Document'));
+    box(s, 20, 18, W - 40, H - 36, '#fdfdfb', LINE, 12);
+    s.appendChild(el('text', { x: 40, y: 48, 'font-size': 15, 'font-weight': '600',
+      fill: BRAND, 'font-family': 'Inter, sans-serif' }, f.docTitle || f.title || ''));
+    var y = 66;
+    rows.forEach(function (r, i) {
+      var rowH = hs[i];
+      box(s, 40, y, W - 80, rowH, '#fff', LINE, 8);
+      s.appendChild(el('circle', { cx: 62, cy: y + 26, r: 13, fill: BRAND }));
+      s.appendChild(el('text', { x: 62, y: y + 31, 'font-size': 13, fill: '#fff',
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 86, y: y + 21, 'font-size': 13.5, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, r.label || ''));
+      textBlock(s, r.note || '', 86, y + 39, 78, 12.5, INK2, 17);
+      y += rowH + gap;
+    });
+    return s;
+  }
+
+  // ---- flow: ordered steps -------------------------------------------------------------------
+  function drawFlow(f) {
+    var st = f.steps || [], W = 720, gap = 20;
+    var hs = st.map(function (t) {
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      return Math.max(56, 34 + wrap(note, 74).length * 17);
+    });
+    var H = 30 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Process'));
+    var yy = 16;
+    st.forEach(function (t, i) {
+      var bh = hs[i], y = yy;
+      yy += bh + gap;
+      var label = typeof t === 'string' ? t : (t.label || '');
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      box(s, 60, y, W - 120, bh, i === st.length - 1 ? '#fffdf5' : '#fff',
+        i === st.length - 1 ? '#f0dfbe' : LINE, 10);
+      s.appendChild(el('circle', { cx: 60, cy: y + bh / 2, r: 16, fill: i === st.length - 1 ? AMBER : BRAND }));
+      s.appendChild(el('text', { x: 60, y: y + bh / 2 + 5, 'font-size': 14,
+        fill: i === st.length - 1 ? '#2c1e05' : '#fff', 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 92, y: y + (note ? 26 : 34), 'font-size': 14, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, label));
+      if (note) textBlock(s, note, 92, y + 44, 74, 12.5, INK2, 17);
+      if (i < st.length - 1) {
+        s.appendChild(el('path', { d: 'M60 ' + (y + bh + 2) + ' L60 ' + (y + bh + gap - 4),
+          stroke: LINE, 'stroke-width': 2 }));
+        s.appendChild(el('path', { d: 'M55 ' + (y + bh + gap - 10) + ' L60 ' + (y + bh + gap - 3)
+          + ' L65 ' + (y + bh + gap - 10), stroke: INK2, 'stroke-width': 1.6, fill: 'none' }));
+      }
+    });
+    return s;
+  }
+
+  // ---- tree: one yes/no decision per level ---------------------------------------------------
+  function drawTree(f) {
+    var levels = f.levels || [], W = 720, H = 40 + levels.length * 118;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Decision'));
+    levels.forEach(function (lv, i) {
+      var y = 20 + i * 118;
+      box(s, 200, y, 320, 46, '#eef3fa', '#c9d9ee', 10);
+      s.appendChild(el('text', { x: 360, y: y + 28, 'font-size': 13.5, 'text-anchor': 'middle',
+        fill: BRAND, 'font-weight': '600', 'font-family': 'Inter, sans-serif' },
+        wrap(lv.q || '', 46)[0] || ''));
+      [['yes', 40, '#e6f6ee', '#a9dcc6', '#0f6e56'], ['no', 400, '#fdeceb', '#f3c6c2', '#8c2f27']]
+        .forEach(function (o) {
+          var t = lv[o[0]];
+          if (!t) return;
+          var x = o[1] + 40;
+          box(s, x, y + 66, 280, 40, o[2], o[3], 9);
+          s.appendChild(el('text', { x: x + 12, y: y + 84, 'font-size': 11.5, fill: o[4],
+            'font-weight': '600', 'font-family': 'Inter, sans-serif' }, o[0].toUpperCase()));
+          s.appendChild(el('text', { x: x + 48, y: y + 91, 'font-size': 12.5, fill: INK,
+            'font-family': 'Inter, sans-serif' }, wrap(t, 34)[0] || ''));
+          s.appendChild(el('path', { d: 'M360 ' + (y + 46) + ' L360 ' + (y + 56)
+            + ' L' + (x + 140) + ' ' + (y + 56) + ' L' + (x + 140) + ' ' + (y + 64),
+            stroke: LINE, 'stroke-width': 1.6, fill: 'none' }));
+        });
+    });
+    return s;
+  }
+
+  // ---- compare: two things, attribute by attribute -------------------------------------------
+  function drawCompare(f) {
+    var rows = f.rows || [], W = 720, rh = 44, H = 78 + rows.length * rh;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Comparison'));
+    box(s, 20, 18, W - 40, H - 36, '#fff', LINE, 12);
+    [[250, f.a], [500, f.b]].forEach(function (c) {
+      s.appendChild(el('text', { x: c[0], y: 48, 'font-size': 14, 'font-weight': '600', fill: BRAND,
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, c[1] || ''));
+    });
+    rows.forEach(function (r, i) {
+      var y = 62 + i * rh;
+      if (i) s.appendChild(el('path', { d: 'M40 ' + y + ' L' + (W - 40) + ' ' + y, stroke: '#eef1f5' }));
+      s.appendChild(el('text', { x: 44, y: y + 27, 'font-size': 12.5, fill: INK2,
+        'font-family': 'Inter, sans-serif' }, wrap(r[0], 22)[0] || ''));
+      s.appendChild(el('text', { x: 250, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[1], 26)[0] || ''));
+      s.appendChild(el('text', { x: 500, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[2], 26)[0] || ''));
+    });
+    return s;
+  }
+
+  // ---- timeline ------------------------------------------------------------------------------
+  function drawTimeline(f) {
+    var ev = f.events || [], W = 720, H = 60 + ev.length * 62;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Timeline'));
+    s.appendChild(el('path', { d: 'M120 30 L120 ' + (H - 26), stroke: LINE, 'stroke-width': 2 }));
+    ev.forEach(function (e, i) {
+      var y = 46 + i * 62;
+      s.appendChild(el('circle', { cx: 120, cy: y, r: 8, fill: BRAND }));
+      s.appendChild(el('text', { x: 104, y: y + 5, 'font-size': 12.5, fill: INK2, 'text-anchor': 'end',
+        'font-family': 'JetBrains Mono, monospace' }, e.t || ''));
+      s.appendChild(el('text', { x: 146, y: y - 2, 'font-size': 13.5, 'font-weight': '600', fill: INK,
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(e.e || '', 58)[0] || ''));
+      if (e.note) textBlock(s, e.note, 146, y + 16, 62, 12.5, INK2);
+    });
+    return s;
+  }
+
+  var DRAW = { doc: drawDoc, flow: drawFlow, tree: drawTree, compare: drawCompare, timeline: drawTimeline };
+
+  // Number the figures in READING order, not in the order the spec happens to list them: a figure
+  // written third but placed in the vocabulary section must not be called Figure 3 on a page where
+  // it appears second.
+  var ORDER = ['scenario', 'dialogues', 'reading', 'vocabulary', 'grammar', 'exercises',
+    'speaking', 'writing'];
+  var ordered = SPEC.slice().sort(function (a, b) {
+    return ORDER.indexOf(a.where || 'scenario') - ORDER.indexOf(b.where || 'scenario');
+  });
+
+  ordered.forEach(function (f, idx) {
+    var host = document.getElementById(f.where || 'scenario')
+      || document.getElementById('scenario') || document.querySelector('article') || document.body;
+    var draw = DRAW[f.type];
+    if (!draw) return;
+
+    var fig = document.createElement('figure');
+    fig.className = 'lang-fig';
+    var head = document.createElement('figcaption');
+    head.className = 'fig-head';
+    head.innerHTML = '<b>Figure ' + (idx + 1) + '. ' + (f.title || '') + '</b>';
+    fig.appendChild(head);
+
+    var holder = document.createElement('div');
+    holder.className = 'fig-body';
+    var node;
+    try { node = draw(f); } catch (e) { return; }
+    holder.appendChild(node);
+    fig.appendChild(holder);
+
+    if (f.caption) {
+      var cap = document.createElement('p');
+      cap.className = 'fig-cap';
+      cap.textContent = f.caption;
+      fig.appendChild(cap);
+    }
+
+    // "label it": blank the labels, let the learner type them back, check on blur
+    var labels = [].slice.call(node.querySelectorAll('.figlab'));
+    if (labels.length >= 3) {
+      var bar = document.createElement('div');
+      bar.className = 'fig-bar';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'fig-btn';
+      btn.textContent = 'Hide the labels and test me';
+      var answers = labels.map(function (l) { return l.textContent; });
+      var on = false;
+      btn.addEventListener('click', function () {
+        on = !on;
+        btn.textContent = on ? 'Show the labels again' : 'Hide the labels and test me';
+        labels.forEach(function (l, i) { l.textContent = on ? '?' : answers[i]; });
+        quiz.hidden = !on;
+      });
+      bar.appendChild(btn);
+      fig.appendChild(bar);
+
+      var quiz = document.createElement('div');
+      quiz.className = 'fig-quiz';
+      quiz.hidden = true;
+      answers.forEach(function (a, i) {
+        var row = document.createElement('label');
+        row.innerHTML = '<span>' + (i + 1) + '</span>';
+        var inp = document.createElement('input');
+        inp.placeholder = 'type the label';
+        inp.addEventListener('blur', function () {
+          if (!inp.value.trim()) return;
+          var ok = inp.value.trim().toLowerCase() === a.trim().toLowerCase();
+          inp.className = ok ? 'ok' : 'bad';
+          if (ok) labels[i].textContent = a;
+        });
+        row.appendChild(inp);
+        quiz.appendChild(row);
+      });
+      fig.appendChild(quiz);
+    }
+
+    host.appendChild(fig);
+  });
 })();
 </script><!--/CF-LANG-UI--></body></html>
