@@ -1,0 +1,776 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Simulation: line-station turnaround</title>
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  article{max-width:1000px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 30px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:26ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:66ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:14px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:74ch}
+  code{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  a{color:var(--color-primary)}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .card h4{font-size:.98rem;margin:0 0 var(--space-3);color:var(--color-primary-dark)}
+  .card ul{margin:0;padding-left:1.1em}
+  .card li{margin:6px 0;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .scenario-box{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius);padding:var(--space-4) var(--space-5);font-family:var(--font-serif);font-size:18px;line-height:1.6;color:#33384a}
+  .dialogue{border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-elevated);box-shadow:var(--shadow-sm);margin:var(--space-4) 0 var(--space-5);overflow:hidden}
+  .dialogue h3{margin:0;padding:13px 18px;background:var(--bg-sunken);border-bottom:1px solid var(--border);font-size:1.02rem;display:flex;align-items:center;gap:10px}
+  .dialogue h3 .badge{font-family:var(--font-mono);font-size:11px;font-weight:700;color:#fff;background:var(--color-primary);padding:2px 9px;border-radius:20px;letter-spacing:.04em}
+  .lang-audio-slot{margin:0;padding:14px 18px;background:#eef2f9;border-bottom:1px dashed #cfdcef;font-family:var(--font-mono);font-size:12px;color:var(--color-primary-dark)}
+  .lang-audio-slot:before{content:"AUDIO \25BA track "attr(data-audio)" \2014 press play, listen first"}
+  details.transcript{padding:6px 18px 14px}
+  details.transcript summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary);font-weight:700;padding:8px 0}
+  .turn{margin:6px 0;max-width:76ch}
+  .turn .spk{display:inline-block;min-width:1.4em;font-family:var(--font-mono);font-weight:700;color:var(--color-primary);margin-right:6px}
+  .turn.b .spk{color:var(--accent)}
+  .said{color:#262b38}
+  table.vt{border-collapse:collapse;width:100%;font-size:14px;margin-top:10px}
+  table.vt th,table.vt td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  .vt td.col{color:var(--ink-muted);font-family:var(--font-mono);font-size:12.5px}
+  table.gt{border-collapse:collapse;width:100%;font-size:14.5px;margin:12px 0}
+  table.gt th,table.gt td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.gt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  .quote{border-left:4px solid var(--gold);background:var(--bg-margin);padding:10px 16px;margin:10px 0;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-family:var(--font-serif);font-size:16px}
+  .mistake{display:grid;grid-template-columns:1fr;gap:6px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 15px;margin:10px 0;background:var(--bg-elevated)}
+  .mistake .wrong{color:var(--bad)}.mistake .right{color:var(--good)}
+  .mistake .why{font-size:13.5px;color:var(--ink-muted)}
+  .x{color:var(--bad);font-weight:700}.tick{color:var(--good);font-weight:700}
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex h3{margin:0 0 4px;font-size:1.06rem}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex .instr{font-weight:600;color:var(--ink-soft);margin:2px 0 10px;max-width:72ch}
+  .ex ol{margin:6px 0;padding-left:1.4em}
+  .ex ol li{margin:8px 0}
+  .wordbank{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 12px}
+  .wordbank span{font-family:var(--font-mono);font-size:12.5px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:20px;padding:4px 11px}
+  input.gap,select.gap{font-family:var(--font-sans);font-size:14px;border:1px solid var(--border);border-radius:6px;padding:5px 9px;background:#fff;min-width:120px}
+  input.gap:focus,select.gap:focus{outline:2px solid var(--color-primary-soft);border-color:var(--color-primary)}
+  input.gap.right,select.gap.right{border-color:var(--good);background:#eaf5ec}
+  input.gap.wrong,select.gap.wrong{border-color:var(--bad);background:#fbecea}
+  .reading-text{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;margin:10px 0;font-family:var(--font-mono);font-size:13.5px;line-height:1.6}
+  .reading-text p{max-width:none;margin:6px 0}
+  .reading-text .doc-head{font-weight:700;color:var(--color-primary-dark);letter-spacing:.03em;border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:8px}
+  .btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  .btn:hover{border-color:var(--color-primary)}
+  .btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .score{font-family:var(--font-mono);font-weight:700;margin-left:12px;color:var(--color-primary-dark)}
+  details.reveal{margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken);padding:0 14px}
+  details.reveal summary{cursor:pointer;font-weight:700;color:var(--color-primary);padding:10px 0;font-size:14px}
+  details.reveal ol{margin:0 0 12px}
+  .roleplay{border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:var(--radius-sm);padding:14px 18px;margin:12px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.02rem}
+  .roleplay .field{margin:7px 0}
+  .roleplay .flab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:700;display:block}
+  .roleplay .phr{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .roleplay .phr span{font-size:13px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:6px;padding:3px 9px}
+  .ai-box{background:linear-gradient(180deg,#f4eefb,#fbfaf6);border:1px solid #e0d2f1;border-radius:var(--radius-lg);padding:20px 22px;margin:var(--space-5) 0}
+  .ai-box h3{margin:0 0 4px}
+  .prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin:10px 0;font-size:14px;position:relative}
+  .prompt code{background:none;padding:0;display:block;white-space:pre-wrap;line-height:1.55;color:#33384a}
+  .copybtn{position:absolute;top:10px;right:10px}
+  .checklist{list-style:none;padding:0;margin:10px 0}
+  .checklist li{padding:7px 0 7px 30px;position:relative}
+  .checklist li:before{content:"\2610";position:absolute;left:4px;font-size:18px;color:var(--color-primary)}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 8 of 32 · Simulation: line-station turnaround</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 line operations — turnaround, dispatch, ground time</span></div></div></header>
+<article>
+
+<header class="lec-hero">
+  <p class="eyebrow"><span class="dot"></span>Unit 8 &middot; English for Aviation Maintenance &middot; EASA Part-66/145 &middot; CEFR B2</p>
+  <h1 class="lecture-title">Simulation: line-station turnaround</h1>
+  <p class="subtitle">The aircraft has landed with a short ground time, and a defect appears on the walkaround, so the line team must take the handover, decide, act and document everything before the aircraft is cleared for dispatch.</p>
+  <div class="hero-meta">
+    <span>Unit<strong>8 &middot; Simulation: line-station turnaround</strong></span>
+    <span>Function<strong>Coordinate, decide and document under time pressure</strong></span>
+    <span>Grammar<strong>Time clauses with before / after</strong></span>
+    <span>AI stage<strong>Consultant &middot; conversation partner</strong></span>
+  </div>
+  <div class="card" style="margin-top:22px">
+    <h4>By the end of this unit you can &hellip;</h4>
+    <ul>
+      <li>Can coordinate handover, parts request and defect handling under time pressure.</li>
+      <li>Can communicate clearly and check understanding in a fast exchange.</li>
+      <li>Can document what was done during a short turnaround.</li>
+    </ul>
+  </div>
+</header>
+
+<section class="lecture-section" id="scenario">
+  <h2><span class="secnum">00</span>The scenario</h2>
+  <div class="scenario-box">
+    <p style="margin:0">You are on the A320 line, and the aircraft has just arrived with a forty-five minute turnaround. You receive the handover from the departing technician, and immediately you begin the walkaround. You discover a defect, so the remaining ground time is now extremely tight. You must decide quickly, although you cannot protect the departure slot indefinitely. You consult the MEL, you request the component, and you rectify or defer the defect accordingly. Afterwards you document every action in the tech log, and you sign the release to service before pushback, provided that the aircraft is fully serviceable.</p>
+  </div>
+  <p>A turnaround is essentially a race against the clock, because the ground time is limited and the departure slot is fixed. Effective teams succeed by communicating precisely and by confirming that every message was understood correctly. Throughout this simulation you rehearse the complete sequence, although you must use time clauses with <i>before</i> and <i>after</i> to arrange each action in the correct order. Listen to each recording initially, and examine the transcript afterwards, because an accomplished listener recognises the sequence before encountering it in writing.</p>
+</section>
+
+<section class="lecture-section" id="dialogues">
+  <h2><span class="secnum">01</span>Model dialogues &mdash; listen first</h2>
+  <p>Listen to each recording before you examine the transcript, and replay it twice whenever possible. Initially, simply follow the turnaround situation. Afterwards, capture the time clauses and the specialist line-operations vocabulary that carry the essential meaning.</p>
+
+  <div class="dialogue">
+    <h3><span class="badge">DIALOGUE 1</span> The handover at the start of the turnaround</h3>
+    <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u08-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:35 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">Hi Raivis, here is my handover on the A320, so please listen before boarding commences.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Go ahead, Anna. The turnaround is extremely tight, because we only have forty-five minutes of ground time.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Understood, so I will be brief. The aircraft arrived punctually, and the departure slot remains available.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Excellent. Did you complete the walkaround before the passengers disembarked?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Yes, I did, although I discovered one defect during the walkaround, so I must demonstrate it now.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Sorry, repeat that. You identified a defect precisely where?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">On the right engine cowl, one access panel is loose, and two fasteners are missing.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Understood, a loose panel and two missing fasteners. Did you register it in the tech log?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Yes, the defect is documented in the tech log, and I opened a task card for the panel.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Perfect. So, before I certify anything, I must secure that panel, correct?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Exactly. Install the fasteners and secure the panel before the aircraft proceeds for pushback.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Certainly. After I secure the panel, I will complete your remaining walkaround items too.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Thank you. The refuelling and the oil are finished, so only the panel remains open.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">A clear handover, Anna. Let me repeat it back, so we both agree completely.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Please do, because a rapid turnaround deteriorates whenever the message is not confirmed.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Right: secure the panel, install two fasteners, then complete the walkaround before pushback.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">DIALOGUE 2</span> The decision: rectify, defer, or request a part</h3>
+    <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u08-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:39 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">Raivis, the panel is more serious than we anticipated, because one hinge is cracked.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">A cracked hinge changes everything. Is this a no-go item, or can we carry it?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">I am consulting the MEL currently, so please wait before you contact the captain.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Fine. If the MEL permits it, we can carry it as a deferred defect.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The MEL permits one cracked hinge, but only after we install a temporary clip.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Do we possess the clip in stores, or is this becoming an AOG?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Stores holds one clip, therefore it is not an AOG, which is excellent news.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Great. Then we need not rectify the hinge completely before this departure.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Correct. We install the clip immediately, and we rectify the hinge at the next base check.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Understood. So the plan is: install the clip, then defer the hinge in the tech log.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Yes, and I will update the task card as soon as the clip arrives.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Let me confirm the component. Could you read me the part number, please?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The part number is Charlie four four zero two, and stores will deliver it before the fuellers finish.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good, and is the clip serviceable, with a tag and a valid certificate?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Yes, it is serviceable, therefore we are authorised to install it and dispatch the aircraft.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Excellent. Once we install the clip, we can proceed to the release.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">DIALOGUE 3</span> Act and document before dispatch</h3>
+    <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u08-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:27 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">The clip is installed, Raivis, but the panel warning remains illuminated in the flight deck.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Then we must troubleshoot it, because we cannot dispatch with an active warning.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Agreed. I will run a BITE test before we disturb any wiring.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good idea. What does the BITE readout indicate about the panel sensor?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The BITE shows an open circuit, so one sensor connector is probably loose.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Repeat that, please. An open circuit on the sensor connector, correct?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Correct. I will reseat the connector immediately, and then I will cancel the warning.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Proceed quickly, because we forfeit the slot if we cause a delay.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Completed. The connector is reseated, and the warning extinguished after I reset the system.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Excellent. Before I sign the release to service, confirm the tech log is complete.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The tech log is complete, so the clip and the reseat are both documented.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good. After you close the task card, I will sign the release to service.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The task card is closed, and the aircraft is now serviceable for dispatch.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Signing now. As soon as I sign, inform the tug that we are ready.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The release is signed, so I will request pushback and avoid any delay.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Well done, Anna. That is a clean turnaround, and the aircraft departs on the slot.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">MONOLOGUE 4</span> Line-station duty voicemail</h3>
+    <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u08-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:37 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">Hello, this is the duty manager with a message for the late line team.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Flight six two one arrives at nineteen forty, and the ground time is only thirty-five minutes.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The slot is extremely tight, so please take the handover before the passengers disembark.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">There is one open defect from the previous sector, and the tech log contains the details.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Install the component and sign the release to service before pushback, because we cannot accept a delay.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Contact me after you dispatch the aircraft, so I can finalise the turnaround report. Thank you.</span></p>
+    </details>
+  </div>
+</section>
+
+<section class="lecture-section" id="vocabulary">
+  <h2><span class="secnum">02</span>Vocabulary bank &mdash; line operations</h2>
+  <p>These are the essential specialist terms for a turnaround. Each term includes a plain meaning, one example sentence at your level, and one frequent collocation. Memorise the collocation, because it represents the natural way technicians use the word on the line.</p>
+  <table class="vt">
+    <thead><tr><th style="width:170px">Term</th><th>Plain meaning</th><th>Example at level</th><th style="width:150px">Collocation</th></tr></thead>
+    <tbody>
+      <tr><td><dfn data-term="turnaround">turnaround</dfn></td><td>The brief interval on the ground between arrival and the following departure.</td><td>The turnaround is tight, because the aircraft must depart again immediately.</td><td class="col">a tight turnaround</td></tr>
+      <tr><td><dfn data-term="ground time">ground time</dfn></td><td>The total duration the aircraft remains on the ground for a turnaround.</td><td>We have limited ground time, so we must operate efficiently and remain calm.</td><td class="col">short ground time</td></tr>
+      <tr><td><dfn data-term="slot">slot</dfn></td><td>The fixed time window during which the aircraft is permitted to depart.</td><td>We protect the slot, provided that we resolve the defect before pushback.</td><td class="col">hold the slot</td></tr>
+      <tr><td><dfn data-term="dispatch">dispatch</dfn></td><td>To release and send the aircraft onward for its subsequent flight.</td><td>We cannot dispatch the aircraft until the panel warning disappears completely.</td><td class="col">dispatch the aircraft</td></tr>
+      <tr><td><dfn data-term="handover">handover</dfn></td><td>Transferring the task and the information to the following technician or shift.</td><td>A precise handover matters, because the incoming technician must understand every open item.</td><td class="col">a clear handover</td></tr>
+      <tr><td><dfn data-term="walkaround">walkaround</dfn></td><td>The visual inspection you perform walking around the entire aircraft.</td><td>I discovered the loose panel during the walkaround, before the crew boarded.</td><td class="col">do a walkaround</td></tr>
+      <tr><td><dfn data-term="defect">defect</dfn></td><td>A fault on the aircraft that you must document and then resolve.</td><td>The defect appears minor, although we still cannot disregard it before dispatch.</td><td class="col">raise a defect</td></tr>
+      <tr><td><dfn data-term="tech log">tech log</dfn></td><td>The aircraft logbook where you register each defect and each action.</td><td>Record the action in the tech log, so the incoming shift understands it.</td><td class="col">the tech log entry</td></tr>
+      <tr><td><dfn data-term="task card">task card</dfn></td><td>The job document that describes one task and its procedure precisely.</td><td>I opened a task card for the panel, because the procedure requires clear steps.</td><td class="col">open a task card</td></tr>
+      <tr><td><dfn data-term="MEL">MEL</dfn></td><td>The minimum equipment list; it specifies what may be inoperative for dispatch.</td><td>Consult the MEL before you defer any defect on this particular aircraft.</td><td class="col">check the MEL</td></tr>
+      <tr><td><dfn data-term="no-go item">no-go item</dfn></td><td>An item that must operate, otherwise the aircraft is prohibited from flying.</td><td>If it is a no-go item, we cannot dispatch until we rectify it.</td><td class="col">a no-go item</td></tr>
+      <tr><td><dfn data-term="deferred defect">deferred defect</dfn></td><td>A defect the MEL permits you to carry now and rectify later.</td><td>We carry it as a deferred defect, provided that we install the clip first.</td><td class="col">a deferred defect</td></tr>
+      <tr><td><dfn data-term="rectify">rectify</dfn></td><td>To repair a defect completely, so it is no longer a fault.</td><td>We rectify the hinge at the base check, following this departure.</td><td class="col">rectify a defect</td></tr>
+      <tr><td><dfn data-term="troubleshoot">troubleshoot</dfn></td><td>To identify the cause of a fault systematically, step by step.</td><td>We must troubleshoot the warning before we cancel it on the flight deck.</td><td class="col">troubleshoot a fault</td></tr>
+      <tr><td><dfn data-term="BITE">BITE</dfn></td><td>Built-in test equipment; the automated self-test that displays fault codes.</td><td>The BITE readout indicated an open circuit on the sensor connector.</td><td class="col">run a BITE test</td></tr>
+      <tr><td><dfn data-term="serviceable">serviceable</dfn></td><td>Suitable for use, and legally acceptable to install or to operate.</td><td>The clip is serviceable, therefore we are authorised to install it and dispatch.</td><td class="col">a serviceable part</td></tr>
+      <tr><td><dfn data-term="release to service">release to service</dfn></td><td>The certification signature confirming the aircraft is airworthy again.</td><td>I sign the release to service after you close the relevant task card.</td><td class="col">sign the release to service</td></tr>
+      <tr><td><dfn data-term="pushback">pushback</dfn></td><td>When the tug reverses the aircraft away from the parking stand.</td><td>Close the panel securely before the aircraft proceeds for pushback.</td><td class="col">call for pushback</td></tr>
+      <tr><td><dfn data-term="delay">delay</dfn></td><td>A departure that occurs later than the originally scheduled time.</td><td>We operate efficiently, because we forfeit the slot if we cause a delay.</td><td class="col">cause a delay</td></tr>
+      <tr><td><dfn data-term="AOG">AOG</dfn></td><td>Aircraft on ground; a missing component is preventing the departure.</td><td>Stores possessed the clip, therefore it was not an AOG situation today.</td><td class="col">an AOG situation</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="lecture-section" id="grammar">
+  <h2><span class="secnum">03</span>Grammar in context &mdash; time clauses with before / after</h2>
+  <p>A turnaround is essentially a sequence of actions in a fixed order, so you must indicate what happens first and what follows immediately afterwards. English expresses this using time clauses, with connectors like <i>before</i>, <i>after</i>, <i>as soon as</i>, <i>once</i>, <i>until</i> and <i>when</i>. Examine these lines from the dialogues, and notice the identical pattern in each example.</p>
+  <div class="quote">&ldquo;Fit the fasteners and close the panel <b>before</b> the aircraft goes for pushback.&rdquo; &mdash; D1</div>
+  <div class="quote">&ldquo;<b>After</b> you close the task card, I will sign the release to service.&rdquo; &mdash; D3</div>
+  <div class="quote">&ldquo;I will update the task card <b>as soon as</b> the clip arrives.&rdquo; &mdash; D2</div>
+  <p>The rule is brief, although learners frequently apply it incorrectly. In a time clause about the future, use the <b>present</b> tense, and never <i>will</i>. The main clause can still contain <i>will</i> or a direct instruction. Therefore you say &ldquo;before the aircraft <i>departs</i>&rdquo;, and never &ldquo;before the aircraft will depart&rdquo;.</p>
+  <table class="gt">
+    <thead><tr><th>Function</th><th>Structure</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Do the first action first</td><td>Main clause + before + present</td><td>Close the panel before the aircraft departs.</td></tr>
+      <tr><td>Do the second action next</td><td>After + present, + main clause</td><td>After you fit the clip, sign the log.</td></tr>
+      <tr><td>Do it the moment it happens</td><td>As soon as + present, + will</td><td>As soon as the part arrives, we will fit it.</td></tr>
+      <tr><td>Wait for a condition</td><td>Until / once + present</td><td>We cannot dispatch until the warning clears.</td></tr>
+    </tbody>
+  </table>
+  <h3>Three common mistakes (Latvian and Russian speakers)</h3>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> Fit the panel before the aircraft <b>will depart</b>.</div>
+    <div class="right"><span class="tick">&#10003;</span> Fit the panel before the aircraft <b>departs</b>.</div>
+    <div class="why">Why: after <i>before</i>, <i>after</i> or <i>as soon as</i>, use the present tense, although Latvian and Russian often use a future form here.</div>
+  </div>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> <b>After I will finish</b> the walkaround, I sign the log.</div>
+    <div class="right"><span class="tick">&#10003;</span> <b>After I finish</b> the walkaround, I sign the log.</div>
+    <div class="why">Why: the time clause takes the present tense, so the future <i>will</i> belongs only in the main clause.</div>
+  </div>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> Check the MEL before <b>to defer</b> the defect.</div>
+    <div class="right"><span class="tick">&#10003;</span> Check the MEL before <b>you defer</b> the defect.</div>
+    <div class="why">Why: <i>before</i> needs a clause or an <i>-ing</i> form, not the infinitive, because Latvian and Russian frequently use the infinitive here.</div>
+  </div>
+</section>
+
+<section class="lecture-section" id="exercises">
+  <h2><span class="secnum">04</span>Exercises</h2>
+  <p>Complete the exercises in order, and type your answer before you press <b>Check</b>, because the page immediately marks each answer green or red. Reveal the <b>Answers</b> only after you have attempted the exercise, so that you assess yourself honestly.</p>
+
+  <div class="ex" id="e1">
+    <span class="tag">E1 &middot; Gap-fill</span>
+    <h3>Put the right term in the gap</h3>
+    <p class="instr">Read each sentence, and write one term from the bank in the gap.</p>
+    <div class="wordbank"><span>turnaround</span><span>ground time</span><span>handover</span><span>defect</span><span>dispatch</span><span>tech log</span><span>slot</span><span>walkaround</span><span>pushback</span><span>delay</span></div>
+    <ol>
+      <li>The short time on the ground between arrival and departure is the <input class="gap" size="12" data-answer="turnaround">.</li>
+      <li>The total time the aircraft stays on the ground is the <input class="gap" size="12" data-answer="ground time">.</li>
+      <li>When you pass the job to the next technician, you give a <input class="gap" size="10" data-answer="handover">.</li>
+      <li>A fault on the aircraft that you must record is a <input class="gap" size="8" data-answer="defect">.</li>
+      <li>To release and send the aircraft out for its flight is to <input class="gap" size="9" data-answer="dispatch"> it.</li>
+      <li>You record each defect and action in the <input class="gap" size="9" data-answer="tech log">.</li>
+      <li>The fixed time window when the aircraft may leave is the <input class="gap" size="6" data-answer="slot">.</li>
+      <li>The visual check around the whole aircraft is the <input class="gap" size="11" data-answer="walkaround">.</li>
+      <li>When the tug pushes the aircraft back from the stand, that is <input class="gap" size="10" data-answer="pushback">.</li>
+      <li>A departure later than the scheduled time is a <input class="gap" size="7" data-answer="delay">.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>turnaround</li><li>ground time</li><li>handover</li><li>defect</li><li>dispatch</li><li>tech log</li><li>slot</li><li>walkaround</li><li>pushback</li><li>delay</li></ol></details>
+  </div>
+
+  <div class="ex" id="e2">
+    <span class="tag">E2 &middot; Matching</span>
+    <h3>Match the term to its meaning</h3>
+    <p class="instr">Choose the correct meaning for each term.</p>
+    <ol>
+      <li><dfn>MEL</dfn> &rarr; <select class="gap" data-answer="the list of what may be inoperative for dispatch"><option value="">choose&hellip;</option><option>the list of what may be inoperative for dispatch</option><option>the visual check around the aircraft</option><option>the sign-off that the aircraft is fit to fly</option><option>the tug that pushes the aircraft back</option></select></li>
+      <li><dfn>deferred defect</dfn> &rarr; <select class="gap" data-answer="a defect you may carry now and fix later"><option value="">choose&hellip;</option><option>a defect you may carry now and fix later</option><option>a part that is fit to fly</option><option>the fixed departure time window</option><option>the total time on the ground</option></select></li>
+      <li><dfn>no-go item</dfn> &rarr; <select class="gap" data-answer="an item that must work or the aircraft cannot fly"><option value="">choose&hellip;</option><option>an item that must work or the aircraft cannot fly</option><option>a link between two part numbers</option><option>the job document with the steps</option><option>a late departure</option></select></li>
+      <li><dfn>rectify</dfn> &rarr; <select class="gap" data-answer="to fix a defect fully"><option value="">choose&hellip;</option><option>to fix a defect fully</option><option>to pass the job to the next shift</option><option>to send the aircraft out</option><option>to walk around the aircraft</option></select></li>
+      <li><dfn>troubleshoot</dfn> &rarr; <select class="gap" data-answer="to find the cause of a fault step by step"><option value="">choose&hellip;</option><option>to find the cause of a fault step by step</option><option>to record a defect in the log</option><option>to hold the departure slot</option><option>to close an access panel</option></select></li>
+      <li><dfn>serviceable</dfn> &rarr; <select class="gap" data-answer="fit to use and legal to fit or to fly"><option value="">choose&hellip;</option><option>fit to use and legal to fit or to fly</option><option>later than the scheduled time</option><option>a fault found on the walkaround</option><option>the aircraft self-test readout</option></select></li>
+      <li><dfn>release to service</dfn> &rarr; <select class="gap" data-answer="the sign-off that the aircraft is fit to fly"><option value="">choose&hellip;</option><option>the sign-off that the aircraft is fit to fly</option><option>the short time between arrival and departure</option><option>a missing part that stops the flight</option><option>the list of inoperative items</option></select></li>
+      <li><dfn>task card</dfn> &rarr; <select class="gap" data-answer="the job document that lists one task and its steps"><option value="">choose&hellip;</option><option>the job document that lists one task and its steps</option><option>the visual check around the aircraft</option><option>the fixed departure time window</option><option>to fix a defect fully</option></select></li>
+      <li><dfn>AOG</dfn> &rarr; <select class="gap" data-answer="aircraft on ground; a missing part stops departure"><option value="">choose&hellip;</option><option>aircraft on ground; a missing part stops departure</option><option>the sign-off that the aircraft is fit to fly</option><option>a defect you may carry and fix later</option><option>the tug that pushes the aircraft back</option></select></li>
+      <li><dfn>BITE</dfn> &rarr; <select class="gap" data-answer="the built-in self-test that shows fault codes"><option value="">choose&hellip;</option><option>the built-in self-test that shows fault codes</option><option>the aircraft logbook for defects</option><option>a late departure</option><option>the total time on the ground</option></select></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>the list of what may be inoperative for dispatch</li><li>a defect you may carry now and fix later</li><li>an item that must work or the aircraft cannot fly</li><li>to fix a defect fully</li><li>to find the cause of a fault step by step</li><li>fit to use and legal to fit or to fly</li><li>the sign-off that the aircraft is fit to fly</li><li>the job document that lists one task and its steps</li><li>aircraft on ground; a missing part stops departure</li><li>the built-in self-test that shows fault codes</li></ol></details>
+  </div>
+
+  <div class="ex" id="e3">
+    <span class="tag">E3 &middot; Dialogue completion</span>
+    <h3>Complete the handover</h3>
+    <p class="instr">Read the fast handover, and write one term or short phrase in each gap.</p>
+    <ol>
+      <li>A: The aircraft has landed, but the <input class="gap" size="12" data-answer="turnaround"> is tight today.</li>
+      <li>B: How much <input class="gap" size="12" data-answer="ground time"> do we have before pushback?</li>
+      <li>A: Only forty minutes, so please take the <input class="gap" size="10" data-answer="handover"> now.</li>
+      <li>B: Understood. Did you find anything on the <input class="gap" size="11" data-answer="walkaround">?</li>
+      <li>A: Yes, one <input class="gap" size="8" data-answer="defect"> on the engine cowl, and it is in the log.</li>
+      <li>B: Did you also open a <input class="gap" size="10" data-answer="task card"> for the job?</li>
+      <li>A: I did. Please check the <input class="gap" size="6" data-answer="mel|MEL"> before you defer it.</li>
+      <li>B: Good. We cannot <input class="gap" size="9" data-answer="dispatch"> the aircraft with an open no-go item.</li>
+      <li>A: Agreed. Fit the part before the aircraft goes for <input class="gap" size="10" data-answer="pushback">.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>turnaround</li><li>ground time</li><li>handover</li><li>walkaround</li><li>defect</li><li>task card</li><li>MEL</li><li>dispatch</li><li>pushback</li></ol></details>
+  </div>
+
+  <div class="ex" id="e4">
+    <span class="tag">E4 &middot; Grammar transformation</span>
+    <h3>Fix the time clause</h3>
+    <p class="instr">Rewrite each sentence. Use the present tense in the time clause, and remove <i>will</i> or <i>to</i>.</p>
+    <ol>
+      <li>Fit the panel before the aircraft will depart. &rarr; <input class="gap" size="42" data-answer="fit the panel before the aircraft departs"></li>
+      <li>After I will finish the walkaround, I will call you. &rarr; <input class="gap" size="46" data-answer="after i finish the walkaround, i will call you|after i finish the walkaround i will call you"></li>
+      <li>As soon as the clip will arrive, we will fit it. &rarr; <input class="gap" size="46" data-answer="as soon as the clip arrives, we will fit it|as soon as the clip arrives we will fit it"></li>
+      <li>Before you will sign the log, check the task card. &rarr; <input class="gap" size="48" data-answer="before you sign the log, check the task card|before you sign the log check the task card"></li>
+      <li>We will dispatch after we will close the tech log. &rarr; <input class="gap" size="48" data-answer="we will dispatch after we close the tech log"></li>
+      <li>Once the BITE test will pass, we release the aircraft. &rarr; <input class="gap" size="50" data-answer="once the bite test passes, we release the aircraft|once the bite test passes we release the aircraft"></li>
+      <li>We cannot dispatch until the warning will clear. &rarr; <input class="gap" size="44" data-answer="we cannot dispatch until the warning clears"></li>
+      <li>Check the MEL before to defer the defect. &rarr; <input class="gap" size="42" data-answer="check the mel before you defer the defect"></li>
+      <li>When the tug will arrive, we push back. &rarr; <input class="gap" size="40" data-answer="when the tug arrives, we push back|when the tug arrives we push back"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>Fit the panel before the aircraft departs.</li><li>After I finish the walkaround, I will call you.</li><li>As soon as the clip arrives, we will fit it.</li><li>Before you sign the log, check the task card.</li><li>We will dispatch after we close the tech log.</li><li>Once the BITE test passes, we release the aircraft.</li><li>We cannot dispatch until the warning clears.</li><li>Check the MEL before you defer the defect.</li><li>When the tug arrives, we push back.</li></ol></details>
+  </div>
+
+  <div class="ex" id="e5">
+    <span class="tag">E5 &middot; Reading 1</span>
+    <h3>Read a tech log page</h3>
+    <p class="instr">Read the tech log page, and then answer the seven questions. Write short answers.</p>
+    <div class="reading-text reading">
+      <p class="doc-head">AIRCRAFT TECHNICAL LOG &mdash; A320 &mdash; SECTOR RIX&ndash;ARN</p>
+      <p>Date: 08 AUG. Registration: YL-ABC. Turnaround: stand 12. Ground time: 45 minutes.</p>
+      <p>Defect 1: right engine cowl access panel loose. Two fasteners missing, found on the walkaround before boarding.</p>
+      <p>Defect 2: cowl hinge cracked. MEL reference 71-10-01 applies, so the defect may be carried as a deferred defect.</p>
+      <p>Action: temporary clip fitted, part number C-4402. The clip is serviceable, with a tag and a valid certificate.</p>
+      <p>Action: panel warning investigated. A BITE test showed an open circuit, so the sensor plug was reseated.</p>
+      <p>Result: the warning cleared after the reset, and the panel is now closed with new fasteners.</p>
+      <p>Deferral: rectify the hinge fully at the next base check. Do not exceed the MEL time limit.</p>
+      <p>Release: the aircraft is serviceable for dispatch. Sign the release to service before pushback, and close each task card.</p>
+    </div>
+    <ol>
+      <li>How long is the ground time? <input class="gap" size="14" data-answer="45 minutes|forty-five minutes|45|forty five minutes"></li>
+      <li>Where was Defect 1 found? <input class="gap" size="20" data-answer="on the walkaround|the walkaround|walkaround"></li>
+      <li>What was missing from the panel? <input class="gap" size="18" data-answer="two fasteners|fasteners|2 fasteners"></li>
+      <li>How is Defect 2 handled now? <input class="gap" size="24" data-answer="as a deferred defect|deferred defect|it is deferred|deferred"></li>
+      <li>What did the BITE test show? <input class="gap" size="20" data-answer="an open circuit|open circuit|a open circuit"></li>
+      <li>What must you sign before pushback? <input class="gap" size="26" data-answer="the release to service|release to service|the release"></li>
+      <li>When must the hinge be rectified fully? <input class="gap" size="26" data-answer="at the next base check|the next base check|base check|next base check"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>45 minutes</li><li>on the walkaround</li><li>two fasteners</li><li>as a deferred defect</li><li>an open circuit</li><li>the release to service</li><li>at the next base check</li></ol></details>
+  </div>
+
+  <div class="ex" id="e6">
+    <span class="tag">E6 &middot; Error-spotting</span>
+    <h3>Find and fix the errors</h3>
+    <p class="instr">This turnaround note has eight errors, mostly in the time clauses. Write the correct line in each gap.</p>
+    <div class="reading-text">
+      <p class="doc-head">DRAFT TURNAROUND NOTE &mdash; FIX EIGHT ERRORS</p>
+      <p>(1) Fit the panel before the aircraft will depart.</p>
+      <p>(2) After I will finish the walkaround, I sign the log.</p>
+      <p>(3) Check the MEL before to defer the defect.</p>
+      <p>(4) As soon as the clip will arrive, we fit it.</p>
+      <p>(5) We cannot dispatch until the warning will clear.</p>
+      <p>(6) Once the BITE test will pass, we release the aircraft.</p>
+      <p>(7) When the tug will arrive, we push back.</p>
+      <p>(8) Before you will sign, close the task card.</p>
+    </div>
+    <ol>
+      <li>(1) &rarr; <input class="gap" size="42" data-answer="fit the panel before the aircraft departs"></li>
+      <li>(2) &rarr; <input class="gap" size="46" data-answer="after i finish the walkaround, i sign the log|after i finish the walkaround i sign the log"></li>
+      <li>(3) &rarr; <input class="gap" size="42" data-answer="check the mel before you defer the defect"></li>
+      <li>(4) &rarr; <input class="gap" size="40" data-answer="as soon as the clip arrives, we fit it|as soon as the clip arrives we fit it"></li>
+      <li>(5) &rarr; <input class="gap" size="44" data-answer="we cannot dispatch until the warning clears"></li>
+      <li>(6) &rarr; <input class="gap" size="50" data-answer="once the bite test passes, we release the aircraft|once the bite test passes we release the aircraft"></li>
+      <li>(7) &rarr; <input class="gap" size="40" data-answer="when the tug arrives, we push back|when the tug arrives we push back"></li>
+      <li>(8) &rarr; <input class="gap" size="42" data-answer="before you sign, close the task card|before you sign close the task card"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>Fit the panel before the aircraft departs. (present tense after "before")</li><li>After I finish the walkaround, I sign the log. (present tense after "after")</li><li>Check the MEL before you defer the defect. (a clause, not "to defer")</li><li>As soon as the clip arrives, we fit it. (present tense after "as soon as")</li><li>We cannot dispatch until the warning clears. (present tense after "until")</li><li>Once the BITE test passes, we release the aircraft. (present tense after "once")</li><li>When the tug arrives, we push back. (present tense after "when")</li><li>Before you sign, close the task card. (present tense after "before")</li></ol></details>
+  </div>
+
+  <div class="ex" id="e7">
+    <span class="tag">E7 &middot; Reading 2</span>
+    <h3>Read an MEL dispatch message</h3>
+    <p class="instr">Read the stores and dispatch message, and then answer the seven questions. Write short answers.</p>
+    <div class="reading-text reading">
+      <p class="doc-head">DISPATCH MESSAGE &mdash; LINE STATION ARN &mdash; FLT 621</p>
+      <p>To: line team. From: dispatch desk. Subject: turnaround, stand 12, ground time 35 minutes.</p>
+      <p>Status: one deferred defect is open on the cowl hinge. The MEL allows it, provided that the clip stays fitted.</p>
+      <p>Part: the clip, part number C-4402, is serviceable and is available in stores, so there is no AOG.</p>
+      <p>Warning: the cowl hinge is not a no-go item, but the panel sensor must be serviceable before dispatch.</p>
+      <p>Action: run a BITE test as soon as you reach the aircraft, because the slot is very tight today.</p>
+      <p>Documentation: record every action in the tech log, and close each task card before you sign the release.</p>
+      <p>Timing: sign the release to service before pushback. We cannot accept a delay, because the slot closes at twenty ten.</p>
+    </div>
+    <ol>
+      <li>What is the ground time for this flight? <input class="gap" size="14" data-answer="35 minutes|thirty-five minutes|35|thirty five minutes"></li>
+      <li>Which defect is open on the aircraft? <input class="gap" size="22" data-answer="the cowl hinge|cowl hinge|the deferred defect|hinge"></li>
+      <li>What is the part number of the clip? <input class="gap" size="10" data-answer="c-4402|c4402|4402"></li>
+      <li>Is the clip an AOG problem? <input class="gap" size="8" data-answer="no|no aog"></li>
+      <li>What must be serviceable before dispatch? <input class="gap" size="20" data-answer="the panel sensor|panel sensor|the sensor|sensor"></li>
+      <li>What must you run at the aircraft first? <input class="gap" size="16" data-answer="a bite test|bite test|the bite test|bite"></li>
+      <li>When does the slot close? <input class="gap" size="14" data-answer="twenty ten|20:10|2010|20 10"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>35 minutes</li><li>the cowl hinge</li><li>C-4402</li><li>no</li><li>the panel sensor</li><li>a BITE test</li><li>twenty ten (20:10)</li></ol></details>
+  </div>
+
+  <div class="ex" id="e8">
+    <span class="tag">E8 &middot; Listening review</span>
+    <h3>Questions on Dialogue 3</h3>
+    <p class="instr">Play Dialogue 3 again, and then answer. Write short answers.</p>
+    <ol>
+      <li>What is still on in the flight deck after the clip is fitted? <input class="gap" size="18" data-answer="the panel warning|panel warning|a warning|the warning"></li>
+      <li>What test does the technician run first? <input class="gap" size="16" data-answer="a bite test|bite test|the bite test|bite"></li>
+      <li>What does the BITE readout show? <input class="gap" size="18" data-answer="an open circuit|open circuit|a open circuit"></li>
+      <li>What does the technician reseat? <input class="gap" size="18" data-answer="the sensor plug|sensor plug|the plug|plug"></li>
+      <li>What does Raivis sign before pushback? <input class="gap" size="26" data-answer="the release to service|release to service|the release"></li>
+      <li>Why must they work fast? <input class="gap" size="26" data-answer="they lose the slot|to keep the slot|to avoid a delay|because of the slot"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>the panel warning</li><li>a BITE test</li><li>an open circuit</li><li>the sensor plug</li><li>the release to service</li><li>they lose the slot if there is a delay</li></ol></details>
+  </div>
+</section>
+
+<section class="lecture-section" id="speaking">
+  <h2><span class="secnum">05</span>Speaking: run the turnaround</h2>
+  <p>Work in pairs, so one person represents the technician and the other represents the controller or the stores clerk. Use the useful phrases, and always confirm that the message was understood, because a rapid exchange deteriorates whenever nobody confirms it. Exchange roles after each card.</p>
+
+  <div class="roleplay">
+    <h4>Role-play card 1 &mdash; Take the handover</h4>
+    <div class="field"><span class="flab">Situation</span> The aircraft has landed with a tight turnaround, and there is one open defect.</div>
+    <div class="field"><span class="flab">Your role</span> Incoming technician taking the handover.</div>
+    <div class="field"><span class="flab">Your goal</span> Get the ground time, the slot, the defect and the open task card, and repeat it back to confirm.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>What is the ground time?</span><span>Where is the defect?</span><span>Say that again, please.</span><span>Let me repeat it back.</span><span>Is that in the tech log?</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 2 &mdash; Decide: rectify or defer</h4>
+    <div class="field"><span class="flab">Situation</span> The defect is a cracked hinge, and the ground time is short.</div>
+    <div class="field"><span class="flab">Your role</span> Technician deciding with the controller.</div>
+    <div class="field"><span class="flab">Your goal</span> Check the MEL, decide if it is a no-go item, and agree to fit the clip and defer the hinge.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>Is this a no-go item?</span><span>The MEL allows it.</span><span>We can carry it as a deferred defect.</span><span>We rectify it at the base check.</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 3 &mdash; Request the part from stores</h4>
+    <div class="field"><span class="flab">Situation</span> You need the clip before the fuellers finish, or the slot is at risk.</div>
+    <div class="field"><span class="flab">Your role</span> Technician calling stores under time pressure.</div>
+    <div class="field"><span class="flab">Your goal</span> Give the part number, check that it is serviceable, and confirm it will arrive before pushback.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>The part number is&hellip;</span><span>Is it serviceable?</span><span>Can you bring it before pushback?</span><span>Is this an AOG?</span><span>We cannot accept a delay.</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 4 &mdash; Act, document and release</h4>
+    <div class="field"><span class="flab">Situation</span> The clip is fitted, but a panel warning is still on in the flight deck.</div>
+    <div class="field"><span class="flab">Your role</span> Technician finishing the job with the controller.</div>
+    <div class="field"><span class="flab">Your goal</span> Troubleshoot with a BITE test, clear the warning, complete the tech log, and agree the release before pushback.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>I will run a BITE test.</span><span>The BITE shows&hellip;</span><span>The tech log is complete.</span><span>After you close the card, I will sign.</span><span>Call for pushback.</span></div>
+    </div>
+  </div>
+
+  <div class="ai-box">
+    <h3>AI conversation partner</h3>
+    <p>Copy one prompt into the chat buddy, and speak your part out loud, because the AI plays the line team and gently corrects your English.</p>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are an arriving technician giving me a fast handover on the A320 line, and I am the incoming technician. Tell me the ground time, the slot, and one open defect on the walkaround. Make me ask questions and repeat the handover back before you finish. Speak only at CEFR B2, with short sentences, and ask me one follow-up question each turn. If I make an English mistake, especially with a time clause (for example "before the aircraft will depart"), gently repeat my sentence the correct way, then continue. Stay in the turnaround scenario. You may add one Latvian gloss in brackets for a hard term.</code></div>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are a line controller, and I am a technician with a cracked cowl hinge and a tight ground time. Help me decide whether to rectify or defer the defect. Make me check the MEL, say if it is a no-go item, and agree to fit the clip and defer the hinge. Speak only at CEFR B2 and keep answers short. Ask me one question each turn about the decision or the timing. If I use a time clause wrongly (for example "as soon as the clip will arrive"), recast my sentence correctly, then carry on. Stay in the turnaround scenario.</code></div>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are a line controller, and I am a technician finishing the turnaround. The clip is fitted, but a panel warning is still on. Play it step by step: I run a BITE test, I reseat the plug, I complete the tech log, and we agree the release to service before pushback. Speak only at CEFR B2 with short sentences. After each of my turns, ask one follow-up question and check that I understood. Gently correct any time-clause or vocabulary error by repeating it the right way. Do not lecture me. Stay in the turnaround scenario.</code></div>
+  </div>
+</section>
+
+<section class="lecture-section" id="writing">
+  <h2><span class="secnum">06</span>Writing: a turnaround tech log entry</h2>
+  <p>Write a concise tech log entry for the turnaround, and use Simplified Technical English (ASD-STE100), because short sentences and approved words are considerably easier to read on the line. Include one instruction per sentence, and keep every sentence under twenty words. Use the present tense in every time clause, and follow the checklist below.</p>
+  <div class="callout">
+    <h4>Your task</h4>
+    <p>Write 80&ndash;110 words to record the turnaround. Give the defect, the MEL decision and the action, and say what you fitted. Then write the sequence with time clauses: what you do <i>before</i> pushback, and what you sign <i>after</i> you close the task card. Keep every sentence short, clear and in the right order.</p>
+  </div>
+  <details class="reveal"><summary>Show model answer</summary>
+    <div class="reading-text">
+      <p class="doc-head">TECH LOG ENTRY &mdash; A320 &mdash; TURNAROUND STAND 12</p>
+      <p>Defect: right cowl hinge cracked. Found on the walkaround before boarding.</p>
+      <p>Decision: the MEL allows the defect. Carry it as a deferred defect.</p>
+      <p>Action: fit the temporary clip, part number C-4402. The clip is serviceable.</p>
+      <p>Action: run a BITE test before you touch the wiring. Reseat the sensor plug.</p>
+      <p>Result: the panel warning clears after the reset. Close the panel with new fasteners.</p>
+      <p>Sequence: complete the tech log before pushback. After you close the task card, sign the release to service.</p>
+      <p>Note: rectify the hinge fully at the next base check.</p>
+    </div>
+  </details>
+  <h3>Self-check</h3>
+  <ul class="checklist">
+    <li>Did I use short sentences and simple words (Simplified Technical English)?</li>
+    <li>Did I give the defect, the MEL decision and the action I took?</li>
+    <li>Did I use the present tense in every time clause, with no <i>will</i> and no <i>to</i>?</li>
+    <li>Did I write the actions in the right order, with <i>before</i> and <i>after</i>?</li>
+  </ul>
+</section>
+
+</article>
+<script>
+(function(){
+  // gap-fill and matching check
+  document.querySelectorAll('.check-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var ex=btn.closest('.ex');
+      var fields=ex.querySelectorAll('[data-answer]');
+      var ok=0,tot=0;
+      fields.forEach(function(f){
+        tot++;
+        var val=(f.value||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[?.!,]+$/,'');
+        var answers=f.getAttribute('data-answer').toLowerCase().split('|').map(function(s){return s.trim();});
+        if(val!=='' && answers.indexOf(val)!==-1){f.classList.add('right');f.classList.remove('wrong');ok++;}
+        else{f.classList.add('wrong');f.classList.remove('right');}
+      });
+      var sc=ex.querySelector('.score');
+      if(sc){sc.textContent=ok+' / '+tot+' correct';}
+    });
+  });
+  // copy prompt
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var code=btn.parentElement.querySelector('code');
+      var text=code?code.textContent:'';
+      if(navigator.clipboard){navigator.clipboard.writeText(text);}
+      var old=btn.textContent;btn.textContent='Copied';
+      setTimeout(function(){btn.textContent=old;},1200);
+    });
+  });
+})();
+</script>
+<script>
+(function(){
+  if(!window.TSIBuddy) return;
+  TSIBuddy.mount({
+    temperature: 0.3,
+    contextLabel: "Unit 8 · Simulation: line-station turnaround",
+    openingLine: "I want to practise a line-station turnaround. Please play the line team.",
+    systemPrompt: "You are a conversation partner for a CEFR B2 English lesson for aircraft maintenance technicians (EASA Part-66/145). The unit is 'Simulation: line-station turnaround'. Stay inside the unit's scenarios: an aircraft lands with a short ground time, a defect appears on the walkaround, and the line team must take the handover, decide (rectify or defer), request a part, act, document, and sign the release to service before pushback. Play the role the learner assigns (an arriving technician, a line controller, or a stores clerk). Put the learner under gentle time pressure: remind them the slot is tight and ask them to keep the actions in order. Speak ONLY at CEFR B2: short sentences, common words plus the unit's specialist terms (turnaround, ground time, slot, dispatch, handover, walkaround, defect, tech log, task card, MEL, no-go item, deferred defect, rectify, troubleshoot, BITE, serviceable, release to service, pushback, delay, AOG). Keep every answer short, two or three sentences at most, and ask exactly ONE follow-up question each turn. Check understanding often: ask the learner to repeat a handover or confirm a sequence. When the learner makes an English error, gently recast their sentence the correct way and then continue; never lecture. Pay special attention to time clauses with before/after: if they say 'before the aircraft will depart', reply naturally with 'yes, before the aircraft departs'; if they say 'after I will finish', model 'after I finish'; if they say 'before to defer', model 'before you defer'. Use English only. You may add one Latvian gloss in brackets for a single hard term if the learner seems stuck. Never write the learner's tech log or handover for them; instead prompt them with one guiding question."
+  });
+})();
+</script>
+
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 8 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body></html>

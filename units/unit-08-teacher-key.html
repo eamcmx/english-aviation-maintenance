@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 8 — Teacher Key · Simulation: line-station turnaround</title>
+<style>
+  :root{--brand:#2F5496;--brand-dark:#1f3a6b;--good:#2e9e6b;--bad:#c0392b;--amber:#c8821a;--purple:#6b4a9e;
+    --bg:#fbfaf6;--card:#fff;--sunken:#f3f1ea;--border:#e7e3d8;--ink:#1f2230;--ink-soft:#4a4f5c;--ink-muted:#707582;
+    --mono:'JetBrains Mono',Consolas,monospace;--sans:'Inter',-apple-system,Segoe UI,sans-serif;--serif:'Source Serif 4',Georgia,serif}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+  main{max-width:960px;margin:0 auto;padding:0 26px 90px}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2}
+  .hero{padding:48px 0 24px;border-bottom:1px solid var(--border);margin-bottom:28px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--brand);margin:0 0 12px}
+  h1{font-size:2rem;margin:0 0 10px}
+  .lead{color:var(--ink-soft);max-width:72ch}
+  section{margin:0 0 42px}
+  h2{font-size:1.5rem;border-bottom:2px solid var(--brand);padding-bottom:8px;display:flex;align-items:baseline;gap:12px}
+  h2 .n{font-family:var(--mono);font-size:.95rem;color:var(--brand)}
+  h3{font-size:1.12rem;margin:22px 0 6px;color:var(--brand-dark)}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;margin:10px 0}
+  th,td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  th{background:var(--sunken);font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
+  code{font-family:var(--mono);font-size:.9em;background:var(--sunken);padding:1px 5px;border-radius:4px}
+  .wrong{color:var(--bad)}.right{color:var(--good);font-weight:600}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin:12px 0;box-shadow:0 1px 2px rgba(31,35,48,.05)}
+  .card h4{margin:0 0 8px;color:var(--brand-dark);font-size:1rem}
+  .flag{border-left:4px solid var(--amber)}
+  .lv{border-left:4px solid #9e2a2a}.ru{border-left:4px solid #2a4a9e}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;background:var(--sunken);border:1px solid var(--border);border-radius:20px;padding:3px 10px;color:var(--ink-soft)}
+  ol,ul{padding-left:1.35em}li{margin:7px 0}
+  .rubric td:first-child{font-weight:700;color:var(--brand-dark);white-space:nowrap}
+  .band{font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .b5{background:#e6f4ec;color:#1d7a4f}.b3{background:#fdf3e0;color:#8a6516}.b1{background:#fbecea;color:#a02a1c}
+  footer{margin-top:50px;color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:20px}
+</style></head>
+<body>
+<main>
+  <div class="hero">
+    <p class="eyebrow">English for Aviation Maintenance · Unit 8 · CEFR B2 · Teacher key</p>
+    <h1>Teacher key — Simulation: line-station turnaround</h1>
+    <p class="lead">Everything you need to run the 90-minute class: the staging and timing table, first-language interference notes for Latvian and Russian speakers (with the reason each error happens), extension activities, a CEFR B2 speaking rubric for the role-plays, and the full quiz key with a rationale for every item.</p>
+    <span class="pill">EASA Part-66/145 · balanced skills · vocabulary field: line operations</span>
+  </div>
+
+  <!-- STAGING -->
+  <section>
+    <h2><span class="n">1</span> Unit staging &amp; timing</h2>
+    <p class="lead">A 90-minute plan. Interaction pattern: T = teacher-led, P = pairs, I = individual, WC = whole class. Keep the pace brisk — the simulation only works if the clock feels real.</p>
+    <table>
+      <tr><th>Time</th><th>Stage</th><th>What happens</th><th>Pattern</th></tr>
+      <tr><td>0–5</td><td>Opener</td><td>Slides 1–2: name the three can-do outcomes; show the lesson clock.</td><td>T / WC</td></tr>
+      <tr><td>5–10</td><td>Scenario</td><td>Slide 3 turnaround-clock widget: build the time pressure, elicit the problem.</td><td>T / WC</td></tr>
+      <tr><td>10–30</td><td>Dialogues 1–3</td><td>Play each audio <b>first</b> (books closed) → gist questions → reveal transcript → replay. Decision + BITE widgets.</td><td>T → P</td></tr>
+      <tr><td>30–45</td><td>Vocabulary</td><td>Slides 7–8: group the 20 terms; match widget; then E1, E2, E3 in the book.</td><td>WC → P</td></tr>
+      <tr><td>45–60</td><td>Grammar</td><td>Slides 9–11: time clauses, the sequence-builder widget, the three L1 errors; then E4.</td><td>T → I</td></tr>
+      <tr><td>60–75</td><td>Exercises</td><td>E5 &amp; E7 (reading genres), E6 (error-spotting), E8 (listening review). Self-marking.</td><td>I / P</td></tr>
+      <tr><td>75–88</td><td>Speaking + writing</td><td>Role-play cards 1–4 (swap roles); start the STE tech-log entry (finish for homework).</td><td>P → I</td></tr>
+      <tr><td>88–90</td><td>Wrap-up</td><td>Slide 17 exit ticket; set the formative quiz.</td><td>WC</td></tr>
+    </table>
+    <p class="pill">Volume check: 3 dialogues (58 turns), 20 terms, 8 exercises (60+ items), 2 readings, 4 role-plays, 1 writing task — enough to fill 90 minutes without extra material.</p>
+  </section>
+
+  <!-- L1 INTERFERENCE -->
+  <section>
+    <h2><span class="n">2</span> First-language interference — Latvian &amp; Russian</h2>
+    <p class="lead">The predictable errors, and <b>why</b> each one happens. Naming the cause helps students self-correct rather than just memorise a fix.</p>
+
+    <h3>The grammar focus: time clauses</h3>
+    <div class="card flag">
+      <h4>1 · Future tense in the time clause</h4>
+      <p><span class="wrong">✗ Fit the panel before the aircraft <b>will depart</b>.</span> → <span class="right">✓ …before the aircraft <b>departs</b>.</span></p>
+      <p class="lead"><b>Why:</b> both Latvian and Russian mark the future in the subordinate clause too. Russian uses the perfective future (<i>когда прибудет</i> = "when [it] will arrive"); Latvian likewise puts the future in the <i>kad / pirms</i> clause. English blocks <i>will</i> after <i>before, after, as soon as, once, until, when</i> and uses the present. This is the single most frequent error in E4 and E6.</p>
+    </div>
+    <div class="card flag">
+      <h4>2 · Infinitive after a preposition</h4>
+      <p><span class="wrong">✗ Check the MEL before <b>to defer</b> the defect.</span> → <span class="right">✓ …before <b>you defer</b> / before <b>deferring</b>.</span></p>
+      <p class="lead"><b>Why:</b> Russian and Latvian happily follow a preposition with an infinitive (<i>перед тем как</i> + verb, or a bare infinitive), so students transfer that pattern. English needs a full clause or an <i>-ing</i> form after <i>before</i>.</p>
+    </div>
+
+    <h3>Wider errors to expect</h3>
+    <table>
+      <tr><th>Error</th><th>Example</th><th>Why (L1 cause)</th></tr>
+      <tr><td class="lv">Dropped articles</td><td class="wrong">"Sign release to service before pushback."</td><td>Neither Latvian nor Russian has articles, so <i>a / the</i> are omitted or misused. Drill "<b>the</b> release", "<b>a</b> defect".</td></tr>
+      <tr><td class="ru">"make" vs "do"</td><td class="wrong">"make a walkaround", "make the handover"</td><td>Russian <i>делать</i> and Latvian <i>darīt/veikt</i> map to both. Teach collocations: <b>do</b> a walkaround, <b>give</b> a handover, <b>raise</b> a defect.</td></tr>
+      <tr><td class="lv">Present Simple for present states</td><td class="wrong">"The warning is illuminating still."</td><td>Over-use of continuous. Model "the warning <b>is</b> still on / <b>remains</b> illuminated".</td></tr>
+      <tr><td class="ru">Stress &amp; /θ/ /ð/</td><td>"tech log" → /tek/, "the" → /zə/</td><td>No dental fricatives in either L1. Not an error of grammar — flag lightly, focus on intelligibility (B2 goal).</td></tr>
+      <tr><td class="lv">Word-for-word "no-go"</td><td class="wrong">"it is item that cannot go"</td><td>Compound noun unfamiliar. Teach <b>no-go item</b> as a fixed lexical chunk with its MEL meaning.</td></tr>
+    </table>
+  </section>
+
+  <!-- EXTENSIONS -->
+  <section>
+    <h2><span class="n">3</span> Extension activities</h2>
+    <div class="card">
+      <h4>Fast finishers</h4>
+      <ul>
+        <li><b>Reverse the handover.</b> The incoming technician had a quiet shift; now they hand back to Anna. Write and perform the reverse handover in six turns, keeping the read-back.</li>
+        <li><b>Rewrite in STE.</b> Take any three long sentences from a real AMM extract you have and split them into Simplified Technical English — one instruction per sentence, under 20 words.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Stretch to C1</h4>
+      <ul>
+        <li><b>MEL debate.</b> The captain wants to carry a second defect that is borderline. In pairs, argue for and against deferral using hedging language (<i>provided that, unless, as long as, on condition that</i>).</li>
+        <li><b>Genre swap.</b> Turn the spoken decision (Dialogue 2) into three genres: a tech-log entry, a one-line task-card note, and a text message to stores. Compare register and length.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Support / lower B1–B2</h4>
+      <ul>
+        <li><b>Sequence cards.</b> Print the eight turnaround actions on cards; pairs order them and link each with <i>before / after / then</i> spoken aloud.</li>
+        <li><b>Term bingo.</b> Students fill a 4×4 grid with the 20 terms; call the plain meanings; first line wins. Locks the vocabulary before the role-plays.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Homework</h4>
+      <ul>
+        <li>Finish the STE tech-log entry (80–110 words).</li>
+        <li>Run one AI conversation-partner prompt from the student book and record three time clauses used correctly.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- RUBRIC -->
+  <section>
+    <h2><span class="n">4</span> CEFR B2 speaking rubric — role-plays</h2>
+    <p class="lead">Use during role-play cards 1–4. Five criteria, three visible bands. B2 is the target: the middle band is a <b>pass</b>; the top band is a strong B2 edging to C1; the bottom band signals B1 and needs feedback. Give each pair one strength and one fix.</p>
+    <table class="rubric">
+      <tr><th>Criterion</th><th><span class="band b5">B2+ strong</span></th><th><span class="band b3">B2 pass</span></th><th><span class="band b1">below (B1)</span></th></tr>
+      <tr><td>Range</td><td>Wide use of the specialist terms and connectors (<i>although, unless, as soon as, provided that</i>); flexible phrasing.</td><td>Uses most unit terms and basic connectors; some repetition but enough for the task.</td><td>Few specialist terms; relies on general words; struggles to name the tools/steps.</td></tr>
+      <tr><td>Accuracy</td><td>Time clauses consistently correct under pressure; errors are rare and do not block meaning.</td><td>Time clauses mostly correct; some slips (<i>will</i> in the clause) but meaning is clear.</td><td>Frequent time-clause errors; article/verb errors that sometimes obscure meaning.</td></tr>
+      <tr><td>Fluency</td><td>Smooth, natural pace; copes with the time pressure; only brief, natural pauses.</td><td>Generally keeps going; some hesitation when searching for a term.</td><td>Slow, effortful; long pauses stall the fast exchange.</td></tr>
+      <tr><td>Interaction</td><td>Initiates, asks for repeats, reads the message back and confirms the sequence unprompted.</td><td>Responds well; checks understanding when prompted; reads back the key facts.</td><td>Mostly reactive; rarely checks or confirms; misses read-back.</td></tr>
+      <tr><td>Coherence</td><td>Actions clearly ordered; connectors link steps logically end to end.</td><td>Order is clear; connectors used but occasionally basic (<i>and then</i>).</td><td>Order unclear; steps listed without linking; hard to follow the sequence.</td></tr>
+    </table>
+    <p class="pill">Quick score: tick a band per row; 5 rows. Feed back one strength + one fix, tied to a named band.</p>
+  </section>
+
+  <!-- QUIZ KEY -->
+  <section>
+    <h2><span class="n">5</span> Full quiz key — per-item rationale</h2>
+    <p class="lead">The formative quiz (<code>quiz-rich.xml</code>) has 24 items across five types, split by skill: Listening (L), Reading (R), Use of English (U), Vocabulary (V). Correct answers and the reason each is right are below; every wrong option also has feedback inside the Moodle file.</p>
+    <table>
+      <tr><th>#</th><th>Skill · type</th><th>Correct answer</th><th>Rationale</th></tr>
+      <tr><td>L1</td><td>Listening · MC</td><td>45 minutes</td><td>Dialogue 1: "we only have forty-five minutes of ground time".</td></tr>
+      <tr><td>L2</td><td>Listening · MC</td><td>A loose access panel with two fasteners missing</td><td>Dialogue 1: the defect on the right engine cowl.</td></tr>
+      <tr><td>L3</td><td>Listening · T/F</td><td>True</td><td>Dialogue 1: the defect is documented in the tech log and a task card is opened.</td></tr>
+      <tr><td>L4</td><td>Listening · Numerical</td><td>2 (±0)</td><td>Dialogue 1: "two fasteners are missing".</td></tr>
+      <tr><td>L5</td><td>Listening · MC</td><td>An open circuit</td><td>Dialogue 3: "The BITE shows an open circuit."</td></tr>
+      <tr><td>L6</td><td>Listening · T/F</td><td>False</td><td>Dialogue 2: stores holds the clip, so it is <b>not</b> an AOG.</td></tr>
+      <tr><td>L7</td><td>Listening · Numerical</td><td>35 (±0)</td><td>Dialogue 4 voicemail: "the ground time is only thirty-five minutes".</td></tr>
+      <tr><td>L8</td><td>Listening · Numerical</td><td>1940 (accept 19:40)</td><td>Dialogue 4: "Flight six two one arrives at nineteen forty".</td></tr>
+      <tr><td>R1</td><td>Reading · MC</td><td>It may be carried as a deferred defect</td><td>Tech-log text: MEL 71-10-01 applies.</td></tr>
+      <tr><td>R2</td><td>Reading · T/F</td><td>True</td><td>Dispatch text: the clip is serviceable and available, so no AOG.</td></tr>
+      <tr><td>R3</td><td>Reading · MC</td><td>The panel sensor</td><td>Dispatch text: "the panel sensor must be serviceable before dispatch".</td></tr>
+      <tr><td>R4</td><td>Reading · Numerical</td><td>2010 (accept 20:10)</td><td>Dispatch text: "the slot closes at twenty ten".</td></tr>
+      <tr><td>R5</td><td>Reading · T/F</td><td>False</td><td>Task-card text: the release is signed <b>after</b> the card is closed, not before.</td></tr>
+      <tr><td>U1</td><td>Use of English · Short answer</td><td>departs</td><td>Present tense after <i>before</i>.</td></tr>
+      <tr><td>U2</td><td>Use of English · Short answer</td><td>arrives</td><td>Present tense after <i>as soon as</i>.</td></tr>
+      <tr><td>U3</td><td>Use of English · Short answer</td><td>finish</td><td>Present tense after <i>after</i>; main clause keeps <i>will</i>.</td></tr>
+      <tr><td>U4</td><td>Use of English · Short answer</td><td>you defer / deferring</td><td>Clause or <i>-ing</i> after <i>before</i>, not the infinitive.</td></tr>
+      <tr><td>U5</td><td>Use of English · Short answer</td><td>clears</td><td>Present tense after <i>until</i>.</td></tr>
+      <tr><td>U6</td><td>Use of English · Short answer</td><td>dispatch</td><td>Bank term: to release and send the aircraft out.</td></tr>
+      <tr><td>U7</td><td>Use of English · Short answer</td><td>rectify</td><td>Bank term: to fix a defect fully.</td></tr>
+      <tr><td>V1</td><td>Vocabulary · Matching</td><td>MEL / tech log / AOG / BITE / serviceable</td><td>Term ↔ plain meaning; see the vocabulary bank.</td></tr>
+      <tr><td>V2</td><td>Vocabulary · Matching</td><td>handover / walkaround / slot / task card</td><td>Term ↔ plain meaning.</td></tr>
+      <tr><td>V3</td><td>Vocabulary · MC (collocation)</td><td>sign the release to service</td><td>The natural verb + noun collocation.</td></tr>
+      <tr><td>V4</td><td>Vocabulary · MC (collocation)</td><td>hold the slot</td><td>The natural collocation for keeping the departure window.</td></tr>
+    </table>
+    <p class="pill">Anti-bias check: correct options are never the longest; distractors are equal-length and plausible; no "all of the above".</p>
+  </section>
+
+  <footer>English for Aviation Maintenance — Unit 8 · Teacher key · CEFR B2. Companion to body.html, slides.html, solutions.html and quiz-rich.xml.</footer>
+</main>
+</body></html>

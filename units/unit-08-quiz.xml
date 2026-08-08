@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U08-r1</text></category>
+    <info format="html"><text><![CDATA[<p>English for Aviation Maintenance — Unit 8: Simulation: line-station turnaround. CEFR B2. Formative quiz split by skill: Listening, Reading, Use of English, Vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ============================ LISTENING ============================ -->
+
+  <question type="multichoice">
+    <name><text>L1 · Dialogue 1 · ground time</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> How much ground time does the team have for the turnaround?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Raivis says: "we only have forty-five minutes of ground time". Ground time is the total time the aircraft is on the ground.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Forty-five minutes</text><feedback format="html"><text><![CDATA[<p>Correct — "forty-five minutes of ground time".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>Thirty-five minutes exactly</text><feedback format="html"><text><![CDATA[<p>That is the ground time in the later voicemail (Flight 621), not Dialogue 1.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>Fifty-five minutes at least</text><feedback format="html"><text><![CDATA[<p>No — the turnaround is described as "extremely tight".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>Ninety minutes on the stand</text><feedback format="html"><text><![CDATA[<p>No — that would not be a tight turnaround.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L2 · Dialogue 1 · the defect</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> What defect did Anna find on the walkaround?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"On the right engine cowl, one access panel is loose, and two fasteners are missing."</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>A loose panel, fasteners missing</text><feedback format="html"><text><![CDATA[<p>Correct — a loose access panel with two fasteners missing.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>A cracked windscreen on the flight deck</text><feedback format="html"><text><![CDATA[<p>No — the defect is on the right engine cowl.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>A flat main-wheel tyre on the parking stand</text><feedback format="html"><text><![CDATA[<p>No — no tyre is mentioned in the handover.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>An oil leak from the right engine cowling</text><feedback format="html"><text><![CDATA[<p>No — the oil is finished; the open item is the panel.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L3 · Dialogue 1 · documentation</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> Anna recorded the defect in the tech log and opened a task card for the panel.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. "the defect is documented in the tech log, and I opened a task card for the panel."</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — both the tech log entry and the task card are done.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Listen again — she confirms both are complete.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L4 · Dialogue 1 · number of fasteners</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> How many fasteners are missing from the access panel? (Write a number.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Two fasteners are missing: "two fasteners are missing".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>2</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — two fasteners.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>0</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Listen again — a specific number is said.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L5 · Dialogue 3 · BITE readout</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> What does the BITE test show?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"The BITE shows an open circuit, so one sensor connector is probably loose."</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>An open circuit</text><feedback format="html"><text><![CDATA[<p>Correct — an open circuit on the sensor connector.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>A short circuit to the airframe ground</text><feedback format="html"><text><![CDATA[<p>No — the fault is an open circuit, not a short.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>A low hydraulic pressure reading</text><feedback format="html"><text><![CDATA[<p>No — the fault is electrical, on the sensor circuit.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>A blown cabin lighting fuse</text><feedback format="html"><text><![CDATA[<p>No — the readout points to the panel sensor connector.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L6 · Dialogue 2 · AOG</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> The missing clip makes this an AOG situation.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. "Stores holds one clip, therefore it is not an AOG." AOG means a missing part stops the departure.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — stores has the clip, so it is not an AOG.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>Listen again — the part is available in stores.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L7 · Voicemail · ground time</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to the duty voicemail (Dialogue 4) again.</strong> How many minutes of ground time does Flight 621 have? (Write a number.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"the ground time is only thirty-five minutes" — 35 minutes.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>35</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — thirty-five minutes.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>45</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>That is Dialogue 1. The voicemail says thirty-five.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L8 · Voicemail · arrival time</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to the duty voicemail (Dialogue 4) again.</strong> At what time does Flight 621 arrive? Write it as four digits (for example 1830).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"Flight six two one arrives at nineteen forty" — 1940 (19:40).</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>1940</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — nineteen forty, 1940.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>2010</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>That is when the slot closes in the dispatch message, not the arrival time.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ READING ============================ -->
+
+  <question type="multichoice">
+    <name><text>R1 · Tech log · MEL</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the tech log page.</strong></p><blockquote>Defect 2: cowl hinge cracked. MEL reference 71-10-01 applies, so the defect may be carried as a deferred defect.</blockquote><p>What does the MEL reference allow the team to do?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>When the MEL applies, a defect may be carried now and rectified later — a deferred defect.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Carry it as a deferred defect</text><feedback format="html"><text><![CDATA[<p>Correct — the MEL permits the defect to be carried.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>Rectify it fully before the aircraft flies again</text><feedback format="html"><text><![CDATA[<p>No — the MEL allows a deferral; full rectification is later.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>Ground the aircraft until the next base check</text><feedback format="html"><text><![CDATA[<p>No — the aircraft may dispatch with the deferral in place.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>Request a new departure slot from the tower</text><feedback format="html"><text><![CDATA[<p>No — the MEL is about airworthiness, not slot timing.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R2 · Dispatch message · AOG</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the dispatch message.</strong></p><blockquote>Part: the clip, part number C-4402, is serviceable and is available in stores, so there is no AOG.</blockquote><p>The clip has to be flown in from another station.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The clip is in stores and serviceable, so there is no AOG and nothing needs to be flown in.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — the part is already available in stores.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>Re-read — the clip is available in stores.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R3 · Dispatch message · serviceability</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the dispatch message.</strong></p><blockquote>Warning: the cowl hinge is not a no-go item, but the panel sensor must be serviceable before dispatch.</blockquote><p>What must be serviceable before the aircraft can dispatch?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The panel sensor must be serviceable — that is why the team runs a BITE test and clears the warning.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>The panel sensor</text><feedback format="html"><text><![CDATA[<p>Correct — the panel sensor must be serviceable before dispatch.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>The number-two hydraulic pump</text><feedback format="html"><text><![CDATA[<p>No — the message names the panel sensor.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>The nose-wheel steering actuator</text><feedback format="html"><text><![CDATA[<p>No — that is not mentioned in the message.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>The left engine fire bottle</text><feedback format="html"><text><![CDATA[<p>No — the serviceability item is the panel sensor.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>R4 · Dispatch message · slot time</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the dispatch message.</strong></p><blockquote>Timing: sign the release to service before pushback. We cannot accept a delay, because the slot closes at twenty ten.</blockquote><p>At what time does the slot close? Write it as four digits (for example 1830).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"the slot closes at twenty ten" — 2010 (20:10).</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>2010</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — twenty ten, 2010.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>1940</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>That is the arrival time in the voicemail, not the slot-close time here.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R5 · Task card · order of actions</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the task-card note.</strong></p><blockquote>Documentation: record every action in the tech log, and close each task card before you sign the release.</blockquote><p>You should sign the release to service first, and then close the task card.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The card is closed <em>before</em> the release is signed: "close each task card before you sign the release".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — close the card first, then sign the release.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>Re-read the order: close the card before you sign.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ USE OF ENGLISH ============================ -->
+
+  <question type="shortanswer">
+    <name><text>U1 · time clause · before</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Use the correct form of the verb.</strong> Write one word in the gap.</p><p>Secure the panel before the aircraft ______ (depart) for pushback.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>After <em>before</em>, use the present tense: <strong>departs</strong>, not "will depart".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>departs</text><feedback format="html"><text><![CDATA[<p>Correct — present tense after <em>before</em>.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>will depart</text><feedback format="html"><text><![CDATA[<p>No — do not use <em>will</em> in a time clause. Use "departs".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The verb is "departs" — present tense after <em>before</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 · time clause · as soon as</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Use the correct form of the verb.</strong> Write one word in the gap.</p><p>As soon as the clip ______ (arrive), we will fit it.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>After <em>as soon as</em>, use the present tense: <strong>arrives</strong>. The main clause keeps <em>will</em>.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>arrives</text><feedback format="html"><text><![CDATA[<p>Correct — present tense after <em>as soon as</em>.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>will arrive</text><feedback format="html"><text><![CDATA[<p>No — the time clause takes the present: "arrives".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The verb is "arrives" — present tense after <em>as soon as</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 · time clause · after</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Use the correct form of the verb.</strong> Write one word in the gap.</p><p>After I ______ (finish) the walkaround, I will call you.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>After <em>after</em>, use the present tense: <strong>finish</strong>. Only the main clause has <em>will</em>.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>finish</text><feedback format="html"><text><![CDATA[<p>Correct — present tense after <em>after</em>.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>will finish</text><feedback format="html"><text><![CDATA[<p>No — <em>will</em> belongs only in the main clause. Use "finish".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The verb is "finish" — present tense after <em>after</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 · time clause · before + clause</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Rewrite the underlined part correctly.</strong> Write two words.</p><p>Check the MEL before <u>to defer</u> the defect.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>No infinitive after <em>before</em>. Use a clause — <strong>you defer</strong> — or the <em>-ing</em> form "deferring".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>you defer</text><feedback format="html"><text><![CDATA[<p>Correct — a clause after <em>before</em>.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>deferring</text><feedback format="html"><text><![CDATA[<p>Also correct — the <em>-ing</em> form works after <em>before</em>.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>to defer</text><feedback format="html"><text><![CDATA[<p>No — do not use the infinitive after <em>before</em>.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "you defer" or "deferring" after <em>before</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 · time clause · until</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Use the correct form of the verb.</strong> Write one word in the gap.</p><p>We cannot dispatch until the warning ______ (clear).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>After <em>until</em>, use the present tense: <strong>clears</strong>, not "will clear".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>clears</text><feedback format="html"><text><![CDATA[<p>Correct — present tense after <em>until</em>.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>will clear</text><feedback format="html"><text><![CDATA[<p>No — use the present: "clears".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The verb is "clears" — present tense after <em>until</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 · bank term · dispatch</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the one term that fits.</strong></p><p>To release and send the aircraft out for its next flight is to ______ it.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>dispatch</strong> — to release and send the aircraft onward.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>dispatch</text><feedback format="html"><text><![CDATA[<p>Correct — dispatch the aircraft.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>rectify</text><feedback format="html"><text><![CDATA[<p>No — rectify means to fix a defect fully.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The term is "dispatch".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U7 · bank term · rectify</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the one term that fits.</strong></p><p>To repair a defect completely, so it is no longer a fault, is to ______ it.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>rectify</strong> — to fix a defect fully. Compare with "defer", which means fix it later.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>rectify</text><feedback format="html"><text><![CDATA[<p>Correct — rectify a defect.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>defer</text><feedback format="html"><text><![CDATA[<p>No — defer means carry it now and fix it later.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The term is "rectify".</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ VOCABULARY ============================ -->
+
+  <question type="matching">
+    <name><text>V1 · terms and meanings · set A</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each term to its plain meaning.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>MEL = the list of what may be inoperative for dispatch; tech log = the aircraft logbook for defects and actions; AOG = a missing part that stops departure; BITE = the built-in self-test that shows fault codes; serviceable = fit to use and legal to fit or fly.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[<p>All matches correct.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some matches are correct — check the rest.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the vocabulary bank and try again.</p>]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[MEL]]></text><answer><text>the list of what may be inoperative for dispatch</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[tech log]]></text><answer><text>the aircraft logbook for defects and actions</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[AOG]]></text><answer><text>a missing part that stops the departure</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>the built-in self-test that shows fault codes</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[serviceable]]></text><answer><text>fit to use and legal to fit or to fly</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 · terms and meanings · set B</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each term to its plain meaning.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>handover = passing the job to the next technician; walkaround = the visual check around the aircraft; slot = the fixed time window to depart; task card = the job document with the steps.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[<p>All matches correct.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some matches are correct — check the rest.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the vocabulary bank and try again.</p>]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[handover]]></text><answer><text>passing the job to the next technician</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[walkaround]]></text><answer><text>the visual check around the aircraft</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[slot]]></text><answer><text>the fixed time window to depart</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[task card]]></text><answer><text>the job document with the steps</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V3 · collocation · release</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Choose the natural collocation.</strong> Which verb goes with "the release to service"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>You <strong>sign</strong> the release to service — the certifying signature that the aircraft is fit to fly.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>sign the release to service</text><feedback format="html"><text><![CDATA[<p>Correct — you sign the release to service.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>make the release to service</text><feedback format="html"><text><![CDATA[<p>No — "make" does not collocate here. Use "sign".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>open the release to service</text><feedback format="html"><text><![CDATA[<p>No — you open a task card, but you sign a release.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>keep the release to service</text><feedback format="html"><text><![CDATA[<p>No — the natural verb is "sign".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V4 · collocation · slot</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Choose the natural collocation.</strong> Which phrase means to keep the departure window you already have?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>You <strong>hold the slot</strong> — keep the fixed departure window by avoiding a delay.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>hold the slot</text><feedback format="html"><text><![CDATA[<p>Correct — hold the slot.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>keep the slot open</text><feedback format="html"><text><![CDATA[<p>No — the fixed collocation is "hold the slot".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>save the slot</text><feedback format="html"><text><![CDATA[<p>No — "save" does not collocate here. Use "hold".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>book the slot</text><feedback format="html"><text><![CDATA[<p>No — you already have the slot; you "hold" it.</p>]]></text></feedback></answer>
+  </question>
+
+</quiz>
