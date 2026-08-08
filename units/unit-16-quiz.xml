@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English for Aviation Maintenance · Unit 16 — Simulation: dispatch decision under pressure
+     Skills-split bank: LISTENING (6) · READING (4) · USE OF ENGLISH (6) · VOCABULARY (4) = 20 items.
+     Types: multichoice, truefalse, numerical, shortanswer, matching (5). No Cloze.
+     Anti-bias: correct option never the longest; plausible equal-length distractors; no "all of the above". -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U16-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 16 assessment — dispatch decision under pressure. Learners listen again to the dialogues, read short maintenance-documentation texts, apply reported speech, and match dispatch-control vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ══════════════════════ LISTENING (6) ══════════════════════ -->
+
+  <question type="multichoice">
+    <name><text>U16-L1 Dialogue 1 · the defect</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> What defect did the crew write up in the technical log?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Anna reports that "the centre-tank fuel indication read zero" and that the indication is inoperative. The other faults belong to different scenarios in the unit.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[The centre-tank fuel indication read zero.]]></text><feedback format="html"><text><![CDATA[<p>Correct — the fuel-quantity indication for the centre tank is inoperative.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The left main-gear brake temperature reading was too high.]]></text><feedback format="html"><text><![CDATA[<p>No — that is the situation used in the writing task, not Dialogue 1.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The number-two VHF radio was intermittent.]]></text><feedback format="html"><text><![CDATA[<p>No — no radio fault is mentioned in Dialogue 1.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The green hydraulic pump lost pressure.]]></text><feedback format="html"><text><![CDATA[<p>No — that is the situation on role-play card 1, not Dialogue 1.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U16-L2 Dialogue 1 · the records office</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> What did the records office say about the airworthiness directive inspection?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Mark reports the records office said "the repetitive inspection had been done on Monday" — note the backshift to the past perfect when the words are relayed.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[The repetitive inspection had been done on Monday.]]></text><feedback format="html"><text><![CDATA[<p>Correct — the check was already complete, so the aircraft was in compliance.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The repetitive inspection had been cancelled by the authority.]]></text><feedback format="html"><text><![CDATA[<p>No — the inspection was done, not cancelled.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The directive had already expired.]]></text><feedback format="html"><text><![CDATA[<p>No — the directive was still valid.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The inspection was overdue by a week.]]></text><feedback format="html"><text><![CDATA[<p>No — nothing was overdue; the next threshold was still ahead.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U16-L3 Dialogue 1 · the restriction</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Mark said the minimum equipment list added a restriction: the centre tank must stay empty.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The MEL allows the deferral but adds a restriction — the centre tank stays empty for this dispatch.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — the restriction is stated clearly at the end of Dialogue 1.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[<p>Listen again — Mark says the centre tank must stay empty.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U16-L4 Dialogue 2 · the captain's decision</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> The captain refused to accept the aircraft with the restriction.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The captain says, "I am happy to accept the aircraft with that restriction." She accepts, she does not refuse.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — the captain accepts the aircraft.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[<p>No — she was happy to accept the aircraft with the restriction.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U16-L5 Dialogue 1 · rectification interval</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> How many days is the rectification interval for this category C item? Write the number of days.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The interval is ten calendar days — a category C item under the minimum equipment list.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100" format="html"><text>10</text><feedback format="html"><text><![CDATA[<p>Correct — ten calendar days.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[<p>Listen again — the interval is ten days.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U16-L6 Dialogue 1 · the threshold</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> For how many flight hours is the next inspection threshold not yet due? Write the number of hours.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Mark says the next threshold was "not due for forty flight hours", so the aircraft is inside the interval and in compliance.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100" format="html"><text>40</text><feedback format="html"><text><![CDATA[<p>Correct — forty flight hours remain before the next threshold.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[<p>Listen again — the figure is forty flight hours.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <!-- ══════════════════════ READING (4) ══════════════════════ -->
+
+  <question type="multichoice">
+    <name><text>U16-R1 Work order (avionics)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the work order, then answer.</b></p>
+<blockquote><b>WORK ORDER 4471 — A320 YL-BBX.</b> Task: replace the number-two VHF transceiver. The BITE test passed after fitment. The technician recorded the part numbers and signed the stage. A duplicate inspection was raised for the antenna cable.</blockquote>
+<p>What did the technician do after the BITE test passed?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The order states the technician "recorded the part numbers and signed the stage" once the built-in test equipment (BITE) test passed.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Recorded the part numbers and signed the stage.]]></text><feedback format="html"><text><![CDATA[<p>Correct — that is the action written in the work order.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Removed the transceiver again and ordered a new antenna cable.]]></text><feedback format="html"><text><![CDATA[<p>No — the cable had a duplicate inspection, not a replacement.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Deferred the task under the minimum equipment list.]]></text><feedback format="html"><text><![CDATA[<p>No — the task was completed, not deferred.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Left the stage open for the next shift.]]></text><feedback format="html"><text><![CDATA[<p>No — the technician signed the stage.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U16-R2 MEL procedures (M and O)</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the note, then answer.</b></p>
+<blockquote>An MEL item may carry a maintenance procedure marked (M) and an operational procedure marked (O). The (M) procedure is the engineer's job; the (O) procedure is the flight crew's job.</blockquote>
+<p>Statement: the (O) procedure is carried out by the maintenance staff.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The (O) procedure is the flight crew's job; the (M) procedure is the engineer's job.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — (O) is operational, done by the crew.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[<p>No — read again: (O) is the flight crew's job.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U16-R3 Service bulletin</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the service bulletin, then answer.</b></p>
+<blockquote><b>SERVICE BULLETIN A320-28-1234.</b> The manufacturer recommends a fuel-pump wiring modification. Compliance is optional unless an airworthiness directive makes the bulletin mandatory.</blockquote>
+<p>When does this service bulletin become mandatory?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A service bulletin (SB) is a recommendation. It becomes mandatory only when an airworthiness directive adopts it.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[When an airworthiness directive makes it mandatory.]]></text><feedback format="html"><text><![CDATA[<p>Correct — an AD can turn a recommended SB into a required action.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[As soon as the manufacturer issues the bulletin to the operator.]]></text><feedback format="html"><text><![CDATA[<p>No — issuing the SB does not make it mandatory on its own.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[When the rectification interval expires.]]></text><feedback format="html"><text><![CDATA[<p>No — the interval belongs to deferred defects, not to the SB.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[After the next repetitive inspection is signed.]]></text><feedback format="html"><text><![CDATA[<p>No — the SB status does not depend on the inspection.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U16-R4 BITE readout</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the BITE readout, then answer.</b></p>
+<blockquote><b>BITE READOUT — FUEL QUANTITY.</b> Fault code 28-41 stored. The signal from the centre-tank probe is open circuit. The fault is confirmed, not intermittent.</blockquote>
+<p>Statement: the centre-tank probe fault is intermittent.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The readout says the fault is "confirmed, not intermittent" — it is a steady open circuit.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — the fault is confirmed and steady.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[<p>No — the readout states it is not intermittent.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ══════════════════════ USE OF ENGLISH (6) ══════════════════════ -->
+
+  <question type="shortanswer">
+    <name><text>U16-U1 Reported speech · present to past</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Report the words. Write ONE word in the gap.</p><p>Direct: "The item is deferred." &rarr; The planner said the item ______ deferred.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The backshift moves <i>is</i> to <i>was</i> when you relay the words.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>was</text><feedback format="html"><text><![CDATA[<p>Correct — is &rarr; was.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>is</text><feedback format="html"><text><![CDATA[<p>Backshift is needed here: is &rarr; was.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U16-U2 Reported speech · can to could</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Report the words. Write ONE word in the gap.</p><p>Direct: "We can dispatch." &rarr; She said we ______ dispatch.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The modal <i>can</i> steps back to <i>could</i>.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>could</text><feedback format="html"><text><![CDATA[<p>Correct — can &rarr; could.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>can</text><feedback format="html"><text><![CDATA[<p>Backshift the modal: can &rarr; could.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U16-U3 Reported speech · must to had to</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Report the words. Write TWO words in the gap.</p><p>Direct: "The tank must stay empty." &rarr; He said the tank ______ stay empty.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><i>Must</i> becomes <i>had to</i> in reported speech.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>had to</text><feedback format="html"><text><![CDATA[<p>Correct — must &rarr; had to.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>must</text><feedback format="html"><text><![CDATA[<p>Change the modal: must &rarr; had to.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U16-U4 Reported speech · yes/no question</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Report the question. Write ONE word in the gap.</p><p>Direct: "Is the inspection valid?" &rarr; She asked ______ the inspection was valid.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A yes/no question is reported with <i>whether</i> (or <i>if</i>), and the word order becomes a statement.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>whether</text><feedback format="html"><text><![CDATA[<p>Correct — "asked whether the inspection was valid".</p>]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>if</text><feedback format="html"><text><![CDATA[<p>Also correct — "if" works here too.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>that</text><feedback format="html"><text><![CDATA[<p>No — use "whether" or "if" for a yes/no question.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U16-U5 Say vs tell</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Choose the right verb. Write ONE word in the gap.</p><p>He ______ me the centre tank was empty. (use the verb that takes a person)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Use <i>tell</i> with a person (tell me), and <i>say</i> with no person after it.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>told</text><feedback format="html"><text><![CDATA[<p>Correct — "told me". "Tell" takes a person.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>said</text><feedback format="html"><text><![CDATA[<p>No — "said me" is wrong; use "told me".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U16-U6 Vocabulary · rectification</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing term.</p><p>The time limit to repair a deferred item is the ______ interval.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The rectification interval is the repair time limit set by the item's repair category.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100" format="html"><text>rectification</text><feedback format="html"><text><![CDATA[<p>Correct — the rectification interval.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>rectify</text><feedback format="html"><text><![CDATA[<p>Close — the noun form is "rectification".</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ══════════════════════ VOCABULARY (4) ══════════════════════ -->
+
+  <question type="matching">
+    <name><text>U16-V1 Terms to meanings</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each dispatch-control term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>These five terms carry the unit: deferral, restriction, proviso, placard and threshold.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[<p>deferral</p>]]></text><answer><text>putting off a repair to a later time</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>restriction</p>]]></text><answer><text>a limit on how the aircraft may be operated</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>proviso</p>]]></text><answer><text>a condition you must meet to dispatch</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>placard</p>]]></text><answer><text>a warning label near a broken control</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>threshold</p>]]></text><answer><text>the point when an action becomes due</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[]]></text><answer><text>the departure window given by air traffic control</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U16-V2 Verb to collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each verb to the noun it goes with in dispatch English.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Word partners matter: hold the slot, raise a deferred defect, sign the certificate, fit a placard.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[<p>hold the &hellip;</p>]]></text><answer><text>slot</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>raise a &hellip;</p>]]></text><answer><text>deferred defect</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>sign the &hellip;</p>]]></text><answer><text>certificate of release to service</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[<p>fit a &hellip;</p>]]></text><answer><text>placard</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[]]></text><answer><text>repetitive inspection</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U16-V3 Meaning · turnaround</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which word means "the ground time to prepare the aircraft between flights"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The turnaround is the ground time between two flights. The slot is the departure window; the threshold is a due point; the interval is a repair time limit.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[turnaround]]></text><feedback format="html"><text><![CDATA[<p>Correct — the ground time between flights.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[the departure slot from air traffic control]]></text><feedback format="html"><text><![CDATA[<p>No — that is the slot, the departure window.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[the rectification interval for repairs]]></text><feedback format="html"><text><![CDATA[<p>No — the interval is a repair time limit.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[the threshold of the next inspection]]></text><feedback format="html"><text><![CDATA[<p>No — the threshold is the due point of an action.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U16-V4 Collocation · deferred defect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the collocation from the tech log: "______ a deferred defect."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>You <i>raise</i> a deferred defect in the technical log. The other verbs collocate with different nouns.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[raise]]></text><feedback format="html"><text><![CDATA[<p>Correct — raise a deferred defect.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[confirm]]></text><feedback format="html"><text><![CDATA[<p>No — you confirm the fuel, not the deferred defect.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[expire]]></text><feedback format="html"><text><![CDATA[<p>No — an interval expires; you do not expire a defect.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[placard]]></text><feedback format="html"><text><![CDATA[<p>No — you placard a control, not a defect.</p>]]></text></feedback></answer>
+  </question>
+
+</quiz>

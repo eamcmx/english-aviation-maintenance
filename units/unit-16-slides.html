@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English for Aviation Maintenance · Unit 16 — Teacher Deck · Dispatch decision under pressure</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:40px;margin:.2em 0;line-height:1.12}
+h2{font-size:29px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}small{font-size:15px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.good{color:var(--good)}.hot{color:var(--hot)}.amber{color:var(--amber)}
+.dlgline{margin:6px 0;font-size:18px}.dlgline b{color:var(--accent);font-family:var(--mono);font-size:14px}
+.quote{border-left:3px solid var(--accent);padding:3px 0 3px 14px;margin:10px 0;color:#e6eef8;font-style:italic}
+/* widget skin */
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:6px 9px;font-size:15px}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%;max-width:640px;margin:0 auto}
+.wk label.chk{display:inline-flex;align-items:center;gap:7px;font-size:15px;color:#cfe0ee;cursor:pointer}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:52px;font-size:15px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="TIMING 0–2 min. Open the simulation. This is Unit 16, the simulation day: one dispatch decision that a defect near departure forces, and it must pass from voice to voice — engineer to planner, engineer to captain, engineer to next shift. Make the frame explicit: the students are not deciding alone, they are RELAYING a decision, so the language spine is reported speech. Name the three can-do outcomes now: combine MEL + AD + defect into one decision; justify it clearly; document the deferral. Tell them the whole class is a build-up to a spoken shift handover at the end. Keep the turnaround clock idea alive from the first minute — dispatch English happens under time pressure.">
+    <div class="kick">English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 16 · Simulation day</div>
+    <h1>The dispatch decision under pressure</h1>
+    <p class="big muted">A defect appears near departure. Combine the MEL, an airworthiness directive and the defect into one compliant decision — then relay it from voice to voice and record the deferral.</p>
+    <p class="pill">Listening · Vocabulary · Grammar (reported speech) · Speaking · Writing &nbsp;·&nbsp; 90 minutes</p>
+  </section>
+
+  <!-- 2 · OUTCOMES -->
+  <section class="slide" data-notes="TIMING 2–8 min (warm-up). Set the three outcomes and how the class runs. LO1 — combine MEL, AD and defect information into a dispatch decision. LO2 — justify the decision clearly to operations and the crew. LO3 — document the deferral and the procedures applied. Then pre-teach the four ideas the unit rests on (MEL, AD, repair category, reported speech) using the plain glosses. Ask the room: who can release an aircraft to service? What does a certifying engineer actually sign? Elicit prior knowledge before any input. Point out the assessment: self-checking exercises E1–E8, four role-plays scored on the rubric, one written STE record.">
+    <div class="kick">By the end · how the class runs</div>
+    <h2>Three outcomes for the simulation</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="amber">1 · Decide.</b> Combine the minimum equipment list, the airworthiness directive and the defect into one dispatch decision.</p>
+        <p><b class="amber">2 · Justify.</b> Explain the decision clearly to operations and the crew.</p>
+        <p><b class="amber">3 · Document.</b> Record the deferral and the procedures applied.</p>
+      </div>
+      <div>
+        <p><b>Four ideas first:</b> <span class="pill">MEL</span> <span class="pill">AD</span> <span class="pill">repair category</span> <span class="pill">reported speech</span></p>
+        <p class="muted">Every hard word is glossed on first use and lives in the vocabulary bank. Instructions to learners stay short; the professional density is in the dialogues.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SCENARIO -->
+  <section class="slide" data-notes="TIMING part of warm-up. Paint the scene concretely so the language has a home. Evening at Riga (RIX). An Airbus A320, registration YL-BBX, on stand nine, close to departure. The crew has written up a defect: the centre-tank fuel quantity indication reads zero — inoperative. The turnaround clock is running and the captain needs an answer. The engineer cannot decide alone, so the decision passes from voice to voice. Ask: what are the three sources we must combine? (the defect, the MEL, the open AD on the fuel pumps). This is the map for the whole lesson.">
+    <div class="kick">§1 · the situation</div>
+    <h2>Stand nine, and the clock is running</h2>
+    <div class="cols">
+      <div>
+        <p>Evening at Riga. An A320, reg <b>YL-BBX</b>, on stand nine. The crew wrote up a defect: the <b>centre-tank fuel indication reads zero</b> — inoperative.</p>
+        <p class="muted">You are the certifying engineer. You cannot decide alone. The decision passes from voice to voice.</p>
+      </div>
+      <div class="card">
+        <p style="margin:.2em 0"><b>Three sources to combine:</b></p>
+        <p style="margin:.3em 0">🛠 the <b>defect</b> (fuel indication INOP)</p>
+        <p style="margin:.3em 0">📘 the <b>MEL</b> (may we defer it?)</p>
+        <p style="margin:.3em 0">📋 an open <b>AD</b> on the fuel pumps (are we in compliance?)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · THE CHAIN -->
+  <section class="slide" data-center data-notes="TIMING bridge into listening. The language point of the whole unit lives here: the decision is RELAYED. Engineer ↔ planner combine the facts; engineer → captain justifies; engineer → planner documents; engineer → next shift hands over. Each arrow is a moment of reported speech: 'The planner said…', 'They told me…', 'She asked whether…'. Tell the class to listen for HOW Anna reports what others said, not only WHAT was decided. This sets the listening task.">
+    <div class="kick">§1 · voice to voice</div>
+    <h2>The decision is relayed — so we report speech</h2>
+    <p class="big">Engineer &harr; planner &nbsp;→&nbsp; engineer → captain &nbsp;→&nbsp; engineer → next shift</p>
+    <p class="muted" style="max-width:60ch">Every arrow is a moment of reported speech. "The planner said the item was deferred." "They told me the inspection had been done." "She asked whether the AD was valid." Listen for the <b>relay</b>, not only the decision.</p>
+  </section>
+
+  <!-- 5 · WIDGET turnaround clock -->
+  <section class="slide" data-notes="TIMING 8–10 min. Use this to make the pressure real before the listening. Start the turnaround clock (15 minutes to departure). Explain that dispatch English is done against this clock — decisions must be right AND fast. Let it run in the background through the listening stage. When it drops under five minutes it turns red: point out that this is exactly when engineers must relay facts cleanly and without ambiguity. This is a teacher-driven prop; do not spend long on it — start it and move to the audio.">
+    <div class="kick">§2 · Interactive · the turnaround clock</div>
+    <h2>Dispatch happens against a running clock</h2>
+    <div class="cols">
+      <div class="wk">
+        <div class="bar">
+          <button class="prim" id="clkStart">Start</button>
+          <button id="clkPause">Pause</button>
+          <button id="clkReset">Reset</button>
+          <span class="muted" id="clkTxt" style="font-family:var(--mono)">15:00 to departure</span>
+        </div>
+        <canvas id="clkCv" width="640" height="300"></canvas>
+        <p class="note">Teacher prop — start it and let it run through the listening.</p>
+      </div>
+      <div>
+        <p>Fifteen minutes to push-back. The decision must be <b>compliant</b> and <b>quick</b>.</p>
+        <p class="muted">Under five minutes the clock turns red — the moment when a clear relayed message matters most.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · LISTENING 1 -->
+  <section class="slide" data-notes="TIMING 10–18 min. Dialogue 1 — engineer and planner combine the facts. Play twice: first for gist (What is the decision? Is it go or no-go?), then for detail. Keep the transcript hidden until after the second play. Detail questions to set before the second listen: What repair category is the item? (C, ten-day interval.) What is the proviso? (confirm the fuel by the drip sticks.) What did the records office say about the AD? (the repetitive inspection had been done on Monday; next threshold forty flight hours; in compliance.) What restriction does the MEL add? (centre tank stays empty.) Draw attention to Anna's reported-speech lines — they are the model for the grammar stage.">
+    <div class="kick">§2 · Listening · Dialogue 1</div>
+    <h2>Engineer &amp; planner — combine the facts</h2>
+    <div class="cols">
+      <div>
+        <div class="dlgline"><b>ANNA</b> The centre-tank fuel indication read zero. It is inoperative.</div>
+        <div class="dlgline"><b>MARK</b> Have you checked the minimum equipment list?</div>
+        <div class="dlgline"><b>ANNA</b> Yes. It is a repair category C item.</div>
+        <div class="dlgline"><b>MARK</b> The records office said the inspection had been done on Monday.</div>
+        <div class="dlgline"><b>MARK</b> The MEL adds a restriction. The centre tank must stay empty.</div>
+      </div>
+      <div class="card">
+        <p style="margin:.2em 0"><b>Listen for:</b></p>
+        <ul>
+          <li>repair category &amp; interval</li>
+          <li>the proviso (confirm fuel how?)</li>
+          <li>the AD compliance status</li>
+          <li>the restriction the MEL adds</li>
+        </ul>
+        <p class="note" style="color:#7e98ad">First play: gist. Second play: detail. Transcript hidden until after.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · LISTENING 2 & 3 -->
+  <section class="slide" data-notes="TIMING 18–23 min. Dialogues 2 and 3 — justify, then document. Dialogue 2: the engineer briefs the captain and JUSTIFIES the dispatch, relaying what the planner and records office said ('The planner said we could defer it'; 'They said the repetitive inspection had been done'). The captain accepts with the restriction. Dialogue 3: the engineer and planner DOCUMENT the deferral — MEL item, AD read-across, restriction, deferral reference D-911, and the certificate of release to service. There is also a short voicemail handover (Dialogue 4) you can use as a listening-for-summary task or as the model for the final spoken handover. Highlight every reported-speech structure as it appears.">
+    <div class="kick">§2 · Listening · Dialogues 2 &amp; 3</div>
+    <h2>Justify to the captain, then document</h2>
+    <div class="grid2">
+      <div class="card">
+        <p><b class="amber">Dialogue 2 — justify.</b></p>
+        <div class="dlgline"><b>ANNA</b> The planner said we could defer it under the MEL.</div>
+        <div class="dlgline"><b>ANNA</b> They said the inspection had been done, and we were in compliance.</div>
+        <div class="dlgline"><b>CAPTAIN</b> I am happy to accept the aircraft with that restriction.</div>
+      </div>
+      <div class="card">
+        <p><b class="amber">Dialogue 3 — document.</b></p>
+        <div class="dlgline"><b>MARK</b> The deferral reference is delta-nine-one-one.</div>
+        <div class="dlgline"><b>ANNA</b> I will note the aircraft is in compliance, with the threshold recorded.</div>
+        <div class="dlgline"><b>ANNA</b> I am signing the certificate of release to service now.</div>
+      </div>
+    </div>
+    <p class="muted">Every relayed line is reported speech — the grammar focus in action.</p>
+  </section>
+
+  <!-- 8 · WIDGET decision engine -->
+  <section class="slide" data-notes="TIMING 23–27 min. This is the centrepiece concept: a compliant dispatch needs ALL THREE gates to pass. Toggle the three switches — defect deferrable under the MEL, AD in compliance, provisos met. When all three are green the result reads GO; flip any one and it reads NO-GO. Use it to check comprehension of Dialogue 1: ask the class to set the switches to match the audio (all yes → GO with restriction). Then run the extension: 'What if the AD were out of compliance?' Flip it and the decision becomes no-go — and the engineer must relay that new fact. This trains the LO1 skill: combining sources into one decision.">
+    <div class="kick">§2 · Interactive · the dispatch decision</div>
+    <h2>All three gates must pass to dispatch</h2>
+    <div class="cols">
+      <div class="wk">
+        <div class="bar">
+          <label class="chk"><input type="checkbox" id="gDef" checked> defect deferrable (MEL)</label>
+          <label class="chk"><input type="checkbox" id="gAd" checked> AD in compliance</label>
+          <label class="chk"><input type="checkbox" id="gPro" checked> provisos met</label>
+        </div>
+        <canvas id="decCv" width="640" height="300"></canvas>
+        <div class="info" id="decInfo"><h4>Decision</h4><span>Set the switches to match Dialogue 1.</span></div>
+      </div>
+      <div>
+        <p>A defect alone is not the decision. You combine three sources and only then say <b class="good">GO</b> or <b class="hot">NO-GO</b>.</p>
+        <p class="muted">Flip the AD switch off: the decision becomes no-go — and someone must relay that.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · VOCAB bank -->
+  <section class="slide" data-notes="TIMING 27–31 min. Vocabulary bank — 20 dispatch-control terms. Do not read the list aloud; make it active. In pairs, learner A gives the plain meaning, learner B says the term; then swap. Focus on the terms that carry the decision: deferral, restriction, sign-off, compliance, threshold, rectification interval, deferred defect, proviso, placard, certificate of release to service. Point out the abbreviations that engineers actually say: MEL, AD, CRS, tech log, OCC. Every term is heard in the dialogues and used in the exercises, so this stage feeds directly into E1–E3.">
+    <div class="kick">§3 · Vocabulary bank</div>
+    <h2>Dispatch control — deferral, restriction, sign-off</h2>
+    <div class="grid2">
+      <div class="card">
+        <p><span class="pill">deferral</span> <span class="pill">restriction</span> <span class="pill">sign-off</span> <span class="pill">compliance</span> <span class="pill">threshold</span> <span class="pill">proviso</span> <span class="pill">placard</span> <span class="pill">deferred defect</span></p>
+      </div>
+      <div class="card">
+        <p><span class="pill">MEL</span> <span class="pill">airworthiness directive</span> <span class="pill">rectification interval</span> <span class="pill">no-go item</span> <span class="pill">dispatch</span> <span class="pill">technical log</span> <span class="pill">CRS</span> <span class="pill">slot</span> <span class="pill">turnaround</span></p>
+      </div>
+    </div>
+    <p class="muted">Pairs: A gives the plain meaning, B says the term — then swap. Every term returns in E1–E3.</p>
+  </section>
+
+  <!-- 10 · VOCAB collocations -->
+  <section class="slide" data-notes="TIMING part of vocab stage. Collocations are where B2 accuracy shows. Drill the verb+noun partners that appear in real dispatch talk: record the deferral, apply a restriction, complete the sign-off, hold the slot, fit a placard, raise a deferred defect, sign the certificate of release to service, carry out the repetitive inspection, meet the proviso. Give the verb, elicit the noun, then build a full short sentence. These exact partners are tested in quiz V2 and V4, so it pays to over-learn them here.">
+    <div class="kick">§3 · Vocabulary · collocations</div>
+    <h2>Say the word partners like an engineer</h2>
+    <table style="width:100%;border-collapse:collapse;font-size:18px">
+      <tr><td style="padding:6px 10px;color:#7fd0ff;font-family:var(--mono)">record</td><td style="padding:6px 10px">the deferral</td><td style="padding:6px 10px;color:#7fd0ff;font-family:var(--mono)">hold</td><td style="padding:6px 10px">the slot</td></tr>
+      <tr><td style="padding:6px 10px;color:#7fd0ff;font-family:var(--mono)">apply</td><td style="padding:6px 10px">a restriction</td><td style="padding:6px 10px;color:#7fd0ff;font-family:var(--mono)">fit</td><td style="padding:6px 10px">a placard</td></tr>
+      <tr><td style="padding:6px 10px;color:#7fd0ff;font-family:var(--mono)">complete</td><td style="padding:6px 10px">the sign-off</td><td style="padding:6px 10px;color:#7fd0ff;font-family:var(--mono)">raise</td><td style="padding:6px 10px">a deferred defect</td></tr>
+      <tr><td style="padding:6px 10px;color:#7fd0ff;font-family:var(--mono)">meet</td><td style="padding:6px 10px">the proviso</td><td style="padding:6px 10px;color:#7fd0ff;font-family:var(--mono)">sign</td><td style="padding:6px 10px">the certificate of release to service</td></tr>
+    </table>
+    <p class="muted">Give the verb, elicit the noun, then a full short sentence. These return in the quiz.</p>
+  </section>
+
+  <!-- 11 · GRAMMAR backshift -->
+  <section class="slide" data-notes="TIMING 33–40 min. Teach reported speech FROM the dialogue lines, not from a rule in the abstract. The key move is the backshift: the verb steps one tense back because the reporting happened after the words. is→was, can→could, must→had to, will→would, has done→had done, are→were. Draw the four quote lines on the board and convert each live. Stress that Latvian and Russian do NOT backshift, so this is the number-one error to expect (see the interference notes in the key). Next slide gives the interactive stepper to drill it.">
+    <div class="kick">§4 · Grammar · reported speech</div>
+    <h2>The backshift — step one tense back</h2>
+    <div class="cols">
+      <div>
+        <p class="quote">"The item is deferred." → The planner said the item <b>was</b> deferred.</p>
+        <p class="quote">"We can defer it." → …said we <b>could</b> defer it.</p>
+        <p class="quote">"The tank must stay empty." → Mark told me it <b>had to</b> stay empty.</p>
+      </div>
+      <div class="card">
+        <p><b>Backshift map</b></p>
+        <p style="font-family:var(--mono);font-size:16px;line-height:1.9;margin:0">is → was<br>can → could<br>must → had to<br>will → would<br>has done → had done</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · WIDGET backshift stepper -->
+  <section class="slide" data-notes="TIMING 40–44 min. Drill the backshift with the stepper. Choose a direct-speech verb form from the menu, then press Report it — the token animates from the NOW column to the PAST column and the reported form appears. Do a few as a class, then cold-call: 'Report this: The slot is held.' Learners must produce 'He said the slot was held.' Use it to catch the classic error of keeping the present tense. Keep it brisk — five or six items is enough before the exercises.">
+    <div class="kick">§4 · Interactive · backshift stepper</div>
+    <h2>Watch the tense step back</h2>
+    <div class="cols">
+      <div class="wk">
+        <div class="bar">
+          <select id="bsSel">
+            <option value="is">"…is deferred."</option>
+            <option value="can">"We can dispatch."</option>
+            <option value="must">"It must stay empty."</option>
+            <option value="will">"We will hold the slot."</option>
+            <option value="has">"I have signed it."</option>
+            <option value="are">"The tanks are empty."</option>
+          </select>
+          <button class="prim" id="bsGo">Report it</button>
+        </div>
+        <canvas id="bsCv" width="640" height="230"></canvas>
+        <div class="info" id="bsInfo"><h4>Reported form</h4><span>Pick a line and press "Report it".</span></div>
+      </div>
+      <div>
+        <p>The reporting verb is <b>past</b> (said, told), so the reported verb steps back one tense.</p>
+        <p class="muted">Cold-call after a few: "Report this — <i>The slot is held.</i>"</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · GRAMMAR say/tell + questions -->
+  <section class="slide" data-notes="TIMING 44–45 min. Two more rules and the L1 pitfalls. Rule one: SAY takes no person (he said that…), TELL takes a person (he told me that…). Latvian and Russian use one verb for both and attach the person directly, so expect 'he said me'. Rule two: reported questions use whether/if with statement word order and no question auxiliary — 'She asked whether we could dispatch', never 'asked can we dispatch'. Also flag the dropped article (accept the aircraft) and the time-word shift (tomorrow → the next day). These four errors are exactly what E6 tests. Full explanations sit in the teacher key, section 2.">
+    <div class="kick">§4 · Grammar · say/tell &amp; questions</div>
+    <h2>Two rules, and the errors to expect</h2>
+    <div class="grid2">
+      <div class="card">
+        <p><b>say vs tell</b></p>
+        <p class="hot">✗ He said me the tank was empty.</p>
+        <p class="good">✓ He told me the tank was empty.</p>
+        <p class="muted">tell + person · say + no person</p>
+      </div>
+      <div class="card">
+        <p><b>reported questions</b></p>
+        <p class="hot">✗ She asked can we dispatch.</p>
+        <p class="good">✓ She asked whether we could dispatch.</p>
+        <p class="muted">whether/if + statement order, no "do/can"</p>
+      </div>
+    </div>
+    <p class="muted">Also watch: dropped articles (accept <b>the</b> aircraft) and time shift (tomorrow → the next day). See the key, §2.</p>
+  </section>
+
+  <!-- 14 · EXERCISES map -->
+  <section class="slide" data-notes="TIMING 45–65 min. Set the learners loose on E1–E8; the page marks each item. Map them: E1 gap-fill (terms), E2 matching (term→meaning), E3 dialogue completion, E4 grammar transformation (backshift), E5 reading a dispatch decision sheet, E6 error-spotting (eight reported-speech errors), E7 reading a tech-log deferred-defect page, E8 listening review of Dialogue 3. Circulate. Take whole-class feedback on E4 and E6 because they carry the grammar focus. Full answers with a one-line why for each are in the solutions file — reveal it only after they attempt.">
+    <div class="kick">§5 · Exercises E1–E8</div>
+    <h2>Eight tasks — the page checks each one</h2>
+    <div class="grid2">
+      <div class="card">
+        <p><span class="tag">E1</span> gap-fill · terms</p>
+        <p><span class="tag">E2</span> matching · term → meaning</p>
+        <p><span class="tag">E3</span> dialogue completion</p>
+        <p><span class="tag">E4</span> transformation · backshift</p>
+      </div>
+      <div class="card">
+        <p><span class="tag">E5</span> reading · decision sheet</p>
+        <p><span class="tag">E6</span> error-spotting · 8 errors</p>
+        <p><span class="tag">E7</span> reading · tech-log page</p>
+        <p><span class="tag">E8</span> listening review · Dialogue 3</p>
+      </div>
+    </div>
+    <p class="muted">Take feedback on E4 and E6 — they carry the grammar. Model answers in the solutions file.</p>
+  </section>
+
+  <!-- 15 · WIDGET drip stick -->
+  <section class="slide" data-notes="TIMING short, links reading to writing. The proviso in the scenario is 'confirm the fuel by the drip sticks'. This widget makes that concrete: drag the drip-stick reading until it matches the load-sheet figure. When it matches, the panel confirms — just as Anna says 'the figure matches the load sheet.' Use it to teach the language of confirmation and to set up the writing task: a dispatch record must state HOW the proviso was met. Keep it light — thirty seconds — then move to speaking and writing.">
+    <div class="kick">§5 · Interactive · confirm the fuel</div>
+    <h2>Meet the proviso — drip-stick check</h2>
+    <div class="cols">
+      <div class="wk">
+        <div class="bar">
+          <span class="muted" style="font-family:var(--mono)">Load sheet: 7.2 t on the wings</span>
+        </div>
+        <canvas id="fuelCv" width="640" height="230"></canvas>
+        <div class="bar" style="margin-top:10px"><span class="muted" style="min-width:120px;font-family:var(--mono)" id="fuelTxt">drip: 0.0 t</span><input type="range" id="fuelRng" min="0" max="120" value="0"></div>
+        <div class="info" id="fuelInfo"><h4>Status</h4><span>Set the drip-stick reading to match the load sheet.</span></div>
+      </div>
+      <div>
+        <p>The proviso says confirm the fuel by hand. The record must say <b>how</b> it was confirmed.</p>
+        <p class="muted">"I confirmed it with the drip sticks. The figure matches the load sheet."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · SPEAKING -->
+  <section class="slide" data-notes="TIMING 65–83 min. Run the four role-plays. Pairs take one role each and swap after each card. Card 1: engineer and planner combine the facts on a hydraulic-pump warning with an open AD (go/no-go). Card 2: engineer justifies a deferral to the captain, relaying what the planner and records office said. Card 3: relaying the captain's questions ('She asked whether…'). Card 4: shift handover. Insist on reported speech throughout — that is what you assess with the rubric in the key, §4 (range, accuracy, fluency, interaction, coherence). Give each pair one thing they did well and one fix. The AI conversation-partner prompts in the body let a learner rehearse the call solo.">
+    <div class="kick">§6 · Speaking · role-plays</div>
+    <h2>Four cards — relay the decision aloud</h2>
+    <div class="grid2">
+      <div class="card">
+        <p><b class="amber">Card 1</b> engineer + planner combine the facts (hydraulic pump + AD)</p>
+        <p><b class="amber">Card 2</b> justify the deferral to the captain</p>
+      </div>
+      <div class="card">
+        <p><b class="amber">Card 3</b> relay the captain's questions ("She asked whether…")</p>
+        <p><b class="amber">Card 4</b> shift handover — the whole decision</p>
+      </div>
+    </div>
+    <p class="muted">Swap roles after each card. Assess with the B2 rubric: range · accuracy · fluency · interaction · coherence.</p>
+  </section>
+
+  <!-- 17 · WRITING -->
+  <section class="slide" data-notes="TIMING 83–88 min. Set the writing task and model one sentence. Learners write a dispatch decision record for the technical log in Simplified Technical English (ASD-STE100): short sentences under about twenty words, one instruction each, active voice, approved plain words. The scenario: a left main-gear brake temperature indication is inoperative (MEL category C, ten-day interval); the AD on the brakes is in compliance (next threshold sixty flight hours); the restriction is a lower maximum taxi speed. They must state the defect, the MEL reference, the AD compliance, the restriction, the placard and the sign-off, in 90–120 words. Model the title line and one sentence, then let them plan; finish for homework. The annotated model answer is in the solutions file.">
+    <div class="kick">§7 · Writing · STE dispatch record</div>
+    <h2>Write the deferral — in Simplified Technical English</h2>
+    <div class="cols">
+      <div>
+        <p>A left brake-temperature indication is inoperative (MEL cat C, 10-day interval). AD in compliance, next threshold 60 hours. Restriction: lower max taxi speed.</p>
+        <p class="muted">State: defect · MEL ref · AD compliance · restriction · placard · sign-off. 90–120 words.</p>
+      </div>
+      <div class="card">
+        <p><b>STE habits</b></p>
+        <ul>
+          <li>short sentences (&lt; ~20 words)</li>
+          <li>one instruction per sentence</li>
+          <li>active voice, approved words</li>
+          <li>no long strings of nouns</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP -->
+  <section class="slide" data-center data-notes="TIMING 88–90 min. Close the loop with the can-do outcome in action. One learner gives a 45-second spoken shift handover of the whole decision — defect, MEL deferral, AD compliance, restriction, sign-off — in reported speech, as if leaving the voicemail in Dialogue 4. The class listens for backshift, say/tell and reported questions. Recast one or two errors, praise the relay, and set the writing to finish. Remind them the same chain — decide, justify, document — is what every real dispatch needs.">
+    <div class="kick">§8 · wrap-up</div>
+    <h2>Hand it over — the whole decision, relayed</h2>
+    <p class="big">"I deferred the item under the MEL. The records office said the inspection had been done. The captain said she was happy to accept it. I signed the release. The reference is delta-nine-one-one."</p>
+    <p class="muted">Decide · justify · document — the shape of every real dispatch.</p>
+  </section>
+
+</div>
+
+<script>
+/* ── deck navigation ─────────────────────────────────────────── */
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var i=0, presenter=null;
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent.trim():'';});
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||'')))return;
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();show(i+1);}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')||e.target.closest('canvas'))return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+function syncPresenter(){
+  try{ localStorage.setItem('u16_deck_state',JSON.stringify({i:i,total:slides.length,titles:titles,notes:notes})); }catch(e){}
+}
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u16_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open(); presenter.document.write(PRES_HTML); presenter.document.close();
+}
+var PRES_HTML=[
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 16</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:26px;color:#9db0c6;font-size:17px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">&lsaquo; Prev</button><button onclick="post(1)">Next &rsaquo;</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u16_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u16_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u16_deck_state")render();});',
+'render();',
+'<\/scr'+'ipt></body></html>'
+].join('');
+window.addEventListener('storage',function(e){
+  if(e.key==='u16_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+/* ── widget 1 · turnaround clock (canvas + rAF) ──────────────── */
+(function(){
+  var cv=document.getElementById('clkCv'); if(!cv) return; var g=cv.getContext('2d');
+  var total=15*60, left=total, running=false, last=0;
+  var txt=document.getElementById('clkTxt');
+  function fmt(s){s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+  function draw(){
+    var W=cv.width,H=cv.height; g.clearRect(0,0,W,H);
+    var cxp=W/2,cyp=H/2,r=110;
+    var frac=(total-left)/total;
+    var danger=left<300;
+    g.strokeStyle='#26384e';g.lineWidth=14;g.beginPath();g.arc(cxp,cyp,r,0,2*Math.PI);g.stroke();
+    g.strokeStyle=danger?'#ff5667':'#38b6ff';g.lineWidth=14;g.beginPath();
+    g.arc(cxp,cyp,r,-Math.PI/2,-Math.PI/2+frac*2*Math.PI);g.stroke();
+    var ang=-Math.PI/2+frac*2*Math.PI;
+    g.strokeStyle=danger?'#ff5667':'#7fd0ff';g.lineWidth=4;g.beginPath();g.moveTo(cxp,cyp);
+    g.lineTo(cxp+Math.cos(ang)*(r-22),cyp+Math.sin(ang)*(r-22));g.stroke();
+    g.fillStyle=danger?'#ff8a95':'#e9f0f7';g.font='700 40px ui-monospace,Consolas,monospace';g.textAlign='center';g.textBaseline='middle';
+    g.fillText(fmt(left),cxp,cyp);
+    g.fillStyle='#7e98ad';g.font='13px ui-monospace,Consolas,monospace';g.fillText(danger?'FINAL MINUTES':'to departure',cxp,cyp+34);
+    if(txt) txt.textContent=fmt(left)+' to departure';
+  }
+  function loop(ts){
+    if(running){ if(!last)last=ts; var dt=(ts-last)/1000; last=ts; left-=dt; if(left<=0){left=0;running=false;} }
+    else last=0;
+    draw(); requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+  document.getElementById('clkStart').onclick=function(){running=true;};
+  document.getElementById('clkPause').onclick=function(){running=false;};
+  document.getElementById('clkReset').onclick=function(){running=false;left=total;};
+})();
+
+/* ── widget 2 · dispatch decision engine (canvas + rAF) ──────── */
+(function(){
+  var cv=document.getElementById('decCv'); if(!cv) return; var g=cv.getContext('2d');
+  var gDef=document.getElementById('gDef'),gAd=document.getElementById('gAd'),gPro=document.getElementById('gPro');
+  var info=document.getElementById('decInfo');
+  var pulse=0;
+  function state(){return gDef.checked&&gAd.checked&&gPro.checked;}
+  function box(x,y,w,h,on,label){
+    g.fillStyle=on?'rgba(52,211,153,.16)':'rgba(255,86,103,.16)';
+    g.strokeStyle=on?'#34d399':'#ff5667';g.lineWidth=2;
+    g.beginPath();g.roundRect(x,y,w,h,10);g.fill();g.stroke();
+    g.fillStyle='#e9f0f7';g.font='14px -apple-system,Segoe UI,sans-serif';g.textAlign='center';g.textBaseline='middle';
+    g.fillText(label,x+w/2,y+h/2);
+  }
+  function draw(){
+    var W=cv.width,H=cv.height; g.clearRect(0,0,W,H);
+    box(30,30,180,50,gDef.checked,'defect deferrable');
+    box(30,120,180,50,gAd.checked,'AD in compliance');
+    box(30,210,180,50,gPro.checked,'provisos met');
+    var go=state();
+    // arrows
+    g.strokeStyle='#4a6280';g.lineWidth=2;
+    [55,145,235].forEach(function(cy){g.beginPath();g.moveTo(210,cy);g.lineTo(390,H/2);g.stroke();});
+    // result
+    var rc=go?'#34d399':'#ff5667';
+    var a=0.55+0.45*Math.sin(pulse);
+    g.save();g.globalAlpha=a;g.fillStyle=go?'rgba(52,211,153,.25)':'rgba(255,86,103,.25)';
+    g.beginPath();g.roundRect(400,H/2-55,210,110,16);g.fill();g.restore();
+    g.strokeStyle=rc;g.lineWidth=3;g.beginPath();g.roundRect(400,H/2-55,210,110,16);g.stroke();
+    g.fillStyle=rc;g.font='700 46px -apple-system,Segoe UI,sans-serif';g.textAlign='center';g.textBaseline='middle';
+    g.fillText(go?'GO':'NO-GO',505,H/2-6);
+    g.fillStyle='#9db0c6';g.font='13px -apple-system,Segoe UI,sans-serif';
+    g.fillText(go?'dispatch with restriction':'dispatch not allowed',505,H/2+34);
+  }
+  function loop(){ pulse+=0.06; draw(); requestAnimationFrame(loop); }
+  requestAnimationFrame(loop);
+  function upd(){
+    var go=state();
+    if(go) info.innerHTML='<h4 style="color:#34d399">GO</h4><span>All three gates pass — dispatch with the restriction (centre tank empty).</span>';
+    else{
+      var miss=[];if(!gDef.checked)miss.push('the defect is a no-go item');if(!gAd.checked)miss.push('the AD is out of compliance');if(!gPro.checked)miss.push('a proviso is not met');
+      info.innerHTML='<h4 style="color:#ff5667">NO-GO</h4><span>Cannot dispatch: '+miss.join('; ')+'. Someone must relay this.</span>';
+    }
+  }
+  [gDef,gAd,gPro].forEach(function(c){c.addEventListener('change',upd);});
+  upd();
+})();
+
+/* ── widget 3 · backshift stepper (canvas + rAF) ─────────────── */
+(function(){
+  var cv=document.getElementById('bsCv'); if(!cv) return; var g=cv.getContext('2d');
+  var sel=document.getElementById('bsSel'),info=document.getElementById('bsInfo');
+  var MAP={
+    is:{d:'is',r:'was',full:'The planner said the item was deferred.'},
+    can:{d:'can',r:'could',full:'She said we could dispatch.'},
+    must:{d:'must',r:'had to',full:'He said it had to stay empty.'},
+    will:{d:'will',r:'would',full:'He said they would hold the slot.'},
+    has:{d:'have signed',r:'had signed',full:'She said she had signed it.'},
+    are:{d:'are',r:'were',full:'He said the tanks were empty.'}
+  };
+  var prog=1, animating=false, cur=MAP.is;
+  function draw(){
+    var W=cv.width,H=cv.height; g.clearRect(0,0,W,H);
+    g.fillStyle='#7e98ad';g.font='12px ui-monospace,Consolas,monospace';g.textAlign='center';
+    g.fillText('DIRECT (now)',150,30); g.fillText('REPORTED (past)',490,30);
+    g.strokeStyle='#26384e';g.lineWidth=2;
+    g.beginPath();g.roundRect(50,50,200,60,10);g.stroke();
+    g.beginPath();g.roundRect(390,50,200,60,10);g.stroke();
+    // moving token
+    var x=150+(490-150)*prog, y=140;
+    g.fillStyle='#16324c';g.strokeStyle='#38b6ff';g.lineWidth=2;
+    g.beginPath();g.roundRect(x-70,y-24,140,48,10);g.fill();g.stroke();
+    g.fillStyle='#fff';g.font='700 20px ui-monospace,Consolas,monospace';g.textBaseline='middle';
+    var word = prog<0.5?cur.d:cur.r;
+    g.fillText(word,x,y);
+    // labels in slots
+    g.fillStyle='#8fb0cf';g.font='16px ui-monospace,Consolas,monospace';
+    g.fillText(cur.d,150,80); g.fillStyle='#9af0c8';g.fillText(cur.r,490,80);
+    g.fillStyle='#4a6280';g.font='24px sans-serif';g.fillText('→',320,140);
+  }
+  function loop(){ if(animating){ prog+=0.04; if(prog>=1){prog=1;animating=false; info.innerHTML='<h4>Reported form</h4><span>'+cur.full+'</span>';} } draw(); requestAnimationFrame(loop); }
+  requestAnimationFrame(loop);
+  document.getElementById('bsGo').onclick=function(){ cur=MAP[sel.value]; prog=0; animating=true; };
+  sel.addEventListener('change',function(){ cur=MAP[sel.value]; prog=1; info.innerHTML='<h4>Reported form</h4><span>Press "Report it" to backshift.</span>'; });
+})();
+
+/* ── widget 4 · fuel drip-stick confirm (canvas + rAF) ───────── */
+(function(){
+  var cv=document.getElementById('fuelCv'); if(!cv) return; var g=cv.getContext('2d');
+  var rng=document.getElementById('fuelRng'),txt=document.getElementById('fuelTxt'),info=document.getElementById('fuelInfo');
+  var target=7.2, disp=0;
+  function val(){return rng.value/10;}
+  function draw(){
+    var W=cv.width,H=cv.height; g.clearRect(0,0,W,H);
+    // tank
+    var tx=200,ty=30,tw=240,th=170;
+    g.strokeStyle='#4a6280';g.lineWidth=3;g.beginPath();g.roundRect(tx,ty,tw,th,14);g.stroke();
+    var maxT=12.0; var lvl=Math.min(1,disp/maxT);
+    var fh=(th-8)*lvl;
+    g.fillStyle='rgba(56,182,255,.35)';g.fillRect(tx+4,ty+th-4-fh,tw-8,fh);
+    // target line
+    var tyl=ty+th-4-(th-8)*(target/maxT);
+    g.strokeStyle='#fbbf24';g.setLineDash([6,5]);g.lineWidth=2;g.beginPath();g.moveTo(tx-14,tyl);g.lineTo(tx+tw+14,tyl);g.stroke();g.setLineDash([]);
+    g.fillStyle='#fbbf24';g.font='12px ui-monospace,Consolas,monospace';g.textAlign='left';g.fillText('load sheet 7.2 t',tx+tw+18,tyl+4);
+    g.fillStyle='#cfe0ee';g.font='700 26px ui-monospace,Consolas,monospace';g.textAlign='center';g.textBaseline='middle';
+    g.fillText(disp.toFixed(1)+' t',tx+tw/2,ty+th/2);
+  }
+  function loop(){ disp+=(val()-disp)*0.15; draw(); requestAnimationFrame(loop); }
+  requestAnimationFrame(loop);
+  function upd(){
+    var v=val(); if(txt)txt.textContent='drip: '+v.toFixed(1)+' t';
+    if(Math.abs(v-target)<0.15) info.innerHTML='<h4 style="color:#34d399">Confirmed</h4><span>The figure matches the load sheet. Record how the fuel was confirmed.</span>';
+    else info.innerHTML='<h4>Status</h4><span>Reading '+(v>target?'above':'below')+' the load sheet — keep adjusting.</span>';
+  }
+  rng.addEventListener('input',upd); upd();
+})();
+
+show(0);
+</script>
+
+<!-- ════════ LIVE CAPTION TRANSLATOR — speaker speech → live translated subtitle (CC button / L key) ════════ -->
+<style>
+  .lct-bar{position:fixed;left:180px;right:145px;bottom:18px;z-index:9050;text-align:left;pointer-events:none;display:none}
+  .lct-bar.on{display:block;animation:lct-in .35s both}
+  @keyframes lct-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px)*var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-line:empty{display:none}
+  .lct-src{display:none;font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:400;font-size:clamp(14px,1.6vw,22px);line-height:1.3;color:#FFFCEB;background:rgba(24,20,16,.78);padding:4px 14px;border-radius:6px;margin:0 auto 8px;max-width:90%}
+  body.lct-show-src .lct-src:not(:empty){display:inline-block}
+  .lct-btn{position:fixed;bottom:22px;right:20px;z-index:9051;pointer-events:auto;width:50px;height:50px;border-radius:50%;cursor:pointer;background:#F7C22D;color:#020E27;border:2px solid #F7C22D;font-family:ui-monospace,Consolas,monospace;font-weight:700;font-size:16px;box-shadow:0 8px 22px -8px rgba(247,194,45,.7);transition:.15s}
+  .lct-btn:hover{transform:translateY(-2px)}
+  .lct-btn.on{background:#EF4444;color:#fff;border-color:#EF4444;box-shadow:0 8px 22px -8px rgba(239,68,68,.8)}
+  .lct-btn.err{background:#5b6b86;color:#fff;border-color:#5b6b86}
+  .lct-status{position:fixed;bottom:80px;right:20px;z-index:9051;font-family:ui-monospace,Consolas,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#020E27;background:#F7C22D;border-radius:6px;padding:4px 9px;display:none}
+  .lct-status.show{display:block}
+  .lct-gear{position:fixed;bottom:22px;right:80px;z-index:9051;pointer-events:auto;width:42px;height:42px;border-radius:50%;cursor:pointer;background:rgba(13,27,53,.85);color:#E8EDF5;border:1.5px solid rgba(122,150,184,.4);font-size:17px;line-height:1;box-shadow:0 8px 20px -10px rgba(0,0,0,.7);transition:.15s}
+  .lct-gear:hover{transform:translateY(-2px);color:#F7C22D;border-color:#F7C22D}
+  .lct-gear.on{background:#0A2040;color:#F7C22D;border-color:#F7C22D}
+  .lct-langbar{position:fixed;bottom:84px;right:80px;z-index:9052;display:none;align-items:center;gap:8px;background:#0D1B35;border:1px solid rgba(122,150,184,.35);border-radius:10px;padding:8px 12px;box-shadow:0 14px 34px -14px rgba(0,0,0,.8);pointer-events:auto}
+  .lct-langbar.open{display:flex}
+  .lct-langbar select{font-family:ui-monospace,Consolas,monospace;font-size:14px;font-weight:700;color:#E8EDF5;background:#162030;border:1px solid rgba(122,150,184,.4);border-radius:6px;padding:4px 7px;cursor:pointer;outline:none}
+  .lct-langbar .lct-arrow{font-weight:700;color:#F7C22D;font-size:17px}
+</style>
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src" id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn" id="lctBtn" title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="de">Deutsch</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+  </select>
+</div>
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'),line=document.getElementById('lctLine');
+  var lineTop=document.getElementById('lctLineTop'),lineBot=document.getElementById('lctLineBot'),srcEl=document.getElementById('lctSrc');
+  var btn=document.getElementById('lctBtn'),gear=document.getElementById('lctGear'),status=document.getElementById('lctStatus');
+  var langBar=document.getElementById('lctLangBar'),srcSel=document.getElementById('lctSrcSel'),tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var spoken='en-US',src='en',target='lv',rec=null,active=false;
+  var lastInterim='',pending='',capTopB='',capBotB='',lctIdeaTimer=null,silenceTimer=null;
+  var lastTrAt=0,lastTrText='',lastTrLen=0,netErrors=0,cache=new Map(),POLL_GAP_MS=700;
+  function setStatus(t){status.textContent=t;status.classList.toggle('show',active||t==='mic blocked'||t==='use Chrome');}
+  function tail(text,maxWords){if(!text)return'';var t=String(text).trim().replace(/\s+/g,' ');if(!t)return'';var p=t.split(' ');if(p.length<=maxWords)return t;var s=p.slice(-maxWords).join(' ');var m=s.match(/[.!?…]\s+(.+)$/)||s.match(/[,;:]\s+(.+)$/);return m?m[1]:s;}
+  async function translateRemote(text){try{if(src===target)return text;var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text);var ctrl=new AbortController();var tmo=setTimeout(function(){ctrl.abort();},3000);var r=await fetch(url,{signal:ctrl.signal});clearTimeout(tmo);if(!r.ok)return null;var j=await r.json();if(Array.isArray(j)&&Array.isArray(j[0])){var out='';j[0].forEach(function(seg){if(seg&&seg[0])out+=seg[0];});return out||null;}return null;}catch(e){return null;}}
+  async function translate(text){if(!text||!text.trim())return'';var key=src+'|'+target+'|'+text.trim().toLowerCase();if(cache.has(key))return cache.get(key);var out=await translateRemote(text);if(!out)out=text;cache.set(key,out);if(cache.size>250){cache.delete(cache.keys().next().value);}return out;}
+  function lctRowCap(){var el=lineBot||line;var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.9)||1000;var fs=parseFloat(getComputedStyle(el).fontSize)||26;return Math.max(16,Math.floor(box/(fs*0.52)));}
+  function lctTrim(t){t=(t||'').replace(/\s+/g,' ').trim();var cap=lctRowCap();if(t.length<=cap)return t;var s=t.slice(t.length-cap);var i=s.indexOf(' ');return i>0?s.slice(i+1):s;}
+  function lctWrap(){var cap=lctRowCap();while(capBotB.length>cap){var head=capBotB.slice(0,cap);var sp=head.lastIndexOf(' ');var cut=sp>0?sp:cap;capTopB=capBotB.slice(0,cut).trim();capBotB=capBotB.slice(cut).trim();}}
+  function lctDraw(){var iv=(lastInterim||'').replace(/\s+/g,' ').trim();var cap=lctRowCap();if(capBotB&&(capBotB.length+(iv?iv.length+1:0))>cap){capTopB=capBotB;capBotB='';}lineTop.textContent=lctTrim(capTopB);lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim());srcEl.textContent=tail((pending||'')?pending:'',16);}
+  function lctCommit(tr){tr=(tr||'').replace(/\s+/g,' ').trim();if(!tr)return;capBotB=capBotB?(capBotB+' '+tr):tr;lctWrap();if(/[.!?…]$/.test(capBotB))lctEndIdea();lctDraw();}
+  function lctEndIdea(){if(capBotB){capTopB=capBotB;capBotB='';}lctDraw();}
+  function render(){lctDraw();if(lctIdeaTimer)clearTimeout(lctIdeaTimer);lctIdeaTimer=setTimeout(lctEndIdea,1500);}
+  function armSilence(){cancelSilence();silenceTimer=setTimeout(function(){capTopB='';capBotB='';lastInterim='';pending='';render();},30000);}
+  function cancelSilence(){if(silenceTimer){clearTimeout(silenceTimer);silenceTimer=null;}}
+  async function commitFinal(chunk){chunk=chunk.trim();if(!chunk)return;srcEl.textContent=tail(chunk,18);var tr=await translate(chunk);lctCommit(tr);lastInterim='';lastTrLen=0;render();}
+  async function translateInterim(text){var now=performance.now();if(now-lastTrAt<POLL_GAP_MS)return;if(text.length-lastTrLen<10&&text.length>0)return;if(text===lastTrText)return;lastTrAt=now;lastTrLen=text.length;lastTrText=text;try{var tr=await translate(text);if(tr&&active){lastInterim=tr;render();}}catch(e){}}
+  function startRec(){
+    rec=new SR();rec.continuous=true;rec.interimResults=true;rec.lang=spoken;if('maxAlternatives'in rec)rec.maxAlternatives=1;
+    rec.onresult=function(e){netErrors=0;cancelSilence();var interim='',fin='';for(var k=e.resultIndex;k<e.results.length;k++){var r=e.results[k];if(r.isFinal)fin+=' '+r[0].transcript;else interim+=' '+r[0].transcript;}if(fin){pending+=' '+fin;setTimeout(function(){var c=pending;pending='';commitFinal(c).then(armSilence);},120);}if(interim){srcEl.textContent=tail(interim.trim(),18);translateInterim(interim.trim());}render();setStatus('live · '+src+'→'+target);};
+    rec.onerror=function(ev){if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){setStatus('mic blocked');btn.classList.add('err');active=false;}else if(ev.error==='no-speech'||ev.error==='aborted'){}else if(ev.error==='network'){netErrors++;if(netErrors>=3){active=false;btn.classList.remove('on');btn.classList.add('err');setStatus('offline');}else setStatus('reconnect '+netErrors+'/3');}else setStatus(ev.error);};
+    rec.onend=function(){if(active){try{rec.start();}catch(e){setTimeout(function(){if(active&&rec){try{rec.start();}catch(_){}}},350);}}};
+    try{rec.start();}catch(e){}
+  }
+  function toggle(){
+    if(!SR){setStatus('use Chrome');btn.classList.add('err');return;}
+    if(active){active=false;btn.classList.remove('on');bar.classList.remove('on');setStatus('off');if(rec){try{rec.onend=null;rec.stop();}catch(e){}rec=null;}capTopB='';capBotB='';lastInterim='';pending='';render();}
+    else{active=true;btn.classList.add('on');btn.classList.remove('err');bar.classList.add('on');setStatus('starting…');startRec();}
+  }
+  btn.addEventListener('click',function(e){e.stopPropagation();toggle();});
+  gear.addEventListener('click',function(e){e.stopPropagation();var open=langBar.classList.toggle('open');gear.classList.toggle('on',open);});
+  document.addEventListener('keydown',function(e){if((e.key==='l'||e.key==='L')&&!/^(input|textarea|select)$/i.test((e.target.tagName||'')))toggle();});
+  srcSel.addEventListener('change',function(e){e.stopPropagation();spoken=srcSel.value;src=spoken.slice(0,2);cache.clear();if(active&&rec){rec.onend=null;try{rec.stop();}catch(_){}rec=null;startRec();}if(active)setStatus('live · '+src+'→'+target);});
+  tgtSel.addEventListener('change',function(e){e.stopPropagation();target=tgtSel.value;cache.clear();capTopB='';capBotB='';lastInterim='';lastTrText='';lastTrLen=0;render();if(active)setStatus('live · '+src+'→'+target);});
+  [srcSel,tgtSel].forEach(function(s){s.addEventListener('click',function(e){e.stopPropagation();});});
+})();
+</script>
+<script>(function(){try{
+  var KEY='tsiCapScale',root=document.documentElement;
+  function apply(v){root.style.setProperty('--cap-scale',v);}
+  var saved=parseFloat(localStorage.getItem(KEY))||1;saved=Math.max(0.6,Math.min(1.9,saved));apply(saved);
+  function mount(){var lb=document.getElementById('lctLangBar');if(!lb||lb.querySelector('.cap-fs-slider'))return;
+    var w=document.createElement('span');w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" style="width:80px" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w);var sl=w.querySelector('.cap-fs-slider');sl.value=saved;
+    var stop=function(e){e.stopPropagation();};
+    sl.addEventListener('input',function(){var v=parseFloat(sl.value)||1;apply(v);try{localStorage.setItem(KEY,v);}catch(e){}});
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){sl.addEventListener(ev,stop);});
+  }
+  if(document.readyState!=='loading')mount();else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>

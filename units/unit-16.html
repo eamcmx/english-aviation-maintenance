@@ -1,0 +1,649 @@
+<!DOCTYPE html><html lang="en"><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 16 of 32 · Simulation: dispatch decision under pressure</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 dispatch control — deferral, restriction, sign-off</span></div></div></header><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English for Aviation Maintenance · Unit 16 — Simulation: dispatch decision under pressure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  article{max-width:960px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 30px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:22ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:64ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:15px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:72ch}
+  a{color:var(--color-primary)}
+  code,kbd{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .card.cando{border-left:4px solid var(--color-primary)}
+  .card h4{font-size:.98rem;margin:0 0 var(--space-3);color:var(--color-primary-dark)}
+  .card ul{margin:0;padding-left:1.1em}
+  .card li{margin:6px 0;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .callout.plain{border-left-color:var(--gold);background:var(--bg-margin)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;font-family:var(--font-mono);padding:2px 9px;border-radius:20px;border:1px solid var(--border);color:var(--ink-muted);background:var(--bg-sunken)}
+  /* dialogue */
+  .dlg{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin:16px 0;box-shadow:var(--shadow-sm)}
+  .dlg h3{margin:0 0 4px}
+  .cast{font-size:13.5px;color:var(--ink-muted);margin:0 0 10px}
+  .lang-audio-slot{display:flex;align-items:center;gap:10px;min-height:52px;border:1px dashed var(--color-primary-soft);border-radius:var(--radius-sm);background:#eef2f9;color:var(--color-primary-dark);font-size:13.5px;font-family:var(--font-mono);padding:10px 14px;margin:6px 0}
+  .lang-audio-slot::before{content:"\25B6";font-size:15px}
+  .lang-audio-slot::after{content:"Audio player loads here \2014 listen first, then open the transcript.";color:var(--color-primary-dark)}
+  details.transcript{margin-top:8px;border-top:1px solid var(--border-soft);padding-top:8px}
+  details.transcript>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary);font-weight:700}
+  .turn{margin:7px 0;max-width:none}
+  .turn .who{display:inline-block;min-width:74px;font-weight:700;font-family:var(--font-mono);font-size:12.5px;color:var(--color-primary-dark);vertical-align:top}
+  .turn .said{color:#313648}
+  /* vocab */
+  table.dt{border-collapse:collapse;margin-top:12px;font-size:14.5px;width:100%}
+  table.dt th,table.dt td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.dt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-size:13px}
+  table.dt dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  table.dt td.mean{color:#3a3f4d}
+  table.dt td.eg{color:#313648}
+  table.dt td.col{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-muted)}
+  /* grammar */
+  .gtab td.wrong{color:var(--bad)} .gtab td.right{color:#256d36;font-weight:600}
+  .quote{border-left:3px solid var(--color-primary-soft);padding:4px 0 4px 14px;margin:10px 0;color:#313648;font-style:italic;font-family:var(--font-serif);font-size:16px}
+  /* exercises */
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:16px 20px;margin:16px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex h3{margin:2px 0 6px}
+  .ex ol{padding-left:1.4em} .ex ol li{margin:9px 0}
+  .ex.reading .rtext{background:var(--bg-sunken);border-radius:var(--radius-sm);padding:12px 16px;margin:10px 0;font-size:15px}
+  .ex.reading .rtext p{max-width:none;margin:6px 0}
+  .genre{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700}
+  .wordbank{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+  .wordbank span{font-family:var(--font-mono);font-size:12.5px;background:#eef2f9;border:1px solid #d6e0f0;color:var(--color-primary-dark);border-radius:14px;padding:3px 10px}
+  input.gap,select.gap{font-family:var(--font-sans);font-size:14.5px;border:1px solid var(--border);border-radius:6px;padding:5px 8px;background:#fff;color:var(--ink);min-width:150px}
+  input.gap:focus,select.gap:focus{outline:2px solid var(--color-primary-soft);border-color:var(--color-primary)}
+  input.gap.ok,select.gap.ok{border-color:var(--good);background:#eaf5ec}
+  input.gap.bad,select.gap.bad{border-color:var(--bad);background:#fbecea}
+  button.btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  button.btn:hover{border-color:var(--color-primary)}
+  button.btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .exfoot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .score{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--ink-muted)}
+  .score.done{color:#256d36}
+  details.answers{margin-top:10px;background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius-sm);padding:6px 14px}
+  details.answers>summary{cursor:pointer;font-weight:700;font-size:13.5px;color:var(--accent)}
+  details.answers li{margin:4px 0;font-size:14px}
+  /* speaking */
+  .roleplay{background:var(--bg-elevated);border:1px solid var(--border);border-top:4px solid var(--gold);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.05rem;color:var(--color-primary-dark)}
+  .roleplay .rp-row{margin:6px 0;font-size:14.5px}
+  .roleplay .rp-lab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:700;display:block}
+  .roleplay .phrases{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .roleplay .phrases span{font-size:13px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:12px;padding:3px 9px}
+  .aibox{background:#eef3fb;border:1px solid #d3e0f1;border-radius:var(--radius);padding:16px 20px;margin:18px 0}
+  .aibox h4{margin:0 0 6px;color:var(--color-primary-dark)}
+  .prompt{background:#fff;border:1px solid #d3e0f1;border-radius:var(--radius-sm);padding:10px 14px;margin:10px 0;font-size:14px;position:relative}
+  .prompt code{background:transparent;padding:0;font-family:var(--font-mono);font-size:13px;color:#313648;white-space:pre-wrap;display:block}
+  .copybtn{position:absolute;top:8px;right:8px;font-size:11px;padding:4px 9px}
+  /* writing */
+  .checklist{list-style:none;padding:0;margin:12px 0}
+  .checklist li{margin:6px 0;padding-left:26px;position:relative;font-size:14.5px}
+  .checklist li::before{content:"\2610";position:absolute;left:0;color:var(--color-primary);font-size:16px}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<article>
+
+  <header class="lec-hero">
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 16</p>
+    <h1 class="lecture-title">Simulation: the dispatch decision under pressure.</h1>
+    <p class="subtitle">A defect appears near departure. You must combine the MEL, an airworthiness directive and the defect into one dispatch decision, justify it to operations and the crew, and record the deferral. Today is the simulation day — you relay the decision from voice to voice, in clear spoken B2 English.</p>
+    <div class="hero-meta">
+      <span>Scenario<strong>Dispatch decision under pressure</strong></span>
+      <span>Vocabulary<strong>Dispatch control — 20 terms</strong></span>
+      <span>Grammar<strong>Reported speech (relaying decisions)</strong></span>
+      <span>Class length<strong>90 minutes · balanced skills</strong></span>
+    </div>
+  </header>
+
+  <div class="card cando" style="margin-bottom:2rem">
+    <h4>By the end of this unit you can …</h4>
+    <ul>
+      <li>Can combine MEL, AD and defect information to reach a dispatch decision.</li>
+      <li>Can justify the decision clearly to operations and the crew.</li>
+      <li>Can document the deferral and the procedures applied.</li>
+    </ul>
+  </div>
+
+  <!-- ============ SCENARIO ============ -->
+  <section class="lecture-section" id="scenario">
+    <h2><span class="secnum">01</span>The situation</h2>
+    <p>It is evening at Riga. An Airbus A320, reg YL-BBX, is on stand nine, close to departure. The crew has written up a defect in the technical log: the centre-tank fuel indication reads zero. The turnaround clock is running, and the captain needs an answer.</p>
+    <p>This is a simulation. You are the certifying engineer. You cannot decide alone, so the decision passes from voice to voice. First you call the planner in operations. Together you combine three sources: the defect, the minimum equipment list, and an open airworthiness directive on the fuel pumps. Then you justify the decision to the captain and record the deferral.</p>
+    <div class="callout plain">
+      <h4>In plain words — four ideas before you start</h4>
+      <p style="margin:0"><b>MEL</b> (minimum equipment list) — the book that says which items may be broken and still let the aircraft fly. <b>AD</b> (airworthiness directive) — a firm order from the authority to check or fix something by a deadline. <b>Repair category</b> — the MEL class (A, B, C or D) that sets the repair time limit. <b>Reported speech</b> — telling someone what another person said: <i>"He said the item was deferred."</i> Every hard word is glossed in the vocabulary bank.</p>
+    </div>
+  </section>
+
+  <!-- ============ DIALOGUES ============ -->
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">02</span>Listen — the decision passes from voice to voice</h2>
+    <p>Listen to each part first. Do not read yet. Then open the transcript and check the words. Listen for how each speaker <i>relays</i> what another person said. The same voices come back in the exercises.</p>
+
+    <div class="dlg">
+      <h3>Dialogue 1 — Engineer and planner: a defect and an open AD</h3>
+      <p class="cast">A = Anna, certifying engineer (line) · B = Mark, duty planner at operations</p>
+      <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u16-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:23 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">Anna</span><span class="said">Operations, it's Anna at stand nine. I have a defect on the A320, reg bravo-bravo-x-ray.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Go ahead, Anna. Mark here at the operations control centre. What is the defect?</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">The crew wrote that the centre-tank fuel indication read zero. The indication is inoperative.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Understood. Have you checked the minimum equipment list for it?</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Yes. One tank indication may be inoperative. It is a repair category C item.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Good. So the rectification interval is ten days. Can we defer it today?</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">We can, but there is a proviso. We must confirm the fuel by the drip sticks.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">There is one more thing. There is an open airworthiness directive on the fuel pumps.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">I saw it. What did the records office say about the compliance status?</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">The records office said the repetitive inspection had been done on Monday.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">And the threshold? When is the next inspection due?</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">They told me the next threshold was not due for forty flight hours. So we are in compliance.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Good. So the defect is deferrable, and the airworthiness directive is still valid.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Correct. But the minimum equipment list adds a restriction. The centre tank must stay empty.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Understood. I will placard the fuel panel and raise the deferred defect.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">I asked operations about the slot. They said they could accept a short delay.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Copy. I will confirm the fuel, then plan the sign-off before the crew boards.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Perfect. Brief the captain on the restriction, then call me for the deferral reference.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 2 — Engineer and captain: justifying the decision</h3>
+      <p class="cast">A = Anna, certifying engineer · B = Ilze, the captain</p>
+      <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u16-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:11 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">Anna</span><span class="said">Good evening, Captain. I'm Anna, the certifying engineer. I need to brief you on a deferral.</span></p>
+        <p class="turn"><span class="who">Ilze</span><span class="said">Evening, Anna. Go ahead. What did you find?</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">The crew wrote that the centre-tank fuel indication read zero. The indication is inoperative.</span></p>
+        <p class="turn"><span class="who">Ilze</span><span class="said">I see. Is this a no-go item, or can we still dispatch?</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">We can dispatch. The planner said we could defer it under the minimum equipment list.</span></p>
+        <p class="turn"><span class="who">Ilze</span><span class="said">Good. What did the records office say about the airworthiness directive on the pumps?</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">They said the repetitive inspection had been done, and the aircraft was in compliance.</span></p>
+        <p class="turn"><span class="who">Ilze</span><span class="said">So the deferral is clean. Is there any restriction on the flight?</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Yes. Mark told me the centre tank had to stay empty for this dispatch.</span></p>
+        <p class="turn"><span class="who">Ilze</span><span class="said">Understood. So we plan the fuel on the wing tanks only.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Correct. I have placarded the panel and raised the deferred defect in the technical log.</span></p>
+        <p class="turn"><span class="who">Ilze</span><span class="said">You said the fuel had to be confirmed. How will you do that?</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">I confirmed it with the drip sticks under the wing. The figure matches the load sheet.</span></p>
+        <p class="turn"><span class="who">Ilze</span><span class="said">Earlier you said the slot might slip. Is the turnaround still on time?</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">The planner said operations had held the slot. The turnaround is still on schedule.</span></p>
+        <p class="turn"><span class="who">Ilze</span><span class="said">Good. I am happy to accept the aircraft with that restriction.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Thank you, Captain. I will complete the sign-off and give you the deferral reference.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 3 — Engineer and planner: documenting the deferral</h3>
+      <p class="cast">A = Anna, certifying engineer · B = Mark, duty planner at operations</p>
+      <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u16-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:13 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">Anna</span><span class="said">Mark, it's Anna. The captain has accepted the aircraft. I'm ready to document the deferral.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Good work, Anna. Tell me what the captain said.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">She said she was happy to accept the aircraft with the restriction.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Did she ask anything about the airworthiness directive?</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Yes. She asked whether the repetitive inspection was still valid. I told her it was.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Good. For the record, the deferral reference is delta-nine-one-one.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Copy. I will write the minimum equipment list item and the reference on the deferral page.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Add the airworthiness directive number too, so the read-across is clear.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Understood. I will note that the aircraft is in compliance, with the threshold recorded.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">And the restriction? The crew must know the centre tank stays empty.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">It is in the technical log and on the placard. The captain has been briefed.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Perfect. Then you can raise the certificate of release to service.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">I asked the captain if she needed anything else. She said the brief was complete.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Good. Once the sign-off is done, the aircraft is serviceable for dispatch.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">I am signing the certificate of release to service now. The deferral is closed on paper.</span></p>
+        <p class="turn"><span class="who">Mark</span><span class="said">Well done. I will tell the next shift that the item was deferred and the flight went out.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Thanks, Mark. The turnaround is complete. Bravo-bravo-x-ray is cleared to go.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Monologue — Shift-handover voicemail</h3>
+      <p class="cast">A = Anna, certifying engineer (voicemail to the next shift)</p>
+      <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u16-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:49 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">Anna</span><span class="said">Hi, this is Anna, the certifying engineer, leaving a handover for the next shift.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">Aircraft bravo-bravo-x-ray went out from stand nine. The centre-tank fuel indication was inoperative.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">I deferred it under the minimum equipment list. It is a deferred defect with a ten-day interval.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">The records office said the airworthiness directive inspection was done, so the aircraft was in compliance.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">There is a restriction: the centre tank must stay empty. I fitted a placard and briefed the captain.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">The captain said she was happy to accept the aircraft. I signed the certificate of release to service.</span></p>
+        <p class="turn"><span class="who">Anna</span><span class="said">The deferral reference is delta-nine-one-one. Please track the threshold. Have a good shift.</span></p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ VOCABULARY ============ -->
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">03</span>Vocabulary bank — dispatch control</h2>
+    <p>These twenty terms carry the unit. Each one has a plain-words meaning, an example at your level, and one common word partner (collocation). You hear every term in the dialogues and use every term in the exercises.</p>
+    <table class="dt">
+      <thead><tr><th style="width:20%">Term</th><th style="width:32%">Plain meaning</th><th style="width:30%">Example</th><th style="width:18%">Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="airworthiness directive">airworthiness directive</dfn></td><td class="mean">A firm order from the authority to check or fix a safety item by a deadline (an AD).</td><td class="eg">An airworthiness directive applies to the fuel pumps.</td><td class="col">an open airworthiness directive</td></tr>
+        <tr><td><dfn data-term="defect">defect</dfn></td><td class="mean">A fault or damage found on the aircraft.</td><td class="eg">The crew wrote up a defect in the log.</td><td class="col">report a defect</td></tr>
+        <tr><td><dfn data-term="deferral">deferral</dfn></td><td class="mean">Putting off a repair to a later time, allowed under the MEL.</td><td class="eg">I documented the deferral before the flight.</td><td class="col">record the deferral</td></tr>
+        <tr><td><dfn data-term="restriction">restriction</dfn></td><td class="mean">A limit on how the aircraft may be operated.</td><td class="eg">The restriction is that the centre tank stays empty.</td><td class="col">apply a restriction</td></tr>
+        <tr><td><dfn data-term="sign-off">sign-off</dfn></td><td class="mean">The final signature that releases the aircraft after the work.</td><td class="eg">I complete the sign-off before the crew boards.</td><td class="col">complete the sign-off</td></tr>
+        <tr><td><dfn data-term="compliance">compliance</dfn></td><td class="mean">Meeting the rules of the AD or the MEL in full.</td><td class="eg">The aircraft is in compliance with the directive.</td><td class="col">in compliance</td></tr>
+        <tr><td><dfn data-term="threshold">threshold</dfn></td><td class="mean">The point in hours, cycles or date when an action becomes due.</td><td class="eg">The next threshold is not due for forty hours.</td><td class="col">reach the threshold</td></tr>
+        <tr><td><dfn data-term="repetitive inspection">repetitive inspection</dfn></td><td class="mean">A check repeated at a set interval to keep flying under an AD.</td><td class="eg">The repetitive inspection was done on Monday.</td><td class="col">carry out the repetitive inspection</td></tr>
+        <tr><td><dfn data-term="minimum equipment list">minimum equipment list</dfn></td><td class="mean">The book of items that may be inoperative and still allow flight (the MEL).</td><td class="eg">Check the minimum equipment list for the defect.</td><td class="col">check the minimum equipment list</td></tr>
+        <tr><td><dfn data-term="rectification interval">rectification interval</dfn></td><td class="mean">The time limit to repair a deferred item.</td><td class="eg">The rectification interval is ten calendar days.</td><td class="col">the rectification interval expires</td></tr>
+        <tr><td><dfn data-term="deferred defect">deferred defect</dfn></td><td class="mean">A fault the aircraft may fly with, repaired later within the interval.</td><td class="eg">I raised the deferred defect in the tech log.</td><td class="col">raise a deferred defect</td></tr>
+        <tr><td><dfn data-term="proviso">proviso</dfn></td><td class="mean">A condition you must meet to dispatch under the MEL.</td><td class="eg">The proviso is that we confirm the fuel by hand.</td><td class="col">meet the proviso</td></tr>
+        <tr><td><dfn data-term="placard">placard</dfn></td><td class="mean">A small warning label near a broken control; also, to fit it.</td><td class="eg">Fit an INOP placard on the fuel panel.</td><td class="col">fit a placard</td></tr>
+        <tr><td><dfn data-term="no-go item">no-go item</dfn></td><td class="mean">A fault that stops dispatch; the aircraft may not fly.</td><td class="eg">This defect is not a no-go item.</td><td class="col">a no-go item</td></tr>
+        <tr><td><dfn data-term="dispatch">dispatch</dfn></td><td class="mean">To release the aircraft to fly.</td><td class="eg">The aircraft may dispatch with the item deferred.</td><td class="col">dispatch the aircraft</td></tr>
+        <tr><td><dfn data-term="technical log">technical log</dfn></td><td class="mean">The aircraft's running record of faults and actions (the tech log).</td><td class="eg">The entry is in the technical log.</td><td class="col">enter it in the technical log</td></tr>
+        <tr><td><dfn data-term="certificate of release to service">certificate of release to service</dfn></td><td class="mean">The signed statement that the aircraft is safe to fly (the CRS).</td><td class="eg">I signed the certificate of release to service.</td><td class="col">sign the certificate of release to service</td></tr>
+        <tr><td><dfn data-term="operations control centre">operations control centre</dfn></td><td class="mean">The desk that plans and controls the flights (the OCC, or "operations").</td><td class="eg">The planner sits in the operations control centre.</td><td class="col">call the operations control centre</td></tr>
+        <tr><td><dfn data-term="slot">slot</dfn></td><td class="mean">The departure time window given by air traffic control.</td><td class="eg">Operations held the slot for us.</td><td class="col">hold the slot</td></tr>
+        <tr><td><dfn data-term="turnaround">turnaround</dfn></td><td class="mean">The ground time to prepare the aircraft between flights.</td><td class="eg">The turnaround is still on schedule.</td><td class="col">a quick turnaround</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ GRAMMAR ============ -->
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">04</span>Grammar in context — reported speech</h2>
+    <p>On a simulation day the decision passes from voice to voice. So you often <i>relay</i> what another person said. This is <b>reported speech</b>. You do not use the exact words; you report them. Listen to how Anna does it in the calls.</p>
+
+    <p class="quote">Direct: "The item is deferred." → Reported: "The planner said the item <b>was</b> deferred."</p>
+    <p class="quote">Direct: "We can defer it." → Reported: "The planner said we <b>could</b> defer it."</p>
+    <p class="quote">Direct: "The tank must stay empty." → Reported: "Mark <b>told me</b> the tank <b>had to</b> stay empty."</p>
+    <p class="quote">Direct: "Is the inspection valid?" → Reported: "She <b>asked whether</b> the inspection was valid."</p>
+
+    <p>The key move is the <b>backshift</b>: the verb steps one tense back. <i>Is</i> becomes <i>was</i>; <i>can</i> becomes <i>could</i>; <i>must</i> becomes <i>had to</i>; <i>will</i> becomes <i>would</i>. The present perfect <i>has done</i> becomes <i>had done</i>.</p>
+
+    <table class="dt gtab">
+      <thead><tr><th>Change</th><th>Direct speech</th><th>Reported speech</th></tr></thead>
+      <tbody>
+        <tr><td>Present &rarr; past</td><td>"The item <b>is</b> deferred."</td><td>He said the item <b>was</b> deferred.</td></tr>
+        <tr><td>can &rarr; could</td><td>"We <b>can</b> dispatch."</td><td>She said we <b>could</b> dispatch.</td></tr>
+        <tr><td>must / command</td><td>"<b>Placard</b> the switch."</td><td>He <b>told me to</b> placard the switch.</td></tr>
+        <tr><td>Question &rarr; whether</td><td>"<b>Is</b> it a go item?"</td><td>He <b>asked whether</b> it <b>was</b> a go item.</td></tr>
+      </tbody>
+    </table>
+
+    <p>Two more rules. Use <b>say</b> with no person after it, but <b>tell</b> with a person: <i>He said the tank was empty</i> / <i>He told me the tank was empty</i>. And shift the time words: <i>today</i> becomes <i>that day</i>, <i>tomorrow</i> becomes <i>the next day</i>, <i>this</i> becomes <i>that</i>.</p>
+
+    <h3>Three mistakes to avoid (Latvian &amp; Russian speakers)</h3>
+    <table class="dt gtab">
+      <thead><tr><th>Why it happens</th><th class="wrong">Wrong</th><th class="right">Right</th></tr></thead>
+      <tbody>
+        <tr><td>You keep the present tense (your first language does not backshift).</td><td class="wrong">The planner said the item is deferred.</td><td class="right">The planner said the item was deferred.</td></tr>
+        <tr><td>You mix up "say" and "tell" (they are one verb in your first language).</td><td class="wrong">He said me the tank was empty.</td><td class="right">He told me the tank was empty.</td></tr>
+        <tr><td>You keep question word order with "do" in a reported question.</td><td class="wrong">The captain asked can we dispatch.</td><td class="right">The captain asked whether we could dispatch.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ EXERCISES ============ -->
+  <section class="lecture-section" id="exercises">
+    <h2><span class="secnum">05</span>Exercises</h2>
+    <p>Work through E1 to E8. Type your answers, press <b>Check</b>, and the page marks each item. Open <b>Show answers</b> only after you try. Nobody else will confirm your English — the page will.</p>
+
+    <!-- E1 -->
+    <div class="ex" id="e1">
+      <span class="tag">E1 · Gap-fill</span>
+      <h3>Put the right term in each gap</h3>
+      <p>Use one term from the bank in each sentence. Type it in the box.</p>
+      <div class="wordbank"><span>defect</span><span>airworthiness directive</span><span>repetitive inspection</span><span>compliance</span><span>threshold</span><span>deferral</span><span>restriction</span><span>placard</span><span>proviso</span><span>sign-off</span></div>
+      <ol>
+        <li>The crew wrote up a <input class="gap" data-answer="defect" size="12"> in the technical log.</li>
+        <li>The authority issued an <input class="gap" data-answer="airworthiness directive" size="22"> on the fuel pumps.</li>
+        <li>Under the AD, we carry out a <input class="gap" data-answer="repetitive inspection" size="20"> every 500 hours.</li>
+        <li>The aircraft is in <input class="gap" data-answer="compliance" size="12"> with the directive.</li>
+        <li>The next <input class="gap" data-answer="threshold" size="12"> is not due for forty hours.</li>
+        <li>We record the <input class="gap" data-answer="deferral" size="12"> so the item is fixed later.</li>
+        <li>The <input class="gap" data-answer="restriction" size="12"> is that the centre tank must stay empty.</li>
+        <li>I fit an INOP <input class="gap" data-answer="placard" size="12"> next to the switch.</li>
+        <li>You must meet each <input class="gap" data-answer="proviso" size="12"> to dispatch.</li>
+        <li>I complete the <input class="gap" data-answer="sign-off" size="12"> to release the aircraft.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e1">Check</button><span class="score" data-score="e1"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>defect</li><li>airworthiness directive</li><li>repetitive inspection</li><li>compliance</li><li>threshold</li><li>deferral</li><li>restriction</li><li>placard</li><li>proviso</li><li>sign-off</li></ol></details>
+    </div>
+
+    <!-- E2 -->
+    <div class="ex" id="e2">
+      <span class="tag">E2 · Matching</span>
+      <h3>Match each term to its meaning</h3>
+      <p>Choose the meaning that fits the term.</p>
+      <ol>
+        <li><b>minimum equipment list</b> — <select class="gap" data-answer="the book of items that may be inoperative and still allow flight"><option value=""></option><option>the book of items that may be inoperative and still allow flight</option><option>a warning label near a control</option><option>the departure time window from air traffic control</option></select></li>
+        <li><b>rectification interval</b> — <select class="gap" data-answer="the time limit to repair a deferred item"><option value=""></option><option>the time limit to repair a deferred item</option><option>the ground time between flights</option><option>a fault that stops dispatch</option></select></li>
+        <li><b>deferred defect</b> — <select class="gap" data-answer="a fault the aircraft may fly with, repaired later"><option value=""></option><option>a fault the aircraft may fly with, repaired later</option><option>the signed release statement</option><option>a limit on how the aircraft is operated</option></select></li>
+        <li><b>no-go item</b> — <select class="gap" data-answer="a fault that stops dispatch"><option value=""></option><option>a fault that stops dispatch</option><option>a part that works normally</option><option>the manufacturer's base list</option></select></li>
+        <li><b>dispatch</b> — <select class="gap" data-answer="to release the aircraft to fly"><option value=""></option><option>to release the aircraft to fly</option><option>to ground the aircraft for repair</option><option>to check the fuel by hand</option></select></li>
+        <li><b>technical log</b> — <select class="gap" data-answer="the aircraft's running record of faults and actions"><option value=""></option><option>the aircraft's running record of faults and actions</option><option>the crew's flight plan</option><option>the departure time window</option></select></li>
+        <li><b>certificate of release to service</b> — <select class="gap" data-answer="the signed statement that the aircraft is safe to fly"><option value=""></option><option>the signed statement that the aircraft is safe to fly</option><option>a repeated check under an AD</option><option>a fault found by the crew</option></select></li>
+        <li><b>operations control centre</b> — <select class="gap" data-answer="the desk that plans and controls the flights"><option value=""></option><option>the desk that plans and controls the flights</option><option>the airport fire station</option><option>the aircraft's running record of faults</option></select></li>
+        <li><b>slot</b> — <select class="gap" data-answer="the departure time window from air traffic control"><option value=""></option><option>the departure time window from air traffic control</option><option>the time limit to repair a defect</option><option>a warning label near a control</option></select></li>
+        <li><b>turnaround</b> — <select class="gap" data-answer="the ground time to prepare the aircraft between flights"><option value=""></option><option>the ground time to prepare the aircraft between flights</option><option>the signed release statement</option><option>a condition you must meet to dispatch</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e2">Check</button><span class="score" data-score="e2"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>the book of items that may be inoperative and still allow flight</li><li>the time limit to repair a deferred item</li><li>a fault the aircraft may fly with, repaired later</li><li>a fault that stops dispatch</li><li>to release the aircraft to fly</li><li>the aircraft's running record of faults and actions</li><li>the signed statement that the aircraft is safe to fly</li><li>the desk that plans and controls the flights</li><li>the departure time window from air traffic control</li><li>the ground time to prepare the aircraft between flights</li></ol></details>
+    </div>
+
+    <!-- E3 -->
+    <div class="ex" id="e3">
+      <span class="tag">E3 · Dialogue completion</span>
+      <h3>Complete the dispatch call</h3>
+      <p>Fill each gap with the missing term. The call is like the ones you heard.</p>
+      <div class="wordbank"><span>minimum equipment list</span><span>airworthiness directive</span><span>compliance</span><span>restriction</span><span>deferred defect</span><span>placard</span><span>certificate of release to service</span><span>deferral</span></div>
+      <ol>
+        <li>Engineer: The fuel indication is inoperative. Let's open the <input class="gap" data-answer="minimum equipment list" size="22">.</li>
+        <li>Planner: First check the open <input class="gap" data-answer="airworthiness directive" size="22"> on the pumps.</li>
+        <li>Planner: The records office said the aircraft was in <input class="gap" data-answer="compliance" size="12">.</li>
+        <li>Engineer: Good. The MEL adds a <input class="gap" data-answer="restriction" size="12"> — the centre tank stays empty.</li>
+        <li>Engineer: I will raise the <input class="gap" data-answer="deferred defect" size="16"> in the tech log.</li>
+        <li>Engineer: I fit an INOP <input class="gap" data-answer="placard" size="12"> on the fuel panel.</li>
+        <li>Engineer: Then I sign the <input class="gap" data-answer="certificate of release to service" size="30">.</li>
+        <li>Planner: Call me for the <input class="gap" data-answer="deferral" size="12"> reference before the crew boards.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e3">Check</button><span class="score" data-score="e3"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>minimum equipment list</li><li>airworthiness directive</li><li>compliance</li><li>restriction</li><li>deferred defect</li><li>placard</li><li>certificate of release to service</li><li>deferral</li></ol></details>
+    </div>
+
+    <!-- E4 -->
+    <div class="ex" id="e4">
+      <span class="tag">E4 · Grammar transformation</span>
+      <h3>Change direct speech into reported speech</h3>
+      <p>Fill the gap so the sentence reports what was said. Remember the backshift, and "say" versus "tell".</p>
+      <ol>
+        <li>"The item is deferred." &rarr; The engineer said the item <input class="gap" data-answer="was" size="8"> deferred.</li>
+        <li>"We can dispatch." &rarr; She said we <input class="gap" data-answer="could" size="8"> dispatch.</li>
+        <li>"The tank must stay empty." &rarr; He said the tank <input class="gap" data-answer="had to" size="8"> stay empty.</li>
+        <li>"I have signed the release." &rarr; He said he <input class="gap" data-answer="had" size="8"> signed the release.</li>
+        <li>"Placard the panel." &rarr; He told me <input class="gap" data-answer="to placard" size="12"> the panel.</li>
+        <li>"Is it a no-go item?" &rarr; She asked whether it <input class="gap" data-answer="was" size="8"> a no-go item.</li>
+        <li>"The inspection was done on Monday." &rarr; They said the inspection <input class="gap" data-answer="had been" size="10"> done on Monday.</li>
+        <li>"We will hold the slot." &rarr; He said they <input class="gap" data-answer="would" size="8"> hold the slot.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e4">Check</button><span class="score" data-score="e4"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>was</li><li>could</li><li>had to</li><li>had</li><li>to placard</li><li>was</li><li>had been</li><li>would</li></ol></details>
+    </div>
+
+    <!-- E5 -->
+    <div class="ex reading" id="e5">
+      <span class="tag">E5 · Reading 1</span> <span class="genre">Genre: Dispatch decision sheet</span>
+      <h3>Read the decision sheet, then answer</h3>
+      <div class="rtext">
+        <p><b>DISPATCH DECISION SHEET — A320 reg YL-BBX</b></p>
+        <p><b>Defect:</b> the centre-tank fuel quantity indication reads zero. The indication is inoperative.</p>
+        <p><b>MEL reference:</b> 28-42-01, repair category C. Rectification interval: 10 calendar days.</p>
+        <p><b>Proviso:</b> the fuel load must be confirmed by the drip sticks before each flight.</p>
+        <p><b>Restriction:</b> the centre tank must stay empty for dispatch.</p>
+        <p><b>Airworthiness directive:</b> AD 2019-0123 applies to the fuel pumps. It requires a repetitive inspection every 500 flight hours.</p>
+        <p><b>Compliance:</b> the last inspection was done on Monday. The next threshold is 40 flight hours away. The aircraft is in compliance.</p>
+        <p><b>Decision:</b> the defect is deferrable and the directive is valid. The aircraft may dispatch with the restriction.</p>
+        <p><b>Action:</b> fit an INOP placard on the fuel panel; raise the deferred defect in the technical log; brief the crew; complete the sign-off.</p>
+        <p><b>Deferral reference:</b> D-911.</p>
+      </div>
+      <ol>
+        <li>What is inoperative? <select class="gap" data-answer="the centre-tank fuel quantity indication"><option value=""></option><option>the centre-tank fuel quantity indication</option><option>the weather radar</option><option>one air-conditioning pack</option></select></li>
+        <li>What repair category is the item? <select class="gap" data-answer="c"><option value=""></option><option>A</option><option>B</option><option>C</option></select></li>
+        <li>How must the fuel load be confirmed? <input class="gap" data-answer="by the drip sticks|drip sticks|the drip sticks" size="16"></li>
+        <li>How often is the repetitive inspection due? <select class="gap" data-answer="every 500 flight hours"><option value=""></option><option>every 100 flight hours</option><option>every 500 flight hours</option><option>every 10 days</option></select></li>
+        <li>What is the restriction? <select class="gap" data-answer="the centre tank must stay empty"><option value=""></option><option>the centre tank must stay empty</option><option>the flight must stay below FL310</option><option>the aircraft must not fly at night</option></select></li>
+        <li>When may you complete the sign-off? <select class="gap" data-answer="after the placard, the deferred defect and the crew brief"><option value=""></option><option>before any work starts</option><option>after the placard, the deferred defect and the crew brief</option><option>only the next day</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e5">Check</button><span class="score" data-score="e5"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>the centre-tank fuel quantity indication</li><li>C</li><li>by the drip sticks</li><li>every 500 flight hours</li><li>the centre tank must stay empty</li><li>after the placard, the deferred defect and the crew brief</li></ol></details>
+    </div>
+
+    <!-- E6 -->
+    <div class="ex" id="e6">
+      <span class="tag">E6 · Error-spotting</span>
+      <h3>Find and fix eight errors</h3>
+      <p>This handover note has eight mistakes in the reported speech — no backshift, "say" for "tell", wrong question order, a missing article, a time word, and a double modal. Type the correct words in each box.</p>
+      <div class="rtext" style="background:var(--bg-sunken);border-radius:6px;padding:12px 16px">
+        <p>HANDOVER NOTE. The planner <u>said the item is deferred</u> [1] under the MEL. He <u>said me</u> [2] the centre tank must stay empty. The records office <u>said the repetitive inspection is done</u> [3] last week, so the aircraft was in compliance. The captain <u>asked can we dispatch</u> [4], and I told her we could. She <u>said she is happy</u> [5] to accept <u>aircraft</u> [6]. <u>Tomorrow</u> [7] we <u>will can fix</u> [8] the indication.</p>
+      </div>
+      <ol>
+        <li>[1] <u>said the item is deferred</u> &rarr; said the item <input class="gap" data-answer="was" size="8"> deferred</li>
+        <li>[2] <u>He said me</u> &rarr; He <input class="gap" data-answer="told me" size="10"></li>
+        <li>[3] <u>the inspection is done</u> &rarr; the inspection <input class="gap" data-answer="had been done|had been" size="14"></li>
+        <li>[4] <u>asked can we dispatch</u> &rarr; asked <input class="gap" data-answer="whether we could dispatch" size="24"></li>
+        <li>[5] <u>She said she is happy</u> &rarr; She said she <input class="gap" data-answer="was" size="8"> happy</li>
+        <li>[6] <u>accept aircraft</u> &rarr; accept <input class="gap" data-answer="the aircraft" size="12"></li>
+        <li>[7] <u>Tomorrow</u> &rarr; <input class="gap" data-answer="the next day" size="12"></li>
+        <li>[8] <u>will can fix</u> &rarr; <input class="gap" data-answer="would be able to fix|would be able to" size="18"></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e6">Check</button><span class="score" data-score="e6"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>was (backshift: is &rarr; was)</li><li>told me ("tell" takes a person)</li><li>had been done (past perfect)</li><li>whether we could dispatch (reported question, no "can")</li><li>was (backshift)</li><li>the aircraft (add the article)</li><li>the next day (time shift from "tomorrow")</li><li>would be able to fix (no double modal "will can")</li></ol></details>
+    </div>
+
+    <!-- E7 -->
+    <div class="ex reading" id="e7">
+      <span class="tag">E7 · Reading 2</span> <span class="genre">Genre: Technical-log deferred-defect page</span>
+      <h3>Read the tech-log page, then answer</h3>
+      <div class="rtext">
+        <p><b>TECHNICAL LOG — DEFERRED DEFECT PAGE</b></p>
+        <p><b>A/C reg:</b> YL-BBX. <b>Date:</b> 08 AUG. <b>Station:</b> RIX. <b>Stand:</b> 9.</p>
+        <p><b>Reported by crew:</b> "Centre-tank fuel quantity reads zero."</p>
+        <p><b>Assessment:</b> the fuel quantity indication is inoperative. This is not a no-go item.</p>
+        <p><b>MEL ref:</b> 28-42-01, category C. Rectification interval: 10 days. Expiry: 18 AUG.</p>
+        <p><b>AD cross-reference:</b> AD 2019-0123 (fuel pumps). The repetitive inspection is valid; the next threshold is 40 flight hours. The aircraft is in compliance.</p>
+        <p><b>Restriction:</b> centre tank empty. <b>Proviso:</b> confirm the fuel by the drip sticks each flight.</p>
+        <p><b>Maintenance action:</b> fuel panel placarded "INOP". Deferred defect raised. Fuel confirmed by the drip sticks; the figure matches the load sheet.</p>
+        <p><b>Crew brief:</b> the captain said she was happy to accept the aircraft with the restriction.</p>
+        <p><b>Sign-off:</b> certificate of release to service signed by A. Berzina, licence B1. Deferral ref: D-911.</p>
+        <p><b>Follow-up:</b> operations held the slot; the turnaround is complete.</p>
+      </div>
+      <ol>
+        <li>Is this a no-go item? <select class="gap" data-answer="no"><option value=""></option><option>yes</option><option>no</option></select></li>
+        <li>When does the rectification interval expire? <input class="gap" data-answer="18 aug|18 august|18" size="12"></li>
+        <li>Which AD is cross-referenced? <input class="gap" data-answer="ad 2019-0123|2019-0123" size="14"></li>
+        <li>Is the aircraft in compliance? <select class="gap" data-answer="yes"><option value=""></option><option>yes</option><option>no</option></select></li>
+        <li>What did the captain say? <select class="gap" data-answer="she was happy to accept the aircraft"><option value=""></option><option>she was happy to accept the aircraft</option><option>she refused the aircraft</option><option>she wanted a new slot</option></select></li>
+        <li>Who signed the certificate of release to service? <select class="gap" data-answer="the certifying engineer"><option value=""></option><option>the captain</option><option>the certifying engineer</option><option>the planner</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e7">Check</button><span class="score" data-score="e7"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>no</li><li>18 AUG</li><li>AD 2019-0123</li><li>yes</li><li>she was happy to accept the aircraft</li><li>the certifying engineer (A. Berzina)</li></ol></details>
+    </div>
+
+    <!-- E8 -->
+    <div class="ex" id="e8">
+      <span class="tag">E8 · Listening review</span>
+      <h3>Replay Dialogue 3, then answer</h3>
+      <p>Play Dialogue 3 again. Answer from what you hear.</p>
+      <ol>
+        <li>Who has accepted the aircraft? <select class="gap" data-answer="the captain"><option value=""></option><option>the planner</option><option>the captain</option><option>the records office</option></select></li>
+        <li>What did the captain say? <select class="gap" data-answer="she was happy to accept the aircraft with the restriction"><option value=""></option><option>she was happy to accept the aircraft with the restriction</option><option>she wanted a different aircraft</option><option>she could not fly tonight</option></select></li>
+        <li>What did the captain ask about? <select class="gap" data-answer="whether the repetitive inspection was still valid"><option value=""></option><option>whether the repetitive inspection was still valid</option><option>whether the slot had slipped</option><option>whether the fuel was confirmed</option></select></li>
+        <li>What is the deferral reference? <input class="gap" data-answer="d-911|delta-nine-one-one|911" size="14"></li>
+        <li>What must the crew know about the centre tank? <select class="gap" data-answer="it must stay empty"><option value=""></option><option>it must stay empty</option><option>it must be full</option><option>it may be used above FL310</option></select></li>
+        <li>Where is the restriction recorded? <select class="gap" data-answer="in the technical log and on the placard"><option value=""></option><option>in the technical log and on the placard</option><option>only in the flight plan</option><option>only in the load sheet</option></select></li>
+        <li>What does Anna raise at the end? <input class="gap" data-answer="the certificate of release to service|certificate of release to service" size="30"></li>
+        <li>What will Mark tell the next shift? <select class="gap" data-answer="that the item was deferred and the flight went out"><option value=""></option><option>that the item was deferred and the flight went out</option><option>that the aircraft was grounded</option><option>that the AD had expired</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e8">Check</button><span class="score" data-score="e8"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>the captain</li><li>she was happy to accept the aircraft with the restriction</li><li>whether the repetitive inspection was still valid</li><li>D-911 (delta-nine-one-one)</li><li>it must stay empty</li><li>in the technical log and on the placard</li><li>the certificate of release to service</li><li>that the item was deferred and the flight went out</li></ol></details>
+    </div>
+  </section>
+
+  <!-- ============ SPEAKING ============ -->
+  <section class="lecture-section" id="speaking">
+    <h2><span class="secnum">06</span>Speaking — role-plays</h2>
+    <p>Work in pairs. Take one role each, then swap after each card. Use the useful phrases, keep sentences short, and relay what the other people said in reported speech.</p>
+
+    <div class="roleplay">
+      <h4>Role-play card 1 — Engineer and planner combine the facts</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>A green hydraulic pump gives a low-pressure warning near departure. There is also an open airworthiness directive on the pump.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A)</span>Certifying engineer. Report the defect and check the minimum equipment list.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>Combine the defect, the MEL and the airworthiness directive into a go or no-go decision.</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>The … is inoperative.</span><span>What did the records office say?</span><span>Are we in compliance?</span><span>The MEL adds a restriction.</span></div></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 2 — Engineer justifies the decision to the captain</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>You must brief the captain on a deferral and its restriction before boarding.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A)</span>Certifying engineer. Relay what the planner and the records office said.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>Justify the dispatch clearly and state the restriction the crew must follow.</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>The planner said we could defer it.</span><span>They said the inspection had been done.</span><span>Mark told me the tank had to stay empty.</span></div></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 3 — Relaying the captain's questions</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>The captain has questions. The planner is on the phone and cannot hear her, so you relay them.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A/B)</span>Engineer relays the captain's questions; planner answers each one.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>Report the questions correctly: "She asked whether …", "She wanted to know if …".</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>She asked whether the AD was valid.</span><span>She wanted to know if the slot had slipped.</span><span>She asked when the interval expired.</span></div></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 4 — Shift handover</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>You hand over the deferred defect and the whole decision to the next shift.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A)</span>Outgoing engineer. Relay the decision, the restriction and the expiry of the rectification interval.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>Make sure the next shift knows the sign-off was done and can track the threshold.</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>I deferred the item under the MEL.</span><span>The captain said she was happy to accept it.</span><span>The interval expires on …</span><span>The sign-off is done.</span></div></div>
+    </div>
+
+    <div class="aibox">
+      <h4>AI conversation partner</h4>
+      <p style="margin:0 0 4px">Paste one prompt into your chat buddy and hold the call in English. The buddy stays in role, speaks at B2, and gently corrects your mistakes.</p>
+      <div class="prompt"><button class="btn copybtn copy">Copy</button><code>You are Mark, a duty planner at the operations control centre. I am the certifying engineer calling you about an A320 with an inoperative fuel-quantity indication and an open airworthiness directive on the fuel pumps. Play the call. Speak only at CEFR B2 with short sentences. Ask me one question each turn about the defect, the MEL, the AD compliance, the threshold and the restriction. If I make an English mistake, gently repeat my sentence the correct way, then continue. English only; you may add one Latvian word in brackets for a hard term.</code></div>
+      <div class="prompt"><button class="btn copybtn copy">Copy</button><code>You are Ilze, the captain. I am the certifying engineer briefing you on a deferral before departure. Ask me to justify the dispatch. Make me relay what the planner and the records office said, using reported speech ("The planner said …", "They told me …"). Speak only at CEFR B2, keep answers short, and ask me one follow-up question each turn. Gently recast any error I make, then go on. English only, with an optional one-word Latvian gloss for a hard term.</code></div>
+      <div class="prompt"><button class="btn copybtn copy">Copy</button><code>Role-play a shift handover. You are the incoming engineer; I am the outgoing engineer. Ask me to relay the whole dispatch decision: the defect, the MEL deferral, the airworthiness directive compliance, the restriction and the sign-off. Make me use reported speech. Speak at CEFR B2, one question per turn, short sentences. Recast my mistakes softly instead of lecturing. English only, with one Latvian word in brackets if a term is hard.</code></div>
+    </div>
+  </section>
+
+  <!-- ============ WRITING ============ -->
+  <section class="lecture-section" id="writing">
+    <h2><span class="secnum">07</span>Writing — a dispatch decision record</h2>
+    <p>Write a short dispatch decision record for the technical log. Use Simplified Technical English (ASD-STE100): short sentences, one instruction each, the active voice, and approved words. Keep each sentence under about twenty words.</p>
+    <div class="callout">
+      <h4>Task</h4>
+      <p style="margin:0">A single brake-temperature indication (left main gear) is inoperative on an A320. The MEL item is repair category C (rectification interval ten days). The proviso is that the crew checks the brakes on the ground after landing. An open airworthiness directive on the brakes is in compliance; the next threshold is 60 flight hours away. The restriction is a lower maximum taxi speed. Write the record: state the defect, the MEL reference, the AD compliance, the restriction, the placard and the sign-off. Write 90–120 words in STE.</p>
+    </div>
+    <details class="answers"><summary>Show a model answer</summary>
+      <div class="rtext" style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:12px 16px;margin-top:8px">
+        <p><b>DISPATCH DECISION — LEFT BRAKE TEMPERATURE INDICATION INOPERATIVE</b></p>
+        <p>Defect: the left main-gear brake temperature indication is inoperative.</p>
+        <p>MEL reference: 32-42-01, repair category C. Rectification interval: 10 calendar days.</p>
+        <p>Airworthiness directive: AD 2021-0088 (brakes). The repetitive inspection is valid. The next threshold is 60 flight hours. The aircraft is in compliance.</p>
+        <p>Proviso: the crew checks the brakes on the ground after landing.</p>
+        <p>Restriction: use a lower maximum taxi speed.</p>
+        <p>Action: fit an "INOP" placard on the brake panel. Raise the deferred defect in the technical log. Brief the crew.</p>
+        <p>Sign-off: sign the certificate of release to service. Deferral reference recorded.</p>
+      </div>
+    </details>
+    <p style="margin-top:14px"><b>Self-check — tick each line before you hand in:</b></p>
+    <ul class="checklist">
+      <li>Every sentence is short (under about twenty words) and gives one idea.</li>
+      <li>I combined all three sources: the defect, the MEL and the airworthiness directive.</li>
+      <li>I stated the restriction and the compliance of the AD clearly.</li>
+      <li>I ended with the sign-off — the certificate of release to service.</li>
+    </ul>
+  </section>
+
+  <footer>
+    English for Aviation Maintenance · Unit 16 — Simulation: dispatch decision under pressure · CEFR B2 · Self-study language unit. Terms are for training only; always work from the current approved MEL, AD, AMM and company procedures.
+  </footer>
+</article>
+
+<script>
+(function(){
+  // ---- self-checking exercises ----
+  function norm(s){return (s||"").toString().trim().toLowerCase().replace(/\s+/g," ").replace(/[’']/g,"'").replace(/[",;:.]/g,"");}
+  function ok(el){
+    var raw = el.getAttribute("data-answer")||"";
+    var alts = raw.split("|").map(norm);
+    var val = norm(el.value);
+    return val!=="" && alts.indexOf(val)!==-1;
+  }
+  document.querySelectorAll("button.check").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var box = document.getElementById(btn.getAttribute("data-ex"));
+      var fields = box.querySelectorAll("[data-answer]");
+      var good=0;
+      fields.forEach(function(f){
+        f.classList.remove("ok","bad");
+        if(ok(f)){f.classList.add("ok");good++;}
+        else{f.classList.add("bad");}
+      });
+      var sc = box.querySelector("[data-score]");
+      sc.textContent = good+" / "+fields.length+" correct";
+      sc.classList.toggle("done", good===fields.length);
+    });
+  });
+  // ---- copy buttons for AI prompts ----
+  document.querySelectorAll("button.copy").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var code = btn.parentElement.querySelector("code").textContent;
+      var done=function(){var t=btn.textContent;btn.textContent="Copied!";setTimeout(function(){btn.textContent=t;},1200);};
+      if(navigator.clipboard && navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(done,done);}
+      else{try{var ta=document.createElement("textarea");ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();done();}catch(e){done();}}
+    });
+  });
+})();
+</script>
+</body><!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 16 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body></html>
