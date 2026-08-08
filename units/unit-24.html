@@ -1,0 +1,1488 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Simulation: avionics modification embodiment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-code:#1a1f2b; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  article{max-width:1020px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lang-mast{background:linear-gradient(135deg,#0f2942 0%,var(--color-primary) 62%,#3c66a8 100%);color:#fff;padding:46px 0 40px;position:relative;overflow:hidden}
+  .lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+  .lang-mast .in{max-width:1020px;margin:0 auto;padding:0 26px;position:relative;z-index:1}
+  .lang-mast .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.9;font-weight:600}
+  .lang-mast h1{font-family:var(--font-serif);font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.12;margin:12px 0 14px;font-weight:700;color:#fff;max-width:24ch}
+  .lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:5px 14px;font-size:13px}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px;margin-top:var(--space-6)}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:74ch}
+  a{color:var(--color-primary)}
+  .cancard{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm);margin:var(--space-5) 0}
+  .cancard h4{margin:0 0 var(--space-3);color:var(--color-primary-dark);font-size:1.02rem}
+  .cancard ul{margin:0;padding-left:1.1em}
+  .cancard li{margin:6px 0;color:#33384a}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .scene{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius);padding:var(--space-4) var(--space-5);font-family:var(--font-serif);font-size:17.5px;line-height:1.6;color:#33384a}
+  .dialogue{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .dialogue h3{margin:0 0 4px}
+  .dlabel{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-primary);font-weight:700}
+  .lang-audio-slot{background:var(--bg-sunken);border:1px dashed var(--color-primary-soft);border-radius:var(--radius-sm);padding:10px 14px;margin:10px 0;font-family:var(--font-mono);font-size:12px;color:var(--ink-muted);text-align:center}
+  .lang-audio-slot::before{content:"\1F50A  audio track loads here \2014 listen first, then open the transcript"}
+  details.transcript{border:1px solid var(--border-soft);border-radius:var(--radius-sm);background:var(--bg);margin-top:6px}
+  details.transcript>summary{cursor:pointer;padding:9px 14px;font-weight:600;font-size:14px;color:var(--color-primary-dark);font-family:var(--font-mono)}
+  .turns{padding:4px 16px 12px}
+  .turn{display:grid;grid-template-columns:38px 1fr;gap:12px;margin:7px 0;max-width:none}
+  .turn .spk{font-family:var(--font-mono);font-weight:700;color:var(--color-primary);font-size:13px;padding-top:2px}
+  .turn .said{color:#2a2e3c}
+  table.vocab-table,table.dt,table.form-t{border-collapse:collapse;margin-top:12px;font-size:14.5px;width:100%}
+  table.vocab-table th,table.vocab-table td,table.dt th,table.dt td,table.form-t th,table.form-t td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.vocab-table th,table.dt th,table.form-t th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em}
+  dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  .coll{font-family:var(--font-mono);font-size:12.5px;color:var(--accent)}
+  .quotebar{border-left:4px solid var(--gold);background:var(--bg-margin);padding:10px 16px;margin:10px 0;border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+  .quotebar .said{font-family:var(--font-serif);font-style:italic}
+  .wr{color:var(--bad);font-weight:600}.rt{color:var(--good);font-weight:600}
+  .fixrow{border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;margin:8px 0;background:var(--bg-elevated)}
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex .instr{font-weight:600;margin:6px 0 10px;color:var(--ink-soft)}
+  .ex ol{padding-left:1.4em}.ex ol li{margin:9px 0;max-width:80ch}
+  .reading-text{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;margin:8px 0;font-size:15px;line-height:1.62}
+  .reading-text .doc-head{font-family:var(--font-mono);font-size:12px;color:var(--color-primary);font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:8px}
+  input.gap{font-family:var(--font-mono);font-size:14px;padding:4px 8px;border:1px solid var(--border);border-radius:5px;background:#fff;min-width:130px}
+  select.pick{font-family:var(--font-sans);font-size:14px;padding:4px 6px;border:1px solid var(--border);border-radius:5px;background:#fff}
+  input.correct,select.correct{border-color:var(--good);background:#eaf5ec}
+  input.wrong,select.wrong{border-color:var(--bad);background:#fbecea}
+  button.btn{font-family:var(--font-sans);background:var(--color-primary);color:#fff;border:1px solid var(--color-primary);border-radius:8px;padding:7px 15px;font-size:14px;font-weight:600;cursor:pointer;transition:.14s;margin-top:8px}
+  button.btn:hover{background:var(--color-primary-dark)}
+  .exscore{font-family:var(--font-mono);font-weight:700;margin-left:12px;color:var(--color-primary-dark)}
+  details.rev{margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg)}
+  details.rev>summary{cursor:pointer;padding:8px 14px;font-weight:600;font-size:14px;color:var(--color-primary-dark)}
+  details.rev .body{padding:6px 16px 12px;font-size:14px}
+  .roleplay{background:var(--bg-elevated);border:1px solid var(--border);border-top:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:12px 0;box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 6px;font-size:1.05rem}
+  .roleplay .field{margin:6px 0}
+  .roleplay .flab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-primary);font-weight:700;display:block}
+  .roleplay .phrases{background:var(--bg);border:1px dashed var(--border);border-radius:var(--radius-sm);padding:8px 12px;font-size:14px;margin-top:4px}
+  .aibox{background:linear-gradient(180deg,#f4eefb,#fbfaf6);border:1px solid #e0d2f1;border-radius:var(--radius);padding:16px 20px;margin:16px 0}
+  .aibox h4{margin:0 0 6px;color:#5a4fcf}
+  .prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;margin:8px 0;font-family:var(--font-mono);font-size:13px;line-height:1.5;color:#2a2e3c}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:700px){.grid2{grid-template-columns:1fr}.turn{grid-template-columns:32px 1fr}}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .note{color:var(--ink-muted);font-size:14px}
+</style>
+<!--CF-LANG-UI--><style>/* CourseForge LANG: the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+/* LANG edition: Lang Buddy (in-lesson tutor) + pronunciation practice.
+   Uses the unit design tokens from lang-ui.css (--brand, --amber, --ink, --ink-2, --line, --paper). */
+
+.lb-root { font: 15px/1.6 'Inter', 'Segoe UI', system-ui, sans-serif; }
+
+.lb-fab {
+  position: fixed; right: 20px; bottom: 20px; z-index: 60;
+  display: flex; align-items: center; gap: 9px;
+  background: var(--brand, #2F5496); color: #fff; border: 0; cursor: pointer;
+  border-radius: 999px; padding: 12px 20px 12px 16px; font-size: 14.5px; font-weight: 600;
+  box-shadow: 0 2px 6px rgba(16, 32, 54, .16), 0 12px 30px rgba(16, 32, 54, .22);
+  transition: transform .16s, box-shadow .16s;
+}
+.lb-fab:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(16, 32, 54, .2), 0 18px 40px rgba(16, 32, 54, .26); }
+.lb-fab-i { font-size: 17px; line-height: 1; }
+
+.lb-panel {
+  position: fixed; right: 20px; bottom: 20px; z-index: 61;
+  width: 390px; max-width: calc(100vw - 32px); height: 580px; max-height: calc(100vh - 40px);
+  display: flex; flex-direction: column; overflow: hidden;
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(16, 32, 54, .1), 0 26px 60px rgba(16, 32, 54, .24);
+}
+.lb-panel[hidden] { display: none; }
+
+.lb-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line, #e2e6ec);
+  background: linear-gradient(180deg, #fff, #f8fafc);
+}
+.lb-head b { font-size: 15px; color: var(--ink, #1b2733); display: block; }
+.lb-sub { font-size: 12px; color: var(--ink-2, #5a6b7d); }
+.lb-x { background: 0; border: 0; font-size: 22px; line-height: 1; color: var(--ink-2, #5a6b7d); cursor: pointer; padding: 0 4px; }
+.lb-x:hover { color: var(--ink, #1b2733); }
+
+.lb-log { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.lb-msg { max-width: 84%; padding: 9px 13px; border-radius: 14px; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap; }
+.lb-you { align-self: flex-end; background: var(--brand, #2F5496); color: #fff; border-bottom-right-radius: 5px; }
+.lb-bot { align-self: flex-start; background: #f2f5f9; color: var(--ink, #1b2733); border-bottom-left-radius: 5px; }
+.lb-think { color: var(--ink-2, #5a6b7d); font-style: italic; }
+.lb-err { background: #fdeceb; color: #8c2f27; }
+
+.lb-gate { background: #fffdf6; border: 1px solid #f0dfbe; border-radius: 12px; padding: 13px 14px; font-size: 13.5px; }
+.lb-gate p { margin: 0 0 10px; color: var(--ink-2, #5a6b7d); line-height: 1.5; }
+.lb-key { width: 100%; padding: 9px 11px; border: 1px solid var(--line, #e2e6ec); border-radius: 9px; font-size: 13.5px; }
+.lb-save { margin-top: 9px; background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 9px; padding: 9px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+.lb-help { display: block; margin-top: 9px; font-size: 12.5px; color: var(--brand, #2F5496); }
+
+.lb-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
+.lb-q {
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px;
+  padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
+}
+.lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
+
+.lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
+.lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
+.lb-in:focus { outline: 0; border-color: var(--brand, #2F5496); box-shadow: 0 0 0 3px rgba(47, 84, 150, .12); }
+.lb-send { background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 11px; padding: 10px 17px; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 560px) {
+  .lb-panel { right: 8px; left: 8px; bottom: 8px; width: auto; height: calc(100vh - 70px); }
+  .lb-fab-t { display: none; }
+  .lb-fab { padding: 14px; }
+}
+
+/* ---- pronunciation practice ---------------------------------------------------------------- */
+.pron { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; padding: 18px 20px; margin: 20px 0; }
+.pron h3 { margin: 0 0 4px; font-size: 16.5px; color: var(--brand, #2F5496); }
+.pron .hint { margin: 0 0 14px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.pron-line { border-top: 1px solid #eef1f5; padding: 13px 0; }
+.pron-line:first-of-type { border-top: 0; }
+.pron-target { font-size: 15.5px; line-height: 1.6; color: var(--ink, #1b2733); margin-bottom: 9px; }
+.pron-target span { padding: 1px 2px; border-radius: 4px; }
+.pron-target span.hit { background: #e6f6ee; color: #0f6e56; }
+.pron-target span.miss { background: #fdeceb; color: #8c2f27; }
+.pron-bar { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.pron-rec {
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 999px;
+  padding: 8px 16px; font-size: 13.5px; font-weight: 600; font-family: inherit;
+}
+.pron-rec[data-on="1"] { background: #c0392b; animation: pron-pulse 1.1s ease-in-out infinite; }
+@keyframes pron-pulse { 0%, 100% { opacity: 1 } 50% { opacity: .62 } }
+.pron-score { font-size: 13.5px; font-weight: 600; color: var(--ink-2, #5a6b7d); }
+.pron-score.good { color: #0f6e56; }
+.pron-score.poor { color: #8c2f27; }
+.pron-heard { font-size: 13px; color: var(--ink-2, #5a6b7d); margin-top: 7px; font-style: italic; }
+.pron-note { font-size: 12.5px; color: var(--ink-2, #5a6b7d); margin-top: 12px; }
+
+/* ---- unit figures --------------------------------------------------------------------------- */
+.lang-fig { margin: 26px 0; padding: 0; background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; overflow: hidden; }
+.lang-fig .fig-head { padding: 13px 20px; border-bottom: 1px solid var(--line, #e2e6ec); background: #fbfcfe; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.lang-fig .fig-head b { color: var(--brand, #2F5496); font-weight: 600; }
+.lang-fig .fig-body { padding: 18px 16px; overflow-x: auto; }
+.lang-fig .fig-cap { margin: 0; padding: 0 20px 16px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); line-height: 1.55; }
+.lang-fig .fig-bar { padding: 0 20px 16px; }
+.fig-btn { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px; padding: 7px 15px; font-size: 12.5px; font-family: inherit; color: var(--brand, #2F5496); cursor: pointer; }
+.fig-btn:hover { border-color: var(--brand, #2F5496); background: #f6f9fd; }
+.fig-quiz { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 9px; padding: 0 20px 18px; }
+.fig-quiz label { display: flex; align-items: center; gap: 8px; }
+.fig-quiz label span { width: 22px; height: 22px; flex: none; border-radius: 50%; background: var(--brand, #2F5496); color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.fig-quiz input { flex: 1; min-width: 0; padding: 7px 10px; border: 1px solid var(--line, #e2e6ec); border-radius: 8px; font-size: 13px; font-family: inherit; }
+.fig-quiz input.ok { border-color: #0f6e56; background: #e6f6ee; color: #0f6e56; }
+.fig-quiz input.bad { border-color: #c0392b; background: #fdeceb; color: #8c2f27; }
+</style><!--/CF-LANG-UI--></head>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 24 of 32 · Simulation: avionics modification embodiment</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 modification, embodiment, deviation, configuration control</span></div></div></header>
+
+
+<article>
+
+  <div class="cancard">
+    <h4>By the end of this unit you can …</h4>
+    <ul>
+      <li>Carry out an SB-driven avionics modification end to end with a partner.</li>
+      <li>Coordinate documentation, wiring, load and test in sequence.</li>
+      <li>Report completion and any deviations.</li>
+    </ul>
+  </div>
+
+  <section class="lecture-section" id="scenario">
+    <h2><span class="secnum">01</span>Scenario</h2>
+    <p>Today is a simulation day. You and a partner work as avionics technicians in a Part-145 hangar. A service bulletin asks you to modify the number-two radio on aircraft MSN 4471. You must run the whole job in sequence: read the paperwork, change the wiring, load the software, test the system and sign it off. This is real configuration control, so every step is traced. Work slowly, read each reference aloud, and record any deviation before you release the aircraft.</p>
+    <div class="scene">You are the certifying team on the late shift. The task cards are signed out to you. One of you drives the tools; the other reads the references and watches the screen. Nothing is embodied until the tech log entry is written and the sign-off is stamped.</div>
+    <p>Why do we practise the whole job as one sequence? Because a real embodiment fails when the steps drift out of order. If you skip the effectivity check, you may modify the wrong aircraft. If you load the software before the wiring is proven, you waste an hour when continuity is bad. Therefore, in this simulation, you keep the paperwork, the tools and the test in strict order, and you speak each step aloud so your partner can catch a mistake early.</p>
+    <div class="callout">
+      <h4>How this simulation runs</h4>
+      <p style="margin:0">You take the job through five stages: documentation, wiring, software load, functional test, and completion. At the end of each stage, one partner reports what is done, while the other confirms it against the reference. Although the language stays simple, the discipline is real: unless a stage is confirmed, you do not move on. When a fault appears, you decide together whether it is an accepted deviation or a genuine snag that stops the release.</p>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">02</span>Listening, three dialogues and a voicemail</h2>
+    <p>Listen to each track first. Do not read yet. Then open the transcript and read along. The four speakers are two avionics technicians, Rihards (A) and Anna (B), and one shift handover message.</p>
+
+    <div class="dialogue">
+      <h3>Dialogue 1: Reading the paperwork</h3>
+      <p class="dlabel">Documentation &amp; configuration control</p>
+      <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u24-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:43 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turns">
+          <div class="turn"><span class="spk">A</span><span class="said">Morning, Anna. Today we embody a new service bulletin on the number-two radio.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">Good morning. Before we begin, is this service bulletin mandatory, or is it optional?</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">It is optional, because there is no airworthiness directive behind it. We still choose to embody it.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">Understood. Let me check the effectivity, so that it truly applies to our aircraft.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">The effectivity list shows serial number 4471, therefore the modification is valid for us.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">Good. The service bulletin calls for two task cards, although the wiring card comes first.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Correct. We use task card 24-51-A for the wiring, then 24-51-B for the software load.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">I will open the wiring diagram from chapter 23, unless you already have it here.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">I have it. First, confirm the part number of the new connector before we touch anything.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">The part number matches the service bulletin exactly, so we may fit this connector.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Remember, this whole job is configuration control. Every change must be traced on paper.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">Agreed. We record the old modification status now, and the new one after the test.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Exactly. The aircraft moves from pre-mod to post-mod, and nothing is left unrecorded.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">I have raised the work order in the system, and it links to both task cards.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Well done. Now read me the warnings on the first card before we open the panel.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">It says isolate the power, and confirm the radio is de-energised before we start.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="dialogue">
+      <h3>Dialogue 2: Making the change</h3>
+      <p class="dlabel">Wiring change &amp; software load</p>
+      <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u24-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:37 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turns">
+          <div class="turn"><span class="spk">A</span><span class="said">Power is isolated now, so open the avionics bay and locate the main harness.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">Here it is. The old connector sits behind the second rack, although I can still reach it.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Handle the pins with care. Unlock the connector, then pull it straight, never sideways.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">It is out. The new connector carries one extra wire, exactly as the wiring diagram shows.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Good. Route the new wire along the harness, and tie it every ten centimetres.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">Done. Should I test continuity now, before I mate and lock the connector?</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Please do. Put the meter on both ends, and confirm the reading is almost zero.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">Continuity is good on every pin, because there is no break along the wire.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Excellent. Now mate the connector and lock it, until you hear a firm click.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">It clicked, and the harness feels secure. We can move on to the software load.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Right. Connect the laptop to the data port, then open the loader tool.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">The tool asks for the part number of the new software, so I will type it in.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Good. Start the upload, and do not disconnect until it reports the load is complete.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">It is loading, and now it is done. The software load finished with no error.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">That is the wiring and the software finished. The modification is nearly complete.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">Agreed. Only the functional test is left, and then we record the embodiment.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="dialogue">
+      <h3>Dialogue 3: Test, deviation and sign-off</h3>
+      <p class="dlabel">Functional test &amp; completion</p>
+      <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u24-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:31 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turns">
+          <div class="turn"><span class="spk">A</span><span class="said">Power is back on, so let us run the functional test from the task card.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">The radio powers up, and the display looks normal. Now I start the built-in test.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Good. The BITE will check the radio, and report any fault by itself.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">The BITE is running, and it shows one amber message. Let me read it carefully.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">What does it say? Is it a real snag, or just a normal warm-up note?</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">It reads "antenna gain low", so this looks like a genuine snag to me.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">The service bulletin allows this, provided the gain stays above the stated limit.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">Let me check the value. It reads minus three, although the limit is minus five.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">So we are still inside the limit. This counts as a deviation, but an accepted one.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">Understood. I will record the deviation on the work order, with the exact reading.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Please do. The rest of the test passed, since the radio transmits and receives well.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">The functional test is complete, and every step is signed. The embodiment is finished.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Now update the modification status in the system, from pre-mod to post-mod.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">Done. Configuration control is updated, so the aircraft record shows the new modification.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Last of all, write the tech log entry, and I will stamp the sign-off.</span></div>
+          <div class="turn"><span class="spk">B</span><span class="said">The entry is written, and you have signed it. We have embodied the modification.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="dialogue">
+      <h3>Track 4: Shift-handover voicemail</h3>
+      <p class="dlabel">Announcement · listen only</p>
+      <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u24-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:37 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turns">
+          <div class="turn"><span class="spk">A</span><span class="said">Hi, this is Rihards on the late shift. This message is a handover for the night team.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">We have embodied the service bulletin on the number-two radio. The wiring and the software load are complete.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">The functional test passed, but the BITE showed one deviation. The antenna gain reads minus three, inside the limit.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">I have recorded the deviation on the work order. The modification status is now post-mod.</span></div>
+          <div class="turn"><span class="spk">A</span><span class="said">Please review the tech log before you sign the release. If you have any doubt, call me on extension four-one.</span></div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">03</span>Vocabulary bank</h2>
+    <p>These are the specialist terms for this unit. Each entry gives a plain meaning, one example at your level, and a word partner (collocation). Learn the collocation, not just the single word, because that is how technicians say it on the line.</p>
+    <table class="vocab-table">
+      <thead><tr><th>Term</th><th>Plain meaning</th><th>Example sentence</th><th>Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="modification">modification</dfn></td><td>a change to the aircraft or its equipment</td><td>We embody one modification today, and we record it in full.</td><td class="coll">embody a modification</td></tr>
+        <tr><td><dfn data-term="embodiment">embodiment</dfn></td><td>the full act of carrying out a modification</td><td>The embodiment is finished once the test passes and we sign.</td><td class="coll">complete the embodiment</td></tr>
+        <tr><td><dfn data-term="service bulletin">service bulletin</dfn></td><td>a maker's instruction to change or improve a product</td><td>This service bulletin is optional, because no directive requires it.</td><td class="coll">embody a service bulletin</td></tr>
+        <tr><td><dfn data-term="airworthiness directive">airworthiness directive</dfn></td><td>a mandatory order from the authority to fix a safety issue</td><td>An airworthiness directive is mandatory, so we cannot ignore it.</td><td class="coll">comply with an airworthiness directive</td></tr>
+        <tr><td><dfn data-term="deviation">deviation</dfn></td><td>a small, recorded difference from the normal result</td><td>We log the deviation on the work order, with the exact reading.</td><td class="coll">record a deviation</td></tr>
+        <tr><td><dfn data-term="configuration control">configuration control</dfn></td><td>tracing every change so the aircraft record stays correct</td><td>Configuration control means every change is traced on paper.</td><td class="coll">maintain configuration control</td></tr>
+        <tr><td><dfn data-term="effectivity">effectivity</dfn></td><td>the list of aircraft that a modification applies to</td><td>The effectivity list shows our serial number, so the job applies.</td><td class="coll">check the effectivity</td></tr>
+        <tr><td><dfn data-term="task card">task card</dfn></td><td>a job sheet with the steps you must follow</td><td>The task card lists each step, warning and reference.</td><td class="coll">sign off the task card</td></tr>
+        <tr><td><dfn data-term="wiring diagram">wiring diagram</dfn></td><td>a drawing that shows how the wires are connected</td><td>The wiring diagram shows the extra wire on the new connector.</td><td class="coll">read the wiring diagram</td></tr>
+        <tr><td><dfn data-term="harness">harness</dfn></td><td>a bundle of wires tied together</td><td>Route the new wire along the harness, and tie it neatly.</td><td class="coll">route the harness</td></tr>
+        <tr><td><dfn data-term="connector">connector</dfn></td><td>a plug that joins two parts of a circuit</td><td>Unlock the connector, then pull it straight, never sideways.</td><td class="coll">mate the connector</td></tr>
+        <tr><td><dfn data-term="continuity">continuity</dfn></td><td>an unbroken electrical path along a wire</td><td>We test continuity on every pin, to prove there is no break.</td><td class="coll">test continuity</td></tr>
+        <tr><td><dfn data-term="software load">software load</dfn></td><td>the act of putting new software into a unit</td><td>The software load finished cleanly, with no error message.</td><td class="coll">start the software load</td></tr>
+        <tr><td><dfn data-term="part number">part number</dfn></td><td>the number that identifies a part</td><td>Confirm the part number before you fit the new connector.</td><td class="coll">confirm the part number</td></tr>
+        <tr><td><dfn data-term="modification status">modification status</dfn></td><td>whether the aircraft is pre-mod or post-mod</td><td>We update the modification status to post-mod after the test.</td><td class="coll">update the modification status</td></tr>
+        <tr><td><dfn data-term="functional test">functional test</dfn></td><td>a check that a system works correctly</td><td>The functional test proves the radio transmits and receives well.</td><td class="coll">run the functional test</td></tr>
+        <tr><td><dfn data-term="BITE">BITE</dfn></td><td>built-in test equipment; the unit's own self-test</td><td>The BITE checks the radio, and reports any fault by itself.</td><td class="coll">run the BITE</td></tr>
+        <tr><td><dfn data-term="snag">snag</dfn></td><td>a fault or problem found on the aircraft</td><td>A snag is a fault, so we record it before we release.</td><td class="coll">clear a snag</td></tr>
+        <tr><td><dfn data-term="sign-off">sign-off</dfn></td><td>the final signature that closes the job</td><td>The lead technician stamps the sign-off at the very end.</td><td class="coll">complete the sign-off</td></tr>
+        <tr><td><dfn data-term="tech log">tech log</dfn></td><td>the aircraft's running record of work and faults</td><td>Write the result in the tech log before you close the job.</td><td class="coll">enter it in the tech log</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">04</span>Grammar in context, present perfect for reported completion</h2>
+    <p>When you report a job as done, English uses the present perfect: <strong>have</strong> or <strong>has</strong> plus the past participle. The embodiment is an achieved result, so you say what has been done, not when. Look at these lines from the dialogues and the voicemail:</p>
+    <div class="quotebar"><span class="said">"We have embodied the modification."</span></div>
+    <div class="quotebar"><span class="said">"I have raised the work order in the system."</span></div>
+    <div class="quotebar"><span class="said">"I have recorded the deviation on the work order."</span></div>
+    <p>The pattern is simple. The subject chooses <em>have</em> or <em>has</em>. Then you add the third form of the verb, the past participle. You use it for a finished action with a result now. You do not add a finished-time word, such as <em>yesterday</em>.</p>
+
+    <table class="form-t">
+      <thead><tr><th>Subject</th><th>have / has</th><th>Past participle</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>I / You / We / They</td><td>have</td><td>embodied</td><td>We have embodied the modification.</td></tr>
+        <tr><td>He / She / It</td><td>has</td><td>loaded</td><td>The technician has loaded the software.</td></tr>
+        <tr><td>Question</td><td>Have / Has</td><td>+ subject + participle</td><td>Have you signed the tech log?</td></tr>
+        <tr><td>Negative</td><td>have not / has not</td><td>+ participle</td><td>We have not found any other snag.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Three common mistakes (Latvian / Russian speakers)</h3>
+    <div class="fixrow"><strong>1. Do not drop the auxiliary <em>have</em>.</strong><br>
+      <span class="wr">✗ We already embodied the modification.</span><br>
+      <span class="rt">✓ We have already embodied the modification.</span><br>
+      <span class="note">Latvian and Russian have no present perfect, so learners drop <em>have</em>. Keep it for a result now.</span></div>
+    <div class="fixrow"><strong>2. Use the correct third form of the verb.</strong><br>
+      <span class="wr">✗ The technician has wrote the entry.</span><br>
+      <span class="rt">✓ The technician has written the entry.</span><br>
+      <span class="note">The present perfect uses the past participle (written, done, taken), not the past simple (wrote, did, took).</span></div>
+    <div class="fixrow"><strong>3. Do not use the present perfect with a finished time.</strong><br>
+      <span class="wr">✗ We have finished the test yesterday.</span><br>
+      <span class="rt">✓ We finished the test yesterday.</span><br>
+      <span class="note">With a finished-time word, such as <em>yesterday</em>, use the past simple. Keep the present perfect for "the result is now".</span></div>
+  </section>
+
+  <section class="lecture-section" id="exercises">
+    <h2><span class="secnum">05</span>Exercises</h2>
+    <p>Do the exercises in order. Type your answers, press <strong>Check</strong>, and the page marks them. Green means correct. Red means try again. Open <strong>Show answers</strong> only after you try.</p>
+
+    <div class="ex" id="e1">
+      <span class="tag">E1 · Gap-fill</span>
+      <p class="instr">Write one bank term in each gap. Use the exact term.</p>
+      <ol>
+        <li>There is no <input class="gap" data-answer="airworthiness directive">, so this bulletin is only optional.</li>
+        <li>We checked the <input class="gap" data-answer="effectivity"> list, to confirm the job applies to our aircraft.</li>
+        <li>The whole task is <input class="gap" data-answer="configuration control">, so every change is traced on paper.</li>
+        <li>Confirm the <input class="gap" data-answer="part number"> against the service bulletin before you fit the part.</li>
+        <li>We tested <input class="gap" data-answer="continuity"> on every pin, and found no break.</li>
+        <li>Route the new wire along the <input class="gap" data-answer="harness">, and tie it neatly.</li>
+        <li>The <input class="gap" data-answer="BITE"> is the unit's own self-test.</li>
+        <li>An accepted <input class="gap" data-answer="deviation"> is recorded on the work order.</li>
+        <li>After the test, we update the <input class="gap" data-answer="modification status"> to post-mod.</li>
+        <li>The lead technician stamps the <input class="gap" data-answer="sign-off"> at the end.</li>
+      </ol>
+      <button class="btn" onclick="checkEx('e1')">Check</button><span class="exscore"></span>
+      <details class="rev"><summary>Show answers</summary><div class="body">1 airworthiness directive · 2 effectivity · 3 configuration control · 4 part number · 5 continuity · 6 harness · 7 BITE · 8 deviation · 9 modification status · 10 sign-off</div></details>
+    </div>
+
+    <div class="ex" id="e2">
+      <span class="tag">E2 · Matching</span>
+      <p class="instr">Match each term to its plain meaning. Choose the letter from the menu.</p>
+      <p class="note">a = the aircraft's running record of work and faults · b = a fault found on the aircraft · c = a plug that joins two parts of a circuit · d = a drawing that shows how wires are connected · e = a change to the aircraft or its equipment · f = the act of putting new software into a unit · g = a maker's instruction to change a product · h = the full act of carrying out a modification · i = a job sheet with the steps you follow · j = a check that a system works correctly</p>
+      <ol>
+        <li>modification, <select class="pick" data-answer="e"><option value=""></option><option value="a">a</option><option value="b">b</option><option value="c">c</option><option value="d">d</option><option value="e">e</option><option value="f">f</option><option value="g">g</option><option value="h">h</option><option value="i">i</option><option value="j">j</option></select></li>
+        <li>embodiment, <select class="pick" data-answer="h"><option value=""></option><option value="a">a</option><option value="b">b</option><option value="c">c</option><option value="d">d</option><option value="e">e</option><option value="f">f</option><option value="g">g</option><option value="h">h</option><option value="i">i</option><option value="j">j</option></select></li>
+        <li>service bulletin, <select class="pick" data-answer="g"><option value=""></option><option value="a">a</option><option value="b">b</option><option value="c">c</option><option value="d">d</option><option value="e">e</option><option value="f">f</option><option value="g">g</option><option value="h">h</option><option value="i">i</option><option value="j">j</option></select></li>
+        <li>task card, <select class="pick" data-answer="i"><option value=""></option><option value="a">a</option><option value="b">b</option><option value="c">c</option><option value="d">d</option><option value="e">e</option><option value="f">f</option><option value="g">g</option><option value="h">h</option><option value="i">i</option><option value="j">j</option></select></li>
+        <li>wiring diagram, <select class="pick" data-answer="d"><option value=""></option><option value="a">a</option><option value="b">b</option><option value="c">c</option><option value="d">d</option><option value="e">e</option><option value="f">f</option><option value="g">g</option><option value="h">h</option><option value="i">i</option><option value="j">j</option></select></li>
+        <li>connector, <select class="pick" data-answer="c"><option value=""></option><option value="a">a</option><option value="b">b</option><option value="c">c</option><option value="d">d</option><option value="e">e</option><option value="f">f</option><option value="g">g</option><option value="h">h</option><option value="i">i</option><option value="j">j</option></select></li>
+        <li>software load, <select class="pick" data-answer="f"><option value=""></option><option value="a">a</option><option value="b">b</option><option value="c">c</option><option value="d">d</option><option value="e">e</option><option value="f">f</option><option value="g">g</option><option value="h">h</option><option value="i">i</option><option value="j">j</option></select></li>
+        <li>functional test, <select class="pick" data-answer="j"><option value=""></option><option value="a">a</option><option value="b">b</option><option value="c">c</option><option value="d">d</option><option value="e">e</option><option value="f">f</option><option value="g">g</option><option value="h">h</option><option value="i">i</option><option value="j">j</option></select></li>
+        <li>snag, <select class="pick" data-answer="b"><option value=""></option><option value="a">a</option><option value="b">b</option><option value="c">c</option><option value="d">d</option><option value="e">e</option><option value="f">f</option><option value="g">g</option><option value="h">h</option><option value="i">i</option><option value="j">j</option></select></li>
+        <li>tech log, <select class="pick" data-answer="a"><option value=""></option><option value="a">a</option><option value="b">b</option><option value="c">c</option><option value="d">d</option><option value="e">e</option><option value="f">f</option><option value="g">g</option><option value="h">h</option><option value="i">i</option><option value="j">j</option></select></li>
+      </ol>
+      <button class="btn" onclick="checkEx('e2')">Check</button><span class="exscore"></span>
+      <details class="rev"><summary>Show answers</summary><div class="body">1 e · 2 h · 3 g · 4 i · 5 d · 6 c · 7 f · 8 j · 9 b · 10 a</div></details>
+    </div>
+
+    <div class="ex" id="e3">
+      <span class="tag">E3 · Dialogue completion</span>
+      <p class="instr">Complete the short dialogue. Write one bank term in each gap.</p>
+      <ol>
+        <li>A: First, check the <input class="gap" data-answer="effectivity"> list, so we know the job applies to us.</li>
+        <li>B: It applies. I will open the <input class="gap" data-answer="wiring diagram"> from chapter 23.</li>
+        <li>A: Good. Confirm the <input class="gap" data-answer="part number"> of the new connector first.</li>
+        <li>B: It matches. Now I test <input class="gap" data-answer="continuity"> on every pin.</li>
+        <li>A: When that passes, do the <input class="gap" data-answer="software load"> from the laptop.</li>
+        <li>B: Done. Next we run the <input class="gap" data-answer="functional test">, to prove the radio works.</li>
+        <li>A: The <input class="gap" data-answer="BITE"> shows a small fault, but it is inside the limit.</li>
+        <li>B: So we log it as a <input class="gap" data-answer="deviation"> and write the tech log.</li>
+      </ol>
+      <button class="btn" onclick="checkEx('e3')">Check</button><span class="exscore"></span>
+      <details class="rev"><summary>Show answers</summary><div class="body">1 effectivity · 2 wiring diagram · 3 part number · 4 continuity · 5 software load · 6 functional test · 7 BITE · 8 deviation</div></details>
+    </div>
+
+    <div class="ex" id="e4">
+      <span class="tag">E4 · Grammar transformation</span>
+      <p class="instr">Write the present perfect. Type <em>have</em> or <em>has</em> plus the past participle of the verb in brackets.</p>
+      <ol>
+        <li>We <input class="gap" data-answer="have embodied"> (embody) the modification.</li>
+        <li>The technician <input class="gap" data-answer="has written"> (write) the tech log entry.</li>
+        <li>I <input class="gap" data-answer="have signed"> (sign) the work order already.</li>
+        <li>They <input class="gap" data-answer="have completed"> (complete) the functional test.</li>
+        <li>She <input class="gap" data-answer="has loaded"> (load) the new software.</li>
+        <li>We <input class="gap" data-answer="have recorded"> (record) the deviation on the card.</li>
+        <li>He <input class="gap" data-answer="has updated"> (update) the modification status.</li>
+        <li>The team <input class="gap" data-answer="has finished|have finished"> (finish) the wiring change.</li>
+        <li>You <input class="gap" data-answer="have checked"> (check) the continuity, haven't you?</li>
+        <li>We <input class="gap" data-answer="have not found|haven't found"> (not find) any other snag.</li>
+      </ol>
+      <button class="btn" onclick="checkEx('e4')">Check</button><span class="exscore"></span>
+      <details class="rev"><summary>Show answers</summary><div class="body">1 have embodied · 2 has written · 3 have signed · 4 have completed · 5 has loaded · 6 have recorded · 7 has updated · 8 has finished (or have finished) · 9 have checked · 10 have not found (haven't found)</div></details>
+    </div>
+
+    <div class="ex" id="e5">
+      <span class="tag">E5 · Reading 1, Service Bulletin</span>
+      <p class="instr">Read the service bulletin. Then answer the six questions. Choose a, b or c.</p>
+      <div class="reading-text">
+        <div class="doc-head">Service Bulletin 24-51 · Comm Radio No.2 · Accomplishment Instructions</div>
+        <p><strong>1. Planning.</strong> This service bulletin is optional. No airworthiness directive applies. Check the effectivity list. This modification applies to aircraft with serial number 4400 to 4600.</p>
+        <p><strong>2. Documentation.</strong> Raise a work order. Open task card 24-51-A for the wiring. Open task card 24-51-B for the software load. Print the wiring diagram from chapter 23.</p>
+        <p><strong>3. Wiring.</strong> Isolate the electrical power. Confirm the radio is de-energised. Remove the old connector. Fit the new connector, part number 622-1140-002. Test continuity on every pin. The reading must be below one ohm.</p>
+        <p><strong>4. Software.</strong> Connect the loader to the data port. Load software part number 285-A051. Do not disconnect during the load.</p>
+        <p><strong>5. Test.</strong> Run the functional test. Run the built-in test. If the antenna gain is below minus five, reject the aircraft. If the gain is above minus five, record a deviation.</p>
+        <p><strong>6. Records.</strong> Update the modification status to post-mod. Complete configuration control. Write the tech log. Sign the release.</p>
+      </div>
+      <ol>
+        <li>Is this modification mandatory? <select class="pick" data-answer="b"><option value=""></option><option value="a">a, yes, always</option><option value="b">b, no, it is optional</option><option value="c">c, only for old radios</option></select></li>
+        <li>Which aircraft are affected? <select class="pick" data-answer="a"><option value=""></option><option value="a">a, serial 4400 to 4600</option><option value="b">b, all aircraft</option><option value="c">c, only MSN 4471</option></select></li>
+        <li>What is the new connector part number? <select class="pick" data-answer="b"><option value=""></option><option value="a">a, 622-1140-001</option><option value="b">b, 622-1140-002</option><option value="c">c, 285-A051</option></select></li>
+        <li>The continuity reading must be… <select class="pick" data-answer="b"><option value=""></option><option value="a">a, above one ohm</option><option value="b">b, below one ohm</option><option value="c">c, exactly minus five</option></select></li>
+        <li>If the antenna gain is minus three, you… <select class="pick" data-answer="b"><option value=""></option><option value="a">a, reject the aircraft</option><option value="b">b, record a deviation</option><option value="c">c, stop the software load</option></select></li>
+        <li>The last step of the job is to… <select class="pick" data-answer="a"><option value=""></option><option value="a">a, sign the release</option><option value="b">b, remove the connector</option><option value="c">c, raise a work order</option></select></li>
+      </ol>
+      <button class="btn" onclick="checkEx('e5')">Check</button><span class="exscore"></span>
+      <details class="rev"><summary>Show answers</summary><div class="body">1 b · 2 a · 3 b · 4 b · 5 b (minus three is above minus five) · 6 a</div></details>
+    </div>
+
+    <div class="ex" id="e6">
+      <span class="tag">E6 · Error-spotting</span>
+      <p class="instr">Each line has one grammar error in the bold word. Type the correct word in the gap.</p>
+      <ol>
+        <li>We <strong>has</strong> embodied the modification. → <input class="gap" data-answer="have"></li>
+        <li>The team <strong>have</strong> finished the test yesterday. → <input class="gap" data-answer="finished"></li>
+        <li>I have <strong>wrote</strong> the tech log entry. → <input class="gap" data-answer="written"></li>
+        <li>She <strong>have</strong> signed the work order. → <input class="gap" data-answer="has"></li>
+        <li>We have <strong>record</strong> the deviation. → <input class="gap" data-answer="recorded"></li>
+        <li>Have you <strong>check</strong> the continuity? → <input class="gap" data-answer="checked"></li>
+        <li>The mechanic has <strong>did</strong> the functional test. → <input class="gap" data-answer="done"></li>
+        <li>We have <strong>embody</strong> the service bulletin. → <input class="gap" data-answer="embodied"></li>
+      </ol>
+      <button class="btn" onclick="checkEx('e6')">Check</button><span class="exscore"></span>
+      <details class="rev"><summary>Show answers</summary><div class="body">1 have · 2 finished · 3 written · 4 has · 5 recorded · 6 checked · 7 done · 8 embodied</div></details>
+    </div>
+
+    <div class="ex" id="e7">
+      <span class="tag">E7 · Reading 2, Work order &amp; tech log</span>
+      <p class="instr">Read the completed record. Then answer the six questions. Choose a, b or c.</p>
+      <div class="reading-text">
+        <div class="doc-head">Work Order W-88213 · Task Cards 24-51-A / 24-51-B · Tech Log Ref TL-0442</div>
+        <p>Aircraft MSN 4471. Date: 08 Aug 2026. Shift: late.</p>
+        <p>We have embodied service bulletin 24-51 on the number-two comm radio. The work order links to task card 24-51-A and task card 24-51-B.</p>
+        <p><strong>Wiring.</strong> We isolated the power and confirmed the radio was de-energised. We removed the old connector and fitted the new connector, part number 622-1140-002. We tested continuity on every pin. All readings were below one ohm.</p>
+        <p><strong>Software.</strong> We loaded software part number 285-A051 from the data port. The software load finished with no error.</p>
+        <p><strong>Test.</strong> The functional test passed. The BITE showed one message: antenna gain minus three. The limit is minus five, so the reading is inside the limit. We recorded this as an accepted deviation.</p>
+        <p><strong>Records.</strong> The modification status is now post-mod. Configuration control is updated. Open items: none. The release is ready for sign-off after review of the deviation.</p>
+      </div>
+      <ol>
+        <li>How many task cards are linked? <select class="pick" data-answer="b"><option value=""></option><option value="a">a, one</option><option value="b">b, two</option><option value="c">c, three</option></select></li>
+        <li>What was the continuity reading? <select class="pick" data-answer="a"><option value=""></option><option value="a">a, below one ohm</option><option value="b">b, above one ohm</option><option value="c">c, not tested</option></select></li>
+        <li>Did the software load fail? <select class="pick" data-answer="b"><option value=""></option><option value="a">a, yes, it failed</option><option value="b">b, no, it finished with no error</option><option value="c">c, it was aborted</option></select></li>
+        <li>The gain of minus three is… <select class="pick" data-answer="a"><option value=""></option><option value="a">a, inside the limit</option><option value="b">b, outside the limit</option><option value="c">c, not measured</option></select></li>
+        <li>What is the modification status now? <select class="pick" data-answer="b"><option value=""></option><option value="a">a, pre-mod</option><option value="b">b, post-mod</option><option value="c">c, unknown</option></select></li>
+        <li>What is still needed before release? <select class="pick" data-answer="b"><option value=""></option><option value="a">a, a new work order</option><option value="b">b, review of the deviation</option><option value="c">c, another software load</option></select></li>
+      </ol>
+      <button class="btn" onclick="checkEx('e7')">Check</button><span class="exscore"></span>
+      <details class="rev"><summary>Show answers</summary><div class="body">1 b · 2 a · 3 b · 4 a · 5 b · 6 b</div></details>
+    </div>
+
+    <div class="ex" id="e8">
+      <span class="tag">E8 · Listening review, Dialogue 3</span>
+      <p class="instr">Play Dialogue 3 again. Then answer the eight questions. Choose a, b or c.</p>
+      <ol>
+        <li>After the radio powers up, which test does B start? <select class="pick" data-answer="b"><option value=""></option><option value="a">a, the functional test</option><option value="b">b, the built-in test</option><option value="c">c, the continuity test</option></select></li>
+        <li>What colour is the message? <select class="pick" data-answer="b"><option value=""></option><option value="a">a, red</option><option value="b">b, amber</option><option value="c">c, green</option></select></li>
+        <li>What does the message say? <select class="pick" data-answer="a"><option value=""></option><option value="a">a, antenna gain low</option><option value="b">b, power fault</option><option value="c">c, no signal</option></select></li>
+        <li>What is the gain reading? <select class="pick" data-answer="a"><option value=""></option><option value="a">a, minus three</option><option value="b">b, minus five</option><option value="c">c, minus one</option></select></li>
+        <li>What is the limit? <select class="pick" data-answer="b"><option value=""></option><option value="a">a, minus three</option><option value="b">b, minus five</option><option value="c">c, zero</option></select></li>
+        <li>Is the reading inside the limit? <select class="pick" data-answer="a"><option value=""></option><option value="a">a, yes</option><option value="b">b, no</option><option value="c">c, not stated</option></select></li>
+        <li>Where is the deviation recorded? <select class="pick" data-answer="a"><option value=""></option><option value="a">a, on the work order</option><option value="b">b, in the wiring diagram</option><option value="c">c, on the connector</option></select></li>
+        <li>Who stamps the sign-off? <select class="pick" data-answer="a"><option value=""></option><option value="a">a, A, the lead technician</option><option value="b">b, B</option><option value="c">c, nobody</option></select></li>
+      </ol>
+      <button class="btn" onclick="checkEx('e8')">Check</button><span class="exscore"></span>
+      <details class="rev"><summary>Show answers</summary><div class="body">1 b · 2 b · 3 a · 4 a · 5 b · 6 a · 7 a · 8 a</div></details>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="speaking">
+    <h2><span class="secnum">06</span>Speaking, role-plays</h2>
+    <p>Work with a partner, or use the AI conversation partner below. Keep your sentences short. Read every reference aloud and confirm it, just like in the dialogues.</p>
+
+    <div class="grid2">
+      <div class="roleplay">
+        <h4>Role-play 1: Plan the job</h4>
+        <div class="field"><span class="flab">Situation</span> A service bulletin asks you to modify the number-two radio. You have the task cards.</div>
+        <div class="field"><span class="flab">Your role</span> Lead technician (A).</div>
+        <div class="field"><span class="flab">Your goal</span> Check the effectivity, confirm the part number, and agree the sequence with your partner.</div>
+        <div class="phrases"><span class="flab">Useful phrases</span> "Let me check the effectivity." · "Do you confirm the part number?" · "The wiring card comes first." · "This is configuration control."</div>
+      </div>
+
+      <div class="roleplay">
+        <h4>Role-play 2: Do the wiring</h4>
+        <div class="field"><span class="flab">Situation</span> You must change one connector and test continuity before the software load.</div>
+        <div class="field"><span class="flab">Your role</span> Assistant technician (B).</div>
+        <div class="field"><span class="flab">Your goal</span> Follow the wiring diagram, route the harness, and prove continuity on every pin.</div>
+        <div class="phrases"><span class="flab">Useful phrases</span> "Handle the pins with care." · "The wiring diagram shows an extra wire." · "Continuity is good." · "Shall I mate the connector?"</div>
+      </div>
+
+      <div class="roleplay">
+        <h4>Role-play 3: Test and report a deviation</h4>
+        <div class="field"><span class="flab">Situation</span> The functional test passes, but the BITE shows a snag: antenna gain minus three.</div>
+        <div class="field"><span class="flab">Your role</span> Lead technician (A).</div>
+        <div class="field"><span class="flab">Your goal</span> Decide if it is inside the limit, then record the deviation on the work order.</div>
+        <div class="phrases"><span class="flab">Useful phrases</span> "The BITE shows a snag." · "Is it inside the limit?" · "This is an accepted deviation." · "Record it on the work order."</div>
+      </div>
+
+      <div class="roleplay">
+        <h4>Role-play 4: Hand over and sign off</h4>
+        <div class="field"><span class="flab">Situation</span> Your shift ends. The embodiment is done, but the release still needs a review.</div>
+        <div class="field"><span class="flab">Your role</span> Off-going technician.</div>
+        <div class="field"><span class="flab">Your goal</span> Report completion: what you have embodied, the deviation, and what is left before sign-off.</div>
+        <div class="phrases"><span class="flab">Useful phrases</span> "We have embodied the modification." · "The modification status is post-mod." · "Please review the deviation." · "The tech log is ready."</div>
+      </div>
+    </div>
+
+    <div class="aibox">
+      <h4>AI conversation partner</h4>
+      <p class="note">Paste one prompt into the chat buddy. It will stay in role, speak at B2, and gently correct you.</p>
+      <div class="prompt">You are my lead technician on the line. We are embodying a service bulletin on the number-two radio (new connector part number 622-1140-002, software part number 285-A051). Talk me through the plan, step by step: effectivity, task cards, wiring, software load, functional test. Speak at CEFR B2 with short sentences. Ask me to confirm each reference aloud. If I make a mistake, gently recast it, then ask me one follow-up question.</div>
+      <div class="prompt">Role-play the wiring stage with me. You are my partner. I must remove the old connector, route the harness, and test continuity on every pin before the software load. Speak only at CEFR B2, keep answers short, and correct my English gently by repeating it correctly. Ask one question each turn.</div>
+      <div class="prompt">You are the night-shift supervisor. I am reporting a finished embodiment with one accepted deviation (antenna gain minus three, limit minus five). Ask me what I have embodied, the modification status, and what is left before sign-off. Stay in this scenario, speak at CEFR B2, recast any error I make without lecturing, and finish each turn with one follow-up question.</div>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="writing">
+    <h2><span class="secnum">07</span>Writing, a completion report in Simplified Technical English</h2>
+    <p>Write the completion report for the embodiment you did in the dialogues. Use <strong>ASD-STE100 Simplified Technical English</strong> habits: short sentences (no more than 20 words), one idea per sentence, the active voice, and simple approved words. Do not use two words when one is enough.</p>
+    <div class="callout">
+      <h4>Your task</h4>
+      <p style="margin:0">Write a completion report of 70–100 words. Report the job as done, so use the present perfect where you can. Include: the service bulletin and the aircraft, the wiring change and the software load, the functional test and the BITE result, the accepted deviation, the modification status, and the sign-off. End with your name and the date.</p>
+    </div>
+    <p class="note">STE tips: write "We have embodied the service bulletin", not "The embodiment of the bulletin has been accomplished". Write "The load is complete", not "The loading procedure has been finalised". Keep each sentence to one idea.</p>
+    <details class="rev"><summary>Show model answer</summary><div class="body">
+      <p><strong>Model answer.</strong> Aircraft MSN 4471. We have embodied service bulletin 24-51 on the number-two radio. We have fitted the new connector, part number 622-1140-002. We tested continuity on every pin, and all readings were below one ohm. We have loaded software part number 285-A051. The software load finished with no error. The functional test passed. The BITE showed antenna gain minus three. This is inside the limit, so we recorded an accepted deviation on the work order. The modification status is now post-mod. Configuration control is updated. Sign-off complete., A. Kalnina, 08 Aug 2026.</p>
+    </div></details>
+    <div class="callout" style="border-left-color:var(--gold);background:var(--bg-margin)">
+      <h4>Self-check: tick before you submit</h4>
+      <ul>
+        <li>Every sentence has 20 words or fewer, and one idea only.</li>
+        <li>I used the present perfect to report the job as done.</li>
+        <li>I included the service bulletin, the connector part number, and the software load.</li>
+        <li>I stated the deviation, the modification status and the sign-off, with my name and date.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>English for Aviation Maintenance · Unit 24 of 32 · Simulation: avionics modification embodiment · CEFR B2</footer>
+</article>
+
+<script>
+  function norm(s){return (s||'').trim().toLowerCase().replace(/[.\s]+$/,'').replace(/\s+/g,' ');}
+  function checkEx(id){
+    var root=document.getElementById(id);
+    var fields=root.querySelectorAll('[data-answer]');
+    var ok=0,total=0;
+    fields.forEach(function(f){
+      total++;
+      var val=norm(f.value);
+      var want=f.getAttribute('data-answer')||'';
+      var alts=want.split('|').map(norm);
+      if(alts.indexOf(val)>=0){f.classList.add('correct');f.classList.remove('wrong');ok++;}
+      else{f.classList.add('wrong');f.classList.remove('correct');}
+    });
+    var out=root.querySelector('.exscore');
+    if(out){out.textContent=ok+' / '+total+' correct'+(ok===total?'  ✓':'');}
+  }
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 24 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "modification", "def": "a change to the aircraft or its equipment"}, {"term": "embodiment", "def": "the full act of carrying out a modification"}, {"term": "service bulletin", "def": "a maker's instruction to change or improve a product"}, {"term": "airworthiness directive", "def": "a mandatory order from the authority to fix a safety issue"}, {"term": "deviation", "def": "a small, recorded difference from the normal result"}, {"term": "configuration control", "def": "tracing every change so the aircraft record stays correct"}, {"term": "effectivity", "def": "the list of aircraft that a modification applies to"}, {"term": "task card", "def": "a job sheet with the steps you must follow"}, {"term": "wiring diagram", "def": "a drawing that shows how the wires are connected"}, {"term": "harness", "def": "a bundle of wires tied together"}, {"term": "connector", "def": "a plug that joins two parts of a circuit"}, {"term": "continuity", "def": "an unbroken electrical path along a wire"}, {"term": "software load", "def": "the act of putting new software into a unit"}, {"term": "part number", "def": "the number that identifies a part"}, {"term": "modification status", "def": "whether the aircraft is pre-mod or post-mod"}, {"term": "functional test", "def": "a check that a system works correctly"}, {"term": "BITE", "def": "built-in test equipment; the unit's own self-test"}, {"term": "snag", "def": "a fault or problem found on the aircraft"}, {"term": "sign-off", "def": "the final signature that closes the job"}, {"term": "tech log", "def": "the aircraft's running record of work and faults"}], "lines": ["Morning, Anna. Today we embody a new service bulletin on the number-two radio.", "Good morning. Before we begin, is this service bulletin mandatory, or is it optional?", "It is optional, because there is no airworthiness directive behind it. We still choose to embody it.", "Understood. Let me check the effectivity, so that it truly applies to our aircraft.", "The effectivity list shows serial number 4471, therefore the modification is valid for us.", "Good. The service bulletin calls for two task cards, although the wiring card comes first.", "Correct. We use task card 24-51-A for the wiring, then 24-51-B for the software load.", "I will open the wiring diagram from chapter 23, unless you already have it here.", "I have it. First, confirm the part number of the new connector before we touch anything.", "The part number matches the service bulletin exactly, so we may fit this connector.", "Remember, this whole job is configuration control. Every change must be traced on paper.", "Agreed. We record the old modification status now, and the new one after the test.", "Exactly. The aircraft moves from pre-mod to post-mod, and nothing is left unrecorded.", "I have raised the work order in the system, and it links to both task cards.", "Well done. Now read me the warnings on the first card before we open the panel.", "It says isolate the power, and confirm the radio is de-energised before we start.", "Power is isolated now, so open the avionics bay and locate the main harness.", "Here it is. The old connector sits behind the second rack, although I can still reach it.", "Handle the pins with care. Unlock the connector, then pull it straight, never sideways.", "It is out. The new connector carries one extra wire, exactly as the wiring diagram shows.", "Good. Route the new wire along the harness, and tie it every ten centimetres.", "Done. Should I test continuity now, before I mate and lock the connector?", "Please do. Put the meter on both ends, and confirm the reading is almost zero.", "Continuity is good on every pin, because there is no break along the wire."], "roleplays": ["A service bulletin asks you to modify the number-two radio. You have the task cards.", "You must change one connector and test continuity before the software load.", "The functional test passes, but the BITE shows a snag: antenna gain minus three.", "Your shift ends. The embodiment is done, but the release still needs a review."], "grammar": "When you report a job as done, English uses the present perfect: have or has plus the past participle. The embodiment is an achieved result, so you say what has been done, not when. Look at these lines from the dialogues and the voicemail:", "scenario": "Today is a simulation day. You and a partner work as avionics technicians in a Part-145 hangar. A service bulletin asks you to modify the number-two radio on aircraft MSN 4471. You must run the whole job in sequence: read the paperwork, change the wiring, load the software, test the system and sign it off. This is real", "pron": ["Morning, Anna. Today we embody a new service bulletin on the number-two radio.", "Good morning. Before we begin, is this service bulletin mandatory, or is it optional?", "Understood. Let me check the effectivity, so that it truly applies to our aircraft.", "The effectivity list shows serial number 4471, therefore the modification is valid for us."], "course": "English for Aviation Maintenance", "unit": 24, "total": 32, "title": "Simulation: avionics modification embodiment", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": ["Latvian", "Russian"], "ai": {"mode": "embedded", "vendor": "mistral", "model": "mistral-small-latest", "key": "21MiROer1pp3ft9iWc1x9FO7pTgqaYKO"}, "figures": [{"type": "doc", "where": "scenario", "title": "Documents on the job", "docTitle": "Job pack, aircraft MSN 4471", "caption": "Notice the exact terms the paperwork uses to describe the modification.", "rows": [{"label": "service bulletin", "note": "It gives instructions to modify the number-two radio, but here it is optional."}, {"label": "effectivity", "note": "The list shows serial number 4471, so this aircraft is included."}, {"label": "task card", "note": "Two task cards cover the job: the wiring card comes before the software card."}, {"label": "wiring diagram", "note": "Anna checks the diagram before she changes the harness."}, {"label": "modification status", "note": "The record shows whether the radio has the old configuration or the new one."}, {"label": "sign-off", "note": "A certifying technician signs the task card when the embodiment is finished."}]}, {"type": "flow", "where": "grammar", "title": "Report each step: present perfect", "caption": "Notice have or has plus the past participle: the result matters, not the time.", "steps": [{"label": "Check the effectivity", "note": "Say: I have checked the effectivity list for MSN 4471."}, {"label": "Change the wiring", "note": "Say: Anna has changed the harness and fitted the new connector."}, {"label": "Load the software", "note": "Say: We have loaded the new part number into the number-two radio."}, {"label": "Run the functional test", "note": "Say: They have run the BITE and found no snag."}, {"label": "Sign off the task card", "note": "Say: The certifying staff has signed off the job in the tech log."}]}, {"type": "tree", "where": "scenario", "title": "Is the modification for us?", "caption": "Each question is a yes/no check technicians ask before they embody a service bulletin.", "levels": [{"q": "Is there an airworthiness directive behind it?", "yes": "The service bulletin is mandatory.", "no": "It is optional, though you may still choose to embody it."}, {"q": "Does the effectivity list show serial number 4471?", "yes": "The modification is valid for this aircraft.", "no": "Do not embody the modification on this aircraft."}]}, {"type": "compare", "where": "vocabulary", "title": "Service bulletin vs airworthiness directive", "a": "Service bulletin", "b": "Airworthiness directive", "caption": "Notice how the two documents differ in obligation, not in subject.", "rows": [["Mandatory?", "No, it is optional", "Yes, it is mandatory"], ["Who decides to embody it?", "The operator chooses", "The regulator requires it"], ["Example in this unit", "SB on the number-two radio", "None issued for this SB"], ["If you ignore it", "Modification status stays open", "The aircraft may lose its airworthiness"]]}, {"type": "timeline", "where": "speaking", "title": "Voicemail: job done today", "caption": "Notice the voicemail reports what has been done, not exactly when it happened.", "events": [{"t": "08:00", "e": "Task cards issued", "note": "The technician has read the wiring task card and the software task card."}, {"t": "09:30", "e": "Wiring changed", "note": "Anna has changed the harness and fitted the new connector."}, {"t": "11:00", "e": "Software loaded", "note": "The team has loaded the new part number into the number-two radio."}, {"t": "13:00", "e": "Functional test", "note": "They have run the BITE and found no snag."}, {"t": "14:30", "e": "Sign-off", "note": "The certifying staff has signed off the task card in the tech log."}]}]};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+//
+// It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
+// the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
+// buddy answers about THIS lesson rather than about English in general.
+//
+// Three ways to reach a model, chosen per course at build time:
+//   proxy: the page holds NO credential; it POSTs to a small endpoint that keeps the key.
+//   embedded: an institutional key is baked into the page. Convenient, but any learner who opens
+//              devtools can read it, so it is only defensible behind a login.
+//   byo: the learner pastes their own key; it is kept in localStorage and never leaves the
+//              browser except to the vendor.
+// Vendors: anything OpenAI-compatible (Mistral, OpenAI, Groq, DeepSeek, OpenRouter, Azure, a local
+// server), plus Anthropic and Google, whose request shapes differ.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !CFG.ai) return;
+
+  var AI = CFG.ai;
+  var LS_KEY = 'langbuddy.key.' + (AI.vendor || 'x');
+  var LS_HIST = 'langbuddy.hist.' + (CFG.course || '') + '.' + (CFG.unit || 0);
+
+  var PRESETS = {
+    mistral: { base: 'https://api.mistral.ai/v1', shape: 'openai', model: 'mistral-small-latest', keyUrl: 'https://console.mistral.ai/api-keys' },
+    openai: { base: 'https://api.openai.com/v1', shape: 'openai', model: 'gpt-4o-mini', keyUrl: 'https://platform.openai.com/api-keys' },
+    groq: { base: 'https://api.groq.com/openai/v1', shape: 'openai', model: 'llama-3.1-8b-instant', keyUrl: 'https://console.groq.com/keys' },
+    deepseek: { base: 'https://api.deepseek.com/v1', shape: 'openai', model: 'deepseek-chat', keyUrl: 'https://platform.deepseek.com/api_keys' },
+    openrouter: { base: 'https://openrouter.ai/api/v1', shape: 'openai', model: 'mistralai/mistral-small', keyUrl: 'https://openrouter.ai/keys' },
+    anthropic: { base: 'https://api.anthropic.com/v1', shape: 'anthropic', model: 'claude-haiku-4-5-20251001', keyUrl: 'https://console.anthropic.com/settings/keys' },
+    google: { base: 'https://generativelanguage.googleapis.com/v1beta', shape: 'google', model: 'gemini-2.0-flash', keyUrl: 'https://aistudio.google.com/apikey' }
+  };
+  var P = PRESETS[AI.vendor] || PRESETS.mistral;
+  var BASE = AI.baseUrl || P.base;
+  var SHAPE = AI.shape || P.shape;
+  var MODEL = AI.model || P.model;
+
+  function storedKey() {
+    try { return localStorage.getItem(LS_KEY) || ''; } catch (e) { return ''; }
+  }
+  function activeKey() {
+    return AI.mode === 'embedded' ? (AI.key || '') : storedKey();
+  }
+  function needsKey() {
+    return AI.mode !== 'proxy' && !activeKey();
+  }
+
+  // ---- what the buddy knows about this unit -------------------------------------------------
+  function systemPrompt() {
+    var lang = CFG.language || 'English';
+    var terms = (CFG.terms || []).map(function (t) { return t.term + (t.def ? ' = ' + t.def : ''); }).join('; ');
+    var lines = (CFG.lines || []).slice(0, 24).join('\n');
+    var l1 = (CFG.l1 || []).join(' or ');
+    return [
+      'You are Lang Buddy, a patient ' + lang + ' tutor inside an online lesson.',
+      'The learner is studying "' + (CFG.course || lang) + '", unit ' + (CFG.unit || '') + ': "' + (CFG.title || '') + '".',
+      'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
+      'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
+      '',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
+      'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
+      'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
+      'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
+      '',
+      'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
+      (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
+      (terms ? 'Vocabulary bank: ' + terms : ''),
+      (lines ? 'Lines from the unit dialogues you can refer to:\n' + lines : ''),
+      '',
+      'Rules. Answer questions about this unit first, using its own words and examples.',
+      'For exercises, give a hint or an example with a DIFFERENT word, never the answer itself;',
+      'if the learner insists, ask them to try once more, then explain the reasoning without',
+      'writing their answer for them. Correct their mistakes gently: repeat their sentence',
+      'correctly, then continue. If a question has nothing to do with language or this subject,',
+      'say so kindly and steer back to the lesson.'
+    ].filter(Boolean).join('\n');
+  }
+
+  // ---- vendor calls -------------------------------------------------------------------------
+  function callModel(messages, onDone, onFail) {
+    var key = activeKey();
+    var url, headers = { 'Content-Type': 'application/json' }, body;
+
+    if (AI.mode === 'proxy') {
+      url = AI.proxyUrl;
+      body = { model: MODEL, messages: [{ role: 'system', content: systemPrompt() }].concat(messages) };
+    } else if (SHAPE === 'anthropic') {
+      url = BASE + '/messages';
+      headers['x-api-key'] = key;
+      headers['anthropic-version'] = '2023-06-01';
+      headers['anthropic-dangerous-direct-browser-access'] = 'true';
+      body = { model: MODEL, max_tokens: 500, system: systemPrompt(), messages: messages };
+    } else if (SHAPE === 'google') {
+      url = BASE + '/models/' + MODEL + ':generateContent?key=' + encodeURIComponent(key);
+      body = {
+        systemInstruction: { parts: [{ text: systemPrompt() }] },
+        contents: messages.map(function (m) {
+          return { role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] };
+        })
+      };
+    } else {
+      url = BASE + '/chat/completions';
+      headers.Authorization = 'Bearer ' + key;
+      body = {
+        model: MODEL, max_tokens: 500, temperature: 0.4,
+        messages: [{ role: 'system', content: systemPrompt() }].concat(messages)
+      };
+    }
+
+    fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(body) })
+      .then(function (r) {
+        return r.text().then(function (t) {
+          var j = null;
+          try { j = JSON.parse(t); } catch (e) { /* keep the raw body for the error message */ }
+          if (!r.ok) {
+            var msg = (j && j.error && (j.error.message || j.error)) || t.slice(0, 160);
+            throw new Error(r.status === 401 || r.status === 403
+              ? 'The key was refused. Check it and try again.'
+              : (r.status === 429 ? 'Too many questions right now. Wait a moment, then ask again.' : String(msg)));
+          }
+          var out = '';
+          if (SHAPE === 'anthropic' && j.content) out = (j.content[0] || {}).text || '';
+          else if (SHAPE === 'google' && j.candidates) out = (((j.candidates[0] || {}).content || {}).parts || [{}])[0].text || '';
+          else out = (((j.choices || [{}])[0] || {}).message || {}).content || '';
+          if (!out) throw new Error('The model sent an empty answer. Try asking again.');
+          return out.trim();
+        });
+      })
+      .then(onDone)
+      .catch(function (e) { onFail(e.message || String(e)); });
+  }
+
+  // ---- UI -----------------------------------------------------------------------------------
+  var hist = [];
+  try { hist = JSON.parse(localStorage.getItem(LS_HIST) || '[]'); } catch (e) { hist = []; }
+
+  var root = document.createElement('div');
+  root.className = 'lb-root';
+  root.innerHTML =
+    '<button class="lb-fab" aria-label="Open Lang Buddy"><span class="lb-fab-i">💬</span>'
+    + '<span class="lb-fab-t">Lang Buddy</span></button>'
+    + '<section class="lb-panel" hidden aria-label="Lang Buddy">'
+    + '  <header class="lb-head"><div><b>Lang Buddy</b>'
+    + '    <span class="lb-sub">Unit ' + (CFG.unit || '') + ' · answers at ' + (CFG.cefr || 'B1') + '</span></div>'
+    + '    <button class="lb-x" aria-label="Close">×</button></header>'
+    + '  <div class="lb-log" role="log"></div>'
+    + '  <div class="lb-quick"></div>'
+    + '  <form class="lb-form"><input class="lb-in" autocomplete="off"'
+    + '    placeholder="Ask about this unit…"><button class="lb-send">Send</button></form>'
+    + '</section>';
+  document.body.appendChild(root);
+
+  var fab = root.querySelector('.lb-fab');
+  var panel = root.querySelector('.lb-panel');
+  var log = root.querySelector('.lb-log');
+  var form = root.querySelector('.lb-form');
+  var input = root.querySelector('.lb-in');
+  var quick = root.querySelector('.lb-quick');
+
+  function bubble(role, text, cls) {
+    var d = document.createElement('div');
+    d.className = 'lb-msg lb-' + role + (cls ? ' ' + cls : '');
+    d.textContent = text;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+    return d;
+  }
+
+  function keyGate() {
+    var box = document.createElement('div');
+    box.className = 'lb-gate';
+    box.innerHTML =
+      '<p>Lang Buddy needs a key for <b>' + (AI.vendor || 'the model') + '</b>. It is stored only in this'
+      + ' browser and is sent to the vendor, never to us.</p>'
+      + '<input class="lb-key" type="password" placeholder="Paste your API key">'
+      + '<button class="lb-save">Save key</button>'
+      + '<a class="lb-help" href="' + (P.keyUrl || '#') + '" target="_blank" rel="noopener">Where do I get one?</a>';
+    log.appendChild(box);
+    box.querySelector('.lb-save').addEventListener('click', function () {
+      var v = box.querySelector('.lb-key').value.trim();
+      if (!v) return;
+      try { localStorage.setItem(LS_KEY, v); } catch (e) { /* private mode: key lives for this page only */ }
+      AI.key = v;
+      box.remove();
+      bubble('bot', 'Thank you. Ask me anything about this unit.');
+      renderQuick();
+    });
+  }
+
+  var busy = false;
+  function ask(text) {
+    if (busy || !text.trim()) return;
+    if (needsKey()) { keyGate(); return; }
+    busy = true;
+    bubble('you', text);
+    hist.push({ role: 'user', content: text });
+    var think = bubble('bot', 'thinking…', 'lb-think');
+    callModel(hist.slice(-10), function (out) {
+      think.classList.remove('lb-think');
+      think.textContent = out;
+      hist.push({ role: 'assistant', content: out });
+      try { localStorage.setItem(LS_HIST, JSON.stringify(hist.slice(-20))); } catch (e) { /* full or blocked */ }
+      busy = false;
+    }, function (err) {
+      think.classList.remove('lb-think');
+      think.classList.add('lb-err');
+      think.textContent = err;
+      hist.pop();
+      busy = false;
+    });
+  }
+
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
+  function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
+    var acts = [
+      ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
+      ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
+      ['I do not understand a word', 'I will name a word from this unit. Explain it simply and give one example sentence.']
+    ];
+    (CFG.roleplays || []).slice(0, 2).forEach(function (r, i) {
+      acts.unshift(['Role-play ' + (i + 1), 'Let us role-play. ' + r + ' You start. Speak only at CEFR '
+        + (CFG.cefr || 'B1') + ', keep your turns short, and ask me one question each turn.']);
+    });
+    quick.innerHTML = '';
+    acts.slice(0, 5).forEach(function (a) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lb-q';
+      b.textContent = a[0];
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
+      quick.appendChild(b);
+    });
+  }
+
+  function open() {
+    panel.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    if (!log.childElementCount) {
+      if (hist.length) {
+        hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
+      } else {
+        bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
+          + 'You can write to me in your own language if that is easier.');
+      }
+      if (needsKey()) keyGate(); else renderQuick();
+    }
+    setTimeout(function () { input.focus(); }, 60);
+  }
+  function close() { panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); }
+
+  fab.addEventListener('click', function () { panel.hidden ? open() : close(); });
+  root.querySelector('.lb-x').addEventListener('click', close);
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value;
+    input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
+    ask(v);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });
+})();
+</script><script>// LANG edition: pronunciation practice.
+//
+// The learner reads a line from this unit's dialogues out loud; the browser's own speech
+// recognition transcribes it and we score the transcript word by word against the target. No key,
+// no server, nothing leaves the browser beyond the recognition service the browser already uses.
+// Chrome and Edge support this; Firefox and Safari do not, so we say so rather than showing a
+// button that does nothing.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !(CFG.pron || []).length) return;
+
+  var host = document.getElementById('speaking') || document.getElementById('dialogues');
+  if (!host) return;
+
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var LANG = CFG.langCode || 'en-GB';
+
+  // Words we do not penalise: the learner saying "the" instead of "a" is not a pronunciation fault
+  // worth a red mark in a technical-English lesson.
+  var SKIP = { a: 1, an: 1, the: 1, is: 1, are: 1, and: 1, to: 1, of: 1, it: 1, in: 1, that: 1 };
+
+  function norm(s) {
+    return String(s || '').toLowerCase()
+      .replace(/[^\p{L}\p{N}' ]/gu, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function words(s) { return norm(s).split(' ').filter(Boolean); }
+
+  var card = document.createElement('div');
+  card.className = 'pron';
+  card.innerHTML = '<h3>Say it out loud</h3><p class="hint">Press record and read the line. '
+    + 'You will see which words came through clearly.</p>';
+
+  if (!SR) {
+    card.innerHTML += '<p class="pron-note">Your browser cannot listen. Open this lesson in Chrome '
+      + 'or Edge to use this exercise. You can still read the lines aloud with your teacher.</p>';
+    host.appendChild(card);
+    return;
+  }
+
+  CFG.pron.slice(0, 4).forEach(function (target, i) {
+    var row = document.createElement('div');
+    row.className = 'pron-line';
+    row.innerHTML =
+      '<div class="pron-target" id="pt' + i + '"></div>'
+      + '<div class="pron-bar"><button type="button" class="pron-rec">🎙 Record</button>'
+      + '<span class="pron-score"></span></div><div class="pron-heard"></div>';
+    card.appendChild(row);
+
+    var tgtEl = row.querySelector('.pron-target');
+    var btn = row.querySelector('.pron-rec');
+    var scoreEl = row.querySelector('.pron-score');
+    var heardEl = row.querySelector('.pron-heard');
+    var tw = words(target);
+
+    // render the target with each word in its own span so we can mark it later
+    target.split(/(\s+)/).forEach(function (chunk) {
+      if (/^\s+$/.test(chunk)) { tgtEl.appendChild(document.createTextNode(chunk)); return; }
+      var s = document.createElement('span');
+      s.textContent = chunk;
+      s.dataset.w = norm(chunk);
+      tgtEl.appendChild(s);
+    });
+
+    var rec = null;
+    function stop() {
+      if (rec) { try { rec.stop(); } catch (e) { /* already stopped */ } rec = null; }
+      btn.dataset.on = '';
+      btn.textContent = '🎙 Record';
+    }
+
+    function grade(said) {
+      var heard = words(said);
+      var pool = heard.slice();
+      var hits = 0, counted = 0;
+      tw.forEach(function (w) {
+        if (SKIP[w]) return;
+        counted++;
+        var at = pool.indexOf(w);
+        if (at >= 0) { hits++; pool.splice(at, 1); }
+      });
+      var pct = counted ? Math.round(100 * hits / counted) : 0;
+
+      var got = words(said);
+      tgtEl.querySelectorAll('span').forEach(function (s) {
+        var w = s.dataset.w;
+        if (!w || SKIP[w]) { s.className = ''; return; }
+        s.className = got.indexOf(w) >= 0 ? 'hit' : 'miss';
+      });
+      scoreEl.textContent = pct + '% clear (' + hits + ' of ' + counted + ' words)';
+      scoreEl.className = 'pron-score ' + (pct >= 80 ? 'good' : (pct >= 55 ? '' : 'poor'));
+      heardEl.textContent = said ? 'We heard: ' + said : 'We heard nothing. Try again, a little louder.';
+    }
+
+    btn.addEventListener('click', function () {
+      if (rec) { stop(); return; }
+      rec = new SR();
+      rec.lang = LANG;
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      btn.dataset.on = '1';
+      btn.textContent = '● Listening, press to stop';
+      scoreEl.textContent = '';
+      heardEl.textContent = '';
+      rec.onresult = function (e) {
+        var said = '';
+        for (var k = 0; k < e.results.length; k++) said += e.results[k][0].transcript + ' ';
+        grade(said.trim());
+      };
+      rec.onerror = function (e) {
+        heardEl.textContent = e.error === 'not-allowed'
+          ? 'The microphone is blocked. Allow it in the address bar, then try again.'
+          : 'The microphone did not work. Try again.';
+        stop();
+      };
+      rec.onend = stop;
+      try { rec.start(); } catch (e) { stop(); }
+    });
+  });
+
+  card.insertAdjacentHTML('beforeend',
+    '<p class="pron-note">Scoring counts the words the browser recognised, so it rewards clear '
+    + 'consonants and word stress. It is practice, not an exam.</p>');
+  host.appendChild(card);
+})();
+</script><script>// LANG edition: unit figures.
+//
+// Every figure is DRAWN here from a small JSON spec the authoring agent writes, never hand-drawn
+// as SVG by the agent. That is deliberate: agent-authored SVG comes out different (and often
+// broken) in every unit, while a shared renderer gives one house style across a whole course.
+//
+// The types are chosen so each one carries a language function, not just a picture:
+//   doc      anatomy of a real document, callouts -> the vocabulary of its parts
+//   flow     ordered steps                        -> sequencing language, imperatives
+//   tree     a yes/no decision                    -> conditionals
+//   compare  two things side by side              -> comparatives
+//   timeline events across a shift or a check     -> tenses
+//
+// Figures with labels can be switched into "label it" mode, where the labels are blanked and the
+// learner types them back. That turns an illustration into a vocabulary exercise for free.
+(function () {
+  var SPEC = (window.__LANG_BUDDY__ || {}).figures;
+  if (!SPEC || !SPEC.length) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var INK = '#1b2733', INK2 = '#5a6b7d', BRAND = '#2F5496', AMBER = '#e0a53d', LINE = '#dbe1e9';
+
+  function el(name, attrs, text) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) if (attrs.hasOwnProperty(k)) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function svg(w, h) {
+    var s = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: '100%',
+      preserveAspectRatio: 'xMidYMid meet', role: 'img' });
+    s.style.maxWidth = w + 'px';
+    s.style.display = 'block';
+    s.style.margin = '0 auto';
+    return s;
+  }
+  // crude but reliable line wrapping: SVG has none of its own
+  function wrap(s, max) {
+    var out = [], line = '';
+    String(s || '').split(/\s+/).forEach(function (w) {
+      if ((line + ' ' + w).trim().length > max) { if (line) out.push(line); line = w; }
+      else line = (line ? line + ' ' : '') + w;
+    });
+    if (line) out.push(line);
+    return out;
+  }
+  function textBlock(parent, str, x, y, max, size, fill, lh) {
+    var lines = wrap(str, max);
+    lines.forEach(function (l, i) {
+      parent.appendChild(el('text', { x: x, y: y + i * (lh || size + 4),
+        'font-size': size, fill: fill, 'font-family': 'Inter, Segoe UI, sans-serif' }, l));
+    });
+    return lines.length * (lh || size + 4);
+  }
+  function box(parent, x, y, w, h, fill, stroke, r) {
+    parent.appendChild(el('rect', { x: x, y: y, width: w, height: h, rx: r == null ? 9 : r,
+      fill: fill || '#fff', stroke: stroke || LINE, 'stroke-width': 1.2 }));
+  }
+
+  // ---- doc: the anatomy of a document, with numbered callouts ------------------------------
+  // Rows are measured before they are drawn: a note that wraps to three lines gets a taller box
+  // instead of spilling out of it.
+  function drawDoc(f) {
+    var rows = f.rows || [], W = 720, gap = 8;
+    var hs = rows.map(function (r) { return Math.max(52, 34 + wrap(r.note || '', 78).length * 17); });
+    var H = 74 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Document'));
+    box(s, 20, 18, W - 40, H - 36, '#fdfdfb', LINE, 12);
+    s.appendChild(el('text', { x: 40, y: 48, 'font-size': 15, 'font-weight': '600',
+      fill: BRAND, 'font-family': 'Inter, sans-serif' }, f.docTitle || f.title || ''));
+    var y = 66;
+    rows.forEach(function (r, i) {
+      var rowH = hs[i];
+      box(s, 40, y, W - 80, rowH, '#fff', LINE, 8);
+      s.appendChild(el('circle', { cx: 62, cy: y + 26, r: 13, fill: BRAND }));
+      s.appendChild(el('text', { x: 62, y: y + 31, 'font-size': 13, fill: '#fff',
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 86, y: y + 21, 'font-size': 13.5, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, r.label || ''));
+      textBlock(s, r.note || '', 86, y + 39, 78, 12.5, INK2, 17);
+      y += rowH + gap;
+    });
+    return s;
+  }
+
+  // ---- flow: ordered steps -------------------------------------------------------------------
+  function drawFlow(f) {
+    var st = f.steps || [], W = 720, gap = 20;
+    var hs = st.map(function (t) {
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      return Math.max(56, 34 + wrap(note, 74).length * 17);
+    });
+    var H = 30 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Process'));
+    var yy = 16;
+    st.forEach(function (t, i) {
+      var bh = hs[i], y = yy;
+      yy += bh + gap;
+      var label = typeof t === 'string' ? t : (t.label || '');
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      box(s, 60, y, W - 120, bh, i === st.length - 1 ? '#fffdf5' : '#fff',
+        i === st.length - 1 ? '#f0dfbe' : LINE, 10);
+      s.appendChild(el('circle', { cx: 60, cy: y + bh / 2, r: 16, fill: i === st.length - 1 ? AMBER : BRAND }));
+      s.appendChild(el('text', { x: 60, y: y + bh / 2 + 5, 'font-size': 14,
+        fill: i === st.length - 1 ? '#2c1e05' : '#fff', 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif' }, String(i + 1)));
+      s.appendChild(el('text', { x: 92, y: y + (note ? 26 : 34), 'font-size': 14, 'font-weight': '600',
+        fill: INK, 'font-family': 'Inter, sans-serif', 'class': 'figlab' }, label));
+      if (note) textBlock(s, note, 92, y + 44, 74, 12.5, INK2, 17);
+      if (i < st.length - 1) {
+        s.appendChild(el('path', { d: 'M60 ' + (y + bh + 2) + ' L60 ' + (y + bh + gap - 4),
+          stroke: LINE, 'stroke-width': 2 }));
+        s.appendChild(el('path', { d: 'M55 ' + (y + bh + gap - 10) + ' L60 ' + (y + bh + gap - 3)
+          + ' L65 ' + (y + bh + gap - 10), stroke: INK2, 'stroke-width': 1.6, fill: 'none' }));
+      }
+    });
+    return s;
+  }
+
+  // ---- tree: one yes/no decision per level ---------------------------------------------------
+  function drawTree(f) {
+    var levels = f.levels || [], W = 720, H = 40 + levels.length * 118;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Decision'));
+    levels.forEach(function (lv, i) {
+      var y = 20 + i * 118;
+      box(s, 200, y, 320, 46, '#eef3fa', '#c9d9ee', 10);
+      s.appendChild(el('text', { x: 360, y: y + 28, 'font-size': 13.5, 'text-anchor': 'middle',
+        fill: BRAND, 'font-weight': '600', 'font-family': 'Inter, sans-serif' },
+        wrap(lv.q || '', 46)[0] || ''));
+      [['yes', 40, '#e6f6ee', '#a9dcc6', '#0f6e56'], ['no', 400, '#fdeceb', '#f3c6c2', '#8c2f27']]
+        .forEach(function (o) {
+          var t = lv[o[0]];
+          if (!t) return;
+          var x = o[1] + 40;
+          box(s, x, y + 66, 280, 40, o[2], o[3], 9);
+          s.appendChild(el('text', { x: x + 12, y: y + 84, 'font-size': 11.5, fill: o[4],
+            'font-weight': '600', 'font-family': 'Inter, sans-serif' }, o[0].toUpperCase()));
+          s.appendChild(el('text', { x: x + 48, y: y + 91, 'font-size': 12.5, fill: INK,
+            'font-family': 'Inter, sans-serif' }, wrap(t, 34)[0] || ''));
+          s.appendChild(el('path', { d: 'M360 ' + (y + 46) + ' L360 ' + (y + 56)
+            + ' L' + (x + 140) + ' ' + (y + 56) + ' L' + (x + 140) + ' ' + (y + 64),
+            stroke: LINE, 'stroke-width': 1.6, fill: 'none' }));
+        });
+    });
+    return s;
+  }
+
+  // ---- compare: two things, attribute by attribute -------------------------------------------
+  function drawCompare(f) {
+    var rows = f.rows || [], W = 720, rh = 44, H = 78 + rows.length * rh;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Comparison'));
+    box(s, 20, 18, W - 40, H - 36, '#fff', LINE, 12);
+    [[250, f.a], [500, f.b]].forEach(function (c) {
+      s.appendChild(el('text', { x: c[0], y: 48, 'font-size': 14, 'font-weight': '600', fill: BRAND,
+        'text-anchor': 'middle', 'font-family': 'Inter, sans-serif' }, c[1] || ''));
+    });
+    rows.forEach(function (r, i) {
+      var y = 62 + i * rh;
+      if (i) s.appendChild(el('path', { d: 'M40 ' + y + ' L' + (W - 40) + ' ' + y, stroke: '#eef1f5' }));
+      s.appendChild(el('text', { x: 44, y: y + 27, 'font-size': 12.5, fill: INK2,
+        'font-family': 'Inter, sans-serif' }, wrap(r[0], 22)[0] || ''));
+      s.appendChild(el('text', { x: 250, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[1], 26)[0] || ''));
+      s.appendChild(el('text', { x: 500, y: y + 27, 'font-size': 13, fill: INK, 'text-anchor': 'middle',
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(r[2], 26)[0] || ''));
+    });
+    return s;
+  }
+
+  // ---- timeline ------------------------------------------------------------------------------
+  function drawTimeline(f) {
+    var ev = f.events || [], W = 720, H = 60 + ev.length * 62;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Timeline'));
+    s.appendChild(el('path', { d: 'M120 30 L120 ' + (H - 26), stroke: LINE, 'stroke-width': 2 }));
+    ev.forEach(function (e, i) {
+      var y = 46 + i * 62;
+      s.appendChild(el('circle', { cx: 120, cy: y, r: 8, fill: BRAND }));
+      s.appendChild(el('text', { x: 104, y: y + 5, 'font-size': 12.5, fill: INK2, 'text-anchor': 'end',
+        'font-family': 'JetBrains Mono, monospace' }, e.t || ''));
+      s.appendChild(el('text', { x: 146, y: y - 2, 'font-size': 13.5, 'font-weight': '600', fill: INK,
+        'font-family': 'Inter, sans-serif', 'class': 'figlab' }, wrap(e.e || '', 58)[0] || ''));
+      if (e.note) textBlock(s, e.note, 146, y + 16, 62, 12.5, INK2);
+    });
+    return s;
+  }
+
+  var DRAW = { doc: drawDoc, flow: drawFlow, tree: drawTree, compare: drawCompare, timeline: drawTimeline };
+
+  // Number the figures in READING order, not in the order the spec happens to list them: a figure
+  // written third but placed in the vocabulary section must not be called Figure 3 on a page where
+  // it appears second.
+  var ORDER = ['scenario', 'dialogues', 'reading', 'vocabulary', 'grammar', 'exercises',
+    'speaking', 'writing'];
+  var ordered = SPEC.slice().sort(function (a, b) {
+    return ORDER.indexOf(a.where || 'scenario') - ORDER.indexOf(b.where || 'scenario');
+  });
+
+  ordered.forEach(function (f, idx) {
+    var host = document.getElementById(f.where || 'scenario')
+      || document.getElementById('scenario') || document.querySelector('article') || document.body;
+    var draw = DRAW[f.type];
+    if (!draw) return;
+
+    var fig = document.createElement('figure');
+    fig.className = 'lang-fig';
+    var head = document.createElement('figcaption');
+    head.className = 'fig-head';
+    head.innerHTML = '<b>Figure ' + (idx + 1) + '. ' + (f.title || '') + '</b>';
+    fig.appendChild(head);
+
+    var holder = document.createElement('div');
+    holder.className = 'fig-body';
+    var node;
+    try { node = draw(f); } catch (e) { return; }
+    holder.appendChild(node);
+    fig.appendChild(holder);
+
+    if (f.caption) {
+      var cap = document.createElement('p');
+      cap.className = 'fig-cap';
+      cap.textContent = f.caption;
+      fig.appendChild(cap);
+    }
+
+    // "label it": blank the labels, let the learner type them back, check on blur
+    var labels = [].slice.call(node.querySelectorAll('.figlab'));
+    if (labels.length >= 3) {
+      var bar = document.createElement('div');
+      bar.className = 'fig-bar';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'fig-btn';
+      btn.textContent = 'Hide the labels and test me';
+      var answers = labels.map(function (l) { return l.textContent; });
+      var on = false;
+      btn.addEventListener('click', function () {
+        on = !on;
+        btn.textContent = on ? 'Show the labels again' : 'Hide the labels and test me';
+        labels.forEach(function (l, i) { l.textContent = on ? '?' : answers[i]; });
+        quiz.hidden = !on;
+      });
+      bar.appendChild(btn);
+      fig.appendChild(bar);
+
+      var quiz = document.createElement('div');
+      quiz.className = 'fig-quiz';
+      quiz.hidden = true;
+      answers.forEach(function (a, i) {
+        var row = document.createElement('label');
+        row.innerHTML = '<span>' + (i + 1) + '</span>';
+        var inp = document.createElement('input');
+        inp.placeholder = 'type the label';
+        inp.addEventListener('blur', function () {
+          if (!inp.value.trim()) return;
+          var ok = inp.value.trim().toLowerCase() === a.trim().toLowerCase();
+          inp.className = ok ? 'ok' : 'bad';
+          if (ok) labels[i].textContent = a;
+        });
+        row.appendChild(inp);
+        quiz.appendChild(row);
+      });
+      fig.appendChild(quiz);
+    }
+
+    host.appendChild(fig);
+  });
+})();
+</script><!--/CF-LANG-UI--></body></html>

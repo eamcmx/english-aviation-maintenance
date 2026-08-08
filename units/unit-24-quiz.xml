@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <!-- ============================================================= -->
+  <!-- CATEGORY                                                      -->
+  <!-- ============================================================= -->
+  <question type="category">
+    <category><text>$course$/top/CF/U24-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 24 — Simulation: avionics modification embodiment. CEFR B2. Split by skill: Listening, Reading, Use of English, Vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ============================================================= -->
+  <!-- LISTENING  (7 items: multichoice + truefalse + numerical)     -->
+  <!-- ============================================================= -->
+
+  <question type="multichoice">
+    <name><text>L1 — Dialogue 1: mandatory or optional</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> Is the service bulletin mandatory or optional?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A says it is optional, because there is no airworthiness directive behind it. An airworthiness directive is what makes a job mandatory.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[It is optional]]></text><feedback format="html"><text><![CDATA[<p>Correct. No airworthiness directive applies, so the team chooses to embody it.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[It is mandatory]]></text><feedback format="html"><text><![CDATA[<p>No. A mandatory job needs an airworthiness directive, and there is none here.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[It is cancelled]]></text><feedback format="html"><text><![CDATA[<p>No. The bulletin is live, and the team decides to embody it today.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[It is superseded]]></text><feedback format="html"><text><![CDATA[<p>No. Nothing in the dialogue replaces this bulletin.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L2 — Dialogue 1: effectivity serial number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> Which aircraft serial number is on the effectivity list? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A reads the serial number four-four-seven-one — 4471 — so the modification is valid for this aircraft.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>4471</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct. Serial number 4471 is on the effectivity list.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>4417</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>No. Listen again to the order of the digits: four-four-seven-one.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L3 — Dialogue 2: continuity before mating</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> B tests continuity <em>before</em> mating and locking the connector.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. B asks to test continuity first, and only mates the connector after every pin reads good.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct. Continuity is proven first, then the connector is mated and locked.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No. B checks continuity first, and mates the connector afterwards.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L4 — Dialogue 3: colour of the BITE message</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> What colour is the message that the BITE shows?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>B reads one amber message. Amber signals a caution, not a hard failure, so the team checks the value against the limit.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Amber]]></text><feedback format="html"><text><![CDATA[<p>Correct. The BITE shows one amber message.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Red]]></text><feedback format="html"><text><![CDATA[<p>No. A red message is not what B reads here.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Green]]></text><feedback format="html"><text><![CDATA[<p>No. Green would mean no fault, but the BITE reports one.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Blue]]></text><feedback format="html"><text><![CDATA[<p>No. No blue message is mentioned in the dialogue.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L5 — Dialogue 3: antenna gain reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> What is the antenna gain reading? Write the number (a minus number).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>B reads minus three. The limit is minus five, so minus three is inside the limit and counts as an accepted deviation.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>-3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct. The gain reads minus three, inside the minus-five limit.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>-5</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>No. Minus five is the limit, not the reading. The reading is minus three.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Almost — the value is negative. Write minus three.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L6 — Dialogue 2: wire tie spacing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> The new wire is tied every how many centimetres? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A tells B to route the new wire along the harness and tie it every ten centimetres — 10.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>10</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct. Tie the wire every ten centimetres.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>12</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>No. Listen again: the spacing is ten centimetres.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L7 — Track 4: what the night team must do</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to the Track 4 voicemail again.</strong> Rihards asks the night team to review the tech log before they sign the release.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. He reports the embodiment as done, then asks the night team to review the tech log before sign-off.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct. Review the tech log first, then sign the release.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No. He clearly asks them to review the tech log before they sign.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================= -->
+  <!-- READING  (5 items: new specialism texts + multichoice/tf)     -->
+  <!-- ============================================================= -->
+
+  <question type="truefalse">
+    <name><text>R1 — AD vs SB</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the note.</strong></p><blockquote><em>"Airworthiness Directive AD-2026-11 is mandatory. Compliance is due within 100 flight hours. Service Bulletin 33-08 is recommended by the maker but is not required by the authority."</em></blockquote><p>An airworthiness directive is mandatory, but this service bulletin is not.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The AD is a mandatory order from the authority; the SB is only recommended by the maker.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct. The authority mandates the AD; the maker only recommends the SB.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No. The text says the AD is mandatory and the SB is not required.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R2 — MEL entry</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the MEL entry.</strong></p><blockquote><em>"ATA 23 — Comm Radio No.2. One radio may be inoperative provided the No.1 radio is serviceable. Placard the unit. Rectify within 3 days (Category C)."</em></blockquote><p>Under this entry, when may the aircraft still fly with radio No.2 inoperative?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The MEL allows the flight only if the No.1 radio works, with a placard, and repair within three days.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[If radio No.1 is serviceable]]></text><feedback format="html"><text><![CDATA[<p>Correct. The No.1 radio must be serviceable.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[If both radios are removed]]></text><feedback format="html"><text><![CDATA[<p>No. The entry needs the No.1 radio working, not removed.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[If the placard is taken off]]></text><feedback format="html"><text><![CDATA[<p>No. The unit must be placarded, not un-placarded.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[If the flight is over 3 days]]></text><feedback format="html"><text><![CDATA[<p>No. Three days is the repair limit, not a flight condition.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R3 — IPC / part number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the illustrated parts catalogue (IPC) line.</strong></p><blockquote><em>"Item 40 — Connector, receptacle. Part number 622-1140-002. Supersedes 622-1140-001. Qty per assy: 1."</em></blockquote><p>Which part number should you now fit?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The new part number 622-1140-002 supersedes the old 622-1140-001, so you fit the new one.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[622-1140-002]]></text><feedback format="html"><text><![CDATA[<p>Correct. This part number supersedes the older one.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[622-1140-001]]></text><feedback format="html"><text><![CDATA[<p>No. That number is superseded by 622-1140-002.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[285-A051-000]]></text><feedback format="html"><text><![CDATA[<p>No. That is a software number, not this connector.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[622-1141-002]]></text><feedback format="html"><text><![CDATA[<p>No. Read the digits carefully: it is 622-1140-002.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 — task card warning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the task-card warning.</strong></p><blockquote><em>"WARNING: Isolate electrical power and confirm the unit is de-energised before you remove any connector. Failure to isolate power can cause injury and equipment damage."</em></blockquote><p>You may remove the connector while power is still on.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The warning says isolate power and confirm the unit is de-energised <em>before</em> you remove any connector.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct. Power must be isolated first; the warning is clear.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No. The warning forbids this — isolate power first.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R5 — BITE readout</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the BITE readout.</strong></p><blockquote><em>"SELF-TEST COMPLETE. 1 CAUTION: ANTENNA GAIN LOW (-3 dB). LIMIT -5 dB. STATUS: WITHIN LIMIT. TX/RX: PASS."</em></blockquote><p>What should the technician do with this result?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The reading (-3 dB) is within the limit (-5 dB), so it is an accepted deviation. You record it, not reject the aircraft.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Record a deviation]]></text><feedback format="html"><text><![CDATA[<p>Correct. Within limit means record a deviation and continue.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Reject the aircraft at once]]></text><feedback format="html"><text><![CDATA[<p>No. You reject only if the reading is outside the limit.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Repeat the software load]]></text><feedback format="html"><text><![CDATA[<p>No. The load already passed; this is a gain caution.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Remove the new connector]]></text><feedback format="html"><text><![CDATA[<p>No. The wiring passed continuity; nothing here calls for removal.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================= -->
+  <!-- USE OF ENGLISH  (6 items: shortanswer, present perfect + bank) -->
+  <!-- ============================================================= -->
+
+  <question type="shortanswer">
+    <name><text>U1 — present perfect: embody</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the present perfect.</strong> Complete the gap with <em>have/has</em> + the past participle of the verb in brackets.</p><p>We ______ (embody) the modification.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Report a finished job with a result now: <em>have</em> + past participle. The participle of <em>embody</em> is <em>embodied</em>.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>have embodied</text><feedback format="html"><text><![CDATA[<p>Correct. "We have embodied the modification."</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "have embodied". Keep the auxiliary <em>have</em> and use the participle <em>embodied</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 — present perfect: write</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the present perfect.</strong> Complete the gap with <em>have/has</em> + the past participle of the verb in brackets.</p><p>The technician ______ (write) the tech log entry.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The subject is singular, so use <em>has</em>. The participle of <em>write</em> is <em>written</em>, not <em>wrote</em>.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>has written</text><feedback format="html"><text><![CDATA[<p>Correct. "The technician has written the tech log entry."</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "has written". Use <em>has</em> and the participle <em>written</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 — present perfect question</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write ONE word.</strong> Complete the question in the present perfect.</p><p>______ you signed the tech log?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A present-perfect question starts with the auxiliary: <em>Have</em> + subject + participle. "Have you signed the tech log?"</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>Have</text><feedback format="html"><text><![CDATA[<p>Correct. "Have you signed the tech log?"</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "Have". The auxiliary comes first in a question.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 — present perfect negative</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the present perfect.</strong> Complete the gap with the negative of the verb in brackets.</p><p>We ______ (not find) any other snag.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Negative present perfect: <em>have not</em> (or <em>haven't</em>) + participle. The participle of <em>find</em> is <em>found</em>.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>have not found</text><feedback format="html"><text><![CDATA[<p>Correct. "We have not found any other snag."</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>haven't found</text><feedback format="html"><text><![CDATA[<p>Correct. The short form "haven't found" is also fine.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "have not found" (or "haven't found").</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 — bank term: directive</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write ONE bank term.</strong> Complete the sentence.</p><p>There is no airworthiness ______, so this bulletin is only optional.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>An <em>airworthiness directive</em> is the mandatory order from the authority. Without one, the bulletin stays optional.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>directive</text><feedback format="html"><text><![CDATA[<p>Correct. "There is no airworthiness directive."</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "directive" — an airworthiness directive is mandatory.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 — bank collocation: modification status</text></name>
+    <usecase>0</usecase>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write ONE bank term.</strong> Complete the sentence.</p><p>After the test, we update the modification ______ to post-mod.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The <em>modification status</em> shows whether the aircraft is pre-mod or post-mod. You update it after the test.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>status</text><feedback format="html"><text><![CDATA[<p>Correct. "Update the modification status to post-mod."</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The answer is "status" — the collocation is <em>modification status</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================= -->
+  <!-- VOCABULARY  (4 items: matching + multichoice)                 -->
+  <!-- ============================================================= -->
+
+  <question type="matching">
+    <name><text>V1 — term to plain meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each term to its plain meaning.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>connector = a plug that joins a circuit; harness = a bundle of wires; snag = a fault; effectivity = the list of aircraft a modification applies to; sign-off = the final signature.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[connector]]></text><answer><text>a plug that joins two parts of a circuit</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[harness]]></text><answer><text>a bundle of wires tied together</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[snag]]></text><answer><text>a fault found on the aircraft</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[effectivity]]></text><answer><text>the list of aircraft a modification applies to</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[sign-off]]></text><answer><text>the final signature that closes the job</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 — term to collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each term to the verb it goes with.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>These are the natural word partners technicians use: test continuity, mate a connector, run a functional test, record a deviation, raise a work order.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[continuity]]></text><answer><text>test</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[connector]]></text><answer><text>mate</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[functional test]]></text><answer><text>run</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[deviation]]></text><answer><text>record</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[work order]]></text><answer><text>raise</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V3 — meaning of "software load"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which meaning matches the term <strong>software load</strong>?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A software load is the act of putting new software into a unit. In this unit, the load is part number 285-A051.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Putting software into a unit]]></text><feedback format="html"><text><![CDATA[<p>Correct. The loader tool writes the new software to the unit.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Weighing the avionics rack]]></text><feedback format="html"><text><![CDATA[<p>No. "Load" here is data, not weight.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Testing the wires for a break]]></text><feedback format="html"><text><![CDATA[<p>No. That is a continuity test.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Signing the release document]]></text><feedback format="html"><text><![CDATA[<p>No. That is the sign-off.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V4 — the word for a self-test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which term means <strong>the unit's own self-test</strong>?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>BITE stands for built-in test equipment — the unit checks itself and reports any fault.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[BITE]]></text><feedback format="html"><text><![CDATA[<p>Correct. Built-in test equipment is the unit's own self-test.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Harness]]></text><feedback format="html"><text><![CDATA[<p>No. A harness is a bundle of wires.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Effectivity]]></text><feedback format="html"><text><![CDATA[<p>No. Effectivity is the list of aircraft a job applies to.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Sign-off]]></text><feedback format="html"><text><![CDATA[<p>No. Sign-off is the final signature.</p>]]></text></feedback></answer>
+  </question>
+
+</quiz>

@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 23 — Solutions (E1–E8 + writing model)</title>
+<style>
+:root{--navy:#0f2942;--brand:#2F5496;--amber:#e0a53d;--amber-soft:#fdf3e0;--ink:#1b2733;--ink-2:#5a6b7d;
+  --line:#e2e6ec;--paper:#fbfaf7;--card:#fff;--ok:#2e9e6b;--shadow:0 1px 2px rgba(16,32,54,.06),0 8px 28px rgba(16,32,54,.07);--radius:16px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.62 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:900px;margin:0 auto;padding:0 24px 90px}
+.mast{background:linear-gradient(135deg,var(--navy),var(--brand) 62%,#3c66a8);color:#fff;padding:40px 0 34px;margin-bottom:28px}
+.mast .in{max-width:900px;margin:0 auto;padding:0 24px}
+.mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.mast h1{font-family:Georgia,serif;font-size:33px;margin:8px 0 10px}
+.mast .pill{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:5px 14px;font-size:13px;margin:3px 6px 0 0}
+.note-gated{background:#fff8e8;border:1px solid #f0dfbe;border-left:5px solid var(--amber);border-radius:12px;padding:14px 18px;margin:18px 0;font-size:14.5px;color:#6b5525}
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 30px;margin:20px 0;box-shadow:var(--shadow)}
+h2{font-family:Georgia,serif;font-size:23px;color:var(--navy);margin:0 0 4px;display:flex;align-items:center;gap:11px}
+h2 .tag{font:700 12px/1 'JetBrains Mono',Consolas,monospace;letter-spacing:.04em;color:#fff;background:var(--brand);border-radius:6px;padding:5px 9px}
+.sub{color:var(--ink-2);font-size:14px;margin:2px 0 14px}
+ol{padding-left:22px;margin:10px 0}
+li{margin:9px 0}
+.ans{font-weight:700;color:var(--navy)}
+.why{color:var(--ink-2);font-size:14.5px}
+.why::before{content:"WHY ";font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:.08em;color:var(--amber);margin-right:5px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f1f5fa;color:var(--navy);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase}
+code{font-family:'JetBrains Mono',Consolas,monospace;background:#eef3f9;border-radius:5px;padding:1px 6px;font-size:14px}
+.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:18px 20px;margin:14px 0}
+.model p{margin:8px 0}
+.mk{background:#eafaf1;border-bottom:2px solid var(--ok);padding:0 2px}
+.foot{max-width:900px;margin:34px auto 0;padding:20px 24px 0;border-top:1px solid var(--line);color:var(--ink-2);font-size:13px}
+</style></head>
+<body>
+<div class="mast"><div class="in">
+  <div class="eyebrow">English for Aviation Maintenance · Unit 23 · Solutions</div>
+  <h1>Loading and verifying avionics software — full answer key</h1>
+  <span class="pill">CEFR B2</span><span class="pill">E1–E8 with reasons</span><span class="pill">Annotated writing model</span><span class="pill">Teacher / gated</span>
+</div></div>
+<main>
+
+<div class="note-gated">This file is for the teacher (or for self-check after an honest attempt). Each answer carries a one-line reason, so it can be used to explain <em>why</em>, not only <em>what</em>. Accept any answer that means the same and is grammatically correct at B2 — the wording below is a model, not the only right form.</div>
+
+<section id="e1">
+  <h2><span class="tag">E1</span>Gap-fill — one bank term per gap</h2>
+  <p class="sub">Skill: vocabulary in context. Accept the exact term; mark the form, not the spelling of near-misses.</p>
+  <ol>
+    <li><span class="ans">dataloader</span> — <span class="why">it is the tool that sends the software; you connect it to the port.</span></li>
+    <li><span class="ans">checksum</span> — <span class="why">a checksum error is the standard message for corrupted data.</span></li>
+    <li><span class="ans">successful load</span> — <span class="why">a finished bar only becomes this once BITE is green.</span></li>
+    <li><span class="ans">configuration report</span> — <span class="why">this is the screen that lists what the unit is really running.</span></li>
+    <li><span class="ans">abort</span> — <span class="why">to stop the load before it finishes when the bar freezes.</span></li>
+    <li><span class="ans">task card</span> — <span class="why">the job sheet that lists every reference to confirm.</span></li>
+    <li><span class="ans">compatibility</span> — <span class="why">the software runs on one hardware standard only, so this is checked first.</span></li>
+    <li><span class="ans">tech log</span> — <span class="why">the aircraft's running record; the result goes here before closing.</span></li>
+    <li><span class="ans">LRU</span> — <span class="why">a line-replaceable unit — the box that comes out with four bolts.</span></li>
+    <li><span class="ans">power cycle</span> — <span class="why">off then on again clears a temporary memory fault before a retry.</span></li>
+  </ol>
+</section>
+
+<section id="e2">
+  <h2><span class="tag">E2</span>Matching — term ↔ plain meaning</h2>
+  <p class="sub">Skill: vocabulary knowledge. One letter per term.</p>
+  <table>
+    <tr><th>#</th><th>Term</th><th>Answer</th><th>Why</th></tr>
+    <tr><td>1</td><td>BITE</td><td class="ans">a</td><td class="why">the unit's own self-test.</td></tr>
+    <tr><td>2</td><td>checksum</td><td class="ans">b</td><td class="why">a number that proves data is not corrupted.</td></tr>
+    <tr><td>3</td><td>load media</td><td class="ans">c</td><td class="why">the card or drive that holds the software.</td></tr>
+    <tr><td>4</td><td>cross-check</td><td class="ans">d</td><td class="why">to check one value against another.</td></tr>
+    <tr><td>5</td><td>load number</td><td class="ans">e</td><td class="why">the number that names one software load.</td></tr>
+    <tr><td>6</td><td>LRU</td><td class="ans">f</td><td class="why">a box you can swap on the aircraft.</td></tr>
+    <tr><td>7</td><td>configuration</td><td class="ans">g</td><td class="why">the settings a unit runs with.</td></tr>
+    <tr><td>8</td><td>AMM</td><td class="ans">h</td><td class="why">the official procedure book.</td></tr>
+    <tr><td>9</td><td>abort</td><td class="ans">i</td><td class="why">to stop the load before it ends.</td></tr>
+    <tr><td>10</td><td>software part number</td><td class="ans">j</td><td class="why">the part number of the software itself.</td></tr>
+  </table>
+</section>
+
+<section id="e3">
+  <h2><span class="tag">E3</span>Dialogue completion — one word per gap</h2>
+  <p class="sub">Skill: listening / register recall from the model dialogues.</p>
+  <ol>
+    <li><span class="ans">number</span> — <span class="why">"software part number" is the fixed collocation.</span></li>
+    <li><span class="ans">start</span> — <span class="why">"clear to start" — begin the load once references agree.</span></li>
+    <li><span class="ans">compatibility</span> — <span class="why">"check compatibility" before loading.</span></li>
+    <li><span class="ans">loader</span> — <span class="why">the unit is talking to the (data)loader via the green link.</span></li>
+    <li><span class="ans">abort</span> — <span class="why">a frozen bar means abort this load first.</span></li>
+    <li><span class="ans">cycle</span> — <span class="why">"power cycle" — off then on again.</span></li>
+    <li><span class="ans">BITE</span> — <span class="why">the self-test the unit runs on itself.</span></li>
+    <li><span class="ans">against</span> — <span class="why">"cross-check the report against the task card."</span></li>
+  </ol>
+</section>
+
+<section id="e4">
+  <h2><span class="tag">E4</span>Grammar transformation — once / when / as soon as</h2>
+  <p class="sub">Skill: the grammar focus. The time clause takes the <strong>present</strong> tense — never <code>will</code>.</p>
+  <ol>
+    <li><span class="ans">Once the load finishes, run BITE.</span> — <span class="why">present in the time clause; no "will finish".</span></li>
+    <li><span class="ans">When the light turns green, press start.</span> — <span class="why">trigger + present, then the imperative.</span></li>
+    <li><span class="ans">As soon as it starts, watch the bar.</span> — <span class="why">"as soon as" = the very next step.</span></li>
+    <li><span class="ans">Once the software is loaded, verify the configuration.</span> — <span class="why">keep the passive <em>is loaded</em> and the article <em>the</em>.</span></li>
+    <li><span class="ans">When the BITE test passes, open the configuration report.</span> — <span class="why">present <em>passes</em>, then the imperative.</span></li>
+    <li><span class="ans">Once the load number is confirmed, start the data load.</span> — <span class="why">passive gate, then the action.</span></li>
+    <li><span class="ans">When the report matches the card, sign off the task card.</span> — <span class="why">condition + present, then the imperative.</span></li>
+    <li><span class="ans">As soon as the unit reboots, confirm no fault.</span> — <span class="why">present <em>reboots</em>; the next step follows at once.</span></li>
+  </ol>
+</section>
+
+<section id="e5">
+  <h2><span class="tag">E5</span>Reading 1 — Task card (AMM)</h2>
+  <p class="sub">Skill: reading an authentic task card for facts. Short answers; accept with or without the article.</p>
+  <ol>
+    <li><span class="ans">the ground cart</span> — <span class="why">the warning says power comes from the ground cart, never the battery.</span></li>
+    <li><span class="ans">285-A047</span> — <span class="why">Step 1 states the software part number on the media.</span></li>
+    <li><span class="ans">mod 4 (or later)</span> — <span class="why">Step 2 sets the minimum hardware standard.</span></li>
+    <li><span class="ans">abort the load</span> — <span class="why">Step 4: abort first when a checksum error appears.</span></li>
+    <li><span class="ans">two</span> — <span class="why">Step 4: quarantine the media after two consecutive failures.</span></li>
+    <li><span class="ans">the tech log</span> — <span class="why">Step 5: enter the result in the tech log.</span></li>
+  </ol>
+</section>
+
+<section id="e6">
+  <h2><span class="tag">E6</span>Error-spotting — correct the underlined part</h2>
+  <p class="sub">Skill: the three L1 interference errors (future in the time clause, dropped article, dropped passive <em>be</em>), plus agreement.</p>
+  <ol>
+    <li><span class="ans">finishes</span> — <span class="why">present after <em>when</em>; drop "will".</span></li>
+    <li><span class="ans">the configuration</span> — <span class="why">put the missing article back.</span></li>
+    <li><span class="ans">the software is loaded</span> — <span class="why">restore the subject and the passive <em>be</em>.</span></li>
+    <li><span class="ans">the dataloader</span> — <span class="why">definite article: this specific loader.</span></li>
+    <li><span class="ans">is</span> — <span class="why">"checksum" is singular, so <em>is</em>, not <em>are</em>.</span></li>
+    <li><span class="ans">is not a successful load</span> — <span class="why">add the article <em>a</em> before the noun phrase.</span></li>
+    <li><span class="ans">starts</span> — <span class="why">present after "as soon as"; drop "will".</span></li>
+    <li><span class="ans">in the tech log</span> — <span class="why">definite article again: <em>the</em> tech log.</span></li>
+  </ol>
+</section>
+
+<section id="e7">
+  <h2><span class="tag">E7</span>Reading 2 — Service Bulletin (SB)</h2>
+  <p class="sub">Skill: reading an SB for facts and inference. Accept equivalents.</p>
+  <ol>
+    <li><span class="ans">the lost frequency after a power cycle</span> — <span class="why">the Reason line: the radio loses the frequency after a power cycle.</span></li>
+    <li><span class="ans">no (recommended)</span> — <span class="why">"recommended, although not mandatory".</span></li>
+    <li><span class="ans">mod 3</span> — <span class="why">Effectivity: mod 3 radios are incompatible.</span></li>
+    <li><span class="ans">about one hour</span> — <span class="why">Compliance: the task requires approximately one hour.</span></li>
+    <li><span class="ans">34-52-11-720</span> — <span class="why">Procedure: follow this task card.</span></li>
+    <li><span class="ans">one year (twelve months)</span> — <span class="why">Records: retain the old report for twelve months.</span></li>
+  </ol>
+</section>
+
+<section id="e8">
+  <h2><span class="tag">E8</span>Listening review — Dialogue 3</h2>
+  <p class="sub">Skill: detailed listening. Play "Verify and sign off" again; short answers.</p>
+  <ol>
+    <li><span class="ans">BITE</span> — <span class="why">after 100%, the first check is the BITE self-test.</span></li>
+    <li><span class="ans">the software part number (revision and load)</span> — <span class="why">the configuration report lists these fields.</span></li>
+    <li><span class="ans">the task card</span> — <span class="why">A cross-checks the report against the card.</span></li>
+    <li><span class="ans">622-1140-001</span> — <span class="why">the LRU part number on the hardware line.</span></li>
+    <li><span class="ans">mod 5</span> — <span class="why">the report's mod matches the physical unit.</span></li>
+    <li><span class="ans">a power cycle</span> — <span class="why">B power cycles once more to prove a reliable boot.</span></li>
+    <li><span class="ans">yes</span> — <span class="why">every field agrees, so verification is complete.</span></li>
+    <li><span class="ans">in the tech log</span> — <span class="why">the load number and result are recorded there.</span></li>
+  </ol>
+</section>
+
+<section id="writing">
+  <h2><span class="tag">WRITE</span>Writing model — tech-log entry (Simplified Technical English)</h2>
+  <p class="sub">Task: 60–90 words. Include the unit and part number, software part number and load number, the steps done, the BITE result, and the verification result, then name and date.</p>
+  <div class="model">
+    <p><strong>Model answer (annotated).</strong></p>
+    <p>Comm radio No.2, LRU part number 622-1140-001, hardware mod 5. Loaded software part number 285-A047, revision C, load L-2231, per task card 34-52-11-720. The first load failed with a checksum error. I aborted the load and power cycled the loader. I loaded again with verified media. The second load was complete with no fault. BITE ran green. The configuration report matched the task card on every field. Verification complete. No faults found. — J. Ozols, 08 Aug 2026.</p>
+  </div>
+  <table>
+    <tr><th>STE habit</th><th>In the model</th><th>Why it matters</th></tr>
+    <tr><td>Short sentences, one idea</td><td><span class="mk">"BITE ran green."</span> / <span class="mk">"Verification complete."</span></td><td class="why">Each fact stands alone; nothing hides in a long clause.</td></tr>
+    <tr><td>Active voice, simple verbs</td><td><span class="mk">"I aborted the load and power cycled the loader."</span></td><td class="why">"I aborted", not "the load was subsequently aborted by me".</td></tr>
+    <tr><td>Approved plain words</td><td><span class="mk">"complete"</span> not "finalised"; <span class="mk">"run"</span> not "carry out"</td><td class="why">One approved word beats a long phrase; easier for any reader.</td></tr>
+    <tr><td>Every reference present</td><td>P/N, software P/N, load number, task card, BITE, verification</td><td class="why">A tech-log entry the next technician can trust needs all fields.</td></tr>
+    <tr><td>No dropped articles / no "will" in time clauses</td><td><span class="mk">"the configuration report"</span>, <span class="mk">"with no fault"</span></td><td class="why">Guards against the two most common L1 errors from this class.</td></tr>
+  </table>
+  <p class="sub" style="margin-top:14px"><strong>Marking guide (out of 10):</strong> content — all six required facts present (4); STE style — short active sentences, approved words (3); accuracy — articles, tense in time clauses, agreement (2); layout — name and date (1). A strong pass keeps every sentence at 20 words or fewer.</p>
+</section>
+
+<div class="foot">English for Aviation Maintenance · Unit 23 · Solutions (E1–E8 + writing model). Gated teacher material.</div>
+</main>
+</body></html>

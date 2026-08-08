@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 24 · Solutions — E1–E8 &amp; model writing answer</title>
+<style>
+  :root{--brand:#2F5496;--brand-dark:#1f3a6b;--navy:#0f2942;--ink:#1f2230;--ink-soft:#4a4f5c;--muted:#707582;
+    --bg:#fbfaf6;--card:#fff;--sunken:#f3f1ea;--border:#e7e3d8;--good:#2e9e6b;--gold:#c8821a;--bad:#c0392b;
+    --mono:'JetBrains Mono','SF Mono',Consolas,monospace;--sans:'Inter','Segoe UI',system-ui,sans-serif;--serif:Georgia,'Source Serif 4',serif;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+  .mast{background:linear-gradient(135deg,var(--navy),var(--brand) 62%,#3c66a8);color:#fff;padding:38px 0 30px}
+  .mast .in{max-width:940px;margin:0 auto;padding:0 24px}
+  .mast .eyebrow{font:600 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;opacity:.9}
+  .mast h1{font-family:var(--serif);font-size:30px;margin:10px 0 6px}
+  .mast p{margin:0;opacity:.92;font-size:14.5px}
+  .gate{display:inline-block;margin-top:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);
+    border-radius:999px;padding:5px 14px;font:600 12.5px/1 var(--mono)}
+  main{max-width:940px;margin:0 auto;padding:0 24px 80px}
+  h2{font-family:var(--serif);font-size:22px;border-bottom:1px solid var(--border);padding-bottom:8px;margin:38px 0 6px}
+  h2 .tag{font:700 12px/1 var(--mono);color:var(--brand);text-transform:uppercase;letter-spacing:.08em}
+  .lead{color:var(--ink-soft);font-size:14.5px;margin:4px 0 14px}
+  .ans{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--good);border-radius:8px;
+    padding:12px 16px;margin:10px 0}
+  .ans ol{margin:0;padding-left:1.4em}
+  .ans li{margin:9px 0}
+  .sol{font:600 14.5px/1.4 var(--mono);color:var(--brand-dark);background:var(--sunken);border-radius:5px;padding:1px 7px}
+  .why{display:block;color:var(--ink-soft);font-size:14px;margin-top:3px}
+  .why::before{content:"WHY  ";font:700 10.5px/1 var(--mono);color:var(--gold);letter-spacing:.08em}
+  .model{background:var(--card);border:1px solid #d7e4f7;border-top:4px solid var(--brand);border-radius:10px;padding:16px 20px;margin:14px 0}
+  .model p{margin:8px 0}
+  .anno{background:#f7faff;border:1px dashed #b9cdea;border-radius:8px;padding:10px 14px;margin:10px 0;font-size:14px}
+  .anno b{color:var(--brand-dark)}
+  .ste{border-left:3px solid var(--gold);background:#fff8e1;border-radius:0 6px 6px 0;padding:10px 14px;font-size:14px;margin:10px 0}
+  code{font-family:var(--mono);font-size:13.5px;background:var(--sunken);border-radius:4px;padding:1px 5px}
+  .rt{color:var(--good);font-weight:700}.wr{color:var(--bad);font-weight:700;text-decoration:line-through}
+  footer{margin-top:40px;color:var(--muted);font-size:13px;border-top:1px solid var(--border);padding-top:16px}
+  table{border-collapse:collapse;width:100%;margin-top:8px;font-size:14px}
+  th,td{border:1px solid var(--border);padding:7px 10px;text-align:left;vertical-align:top}
+  th{background:var(--sunken);font:700 12px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
+</style></head>
+<body>
+<header class="mast"><div class="in">
+  <div class="eyebrow">English for Aviation Maintenance · CEFR B2 · Unit 24 of 32</div>
+  <h1>Solutions — Simulation: avionics modification embodiment</h1>
+  <p>Full answers for exercises E1–E8, each with a one-line reason, plus the annotated model writing answer.</p>
+  <span class="gate">Teacher / gated file — complete model answers</span>
+</div></header>
+
+<main>
+
+<h2><span class="tag">E1</span> &nbsp;Gap-fill — one bank term in each gap</h2>
+<p class="lead">Terms must be exact. Accept the singular/plural or hyphen form only where the term itself allows it.</p>
+<div class="ans"><ol>
+  <li><span class="sol">airworthiness directive</span><span class="why">Only a mandatory order from the authority can force the job; there is none, so the bulletin stays optional.</span></li>
+  <li><span class="sol">effectivity</span><span class="why">The effectivity list is what you check to prove the job applies to this aircraft serial number.</span></li>
+  <li><span class="sol">configuration control</span><span class="why">Tracing every change on paper so the aircraft record stays correct is configuration control.</span></li>
+  <li><span class="sol">part number</span><span class="why">You confirm the part number against the bulletin before you fit any part.</span></li>
+  <li><span class="sol">continuity</span><span class="why">An unbroken electrical path is continuity; you test it on every pin.</span></li>
+  <li><span class="sol">harness</span><span class="why">A harness is the bundle of wires you route the new wire along.</span></li>
+  <li><span class="sol">BITE</span><span class="why">Built-in test equipment is the unit's own self-test.</span></li>
+  <li><span class="sol">deviation</span><span class="why">A small, recorded difference from the normal result is a deviation.</span></li>
+  <li><span class="sol">modification status</span><span class="why">Pre-mod or post-mod is the modification status; you update it after the test.</span></li>
+  <li><span class="sol">sign-off</span><span class="why">The final signature that closes the job is the sign-off.</span></li>
+</ol></div>
+
+<h2><span class="tag">E2</span> &nbsp;Matching — term to plain meaning</h2>
+<div class="ans"><ol>
+  <li>modification → <span class="sol">e</span><span class="why">A change to the aircraft or its equipment.</span></li>
+  <li>embodiment → <span class="sol">h</span><span class="why">The full act of carrying out a modification.</span></li>
+  <li>service bulletin → <span class="sol">g</span><span class="why">A maker's instruction to change or improve a product.</span></li>
+  <li>task card → <span class="sol">i</span><span class="why">A job sheet with the steps you must follow.</span></li>
+  <li>wiring diagram → <span class="sol">d</span><span class="why">A drawing that shows how the wires are connected.</span></li>
+  <li>connector → <span class="sol">c</span><span class="why">A plug that joins two parts of a circuit.</span></li>
+  <li>software load → <span class="sol">f</span><span class="why">The act of putting new software into a unit.</span></li>
+  <li>functional test → <span class="sol">j</span><span class="why">A check that a system works correctly.</span></li>
+  <li>snag → <span class="sol">b</span><span class="why">A fault found on the aircraft.</span></li>
+  <li>tech log → <span class="sol">a</span><span class="why">The aircraft's running record of work and faults.</span></li>
+</ol></div>
+
+<h2><span class="tag">E3</span> &nbsp;Dialogue completion — one bank term in each gap</h2>
+<div class="ans"><ol>
+  <li><span class="sol">effectivity</span><span class="why">You check the effectivity list first to prove the job applies.</span></li>
+  <li><span class="sol">wiring diagram</span><span class="why">The wiring diagram from chapter 23 shows the connections.</span></li>
+  <li><span class="sol">part number</span><span class="why">Confirm the part number of the new connector before fitting it.</span></li>
+  <li><span class="sol">continuity</span><span class="why">Continuity on every pin proves there is no break.</span></li>
+  <li><span class="sol">software load</span><span class="why">After the wiring passes, the software load follows.</span></li>
+  <li><span class="sol">functional test</span><span class="why">The functional test proves the radio works.</span></li>
+  <li><span class="sol">BITE</span><span class="why">The BITE reports the small fault by itself.</span></li>
+  <li><span class="sol">deviation</span><span class="why">Inside the limit, you log it as a deviation.</span></li>
+</ol></div>
+
+<h2><span class="tag">E4</span> &nbsp;Grammar transformation — present perfect</h2>
+<p class="lead">Form = <code>have/has</code> + past participle. Watch the subject (have vs has) and the irregular participles.</p>
+<div class="ans"><ol>
+  <li><span class="sol">have embodied</span><span class="why">Plural subject "We" takes <em>have</em>; participle of embody is embodied.</span></li>
+  <li><span class="sol">has written</span><span class="why">Singular subject takes <em>has</em>; write → written (not wrote).</span></li>
+  <li><span class="sol">have signed</span><span class="why">"I" takes <em>have</em>; sign is regular → signed.</span></li>
+  <li><span class="sol">have completed</span><span class="why">"They" takes <em>have</em>; complete → completed.</span></li>
+  <li><span class="sol">has loaded</span><span class="why">"She" takes <em>has</em>; load → loaded.</span></li>
+  <li><span class="sol">have recorded</span><span class="why">"We" takes <em>have</em>; record → recorded.</span></li>
+  <li><span class="sol">has updated</span><span class="why">"He" takes <em>has</em>; update → updated.</span></li>
+  <li><span class="sol">has finished</span> (or <span class="sol">have finished</span>)<span class="why">"The team" is one group, so <em>has</em> is standard; British English also allows <em>have</em>.</span></li>
+  <li><span class="sol">have checked</span><span class="why">"You" takes <em>have</em>; check → checked.</span></li>
+  <li><span class="sol">have not found</span> (or <span class="sol">haven't found</span>)<span class="why">Negative = have not + participle; find → found.</span></li>
+</ol></div>
+
+<h2><span class="tag">E5</span> &nbsp;Reading 1 — Service Bulletin (six questions)</h2>
+<div class="ans"><ol>
+  <li><span class="sol">b</span> — no, it is optional<span class="why">Section 1 says the bulletin is optional and no airworthiness directive applies.</span></li>
+  <li><span class="sol">a</span> — serial 4400 to 4600<span class="why">Section 1 gives the effectivity band; MSN 4471 falls inside it.</span></li>
+  <li><span class="sol">b</span> — 622-1140-002<span class="why">Section 3 names the new connector part number.</span></li>
+  <li><span class="sol">b</span> — below one ohm<span class="why">Section 3 sets the continuity limit at below one ohm.</span></li>
+  <li><span class="sol">b</span> — record a deviation<span class="why">Minus three is above minus five, so it is inside the limit: record a deviation, do not reject.</span></li>
+  <li><span class="sol">a</span> — sign the release<span class="why">Section 6 ends with signing the release, the last step.</span></li>
+</ol></div>
+
+<h2><span class="tag">E6</span> &nbsp;Error-spotting — correct the bold word</h2>
+<div class="ans"><ol>
+  <li><span class="wr">has</span> → <span class="sol">have</span><span class="why">Subject "We" takes have, not has.</span></li>
+  <li><span class="wr">have finished … yesterday</span> → <span class="sol">finished</span><span class="why">A finished-time word (yesterday) needs the past simple, not the present perfect.</span></li>
+  <li><span class="wr">wrote</span> → <span class="sol">written</span><span class="why">The present perfect needs the participle written, not the past simple wrote.</span></li>
+  <li><span class="wr">have</span> → <span class="sol">has</span><span class="why">Subject "She" takes has.</span></li>
+  <li><span class="wr">record</span> → <span class="sol">recorded</span><span class="why">After have you need the participle recorded.</span></li>
+  <li><span class="wr">check</span> → <span class="sol">checked</span><span class="why">Question form: Have you + participle (checked).</span></li>
+  <li><span class="wr">did</span> → <span class="sol">done</span><span class="why">Participle of do is done, not did.</span></li>
+  <li><span class="wr">embody</span> → <span class="sol">embodied</span><span class="why">After have you need the participle embodied.</span></li>
+</ol></div>
+
+<h2><span class="tag">E7</span> &nbsp;Reading 2 — Work order &amp; tech log (six questions)</h2>
+<div class="ans"><ol>
+  <li><span class="sol">b</span> — two<span class="why">The work order links to task card 24-51-A and 24-51-B.</span></li>
+  <li><span class="sol">a</span> — below one ohm<span class="why">The record states all continuity readings were below one ohm.</span></li>
+  <li><span class="sol">b</span> — no, it finished with no error<span class="why">The software load finished cleanly.</span></li>
+  <li><span class="sol">a</span> — inside the limit<span class="why">Minus three against a minus-five limit is inside the limit.</span></li>
+  <li><span class="sol">b</span> — post-mod<span class="why">The record states the modification status is now post-mod.</span></li>
+  <li><span class="sol">b</span> — review of the deviation<span class="why">The release is ready after review of the recorded deviation.</span></li>
+</ol></div>
+
+<h2><span class="tag">E8</span> &nbsp;Listening review — Dialogue 3 (eight questions)</h2>
+<div class="ans"><ol>
+  <li><span class="sol">b</span> — the built-in test<span class="why">After the radio powers up, B starts the built-in test (BITE).</span></li>
+  <li><span class="sol">b</span> — amber<span class="why">The BITE shows one amber message.</span></li>
+  <li><span class="sol">a</span> — antenna gain low<span class="why">B reads the message aloud: antenna gain low.</span></li>
+  <li><span class="sol">a</span> — minus three<span class="why">The gain reads minus three.</span></li>
+  <li><span class="sol">b</span> — minus five<span class="why">The stated limit is minus five.</span></li>
+  <li><span class="sol">a</span> — yes<span class="why">Minus three is above minus five, so it is inside the limit.</span></li>
+  <li><span class="sol">a</span> — on the work order<span class="why">B records the deviation on the work order with the exact reading.</span></li>
+  <li><span class="sol">a</span> — A, the lead technician<span class="why">A stamps the sign-off at the end.</span></li>
+</ol></div>
+
+<h2><span class="tag">Writing</span> &nbsp;Model completion report (annotated)</h2>
+<p class="lead">Target: 70–100 words, Simplified Technical English, present perfect for the reported result. The model below is exactly on-spec; the notes show why each choice is right.</p>
+<div class="model">
+  <p><b>Completion report — SB 24-51 embodiment</b></p>
+  <p>Aircraft MSN 4471. We have embodied service bulletin 24-51 on the number-two radio. We have fitted the new connector, part number 622-1140-002. We tested continuity on every pin. All readings were below one ohm. We have loaded software part number 285-A051. The software load finished with no error. The functional test passed. The BITE showed antenna gain minus three. This is inside the minus-five limit. We recorded an accepted deviation on the work order. The modification status is now post-mod. Configuration control is updated. Sign-off complete.</p>
+  <p style="text-align:right;color:var(--muted)">— A. Kalnina · 08 Aug 2026 · 92 words</p>
+</div>
+<div class="anno"><b>Present perfect for the result now:</b> "We <b>have embodied</b>", "We <b>have fitted</b>", "We <b>have loaded</b>" — the job is done and the result stands, so the present perfect is correct.</div>
+<div class="anno"><b>Past simple for a finished, timed step:</b> "We <b>tested</b> continuity" and "All readings <b>were</b> below one ohm" — these describe completed measurements, so the past simple is right, not the present perfect.</div>
+<div class="anno"><b>Facts included (mark scheme):</b> service bulletin + aircraft ✓ · connector part number ✓ · continuity result ✓ · software load + result ✓ · functional test + BITE ✓ · accepted deviation ✓ · modification status ✓ · sign-off ✓ · name + date ✓.</div>
+<div class="ste">
+  <b>Simplified Technical English check.</b> Every sentence has one idea and stays under 20 words. Active voice throughout ("We have loaded…", not "the software was loaded by us"). No long words where a short one works: <span class="rt">"The software load finished with no error"</span>, not <span class="wr">"The software loading procedure was successfully finalised without anomaly"</span>.
+</div>
+
+<table>
+  <thead><tr><th>Band</th><th>What a strong answer shows</th></tr></thead>
+  <tbody>
+    <tr><td>Full marks</td><td>All nine facts present; present perfect used for the result and past simple for timed steps; every sentence one idea, under 20 words; active voice; name and date.</td></tr>
+    <tr><td>Good</td><td>Seven or eight facts; mostly correct tense; one or two long sentences or a passive slip.</td></tr>
+    <tr><td>Needs work</td><td>Missing facts; dropped auxiliary (<span class="wr">"We embodied"</span> for a reported result), or present perfect with "yesterday"; sentences over 20 words.</td></tr>
+  </tbody>
+</table>
+
+<footer>English for Aviation Maintenance · Unit 24 of 32 · Solutions &amp; model answer · CEFR B2</footer>
+</main>
+</body></html>

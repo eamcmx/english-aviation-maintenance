@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 23 — Teacher Deck · Loading and verifying avionics software</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:40px;margin:.2em 0;line-height:1.12}
+h2{font-size:30px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.said{display:inline-block;background:#0f1726;border:1px solid var(--line2);border-left:3px solid var(--accent);
+  border-radius:10px;padding:9px 14px;margin:6px 0;color:#dbe7f4;font-size:19px}
+.dw{width:100%;max-width:680px;min-height:340px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:340px;
+  border:1px dashed var(--line);border-radius:14px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk button.hot{background:#2a1417;color:#ff8f99;border-color:#5b2a30}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:58px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+table.g{border-collapse:collapse;width:100%;font-size:17px}
+table.g th,table.g td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--line)}
+table.g th{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{border:1px solid var(--line2);border-radius:11px;padding:11px 14px;background:#0f1726}
+.tile b{color:var(--accent)}
+.good{color:var(--good)}.hotx{color:var(--hot)}.amberx{color:var(--amber)}
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="TIMING 0–2 min. Open the unit. This is a balanced-skills B2 lesson built around one hangar job: a coordinated software load on an avionics LRU (a comm radio). Say the shape of the 90 minutes out loud — listen, mine the language, drill vocabulary and one grammar point (once/when), then role-play the whole procedure and start a tech-log entry. Name the single habit that runs through everything: read every reference ALOUD and confirm it, because on the line a mis-read part number is a real safety event. Press P for the presenter window with these notes; press L for live captions translated to Latvian or Russian.">
+    <div class="kick">English for Aviation Maintenance · Unit 23 · CEFR B2 · EASA Part-66/145</div>
+    <h1>Loading and verifying avionics software</h1>
+    <p class="big muted">Follow a software-load procedure, confirm each reference aloud, and prove the result — the language a mechanic and an avionics technician use around the dataloader.</p>
+    <p class="pill">90-minute class · balanced skills · read every reference back · "a finished bar is not a successful load"</p>
+  </section>
+
+  <!-- 2 · MAP / OUTCOMES -->
+  <section class="slide" data-notes="TIMING 2–5 min. Set the can-do outcomes and the plan so the class knows where it is going. Three outcomes: follow a load procedure and confirm each step; communicate part number, load number and configuration precisely; verify a good load or troubleshoot a failed one. Point at the assessment logic: the quiz splits by skill (listening, reading, use of English, vocabulary) so every strand is practised. Keep instructions to the learner very simple — the content is dense, the tasks are plain. Tell them the golden rule appears again at the end.">
+    <div class="kick">By the end · the plan</div>
+    <h2>Three things you will be able to do</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="good">1 —</b> Follow a software-load procedure and confirm each step.</p>
+        <p><b class="good">2 —</b> Communicate part number, load number and configuration precisely.</p>
+        <p><b class="good">3 —</b> Verify a successful load, or troubleshoot a failed one.</p>
+      </div>
+      <div>
+        <p><b>Route:</b> listen to three dialogues + a voicemail → mine the vocabulary → the <em>once / when</em> grammar → controlled practice → role-play the whole job → write the tech-log entry.</p>
+        <p class="muted">One habit throughout: say every reference out loud and ask <em>"Do you confirm?"</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · WARM-UP / SCENARIO -->
+  <section class="slide" data-center data-notes="TIMING 0–5 of the listening block. Warm-up — elicit, do not teach yet. Ask: what does it mean to 'load software' onto a radio? Who does it? What could go wrong? Draw out that an LRU is a box you swap, and that new software has its own part number. Keep the board tidy: you will fill it with the four reference types on the next slide. Nominate a Latvian- or Russian-speaking pair to describe the picture in two sentences — listen for dropped articles already.">
+    <div class="kick">§1 · warm-up</div>
+    <h2>The scene: a comm radio needs new software</h2>
+    <p class="big">Two technicians work together at the rack. One drives the dataloader; the other reads the references aloud and watches the screen. Before anything runs, they must agree on every number.</p>
+    <p class="muted" style="max-width:60ch">Ask the room: what has to be TRUE before we press start? Collect answers — you will meet them again as the procedure.</p>
+  </section>
+
+  <!-- 4 · PRE-LISTENING REFERENCES -->
+  <section class="slide" data-notes="TIMING 5–10 of listening block. Pre-teach the four reference types the ear must catch, and model how to READ them. Part number identifies the physical box (622-1140-001). Software part number identifies the software itself (285-A047, revision C). Load number names one specific load (L-2231). Checksum is a number that proves the data is not corrupted (4F-2A-91-D0). Drill reading aloud: group the digits, say 'dash', spell letters with the phonetic habit if useful. This is the exact skill the numerical quiz items test. Keep it short — they will hear these live in a moment.">
+    <div class="kick">§1 · before you listen · the four references</div>
+    <h2>Catch — and read back — these four</h2>
+    <table class="g">
+      <tr><th>Reference</th><th>What it names</th><th>In this job</th></tr>
+      <tr><td><b>Part number</b></td><td>the physical box (the LRU)</td><td><code>622-1140-001</code>, mod 5</td></tr>
+      <tr><td><b>Software part number</b></td><td>the software itself</td><td><code>285-A047</code>, rev C</td></tr>
+      <tr><td><b>Load number</b></td><td>one specific software load</td><td><code>L-2231</code></td></tr>
+      <tr><td><b>Checksum</b></td><td>proof the data is not corrupted</td><td><code>4F-2A-91-D0</code></td></tr>
+    </table>
+    <p class="muted">Model reading each one aloud, grouped: "six-two-two, one-one-four-zero, dash zero-zero-one."</p>
+  </section>
+
+  <!-- 5 · DIALOGUE 1 -->
+  <section class="slide" data-notes="TIMING 10–14. Dialogue 1 — 'Starting the load'. First play: transcript CLOSED, one task only — catch the software part number, the load number and the go/no-go word. Second play: transcript open, read along. Elicit the decisive line: 'Since the card and the media agree, we are authorised to begin.' Highlight the read-back ('Let me read it back to confirm…'). Note B's good catch on compatibility (mod 5 meets mod 4). Then move to the load-monitor widget to make 'start / percentage / abort' physical.">
+    <div class="kick">§2 · Listening · Dialogue 1</div>
+    <h2>Starting the load — catch the go/no-go words</h2>
+    <div class="cols">
+      <div>
+        <p class="said">"Let me read it back to confirm. Software part number 285-A047, revision C. Do you agree?"</p>
+        <p class="said">"Since the card and the media agree, we are authorised to begin the data load."</p>
+      </div>
+      <div><p><b>Task 1 (closed):</b> write the software part number, the load number, and the word that means "we can start".</p>
+        <p class="muted">Task 2 (open): find B's good catch about compatibility (mod 4 or later → the unit is mod 5).</p></div>
+    </div>
+  </section>
+
+  <!-- 6 · WIDGET loadmon -->
+  <section class="slide" data-notes="TIMING 14–17. Interactive. Use the load monitor to fix the action verbs: start, monitor, announce the percentage, halt, abort. Press Start and let it run — invite a student to 'announce the percentage every twenty seconds' as B does. Then press Inject checksum error to freeze it near sixty percent, exactly like Dialogue 2, and ask: what now? Elicit 'abort'. Press Abort and read the info line: the unit retains its previous software — a clean abort protects the configuration. This is watch-AND-drive: the students call the actions.">
+    <div class="kick">§2 · Interactive · the load monitor</div>
+    <h2>Run it, watch it, abort it — say the verb</h2>
+    <div class="cols">
+      <div class="dw" data-widget="loadmon"></div>
+      <div><p>Drive the load. Students supply the verb for each state: <b>start · monitor · announce · halt · abort</b>.</p>
+        <p class="muted">Inject a checksum error and it freezes — just like Dialogue 2. A clean <b>abort</b> keeps the old software safe.</p></div>
+    </div>
+  </section>
+
+  <!-- 7 · DIALOGUE 2 -->
+  <section class="slide" data-notes="TIMING 17–21. Dialogue 2 — 'A failed load'. Closed play: what stopped the load, and what two things do they check before retrying? Open play: draw out the trouble-shooting chain — checksum error means corrupted data → abort → investigate → check the second card's label ('unless the card matches exactly, do not use it') → power cycle → re-read the checksum aloud → restart. Flag the connector 'unless' and 'although' — natural B2 subordination inside short sentences. Then the checksum widget.">
+    <div class="kick">§2 · Listening · Dialogue 2</div>
+    <h2>A failed load — the trouble-shooting chain</h2>
+    <div class="cols">
+      <div>
+        <p class="said">"A checksum error indicates that the data is corrupted. The dataloader cannot trust the file."</p>
+        <p class="said">"Yes, although you must check the label first. Unless the card matches exactly, do not use it."</p>
+      </div>
+      <div><p><b>Task:</b> put the steps in order — abort · investigate · check the label · power cycle · re-read the checksum · restart.</p>
+        <p class="muted">Listen for the connectors: <em>although</em>, <em>unless</em>, <em>because</em>.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · WIDGET checksum -->
+  <section class="slide" data-notes="TIMING 21–24. Interactive. The checksum widget models the exact read-back safety habit. Press Read checksum: the displayed value scans out character by character. A student reads it aloud against the task-card value on the left, then the class votes Match or No match. Toggle 'defective card' to make them disagree — that is the Dialogue 2 failure. Point: verification is a comparison of two values, spoken aloud, never a glance.">
+    <div class="kick">§2 · Interactive · checksum read-back</div>
+    <h2>Read the checksum aloud — match or no match?</h2>
+    <div class="cols">
+      <div class="dw" data-widget="checksum"></div>
+      <div><p>The card value is fixed on the left. Press <b>Read checksum</b>, read the display aloud, then decide.</p>
+        <p class="muted">Flip <b>defective card</b> and the values disagree — that is why the first load failed.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · DIALOGUE 3 -->
+  <section class="slide" data-notes="TIMING 24–28. Dialogue 3 — 'Verify and sign off'. Closed play: what do they run first after 100%, and what does the configuration report list? Open play: the golden rule — 'A finished bar is not a successful load yet, because we still have to verify it.' Sequence: BITE green → open configuration report → cross-check every field against the task card → check the hardware line (LRU + mod) → final power cycle → record in the tech log. This is the spine of the whole unit; make sure every student can say it.">
+    <div class="kick">§2 · Listening · Dialogue 3</div>
+    <h2>Verify and sign off — the golden rule</h2>
+    <div class="cols">
+      <div>
+        <p class="said">"A finished bar is not a successful load yet, because we still have to verify it."</p>
+        <p class="said">"The report and the card agree on every field, so the verification is complete."</p>
+      </div>
+      <div><p><b>Task:</b> list the verify steps in order — BITE · configuration report · cross-check · hardware line · power cycle · tech log.</p>
+        <p class="muted">Then feed the same job into the cross-check widget.</p></div>
+    </div>
+  </section>
+
+  <!-- 10 · WIDGET crosscheck -->
+  <section class="slide" data-notes="TIMING 28–31. Interactive. The cross-check widget puts the task card beside the configuration report. Click a field on each side to check it — a matched pair draws a green link. One field is togglable to a MISMATCH (wrong revision or wrong mod); the class must find it before signing off. Drive home: cross-check means compare field by field; one wrong field blocks the sign-off. Great source of once/when sentences: 'When every field matches, sign off the task card.'">
+    <div class="kick">§2 · Interactive · cross-check</div>
+    <h2>Card vs report — find the field that does not match</h2>
+    <div class="cols">
+      <div class="dw" data-widget="crosscheck"></div>
+      <div><p>Match each field on the card to the report. A green link = agreed.</p>
+        <p class="muted">Toggle a <b>mismatch</b> and the sign-off is blocked until it is found and explained.</p></div>
+    </div>
+  </section>
+
+  <!-- 11 · MONOLOGUE -->
+  <section class="slide" data-notes="TIMING 31–34. Track 4 — the shift-handover voicemail (a monologue, different listening genre). Play once; students note the THREE instructions to the next shift: inspect the load media first (a card failed last night), run BITE and open the configuration report once the load is complete, cross-check against the task card. This models real line communication and previews the writing task. Ask one student to summarise the handover in two sentences.">
+    <div class="kick">§2 · Listening · Track 4 (monologue)</div>
+    <h2>Shift-handover voicemail — note the instructions</h2>
+    <div class="cols">
+      <div>
+        <p class="said">"Please inspect the load media carefully before you start, because last night one card produced a checksum error."</p>
+        <p class="said">"Once the data load is complete, run the BITE test and open the configuration report."</p>
+      </div>
+      <div><p><b>Task:</b> write the three things the next shift must do.</p>
+        <p class="muted">Notice the register: short, polite, one instruction per sentence — the model for the writing task.</p></div>
+    </div>
+  </section>
+
+  <!-- 12 · VOCABULARY -->
+  <section class="slide" data-notes="TIMING 28–40 (vocab block). Walk the bank, but teach the COLLOCATION, not the bare word: run a BITE test, cross-check against the card, power cycle the unit, abort the load, confirm compatibility. Concept-check three hard ones — checksum, configuration, LRU — with a quick question each. Then set E1 (gap-fill) and E2 (matching) from the body; students do them on their devices and self-check. Keep your talk short; let them produce.">
+    <div class="kick">§3 · Vocabulary · learn the partner word</div>
+    <h2>Twenty terms — memorise the collocation</h2>
+    <div class="grid2">
+      <div class="tile"><b>run</b> a BITE test</div>
+      <div class="tile"><b>cross-check</b> against the card</div>
+      <div class="tile"><b>power cycle</b> the unit</div>
+      <div class="tile"><b>abort</b> the load</div>
+      <div class="tile"><b>confirm</b> compatibility</div>
+      <div class="tile"><b>connect</b> the dataloader</div>
+      <div class="tile"><b>read back</b> the part number</div>
+      <div class="tile"><b>enter</b> it in the tech log</div>
+    </div>
+    <p class="muted">Now run <b>E1</b> (gap-fill) and <b>E2</b> (matching) — students self-check, you monitor spelling of <em>checksum</em>, <em>compatibility</em>.</p>
+  </section>
+
+  <!-- 13 · GRAMMAR PATTERN -->
+  <section class="slide" data-notes="TIMING 40–46 (grammar block). Draw the grammar OUT of the dialogues, do not lecture it. Take the three quoted lines and ask: where is the future here? Establish the rule: with once / when / as soon as, the time clause (the gate) uses the PRESENT tense even though it points to the future — never 'will' inside it. Show the four patterns. Then the sequencer widget makes the gate physical. Keep the metalanguage light: 'gate first, then action'.">
+    <div class="kick">§4 · Grammar in context · stage gating</div>
+    <h2><em>once / when / as soon as</em> — gate, then action</h2>
+    <table class="g">
+      <tr><th>Pattern</th><th>Example</th></tr>
+      <tr><td><code>Once + past participle, + imperative</code></td><td>Once loaded, verify the configuration.</td></tr>
+      <tr><td><code>Once + subject + present, + imperative</code></td><td>Once the load finishes, run BITE.</td></tr>
+      <tr><td><code>When + subject + present, + imperative</code></td><td>When the light turns green, press start.</td></tr>
+      <tr><td><code>As soon as + subject + present, + imperative</code></td><td>As soon as it starts, watch the bar.</td></tr>
+    </table>
+    <p class="muted">The gate is <b>present tense</b> — no <code>will</code> inside it, even for the future.</p>
+  </section>
+
+  <!-- 14 · WIDGET gate -->
+  <section class="slide" data-notes="TIMING 46–50. Interactive. The stage-gate sequencer has five gates in order: confirm references → check compatibility → link stable → load complete → verified. Click them in order and each opens, revealing a model once/when sentence. Click out of order and it is refused — 'that gate is not open yet' — which IS the meaning of stage gating. Have students read each revealed sentence aloud. Then convert: change 'Once the link is stable…' into a 'when' version.">
+    <div class="kick">§4 · Interactive · the stage gate</div>
+    <h2>Open the gates in order — say each sentence</h2>
+    <div class="cols">
+      <div class="dw" data-widget="gate"></div>
+      <div><p>Each gate opens only when the one before it is done — that is what <em>once / when</em> mean.</p>
+        <p class="muted">Read the revealed sentence aloud, then say it again with a different connector.</p></div>
+    </div>
+  </section>
+
+  <!-- 15 · L1 ERRORS -->
+  <section class="slide" data-notes="TIMING 52–58 (error clinic). Pre-empt the three predictable Latvian/Russian errors. 1) Future in the time clause ('when the load will finish') — both L1s mark the future in both clauses; English keeps the gate in the present. 2) Dropped article ('once configuration is verified') — no articles in Latvian or Russian; ask 'which configuration?' to cue 'the'. 3) Dropped passive be ('once loaded the software') — L1 participles need no auxiliary; insist on 'is loaded'. Run E6 as a timed race, then feed back on ONE error type only.">
+    <div class="kick">§4 · Error clinic · Latvian / Russian</div>
+    <h2>Three errors to catch before they set</h2>
+    <div class="grid2">
+      <div class="tile"><span class="hotx">✗ when the load <u>will finish</u></span><br><span class="good">✓ when the load finishes</span><br><small>L1 marks the future twice; English keeps the gate present.</small></div>
+      <div class="tile"><span class="hotx">✗ once <u>configuration</u> is verified</span><br><span class="good">✓ once <b>the</b> configuration is verified</span><br><small>No articles in L1 — ask "which one?" to cue <em>the</em>.</small></div>
+      <div class="tile"><span class="hotx">✗ once <u>loaded the software</u></span><br><span class="good">✓ once the software <b>is</b> loaded</span><br><small>Restore the passive <em>be</em> and the subject.</small></div>
+      <div class="tile"><span class="amberx">Run E6 as a race.</span><br><small>Then feed back on one error type only — not all three at once.</small></div>
+    </div>
+  </section>
+
+  <!-- 16 · EXERCISE STAGING -->
+  <section class="slide" data-notes="TIMING (folded into blocks above) — this slide is a manager's view of the eight exercises so pacing stays on track. E1 gap-fill and E2 matching in the vocab block; E3 dialogue completion and E4 grammar transformation in the grammar block; E6 error-spotting in the error clinic; E5 and E7 reading in the reading block; E8 listening review with Dialogue 3. All self-check in the body; your job is monitoring and hot-correction. If time is short, E3 and E8 can be set for homework.">
+    <div class="kick">§5 · Exercises · the manager's view</div>
+    <h2>Eight exercises, 66 practice items — where each lands</h2>
+    <table class="g">
+      <tr><th>Block</th><th>Exercises</th><th>Skill</th></tr>
+      <tr><td>Vocabulary</td><td>E1 gap-fill · E2 matching</td><td>terms &amp; meanings</td></tr>
+      <tr><td>Grammar</td><td>E3 completion · E4 transformation</td><td>once / when</td></tr>
+      <tr><td>Error clinic</td><td>E6 error-spotting</td><td>L1 accuracy</td></tr>
+      <tr><td>Reading</td><td>E5 task card · E7 service bulletin</td><td>read for facts</td></tr>
+      <tr><td>Listening</td><td>E8 review (Dialogue 3)</td><td>detailed listening</td></tr>
+    </table>
+    <p class="muted">All self-marking. Short on time? Set E3 and E8 for homework.</p>
+  </section>
+
+  <!-- 17 · READING STAGING -->
+  <section class="slide" data-notes="TIMING 58–70 (reading block). Two authentic genres. E5 is a task card (AMM) — read for the power source, the references, the minimum mod, the abort rule, the quarantine-after-two rule, the record location. E7 is a Service Bulletin — the fault it fixes, mandatory or not, the incompatible mod, the time, the task-card reference, the record-retention period. Teach a reading strategy: scan for the number/label, do not read every word. These mirror the reading quiz items, which use fresh documents (BITE readout, MEL, work order, IPC).">
+    <div class="kick">§5 · Reading · authentic documents</div>
+    <h2>Read a task card and a service bulletin for facts</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>E5 — Task card (AMM):</b> power source, references, minimum mod, the abort rule, quarantine after two failures, where to record.</p>
+        <p><b>E7 — Service Bulletin (SB):</b> the fault it fixes, mandatory?, the incompatible mod, the time, the task card, record retention.</p>
+      </div>
+      <div><p><b>Strategy:</b> scan for the label or number; do not read every word.</p>
+        <p class="muted">The reading quiz uses fresh documents — a BITE readout, a MEL entry, a work order, an IPC.</p></div>
+    </div>
+  </section>
+
+  <!-- 18 · SPEAKING / ROLE-PLAY MANAGEMENT -->
+  <section class="slide" data-notes="TIMING 70–84 (speaking block). Manage the four role-plays. Pair students; give each pair a card; rotate every ~3 minutes so everyone plays lead (A) and assistant (B). Cards: 1 start the load, 2 handle a failed load, 3 verify and sign off, 4 shift handover. Insist on read-back and 'Do you confirm?'. Monitor with the B2 rubric (range/accuracy/fluency/interaction/coherence) in the key. Hot-correct only the time-clause tense and dropped articles; note other errors for later. Weaker pairs can use the AI partner on the next slide.">
+    <div class="kick">§6 · Speaking · four role-plays</div>
+    <h2>Rotate the four cards — lead and assist</h2>
+    <div class="grid2">
+      <div class="tile"><b>Card 1</b> Start the load (you are A)</div>
+      <div class="tile"><b>Card 2</b> Handle a failed load (you are B)</div>
+      <div class="tile"><b>Card 3</b> Verify and sign off (you are A)</div>
+      <div class="tile"><b>Card 4</b> Shift handover (off-going)</div>
+    </div>
+    <p class="muted">Rotate every ~3 min. Score with the B2 rubric in the key — range · accuracy · fluency · interaction · coherence. Hot-correct only the <em>once/when</em> tense.</p>
+  </section>
+
+  <!-- 19 · AI PARTNER + PRONUNCIATION -->
+  <section class="slide" data-notes="TIMING within the speaking block, for pairs who finish or need support. The body has an AI conversation partner pinned to this scenario: it stays in role, speaks at B2, asks the learner to confirm each reference, and gently recasts errors. Also point learners to the pronunciation practice (record and compare) in the body for the number strings and 'th'. Ask each student who uses the AI to report three recasts they received — that turns the tool into noticing.">
+    <div class="kick">§6 · Speaking · AI partner &amp; pronunciation</div>
+    <h2>Extra practice that talks back</h2>
+    <div class="cols">
+      <div class="card"><p>The in-lesson partner stays in role, speaks at B2, asks you to confirm each reference, and recasts your errors gently.</p>
+        <p class="muted">Report back three recasts it gave you, and the rule behind each.</p></div>
+      <div><p><b>Pronunciation:</b> record and compare the number strings — <code>622-1140-001</code>, <code>L-2231</code>, <code>4F-2A-91-D0</code> — and the "th" in <em>three</em>.</p></div>
+    </div>
+  </section>
+
+  <!-- 20 · WRITING -->
+  <section class="slide" data-notes="TIMING 84–90. Set the writing task and model ONE sentence in Simplified Technical English before they start. Task: a tech-log entry, 60–90 words, including the unit and part number, software part number and load number, the steps done, the BITE result and the verification result, then name and date. STE habits: short active sentences (max 20 words), one idea each, approved plain words — 'Run BITE', not 'It is necessary to carry out a BITE test'. Start it in class; finish for homework. Model answer and marking guide are in the solutions file.">
+    <div class="kick">§7 · Writing · Simplified Technical English</div>
+    <h2>Write the tech-log entry (60–90 words)</h2>
+    <div class="cols">
+      <div class="card"><p>Include: the unit + part number · software part number + load number · the steps you did · the BITE result · the verification result · name and date.</p></div>
+      <div><p><b>STE habits:</b> short active sentences (≤20 words), one idea each, approved plain words.</p>
+        <p class="muted">"Run BITE" — not "it is necessary to carry out a BITE test." Start in class, finish for homework.</p></div>
+    </div>
+  </section>
+
+  <!-- 21 · WRAP-UP -->
+  <section class="slide" data-center data-notes="TIMING 88–90. Close and set the exit ticket. Recap in one breath: read every reference aloud and confirm it; the gate (once/when) is present tense; a finished bar is NOT a successful load until BITE is green and the configuration report matches the task card on every field; record it in the tech log for the next technician. Exit ticket: each student says (or writes) one correct once/when sentence about the load. Homework: finish the tech-log entry and the outstanding exercises. End on the golden rule.">
+    <div class="kick">Recap · close</div>
+    <h2>Say it, gate it, verify it, record it</h2>
+    <p class="big muted">Read every reference aloud and confirm · the <em>once/when</em> gate stays in the present · a finished bar is not a successful load until BITE is green and the report matches the card on every field · record the load and the result in the tech log.</p>
+    <p><b>Exit ticket:</b> one correct <em>once/when</em> sentence about the load. <span class="muted">Homework: finish the tech-log entry.</span></p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS, canvas + rAF, student-driven) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+  function fitCanvas(c,h){var w=c.parentElement.clientWidth||640;c.width=w;c.height=h||300;return c.getContext('2d');}
+
+  /* ---- W1: LOAD MONITOR (canvas + rAF) ---- */
+  window.DeckW.loadmon=function(el){
+    el.innerHTML='<div class="wk"><div class="bar">'
+      +'<button data-start class="prim">▶ Start load</button>'
+      +'<button data-err class="hot">Inject checksum error</button>'
+      +'<button data-abort>■ Abort</button>'
+      +'<button data-reset>↻ Reset</button></div>'
+      +'<canvas></canvas>'
+      +'<div class="info" data-info><h4>Ready</h4>Data load L-2231 selected. Press Start.</div></div>';
+    var cv=el.querySelector('canvas'), info=el.querySelector('[data-info]');
+    var ctx=fitCanvas(cv,220), raf=null;
+    var pct=0, state='idle', errAt=-1;
+    function setInfo(h,b){info.innerHTML='<h4>'+h+'</h4>'+b;}
+    function draw(){
+      var w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);
+      // track
+      var bx=30,by=h/2-22,bw=w-60,bh=44;
+      ctx.fillStyle='#0a0f18';ctx.fillRect(bx,by,bw,bh);
+      ctx.strokeStyle='#314865';ctx.lineWidth=1.5;ctx.strokeRect(bx,by,bw,bh);
+      var col=state==='error'?'#ff5667':(state==='done'?'#34d399':'#38b6ff');
+      ctx.fillStyle=col;ctx.fillRect(bx+2,by+2,(bw-4)*(pct/100),bh-4);
+      ctx.fillStyle='#e9f0f7';ctx.font='bold 22px '+'-apple-system,Segoe UI,sans-serif';
+      ctx.textAlign='center';ctx.fillText(Math.round(pct)+'%',w/2,by+bh/2+8);
+      ctx.textAlign='left';ctx.fillStyle='#7e98ad';ctx.font='13px monospace';
+      ctx.fillText('LOAD L-2231  ·  P/N 285-A047 rev C',bx,by-14);
+      if(raf)raf=requestAnimationFrame(step);
+    }
+    function step(){
+      if(state==='run'){
+        pct+=0.8;
+        if(errAt>0 && pct>=errAt){ pct=errAt; state='error'; setInfo('⛔ Checksum error','The bar is frozen at '+Math.round(pct)+'%. The data is corrupted — the loader cannot trust the file. Say the verb: <b>abort</b>.'); cancelAnimationFrame(raf); raf=requestAnimationFrame(step); draw(); return; }
+        if(pct>=100){ pct=100; state='done'; setInfo('✅ Load complete','But a finished bar is not a successful load yet — run BITE and cross-check the configuration report.'); }
+        else if(Math.round(pct)%20===0){ setInfo('Loading…','Announce the percentage: <b>'+Math.round(pct)+' percent</b>, bar advancing, no fault message.'); }
+      }
+      draw();
+    }
+    function go(){ if(raf)cancelAnimationFrame(raf); raf=requestAnimationFrame(step); }
+    el.querySelector('[data-start]').onclick=function(){ if(state==='idle'||state==='done'||state==='aborted'){pct=0;} state='run'; setInfo('Loading…','Started. The bar is advancing. Announce the percentage every twenty seconds.'); go(); };
+    el.querySelector('[data-err]').onclick=function(){ errAt=60; if(state!=='run'){pct=0;state='run';setInfo('Loading…','Started with a bad card — watch it stop.');go();} };
+    el.querySelector('[data-abort]').onclick=function(){ state='aborted'; setInfo('Aborted — load cancelled','A clean abort protects the existing configuration. The unit has <b>retained its previous software</b>. Investigate before you retry.'); draw(); };
+    el.querySelector('[data-reset]').onclick=function(){ pct=0;state='idle';errAt=-1;setInfo('Ready','Data load L-2231 selected. Press Start.'); draw(); };
+    draw();
+  };
+
+  /* ---- W2: CHECKSUM READ-BACK (canvas + rAF) ---- */
+  window.DeckW.checksum=function(el){
+    el.innerHTML='<div class="wk"><div class="bar">'
+      +'<button data-read class="prim">Read checksum</button>'
+      +'<button data-bad>defective card: <b data-badst>off</b></button>'
+      +'<button data-match>✓ Match</button>'
+      +'<button data-nomatch>✗ No match</button></div>'
+      +'<canvas></canvas>'
+      +'<div class="info" data-info><h4>Task-card value</h4>Card checksum: <code>4F-2A-91-D0</code>. Press Read, say the display aloud, then decide.</div></div>';
+    var cv=el.querySelector('canvas'), info=el.querySelector('[data-info]');
+    var ctx=fitCanvas(cv,180), raf=null;
+    var card='4F2A91D0', good='4F2A91D0', bad='4F2A9100';
+    var bad_on=false, shown=0, scanning=false;
+    function fmt(s){return s.replace(/(..)/g,'$1-').replace(/-$/,'');}
+    function draw(){
+      var w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);
+      ctx.font='13px monospace';ctx.fillStyle='#7e98ad';ctx.textAlign='left';
+      ctx.fillText('TASK CARD',30,40); ctx.fillText('DISPLAY',30,110);
+      ctx.font='bold 30px monospace';ctx.fillStyle='#cfe5ff';
+      ctx.fillText(fmt(card),30,74);
+      var disp=bad_on?bad:good;
+      var vis=disp.slice(0,shown);
+      ctx.fillStyle='#e9f0f7';ctx.fillText(fmt(vis),30,144);
+      if(scanning){ var x=30+ctx.measureText(fmt(vis)).width+4; ctx.fillStyle='#38b6ff';ctx.fillRect(x,120,10,28); }
+      if(raf)raf=requestAnimationFrame(tick);
+    }
+    var t=0;
+    function tick(){ t++; if(scanning && t%6===0){ shown++; if(shown>=8){shown=8;scanning=false;} } draw(); }
+    function loop(){ if(raf)cancelAnimationFrame(raf); raf=requestAnimationFrame(tick); }
+    el.querySelector('[data-read]').onclick=function(){ shown=0;scanning=true;info.innerHTML='<h4>Reading…</h4>Read each pair aloud as it appears: four-F, two-A, nine-one…'; loop(); };
+    el.querySelector('[data-bad]').onclick=function(){ bad_on=!bad_on; el.querySelector('[data-badst]').textContent=bad_on?'on':'off'; shown=0; info.innerHTML='<h4>'+(bad_on?'Defective card fitted':'Good card fitted')+'</h4>Press Read again and compare with the card value.'; draw(); };
+    el.querySelector('[data-match]').onclick=function(){ var same=(bad_on?bad:good)===card; info.innerHTML='<h4>'+(same?'✅ Correct':'⛔ Look again')+'</h4>'+(same?'The display matches the card. Verification of the checksum is complete.':'The last pair is <b>00</b>, not <b>D0</b> — the values disagree. This is a defective card.'); };
+    el.querySelector('[data-nomatch]').onclick=function(){ var same=(bad_on?bad:good)===card; info.innerHTML='<h4>'+(!same?'✅ Correct':'⛔ Look again')+'</h4>'+(!same?'Right — the values disagree, so do not use this card.':'They actually agree — <code>4F-2A-91-D0</code> on both. This card is good.'); };
+    draw();
+  };
+
+  /* ---- W3: STAGE-GATE SEQUENCER (canvas + rAF) ---- */
+  window.DeckW.gate=function(el){
+    var GATES=[
+      {k:'References confirmed',s:'Once the references are confirmed, begin the data load.'},
+      {k:'Compatibility checked',s:'When the mod is checked, connect the dataloader.'},
+      {k:'Link stable',s:'Once the link is stable, select the data load.'},
+      {k:'Load complete',s:'As soon as the load finishes, run BITE.'},
+      {k:'Verified',s:'When every field matches, sign off the task card.'}
+    ];
+    el.innerHTML='<div class="wk"><div class="bar"><span class="note" style="color:#9db0c6;font-weight:700">Click the gates IN ORDER</span>'
+      +'<button data-reset>↻ Reset</button></div><canvas></canvas>'
+      +'<div class="info" data-info><h4>Gate 1 is open</h4>Click "References confirmed" to open the first gate.</div></div>';
+    var cv=el.querySelector('canvas'), info=el.querySelector('[data-info]');
+    var ctx=fitCanvas(cv,240), raf=null, t=0;
+    var open=0; // number of gates opened
+    var hit=[];
+    function layout(){
+      hit=[]; var w=cv.width, n=GATES.length, gap=(w-40)/n;
+      for(var i=0;i<n;i++){ hit.push({x:20+i*gap+gap/2, y:cv.height/2, r:34, i:i}); }
+    }
+    function draw(){
+      var w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);
+      // connectors
+      for(var i=0;i<hit.length-1;i++){ ctx.strokeStyle=i<open-1?'#34d399':'#314865';ctx.lineWidth=4;
+        ctx.beginPath();ctx.moveTo(hit[i].x+34,hit[i].y);ctx.lineTo(hit[i+1].x-34,hit[i+1].y);ctx.stroke(); }
+      hit.forEach(function(g){
+        var done=g.i<open, active=g.i===open;
+        var pulse=active?(4*Math.sin(t/12)+4):0;
+        ctx.beginPath();ctx.arc(g.x,g.y,g.r+pulse,0,7);
+        ctx.fillStyle=done?'#16324c':'#0a0f18';ctx.fill();
+        ctx.lineWidth=2.5;ctx.strokeStyle=done?'#34d399':(active?'#38b6ff':'#314865');ctx.stroke();
+        ctx.fillStyle=done?'#7fd0ff':(active?'#e9f0f7':'#54708c');ctx.font='bold 20px -apple-system,Segoe UI,sans-serif';ctx.textAlign='center';
+        ctx.fillText(done?'✓':(g.i+1),g.x,g.y+7);
+        ctx.fillStyle=active?'#cfe5ff':'#7e98ad';ctx.font='12px -apple-system,Segoe UI,sans-serif';
+        var words=GATES[g.i].k.split(' ');
+        ctx.fillText(words[0],g.x,g.y+g.r+18); if(words[1])ctx.fillText(words.slice(1).join(' '),g.x,g.y+g.r+33);
+      });
+      if(raf)raf=requestAnimationFrame(tick);
+    }
+    function tick(){t++;draw();}
+    function loop(){if(raf)cancelAnimationFrame(raf);raf=requestAnimationFrame(tick);}
+    cv.onclick=function(e){
+      var r=cv.getBoundingClientRect(), mx=(e.clientX-r.left)*(cv.width/r.width), my=(e.clientY-r.top)*(cv.height/r.height);
+      hit.forEach(function(g){ var d=Math.hypot(mx-g.x,my-g.y); if(d<=g.r+8){
+        if(g.i===open){ open++; info.innerHTML='<h4>Gate '+(g.i+1)+' opened</h4><span class="said" style="font-size:16px">'+GATES[g.i].s+'</span>'; if(open>=GATES.length){info.innerHTML='<h4>✅ All gates open — successful load</h4>Every stage was gated behind the one before it. Say one line again with a different connector.';} }
+        else if(g.i>open){ info.innerHTML='<h4>⛔ Not yet</h4>That gate is not open. Finish gate '+(open+1)+' first — that is what <em>once / when</em> mean.'; }
+      }});
+    };
+    el.querySelector('[data-reset]').onclick=function(){open=0;info.innerHTML='<h4>Gate 1 is open</h4>Click "References confirmed" to open the first gate.';};
+    layout();loop();
+  };
+
+  /* ---- W4: CROSS-CHECK VERIFIER (canvas + rAF) ---- */
+  window.DeckW.crosscheck=function(el){
+    var FIELDS=[
+      {k:'Software P/N', card:'285-A047', rep:'285-A047'},
+      {k:'Revision',    card:'rev C',    rep:'rev C'},
+      {k:'Load number', card:'L-2231',   rep:'L-2231'},
+      {k:'LRU P/N',     card:'622-1140-001', rep:'622-1140-001'},
+      {k:'Hardware mod',card:'mod 5',    rep:'mod 5'}
+    ];
+    el.innerHTML='<div class="wk"><div class="bar">'
+      +'<button data-mis class="hot">inject mismatch: <b data-misst>off</b></button>'
+      +'<button data-sign class="prim">Sign off</button>'
+      +'<button data-reset>↻ Reset</button></div><canvas></canvas>'
+      +'<div class="info" data-info><h4>Cross-check</h4>Click a field on the left, then its match on the right. A green link = agreed.</div></div>';
+    var cv=el.querySelector('canvas'), info=el.querySelector('[data-info]');
+    var ctx=fitCanvas(cv,250), raf=null, t=0;
+    var mis=false, sel=-1, matched=[], rows=[];
+    function repVal(i){ return (mis && i===1)?'rev D':FIELDS[i].rep; } // mismatch on Revision
+    function layout(){ rows=[]; var n=FIELDS.length, top=30, gap=(cv.height-50)/n; for(var i=0;i<n;i++){ rows.push({y:top+i*gap+gap/2}); } }
+    function draw(){
+      var w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);
+      var lx=w*0.30, rx=w*0.70;
+      ctx.font='13px monospace';ctx.fillStyle='#7e98ad';ctx.textAlign='center';
+      ctx.fillText('TASK CARD',lx,18); ctx.fillText('CONFIG REPORT',rx,18);
+      rows.forEach(function(row,i){
+        var ok=matched.indexOf(i)>=0, agree=FIELDS[i].card===repVal(i);
+        if(ok){ ctx.strokeStyle=agree?'#34d399':'#ff5667';ctx.lineWidth=3;
+          ctx.beginPath();ctx.moveTo(lx+70,row.y);ctx.lineTo(rx-70,row.y);ctx.stroke();
+          if(agree){var mx=(lx+rx)/2, px=lx+70+((rx-70)-(lx+70))*clamp((t%90)/60,0,1);ctx.fillStyle='#34d399';ctx.beginPath();ctx.arc(px,row.y,4,0,7);ctx.fill();}
+        }
+        // left box
+        ctx.fillStyle=sel===i?'#16324c':'#0f1726';ctx.strokeStyle=sel===i?'#38b6ff':'#314865';ctx.lineWidth=1.5;
+        ctx.fillRect(lx-72,row.y-16,144,32);ctx.strokeRect(lx-72,row.y-16,144,32);
+        ctx.fillStyle='#cfe5ff';ctx.font='bold 14px monospace';ctx.textAlign='center';ctx.fillText(FIELDS[i].card,lx,row.y+5);
+        // right box
+        ctx.fillStyle='#0f1726';ctx.strokeStyle=ok&&!agree?'#ff5667':'#314865';ctx.fillRect(rx-72,row.y-16,144,32);ctx.strokeRect(rx-72,row.y-16,144,32);
+        ctx.fillStyle=ok&&!agree?'#ff8f99':'#cfe5ff';ctx.fillText(repVal(i),rx,row.y+5);
+        // label
+        ctx.fillStyle='#7e98ad';ctx.font='11px -apple-system,sans-serif';ctx.fillText(FIELDS[i].k,w/2,row.y-20);
+      });
+      if(raf)raf=requestAnimationFrame(tick);
+    }
+    function tick(){t++;draw();}
+    function loop(){if(raf)cancelAnimationFrame(raf);raf=requestAnimationFrame(tick);}
+    cv.onclick=function(e){
+      var r=cv.getBoundingClientRect(), mx=(e.clientX-r.left)*(cv.width/r.width), my=(e.clientY-r.top)*(cv.height/r.height);
+      var lx=cv.width*0.30, rx=cv.width*0.70, side=mx<cv.width/2?'L':'R';
+      rows.forEach(function(row,i){ if(Math.abs(my-row.y)<18){
+        if(side==='L'){ sel=i; }
+        else if(sel===i){ if(matched.indexOf(i)<0)matched.push(i); var agree=FIELDS[i].card===repVal(i);
+          info.innerHTML='<h4>'+FIELDS[i].k+(agree?' ✓ agree':' ✗ MISMATCH')+'</h4>'+(agree?'The card and the report match on this field.':'The report shows <b>'+repVal(i)+'</b> but the card says <b>'+FIELDS[i].card+'</b>. Do not sign off.'); sel=-1; }
+        else if(sel>=0){ info.innerHTML='<h4>Match the same field</h4>Left field "'+FIELDS[sel].k+'" — click the same row on the right.'; }
+      }});
+    };
+    el.querySelector('[data-mis]').onclick=function(){ mis=!mis; el.querySelector('[data-misst]').textContent=mis?'on':'off'; matched=[]; info.innerHTML='<h4>'+(mis?'A field was changed':'All fields reset')+'</h4>'+(mis?'One field on the report no longer matches. Cross-check to find it.':'Cross-check the fields again.'); };
+    el.querySelector('[data-sign]').onclick=function(){
+      var allok=true, bad=null; for(var i=0;i<FIELDS.length;i++){ if(FIELDS[i].card!==repVal(i)){allok=false;bad=FIELDS[i].k;} }
+      if(matched.length<FIELDS.length){ info.innerHTML='<h4>⛔ Not verified</h4>Cross-check every field first — '+(FIELDS.length-matched.length)+' still unchecked.'; }
+      else if(!allok){ info.innerHTML='<h4>⛔ Sign-off blocked</h4>The <b>'+bad+'</b> field does not match. Verification is not complete.'; }
+      else{ info.innerHTML='<h4>✅ Verification complete</h4>Every field agrees. Record the load number and the result in the tech log.'; }
+    };
+    el.querySelector('[data-reset]').onclick=function(){ mis=false;el.querySelector('[data-misst]').textContent='off';sel=-1;matched=[];info.innerHTML='<h4>Cross-check</h4>Click a field on the left, then its match on the right.'; };
+    layout();loop();
+  };
+
+  window.DeckWReady=true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u23_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u23_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 23</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:28px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u23_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u23_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u23_deck_state")render();});',
+'render();',
+'<\/script></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u23_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,80); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════ LIVE CAPTION TRANSLATOR — speech → live translated subtitle (CC / key L) ════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-src{ display:none; font-family:system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:monospace; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:monospace; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'), lineTop=document.getElementById('lctLineTop'), lineBot=document.getElementById('lctLineBot'),
+      srcEl=document.getElementById('lctSrc'), btn=document.getElementById('lctBtn'), gear=document.getElementById('lctGear'),
+      status=document.getElementById('lctStatus'), langBar=document.getElementById('lctLangBar'),
+      srcSel=document.getElementById('lctSrcSel'), tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition, __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){__micStream=s;}).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{__micStream.getTracks().forEach(function(t){t.stop();});}catch(e){} __micStream=null; } }
+  var spoken='en-US', src='en', target='lv', rec=null, active=false;
+  var lastInterim='', pending='', capTopB='', capBotB='', lctIdeaTimer=null, silenceTimer=null;
+  var lastTrAt=0, lastTrText='', lastTrLen=0, netErrors=0, cache=new Map(), POLL_GAP_MS=700;
+  function setStatus(t){ status.textContent=t; status.classList.toggle('show', active||t==='mic blocked'||t==='use Chrome'); }
+  function tail(text,mw){ if(!text)return''; var t=String(text).trim().replace(/\s+/g,' '); if(!t)return''; var p=t.split(' '); if(p.length<=mw)return t; return p.slice(-mw).join(' '); }
+  async function translateRemote(text){ try{ if(src===target)return text; var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text); var ctrl=new AbortController(), tmo=setTimeout(function(){ctrl.abort();},3000); var r=await fetch(url,{signal:ctrl.signal}); clearTimeout(tmo); if(!r.ok)return null; var j=await r.json(); if(Array.isArray(j)&&Array.isArray(j[0])){ var out='';j[0].forEach(function(s){if(s&&s[0])out+=s[0];}); return out||null; } return null; }catch(e){ return null; } }
+  async function translate(text){ if(!text||!text.trim())return''; var key=src+'|'+target+'|'+text.trim().toLowerCase(); if(cache.has(key))return cache.get(key); var out=await translateRemote(text); if(!out)out=text; cache.set(key,out); if(cache.size>250)cache.delete(cache.keys().next().value); return out; }
+  function rowCap(){ var el=lineBot; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.9)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16,Math.floor(box/(fs*0.52))); }
+  function trim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=rowCap(); if(t.length<=cap)return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0?s.slice(i+1):s; }
+  function wrap(){ var cap=rowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capBotB=capBotB.slice(cut).trim(); } }
+  function draw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=rowCap(); if(capBotB&&(capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capBotB=''; } lineTop.textContent=trim(capTopB); lineBot.textContent=trim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail(pending||'',16); }
+  function commitCap(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr)return; capBotB=capBotB?(capBotB+' '+tr):tr; wrap(); if(/[.!?…]$/.test(capBotB)){capTopB=capBotB;capBotB='';} draw(); }
+  function render(){ draw(); if(lctIdeaTimer)clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(function(){ if(capBotB){capTopB=capBotB;capBotB='';draw();} },1500); }
+  function armSilence(){ cancelSilence(); silenceTimer=setTimeout(function(){ capTopB='';capBotB='';lastInterim='';pending='';render(); },30000); }
+  function cancelSilence(){ if(silenceTimer){clearTimeout(silenceTimer);silenceTimer=null;} }
+  async function commitFinal(chunk){ chunk=chunk.trim(); if(!chunk)return; srcEl.textContent=tail(chunk,18); var tr=await translate(chunk); commitCap(tr); lastInterim='';lastTrLen=0; render(); }
+  async function translateInterim(text){ var now=performance.now(); if(now-lastTrAt<POLL_GAP_MS)return; if(text.length-lastTrLen<10&&text.length>0)return; if(text===lastTrText)return; lastTrAt=now;lastTrLen=text.length;lastTrText=text; try{ var tr=await translate(text); if(tr&&active){lastInterim=tr;render();} }catch(e){} }
+  function startRec(){
+    rec=new SR(); rec.continuous=true; rec.interimResults=true; rec.lang=spoken; if('maxAlternatives' in rec)rec.maxAlternatives=1;
+    var finalTimer=null;
+    rec.onresult=function(e){ netErrors=0; cancelSilence(); var interim='',fin='';
+      for(var i=e.resultIndex;i<e.results.length;i++){ var r=e.results[i]; if(r.isFinal)fin+=' '+r[0].transcript; else interim+=' '+r[0].transcript; }
+      if(fin){ pending+=' '+fin; if(finalTimer)clearTimeout(finalTimer); finalTimer=setTimeout(function(){ var c=pending;pending='';commitFinal(c).then(armSilence); },120); }
+      if(interim){ srcEl.textContent=tail(interim.trim(),18); translateInterim(interim.trim()); }
+      render(); setStatus('live · '+src+'→'+target); };
+    rec.onerror=function(ev){ if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active=false; }
+      else if(ev.error==='no-speech'||ev.error==='aborted'){} else if(ev.error==='network'){ netErrors++; if(netErrors>=3){ active=false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect '+netErrors+'/3'); } else setStatus(ev.error); };
+    rec.onend=function(){ if(active){ try{rec.start();}catch(e){ setTimeout(function(){ if(active&&rec){try{rec.start();}catch(_){}} },350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){ active=false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic(); if(rec){ try{rec.onend=null;rec.stop();}catch(e){} rec=null; } capTopB='';capBotB='';lastInterim='';pending='';render(); }
+    else{ active=true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on'); setStatus('starting…'); __holdMic().then(startRec); }
+  }
+  btn.addEventListener('click',function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click',function(e){ e.stopPropagation(); var open=langBar.classList.toggle('open'); gear.classList.toggle('on',open); });
+  document.addEventListener('keydown',function(e){ if((e.key==='l'||e.key==='L')&&!/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle(); });
+  srcSel.addEventListener('change',function(e){ e.stopPropagation(); spoken=srcSel.value; src=spoken.slice(0,2); cache.clear(); if(active&&rec){ rec.onend=null; try{rec.stop();}catch(_){} rec=null; __holdMic().then(startRec); } if(active)setStatus('live · '+src+'→'+target); });
+  tgtSel.addEventListener('change',function(e){ e.stopPropagation(); target=tgtSel.value; cache.clear(); capTopB='';capBotB='';lastInterim='';lastTrText='';lastTrLen=0; render(); if(active)setStatus('live · '+src+'→'+target); });
+  [srcSel,tgtSel].forEach(function(s){ s.addEventListener('click',function(e){ e.stopPropagation(); }); });
+})();
+</script>
+</body>
+</html>

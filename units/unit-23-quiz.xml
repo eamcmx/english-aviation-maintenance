@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English for Aviation Maintenance · Unit 23 · Loading and verifying avionics software (CEFR B2)
+     Moodle XML question bank. 24 items across 5 types (multichoice, truefalse, numerical,
+     shortanswer, matching), split by skill: Listening, Reading, Use of English, Vocabulary.
+     Every question carries <generalfeedback>; every scored option carries <feedback>. -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U23-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 23 — Loading and verifying avionics software. Listening, reading, use of English and vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ============================ LISTENING (8) ============================ -->
+
+  <question type="truefalse">
+    <name><text>L1 · Dialogue 1 · hardware standard</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again (Starting the load).</strong></p><p>The technicians confirm that the unit is at hardware mod 5, so it meets the minimum standard for this load.</p><p><em>True or false?</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The AMM task asks for mod 4 or later. B inspects the unit and reports mod 5, so it is compatible. A higher mod number still meets a "mod 4 or later" minimum.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct. Mod 5 is later than the mod 4 minimum, so the load may go ahead.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Listen again: B says "it is mod 5, so we are compatible". Mod 5 satisfies the mod 4 minimum.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L2 · Dialogue 1 · why check compatibility</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong></p><p>Why must the team confirm compatibility before they start the load?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A (the lead) says the software "runs on one hardware standard only". If the hardware mod is wrong, the load will not run correctly, so compatibility is checked first.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text><![CDATA[The software runs on one hardware standard only.]]></text><feedback format="html"><text><![CDATA[<p>Correct — that is exactly A's reason.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The load media is always the wrong revision here.]]></text><feedback format="html"><text><![CDATA[<p>No. The media matched the card; compatibility is about hardware, not media.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The dataloader needs a second green link light.]]></text><feedback format="html"><text><![CDATA[<p>No. One steady green link is enough; this is not the reason.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The tech log must be signed before any load.]]></text><feedback format="html"><text><![CDATA[<p>No. The tech log is completed after verification, not before the load.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L3 · Dialogue 1 · first percentage</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong></p><p>Just after B presses start, at what percentage does B report the load is running? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>B says: "Currently loading at four percent." The answer is 4.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>4</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — "loading at four percent".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>0</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>The bar is already advancing. B reports four percent, not zero.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L4 · Dialogue 1 · announcement interval</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong></p><p>Every how many seconds does B agree to announce the percentage? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>B says: "I will announce the percentage every twenty seconds." The answer is 20.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>20</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — every twenty seconds.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>10</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Ten seconds is the wait in Dialogue 2 before the loader is switched on. Here it is twenty.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L5 · Dialogue 2 · where it stopped</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again (A failed load).</strong></p><p>At what percentage did the first load stop and freeze? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A says B "went quiet at sixty percent", and the bar is frozen there. The answer is 60.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>60</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — it stopped at sixty percent.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>100</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>One hundred percent is the completed bar in Dialogue 3. The failure was at sixty.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L6 · Dialogue 2 · power-cycle wait</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong></p><p>How many seconds does B wait before switching the loader on again? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>B says: "I will wait ten seconds, then switch it on again." The answer is 10.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>10</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — a ten-second wait during the power cycle.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>20</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Twenty seconds was the announcement interval in Dialogue 1. The power-cycle wait is ten.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L7 · Dialogue 2 · after the abort</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong></p><p>After the clean abort, the unit lost its previous software and was left empty.</p><p><em>True or false?</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>B says the unit "has retained its previous software", and A adds that a clean abort protects the existing configuration. So the statement is false.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No. A clean abort protects the old software; the unit was not left empty.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct. The unit kept its previous software after the abort.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L8 · Dialogue 2 · cause of the first failure</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong></p><p>Once the retry passes, what does A say the real cause of the first failure was?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>After the second checksum reads correctly, A concludes: "That was a defective card, not a bad file." The load media was faulty, not the software file.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text><![CDATA[A defective card, not the file.]]></text><feedback format="html"><text><![CDATA[<p>Correct — A says it was a defective card.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A wrong LRU part number on the unit.]]></text><feedback format="html"><text><![CDATA[<p>No. The part number was never in doubt in this dialogue.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[An out-of-date revision of the software file.]]></text><feedback format="html"><text><![CDATA[<p>No. The file was fine; the same file loaded from a good card.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A loose front connector on the radio.]]></text><feedback format="html"><text><![CDATA[<p>No. The link light was steady; the connector was not the cause.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ READING (5) ============================ -->
+
+  <question type="multichoice">
+    <name><text>R1 · BITE readout · reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this BITE readout, then answer.</strong></p>
+<pre>BITE REPORT — COMM RADIO No.2 — LRU 622-1140-001
+SELF-TEST......... PASS
+SOFTWARE BLOCK.... PASS  (P/N 285-A047 rev C, load L-2231)
+RF SECTION........ PASS
+FRONT PANEL....... PASS
+FAULTS LOGGED..... 0</pre>
+<p>What does this readout tell the technician?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Every line reads PASS and zero faults are logged, so the self-test is clean. A clean BITE is one of the conditions for a successful load; the technician can move on to the configuration report.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text><![CDATA[The self-test passed with no faults.]]></text><feedback format="html"><text><![CDATA[<p>Correct — all lines PASS and zero faults.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The RF section failed the self-test badly.]]></text><feedback format="html"><text><![CDATA[<p>No. The RF section line reads PASS.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The software block is the wrong revision.]]></text><feedback format="html"><text><![CDATA[<p>No. It shows P/N 285-A047 rev C, the correct software.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[There are faults still to clear first.]]></text><feedback format="html"><text><![CDATA[<p>No. Faults logged reads 0.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R2 · MEL entry · reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this MEL entry, then decide.</strong></p>
+<pre>MEL 23-11-01 — COMM RADIO No.2
+Category: C (repair interval 10 days)
+Provision: may be dispatched inoperative provided COMM No.1
+is fully serviceable and the crew is advised.</pre>
+<p><em>Statement:</em> Under this MEL entry the aircraft may fly with COMM No.2 inoperative for up to ten days, as long as COMM No.1 works.</p><p><em>True or false?</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A Category C item has a ten-day repair interval, and the provision allows dispatch if COMM No.1 is fully serviceable and the crew is advised. So the statement is true.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct. Category C = ten days, and the provision permits dispatch with COMM No.1 serviceable.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Re-read the entry: Category C gives a ten-day interval and the provision allows dispatch.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R3 · Work order · reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this work order, then answer.</strong></p>
+<pre>WORK ORDER WO-4471 — STATION LINE 2
+TASK: Load software L-2231 to COMM No.2 per SB 34-2231.
+NOTE: Radios at hardware mod 3 are NOT eligible.
+      Verify hardware standard BEFORE connecting the dataloader.</pre>
+<p>According to the work order, what must the technician do first?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The note says "Verify hardware standard BEFORE connecting the dataloader", because mod 3 units are not eligible. Checking the mod comes before any connection.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text><![CDATA[Verify the hardware standard of the radio.]]></text><feedback format="html"><text><![CDATA[<p>Correct — the mod is checked before connecting.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Connect the dataloader to the front connector.]]></text><feedback format="html"><text><![CDATA[<p>No. The note says to verify the mod before connecting.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Sign the tech log and close the job.]]></text><feedback format="html"><text><![CDATA[<p>No. The tech log is signed after a verified load, not first.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Fit a mod 3 card to the radio.]]></text><feedback format="html"><text><![CDATA[<p>No. Mod 3 radios are not eligible for this load at all.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 · IPC excerpt · reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this IPC excerpt, then decide.</strong></p>
+<pre>ILLUSTRATED PARTS CATALOGUE 34-52-11
+FIG 03  ITEM 10  COMM RADIO ......... P/N 622-1140-001
+        ITEM 10A HOLD-DOWN CLAMP .... P/N 622-1140-050
+        ITEM 12  FRONT CONNECTOR .... P/N 622-1140-070</pre>
+<p><em>Statement:</em> In this IPC, the comm radio itself is item 10 and its part number is 622-1140-001.</p><p><em>True or false?</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Item 10 in Figure 03 is the comm radio, P/N 622-1140-001 — the same LRU part number used throughout the unit. The statement is true.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct. Item 10 = the radio, P/N 622-1140-001.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Look again: item 10 is the comm radio and its part number is 622-1140-001.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R5 · Tech-log snippet · reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this tech-log snippet, then answer.</strong></p>
+<pre>TECH LOG — A/C 9
+FAULT: COMM No.2 loses set frequency after power-up.
+ACTION: Loaded L-2231 (P/N 285-A047 rev C). BITE green.
+        Config report matches task card. Verification complete.
+        No further faults found.  Signed: J. Ozols  08 AUG</pre>
+<p>What was done to clear the reported fault?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The action line shows a software load (L-2231) followed by a green BITE and a matching configuration report — the full verified load. That is how the "loses frequency" fault was cleared.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text><![CDATA[A verified software load of L-2231.]]></text><feedback format="html"><text><![CDATA[<p>Correct — load L-2231, BITE green, config matched.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A full replacement of the radio LRU.]]></text><feedback format="html"><text><![CDATA[<p>No. The log records a software load, not an LRU change.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A repair to the aircraft battery bus.]]></text><feedback format="html"><text><![CDATA[<p>No. The action was a software load; the battery is not mentioned.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A change to the front connector wiring.]]></text><feedback format="html"><text><![CDATA[<p>No. No wiring change appears in the entry.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ======================= USE OF ENGLISH (7) ======================= -->
+
+  <question type="shortanswer">
+    <name><text>U1 · once + present · transformation</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Join the two sentences into one, using the word in brackets.</strong></p><p>The load finishes. Then run BITE. <em>(once)</em></p><p>Write your full sentence.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The time clause takes the present tense, not <em>will</em>: <strong>Once the load finishes, run BITE.</strong></p>]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>Once the load finishes, run BITE.</text><feedback format="html"><text><![CDATA[<p>Correct — present tense in the time clause.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>Once the load finishes run BITE.</text><feedback format="html"><text><![CDATA[<p>Correct (add the comma after the time clause when you write it out).</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use: Once the load finishes, run BITE. No <em>will</em> in the time clause.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 · when + present · transformation</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Join the two sentences into one, using the word in brackets.</strong></p><p>The light turns green. Then press start. <em>(when)</em></p><p>Write your full sentence.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>When the light turns green, press start.</strong> The trigger clause stays in the present.</p>]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>When the light turns green, press start.</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>When the light turns green press start.</text><feedback format="html"><text><![CDATA[<p>Correct (remember the comma after the time clause).</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use: When the light turns green, press start. Not "will turn".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 · as soon as + present · transformation</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Join the two sentences into one, using the words in brackets.</strong></p><p>It starts. Then watch the bar. <em>(as soon as)</em></p><p>Write your full sentence.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>As soon as it starts, watch the bar.</strong> Present tense after <em>as soon as</em>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>As soon as it starts, watch the bar.</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>As soon as it starts watch the bar.</text><feedback format="html"><text><![CDATA[<p>Correct (add the comma when writing it out).</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use: As soon as it starts, watch the bar.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 · fix the will error</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Correct the underlined verb.</strong></p><p>When the load <u>will finish</u>, verify the configuration.</p><p>Write only the corrected verb.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>English keeps the time clause in the present tense: <strong>finishes</strong>. Latvian and Russian mark the future in both clauses, which causes this common error.</p>]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>finishes</text><feedback format="html"><text><![CDATA[<p>Correct — present tense, no <em>will</em>.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use the present: finishes.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 · fix the dropped article</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Add the missing word.</strong></p><p>Once <u>configuration</u> is verified, close the job.</p><p>Write the two words that should replace the underlined word.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>English needs the definite article here: <strong>the configuration</strong>. Latvian and Russian have no articles, so learners often drop <em>the</em>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>the configuration</text><feedback format="html"><text><![CDATA[<p>Correct — put the article back.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use: the configuration.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 · fix the dropped passive be</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Rewrite the underlined part correctly.</strong></p><p>Once <u>loaded the software</u>, run BITE.</p><p>Write the corrected part only (four words).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Keep the subject and the passive <em>be</em>: <strong>the software is loaded</strong>. "Loaded the software" drops the verb <em>be</em>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>the software is loaded</text><feedback format="html"><text><![CDATA[<p>Correct — subject + is + loaded.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use: the software is loaded.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U7 · bank term in context</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the one bank term that fits the gap.</strong></p><p>The screen showed a ________ error, which means the data was corrupted and could not be trusted.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <strong>checksum</strong> is a number that proves the data is not corrupted; a checksum error means the data cannot be trusted.</p>]]></text></generalfeedback>
+    <usecase>0</usecase><defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>checksum</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The term is: checksum.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ VOCABULARY (4) ============================ -->
+
+  <question type="matching">
+    <name><text>V1 · term to plain meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each term to its plain meaning.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>data load = putting new software in; BITE = the unit's self-test; checksum = a number proving data is not corrupted; LRU = a box you can swap; dataloader = the tool that sends the software.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers><defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <subquestion format="html"><text><![CDATA[data load]]></text><answer><text>the act of putting new software into a unit</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>the unit's own built-in self-test</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[checksum]]></text><answer><text>a number that proves the data is not corrupted</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[LRU]]></text><answer><text>a box you can swap on the aircraft</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[dataloader]]></text><answer><text>the tool that sends the software to the unit</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 · term to collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each term to the verb that goes with it.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>These are the collocations technicians use: run a BITE test, cross-check against the card, power cycle the unit, abort the load, confirm compatibility.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers><defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <subquestion format="html"><text><![CDATA[a BITE test]]></text><answer><text>run</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[the report against the card]]></text><answer><text>cross-check</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[the unit]]></text><answer><text>power cycle</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[the load]]></text><answer><text>abort</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[compatibility]]></text><answer><text>confirm</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V3 · abbreviation to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each abbreviation to its meaning.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>LRU = line-replaceable unit; BITE = built-in test equipment; AMM = aircraft maintenance manual; SB = service bulletin; MEL = minimum equipment list.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers><defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <subquestion format="html"><text><![CDATA[LRU]]></text><answer><text>line-replaceable unit</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>built-in test equipment</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[AMM]]></text><answer><text>aircraft maintenance manual</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[SB]]></text><answer><text>service bulletin</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[MEL]]></text><answer><text>minimum equipment list</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V4 · step to purpose</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each step of the load to its purpose.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Each step has a job: the checksum proves the data; BITE checks the unit; the configuration report lists what runs; cross-checking confirms the fields; the tech log records the result.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers><defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <subquestion format="html"><text><![CDATA[read the checksum]]></text><answer><text>to prove the data is not corrupted</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[run BITE]]></text><answer><text>to let the unit test itself for faults</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[open the configuration report]]></text><answer><text>to see exactly what the unit is running</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[cross-check the fields]]></text><answer><text>to confirm the report agrees with the card</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[update the tech log]]></text><answer><text>to record the load and the result</text></answer></subquestion>
+  </question>
+
+</quiz>
