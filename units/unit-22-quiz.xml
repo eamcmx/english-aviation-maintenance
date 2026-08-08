@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Unit 22 · Calling OEM / vendor technical support · CEFR B2
+     Moodle XML. 23 questions, 5 types (multichoice, truefalse, numerical, shortanswer, matching).
+     Split by skill: Listening (7) · Reading (5) · Use of English (7) · Vocabulary (4). No Cloze. -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U22-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 22 — Calling OEM / vendor technical support. Listening, Reading, Use of English and Vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ============================ LISTENING (7) ============================ -->
+
+  <question type="multichoice">
+    <name><text>U22-L1 where the display fault happens</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> When does the display fault always happen?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Ravil says the fault appears <em>always during taxi</em>, and the team could not reproduce it while the aircraft was parked.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[During taxi]]></text><feedback format="html"><text><![CDATA[<p>Correct — "always during taxi".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Only in the cruise]]></text><feedback format="html"><text><![CDATA[<p>No — the fault is a ground event during taxi, not in the cruise.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[While the aircraft is parked]]></text><feedback format="html"><text><![CDATA[<p>No — they could not reproduce it while parked.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U22-L2 BITE test result</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> The BITE test passed and stored no fault. True or false?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Ravil: "Yesterday we ran the BITE test, but it passed and stored no fault." So the statement is true.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — it passed and stored nothing.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Listen again — the test passed and stored no fault.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U22-L3 how many times this week</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> How many times did the team see the fault this week? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"The fault code is DU-204, and we saw it four times this week." Answer: 4.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>4</text><feedback format="html"><text><![CDATA[<p>Correct — four times this week.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U22-L4 blank duration in seconds</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> For about how many seconds does the display blank? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"It blanks for about one second, then it comes back on its own." Answer: 1.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>1</text><feedback format="html"><text><![CDATA[<p>Correct — about one second.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U22-L5 how many weeks the radio fault lasted</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> For how many weeks had the radio fault been on the aircraft? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"For three weeks. Although we changed the antenna cable, the fault did not go away." Answer: 3.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+    <answer fraction="100"><text>3</text><feedback format="html"><text><![CDATA[<p>Correct — three weeks.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U22-L6 bench test result</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> On the bench, what did the removed radio do?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"On the bench it passed every time. That is why we suspect a wiring or connector problem." The unit is fine; the fault is on the aircraft side.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[It passed every time]]></text><feedback format="html"><text><![CDATA[<p>Correct — it passed on the bench, so the fault is on the aircraft.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[It failed with a no-comm fault]]></text><feedback format="html"><text><![CDATA[<p>No — it failed on the aircraft, but passed on the bench.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[It could not be tested at all]]></text><feedback format="html"><text><![CDATA[<p>No — the bench test ran and the radio passed.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U22-L7 antenna cable fixed it</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> The team changed the antenna cable and the fault went away. True or false?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"Although we changed the antenna cable, the fault did not go away." So the statement is false.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — the fault did not go away.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>Listen again — "although we changed the antenna cable, the fault did not go away".</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ READING (5) ============================ -->
+
+  <question type="multichoice">
+    <name><text>U22-R1 BITE readout recommended action</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this BITE readout.</strong></p>
+<pre>BITE READOUT — VHF-2
+Test result : FAIL
+Stored fault : no-comm, intermittent
+Last seen    : during taxi
+Recommended  : inspect the connector; do not swap the LRU
+Reference    : service bulletin SB 23-070</pre>
+<p>What action does the readout recommend?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The readout says "inspect the connector; do not swap the LRU". So the recommended action is to inspect the connector.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Inspect the connector]]></text><feedback format="html"><text><![CDATA[<p>Correct — that is the recommended action.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Swap the LRU for a new one]]></text><feedback format="html"><text><![CDATA[<p>No — the readout says "do not swap the LRU".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Escalate the fault to the desk]]></text><feedback format="html"><text><![CDATA[<p>No — escalation is not mentioned in the readout.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U22-R2 readout says swap the LRU</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the BITE readout again</strong> (VHF-2, above). The readout tells you to swap the LRU. True or false?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The readout says "do not swap the LRU". So the statement is false.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — it says do NOT swap the LRU.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>Read again — the readout says "do not swap the LRU".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U22-R3 how often the fault appears</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the BITE readout again</strong> (VHF-2, above). The stored fault is "intermittent". How often does the fault appear?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"Intermittent" means it happens on and off — only sometimes, not all the time.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Only sometimes]]></text><feedback format="html"><text><![CDATA[<p>Correct — intermittent = on and off.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[On every single flight]]></text><feedback format="html"><text><![CDATA[<p>No — that would be a constant fault, not intermittent.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[All of the time, constantly]]></text><feedback format="html"><text><![CDATA[<p>No — "intermittent" is the opposite of constant.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U22-R4 what the team found</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this work order.</strong></p>
+<pre>WORK ORDER WO-90211 — Aircraft YL-BCS
+Task     : repair the wiring behind the number one display
+Steps    : the team found a chafed wire near the connector;
+           they fitted a new backshell
+Check    : after the repair, the BITE test was clear
+Follow-up: functional check due on the next taxi
+Note     : service bulletin SB 34-118</pre>
+<p>What did the team find?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The Steps line says the team "found a chafed wire near the connector". That was the root cause.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[A chafed wire]]></text><feedback format="html"><text><![CDATA[<p>Correct — a chafed wire near the connector.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A cracked display screen]]></text><feedback format="html"><text><![CDATA[<p>No — the fault was in the wiring, not the screen.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A leak in the fuel line]]></text><feedback format="html"><text><![CDATA[<p>No — this is an avionics wiring job, not a fuel job.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U22-R5 BITE clear after repair</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the work order again</strong> (WO-90211, above). After the repair, the BITE test was clear. True or false?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The Check line says "after the repair, the BITE test was clear". So the statement is true.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — the BITE test was clear after the repair.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Read again — the Check line says the test was clear.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ USE OF ENGLISH (7) ============================ -->
+
+  <question type="shortanswer">
+    <name><text>U22-U1 past simple ran</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the verb in the <strong>past simple</strong>. Write one word.</p><p>Yesterday we ______ (run) the BITE test.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Irregular verb: run &rarr; <strong>ran</strong>. A past time word ("yesterday") needs the past form.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>ran</text><feedback format="html"><text><![CDATA[<p>Correct — run &rarr; ran.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U22-U2 base verb after did not</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the correct verb form. Write one word.</p><p>We did not ______ (find) a stored fault.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>After <em>did / did not</em> use the base verb: <strong>find</strong>. The word <em>did</em> already shows the past.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>find</text><feedback format="html"><text><![CDATA[<p>Correct — base verb after "did not".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U22-U3 question auxiliary did</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing word to make a past-simple question. Write one word.</p><p>______ you inspect the connector?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Past-simple questions begin with <strong>Did</strong> + subject + base verb: "Did you inspect the connector?"</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>Did</text><feedback format="html"><text><![CDATA[<p>Correct — "Did you inspect…?"</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>did</text><feedback format="html"><text><![CDATA[<p>Correct — "Did you inspect…?"</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U22-U4 past simple fitted</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the verb in the <strong>past simple</strong>. Write one word.</p><p>This morning the team ______ (fit) a spare LRU.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>fit &rarr; <strong>fitted</strong> (double the <em>t</em>, add <em>-ed</em>). The ending sounds like /ɪd/ — an extra syllable, "fit-id".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>fitted</text><feedback format="html"><text><![CDATA[<p>Correct — fit &rarr; fitted.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U22-U5 missing article the</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing article. Write one word.</p><p>We replaced ______ valve yesterday.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>English needs <strong>the</strong> before a known part. Latvian and Russian have no articles, so this word is easy to drop.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>the</text><feedback format="html"><text><![CDATA[<p>Correct — "the valve".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U22-U6 vocab workaround</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the bank term for the meaning. Write one word.</p><p>A temporary fix you use until the real parts arrive is a ______.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>workaround</strong> — a temporary way to keep working until the real fix is ready.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>workaround</text><feedback format="html"><text><![CDATA[<p>Correct — a workaround.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>work-around</text><feedback format="html"><text><![CDATA[<p>Correct — usually written "workaround".</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U22-U7 vocab tech log</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the bank term for the meaning. Write two words.</p><p>The aircraft book where you record faults and work is the ______ .</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>tech log</strong> — the aircraft technical log where faults and work are recorded.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+    <answer fraction="100"><text>tech log</text><feedback format="html"><text><![CDATA[<p>Correct — the tech log.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>technical log</text><feedback format="html"><text><![CDATA[<p>Correct — the tech (technical) log.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ VOCABULARY (4) ============================ -->
+
+  <question type="matching">
+    <name><text>U22-V1 term to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>LRU = a box you can swap on the aircraft · connector = the plug that joins two parts · bench test = a test of a removed unit in the shop · service bulletin = an OEM document about a change or fix · root cause = the real first reason for the fault.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[LRU]]></text><answer><text>a box you can swap on the aircraft</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[connector]]></text><answer><text>the plug that joins two parts</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[bench test]]></text><answer><text>a test of a removed unit in the shop</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[service bulletin]]></text><answer><text>an OEM document about a change or fix</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[root cause]]></text><answer><text>the real first reason for the fault</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U22-V2 verb to noun collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each verb to the noun it goes with.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>run a BITE test · raise a work order · clear the fault code · follow the recommendation · reproduce the fault. These verb + noun pairs make your English sound natural.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[run]]></text><answer><text>a BITE test</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[raise]]></text><answer><text>a work order</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[clear]]></text><answer><text>the fault code</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[follow]]></text><answer><text>the recommendation</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[reproduce]]></text><answer><text>the fault</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U22-V3 which term is the plug</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which term means the plug that joins two parts of a wire or a unit?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <strong>connector</strong> is the plug that joins two parts. A wiring diagram is a drawing; a serial number names one single unit.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Connector]]></text><feedback format="html"><text><![CDATA[<p>Correct — the connector is the plug.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Wiring diagram]]></text><feedback format="html"><text><![CDATA[<p>No — that is the drawing of the connections.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Serial number]]></text><feedback format="html"><text><![CDATA[<p>No — that is the unique number for one unit.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U22-V4 which term is the advice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which term means the advice the specialist gives on what to do next?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <strong>recommendation</strong> is the advice on what to do next. Troubleshooting is the finding of the cause; a service bulletin is an OEM document.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single>
+    <shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Recommendation]]></text><feedback format="html"><text><![CDATA[<p>Correct — the specialist's advice.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Troubleshooting]]></text><feedback format="html"><text><![CDATA[<p>No — that is the work of finding the cause.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Service bulletin]]></text><feedback format="html"><text><![CDATA[<p>No — that is an OEM document about a change or fix.</p>]]></text></feedback></answer>
+  </question>
+
+</quiz>

@@ -1197,11 +1197,18 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
   // worth a red mark in a technical-English lesson.
   var SKIP = { a: 1, an: 1, the: 1, is: 1, are: 1, and: 1, to: 1, of: 1, it: 1, in: 1, that: 1 };
 
+  var CJK = /[\u4e00-\u9fff\u3400-\u4dbf\u3040-\u30ff]/g;
+  function isCJK(s) { return ((String(s || '').match(CJK)) || []).length >= 4; }
   function norm(s) {
     return String(s || '').toLowerCase()
       .replace(/[^\p{L}\p{N}' ]/gu, ' ').replace(/\s+/g, ' ').trim();
   }
-  function words(s) { return norm(s).split(' ').filter(Boolean); }
+  // In Chinese/Japanese a "word" for scoring purposes is a character: there are no spaces, so
+  // whitespace tokenising made a whole sentence one token and every score came out 0%.
+  function words(s) {
+    if (isCJK(s)) return (String(s || '').match(CJK)) || [];
+    return norm(s).split(' ').filter(Boolean);
+  }
 
   var card = document.createElement('div');
   card.className = 'pron';
@@ -1229,13 +1236,18 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
     var heardEl = row.querySelector('.pron-heard');
     var tw = words(target);
 
-    // render the target with each word in its own span so we can mark it later
-    target.split(/(\s+)/).forEach(function (chunk) {
-      if (/^\s+$/.test(chunk)) { tgtEl.appendChild(document.createTextNode(chunk)); return; }
-      var s = document.createElement('span');
-      s.textContent = chunk;
-      s.dataset.w = norm(chunk);
-      tgtEl.appendChild(s);
+    // render the target so each scorable unit has its own span: words in a spaced script,
+    // single characters in CJK (punctuation stays as plain text)
+    var chunks = isCJK(target) ? target.split('') : target.split(/(\s+)/);
+    chunks.forEach(function (chunk) {
+      var isChar = isCJK(target);
+      if (!isChar && /^\s+$/.test(chunk)) { tgtEl.appendChild(document.createTextNode(chunk)); return; }
+      if (isChar && !CJK.test(chunk)) { CJK.lastIndex = 0; tgtEl.appendChild(document.createTextNode(chunk)); return; }
+      CJK.lastIndex = 0;
+      var sp = document.createElement('span');
+      sp.textContent = chunk;
+      sp.dataset.w = isChar ? chunk : norm(chunk);
+      tgtEl.appendChild(sp);
     });
 
     var rec = null;
@@ -1258,10 +1270,10 @@ details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--
       var pct = counted ? Math.round(100 * hits / counted) : 0;
 
       var got = words(said);
-      tgtEl.querySelectorAll('span').forEach(function (s) {
-        var w = s.dataset.w;
-        if (!w || SKIP[w]) { s.className = ''; return; }
-        s.className = got.indexOf(w) >= 0 ? 'hit' : 'miss';
+      tgtEl.querySelectorAll('span').forEach(function (sp) {
+        var w = sp.dataset.w;
+        if (!w || SKIP[w]) { sp.className = ''; return; }
+        sp.className = got.indexOf(w) >= 0 ? 'hit' : 'miss';
       });
       scoreEl.textContent = U('pronScore', '{pct}% clear ({hits} of {n} words)')
         .replace('{pct}', pct).replace('{hits}', hits).replace('{n}', counted);

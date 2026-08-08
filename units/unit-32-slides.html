@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 32 — Teacher Deck · Base check to certified release</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:21px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:28px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.turn{display:block;margin:6px 0;font-size:19px}
+.turn b{color:var(--accent)} .turn.b b{color:var(--amber)}
+.anchor{font-size:34px;color:var(--amber);font-weight:800;letter-spacing:.01em}
+.wrong{color:#ff9aa2} .wrong::before{content:"\2717 ";font-weight:700}
+.right{color:#9af0c8} .right::before{content:"\2713 ";font-weight:700}
+.dw{width:100%;max-width:640px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tbl{width:100%;border-collapse:collapse;font-size:16px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+.tbl th{color:var(--muted);font-weight:700}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:44px;font-size:15px;color:#cfe0ee}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="0:00–0:03 · Open the simulation day. Set the frame in one breath: today the class runs ONE aircraft (Airbus A320, registration YL-ABC) through a full maintenance event — briefing, a defect, tests, paperwork, and a signed release. Tell them the target they are building towards is a single spoken and written line, the anchor: 'The aircraft is ready for service.' Say the class is 90 minutes and balanced across reading, speaking, listening and writing. Keep energy high; this is a capstone, so everything they learned across the course comes together. Point out the caption translator (CC button, bottom-right, or key L) if anyone needs live Latvian or Russian subtitles.">
+    <div class="kick">English for Aviation Maintenance · Unit 32 · Simulation Day</div>
+    <h1>Base check to certified release</h1>
+    <p class="big muted">One aircraft. One team. From the work-pack briefing, through a fuel-pump finding and its tests, to the signed certificate of release to service.</p>
+    <p class="pill">CEFR B2 · EASA Part-66 / Part-145 · 90 minutes · balanced skills · anchor: &ldquo;The aircraft is ready for service.&rdquo;</p>
+  </section>
+
+  <!-- 2 · AIMS -->
+  <section class="slide" data-notes="0:03–0:06 · Read the can-do aims aloud, then the plan. The three outcomes: run a full maintenance event across the four skills; coordinate a team from defect discovery to release; produce audit-ready documentation and defend it. Tell them the shape of the 90 minutes so they can pace themselves: three model dialogues with listening, a vocabulary bank of 20 terms, a grammar focus on status vs finished-action, eight exercises, four role-plays, and one writing task in Simplified Technical English. Stress that the language is professional but the sentences stay short — that is the B2 target. Nobody needs long sentences to sound expert; they need exact ones.">
+    <div class="kick">By the end of today</div>
+    <h2>What the team will be able to do</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">Run the event</b> — read, speak, listen and write across one full maintenance day.</p>
+        <p><b style="color:var(--purple)">Coordinate the team</b> — from defect discovery to a certified release to service.</p>
+        <p><b style="color:var(--good)">Document and defend</b> — write audit-ready lines and explain every decision.</p>
+      </div>
+      <div>
+        <p><b>Plan:</b> 3 dialogues + listening · 20 vocabulary terms · grammar focus · 8 exercises · 4 role-plays · 1 writing task.</p>
+        <p class="muted">Professional density, short sentences. That is B2 — exact, not long.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE SITUATION -->
+  <section class="slide" data-notes="0:06–0:10 · Build the scenario map on the board with the class. Elicit the flow in order: (1) briefing — the shift lead hands over the work pack: forty task cards, one airworthiness directive (mandatory, rudder fitting), one service bulletin (recommended), a work order; (2) discovery and tests — the built-in test equipment shows a low-flow fault on the number two fuel pump, a functional test confirms it is unserviceable, the MEL would allow a three-day deferral but the team rectifies now because a spare is in the store, and a duplicate inspection follows the fuel-system work; (3) documentation to release — every task card gets a sign-off, the certifying staff checks each one, then signs the certificate of release to service; (4) handover to the night shift. Ask: which step is the legal moment? (the signature). Keep it interactive — the class predicts each step before you reveal it.">
+    <div class="kick">§1 · the situation</div>
+    <h2>One event, four stages</h2>
+    <div class="cols">
+      <div class="dw" data-widget="flow"></div>
+      <div>
+        <p><b>Briefing → discovery &amp; tests → documentation &amp; release → handover.</b></p>
+        <p class="muted">Click through the stages. The legal moment is the signature: the certifying staff signs the certificate of release to service, and only then is the aircraft ready for service.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · DIALOGUE 1 LISTEN -->
+  <section class="slide" data-notes="0:10–0:16 · Dialogue 1, the work-pack briefing. First listening: books closed, transcript hidden. Play the audio once. Set two gist questions before you play: How many task cards? Is the service bulletin mandatory? Play again if needed, then let them open the transcript to check. Drill the key exchange chorally: 'There are forty task cards.' 'One airworthiness directive is due.' 'Please raise a work order.' Watch pronunciation of forty vs fourteen. Point out the tag questions ('isn't it', 'don't we') — natural workplace checking language. Keep the pace brisk; this dialogue sets the vocabulary for the whole day.">
+    <div class="kick">§2 · Dialogue 1 · listen</div>
+    <h2>The work-pack briefing</h2>
+    <div class="cols">
+      <div class="card">
+        <span class="turn"><b>A</b> There are forty task cards. Each one has a sign-off box.</span>
+        <span class="turn b"><b>B</b> Is there any airworthiness directive to close?</span>
+        <span class="turn"><b>A</b> Yes, one is due — a mandatory check on the rudder fitting.</span>
+        <span class="turn b"><b>B</b> And a service bulletin?</span>
+        <span class="turn"><b>A</b> One, recommended, not mandatory.</span>
+      </div>
+      <div>
+        <p><b>Books closed. Play once.</b> Two gist questions:</p>
+        <p class="muted">1) How many task cards? &nbsp; 2) Is the service bulletin mandatory?</p>
+        <p class="muted">Then open the transcript to check. Drill: forty · airworthiness directive · work order.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · DIALOGUE 1 LANGUAGE -->
+  <section class="slide" data-notes="0:16–0:18 · Quick language lift from Dialogue 1. Focus on three moves: (a) checking with a tag — 'This is the base check, isn't it?'; (b) requesting an action politely with 'Please raise a work order'; (c) confirming with 'Correct / Understood / Fine'. These are the coordination phrases they will reuse in role-play card 1. Have pairs say one line each back and forth for 60 seconds. Then move to Dialogue 2.">
+    <div class="kick">§2 · Dialogue 1 · language</div>
+    <h2>Coordination phrases to steal</h2>
+    <ul>
+      <li><b>Check:</b> &ldquo;This is the base check, <i>isn't it?</i>&rdquo;</li>
+      <li><b>Request:</b> &ldquo;<i>Please raise</i> a work order for the rudder job.&rdquo;</li>
+      <li><b>Confirm:</b> &ldquo;Understood.&rdquo; · &ldquo;Correct.&rdquo; · &ldquo;Fine, if time allows.&rdquo;</li>
+    </ul>
+    <p class="muted">60-second pair drill: A checks, B confirms, then swap.</p>
+  </section>
+
+  <!-- 6 · DIALOGUE 2 LISTEN -->
+  <section class="slide" data-notes="0:18–0:24 · Dialogue 2, defect discovery and tests. This is the heart of the day. Play once, books closed. Gist questions: What does the BITE show? What is the pump's status after the functional test? Then a detail pass: how many days would the MEL allow the deferral (three)? Why do they rectify now instead (the spare is in the store)? What is required after fuel-system work (a duplicate inspection)? Draw out the decision chain on the board: finding → functional test → unserviceable → defer OR rectify → duplicate inspection → tech log → serviceable. This chain is exactly what the next slide's widget lets them rehearse.">
+    <div class="kick">§2 · Dialogue 2 · listen</div>
+    <h2>Defect discovery and tests</h2>
+    <div class="cols">
+      <div class="card">
+        <span class="turn"><b>A</b> The built-in test equipment shows a fault on the number two fuel pump.</span>
+        <span class="turn b"><b>B</b> Let us run a functional test first.</span>
+        <span class="turn"><b>A</b> The flow drops to zero. The pump is unserviceable.</span>
+        <span class="turn b"><b>B</b> Can we defer it? Check the minimum equipment list.</span>
+        <span class="turn"><b>A</b> It allows three days — but we have the spare, so we rectify now.</span>
+      </div>
+      <div>
+        <p><b>Gist:</b> What does the BITE show? Pump status after the test?</p>
+        <p class="muted"><b>Detail:</b> How many days would the MEL allow? Why rectify now? What follows fuel-system work?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · DECISION WIDGET -->
+  <section class="slide" data-notes="0:24–0:28 · Rehearse the decision chain with the gauge widget. Click each step as the class names it; the readiness needle sweeps as steps are completed. The teaching point: a finding is not closed by the repair alone — it needs the functional test, the duplicate inspection on a critical system, AND the tech-log line before the card can be signed. Ask the class what happens if you skip the tech-log line (the card stays open — this is exactly the problem in Dialogue 3). Elicit full sentences: 'The pump is unserviceable.' 'The rectification has been carried out.' 'The duplicate inspection is signed.'">
+    <div class="kick">§2 · Dialogue 2 · rehearse the chain</div>
+    <h2>From finding to serviceable</h2>
+    <div class="cols">
+      <div class="dw" data-widget="gauge"></div>
+      <div>
+        <p><b>finding → test → duplicate inspection → tech log → serviceable.</b></p>
+        <p class="muted">The repair alone does not close the finding. Skip the tech-log line and the card stays open — the trap in Dialogue 3.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · DIALOGUE 3 LISTEN -->
+  <section class="slide" data-notes="0:28–0:34 · Dialogue 3, documentation to certified release. Play once. Gist: How many cards were signed at first (thirty-nine)? What was missing on the open card (the tech-log line)? Detail: what does the certifying staff check before signing (each finding, each sign-off, the airworthiness directive card, the duplicate inspection)? Make the sequence explicit: everything in order → aircraft airworthy → sign the CRS → the anchor line. This is where the whole day lands. Have the class listen for the exact final words and write them down; you will use them on the next slide.">
+    <div class="kick">§2 · Dialogue 3 · listen</div>
+    <h2>From documentation to certified release</h2>
+    <div class="cols">
+      <div class="card">
+        <span class="turn"><b>A</b> Are all the task cards complete?</span>
+        <span class="turn b"><b>B</b> Thirty-nine have a sign-off. One is still open — the fuel pump card.</span>
+        <span class="turn"><b>A</b> The tech log line is missing. Add it now.</span>
+        <span class="turn b"><b>B</b> Done. All findings are cleared and signed.</span>
+        <span class="turn"><b>A</b> Everything is in order. The aircraft is airworthy again.</span>
+      </div>
+      <div>
+        <p><b>Gist:</b> How many cards signed at first? What was missing?</p>
+        <p class="muted"><b>Detail:</b> What does the certifying staff check before signing? Write down the exact final line.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · ANCHOR -->
+  <section class="slide" data-center data-notes="0:34–0:36 · The anchor. Reveal the line and drill it hard, because it is the target of the whole unit and a real legal record. Chorus it three times. Then break it down: THE aircraft (never drop the article) · IS (present simple for a status, never 'is being') · ready FOR service (never 'to service'). Tell them this one sentence carries the four most common first-language slips, so mastering it fixes many errors at once. Keep it on the board for the rest of the class.">
+    <div class="kick">§2 · the anchor statement</div>
+    <h2>The line the whole day builds to</h2>
+    <p class="anchor">&ldquo;The aircraft is ready for service.&rdquo;</p>
+    <p class="big muted"><b>The</b> aircraft · <b>is</b> (status, not &ldquo;is being&rdquo;) · ready <b>for</b> service (not &ldquo;to service&rdquo;).</p>
+  </section>
+
+  <!-- 10 · VOCABULARY -->
+  <section class="slide" data-notes="0:36–0:44 · Vocabulary bank, 20 terms. Do not read the whole table aloud — it kills momentum. Instead, run a quick-fire: give the plain meaning, class shouts the term. 'The repair that clears a defect?' → rectification. 'The mandatory instruction from the authority?' → airworthiness directive. Group the terms by stage so they stick: BRIEFING (work pack, task card, work order, AD, SB), FINDING (finding, BITE, functional test, serviceable, unserviceable, deferred defect, MEL, duplicate inspection, rectification), RELEASE (sign-off, tech log, airworthy, certifying staff, release to service, base check). Then the flashcard round on the next slide. Watch the abbreviations: AD, SB, MEL, BITE, CRS.">
+    <div class="kick">§3 · vocabulary bank · 20 terms</div>
+    <h2>Group the terms by stage</h2>
+    <table class="tbl">
+      <tr><th>Briefing</th><th>Finding &amp; tests</th><th>Release</th></tr>
+      <tr><td>work pack · task card</td><td>finding · BITE</td><td>sign-off · tech log</td></tr>
+      <tr><td>work order</td><td>functional test</td><td>airworthy</td></tr>
+      <tr><td>airworthiness directive (AD)</td><td>serviceable / unserviceable</td><td>certifying staff</td></tr>
+      <tr><td>service bulletin (SB)</td><td>deferred defect · MEL</td><td>release to service (CRS)</td></tr>
+      <tr><td>base check</td><td>duplicate inspection · rectification</td><td>&nbsp;</td></tr>
+    </table>
+    <p class="muted">Quick-fire: you say the meaning, the class shouts the term.</p>
+  </section>
+
+  <!-- 11 · VOCAB GAME -->
+  <section class="slide" data-notes="0:44–0:48 · Fast recall game with the flashcard widget. Click to flip term↔meaning; use it as a whole-class 'beat the card': you read the term, the class calls out the meaning, then you flip to confirm. Keep score in two teams for energy. Then do a 60-second collocation round from memory: raise a work order, carry out a base check, clear a finding, update the tech log, pass a functional test. Collocations are where B2 learners sound fluent, so reward the correct verb, not just the noun.">
+    <div class="kick">§3 · vocabulary · fast recall</div>
+    <h2>Beat the card + collocations</h2>
+    <div class="cols">
+      <div class="dw" data-widget="cards"></div>
+      <div>
+        <p><b>Whole class:</b> you read the term, they call the meaning, flip to confirm.</p>
+        <p class="muted">60-second collocation round: <i>raise</i> a work order · <i>carry out</i> a base check · <i>clear</i> a finding · <i>update</i> the tech log · <i>pass</i> a functional test.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · GRAMMAR FOCUS -->
+  <section class="slide" data-notes="0:48–0:54 · Grammar focus: keep two forms apart. A STATUS NOW uses the present simple — 'The aircraft is ready for service', 'The pump is unserviceable', 'The finding is cleared'. A FINISHED ACTION WITH A RESULT NOW uses the present perfect passive — 'The rectification has been carried out', 'All findings have been cleared'. Also the plain past passive for a dated action — 'The test was carried out yesterday'. Drill the contrast: point at a status, class gives 'is'; point at a finished action, class gives 'has been + past participle'. Tie it to the audit: the release is a legal record, so the tense must be exact — a status is a fact now, an action is done and signed.">
+    <div class="kick">§4 · grammar in context</div>
+    <h2>Status now vs finished action</h2>
+    <div class="grid2">
+      <div class="card"><p><b style="color:var(--good)">Status now — present simple</b></p>
+        <p>The aircraft <b>is</b> ready for service.<br>The pump <b>is</b> unserviceable.<br>The finding <b>is</b> cleared.</p></div>
+      <div class="card"><p><b style="color:var(--accent)">Finished action — present perfect passive</b></p>
+        <p>The rectification <b>has been carried out</b>.<br>All findings <b>have been cleared</b>.<br>The test <b>was carried out</b> (dated).</p></div>
+    </div>
+    <p class="muted">The release is a legal record — the tense must be exact.</p>
+  </section>
+
+  <!-- 13 · L1 ERRORS -->
+  <section class="slide" data-notes="0:54–0:58 · The four first-language traps. These come straight from Latvian and Russian, which have no articles and a different aspect system, so learners drop 'the', use the wrong preposition, use the continuous for a status, and drop the past participle. Show each wrong→right pair and have the class self-correct. Do a rapid recast drill: you say the wrong version, the class fires back the right one. Tell them the anchor line contains three of these four traps, so it is the perfect self-test.">
+    <div class="kick">§4 · Latvian &amp; Russian traps</div>
+    <h2>Recast these four, fast</h2>
+    <ul>
+      <li><span class="wrong">Aircraft is ready for service.</span> → <span class="right">The aircraft is ready for service.</span></li>
+      <li><span class="wrong">ready to service</span> → <span class="right">ready for service</span></li>
+      <li><span class="wrong">The pump is being unserviceable.</span> → <span class="right">The pump is unserviceable.</span></li>
+      <li><span class="wrong">The test was carry out.</span> → <span class="right">The test was carried out.</span></li>
+    </ul>
+    <p class="muted">You say the wrong line; the class fires back the right one.</p>
+  </section>
+
+  <!-- 14 · SPOKEN NUMBERS -->
+  <section class="slide" data-notes="0:58–1:02 · Spoken numbers drill with the canvas widget. Numbers carry the facts in this unit and learners often mishear them. Click a number word; the class shouts the digits; confirm. Drill the trap pairs deliberately: thirty/thirteen, forty/fourteen. Practise 24-hour times: eighteen hundred = 1800, oh six thirty = 0630. Practise limits with units: three days, ten days, thirty-two degrees. Model the safe check they should always use: 'Do you mean one-three, or three-zero?' Numbers wrong on a tech log are a real safety issue, so this two minutes matters.">
+    <div class="kick">§4 · listening · spoken numbers</div>
+    <h2>Catch the number, say it back</h2>
+    <div class="cols">
+      <div class="dw" data-widget="numbers"></div>
+      <div>
+        <p><b>Trap pairs:</b> thirty / thirteen · forty / fourteen.</p>
+        <p class="muted">Times: eighteen hundred = 1800 · oh six thirty = 0630. Limits: three days · ten days · thirty-two degrees. Safe check: &ldquo;Do you mean one-three, or three-zero?&rdquo;</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · EXERCISE STAGING -->
+  <section class="slide" data-notes="1:02–1:14 · Exercise staging (E1–E8 on the worksheet). Do not do all eight in lockstep — stage them. E1 gap-fill and E2 matching: individual, 4 minutes, then peer-check. E3 dialogue completion and E4 grammar transformation: pairs, 4 minutes. E5 reading a task card and E7 reading a tech-log page: individual close reading, 3 minutes each, whole-class check. E6 error-spotting: quick whole-class. E8 listening review: replay Dialogue 3, books closed. Circulate and note common errors for feedback — especially dropped articles and 'was carry out'. Answers are on the worksheet in collapsible boxes; the graded solutions file has one-line reasons for each.">
+    <div class="kick">§5 · exercises · stage them</div>
+    <h2>Eight exercises, three modes</h2>
+    <table class="tbl">
+      <tr><th>Individual</th><th>Pairs</th><th>Whole class</th></tr>
+      <tr><td>E1 gap-fill</td><td>E3 dialogue completion</td><td>E6 error-spotting</td></tr>
+      <tr><td>E2 matching</td><td>E4 transformation</td><td>E8 listening review (replay D3)</td></tr>
+      <tr><td>E5 read a task card</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>E7 read a tech-log page</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+    </table>
+    <p class="muted">Circulate. Note dropped articles and &ldquo;was carry out&rdquo; for feedback.</p>
+  </section>
+
+  <!-- 16 · ROLE-PLAY MANAGEMENT -->
+  <section class="slide" data-notes="1:14–1:26 · Role-plays, the speaking core. Four cards mirror the four stages: (1) morning briefing, (2) a finding on a pump, (3) closing the paperwork, (4) the night-shift handover. Set pairs. Run card by card: read the card 30 seconds, act 2 minutes, swap roles, act again. Insist on the useful phrases printed on each card and on full sentences, not single words. Monitor two pairs at a time and jot errors. After each card, one strong pair performs for the room and you give one piece of praise and one fix. For extra challenge, the AI conversation partner on the worksheet runs the same scenarios one-to-one at B2. Reserve the last few minutes of this block for the release role-play, since it ends on the anchor line.">
+    <div class="kick">§6 · speaking · role-plays</div>
+    <h2>Four cards, four stages</h2>
+    <div class="grid2">
+      <div class="card"><p><b>1 · Briefing</b> — shift lead hands over the work pack.</p><p><b>2 · A finding</b> — agree unserviceable; defer or rectify?</p></div>
+      <div class="card"><p><b>3 · Closing</b> — check sign-offs, sign the release.</p><p><b>4 · Handover</b> — report the finished event to the night shift.</p></div>
+    </div>
+    <p class="muted">Read 30s · act 2 min · swap · act again. Full sentences and the printed phrases. End on card 3's anchor line.</p>
+  </section>
+
+  <!-- 17 · WRITING -->
+  <section class="slide" data-notes="1:26–1:32 · Writing task in Simplified Technical English. Remind them of the STE habits: one idea per sentence, active voice where possible, present simple for a status and present perfect for a finished action, one approved word per meaning, no long noun strings, no '-ing' for a status. The task has two parts: a tech-log line for the fuel-pump finding and its rectification (2–3 sentences), and the release statement ending with the anchor line. Give them a worked model to imitate but not copy. Run the self-check list with them: short sentences, no dropped articles, no '-ing' status, last line is the anchor. Collect or peer-mark using the checklist.">
+    <div class="kick">§7 · writing · Simplified Technical English</div>
+    <h2>Write the release paperwork</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Part 1 — tech-log line (2–3 sentences).</b> The number two fuel pump was unserviceable. The pump was changed and tested. The finding is cleared.</p>
+        <p><b>Part 2 — release.</b> All task cards are signed. The aircraft is airworthy. <span style="color:var(--amber)">The aircraft is ready for service.</span></p>
+      </div>
+      <div>
+        <p class="muted">STE habits: one idea per sentence · active voice · present simple for a status · present perfect for a finished action · no &ldquo;-ing&rdquo; status.</p>
+        <p class="muted">Self-check: short lines · no dropped articles · last line is the anchor.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP -->
+  <section class="slide" data-center data-notes="1:32–1:35 · Wrap and exit ticket. Recap in one breath: we ran the whole event — briefing, a fuel-pump finding, functional test, duplicate inspection, tech log, and a signed release. We kept two tenses apart, fixed the four first-language traps, and landed the anchor. Exit ticket: each learner says or writes one clean sentence about YL-ABC using the present simple or present perfect passive, ending the class on the anchor line together. Praise the team. Remind them the worksheet's AI partner and the quiz let them keep practising after class.">
+    <div class="kick">Recap · close</div>
+    <h2>You ran the whole event</h2>
+    <p class="big muted">Briefing → finding → functional test → duplicate inspection → tech log → signed release. Two tenses kept apart, four traps fixed, one anchor landed.</p>
+    <p class="anchor">&ldquo;The aircraft is ready for service.&rdquo;</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (canvas + rAF) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function mkbtn(t){ var b=document.createElement('button'); b.textContent=t; return b; }
+
+  /* ---- FLOW: four-stage stepper on canvas (rAF highlight) ---- */
+  window.DeckW.flow=function(el){
+    var stages=['Briefing','Discovery & tests','Documentation & release','Handover'];
+    el.innerHTML='<div class="wk"><div class="bar"></div><canvas width="620" height="150"></canvas><div class="info"></div></div>';
+    var bar=el.querySelector('.bar'), cv=el.querySelector('canvas'), ctx=cv.getContext('2d'), info=el.querySelector('.info');
+    var cur=0, glow=0, raf=null;
+    var notes=['The shift lead hands over the work pack: 40 task cards, one AD, one SB, a work order.',
+      'BITE shows a low-flow fault. A functional test confirms the pump is unserviceable. Rectify now; then a duplicate inspection.',
+      'Every card gets a sign-off. The certifying staff checks each one and signs the certificate of release to service.',
+      'The day shift reports to the night shift: base check finished, one finding rectified, nothing deferred.'];
+    stages.forEach(function(s,idx){ var b=mkbtn((idx+1)+' · '+s); b.addEventListener('click',function(){ cur=idx; sync(); }); bar.appendChild(b); });
+    function sync(){ bar.querySelectorAll('button').forEach(function(b,idx){ b.classList.toggle('on',idx===cur); }); info.textContent=notes[cur]; }
+    function draw(){
+      ctx.clearRect(0,0,cv.width,cv.height); var w=cv.width, n=stages.length, cx=w/(n);
+      for(var idx=0; idx<n; idx++){
+        var x=cx*idx+cx/2, y=70;
+        ctx.beginPath(); ctx.arc(x,y,idx===cur?24+4*Math.abs(Math.sin(glow)):22,0,7);
+        ctx.fillStyle=idx<=cur?'#38b6ff':'#22344a'; ctx.fill();
+        ctx.fillStyle='#0a0f18'; ctx.font='700 18px Inter,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText(String(idx+1),x,y);
+        ctx.fillStyle='#cfe0ee'; ctx.font='13px Inter,sans-serif';
+        ctx.fillText(stages[idx], x, y+42);
+        if(idx<n-1){ ctx.strokeStyle=idx<cur?'#38b6ff':'#22344a'; ctx.lineWidth=4; ctx.beginPath(); ctx.moveTo(x+24,y); ctx.lineTo(x+cx-24,y); ctx.stroke(); }
+      }
+    }
+    function loop(){ glow+=0.07; draw(); raf=requestAnimationFrame(loop); }
+    sync(); loop();
+  };
+
+  /* ---- GAUGE: readiness needle (rAF sweep) ---- */
+  window.DeckW.gauge=function(el){
+    var steps=['Task cards signed','AD card signed','Finding cleared','Duplicate inspection','Tech log updated'];
+    el.innerHTML='<div class="wk"><div class="bar"></div><canvas width="620" height="180"></canvas><div class="info"></div></div>';
+    var bar=el.querySelector('.bar'), cv=el.querySelector('canvas'), ctx=cv.getContext('2d'), info=el.querySelector('.info');
+    var done=steps.map(function(){return false;}); var target=0, ang=0, raf=null;
+    steps.forEach(function(s,idx){ var b=mkbtn(s); b.addEventListener('click',function(){ done[idx]=!done[idx]; b.classList.toggle('on',done[idx]); recompute(); }); bar.appendChild(b); });
+    function recompute(){ var n=done.filter(Boolean).length; target=n/steps.length; info.textContent = target>=1 ? 'All steps done — the aircraft is ready for service.' : Math.round(target*100)+'% complete'; }
+    function draw(){
+      ctx.clearRect(0,0,cv.width,cv.height); var cx=310, cy=160, r=120;
+      ctx.strokeStyle='#22344a'; ctx.lineWidth=16; ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,2*Math.PI); ctx.stroke();
+      ctx.strokeStyle= target>=1 ? '#34d399':'#38b6ff'; ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,Math.PI+ang*Math.PI); ctx.stroke();
+      var a=Math.PI+ang*Math.PI; ctx.strokeStyle='#fbbf24'; ctx.lineWidth=4; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a)); ctx.stroke();
+      ctx.fillStyle='#e9f0f7'; ctx.font='700 26px Inter,sans-serif'; ctx.textAlign='center'; ctx.fillText(Math.round(ang*100)+'%',cx,cy-30);
+    }
+    function loop(){ ang += (target-ang)*0.12; draw(); raf=requestAnimationFrame(loop); }
+    recompute(); loop();
+  };
+
+  /* ---- NUMBERS: spoken-number trainer (rAF pulse) ---- */
+  window.DeckW.numbers=function(el){
+    var pool=[[40,'forty'],[14,'fourteen'],[30,'thirty'],[13,'thirteen'],[39,'thirty-nine'],[3,'three days'],[10,'ten days'],[1800,'eighteen hundred'],[630,'oh six thirty'],[32,'thirty-two degrees']];
+    el.innerHTML='<div class="wk"><div class="bar"><button data-n>New number</button><button data-s>Show digits</button></div><canvas width="620" height="150"></canvas><div class="info"></div></div>';
+    var cv=el.querySelector('canvas'), ctx=cv.getContext('2d'), info=el.querySelector('.info');
+    var cur=pool[0], show=false, pulse=0, raf=null;
+    el.querySelector('[data-n]').addEventListener('click',function(){ cur=pool[Math.floor(Math.random()*pool.length)]; show=false; info.textContent='Say the digits, then reveal.'; });
+    el.querySelector('[data-s]').addEventListener('click',function(){ show=true; info.textContent='= '+cur[0]; });
+    function draw(){ ctx.clearRect(0,0,cv.width,cv.height); ctx.fillStyle='#0a0f18'; ctx.fillRect(0,0,cv.width,cv.height);
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillStyle='#fbbf24'; ctx.globalAlpha=0.6+0.4*Math.abs(Math.sin(pulse)); ctx.font='700 40px Inter,sans-serif';
+      ctx.fillText(cur[1], cv.width/2, 60); ctx.globalAlpha=1;
+      ctx.fillStyle=show?'#38b6ff':'#22344a'; ctx.font='700 34px Inter,sans-serif'; ctx.fillText(show?String(cur[0]):'? ? ?', cv.width/2, 115);
+    }
+    function loop(){ pulse+=0.06; draw(); raf=requestAnimationFrame(loop); }
+    info.textContent='Say the digits, then reveal.'; loop();
+  };
+
+  /* ---- CARDS: flashcards term/meaning ---- */
+  window.DeckW.cards=function(el){
+    var cards=[['finding','a defect written up for action'],['rectification','the repair that clears a defect'],['airworthy','safe and legal to fly'],['duplicate inspection','a second, independent check of a critical control'],['CRS','the certificate of release to service']];
+    el.innerHTML='<div class="wk"><div class="info" style="min-height:70px;font-size:20px;text-align:center;cursor:pointer" data-card></div><div class="bar"><button data-flip>Flip</button><button data-next>Next</button></div></div>';
+    var card=el.querySelector('[data-card]'); var i=0, face=0;
+    function show(){ card.textContent = face===0?cards[i][0]:cards[i][1]; card.style.color=face===0?'#fbbf24':'#cfe0ee'; }
+    card.addEventListener('click',function(){ face=1-face; show(); });
+    el.querySelector('[data-flip]').addEventListener('click',function(){ face=1-face; show(); });
+    el.querySelector('[data-next]').addEventListener('click',function(){ i=(i+1)%cards.length; face=0; show(); });
+    show();
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u32_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u32_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 32</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:21px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:28px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u32_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u32_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u32_deck_state")render();});',
+'render();',
+'<\/scr'+'ipt></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u32_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech -> live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer;
+            background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:monospace; font-weight:700; font-size:16px;
+            box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:monospace; font-size:11px; letter-spacing:.12em;
+               text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer;
+             background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; transition:.15s; }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px;
+                background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:monospace; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030;
+                       border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'), line=document.getElementById('lctLine');
+  var lineTop=document.getElementById('lctLineTop'), lineBot=document.getElementById('lctLineBot');
+  var srcEl=document.getElementById('lctSrc'), btn=document.getElementById('lctBtn'), gear=document.getElementById('lctGear');
+  var status=document.getElementById('lctStatus'), langBar=document.getElementById('lctLangBar');
+  var srcSel=document.getElementById('lctSrcSel'), tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition || window.webkitSpeechRecognition;
+  var spoken='en-US', src='en', target='lv', rec=null, active=false;
+  var pending='', capTopB='', capBotB='', lastInterim='', lctIdeaTimer=null, silenceTimer=null;
+  var lastTrAt=0, lastTrText='', lastTrLen=0, netErrors=0, cache=new Map(), POLL_GAP_MS=700, finalTimer=null;
+  function setStatus(t){ status.textContent=t; status.classList.toggle('show', active || t==='mic blocked' || t==='use Chrome'); }
+  function tail(text,maxWords){ if(!text) return ''; var t=String(text).trim().replace(/\s+/g,' '); if(!t) return '';
+    var parts=t.split(' '); if(parts.length<=maxWords) return t; return parts.slice(-maxWords).join(' '); }
+  async function translateRemote(text){
+    try{ if(src===target) return text;
+      var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text);
+      var ctrl=new AbortController(); var tmo=setTimeout(function(){ctrl.abort();},3000);
+      var r=await fetch(url,{signal:ctrl.signal}); clearTimeout(tmo); if(!r.ok) return null;
+      var j=await r.json(); if(Array.isArray(j)&&Array.isArray(j[0])){ var out=''; j[0].forEach(function(seg){ if(seg&&seg[0]) out+=seg[0]; }); return out||null; }
+      return null; }catch(e){ return null; }
+  }
+  async function translate(text){ if(!text||!text.trim()) return '';
+    var key=src+'|'+target+'|'+text.trim().toLowerCase(); if(cache.has(key)) return cache.get(key);
+    var out=await translateRemote(text); if(!out) out=text; cache.set(key,out); if(cache.size>250){ cache.delete(cache.keys().next().value); } return out; }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.9)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16,Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var idx=s.indexOf(' '); return idx>0?s.slice(idx+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail(pending||'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB=capBotB?(capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capBotB=''; } lctDraw(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctEndIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer=setTimeout(function(){ capTopB=''; capBotB=''; lastInterim=''; pending=''; render(); },30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer=null; } }
+  async function commitFinal(chunk){ chunk=chunk.trim(); if(!chunk) return; srcEl.textContent=tail(chunk,18); var tr=await translate(chunk); lctCommit(tr); lastInterim=''; lastTrLen=0; render(); }
+  async function translateInterim(text){ var now=performance.now(); if(now-lastTrAt<POLL_GAP_MS) return; if(text.length-lastTrLen<10 && text.length>0) return; if(text===lastTrText) return;
+    lastTrAt=now; lastTrLen=text.length; lastTrText=text; try{ var tr=await translate(text); if(tr&&active){ lastInterim=tr; render(); } }catch(e){} }
+  function startRec(){ rec=new SR(); rec.continuous=true; rec.interimResults=true; rec.lang=spoken;
+    rec.onresult=function(e){ netErrors=0; cancelSilence(); var interim='',fin='';
+      for(var k=e.resultIndex;k<e.results.length;k++){ var r=e.results[k]; if(r.isFinal) fin+=' '+r[0].transcript; else interim+=' '+r[0].transcript; }
+      if(fin){ pending+=' '+fin; if(finalTimer) clearTimeout(finalTimer); finalTimer=setTimeout(function(){ var c=pending; pending=''; commitFinal(c).then(armSilence); },120); }
+      if(interim){ srcEl.textContent=tail(interim.trim(),18); translateInterim(interim.trim()); }
+      render(); setStatus('live · '+src+'→'+target); };
+    rec.onerror=function(ev){ if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active=false; }
+      else if(ev.error==='no-speech'||ev.error==='aborted'){} else if(ev.error==='network'){ netErrors++; if(netErrors>=3){ active=false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect '+netErrors+'/3'); } else setStatus(ev.error); };
+    rec.onend=function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active&&rec){ try{ rec.start(); }catch(_){} } },350); } } };
+    try{ rec.start(); }catch(e){} }
+  function toggle(){ if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){ active=false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); if(rec){ try{ rec.onend=null; rec.stop(); }catch(e){} rec=null; } capTopB=''; capBotB=''; lastInterim=''; pending=''; render(); }
+    else { active=true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on'); setStatus('starting…'); startRec(); } }
+  btn.addEventListener('click',function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click',function(e){ e.stopPropagation(); var open=langBar.classList.toggle('open'); gear.classList.toggle('on',open); });
+  document.addEventListener('keydown',function(e){ if((e.key==='l'||e.key==='L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle(); });
+  srcSel.addEventListener('change',function(e){ e.stopPropagation(); spoken=srcSel.value; src=spoken.slice(0,2); cache.clear();
+    if(active&&rec){ rec.onend=null; try{ rec.stop(); }catch(_){} rec=null; startRec(); } if(active) setStatus('live · '+src+'→'+target); });
+  tgtSel.addEventListener('change',function(e){ e.stopPropagation(); target=tgtSel.value; cache.clear(); capTopB=''; capBotB=''; lastInterim=''; lastTrText=''; lastTrLen=0; render(); if(active) setStatus('live · '+src+'→'+target); });
+  [srcSel,tgtSel].forEach(function(s){ s.addEventListener('click',function(e){ e.stopPropagation(); }); });
+})();
+</script>
+</body>
+</html>

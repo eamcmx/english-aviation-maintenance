@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 32 — Solutions (E1–E8) · Base check to certified release</title>
+<style>
+  :root{--navy:#0f2942;--brand:#2F5496;--amber:#e0a53d;--ink:#1b2733;--ink-2:#5a6b7d;--line:#e2e6ec;--paper:#fbfaf7;--card:#fff;--ok:#2e9e6b;--bad:#c0392b;--serif:'Source Serif 4',Georgia,serif;--sans:'Inter','Segoe UI',system-ui,sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans)}
+  main{max-width:900px;margin:0 auto;padding:0 24px 80px}
+  header{background:linear-gradient(135deg,#0f2942,#2F5496);color:#fff;padding:34px 24px}
+  header .in{max-width:900px;margin:0 auto}
+  header h1{font-family:var(--serif);margin:0 0 6px;font-size:30px}
+  .pill{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 12px;font-size:13px;margin-top:6px}
+  h2{font-family:var(--serif);color:var(--navy);font-size:23px;margin:30px 0 6px;padding-bottom:6px;border-bottom:2px solid var(--amber)}
+  h3{font-family:var(--serif);color:var(--navy);font-size:18px;margin:22px 0 6px}
+  .ex{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:12px;padding:16px 20px;margin:16px 0}
+  ol{padding-left:22px} li{margin:9px 0}
+  .a{font-weight:700;color:var(--navy)}
+  .why{color:var(--ink-2);font-size:14.5px}
+  .why::before{content:"WHY — ";color:var(--amber);font-weight:700;font-size:12px;letter-spacing:.04em}
+  .note{background:#fffdf6;border:1px solid #f0dfbe;border-radius:10px;padding:12px 16px;margin:14px 0;font-size:14.5px}
+  .model{background:#f7faff;border:1px solid #d7e4f7;border-radius:10px;padding:14px 18px;margin:12px 0}
+  .anno{color:var(--brand);font-size:13.5px;font-style:italic}
+  code{background:#eef2f7;border:1px solid #e0e6ee;border-radius:5px;padding:1px 5px;font-size:14px}
+  .ok{color:var(--ok);font-weight:700}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <h1>Solutions — Exercises E1–E8</h1>
+  <div>English for Aviation Maintenance · Unit 32 — Capstone simulation: base check to certified release</div>
+  <span class="pill">Teacher / self-study key · full answers with a one-line reason</span>
+</div></header>
+<main>
+
+<div class="note">Each answer below has a short <strong>WHY</strong> so the reason is clear, not just the word. Accept sensible spelling variants (for example <code>sign-off</code> / <code>signoff</code>). The anchor line — <strong>&ldquo;The aircraft is ready for service.&rdquo;</strong> — must keep the article, the present simple, and the preposition <em>for</em>.</div>
+
+<h2>E1 — Gap-fill: the right term</h2>
+<div class="ex"><ol>
+  <li><span class="a">work pack</span> — <span class="why">the whole set of cards and paperwork for one event.</span></li>
+  <li><span class="a">base check</span> — <span class="why">a deep scheduled inspection done in the hangar.</span></li>
+  <li><span class="a">task card</span> — <span class="why">one job sheet with steps and a signature box.</span></li>
+  <li><span class="a">finding</span> — <span class="why">a discovered defect written up for action.</span></li>
+  <li><span class="a">airworthiness directive</span> — <span class="why">a mandatory instruction from the authority.</span></li>
+  <li><span class="a">service bulletin</span> — <span class="why">the maker's recommended check or modification.</span></li>
+  <li><span class="a">work order</span> — <span class="why">it authorises and tracks the job and its hours.</span></li>
+  <li><span class="a">functional test</span> — <span class="why">it proves the system works after the work.</span></li>
+  <li><span class="a">built-in test equipment</span> — <span class="why">the system's own self-test (BITE).</span></li>
+  <li><span class="a">sign-off</span> — <span class="why">the dated signature confirming a step is done.</span></li>
+</ol></div>
+
+<h2>E2 — Matching: term and meaning</h2>
+<div class="ex"><ol>
+  <li><span class="a">rectification</span> — <span class="why">this is the repair itself, the action that clears the defect.</span></li>
+  <li><span class="a">certificate of release to service</span> — <span class="why">the signed statement returning the aircraft to use.</span></li>
+  <li><span class="a">certifying staff</span> — <span class="why">only this licensed person may sign the release.</span></li>
+  <li><span class="a">airworthy</span> — <span class="why">it means safe and legal to fly.</span></li>
+  <li><span class="a">deferred defect</span> — <span class="why">a fault allowed to wait, controlled by the MEL.</span></li>
+  <li><span class="a">minimum equipment list</span> — <span class="why">it lists what may be off for dispatch.</span></li>
+  <li><span class="a">serviceable</span> — <span class="why">working and fit for use.</span></li>
+  <li><span class="a">unserviceable</span> — <span class="why">not fit for use; it must be changed or deferred.</span></li>
+  <li><span class="a">tech log</span> — <span class="why">the aircraft book of defects and actions.</span></li>
+  <li><span class="a">duplicate inspection</span> — <span class="why">a second, independent check of a critical control.</span></li>
+</ol></div>
+
+<h2>E3 — Dialogue completion</h2>
+<div class="ex"><ol>
+  <li><span class="a">work</span> — <span class="why">the fixed compound is <em>work pack</em>.</span></li>
+  <li><span class="a">sign</span> — <span class="why">the compound is <em>sign-off box</em>.</span></li>
+  <li><span class="a">directive</span> — <span class="why"><em>airworthiness directive</em> — the mandatory item.</span></li>
+  <li><span class="a">work</span> — <span class="why"><em>work order</em> authorises and tracks the job.</span></li>
+  <li><span class="a">functional</span> — <span class="why">the pump failed the <em>functional test</em>.</span></li>
+  <li><span class="a">equipment</span> — <span class="why"><em>minimum equipment list</em> controls the deferral.</span></li>
+  <li><span class="a">duplicate</span> — <span class="why">a <em>duplicate inspection</em> follows fuel-system work.</span></li>
+  <li><span class="a">release</span> — <span class="why">certificate of <em>release</em> to service (the CRS).</span></li>
+</ol></div>
+
+<h2>E4 — Grammar transformation</h2>
+<div class="ex"><ol>
+  <li><span class="a">The aircraft is ready for service.</span> — <span class="why">add the article <em>the</em>; the status uses present simple.</span></li>
+  <li><span class="a">The test was carried out.</span> — <span class="why">passive needs the past participle <em>carried</em>, not <em>carry</em>.</span></li>
+  <li><span class="a">All findings have been cleared.</span> — <span class="why">plural subject + present perfect passive; <em>were cleared</em> is also accepted.</span></li>
+  <li><span class="a">The pump is unserviceable.</span> — <span class="why">a status is present simple, never <em>is being</em>.</span></li>
+  <li><span class="a">I have finished the rectification.</span> — <span class="why">a finished action with a result now = present perfect.</span></li>
+  <li><span class="a">The defect was rectified yesterday.</span> — <span class="why"><em>yesterday</em> = a dated action, so past passive.</span></li>
+  <li><span class="a">The duplicate inspection is signed.</span> — <span class="why">add the article; present simple for the current state.</span></li>
+  <li><span class="a">The aircraft is ready for service.</span> — <span class="why">the preposition is <em>for</em>, never <em>to</em>.</span></li>
+</ol></div>
+
+<h2>E5 — Reading 1: a task card</h2>
+<div class="ex"><ol>
+  <li><span class="a">True</span> — <span class="why">the warning says de-pressurise the hydraulic system before you start.</span></li>
+  <li><span class="a">the travel value (in degrees)</span> — <span class="why">step 4 records the rudder travel value.</span></li>
+  <li><span class="a">25 and 32</span> — <span class="why">step 5 gives the limits: 25–32 degrees.</span></li>
+  <li><span class="a">raise a finding and stop</span> — <span class="why">step 6: out of limits means raise a finding and stop.</span></li>
+  <li><span class="a">a duplicate inspection</span> — <span class="why">step 9 is the duplicate inspection of the rudder controls.</span></li>
+  <li><span class="a">False</span> — <span class="why">the work order stays open until the sign-off is complete.</span></li>
+</ol></div>
+
+<h2>E6 — Error-spotting</h2>
+<div class="ex"><ol>
+  <li><span class="a">The aircraft</span> — <span class="why">add the missing article.</span></li>
+  <li><span class="a">task cards</span> — <span class="why">plural agreement: <em>all task cards are</em>.</span></li>
+  <li><span class="a">carried out</span> — <span class="why">passive needs the past participle.</span></li>
+  <li><span class="a">found</span> — <span class="why">present perfect needs the past participle of <em>find</em>.</span></li>
+  <li><span class="a">is unserviceable</span> — <span class="why">a status is present simple, not <em>is being</em>.</span></li>
+  <li><span class="a">is signed</span> — <span class="why">singular subject: <em>the inspection is signed</em>.</span></li>
+  <li><span class="a">updated</span> — <span class="why">present perfect needs the past participle.</span></li>
+  <li><span class="a">issued</span> — <span class="why">present simple passive needs the past participle <em>issued</em>.</span></li>
+</ol></div>
+
+<h2>E7 — Reading 2: a tech log page</h2>
+<div class="ex"><ol>
+  <li><span class="a">There is no spare bulb in the store</span> — <span class="why">the action line gives the reason for the deferral.</span></li>
+  <li><span class="a">minimum equipment list</span> — <span class="why">the deferral is under MEL item 33-42.</span></li>
+  <li><span class="a">ten days</span> — <span class="why">Category C: the deferred defect is allowed for ten days.</span></li>
+  <li><span class="a">False</span> — <span class="why">the limitation forbids night flight unless the second landing light works.</span></li>
+  <li><span class="a">serviceable</span> — <span class="why">after the pump change and test, the pump is serviceable.</span></li>
+  <li><span class="a">True</span> — <span class="why">the release line says the CRS is signed by the certifying staff.</span></li>
+</ol></div>
+
+<h2>E8 — Listening review: Dialogue 3</h2>
+<div class="ex"><ol>
+  <li><span class="a">thirty-nine</span> — <span class="why">thirty-nine cards had a sign-off; one was still open.</span></li>
+  <li><span class="a">the fuel pump card</span> — <span class="why">that was the single open card.</span></li>
+  <li><span class="a">the tech log line</span> — <span class="why">the rectification was done, but the tech-log line was missing.</span></li>
+  <li><span class="a">True</span> — <span class="why">the certifying staff checks each finding and each sign-off.</span></li>
+  <li><span class="a">the certificate of release to service</span> — <span class="why">the certifying staff signs the CRS.</span></li>
+  <li><span class="a">&ldquo;The aircraft is ready for service.&rdquo;</span> — <span class="why">the anchor line closes the event.</span></li>
+</ol></div>
+
+<h2>Writing — model answer, annotated</h2>
+<p>This is one strong model. Accept any answer that keeps the Simplified Technical English habits: short sentences, one idea each, correct tense, no dropped articles, and the anchor line last.</p>
+
+<h3>Part 1 — tech-log line</h3>
+<div class="model">
+  <p>The number two fuel pump was unserviceable. <span class="anno">&larr; past passive for a dated status; article kept.</span></p>
+  <p>The pump was changed. A functional test was done, and a duplicate inspection was completed. <span class="anno">&larr; short sentences, one action each; correct past participles (<em>changed, done, completed</em>).</span></p>
+  <p>The pump is now serviceable, and the finding is cleared. <span class="anno">&larr; present simple for the status now.</span></p>
+</div>
+
+<h3>Part 2 — release statement</h3>
+<div class="model">
+  <p>All task cards are complete. All findings are cleared. <span class="anno">&larr; present simple, plural agreement.</span></p>
+  <p>The base check is finished and the aircraft is airworthy. <span class="anno">&larr; two ideas, still short.</span></p>
+  <p>The certificate of release to service is signed by the certifying staff. <span class="anno">&larr; present simple passive, past participle <em>signed</em>.</span></p>
+  <p><span class="ok">The aircraft is ready for service.</span> <span class="anno">&larr; the anchor: article + present simple + <em>for</em>.</span></p>
+</div>
+
+<div class="note"><strong>Common deductions:</strong> a dropped article (<code>Aircraft is ready…</code>), the continuous for a status (<code>is being unserviceable</code>), a bare infinitive after <em>was</em> (<code>was carry out</code>), or <code>ready to service</code>. Each is a one-mark fix and maps straight to the four first-language traps in the grammar focus.</div>
+
+</main>
+</body>
+</html>

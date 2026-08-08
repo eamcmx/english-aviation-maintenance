@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 22 — Teacher Deck · Calling OEM / vendor technical support</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:30px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul,ol{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.gloss{font-family:var(--mono);font-size:14px;color:var(--amber)}
+.turn{margin:6px 0}.turn .spk{font-family:var(--mono);color:var(--accent);font-weight:700;margin-right:8px}
+table.gr{border-collapse:collapse;width:100%;font-size:17px}
+table.gr th,table.gr td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.gr th{background:#0c1622;color:var(--muted)}
+.wrong{color:var(--hot);font-weight:700}.right{color:var(--good);font-weight:700}
+.dw{width:100%;max-width:680px;min-height:340px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:340px;
+  border:1px dashed var(--line);border-radius:14px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk input[type=range]{accent-color:#38b6ff;width:180px;vertical-align:middle}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:54px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="[0-2 min] Unit opener. Set the frame: today the class learns the language of ONE phone call — calling the manufacturer's (OEM) technical-support desk about a fault that keeps coming back. Say the outcomes plainly: by the end they can describe a persistent fault and the troubleshooting already done, note the specialist's recommended actions, and confirm the follow-up steps and paperwork. These are near-beginners in English but professionals in the hangar, so lean on what they already know about faults, BITE tests and tech logs. Grammar spine of the whole lesson: past simple for the completed history — 'We replaced the valve yesterday.' Whole lesson is 90 minutes; keep English simple and slow, gloss every new word. Tell them the caption button (L) can show a live Latvian or Russian translation of what you say if they get lost.">
+    <div class="kick">English for Aviation Maintenance · Unit 22 · CEFR B2 · 90 minutes</div>
+    <h1>Calling OEM / vendor technical support</h1>
+    <p class="big muted">Explain a recurring fault and the troubleshooting you did · understand the specialist's recommendation · confirm the follow-up and the paperwork.</p>
+    <p class="pill">Grammar · past simple for the finished history &nbsp;·&nbsp; "We replaced the valve yesterday." &nbsp;·&nbsp; captions: press L</p>
+  </section>
+
+  <!-- 2 · MAP / OUTCOMES -->
+  <section class="slide" data-notes="[2-6 min] Walk the lesson map so students see the shape of the 90 minutes: scenario → three model dialogues (listen first) → vocabulary bank → past simple → eight self-checking exercises → four role-plays → one writing task. Read the three can-do outcomes aloud and check they understand each with a quick gesture or a yes/no. Keep instructions even simpler than the content: 'Listen. Find the problem. Say it.' Emphasise the AUTHENTIC documents they will meet: BITE readouts, wiring diagrams, service bulletins (SB), work orders and the tech log. Reassure: every exercise marks itself, so no one is exposed.">
+    <div class="kick">The plan · what you can do by the end</div>
+    <h2>One phone call, start to finish</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">Describe</b> a recurring fault and the troubleshooting you already did.</p>
+        <p><b style="color:var(--purple)">Note</b> the specialist's recommended actions.</p>
+        <p><b style="color:var(--good)">Confirm</b> the follow-up steps and the documentation references.</p>
+      </div>
+      <div>
+        <p class="muted">Scenario → 3 dialogues → vocabulary → past simple → 8 exercises → role-plays → writing.</p>
+        <p class="muted">Real documents today: <b>BITE test</b> readout, <b>wiring diagram</b>, <b>service bulletin</b>, <b>work order</b>, <b>tech log</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SCENARIO -->
+  <section class="slide" data-notes="[6-10 min] Set the scene and personalise. Read the situation slowly. Ask the room, in simple English: 'Have you ever called support? What was the problem?' Take two or three short answers. The scenario: a cockpit display keeps blanking on taxi, and the fault code will not clear; the team already ran the BITE test, changed the unit and checked the wiring. Nothing fixed it — so the next step is the phone call. Pre-teach only two ideas here: OEM = the manufacturer who made the part; 'recurring' = it comes back. Everything else is glossed as it appears.">
+    <div class="kick">§0 · the situation</div>
+    <h2>The display keeps blanking on taxi</h2>
+    <div class="cols">
+      <div>
+        <p>You work on the line at Riga. A cockpit display goes dark for one second on taxi. The fault code will not clear.</p>
+        <p>Your team already ran the <b>BITE test</b>, changed the unit, and checked the wiring. Nothing fixed it.</p>
+        <p class="big">The next step is a phone call to the <b>OEM</b> support desk.</p>
+      </div>
+      <div class="card">
+        <p class="gloss">OEM = the company that made the part<br>(ražotājs · производитель)</p>
+        <p class="gloss">recurring = it keeps coming back<br>(atkārtojas · повторяющийся)</p>
+        <p class="muted">Your job on the call: explain the history · note the advice · agree the follow-up.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · DIALOGUE 1 -->
+  <section class="slide" data-notes="[10-18 min] Dialogue 1, 'The display blanks on taxi'. Play the audio FIRST, books closed — students only listen. Set one easy listening task before you play: 'Find three things — the fault code, how many times this week, and where it happens.' Play once. Elicit answers (DU-204, four times, always during taxi). Play a second time with the transcript open. Drill the key describing phrases chorally: 'It is intermittent.' / 'It blanks for about one second.' / 'We could not reproduce it.' Watch pronunciation of 'intermittent' (four syllables, stress on -MIT-) and the 'th' in 'this/the'.">
+    <div class="kick">§1 · Dialogue 1 · listen first</div>
+    <h2>Reporting the fault</h2>
+    <div class="cols">
+      <div class="card">
+        <div class="turn"><span class="spk">A</span>I have a recurring fault on a cockpit display.</div>
+        <div class="turn"><span class="spk">B</span>Give me the part number and the serial number first.</div>
+        <div class="turn"><span class="spk">A</span>It blanks for about one second, then it comes back.</div>
+        <div class="turn"><span class="spk">B</span>Is the fault constant or intermittent?</div>
+        <div class="turn"><span class="spk">A</span>It is intermittent. The code is DU-204, four times this week.</div>
+        <div class="turn"><span class="spk">A</span>Always during taxi. We could not reproduce it parked.</div>
+      </div>
+      <div>
+        <p class="tag">LISTEN BEFORE YOU READ</p>
+        <p>Find three things: the <b>fault code</b>, <b>how many times</b> this week, and <b>where</b> it happens.</p>
+        <p class="gloss">intermittent = on and off, not always<br>(ar pārtraukumiem · с перебоями)</p>
+        <p class="gloss">reproduce = make it happen again<br>(atkārtot · воспроизвести)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · WIDGET 1 : intermittent vs constant -->
+  <section class="slide" data-notes="[18-24 min] Interactive. Use this to TEACH 'intermittent' vs 'constant' with the eye, not a translation. Press 'Constant fault' — the signal stays broken (screen dark all the time). Then press 'Intermittent' — the signal drops out only sometimes, exactly like the taxi fault. Slide 'taxi vibration' up and the dropouts get more frequent. Elicit full sentences each time: 'The display blanks.' 'It comes back on its own.' 'The fault is intermittent.' 'It is hard to reproduce.' This is why the desk asks 'constant or intermittent?' — the answer changes what they suspect.">
+    <div class="kick">§1 · Interactive · intermittent vs constant</div>
+    <h2>See the fault — then name it</h2>
+    <div class="cols">
+      <div class="dw" data-widget="blank"></div>
+      <div><p>A steady line = a healthy display. A gap = the screen <b>blanks</b>.</p>
+        <p class="muted">Constant = broken all the time. Intermittent = broken only sometimes. More taxi vibration → more blanks, harder to <b>reproduce</b>.</p></div>
+    </div>
+  </section>
+
+  <!-- 6 · DIALOGUE 1 troubleshooting -->
+  <section class="slide" data-notes="[24-28 min] Stay in Dialogue 1 but move to the troubleshooting history — this is where the past simple lives. Read B's question 'walk me through the troubleshooting you have already done' and A's answers. Underline every past-tense verb on the board as students spot them: ran, cleaned, fitted. Point at the time markers: yesterday, last night, this morning. Make the rule visible: finished action + time word = past simple. Do NOT teach present perfect here; keep it to the one tense.">
+    <div class="kick">§1 · Dialogue 1 · the history</div>
+    <h2>The troubleshooting you already did</h2>
+    <div class="cols">
+      <div class="card">
+        <div class="turn"><span class="spk">B</span>Walk me through the troubleshooting you have done.</div>
+        <div class="turn"><span class="spk">A</span>Yesterday we <b>ran</b> the BITE test, but it <b>passed</b>.</div>
+        <div class="turn"><span class="spk">A</span>We <b>cleaned</b> the connector last night.</div>
+        <div class="turn"><span class="spk">A</span>We <b>fitted</b> a spare LRU this morning.</div>
+        <div class="turn"><span class="spk">A</span>The fault came back, so the root cause is the wiring.</div>
+      </div>
+      <div>
+        <p class="tag">PAST SIMPLE = FINISHED STEPS</p>
+        <p>Every step is <b>done and closed</b>. English marks it with the past form.</p>
+        <p class="gloss">ran · cleaned · fitted · passed · came back</p>
+        <p class="muted">Time words: <b>yesterday · last night · this morning</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · DIALOGUE 2 -->
+  <section class="slide" data-notes="[28-34 min] Dialogue 2, 'The radio fails the BITE test'. Play audio first, books closed. Task: 'How long has the fault been on the aircraft? What passed on the bench?' (three weeks; the removed radio passed every time on the bench). Then open the transcript. This dialogue adds: service bulletin, bench test, workaround, escalate. Teach 'workaround' = a temporary fix until the real parts arrive (select radio 1, defer radio 2). Drill: 'Is there a workaround until the parts arrive?' Note the connectors 'although' and 'unless' — B2 glue words inside short sentences.">
+    <div class="kick">§2 · Dialogue 2 · listen first</div>
+    <h2>The radio that keeps failing</h2>
+    <div class="cols">
+      <div class="card">
+        <div class="turn"><span class="spk">A</span>A VHF radio fails the BITE test with a no-comm fault.</div>
+        <div class="turn"><span class="spk">A</span>Although we changed the antenna cable, the fault stayed.</div>
+        <div class="turn"><span class="spk">A</span>On the bench it passed every time.</div>
+        <div class="turn"><span class="spk">B</span>There is a service bulletin for this exact symptom.</div>
+        <div class="turn"><span class="spk">B</span>Unless the loom is damaged, the fix is a new backshell.</div>
+        <div class="turn"><span class="spk">A</span>Is there a workaround until the parts arrive?</div>
+      </div>
+      <div>
+        <p class="tag">LISTEN BEFORE YOU READ</p>
+        <p>Two questions: <b>how long</b> has the fault been there, and what <b>passed</b> on the bench?</p>
+        <p class="gloss">workaround = temporary fix<br>(pagaidu risinājums · временное решение)</p>
+        <p class="gloss">escalate = pass it up for more help<br>(nodot augstāk · передать выше)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · WIDGET 2 : troubleshooting timeline -->
+  <section class="slide" data-notes="[34-40 min] Interactive. Build the troubleshooting history one step at a time. Press 'Next step' and each finished action appears with its past-simple verb. As each lights up, the class says the full sentence: 'We ran the BITE test.' 'We cleaned the connector.' 'We swapped the LRU.' 'We checked the wiring.' Then press 'Report it' and it reads the whole history as one chain — that is exactly what you say on the phone. Point out: the order is chronological, each verb is past simple. Use 'Reset' and call on individual students to rebuild it aloud.">
+    <div class="kick">§2 · Interactive · build the history</div>
+    <h2>Report the steps in order — in the past simple</h2>
+    <div class="cols">
+      <div class="dw" data-widget="history"></div>
+      <div><p>Each step is a <b>finished</b> action. Say it in the past simple as it appears.</p>
+        <p class="muted">ran → cleaned → swapped → checked. Then report the whole chain in one breath, like a real call.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · VOCAB BANK -->
+  <section class="slide" data-notes="[40-46 min] Vocabulary bank drill. Do not read all 21 terms as a list — that kills the room. Instead run a fast 'point and say': you say the plain meaning, students call the term. 'A box you can swap on the aircraft?' → LRU. 'A fault that keeps coming back?' → recurring fault. 'A temporary fix?' → workaround. Group the terms as on screen: the fault, the history, the documents, the actions. Every term is glossed in the bank in the body page. Pronunciation watch: LRU is spelled out letter by letter (el-ar-YOO); 'connector' stress on -NEC-; 'serial' = SEER-ee-al, not 'serial' as in Russian.">
+    <div class="kick">§3 · vocabulary bank · 21 terms</div>
+    <h2>Say the term for the meaning</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">The fault:</b> recurring fault · intermittent · fault code · root cause · reproduce</p>
+        <p><b style="color:var(--purple)">The history:</b> troubleshooting · BITE test · bench test · LRU · connector · wiring diagram</p>
+        <p><b style="color:var(--good)">The advice:</b> recommendation · workaround · escalate · service bulletin · follow-up</p>
+        <p><b style="color:var(--amber)">The paperwork:</b> tech log · work order · part number · serial number</p>
+      </div>
+      <div>
+        <p class="tag">POINT &amp; SAY</p>
+        <p>Teacher says the meaning → class says the term.</p>
+        <p class="muted">"A temporary fix?" → workaround. "A box you swap?" → LRU. "Keeps coming back?" → recurring fault.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · VOCAB collocations -->
+  <section class="slide" data-notes="[46-50 min] Collocations — the words that travel together. B2 learners sound natural when the verb+noun pairs are automatic. Drill these aloud: RUN a BITE test, SWAP the LRU, RAISE a work order, CLEAR the fault code, FIND the root cause, FOLLOW the recommendation. Then mini-transform: give a noun, class adds the verb. Common Latvian/Russian slip: 'make a BITE test' (wrong) → 'run a BITE test' (right); 'do a work order' → 'raise a work order'. Write the right verb next to each noun.">
+    <div class="kick">§3 · collocations · verb + noun</div>
+    <h2>Which verb goes with which noun?</h2>
+    <div class="cols">
+      <div class="card">
+        <table class="gr"><tr><th>verb</th><th>noun</th></tr>
+        <tr><td><b>run</b></td><td>a BITE test</td></tr>
+        <tr><td><b>swap</b></td><td>the LRU</td></tr>
+        <tr><td><b>raise</b></td><td>a work order</td></tr>
+        <tr><td><b>clear</b></td><td>the fault code</td></tr>
+        <tr><td><b>find</b></td><td>the root cause</td></tr>
+        <tr><td><b>follow</b></td><td>the recommendation</td></tr>
+        </table>
+      </div>
+      <div>
+        <p class="tag">WATCH THIS</p>
+        <p><span class="wrong">✗ make a BITE test</span> → <span class="right">✓ run a BITE test</span></p>
+        <p><span class="wrong">✗ do a work order</span> → <span class="right">✓ raise a work order</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · GRAMMAR form -->
+  <section class="slide" data-notes="[50-56 min] Grammar focus — the form of the past simple. Put the four rows on the board and drill each with a class example about the display fault. Positive: 'We replaced the valve yesterday.' Negative: 'We did NOT replace the LRU' — stress the base verb after did not. Question: 'DID you inspect the connector?' Short answer: 'Yes, we did. / No, we did not.' The one rule to hammer: after DID / DID NOT, the main verb goes back to the base form (no -ed). Elicit irregulars they met today: run→ran, come→came, find→found, send→sent, do→did.">
+    <div class="kick">§4 · grammar · the form</div>
+    <h2>Past simple — the finished history</h2>
+    <table class="gr">
+      <tr><th>Form</th><th>Structure</th><th>Example</th></tr>
+      <tr><td>Positive</td><td>subject + past verb</td><td>We <b>replaced</b> the valve yesterday.</td></tr>
+      <tr><td>Negative</td><td>subject + did not + base verb</td><td>We <b>did not replace</b> the LRU.</td></tr>
+      <tr><td>Question</td><td>did + subject + base verb</td><td><b>Did</b> you <b>inspect</b> the connector?</td></tr>
+      <tr><td>Short answer</td><td>Yes/No + subject + did / did not</td><td>Yes, we <b>did</b>. / No, we <b>did not</b>.</td></tr>
+    </table>
+    <p class="muted" style="margin-top:14px">Irregulars from today: run→<b>ran</b> · come→<b>came</b> · find→<b>found</b> · send→<b>sent</b> · do→<b>did</b>.</p>
+  </section>
+
+  <!-- 12 · GRAMMAR mistakes + pronunciation -->
+  <section class="slide" data-notes="[56-60 min] The three predictable Latvian/Russian errors — name them so students self-monitor. (1) Present for past: Latvian and Russian often use the present with a past time word — 'Yesterday we replace' → must be 'replaced'. (2) Double past after did: 'We did not replaced' → after did/did not use the base verb. (3) No article: Latvian and Russian have no articles, so 'the' gets dropped — 'We replaced valve' → 'We replaced the valve'. Pronunciation: the -ed ending. Model the three sounds — /t/ after voiceless (passed = 'past'), /d/ after voiced (cleaned = 'cleend'), /ɪd/ only after t/d (fitted = 'fit-id', recorded = 'record-id'). Latvian/Russian speakers tend to add an extra vowel to every -ed; drill that only fitted and recorded get the extra syllable.">
+    <div class="kick">§4 · common mistakes + pronunciation</div>
+    <h2>Three errors to catch — and the -ed sound</h2>
+    <div class="cols">
+      <div class="card">
+        <p><span class="wrong">✗ Yesterday we replace the valve.</span><br><span class="right">✓ Yesterday we replaced the valve.</span></p>
+        <p><span class="wrong">✗ We did not replaced the unit.</span><br><span class="right">✓ We did not replace the unit.</span></p>
+        <p><span class="wrong">✗ We replaced valve yesterday.</span><br><span class="right">✓ We replaced the valve yesterday.</span></p>
+      </div>
+      <div>
+        <p class="tag">-ED HAS THREE SOUNDS</p>
+        <p>/t/ &nbsp;passed = "past"</p>
+        <p>/d/ &nbsp;cleaned = "cleend"</p>
+        <p>/ɪd/ &nbsp;fitted, recorded (extra syllable — only after t/d)</p>
+        <p class="muted">Do not add a vowel to <em>every</em> -ed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · WIDGET 3 : did it clear? -->
+  <section class="slide" data-notes="[60-64 min] Interactive. This drills the result language: the fault code was SET before the repair and CLEAR after it. Press 'Before repair' — the gauge sits on FAULT, DU-204 set. Press 'After repair' — the needle swings to CLEAR, no stored fault. Elicit past-simple result sentences: 'Before the repair, the BITE test failed.' 'After the repair, the fault code was clear.' 'We repaired the loom and the code cleared.' This mirrors Dialogue 3, where Ravil confirms the code is clear on the BITE test. Ask: what document records this? (the tech log and the work order.)">
+    <div class="kick">§4 · Interactive · did the fault clear?</div>
+    <h2>Before the repair vs after the repair</h2>
+    <div class="cols">
+      <div class="dw" data-widget="bite"></div>
+      <div><p>Before: the <b>BITE test</b> failed and the <b>fault code</b> was set.</p>
+        <p class="muted">After: we repaired the loom, the needle swings to CLEAR, no stored fault. Say it in the past simple.</p></div>
+    </div>
+  </section>
+
+  <!-- 14 · DIALOGUE 3 -->
+  <section class="slide" data-notes="[64-68 min] Dialogue 3, 'Confirming the follow-up'. Play audio first. Task: 'What did they find, and what three documents does Ravil mention?' (a chafed wire near the connector; work order, service bulletin, tech log). This dialogue is the closing move of the whole call — confirming actions so nothing is missed. Drill the confirming frames: 'Let us confirm the follow-up steps.' 'I raised a work order and recorded it in the tech log.' 'If the display blanks again, I will escalate it.' Point out the polite read-back structure — repeating the recommendation back is professional and safe.">
+    <div class="kick">§5 · Dialogue 3 · listen first</div>
+    <h2>Confirming the follow-up</h2>
+    <div class="cols">
+      <div class="card">
+        <div class="turn"><span class="spk">A</span>We found a chafed wire near the connector.</div>
+        <div class="turn"><span class="spk">A</span>We repaired the loom. The fault code is now clear.</div>
+        <div class="turn"><span class="spk">B</span>Raise a work order, with the part number listed.</div>
+        <div class="turn"><span class="spk">B</span>Note the service bulletin reference against the task.</div>
+        <div class="turn"><span class="spk">A</span>If the display blanks again, I will escalate it.</div>
+        <div class="turn"><span class="spk">B</span>Write my recommendation in the tech log.</div>
+      </div>
+      <div>
+        <p class="tag">CONFIRM &amp; DOCUMENT</p>
+        <p>Find three documents Ravil names.</p>
+        <p class="gloss">work order · service bulletin · tech log</p>
+        <p class="muted">Read the advice back so nothing is missed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · EXERCISES staging -->
+  <section class="slide" data-notes="[68-74 min] Move students to the body page for the eight exercises. They self-check, so circulate and help with pronunciation and spelling, not answers. Suggested order and pace: E1 gap-fill and E2 matching first (recognition, ~2 min each), then E3 dialogue completion and E4 grammar transformation (production, ~3 min each). E5 is the service bulletin reading, E6 the error-spotting tech-log entry, E7 the work-order reading, E8 the listening replay of Dialogue 3. If time is short, set E6 and E8 for homework. Each exercise recycles only words the unit has taught — reassure them there are no surprises.">
+    <div class="kick">§6 · exercises · on the body page</div>
+    <h2>Eight self-checking exercises</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>E1</b> gap-fill · <b>E2</b> matching · <b>E3</b> dialogue completion</p>
+        <p><b>E4</b> past-simple transformation · <b>E5</b> read a service bulletin</p>
+        <p><b>E6</b> find &amp; fix eight errors · <b>E7</b> read a work order · <b>E8</b> replay Dialogue 3</p>
+      </div>
+      <div>
+        <p class="tag">HOW TO RUN IT</p>
+        <p>Type the answer → press <b>Check</b> → the page marks it.</p>
+        <p class="muted">Recognition first (E1–E2), then production (E3–E4). Short on time? E6 + E8 as homework.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · ROLE-PLAY -->
+  <section class="slide" data-notes="[74-82 min] Role-plays, in pairs, A = technician, B = support desk. Four cards build the whole call: (1) report the fault, (2) explain the troubleshooting history in the past simple, (3) take the recommendation and ask for a workaround, (4) confirm the follow-up and the paperwork. Model card 1 yourself with a strong student first, then let pairs run. Give each pair the useful phrases on screen. Swap roles after each card so everyone speaks both parts. Listen for: past simple on the history, articles before 'the connector / the LRU', and clear read-back. Feed the B2 speaking rubric (in the teacher key) while you monitor. For solo learners, the body page has three AI chat prompts to practise the call live.">
+    <div class="kick">§7 · speaking · role-plays in pairs</div>
+    <h2>Make the whole call — four cards</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Card 1 — Report:</b> give the part &amp; serial number, describe the recurring fault.</p>
+        <p><b>Card 2 — History:</b> report the finished steps in the past simple.</p>
+        <p><b>Card 3 — Recommendation:</b> understand it, repeat it back, ask for a workaround.</p>
+        <p><b>Card 4 — Follow-up:</b> confirm the actions and the documents.</p>
+      </div>
+      <div>
+        <p class="tag">USEFUL PHRASES</p>
+        <p class="muted">"I have a recurring fault on…" · "Yesterday we ran the BITE test…" · "So your recommendation is to…" · "I raised a work order and recorded it in the tech log."</p>
+        <p class="muted">Swap roles after each card.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · WRITING -->
+  <section class="slide" data-notes="[82-88 min] Writing task — a short tech-log entry, 60-90 words, in Simplified Technical English (ASD-STE100): short sentences, one idea per sentence, past simple for the finished steps. Put the checklist on screen. Remind them of STE habits: keep sentences under ~20 words, avoid stacked nouns, name the documents (work order, service bulletin, tech log). Show the model answer on the body page only AFTER they draft. This can finish at home if the role-plays overran. Stress WHY documentation matters: the next technician and any investigator rely on a clear, honest record.">
+    <div class="kick">§8 · writing · the tech-log entry</div>
+    <h2>Write the record — Simplified Technical English</h2>
+    <div class="cols">
+      <div class="card">
+        <p>60–90 words. Include: the recurring fault + its fault code · the troubleshooting you did · the OEM recommendation · the follow-up you agreed.</p>
+        <p class="muted">Name the documents: work order, service bulletin, tech log.</p>
+      </div>
+      <div>
+        <p class="tag">STE HABITS</p>
+        <p>☐ past simple for every finished step</p>
+        <p>☐ short sentences, one idea each</p>
+        <p>☐ name the fault code and the documents</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP-UP -->
+  <section class="slide" data-center data-notes="[88-90 min] Wrap up. Three one-liners: describe the fault and the finished troubleshooting in the past simple; take and read back the recommendation; confirm the follow-up and name every document. Recall the -ed sounds and the three interference errors. Set homework: finish any unfinished exercises (E6, E8), the writing task, and one AI role-play from the body page. Preview next unit briefly. Thank the room; remind them the caption button (L) and the body-page tutor are there for self-study.">
+    <div class="kick">Recap · close</div>
+    <h2>Describe · note · confirm</h2>
+    <p class="big muted">Report the finished history in the <b>past simple</b> · take the recommendation and <b>read it back</b> · confirm the follow-up and name every document — <b>work order, service bulletin, tech log</b>.</p>
+    <p>Homework: finish E6 + E8 · write the tech-log entry (60–90 words, STE) · run one AI role-play.</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS + canvas) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function fit(cv){ var w=cv.parentElement.clientWidth||640; cv.width=w; cv.height=Math.round(w*0.46); return cv.getContext('2d'); }
+
+  /* ---- W1 : intermittent vs constant signal ---- */
+  window.DeckW.blank=function(el){
+    el.innerHTML='<div class="wk"><div class="bar">'+
+      '<button data-m="healthy" class="on">Healthy</button>'+
+      '<button data-m="constant">Constant fault</button>'+
+      '<button data-m="interm">Intermittent</button>'+
+      '<span class="note">taxi vibration</span><input type="range" min="0" max="100" value="45" data-v>'+
+      '</div><canvas></canvas><div class="info" data-i><h4>Healthy display</h4>The signal is steady. The screen stays on.</div></div>';
+    var cv=el.querySelector('canvas'),ctx=fit(cv),info=el.querySelector('[data-i]');
+    var mode='healthy',vib=45,t=0,blanks=[],raf;
+    function setMode(m){mode=m;Array.prototype.forEach.call(el.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-m')===m);});
+      if(m==='healthy')info.innerHTML='<h4>Healthy display</h4>The signal is steady. The screen stays on.';
+      if(m==='constant')info.innerHTML='<h4>Constant fault</h4>The screen is dark all the time. Easy to see, easy to reproduce.';
+      if(m==='interm')info.innerHTML='<h4>Intermittent fault</h4>The screen blanks only sometimes, then comes back on its own. Hard to reproduce.';}
+    el.querySelector('[data-v]').addEventListener('input',function(e){vib=+e.target.value;});
+    Array.prototype.forEach.call(el.querySelectorAll('button'),function(b){b.addEventListener('click',function(){setMode(b.getAttribute('data-m'));});});
+    function draw(){
+      ctx.clearRect(0,0,cv.width,cv.height);var W=cv.width,H=cv.height,mid=H/2;
+      // grid
+      ctx.strokeStyle='#14283f';ctx.lineWidth=1;for(var gx=0;gx<W;gx+=40){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke();}
+      // decide blank at head
+      t+=1;
+      var blanking=false;
+      if(mode==='constant')blanking=true;
+      else if(mode==='interm'){var chance=vib/100*0.06;if(blanks.length===0||blanks[blanks.length-1]<t-14){if(Math.sin(t*0.13)*Math.cos(t*0.07)>0.86-chance*3){blanks.push(t);}}
+        for(var k=0;k<blanks.length;k++){if(t-blanks[k]<10){blanking=true;}}}
+      ctx.beginPath();ctx.lineWidth=2.5;ctx.strokeStyle=blanking?'#ff5667':'#34d399';
+      for(var x=0;x<W;x++){
+        var tt=t-(W-x);var b=false;
+        if(mode==='constant')b=true;
+        else if(mode==='interm'){for(var j=0;j<blanks.length;j++){if(tt-blanks[j]>=0&&tt-blanks[j]<10)b=true;}}
+        var y=b?mid:mid+Math.sin(x*0.09+t*0.12)*(H*0.28);
+        if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+      }
+      ctx.stroke();
+      // screen chip
+      ctx.fillStyle=blanking?'#20140f':'#0c2a1c';ctx.fillRect(W-96,12,84,42);
+      ctx.strokeStyle=blanking?'#ff5667':'#34d399';ctx.strokeRect(W-96,12,84,42);
+      ctx.fillStyle=blanking?'#ff9aa2':'#9af0c8';ctx.font='700 14px ui-monospace,Consolas,monospace';
+      ctx.fillText(blanking?'BLANK':'ON',W-84,38);
+      if(blanks.length>60)blanks=blanks.slice(-30);
+      raf=requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize',function(){ctx=fit(cv);});
+    raf=requestAnimationFrame(draw);
+  };
+
+  /* ---- W2 : troubleshooting timeline (past simple) ---- */
+  window.DeckW.history=function(el){
+    var steps=[['ran','We ran the BITE test.','It passed and stored no fault.'],
+      ['cleaned','We cleaned the connector.','No bent pins inside.'],
+      ['swapped','We swapped the LRU.','The fault still came back.'],
+      ['checked','We checked the wiring.','A chafed wire — the root cause.']];
+    el.innerHTML='<div class="wk"><div class="bar">'+
+      '<button data-a="next">Next step ▸</button><button data-a="report">Report it</button><button data-a="reset">Reset</button>'+
+      '</div><canvas></canvas><div class="info" data-i><h4>The finished history</h4>Press <b>Next step</b>. Say each action in the past simple.</div></div>';
+    var cv=el.querySelector('canvas'),ctx=fit(cv),info=el.querySelector('[data-i]');
+    var shown=0,prog=0,target=0,raf;
+    function draw(){
+      ctx.clearRect(0,0,cv.width,cv.height);var W=cv.width,H=cv.height,y=H*0.5;
+      var pad=54,span=(W-pad*2)/(steps.length-1);
+      prog+=(target-prog)*0.14;
+      ctx.strokeStyle='#26384e';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(W-pad,y);ctx.stroke();
+      ctx.strokeStyle='#38b6ff';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(pad+prog*span,y);ctx.stroke();
+      for(var i=0;i<steps.length;i++){
+        var cx=pad+i*span,on=i<shown;
+        ctx.beginPath();ctx.arc(cx,y,on?16:11,0,7);
+        ctx.fillStyle=on?'#16324c':'#0f1726';ctx.fill();ctx.lineWidth=2.5;ctx.strokeStyle=on?'#38b6ff':'#314865';ctx.stroke();
+        ctx.fillStyle=on?'#7fd0ff':'#54708c';ctx.font='700 13px ui-monospace,Consolas,monospace';ctx.textAlign='center';
+        ctx.fillText((i+1),cx,y+4);
+        ctx.fillStyle=on?'#e9f0f7':'#54708c';ctx.font=(on?'700 ':'400 ')+'14px -apple-system,Segoe UI,sans-serif';
+        ctx.fillText(steps[i][0],cx,y-30);
+      }
+      ctx.textAlign='left';
+      raf=requestAnimationFrame(draw);
+    }
+    function upd(msg){info.innerHTML=msg;}
+    el.querySelector('[data-a=next]').addEventListener('click',function(){
+      if(shown<steps.length){shown++;target=shown-1;var s=steps[shown-1];upd('<h4>Step '+shown+' · past simple</h4><b>'+s[1]+'</b> '+s[2]);}
+    });
+    el.querySelector('[data-a=report]').addEventListener('click',function(){
+      shown=steps.length;target=steps.length-1;
+      upd('<h4>Report the whole history</h4>'+steps.map(function(s){return s[1];}).join(' ')+' So the root cause is in the wiring.');
+    });
+    el.querySelector('[data-a=reset]').addEventListener('click',function(){shown=0;target=0;prog=0;upd('<h4>The finished history</h4>Press <b>Next step</b>. Say each action in the past simple.');});
+    window.addEventListener('resize',function(){ctx=fit(cv);});
+    raf=requestAnimationFrame(draw);
+  };
+
+  /* ---- W3 : BITE gauge before/after ---- */
+  window.DeckW.bite=function(el){
+    el.innerHTML='<div class="wk"><div class="bar">'+
+      '<button data-s="before" class="on">Before repair</button><button data-s="after">After repair</button>'+
+      '</div><canvas></canvas><div class="info" data-i><h4>Before the repair</h4>The BITE test failed. Fault code DU-204 was set.</div></div>';
+    var cv=el.querySelector('canvas'),ctx=fit(cv),info=el.querySelector('[data-i]');
+    var state='before',ang=-0.75,targ=-0.75,raf;
+    function set(s){state=s;Array.prototype.forEach.call(el.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-s')===s);});
+      if(s==='before'){targ=-0.75;info.innerHTML='<h4>Before the repair</h4>The BITE test failed. Fault code DU-204 was set.';}
+      else{targ=0.75;info.innerHTML='<h4>After the repair</h4>We repaired the loom. The fault code cleared. No stored fault.';}}
+    Array.prototype.forEach.call(el.querySelectorAll('button'),function(b){b.addEventListener('click',function(){set(b.getAttribute('data-s'));});});
+    function draw(){
+      ctx.clearRect(0,0,cv.width,cv.height);var W=cv.width,H=cv.height,cx=W/2,cy=H*0.86,R=Math.min(W*0.36,H*0.72);
+      ang+=(targ-ang)*0.12;
+      // arc halves
+      ctx.lineWidth=18;
+      ctx.strokeStyle='#7a2732';ctx.beginPath();ctx.arc(cx,cy,R,Math.PI,Math.PI*1.5);ctx.stroke();
+      ctx.strokeStyle='#2f6b4e';ctx.beginPath();ctx.arc(cx,cy,R,Math.PI*1.5,Math.PI*2);ctx.stroke();
+      ctx.fillStyle='#ff9aa2';ctx.font='700 15px -apple-system,Segoe UI,sans-serif';ctx.textAlign='center';ctx.fillText('FAULT',cx-R*0.7,cy-R*0.62);
+      ctx.fillStyle='#9af0c8';ctx.fillText('CLEAR',cx+R*0.7,cy-R*0.62);
+      // needle
+      var a=Math.PI*1.5+ang* (Math.PI*0.5);
+      ctx.strokeStyle=ang<0?'#ff5667':'#34d399';ctx.lineWidth=4;
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*R*0.82,cy+Math.sin(a)*R*0.82);ctx.stroke();
+      ctx.beginPath();ctx.arc(cx,cy,7,0,7);ctx.fillStyle='#cfe5ff';ctx.fill();
+      // code chip
+      var cleared=ang>0;
+      ctx.fillStyle=cleared?'#0c2a1c':'#20140f';ctx.fillRect(cx-70,14,140,34);
+      ctx.strokeStyle=cleared?'#34d399':'#ff5667';ctx.lineWidth=2;ctx.strokeRect(cx-70,14,140,34);
+      ctx.fillStyle=cleared?'#9af0c8':'#ff9aa2';ctx.font='700 15px ui-monospace,Consolas,monospace';
+      ctx.fillText(cleared?'DU-204 CLEAR':'DU-204 SET',cx,37);
+      ctx.textAlign='left';
+      raf=requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize',function(){ctx=fit(cv);});
+    raf=requestAnimationFrame(draw);
+  };
+
+  window.DeckWReady=true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u22_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u22_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 22</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:28px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u22_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u22_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u22_deck_state")render();});',
+'setInterval(render,400);render();',
+'<\/scr'+'ipt></body></html>'
+].join('');
+window.addEventListener('storage',function(e){
+  if(e.key==='u22_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,80); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — the teacher's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+    <option value="de">Deutsch</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'),line=document.getElementById('lctLine');
+  var lineTop=document.getElementById('lctLineTop'),lineBot=document.getElementById('lctLineBot');
+  var srcEl=document.getElementById('lctSrc'),btn=document.getElementById('lctBtn'),gear=document.getElementById('lctGear');
+  var status=document.getElementById('lctStatus'),langBar=document.getElementById('lctLangBar');
+  var srcSel=document.getElementById('lctSrcSel'),tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){__micStream=s;}).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{__micStream.getTracks().forEach(function(t){t.stop();});}catch(e){} __micStream=null; } }
+  var spoken='en-US',src='en',target='lv';
+  var rec=null,active=false;
+  var lastInterim='',pending='';var capTopB='',capBotB='',lctIdeaTimer=null,capTopAtB=0;
+  var finalTimer=null,silenceTimer=null;
+  var lastTrAt=0,lastTrText='',lastTrLen=0,netErrors=0,cache=new Map();
+  var POLL_GAP_MS=700;
+  function setStatus(t){ status.textContent=t; status.classList.toggle('show', active||t==='mic blocked'||t==='use Chrome'); }
+  function tail(text,maxWords){ if(!text)return''; var t=String(text).trim().replace(/\s+/g,' '); if(!t)return''; var parts=t.split(' '); if(parts.length<=maxWords)return t; var s=parts.slice(-maxWords).join(' '); var m=s.match(/[.!?…]\s+(.+)$/)||s.match(/[,;:]\s+(.+)$/); return m?m[1]:s; }
+  async function translateRemote(text){
+    try{ if(src===target)return text;
+      var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text);
+      var ctrl=new AbortController(),tmo=setTimeout(function(){ctrl.abort();},3000);
+      var r=await fetch(url,{signal:ctrl.signal});clearTimeout(tmo);
+      if(!r.ok)return null; var j=await r.json();
+      if(Array.isArray(j)&&Array.isArray(j[0])){ var out='';j[0].forEach(function(seg){if(seg&&seg[0])out+=seg[0];});return out||null; }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text||!text.trim())return''; var key=src+'|'+target+'|'+text.trim().toLowerCase();
+    if(cache.has(key))return cache.get(key); var out=await translateRemote(text); if(!out)out=text;
+    cache.set(key,out); if(cache.size>250){cache.delete(cache.keys().next().value);} return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.9)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16,Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap)return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0?s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB&&(capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr)return; capBotB=capBotB?(capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB))lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function render(){ lctDraw(); if(lctIdeaTimer)clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctEndIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer=setTimeout(function(){ capTopB='';capBotB='';capTopAtB=0;lastInterim='';pending='';render(); },30000); }
+  function cancelSilence(){ if(silenceTimer){clearTimeout(silenceTimer);silenceTimer=null;} }
+  async function commitFinal(chunk){ chunk=chunk.trim(); if(!chunk)return; srcEl.textContent=tail(chunk,18); var tr=await translate(chunk); lctCommit(tr); lastInterim='';lastTrLen=0;render(); }
+  async function translateInterim(text){ var now=performance.now(); if(now-lastTrAt<POLL_GAP_MS)return; if(text.length-lastTrLen<10&&text.length>0)return; if(text===lastTrText)return; lastTrAt=now;lastTrLen=text.length;lastTrText=text; try{ var tr=await translate(text); if(tr&&active){lastInterim=tr;render();} }catch(e){} }
+  function startRec(){
+    rec=new SR();rec.continuous=true;rec.interimResults=true;rec.lang=spoken;
+    if('maxAlternatives' in rec)rec.maxAlternatives=1;
+    rec.onresult=function(e){
+      netErrors=0;cancelSilence(); var interim='',fin='';
+      for(var i=e.resultIndex;i<e.results.length;i++){ var r=e.results[i]; if(r.isFinal)fin+=' '+r[0].transcript; else interim+=' '+r[0].transcript; }
+      if(fin){ pending+=' '+fin; if(finalTimer)clearTimeout(finalTimer); finalTimer=setTimeout(function(){ var c=pending;pending='';commitFinal(c).then(armSilence); },120); }
+      if(interim){ srcEl.textContent=tail(interim.trim(),18); translateInterim(interim.trim()); }
+      render();setStatus('live · '+src+'→'+target);
+    };
+    rec.onerror=function(ev){
+      if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){ setStatus('mic blocked');btn.classList.add('err');active=false; }
+      else if(ev.error==='no-speech'||ev.error==='aborted'){}
+      else if(ev.error==='network'){ netErrors++; if(netErrors>=3){active=false;btn.classList.remove('on');btn.classList.add('err');setStatus('offline');} else setStatus('reconnect '+netErrors+'/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend=function(){ if(active){ try{rec.start();}catch(e){ setTimeout(function(){ if(active&&rec){try{rec.start();}catch(_){}} },350); } } };
+    try{rec.start();}catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome');btn.classList.add('err');return; }
+    if(active){ active=false;btn.classList.remove('on');bar.classList.remove('on');setStatus('off');__releaseMic();
+      if(rec){try{rec.onend=null;rec.stop();}catch(e){}rec=null;} capTopB='';capBotB='';capTopAtB=0;lastInterim='';pending='';render();
+    } else { active=true;btn.classList.add('on');btn.classList.remove('err');bar.classList.add('on');setStatus('starting…');__holdMic().then(startRec); }
+  }
+  btn.addEventListener('click',function(e){e.stopPropagation();toggle();});
+  gear.addEventListener('click',function(e){e.stopPropagation();var open=langBar.classList.toggle('open');gear.classList.toggle('on',open);});
+  document.addEventListener('keydown',function(e){ if((e.key==='l'||e.key==='L')&&!/^(input|textarea|select)$/i.test((e.target.tagName||'')))toggle(); });
+  srcSel.addEventListener('change',function(e){ e.stopPropagation();spoken=srcSel.value;src=spoken.slice(0,2);cache.clear();
+    if(active&&rec){rec.onend=null;try{rec.stop();}catch(_){}rec=null;__holdMic().then(startRec);} if(active)setStatus('live · '+src+'→'+target); });
+  tgtSel.addEventListener('change',function(e){ e.stopPropagation();target=tgtSel.value;cache.clear();
+    capTopB='';capBotB='';capTopAtB=0;lastInterim='';lastTrText='';lastTrLen=0;render(); if(active)setStatus('live · '+src+'→'+target); });
+  [srcSel,tgtSel].forEach(function(s){ s.addEventListener('click',function(e){e.stopPropagation();}); });
+})();
+</script>
+</body>
+</html>

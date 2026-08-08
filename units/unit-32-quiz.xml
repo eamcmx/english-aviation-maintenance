@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English for Aviation Maintenance · Unit 32 — Capstone simulation: base check to certified release.
+     Moodle XML. 25 questions, 5 types (multichoice, truefalse, numerical, shortanswer, matching),
+     split by skill: Listening / Reading / Use of English / Vocabulary. No Cloze. CDATA for HTML. -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U32-r1</text></category>
+    <info format="html"><text><![CDATA[Unit 32 — base check to certified release. Listening, Reading, Use of English, Vocabulary.]]></text></info>
+  </question>
+
+  <!-- ================= LISTENING (9) ================= -->
+
+  <question type="multichoice">
+    <name><text>U32-L1 task cards</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> How many task cards are in the work pack?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The shift lead says, &ldquo;There are forty task cards.&rdquo; Each card has steps and a sign-off box.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[forty]]></text><feedback format="html"><text><![CDATA[Correct — &ldquo;There are forty task cards.&rdquo;]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[thirty]]></text><feedback format="html"><text><![CDATA[No — that number is not said in the briefing.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[fifty]]></text><feedback format="html"><text><![CDATA[No — listen again for the exact count.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[fourteen]]></text><feedback format="html"><text><![CDATA[No — &ldquo;fourteen&rdquo; and &ldquo;forty&rdquo; sound close; the answer is forty.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U32-L2 service bulletin</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> The service bulletin is mandatory.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The service bulletin is <em>recommended, not mandatory</em>. Only the airworthiness directive is mandatory.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No — the service bulletin is recommended, not mandatory.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — it is recommended; the team plans it if time allows.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U32-L3 AD count</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> How many airworthiness directives are due on this visit? Write a number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>&ldquo;One airworthiness directive is due&rdquo; — a mandatory check on the rudder fitting.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>1</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — exactly one airworthiness directive is due.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U32-L4 BITE readout</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> What does the built-in test equipment report on the number two fuel pump?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The BITE reports a <em>low-flow finding</em>. A functional test then confirms the pump is unserviceable.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[a low-flow finding]]></text><feedback format="html"><text><![CDATA[Correct — the readout shows low flow on the pump.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[an electrical short circuit warning]]></text><feedback format="html"><text><![CDATA[No — the fault is about flow, not the electrics.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a leaking hydraulic line message]]></text><feedback format="html"><text><![CDATA[No — the finding is on the fuel pump, not hydraulics.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a high-pressure over-range alert]]></text><feedback format="html"><text><![CDATA[No — the flow is low, not high.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U32-L5 duplicate inspection</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> A duplicate inspection is required after the fuel-system work.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Yes — &ldquo;A duplicate inspection is required on critical systems.&rdquo; A second engineer checks the work.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — the fuel system is critical, so a second check is required.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[No — a duplicate inspection is required on the fuel system.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U32-L6 MEL days</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> For how many days does the minimum equipment list allow one pump as a deferred defect? Write a number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>&ldquo;The minimum equipment list allows one pump as a deferred defect, but only for three days.&rdquo;</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — three days.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U32-L7 cards signed</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> How many cards had a sign-off at the start of the final check?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>&ldquo;Thirty-nine cards have a sign-off. One card is still open&rdquo; — the fuel pump card.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[thirty-nine]]></text><feedback format="html"><text><![CDATA[Correct — thirty-nine were signed; one was still open.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[forty]]></text><feedback format="html"><text><![CDATA[No — all forty were complete only at the very end.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[thirty-eight]]></text><feedback format="html"><text><![CDATA[No — listen again for the exact count.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[thirty-one]]></text><feedback format="html"><text><![CDATA[No — that number is not said in the dialogue.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U32-L8 CRS time</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to the Night-shift handover again.</strong> At what time was the certificate of release to service issued? Write it as a 24-hour number, for example 0930.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>&ldquo;The certifying staff issued the certificate of release to service at eighteen hundred&rdquo; = 1800.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>1800</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — eighteen hundred is 1800.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U32-L9 nothing deferred</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to the Night-shift handover again.</strong> At the handover, one defect is still deferred.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>No — &ldquo;Nothing is deferred.&rdquo; The one finding was rectified and tested.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No — nothing is deferred at the handover.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — nothing is deferred; the finding was rectified.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= READING (5) ================= -->
+
+  <question type="multichoice">
+    <name><text>U32-R1 work order</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this work order line, then answer.</strong></p>
+    <blockquote>Work Order 7781 — raised to change the number two fuel pump. It links Task Card 28-22-00 and the tech log. It stays open until the sign-off is complete.</blockquote>
+    <p>When does the work order close?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A work order tracks a job and closes only when the sign-off is complete — not before.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[when the sign-off is complete]]></text><feedback format="html"><text><![CDATA[Correct — the line says it stays open until the sign-off is complete.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[as soon as the old pump is removed from the aircraft]]></text><feedback format="html"><text><![CDATA[No — removing the pump is only part of the job.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[when the tech log page is first opened for the day]]></text><feedback format="html"><text><![CDATA[No — opening the tech log does not close the work order.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[after the night shift takes over the handover report]]></text><feedback format="html"><text><![CDATA[No — the handover is later and is not the closing rule.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U32-R2 work order links</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this work order line, then answer.</strong></p>
+    <blockquote>Work Order 7781 — raised to change the number two fuel pump. It links Task Card 28-22-00 and the tech log.</blockquote>
+    <p>The work order links a task card and the tech log.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Yes — the line says it links Task Card 28-22-00 and the tech log, so the paperwork stays joined up.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — it links the task card and the tech log.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[No — read the line again: it links both.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U32-R3 BITE next step</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this BITE readout, then answer.</strong></p>
+    <blockquote>FUEL PUMP 2 — FLOW LOW — CONFIRM WITH FUNCTIONAL TEST.</blockquote>
+    <p>What does the readout tell you to do next?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The readout says &ldquo;confirm with functional test&rdquo;. You prove the fault with a test before you act.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[run a functional test]]></text><feedback format="html"><text><![CDATA[Correct — confirm the low flow with a functional test.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[change the pump straight away without any further test]]></text><feedback format="html"><text><![CDATA[No — you confirm the fault first with a test.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[defer the defect at once under the minimum equipment list]]></text><feedback format="html"><text><![CDATA[No — deferral is a later decision, not the next step.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[sign the certificate of release to service right now]]></text><feedback format="html"><text><![CDATA[No — you cannot release with an open fault.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U32-R4 MEL days</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this minimum equipment list entry, then answer.</strong></p>
+    <blockquote>Item 28-10, fuel pump: one pump may be inoperative for three days (Category C).</blockquote>
+    <p>The entry allows the pump to be inoperative for ten days.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>No — the entry allows <em>three</em> days, not ten. Read the number with its unit carefully.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No — it says three days, not ten.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — the entry allows three days.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U32-R5 AD word</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this line, then answer.</strong></p>
+    <blockquote>AD 2019-11-07 is a check on the rudder fitting. It must be closed on this base check.</blockquote>
+    <p>Which word best describes the airworthiness directive?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>An airworthiness directive is <em>mandatory</em>: the word &ldquo;must&rdquo; shows there is no choice.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[mandatory]]></text><feedback format="html"><text><![CDATA[Correct — &ldquo;must be closed&rdquo; means it is mandatory.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[recommended but not actually required]]></text><feedback format="html"><text><![CDATA[No — that describes a service bulletin, not an AD.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[optional if there is enough time]]></text><feedback format="html"><text><![CDATA[No — the word &ldquo;must&rdquo; removes the choice.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[advisory for information only]]></text><feedback format="html"><text><![CDATA[No — an AD is a firm instruction, not advice.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= USE OF ENGLISH (7) ================= -->
+
+  <question type="shortanswer">
+    <name><text>U32-U1 article</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Add the missing article. Write one word in the gap.</p><p>&ldquo;______ aircraft is ready for service.&rdquo;</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The release statement needs the article: <strong>The</strong> aircraft is ready for service.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>The</text><feedback format="html"><text><![CDATA[Correct — do not drop the article.]]></text></feedback></answer>
+    <answer fraction="100"><text>the</text><feedback format="html"><text><![CDATA[Correct — do not drop the article.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The word is &ldquo;the&rdquo; — the aircraft is ready for service.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U32-U2 past participle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the passive with the correct past participle. Write one word.</p><p>&ldquo;The functional test was ______ out.&rdquo;</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Passive needs the past participle: the test was <strong>carried</strong> out — never &ldquo;was carry out&rdquo;.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>carried</text><feedback format="html"><text><![CDATA[Correct — was carried out.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use the past participle: carried.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U32-U3 preposition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Add the correct preposition. Write one word.</p><p>&ldquo;The aircraft is ready ______ service.&rdquo;</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The fixed phrase is <strong>ready for service</strong>, never &ldquo;ready to service&rdquo;.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>for</text><feedback format="html"><text><![CDATA[Correct — ready for service.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The preposition is &ldquo;for&rdquo;.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U32-U4 present perfect passive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the present perfect passive. Write one word.</p><p>&ldquo;The rectification has been ______ out.&rdquo;</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A finished action with a result now: has been <strong>carried</strong> out.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>carried</text><feedback format="html"><text><![CDATA[Correct — has been carried out.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use the past participle: carried.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U32-U5 release term</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing term. One word.</p><p>&ldquo;The signed statement that returns the aircraft to use is the certificate of ______ to service.&rdquo;</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The certificate of <strong>release</strong> to service (the CRS).</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>release</text><feedback format="html"><text><![CDATA[Correct — certificate of release to service.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The word is &ldquo;release&rdquo;.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U32-U6 duplicate term</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing term. One word.</p><p>&ldquo;A second, independent check of a critical control is a ______ inspection.&rdquo;</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <strong>duplicate</strong> inspection — a second engineer checks the critical work.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>duplicate</text><feedback format="html"><text><![CDATA[Correct — a duplicate inspection.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The word is &ldquo;duplicate&rdquo;.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U32-U7 status verb</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Choose the correct verb form. Write one word (not &ldquo;is being&rdquo;).</p><p>&ldquo;The pump ______ unserviceable.&rdquo;</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A status now uses the present simple: the pump <strong>is</strong> unserviceable — never &ldquo;is being unserviceable&rdquo;.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100"><text>is</text><feedback format="html"><text><![CDATA[Correct — the pump is unserviceable.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use the present simple: is.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= VOCABULARY (4 matching) ================= -->
+
+  <question type="matching">
+    <name><text>U32-V1 term and meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>These five terms run through the whole event, from the work pack to the release.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[work pack]]></text><answer><text>the full set of task cards and paperwork for one event</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[finding]]></text><answer><text>a defect found in an inspection and written up for action</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[rectification]]></text><answer><text>the repair that clears a defect</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[airworthy]]></text><answer><text>safe and legal to fly</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[tech log]]></text><answer><text>the aircraft book of defects and actions</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U32-V2 term and verb</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the verb that goes with it (the collocation).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Learn the verb with the noun: raise a work order, carry out a base check, clear a finding, update the tech log, pass a functional test.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[a work order]]></text><answer><text>raise</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[a base check]]></text><answer><text>carry out</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[a finding]]></text><answer><text>clear</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[the tech log]]></text><answer><text>update</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[a functional test]]></text><answer><text>pass</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U32-V3 abbreviations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each abbreviation to its full form.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The hangar short forms: AD, SB, MEL, BITE and CRS.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[AD]]></text><answer><text>airworthiness directive</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[SB]]></text><answer><text>service bulletin</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[MEL]]></text><answer><text>minimum equipment list</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>built-in test equipment</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[CRS]]></text><answer><text>certificate of release to service</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U32-V4 status terms</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Status and people: serviceable, unserviceable, deferred defect, certifying staff, sign-off.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[serviceable]]></text><answer><text>working and fit for use</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[unserviceable]]></text><answer><text>not fit for use</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[deferred defect]]></text><answer><text>a fault allowed to wait under the minimum equipment list</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[certifying staff]]></text><answer><text>the licensed person who may sign the release</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[sign-off]]></text><answer><text>the dated signature that confirms a step is done</text></answer></subquestion>
+  </question>
+
+</quiz>
