@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zhongwen A2: chifan he fuwu (food and service) · CEFR A2 · course demo</title>
+<meta name="description" content="A complete 1-unit Chinese course for eating out and service Chinese (ordering, menus, paying, simple service phrases), CEFR A2, built with CF Lang.">
+<style>
+:root{--navy:#0f2942;--brand:#2F5496;--amber:#e0a53d;--ink:#1b2733;--ink2:#5a6b7d;
+  --line:#e2e6ec;--paper:#fbfaf7;--card:#fff;--shadow:0 1px 2px rgba(16,32,54,.06),0 10px 34px rgba(16,32,54,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--brand)}
+.hero{background:linear-gradient(135deg,#0b1f34 0%,var(--navy) 45%,var(--brand) 100%);color:#fff;
+  padding:76px 24px 66px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(900px 380px at 78% -10%,rgba(255,255,255,.15),transparent 70%);pointer-events:none}
+.wrap{max-width:1060px;margin:0 auto;position:relative;z-index:1}
+.hero .eyebrow{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;opacity:.85;font-weight:600}
+.hero h1{font-family:Georgia,'Source Serif 4',serif;font-size:52px;line-height:1.1;margin:14px 0 16px;font-weight:700}
+.hero p.lead{font-size:20px;line-height:1.55;max-width:730px;opacity:.93;margin:0 0 26px}
+.stats{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:14px;
+  padding:14px 20px;backdrop-filter:blur(6px);min-width:118px}
+.stat b{display:block;font-size:27px;font-family:Georgia,serif;line-height:1.1}
+.stat span{font-size:12.5px;opacity:.85;letter-spacing:.04em}
+main{max-width:1060px;margin:0 auto;padding:52px 24px 90px}
+h2.sec{font-family:Georgia,serif;font-size:29px;color:var(--navy);margin:0 0 8px;display:flex;align-items:center;gap:12px}
+h2.sec::before{content:"";width:5px;height:28px;border-radius:3px;background:var(--amber)}
+p.sub{color:var(--ink2);margin:0 0 26px;max-width:760px}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:18px;margin:26px 0 54px}
+.feat div{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:22px 24px;box-shadow:var(--shadow)}
+.feat h3{margin:0 0 7px;font-size:16.5px;color:var(--navy)}
+.feat p{margin:0;font-size:14.5px;color:var(--ink2);line-height:1.55}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:16px}
+.u{display:block;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:20px 22px;
+  text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:.18s;position:relative;overflow:hidden}
+.u:hover{transform:translateY(-3px);border-color:#c3d4ea;box-shadow:0 3px 6px rgba(16,32,54,.07),0 18px 44px rgba(16,32,54,.13)}
+.u .n{font-size:12px;letter-spacing:.14em;font-weight:700;color:var(--brand);text-transform:uppercase}
+.u.sim .n{color:var(--amber)}
+.u h3{margin:8px 0 10px;font-size:17.5px;line-height:1.32;color:var(--navy);font-weight:650}
+.u .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.u .tag{font-size:11.5px;background:#f1f5fa;border:1px solid #e2eaf4;border-radius:999px;padding:3px 10px;color:var(--ink2)}
+.u.sim{background:linear-gradient(180deg,#fffdf8,#fdf6e9);border-color:#f0dfbe}
+.u.pending{opacity:.5;pointer-events:none}
+.u .go{position:absolute;right:18px;bottom:16px;font-size:19px;opacity:.25;transition:.18s}
+.u:hover .go{opacity:.7;transform:translateX(3px)}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:26px 24px 60px;color:var(--ink2);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.badge{display:inline-block;background:var(--amber);color:#2c1e05;font-size:11px;font-weight:800;
+  letter-spacing:.1em;padding:4px 11px;border-radius:6px;text-transform:uppercase}
+@media(max-width:640px){.hero h1{font-size:35px}.hero p.lead{font-size:17px}}
+</style>
+<style>.hero{background:linear-gradient(180deg,#ffffff 0%,#fbf7f4 100%)!important;color:#40403e}.hero::after{background:none}.stat{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.10)}.hero .eyebrow{opacity:.75}h2.sec::before{background:#d54e0a}.u .n{color:#d54e0a}a{color:#d54e0a}.brandmark{height:60px;width:auto;display:block;margin-bottom:22px}</style>
+</head><body>
+<header class="hero"><div class="wrap">
+  <img class="brandmark" src="brand-logo.png" alt="Sparrow Valodas">
+  <div class="eyebrow">CourseForge LANG demo</div>
+  <h1>Zhongwen A2: chifan he fuwu (food and service)</h1>
+  <p class="lead">A complete 1-unit <b>Chinese</b> course for eating out and service Chinese (ordering, menus, paying, simple service phrases),
+  at CEFR A2, written for learners whose first language is Latvian. Every unit is a 90-minute class with
+  studio listening, staged practice, role-plays and assessment, engineered end to end with
+  <b>CF Lang</b>.</p>
+  <div class="stats"><div class=stat><b>1</b><span>unit</span></div><div class=stat><b>1 h</b><span>contact time</span></div><div class=stat><b>90 min</b><span>per class</span></div><div class=stat><b>CEFR A2</b><span>level-controlled</span></div><div class=stat><b>4</b><span>audio tracks</span></div><div class=stat><b>5k+</b><span>words of material</span></div></div>
+</div></header>
+<main>
+  <h2 class="sec">What makes this different</h2>
+  <p class="sub">Not an adapted textbook: materials written in Chinese for what these learners actually do.</p>
+  <div class="feat"><div><h3>Built for eating out and service Chinese</h3><p>Every unit works a real situation of the field, in Chinese, with the documents, screens and conversations learners actually meet.</p></div><div><h3>Four skills in every unit</h3><p>Listening from studio-quality dialogues, vocabulary in context, grammar taught from the dialogues, staged practice, role-plays and a written deliverable.</p></div><div><h3>Level-controlled by measurement</h3><p>Every sentence is scored with the readability method for Chinese and must sit inside the CEFR band. Too hard and too easy both fail the gate.</p></div><div><h3>Real Chinese audio, not read-aloud text</h3><p>Two-voice studio dialogues generated for each unit, embedded in the page with transcripts revealed after listening.</p></div><div><h3>Teacher-ready out of the box</h3><p>Each unit ships a classroom deck, full answer key with rationale, staging and timing notes, L1 interference guidance and a CEFR speaking rubric.</p></div><div><h3>A tutor in every page</h3><p>The course buddy answers questions about each unit at the course level, and pronunciation practice scores the learner's spoken lines right in the browser.</p></div></div>
+  <h2 class="sec">The 1 units</h2>
+  <p class="sub">Click any unit to open the real student lesson: audio plays, exercises check themselves.
+  Teacher deck, answer key and quiz ship with every unit.</p>
+  <div class="grid"><a class="u  " href="units/unit-01.html"><div class="n">Unit 01</div><h3>Zai canting: dian cai he fuwu (at the restaurant)</h3><div class="tags"><span class=tag>🎧 4 audio</span><span class=tag>📝 61 tasks</span><span class=tag>90 min</span></div><span class="go">→</span></a></div>
+  
+</main>
+<footer><div class="wrap">
+  <span>Zhongwen A2: chifan he fuwu (food and service) · 1 units · CEFR A2</span>
+  <span>Course of <b>Sparrow Valodas</b> · materials engineered with <b>CF Lang</b></span>
+</div></footer></body></html>

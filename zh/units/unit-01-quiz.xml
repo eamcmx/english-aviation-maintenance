@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Zhōngwén A2 · chīfàn hé fúwù · Unit 1 — 在餐厅：点菜和服务 (At the restaurant) -->
+<!-- Rich formative quiz. Split by skill: LISTENING · READING · USE OF ENGLISH · VOCABULARY. -->
+<!-- 21 items · 5 types (multichoice, truefalse, numerical, shortanswer, matching) · no cloze. -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U01-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 1 · At the restaurant — ordering and service. Items reuse only taught words.</p>]]></text></info>
+  </question>
+
+  <!-- ================================================================= -->
+  <!-- LISTENING (7): re-listen to the audio; comprehension of spoken figures. -->
+  <!-- ================================================================= -->
+
+  <question type="multichoice">
+    <name><text>L1 · Dialogue 1 — the hot drink</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p><b>Listen to Dialogue 1 again.</b> The customer orders one hot drink. Which one? / <i>Klausies 1. dialogu vēlreiz. Kuru karsto dzērienu klients pasūta?</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The customer says <b>我要一杯热茶</b> (wǒ yào yì bēi rè chá — es gribu tasi karstas tējas) and adds <b>不要咖啡</b> (nevajag kafiju).</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[热茶]]></text><feedback format="html"><text><![CDATA[<p>Correct — 热茶 (rè chá), a hot tea.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[咖啡]]></text><feedback format="html"><text><![CDATA[<p>No — the customer says 不要咖啡 (no coffee).</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[啤酒]]></text><feedback format="html"><text><![CDATA[<p>No — 我不喝啤酒 (I do not drink beer).</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[果汁]]></text><feedback format="html"><text><![CDATA[<p>No — juice is not on this menu.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L2 · Dialogue 1 — how the customer orders</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p><b>Listen to Dialogue 1 again.</b> How does the customer read the menu to order? / <i>Kā klients pasūta ēdienu?</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The customer says <b>我看图片点菜，比较方便</b> (wǒ kàn túpiàn diǎn cài — pasūtu pēc attēliem, ērtāk).</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[看图片点菜]]></text><feedback format="html"><text><![CDATA[<p>Correct — orders by looking at the pictures.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[用点餐机点]]></text><feedback format="html"><text><![CDATA[<p>No — the kiosk is not used in Dialogue 1.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[打电话点]]></text><feedback format="html"><text><![CDATA[<p>No — nobody phones an order here.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[写在纸上]]></text><feedback format="html"><text><![CDATA[<p>No — the customer does not write it down.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L3 · Dialogue 2 — paying later</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p><b>Listen to Dialogue 2 again.</b> True or false: the customer wants to pay the bill (买单) <b>after</b> the meal. / <i>Klients grib maksāt pēc ēšanas.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The customer asks <b>我吃完饭以后再买单，可以吗？</b> (chī wán fàn yǐhòu zài mǎidān — maksāt pēc ēšanas), and the waiter says 当然可以.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — 吃完饭以后再买单 = pay after eating.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Listen again — the customer clearly asks to pay after the meal.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L4 · Dialogue 2 — payment methods</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p><b>Listen to Dialogue 2 again.</b> True or false: the restaurant takes <b>only</b> cash (只收现金). / <i>Restorāns pieņem tikai skaidru naudu.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The waiter says <b>我们收信用卡，也收现金</b> (both card and cash — abi der).</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — they also take a credit card (信用卡).</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — card <b>and</b> cash are both fine.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L5 · Dialogue 2 — the vegetable dish price</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p><b>Listen to Dialogue 2 again.</b> How many <b>块</b> (kuài) is the chicken-and-vegetables dish (鸡肉炒蔬菜)? Write the number only. / <i>Cik juaņas maksā vista ar dārzeņiem? Raksti tikai skaitli.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The waiter says <b>这个菜三十五块</b> (sānshíwǔ kuài = 35).</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>35</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — 三十五块 = 35.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>0</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Listen for 三十五 (sānshíwǔ) = 35.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L6 · Dialogue 3 — the total</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p><b>Listen to Dialogue 3 again.</b> What is the total (一共) in <b>块</b>? Write the number only. / <i>Cik kopā juaņas? Raksti tikai skaitli.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Anna says <b>一共六十八块钱</b> (liùshíbā kuài = 68).</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>68</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — 六十八块 = 68.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>0</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Listen for 六十八 (liùshíbā) = 68.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L7 · Dialogue 3 — the change</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p><b>Listen to Dialogue 3 again.</b> The customer gives 一百块 (100). How many <b>块</b> is the change (找)? Write the number only. / <i>Cik juaņas ir atlikums?</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Anna says <b>找你三十二块</b> (zhǎo nǐ sānshí'èr kuài = 32). It is 100 − 68 = 32.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>32</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — 三十二块 = 32 (100 − 68).</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>68</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>68 is the total; the change is 100 − 68 = 32.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ================================================================= -->
+  <!-- READING (4): a short new menu in the stem, taught words only. -->
+  <!-- ================================================================= -->
+
+  <question type="multichoice">
+    <name><text>R1 · Menu — the dearer noodles</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p><b>Read the menu / Lasi ēdienkarti:</b></p>
+      <p>鸡肉面条 (jīròu miàntiáo) 18块 · 牛肉面条 (niúròu miàntiáo) 22块 · 一碗米饭 (mǐfàn) 3块 · 热茶 (rè chá) 5块 · 啤酒 (píjiǔ) 10块</p>
+      <p>Which noodles cost more? / <i>Kuras nūdeles maksā vairāk?</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>牛肉面条 = 22块; 鸡肉面条 = 18块. 22 &gt; 18, so beef noodles cost more.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[牛肉面条]]></text><feedback format="html"><text><![CDATA[<p>Correct — 22块 &gt; 18块.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[鸡肉面条]]></text><feedback format="html"><text><![CDATA[<p>No — chicken noodles are 18块, the cheaper one.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[一碗米饭]]></text><feedback format="html"><text><![CDATA[<p>No — rice is not noodles.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[两个一样]]></text><feedback format="html"><text><![CDATA[<p>No — the two prices are different.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R2 · Menu — the cheapest item</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p><b>Same menu:</b> 鸡肉面条 18块 · 牛肉面条 22块 · 一碗米饭 3块 · 热茶 5块 · 啤酒 10块.</p>
+      <p>Which item is the cheapest? / <i>Kurš ir vislētākais?</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>一碗米饭 = 3块 is the lowest price on the list.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[一碗米饭]]></text><feedback format="html"><text><![CDATA[<p>Correct — 3块, the cheapest.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[热茶]]></text><feedback format="html"><text><![CDATA[<p>No — tea is 5块, dearer than rice.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[啤酒]]></text><feedback format="html"><text><![CDATA[<p>No — beer is 10块.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[鸡肉面条]]></text><feedback format="html"><text><![CDATA[<p>No — chicken noodles are 18块.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R3 · Menu — the rice price</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p><b>Same menu.</b> True or false: 一碗米饭 costs 五块 (5). / <i>Rīsu bļoda maksā 5 juaņas.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False — 一碗米饭 = 三块 (3块). 五块 (5) is the price of 热茶.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — rice is 3块, not 5块.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — 一碗米饭 = 3块.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 · Menu — the beer price</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p><b>Same menu.</b> True or false: 啤酒 costs 十块 (10). / <i>Alus maksā 10 juaņas.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True — the menu lists 啤酒 10块 (shí kuài = 10).</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — 啤酒 = 10块.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Read again — beer is listed at 10块.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ================================================================= -->
+  <!-- USE OF ENGLISH (6): grammar focus + bank — gap / transformation. -->
+  <!-- ================================================================= -->
+
+  <question type="shortanswer">
+    <name><text>U1 · Measure word for a cup of tea</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p>Write the missing measure word (量词): 我要一____茶。 / <i>Ieraksti trūkstošo mērvārdu.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Drinks in cups/glasses take <b>杯</b> (bēi): 一杯茶. Latvian has no measure words, so it is easy to drop it — never say 一茶.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>杯</text><feedback format="html"><text><![CDATA[<p>Correct — 一杯茶.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>bēi</text><feedback format="html"><text><![CDATA[<p>Correct — bēi (杯).</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>bei</text><feedback format="html"><text><![CDATA[<p>Correct — bēi (杯).</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 · Measure word for ten dumplings</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p>Write the missing measure word: 我要十____饺子。 / <i>Ieraksti mērvārdu pelmeņiem.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Dumplings take the general measure word <b>个</b> (ge): 十个饺子.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>个</text><feedback format="html"><text><![CDATA[<p>Correct — 十个饺子.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>gè</text><feedback format="html"><text><![CDATA[<p>Correct — gè (个).</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>ge</text><feedback format="html"><text><![CDATA[<p>Correct — ge (个).</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 · Fix the price-question order</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p>Fix the word order. Rewrite correctly: <b>多少钱这个菜？</b> / <i>Ieraksti pareizo secību.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>多少钱 goes at the <b>end</b>: 这个菜多少钱？ Latvian fronts the question word, which causes 多少钱这个菜 — move it to the back.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>这个菜多少钱</text><feedback format="html"><text><![CDATA[<p>Correct — 这个菜多少钱？</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>这个菜多少钱？</text><feedback format="html"><text><![CDATA[<p>Correct — 这个菜多少钱？</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 · Remove the extra 是</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p>Remove the extra word. Rewrite correctly: <b>我是要米饭。</b> / <i>Izņem lieko vārdu.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>要 already means "want", so no 是: <b>我要米饭。</b> Latvian "es gribu" tempts an extra linking word.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>我要米饭</text><feedback format="html"><text><![CDATA[<p>Correct — 我要米饭。</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>我要米饭。</text><feedback format="html"><text><![CDATA[<p>Correct — 我要米饭。</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 · The price question word</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p>You want to ask the price. Fill the gap: 这个菜____？ / <i>Kā pajautāt cenu?</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Ask price with <b>多少钱</b> (duōshǎo qián): 这个菜多少钱？</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>多少钱</text><feedback format="html"><text><![CDATA[<p>Correct — 这个菜多少钱？</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>duōshǎo qián</text><feedback format="html"><text><![CDATA[<p>Correct — duōshǎo qián (多少钱).</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>duoshao qian</text><feedback format="html"><text><![CDATA[<p>Correct — duōshǎo qián (多少钱).</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 · Pay the bill</text></name>
+    <questiontext format="html"><text><![CDATA[
+      <p>Fill the gap with a bank word: 吃完饭以后我要____。(pay the bill / samaksāt rēķinu)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>买单</b> (mǎidān) = to pay the bill: 吃完饭以后我要买单。</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>买单</text><feedback format="html"><text><![CDATA[<p>Correct — 买单.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>mǎidān</text><feedback format="html"><text><![CDATA[<p>Correct — mǎidān (买单).</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>maidan</text><feedback format="html"><text><![CDATA[<p>Correct — mǎidān (买单).</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ================================================================= -->
+  <!-- VOCABULARY (4): match term to meaning / collocation. -->
+  <!-- ================================================================= -->
+
+  <question type="matching">
+    <name><text>V1 · Food words → Latvian</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each food word to its Latvian meaning. / <i>Savieno ēdiena vārdu ar nozīmi.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>米饭 rīsi · 面条 nūdeles · 饺子 pelmeņi · 蔬菜 dārzeņi.</p>]]></text></generalfeedback>
+    <correctfeedback format="html"><text><![CDATA[<p>All correct — good.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some pairs are right; check the rest.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the food words in the bank and try again.</p>]]></text></incorrectfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[米饭 (mǐfàn)]]></text><answer><text>rīsi</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[面条 (miàntiáo)]]></text><answer><text>nūdeles</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[饺子 (jiǎozi)]]></text><answer><text>pelmeņi</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[蔬菜 (shūcài)]]></text><answer><text>dārzeņi</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 · Meat and drinks → Latvian</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each word to its Latvian meaning. / <i>Savieno vārdu ar nozīmi.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>鸡肉 vistas gaļa · 牛肉 liellopa gaļa · 茶 tēja · 啤酒 alus · 咖啡 kafija.</p>]]></text></generalfeedback>
+    <correctfeedback format="html"><text><![CDATA[<p>All correct — good.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some pairs are right; check the rest.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the meat and drink words and try again.</p>]]></text></incorrectfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[鸡肉 (jīròu)]]></text><answer><text>vistas gaļa</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[牛肉 (niúròu)]]></text><answer><text>liellopa gaļa</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[茶 (chá)]]></text><answer><text>tēja</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[啤酒 (píjiǔ)]]></text><answer><text>alus</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[咖啡 (kāfēi)]]></text><answer><text>kafija</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V3 · Service words → Latvian</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each service word to its Latvian meaning. / <i>Savieno apkalpošanas vārdu ar nozīmi.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>菜单 ēdienkarte · 点菜 pasūtīt ēdienu · 服务员 viesmīlis · 买单 samaksāt rēķinu · 好吃 garšīgs.</p>]]></text></generalfeedback>
+    <correctfeedback format="html"><text><![CDATA[<p>All correct — good.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some pairs are right; check the rest.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the service words and try again.</p>]]></text></incorrectfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[菜单 (càidān)]]></text><answer><text>ēdienkarte</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[点菜 (diǎn cài)]]></text><answer><text>pasūtīt ēdienu</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[服务员 (fúwùyuán)]]></text><answer><text>viesmīlis</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[买单 (mǎidān)]]></text><answer><text>samaksāt rēķinu</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[好吃 (hǎochī)]]></text><answer><text>garšīgs</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V4 · Measure word → the noun it fits</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each measure word to a noun it fits. / <i>Savieno mērvārdu ar tam piemērotu lietvārdu.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>杯 for drinks (一杯茶) · 碗 for rice (一碗米饭) · 个 for dumplings (一个饺子) · 瓶 for bottles (一瓶啤酒).</p>]]></text></generalfeedback>
+    <correctfeedback format="html"><text><![CDATA[<p>All correct — good measure-word sense.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some pairs are right; check the rest.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review 杯/碗/个/瓶 and try again.</p>]]></text></incorrectfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[杯 (bēi)]]></text><answer><text>茶</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[碗 (wǎn)]]></text><answer><text>米饭</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[个 (ge)]]></text><answer><text>饺子</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[瓶 (píng)]]></text><answer><text>啤酒</text></answer></subquestion>
+  </question>
+
+</quiz>

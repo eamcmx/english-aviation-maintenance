@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U31-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 31 — Clarifying meaning in English as a lingua franca. CEFR B2. Items split by skill: Listening, Reading, Use of English, Vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ================= LISTENING (7) ================= -->
+
+  <question type="multichoice">
+    <name><text>U31-L1 Dialogue 1 — what P12 identifies</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> The line technician and the OEM engineer discuss the code P12. What does P12 identify?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>P12 is the whole connector; TP12 is one test pin inside it. That was the misunderstanding the two speakers cleared up.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The connector]]></text><feedback format="html"><text><![CDATA[<p>Correct — P12 is the whole connector.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A single test pin]]></text><feedback format="html"><text><![CDATA[<p>That is TP12, not P12.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The wiring diagram]]></text><feedback format="html"><text><![CDATA[<p>No — the diagram is checked against the part number.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The BITE readout]]></text><feedback format="html"><text><![CDATA[<p>No — the readout is the message on the panel.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U31-L2 Dialogue 1 — making letters clear</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> The two letters sound similar on the phone. How does the engineer make them clear?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>He spells the code in the phonetic alphabet — Tango, Papa, one, two. This makes P and T impossible to confuse.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[By using the phonetic alphabet]]></text><feedback format="html"><text><![CDATA[<p>Correct — Tango, Papa, one, two.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[By repeating the whole task card aloud]]></text><feedback format="html"><text><![CDATA[<p>No — he spells the code, not the task card.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[By speaking a little louder each time]]></text><feedback format="html"><text><![CDATA[<p>Volume does not fix P versus T on a phone.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[By sending a brand new wiring diagram]]></text><feedback format="html"><text><![CDATA[<p>No — that is not what he does here.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U31-L3 Dialogue 2 — meaning of TP12 open</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> The BITE readout shows &ldquo;TP12 open&rdquo;. What does this mean?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>&ldquo;Open&rdquo; means the test pin currently has no connection. The fix is to reseat the connector and run the BITE test again.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The test pin has no connection]]></text><feedback format="html"><text><![CDATA[<p>Correct — open means no connection.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The connector is now fitted correctly]]></text><feedback format="html"><text><![CDATA[<p>No — open is a fault, not a pass.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The task card reference is wrong]]></text><feedback format="html"><text><![CDATA[<p>No — the readout is about the pin, not the card.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The BITE test has fully passed]]></text><feedback format="html"><text><![CDATA[<p>No — a passed test would not report open.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U31-L4 Dialogue 2 — register of the tech log</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> The speakers agree that the tech log can stay casual, like the hangar talk.</p><p>True or false?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. They agree the conversation can be casual, but the written tech-log record must stay formal, accurate and clear.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — the log stays formal even when the talk is casual.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — only the talk is casual; the log is formal.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U31-L5 Dialogue 1 — the number in TP12</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> The engineer spells the reference as Tango, Papa, one, two. Write the number in the reference TP12 as digits.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>&ldquo;One, two&rdquo; spoken together is the number 12. So the reference is TP12.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>12</text><feedback format="html"><text><![CDATA[<p>Correct — one, two = 12.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+    <answer fraction="0"><text>1</text><feedback format="html"><text><![CDATA[<p>Both digits are spoken: one AND two = 12.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U31-L6 Dialogue 1 — how many test pins</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> The engineer says TP12 is one individual test pin inside the connector. How many test pins does TP12 mean? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>TP12 is a single test pin — the number is 1. P12 is the connector that holds it.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>1</text><feedback format="html"><text><![CDATA[<p>Correct — one individual test pin.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U31-L7 Dialogue 1 — letters spelled before the digits</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> Before the digits, the engineer spells the letters Tango and Papa. Write how many letters he spells.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Tango (T) and Papa (P) are two letters. Then the digits one and two follow.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>2</text><feedback format="html"><text><![CDATA[<p>Correct — two letters, T and P.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <!-- ================= READING (5) — Work-order handover note ================= -->
+
+  <question type="multichoice">
+    <name><text>U31-R1 Work order — what the night shift found</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this work-order handover note, then answer.</strong></p>
+<blockquote><p><em>WORK ORDER — HANDOVER NOTE. Bay 3, A320, ATA 24. The night shift found a reference query on connector P12. The task card and the wiring diagram did not match. The technician called the OEM desk and confirmed the code. P12 is the connector. TP12 is the test pin inside it. Both codes were read back in the phonetic alphabet. Do not fit any connector until the reference is confirmed against the diagram.</em></p></blockquote>
+<p>What did the night shift find on connector P12?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>They found a reference query: the task card and the wiring diagram did not match.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[A reference query]]></text><feedback format="html"><text><![CDATA[<p>Correct — the codes did not match.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A cracked connector body]]></text><feedback format="html"><text><![CDATA[<p>No — the note reports a code query, not damage.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A failed pressure test]]></text><feedback format="html"><text><![CDATA[<p>No — no pressure test is mentioned.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A missing task card]]></text><feedback format="html"><text><![CDATA[<p>No — the card exists; it did not match the diagram.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U31-R2 Work order — card and diagram matched</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the work-order note again.</strong> The task card and the wiring diagram matched each other.</p><p>True or false?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The note says the task card and the wiring diagram did NOT match — that is why the technician called the OEM.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — they did not match.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — the note says they did not match.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U31-R3 Work order — what TP12 is</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the work-order note again.</strong> According to the note, what is TP12?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The note states plainly: P12 is the connector, and TP12 is the test pin inside it.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[A test pin inside the connector]]></text><feedback format="html"><text><![CDATA[<p>Correct — TP12 is the test pin.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The connector that joins two wire sets]]></text><feedback format="html"><text><![CDATA[<p>No — that is P12, the connector.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The message shown on the BITE panel]]></text><feedback format="html"><text><![CDATA[<p>No — that would be the readout.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A code for the whole task card]]></text><feedback format="html"><text><![CDATA[<p>No — TP12 names a pin, not the card.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U31-R4 Work order — codes read back phonetically</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the work-order note again.</strong> Both codes were read back in the phonetic alphabet.</p><p>True or false?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The note says both codes were read back in the phonetic alphabet, so P12 and TP12 could not be confused.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — both codes were read back phonetically.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No — the note says both codes were read back.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U31-R5 Work order — when a connector may be fitted</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read the work-order note again.</strong> When may you fit a connector, according to the note?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The note ends with a clear rule: do not fit any connector until the reference is confirmed against the diagram.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[After the reference is confirmed]]></text><feedback format="html"><text><![CDATA[<p>Correct — confirm against the diagram first.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[As soon as the night shift has left]]></text><feedback format="html"><text><![CDATA[<p>No — the shift ending does not confirm the code.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Before you call the OEM support desk]]></text><feedback format="html"><text><![CDATA[<p>No — you confirm with the OEM first.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Once the BITE readout shows any code]]></text><feedback format="html"><text><![CDATA[<p>No — a code alone is not a confirmed reference.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= USE OF ENGLISH (6) — question tags + bank terms ================= -->
+
+  <question type="shortanswer">
+    <name><text>U31-U1 Tag — you confirmed the part number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Add the correct question tag.</strong> Type only the tag, without the question mark.</p><p>You confirmed the part number, ____?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Past simple <em>confirmed</em> has no auxiliary, so the tag uses <em>did</em>. Positive statement takes a negative tag: <em>didn&rsquo;t you</em>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>didn't you</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>didnt you</text><feedback format="html"><text><![CDATA[<p>Correct (remember the apostrophe: didn&rsquo;t).</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Past simple &rarr; <em>didn&rsquo;t you</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U31-U2 Tag — that is not the connector</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Add the correct question tag.</strong> Type only the tag, without the question mark.</p><p>That is not the connector, ____?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A negative statement takes a positive tag. Flip the polarity: <em>is not</em> &rarr; <em>is it</em>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>is it</text><feedback format="html"><text><![CDATA[<p>Correct — negative statement, positive tag.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Negative statement &rarr; positive tag <em>is it</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U31-U3 Tag — we can reseat it</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Add the correct question tag.</strong> Type only the tag, without the question mark.</p><p>We can reseat the connector, ____?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The modal <em>can</em> comes back in the tag. Positive statement takes a negative tag: <em>can&rsquo;t we</em>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>can't we</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>cant we</text><feedback format="html"><text><![CDATA[<p>Correct (apostrophe: can&rsquo;t).</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Modal <em>can</em> &rarr; <em>can&rsquo;t we</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U31-U4 Bank term — say it in your own words</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write one word from the vocabulary bank.</strong></p><p>To say the same thing in your own words is to ____.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>To <em>paraphrase</em> is to say the same thing in your own words — the core check-back move in a lingua franca.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>paraphrase</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The word is <em>paraphrase</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U31-U5 Bank term — shared language of non-native speakers</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the two-word term from the vocabulary bank.</strong></p><p>A shared language between non-native speakers is a ____.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>English at the line station is a <em>lingua franca</em> — a shared second language for people whose first languages differ.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>lingua franca</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The term is <em>lingua franca</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U31-U6 Tag — the readout shows open</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Make this a confirmation question.</strong> Add the correct tag. Type only the tag, without the question mark.</p><p>The readout shows &ldquo;open&rdquo;, ____?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Present simple <em>shows</em> (third person) has no auxiliary, so the tag uses <em>does</em>: <em>doesn&rsquo;t it</em>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>doesn't it</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>doesnt it</text><feedback format="html"><text><![CDATA[<p>Correct (apostrophe: doesn&rsquo;t).</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Third person <em>shows</em> &rarr; <em>doesn&rsquo;t it</em>.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= VOCABULARY (4) ================= -->
+
+  <question type="matching">
+    <name><text>U31-V1 Match the technical term to its meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each technical term to its plain meaning.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>connector = the whole part that joins two wire sets; pin = one contact inside it; BITE = the built-in self-test; readout = the message shown; ambiguous = able to mean two things.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[<p>All correct.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some pairs are right — check the rest.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the vocabulary bank and try again.</p>]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[connector]]></text><answer><text>a part that joins two sets of electrical wires</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[pin]]></text><answer><text>a small metal contact inside a connector</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>the built-in test a system runs on itself</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[readout]]></text><answer><text>the message or value a system shows you</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[ambiguous]]></text><answer><text>able to mean two things, so not clear</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U31-V2 Match the strategy verb to its meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each communication-strategy verb to its plain meaning.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>clarify = make an unclear meaning clear; confirm = make sure it is true or agreed; paraphrase = say it in your own words; read back = repeat it word for word; spell out = say each letter.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[<p>All correct.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some pairs are right — check the rest.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>These verbs are near-synonyms — review the differences.</p>]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[clarify]]></text><answer><text>make an unclear meaning clear</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[confirm]]></text><answer><text>make sure something is true or agreed</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[paraphrase]]></text><answer><text>say the same thing in your own words</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[read back]]></text><answer><text>repeat what you heard, word for word</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[spell out]]></text><answer><text>say each letter, so a word is clear</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U31-V3 Collocation — reseat the ___</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Complete the collocation.</strong> Which word fits?</p><p>reseat the ____</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>We <em>reseat the connector</em> — push it back into place. You do not reseat a readout, a register or a diagram.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[connector]]></text><feedback format="html"><text><![CDATA[<p>Correct — reseat the connector.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[wiring diagram]]></text><feedback format="html"><text><![CDATA[<p>No — you check a wiring diagram, not reseat it.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[register]]></text><feedback format="html"><text><![CDATA[<p>No — you switch register.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[readout]]></text><feedback format="html"><text><![CDATA[<p>No — you read a readout.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U31-V4 Collocation — run the ___ test</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Complete the collocation.</strong> Which word fits?</p><p>run the ____ test</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>We <em>run the BITE test</em> — the built-in test the system runs on itself.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[BITE]]></text><feedback format="html"><text><![CDATA[<p>Correct — run the BITE test.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[reference]]></text><feedback format="html"><text><![CDATA[<p>No — a reference is a code, not a test.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[connector]]></text><feedback format="html"><text><![CDATA[<p>No — the connector is a part, not a test.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[readout]]></text><feedback format="html"><text><![CDATA[<p>No — the readout is the result the test shows.</p>]]></text></feedback></answer>
+  </question>
+
+</quiz>

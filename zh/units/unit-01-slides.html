@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zhōngwén A2 · chīfàn hé fúwù · Unit 1 — Teacher Deck · 在餐厅：点菜和服务</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.16em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:40px;margin:.2em 0;line-height:1.12}
+h2{font-size:30px;margin:.1em 0 .5em}
+p,li{font-size:21px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:27px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+.han{font-weight:700;color:#eaf2fb}
+.pin{color:#8fd0ff;font-family:var(--mono);font-size:.82em}
+.lv{color:var(--amber);font-size:.86em}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:680px;min-height:340px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:340px;
+  border:1px dashed var(--line);border-radius:14px}
+/* deck widget skin */
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 12px;cursor:pointer;font-size:15px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk button.dish{color:#cfe5ff}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:6px 10px;font-size:16px}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:8px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:54px;font-size:15px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.wk .tot{font-family:var(--mono);font-size:15px;color:#9af0c8}
+.tbl{width:100%;border-collapse:collapse;font-size:18px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 12px;text-align:left}
+.tbl th{background:#122036;color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+.dlg{display:flex;flex-direction:column;gap:8px}
+.dlg .t{background:#0f1726;border:1px solid #26384e;border-radius:12px;padding:9px 14px;max-width:86%}
+.dlg .t.b{align-self:flex-end;background:#182a16;border-color:#2f5e2a}
+.good{color:var(--good)}.hot{color:var(--hot)}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="0–2 min. Open the unit. This is a 90-minute A2 speaking class: a Latvian student in Shanghai orders lunch from a picture menu, asks the price, then helps at the counter taking an order. Say the three can-do outcomes in plain words: order a meal and a drink politely; ask what a dish is and how much it costs; take an order and repeat it back. Tell the room the grammar spine — measure words 个/杯, 要/想 for ordering, 多少钱 for price — and that everything is spoken practice, not a written test. Turn ON the live captions (CC button or L) if anyone needs Latvian subtitles of what you say.">
+    <div class="kick">Zhōngwén A2 · chīfàn hé fúwù · Unit 1 · Teacher deck</div>
+    <h1>在餐厅：点菜和服务<br><span class="pin" style="font-size:22px">Zài cāntīng: diǎn cài hé fúwù</span></h1>
+    <p class="big muted">At the restaurant — ordering &amp; service. Order a meal and a drink, ask 多少钱, and take an order back. <span class="lv">Restorānā: pasūtīt ēdienu un apkalpošana.</span></p>
+    <p class="pill">90 minutes · speaking · CEFR A2 · 个 / 杯 · 要 / 想 · 多少钱 · captions: press L</p>
+  </section>
+
+  <!-- 2 · OUTCOMES -->
+  <section class="slide" data-notes="2–5 min. Read the three outcomes aloud and mime each: hold a menu (order), point at a dish and rub fingers for money (price), and cup an ear then repeat back (check). Stress this is a SPEAKING unit — the pairs and role-plays in the back half carry the grade-free assessment; exercises E1–E8 are controlled practice on the way there. Point at the scaffolding promise: every new word is glossed in Latvian the first time, every task has a worked example, and there is a tone clinic where Latvian speakers slip.">
+    <div class="kick">By the end · how the class runs</div>
+    <h2>Three can-do outcomes — all spoken</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="good">1 · Order politely.</b> Ask for a menu, order one dish + one drink with 要 / 想 and the right measure word.</p>
+        <p><b style="color:var(--purple)">2 · Ask &amp; price.</b> Ask what a dish is and 多少钱, and understand the answer in 块.</p>
+        <p><b style="color:var(--amber)">3 · Take &amp; check.</b> Take a simple order and repeat it back — …对不对？</p>
+      </div>
+      <div>
+        <p>Everything is <b>practice</b>: the dialogues, E1–E8, the four role-plays, the writing brief.</p>
+        <p class="muted">Scaffolding: every new word glossed in Latvian first use · a worked example before each task · a pronunciation clinic for the predictable slips.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SCENARIO -->
+  <section class="slide" data-center data-notes="5–7 min. Warm-up. Put the picture menu on the board (Figure 1 in the workbook). Elicit any food words the class already knows in Chinese; write pinyin under each. Set the frame: you walk into 小海餐厅 at lunchtime, hungry, with a picture menu in front of you. Ask 'what do you say first?' and take a few tries — you want 请给我菜单 to surface. Keep it light and fast; this is activation, not teaching.">
+    <div class="kick">§0 · the scenario</div>
+    <h2>午餐时间 · lunchtime at 小海餐厅</h2>
+    <p class="big">You are hungry in Shanghai. A picture menu is on the table. <span class="han">看菜单 → 点菜 → 问多少钱 → 买单.</span></p>
+    <p class="muted" style="max-width:60ch">Four steps, every time: read the menu, order, ask the price, pay. Today you also stand on the other side of the counter and <em>take</em> an order.</p>
+    <p class="pin">kàn càidān → diǎn cài → wèn duōshǎo qián → mǎidān</p>
+  </section>
+
+  <!-- 4 · VOCAB FIELD -->
+  <section class="slide" data-notes="7–14 min. Present the bank. Go across the table choral-first: you say 米饭 mǐfàn, class echoes, then the Latvian gloss. Chunk it: foods (米饭 面条 饺子 蔬菜), meats (鸡肉 牛肉), drinks (茶 咖啡 水 啤酒), service (菜单 点菜 服务员 买单 好吃), and the grammar words (要 想 多少钱 块) with measure words 个/杯. Point out 好吃 is for FOOD; drinks are 好喝. Do not drill measure words yet — that is the next two slides.">
+    <div class="kick">§1 · vocabulary bank · 生词</div>
+    <h2>The words you order with</h2>
+    <div class="cols">
+      <div class="card" style="padding:12px 16px">
+        <table class="tbl">
+          <tr><th>汉字</th><th>pīnyīn</th><th class="lv">latviski</th></tr>
+          <tr><td class="han">菜单</td><td class="pin">càidān</td><td class="lv">ēdienkarte</td></tr>
+          <tr><td class="han">点菜</td><td class="pin">diǎn cài</td><td class="lv">pasūtīt ēdienu</td></tr>
+          <tr><td class="han">米饭 · 面条</td><td class="pin">mǐfàn · miàntiáo</td><td class="lv">rīsi · nūdeles</td></tr>
+          <tr><td class="han">饺子 · 蔬菜</td><td class="pin">jiǎozi · shūcài</td><td class="lv">pelmeņi · dārzeņi</td></tr>
+          <tr><td class="han">鸡肉 · 牛肉</td><td class="pin">jīròu · niúròu</td><td class="lv">vistas · liellopa gaļa</td></tr>
+          <tr><td class="han">茶·咖啡·水·啤酒</td><td class="pin">chá·kāfēi·shuǐ·píjiǔ</td><td class="lv">tēja·kafija·ūdens·alus</td></tr>
+          <tr><td class="han">多少钱 · 块</td><td class="pin">duōshǎo qián · kuài</td><td class="lv">cik maksā · juaņa</td></tr>
+          <tr><td class="han">买单 · 好吃</td><td class="pin">mǎidān · hǎochī</td><td class="lv">maksāt rēķinu · garšīgs</td></tr>
+        </table>
+      </div>
+      <div><p><b>Order verbs:</b> <span class="han">要</span> <span class="pin">yào</span> (want, direct) · <span class="han">想</span> <span class="pin">xiǎng</span> (would like, soft).</p>
+        <p class="muted"><span class="han">好吃</span> is for food. A drink is <span class="han">好喝</span> hǎohē — do not say 好喝 about noodles.</p></div>
+    </div>
+  </section>
+
+  <!-- 5 · WIDGET: order builder -->
+  <section class="slide" data-notes="14–20 min. Interactive. Build a real order together on the widget. Click dishes and drinks; the bill and the running 一共 total appear. Use it to drill the ordering frame: for each item you add, make a student say the full sentence — 我要一碗米饭 / 我想喝一杯茶. Then press 问多少钱 and have the class read the total aloud in Chinese: 一共…块. This rehearses measure words, 要/想 and 多少钱 in one loop before the dialogues.">
+    <div class="kick">§1 · Interactive · build an order</div>
+    <h2>点菜 · click, then say the full sentence</h2>
+    <div class="cols">
+      <div class="dw" data-widget="menu"></div>
+      <div><p>Every click = one spoken sentence: <span class="han">我要一碗米饭</span> · <span class="han">我想喝一杯茶</span>.</p>
+        <p class="muted">Then read the <span class="han">一共</span> total in Chinese. The measure word is never optional — 一<b>碗</b>米饭, 一<b>杯</b>茶, 十<b>个</b>饺子.</p></div>
+    </div>
+  </section>
+
+  <!-- 6 · GRAMMAR: measure words -->
+  <section class="slide" data-notes="20–24 min. Grammar focus 1 — measure words. Board the rule: after a NUMBER you must use a measure word; Latvian has none, so this is the error to hunt. Two worked examples before practice: 一杯茶 (a drink → 杯), 十个饺子 (general → 个). Add 一碗米饭 (rice → 碗) and 一份面条 (a portion → 份). Say the number+measure as one quick chunk so learners stop dropping it. The next slide is the interactive check.">
+    <div class="kick">§2 · grammar · 量词 measure words</div>
+    <h2>A number needs a measure word</h2>
+    <div class="cols">
+      <div class="card">
+        <p><span class="tag">worked</span> <span class="han">一杯茶</span> <span class="pin">yì bēi chá</span> — a cup of tea → 杯 for drinks.</p>
+        <p><span class="tag">worked</span> <span class="han">十个饺子</span> <span class="pin">shí ge jiǎozi</span> — ten dumplings → 个 the general one.</p>
+        <p><span class="han">一碗米饭</span> (碗 bowl) · <span class="han">一份面条</span> (份 portion) · <span class="han">一瓶啤酒</span> (瓶 bottle).</p>
+      </div>
+      <div><p class="hot">✗ 我要一茶</p><p class="good">✓ 我要一杯茶</p>
+        <p class="muted">Latvian counts nouns directly (<span class="lv">viena tēja</span>) — so the 杯/个 slot is the first thing to drop. Drill the chunk 一杯…, 十个….</p></div>
+    </div>
+  </section>
+
+  <!-- 7 · WIDGET: measure-word builder -->
+  <section class="slide" data-notes="24–29 min. Interactive. Use the builder to test the measure-word sense fast. Pick a number, a measure word and a noun; the widget assembles the phrase and shows green if the measure word fits, red with a hint if not. Deliberately choose a wrong pair first (一杯饺子) so the class sees the red, then fix it to 一个饺子 / 一份饺子. Call on students to predict green/red before you reveal. This is the controlled practice for E4.">
+    <div class="kick">§2 · Interactive · does it fit?</div>
+    <h2>量词 builder — green if the measure word fits</h2>
+    <div class="cols">
+      <div class="dw" data-widget="mw"></div>
+      <div><p>Drinks → <span class="han">杯</span> · rice → <span class="han">碗</span> · dumplings &amp; dishes → <span class="han">个</span> · a portion of noodles → <span class="han">份</span> · bottles → <span class="han">瓶</span>.</p>
+        <p class="muted">Predict green or red before you reveal. Wrong pairs (一杯饺子) get a hint, not just a cross.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · GRAMMAR: 要 vs 想 -->
+  <section class="slide" data-notes="29–33 min. Grammar focus 2 — 要 vs 想, and the extra-是 trap. 要 = 'I want / I'll have', direct and fine with a waiter. 想 = 'I would like', softer, often 想 + verb (想吃/想喝). Both are already VERBS, so no 是 after them — this is the second big Latvian slip. Worked: 我要一碗米饭 / 我想吃饺子. Contrast 我是学生 (是 + noun, correct) with 我要米饭 (要 = verb, no 是) so they see when 是 is allowed.">
+    <div class="kick">§2 · grammar · 要 yào &amp; 想 xiǎng</div>
+    <h2>Order with 要 or 想 — never add 是</h2>
+    <div class="cols">
+      <div class="card">
+        <p><span class="tag">worked</span> <span class="han">我要一碗米饭。</span> <span class="pin">Wǒ yào yì wǎn mǐfàn.</span> — direct order.</p>
+        <p><span class="tag">worked</span> <span class="han">我想吃饺子。</span> <span class="pin">Wǒ xiǎng chī jiǎozi.</span> — softer wish, 想 + verb.</p>
+      </div>
+      <div><p class="hot">✗ 我是要米饭　✗ 我想是吃面条</p><p class="good">✓ 我要米饭　✓ 我想吃面条</p>
+        <p class="muted">要 and 想 <em>are</em> the verb — no linking 是. Compare 我<b>是</b>学生 (是 + noun, ok) with 我<b>要</b>米饭 (no 是).</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · GRAMMAR: 多少钱 + WIDGET price -->
+  <section class="slide" data-notes="33–39 min. Grammar focus 3 — 多少钱, plus a spoken-number drill. The rule: 多少钱 goes at the END — 这个菜多少钱？一共多少钱？ Latvian fronts the question word, so 多少钱这个菜 is the error; teach the frame ＿＿＿多少钱？ and slot the dish in front. Then run the price widget: click to reveal a price; it counts up while you SAY the Chinese number, and the class reads it back in 块. Prices in the audio go up to 六十八 and 一百 — rehearse the tens (三十五, 四十三, 六十八) here so the listening quiz numbers are not a shock.">
+    <div class="kick">§2 · Interactive · rAF · 多少钱 &amp; spoken numbers</div>
+    <h2>多少钱 goes last — and read the price in 块</h2>
+    <div class="cols">
+      <div class="dw" data-widget="price"></div>
+      <div><p class="hot">✗ 多少钱这个菜？</p><p class="good">✓ 这个菜多少钱？</p>
+        <p class="muted">Frame: <span class="han">＿＿＿多少钱？</span> Slot the dish in front; keep 多少钱 at the end. Answer in <span class="han">块</span> — 三十五块, 六十八块, 一百块.</p></div>
+    </div>
+  </section>
+
+  <!-- 10 · WIDGET: tone clinic -->
+  <section class="slide" data-notes="39–44 min. Pronunciation clinic — the predictable Latvian slips. Run the tone widget: pick a syllable and it draws the pitch contour while you model it; students trace the shape with a hand. Hit the four traps: 杯 bēi vs 啤 pí (b soft, p a puff of air — a wrong choice turns 'a cup' into 'beer'); 钱 qián (q = soft 'tsj', not k); 想 xiǎng (x = soft 'sj'); 热 rè / 肉 ròu (r does NOT roll — Latvian's rolled r is the giveaway). Hold a hand to the mouth for 杯 vs 啤 so they feel the aspiration.">
+    <div class="kick">§3 · Interactive · rAF · pronunciation clinic</div>
+    <h2>发音 · where Latvian speakers slip</h2>
+    <div class="cols">
+      <div class="dw" data-widget="tone"></div>
+      <div><p><span class="han">杯 bēi</span> vs <span class="han">啤 pí</span> — b soft, p a puff of air. <span class="han">钱 qián</span> q = soft "tsj". <span class="han">想 xiǎng</span> x = soft "sj".</p>
+        <p class="muted"><span class="han">热 rè · 肉 ròu</span> — the r does <b>not</b> roll. Trace each tone shape with your hand as it draws.</p></div>
+    </div>
+  </section>
+
+  <!-- 11 · DIALOGUE 1 -->
+  <section class="slide" data-notes="44–49 min. Dialogue 1 — ordering from a picture menu. Play the audio once for gist (what did she order?), then again line by line to shadow. Highlight the target lines shown here: the menu request, the 想吃…还是… choice, the 十个 measure word, and the drink with 一杯. Have pairs read A/B, then swap. Keep sentences short and correct the dropped measure word on the spot with a warm recast.">
+    <div class="kick">§4 · Dialogue 1 · 点午餐</div>
+    <h2>Ordering from a picture menu</h2>
+    <div class="dlg">
+      <div class="t"><span class="han">你好，欢迎光临，请问你要点菜吗？</span> <span class="pin">…nǐ yào diǎn cài ma?</span></div>
+      <div class="t b"><span class="han">你好，请给我一张菜单，谢谢你。</span> <span class="pin">qǐng gěi wǒ yì zhāng càidān…</span></div>
+      <div class="t"><span class="han">你想吃米饭还是面条呢？</span> <span class="pin">…mǐfàn háishì miàntiáo?</span></div>
+      <div class="t b"><span class="han">我想吃鸡肉面条，还要一个蔬菜。</span> <span class="lv">…un vēl dārzeņus.</span></div>
+      <div class="t b"><span class="han">我要一杯热茶，不要咖啡，谢谢。</span> <span class="pin">wǒ yào yì bēi rè chá…</span></div>
+    </div>
+    <p class="muted" style="margin-top:8px">Target: 一张菜单 · 想吃…还是… · 一个蔬菜 · 一杯热茶. Shadow, then read in pairs and swap.</p>
+  </section>
+
+  <!-- 12 · DIALOGUE 2 -->
+  <section class="slide" data-notes="49–54 min. Dialogue 2 — asking the dish and the price, and paying. Play for gist (how much was the dish? did she pay now?), then shadow. Target lines: 这个菜叫什么名字？ / 这个菜多少钱？ / 米饭三块钱一碗 / 一共四十三块 / 吃完饭以后再买单 / 收信用卡也收现金. This is the price + payment core — the numbers here (三十五, 四十三) are exactly what the listening quiz asks. Drill the tens aloud.">
+    <div class="kick">§4 · Dialogue 2 · 问价钱和买单</div>
+    <h2>Asking the dish &amp; the price</h2>
+    <div class="dlg">
+      <div class="t"><span class="han">服务员，请问一下，这个菜叫什么名字？</span></div>
+      <div class="t b"><span class="han">这个是鸡肉炒蔬菜，很新鲜也很好吃。</span> <span class="lv">svaigs un garšīgs.</span></div>
+      <div class="t"><span class="han">听起来很好吃，这个菜多少钱？</span> <span class="pin">…duōshǎo qián?</span></div>
+      <div class="t b"><span class="han">这个菜三十五块，份量比较大。</span> <span class="pin">sānshíwǔ kuài…</span></div>
+      <div class="t"><span class="han">我吃完饭以后再买单，可以吗？</span> <span class="lv">maksāt pēc ēšanas?</span></div>
+      <div class="t b"><span class="han">我们收信用卡，也收现金，都可以。</span></div>
+    </div>
+    <p class="muted" style="margin-top:8px">Numbers to drill: 三十五块 · 四十三块. Both come back in the listening quiz.</p>
+  </section>
+
+  <!-- 13 · DIALOGUE 3 -->
+  <section class="slide" data-notes="54–58 min. Dialogue 3 — taking an order and repeating it back. This is the third can-do and the hardest speaking move. Play it, then focus on the repeat-back block: Anna lists 两碗米饭，一份牛肉面条，一份鸡肉饺子，两杯茶和一瓶啤酒，对不对？ Drill the closing …对不对？ Then the money: 一共六十八块 → 给你一百块 → 找你三十二块. Have pairs perform it and make the 'waiter' always repeat the order back. Those three numbers (68, 100, 32) are the numerical quiz items.">
+    <div class="kick">§4 · Dialogue 3 · 在柜台帮忙</div>
+    <h2>Take an order — and repeat it back</h2>
+    <div class="dlg">
+      <div class="t b"><span class="han">我要两碗米饭和一份牛肉面条。</span></div>
+      <div class="t b"><span class="han">给我两杯茶和一瓶啤酒，谢谢你。</span></div>
+      <div class="t"><span class="han">我重复一下你的菜，你听听对不对。</span> <span class="lv">atkārtošu…</span></div>
+      <div class="t"><span class="han">两碗米饭，一份牛肉面条，一份鸡肉饺子…对不对？</span></div>
+      <div class="t b"><span class="han">对，一共多少钱？</span> — <span class="han">一共六十八块。</span></div>
+      <div class="t"><span class="han">找你三十二块，请拿好，谢谢光临。</span> <span class="pin">zhǎo nǐ sānshí'èr kuài</span></div>
+    </div>
+    <p class="muted" style="margin-top:8px">Closing move: <span class="han">…对不对？</span> Money: 68 → give 100 → change 32.</p>
+  </section>
+
+  <!-- 14 · MONOLOGUE -->
+  <section class="slide" data-center data-notes="58–64 min. The restaurant announcement (广播). Play once for gist only — do not translate line by line. Set two listening goals on the board first: (1) how much is the set lunch? (二十五块) (2) how long to wait for beef noodles? (五分钟). Then check answers by show of hands. Point out the connectors 如果…（if）, 然后 (then), 以后 (after) as natural A2 glue inside short sentences. Keep it light; it is input, not a test.">
+    <div class="kick">§4 · monologue · 餐厅广播</div>
+    <h2>Listen for gist — the lunch announcement</h2>
+    <p class="big">Two questions before you play: <span class="han">特别午餐多少钱？</span> · <span class="han">牛肉面条要等几分钟？</span></p>
+    <p class="muted" style="max-width:62ch">Answers in the audio: set lunch <span class="han">二十五块</span>, a free 热茶 or 咖啡, beer <span class="han">十块</span>, beef noodles need <span class="han">五分钟</span>. Notice the glue words: 如果 (if), 然后 (then), 以后 (after).</p>
+  </section>
+
+  <!-- 15 · EXERCISES E1–E4 -->
+  <section class="slide" data-notes="46–62 min band (controlled practice, run after the grammar). Stage E1–E4 briskly. E1 gap-fill: bank words into short sentences — model item 0 first. E2 matching: word to Latvian meaning. E3 dialogue completion: one word per gap. E4 error-fix: add the measure word or fix the order — this is where the three L1 slips are trained. Do E1 and E4 in class for sure; E2/E3 can be pair-checked. Give the worked example for each before releasing the class.">
+    <div class="kick">§5 · exercises · controlled practice</div>
+    <h2>E1–E4 · say the answer, then write it</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>E1 · 填空</b> — bank word into the gap. <span class="muted">要 · 咖啡 · 杯 · 多少钱 · 块…</span></p>
+        <p><b>E2 · 连线</b> — word → Latvian meaning.</p>
+        <p><b>E3 · 完成对话</b> — one word per gap to fix the exchange.</p>
+        <p><b>E4 · 改句子</b> — add the measure word / fix the order.</p>
+      </div>
+      <div><p><span class="tag">model E4</span> <span class="hot">我要一茶</span> → <span class="good">我要一杯茶</span>.</p>
+        <p class="muted">Do E1 and E4 with the class — they carry the measure-word and word-order targets. E2/E3 can be pair-checked against the answers.</p></div>
+    </div>
+  </section>
+
+  <!-- 16 · EXERCISES E5–E8 -->
+  <section class="slide" data-notes="62–70 min band. Reading + listening. E5 menu reading: answer the price questions from Figure 1 — model '牛肉面条多少钱？ → 22块'. E6 error-spotting: eight waiter's-note errors, one per line, all recycling the three slips + 好吃/好喝. E7 Anna's note: gist reading with pinyin under it. E8 re-listen to Dialogue 3 and answer the number questions (68, 100, 32). If time is tight, set E7 as homework. All answers and one-line reasons are in the solutions file.">
+    <div class="kick">§5 · exercises · reading + listening</div>
+    <h2>E5–E8 · menu, errors, note, re-listen</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>E5 · 阅读一</b> — read the menu, answer the prices in 块.</p>
+        <p><b>E6 · 找错误</b> — find &amp; fix 8 errors in the waiter's notes.</p>
+        <p><b>E7 · 阅读二</b> — Anna's short note (gist).</p>
+        <p><b>E8 · 听力复习</b> — re-listen to Dialogue 3, answer the numbers.</p>
+      </div>
+      <div><p><span class="tag">model E5</span> <span class="han">牛肉面条多少钱？ → 22块</span>.</p>
+        <p class="muted">E6 recycles every slip: dropped 杯/个, fronted 多少钱, extra 是, and 好喝 vs 好吃. Short on time → E7 becomes homework.</p></div>
+    </div>
+  </section>
+
+  <!-- 17 · ROLE-PLAY MANAGEMENT -->
+  <section class="slide" data-notes="70–84 min — the protected core of a speaking unit. Manage the four cards as a rotation. Pair students; give card 1 (order lunch) to both, run it, swap roles, then move to card 2 (ask the price), card 3 (take an order — the waiter MUST repeat back with …对不对？), card 4 (pay: 一共多少钱, hand over 一百块, get change). Monitor with the rubric in the key: range, accuracy, fluency, interaction, coherence. Do not over-correct mid-scene — note slips and recast one at the end. Give a bonus tick whenever the 'waiter' repeats the order back.">
+    <div class="kick">§6 · speaking · role-play rotation</div>
+    <h2>Four cards · pairs · swap roles</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>1 · 点午餐</b> — order one dish + one drink. <span class="pin">请给我菜单 / 我要一份… / 我想喝一杯…</span></p>
+        <p><b>2 · 问价钱</b> — ask two dishes &amp; the price. <span class="pin">这个菜叫什么？/ 这个多少钱？</span></p>
+        <p><b>3 · 服务员点菜</b> — take &amp; repeat back. <span class="pin">你要点什么？/ 我重复一下…对不对？</span></p>
+        <p><b>4 · 买单</b> — ask the total &amp; pay. <span class="pin">一共多少钱？/ 给你一百块。</span></p>
+      </div>
+      <div><p>Monitor with the <b>A2 rubric</b> (in the key): range · accuracy · fluency · interaction · coherence.</p>
+        <p class="muted">Note slips, recast one warmly at the end. Bonus tick for a full repeat-back with …对不对？ — that <em>is</em> outcome 3.</p></div>
+    </div>
+  </section>
+
+  <!-- 18 · SPEAKING RUBRIC SNAPSHOT -->
+  <section class="slide" data-notes="Reference while monitoring (use during 70–84). This is the A2 target row — a solid 3 across all five strands: orders a dish and a drink, uses 个/杯/碗 correctly, asks 多少钱, responds and checks back, and keeps the four steps in order. The three L1 slips may appear at a 3 as long as they do not block the order. Give a 4 when slips are self-repaired and the learner adds 还/也/然后. Full bands are in the key.">
+    <div class="kick">§6 · assessment · A2 target</div>
+    <h2>What a “3 · at A2” looks like</h2>
+    <div class="card">
+      <table class="tbl">
+        <tr><th>strand</th><th>at A2 (target = 3)</th></tr>
+        <tr><td class="good">Range</td><td>orders a dish + a drink, uses 个 / 杯 / 碗 for the core items</td></tr>
+        <tr><td class="good">Accuracy</td><td>core patterns mostly right; the three slips do not block meaning</td></tr>
+        <tr><td class="good">Fluency</td><td>manages the order with some pausing; keeps going</td></tr>
+        <tr><td class="good">Interaction</td><td>answers the waiter and asks 多少钱; takes turns</td></tr>
+        <tr><td class="good">Coherence</td><td>keeps 看菜单→点菜→问多少钱→买单 in order; order is complete</td></tr>
+      </table>
+    </div>
+    <p class="muted" style="margin-top:8px">A 4 self-repairs slips and links with 还 / 也 / 然后. Full 1–4 bands: teacher key §4.</p>
+  </section>
+
+  <!-- 19 · WRITING BRIEF + AI PARTNER -->
+  <section class="slide" data-notes="84–88 min. Set the writing as consolidation or homework: an 8–10 line ordering dialogue with one dish, one drink, a 多少钱 question, and paying — characters AND pinyin. Put the four self-check questions on the board (measure word? 要/想? 多少钱? characters+pinyin?). Point students to the page conversation partner 小助手 for extra spoken rehearsal — it plays waiter or customer at A2 and recasts mistakes gently; it will not hand over the exercise answers. The annotated model answer is in the solutions file.">
+    <div class="kick">§7 · writing &amp; AI partner</div>
+    <h2>写作 · an 8–10 line ordering dialogue</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Task:</b> write a short ordering dialogue — one dish, one drink, ask <span class="han">多少钱</span>, then <span class="han">买单</span>. Characters <b>and</b> pinyin.</p>
+        <p class="muted">Self-check: measure word 个/杯? · 要 or 想? · asked 多少钱? · wrote hanzi + pinyin?</p>
+      </div>
+      <div><p><b>小助手</b> — the page partner plays 服务员 or 客人 at A2 and recasts slips warmly.</p>
+        <p class="muted">Good for a last spoken run-through. It nudges you to say it yourself, and will not write the exercise for you.</p></div>
+    </div>
+  </section>
+
+  <!-- 20 · RECAP -->
+  <section class="slide" data-center data-notes="88–90 min. Close. Five one-liners: a number needs a measure word (个/杯/碗/份/瓶) — never 一茶; order with 要 or 想 and no 是; ask the price with 多少钱 at the END; answer and understand prices in 块; take an order and repeat it back with …对不对？ Name the three slips one last time (dropped measure word, fronted 多少钱, extra 是) and the 杯/啤 sound. Praise the pairs. If you turned captions on, turn them off (L). Homework: the writing dialogue.">
+    <div class="kick">recap · close</div>
+    <h2>看菜单 → 点菜 → 问多少钱 → 买单</h2>
+    <p class="big muted">A number needs a measure word (never 一茶) · order with 要 / 想, no 是 · 多少钱 goes last · read prices in 块 · take an order and check with …对不对？</p>
+    <p>Watch the three slips: dropped 杯/个 · fronted 多少钱 · extra 是 — and 杯 bēi vs 啤 pí. <span class="muted">Homework: the 8–10 line ordering dialogue.</span></p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS · canvas) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function clear(el){ while(el.firstChild) el.removeChild(el.firstChild); }
+  function hidpi(cv,w,h){ var d=window.devicePixelRatio||1; cv.width=w*d; cv.height=h*d; cv.style.width=w+'px'; cv.style.height=h+'px'; var c=cv.getContext('2d'); c.setTransform(d,0,0,d,0,0); return c; }
+
+  /* ---- W1 · ORDER BUILDER (canvas bill) ---- */
+  window.DeckW.menu=function(el){
+    var ITEMS=[
+      {han:'米饭',pin:'mǐfàn',mw:'碗',price:3},
+      {han:'鸡肉面条',pin:'jīròu miàntiáo',mw:'份',price:18},
+      {han:'牛肉面条',pin:'niúròu miàntiáo',mw:'份',price:22},
+      {han:'牛肉饺子',pin:'jiǎozi',mw:'个×10',price:15},
+      {han:'鸡肉炒蔬菜',pin:'chǎo shūcài',mw:'个',price:35},
+      {han:'热茶',pin:'rè chá',mw:'杯',price:5},
+      {han:'咖啡',pin:'kāfēi',mw:'杯',price:12},
+      {han:'啤酒',pin:'píjiǔ',mw:'瓶',price:10}
+    ];
+    var order=[], reveal=false;
+    el.innerHTML='<div class="wk"><div class="bar" data-btns></div>'+
+      '<canvas data-cv></canvas>'+
+      '<div class="bar"><button data-ask>问多少钱 · ask the total</button><button data-clr>清空 · clear</button></div>'+
+      '<div class="info" data-info><h4>点菜</h4>Click a dish, then say: 我要一…／我想喝一…</div></div>';
+    var bar=el.querySelector('[data-btns]'), cv=el.querySelector('[data-cv]'), info=el.querySelector('[data-info]');
+    ITEMS.forEach(function(it,i){ var b=document.createElement('button'); b.className='dish'; b.innerHTML=it.han+' <span style="color:#7e98ad">'+it.price+'块</span>';
+      b.onclick=function(){ order.push(it); reveal=false; draw(); info.innerHTML='<h4>说一句 · say it</h4>'+(it.mw==='杯'?'我想喝一杯'+it.han:'我要一'+it.mw.replace('×10','')+it.han)+'　<span style="color:#7e98ad">('+it.pin+' · '+it.price+'块)</span>'; };
+      bar.appendChild(b); });
+    el.querySelector('[data-ask]').onclick=function(){ reveal=true; draw();
+      var t=order.reduce(function(s,it){return s+it.price;},0);
+      info.innerHTML='<h4>一共 · total</h4>一共 '+t+' 块。 <span style="color:#7e98ad">Yígòng '+t+' kuài.</span>'; };
+    el.querySelector('[data-clr]').onclick=function(){ order=[]; reveal=false; draw(); info.innerHTML='<h4>点菜</h4>Click a dish, then say: 我要一…／我想喝一…'; };
+    function draw(){
+      var W=Math.min(el.clientWidth-32,640), H=250, c=hidpi(cv,W,H);
+      c.clearRect(0,0,W,H); c.fillStyle='#0a0f18'; c.fillRect(0,0,W,H);
+      c.fillStyle='#8fd0ff'; c.font='700 16px -apple-system,Segoe UI,sans-serif'; c.fillText('小海餐厅 · 菜单',14,26);
+      c.strokeStyle='#26384e'; c.beginPath(); c.moveTo(14,36); c.lineTo(W-14,36); c.stroke();
+      var y=58, tot=0;
+      if(!order.length){ c.fillStyle='#54708c'; c.font='15px -apple-system,sans-serif'; c.fillText('（还没点菜 · nothing ordered yet）',14,y); }
+      order.forEach(function(it){ tot+=it.price;
+        c.fillStyle='#e9f0f7'; c.font='17px -apple-system,Segoe UI,sans-serif';
+        c.fillText('一'+it.mw+' '+it.han,16,y);
+        c.fillStyle='#9af0c8'; c.textAlign='right'; c.fillText(it.price+' 块',W-16,y); c.textAlign='left';
+        y+=26; });
+      if(reveal){ c.strokeStyle='#2f6b4e'; c.beginPath(); c.moveTo(14,y+2); c.lineTo(W-14,y+2); c.stroke();
+        c.fillStyle='#fbbf24'; c.font='700 20px -apple-system,sans-serif'; c.fillText('一共',16,y+30);
+        c.textAlign='right'; c.fillText(tot+' 块',W-16,y+30); c.textAlign='left'; }
+    }
+    draw();
+  };
+
+  /* ---- W2 · MEASURE-WORD BUILDER ---- */
+  window.DeckW.mw=function(el){
+    var NUMS=['一','两','三','十'];
+    var MWS=['个','杯','碗','份','瓶'];
+    var NOUNS=[{h:'茶',t:'drink'},{h:'咖啡',t:'drink'},{h:'水',t:'drink'},{h:'啤酒',t:'bottle'},
+      {h:'米饭',t:'rice'},{h:'面条',t:'portion'},{h:'饺子',t:'piece'},{h:'蔬菜',t:'dish'}];
+    var FIT={'杯':['drink'],'碗':['rice'],'瓶':['bottle','drink'],'个':['piece','dish'],'份':['portion','dish','piece']};
+    var HINT={'茶':'杯','咖啡':'杯','水':'杯','啤酒':'瓶','米饭':'碗','面条':'份','饺子':'个','蔬菜':'个'};
+    var num='两',mw='杯',noun=NOUNS[0];
+    el.innerHTML='<div class="wk"><div class="bar">'+
+      '<select data-num></select><select data-mw></select><select data-noun></select>'+
+      '<button data-chk class="on">检查 · check</button></div>'+
+      '<canvas data-cv></canvas><div class="info" data-info></div></div>';
+    var sN=el.querySelector('[data-num]'),sM=el.querySelector('[data-mw]'),sO=el.querySelector('[data-noun]');
+    NUMS.forEach(function(n){ sN.add(new Option(n,n)); });
+    MWS.forEach(function(m){ sM.add(new Option(m,m)); });
+    NOUNS.forEach(function(o,i){ sO.add(new Option(o.h,i)); });
+    sN.value=num; sM.value=mw; sO.value=0;
+    var cv=el.querySelector('[data-cv]'), info=el.querySelector('[data-info]');
+    function upd(){ num=sN.value; mw=sM.value; noun=NOUNS[+sO.value]; draw(false); info.innerHTML='<h4>预测 · predict</h4>Green or red? Then press 检查.'; }
+    sN.onchange=upd; sM.onchange=upd; sO.onchange=upd;
+    el.querySelector('[data-chk]').onclick=function(){ draw(true); };
+    function fits(){ return (FIT[mw]||[]).indexOf(noun.t)>=0; }
+    function draw(checked){
+      var W=Math.min(el.clientWidth-32,640),H=170,c=hidpi(cv,W,H);
+      c.clearRect(0,0,W,H); c.fillStyle='#0a0f18'; c.fillRect(0,0,W,H);
+      var ok=fits(), col= checked?(ok?'#34d399':'#ff5667'):'#e9f0f7';
+      c.fillStyle=col; c.font='700 46px -apple-system,Segoe UI,sans-serif'; c.textAlign='center';
+      c.fillText(num+mw+noun.h, W/2, H/2+2);
+      if(checked){ c.font='700 22px -apple-system,sans-serif'; c.fillStyle=col; c.fillText(ok?'✓':'✗', W/2, H/2+44); }
+      c.textAlign='left';
+      if(checked){ if(ok){ info.innerHTML='<h4 class="good" style="color:#34d399">✓ 对 · correct</h4>'+num+mw+noun.h+' — the measure word fits.'; }
+        else { info.innerHTML='<h4 style="color:#ff5667">✗ 不对 · not this one</h4>Try <b>'+HINT[noun.h]+'</b>: '+num+HINT[noun.h]+noun.h+'.'; } }
+    }
+    draw(false); info.innerHTML='<h4>预测 · predict</h4>Green or red? Then press 检查.';
+  };
+
+  /* ---- W3 · PRICE / SPOKEN-NUMBER (rAF count-up) ---- */
+  window.DeckW.price=function(el){
+    var PR=[
+      {n:35,h:'三十五块',p:'sānshíwǔ kuài'},
+      {n:43,h:'四十三块',p:'sìshísān kuài'},
+      {n:68,h:'六十八块',p:'liùshíbā kuài'},
+      {n:25,h:'二十五块',p:'èrshíwǔ kuài'},
+      {n:100,h:'一百块',p:'yìbǎi kuài'},
+      {n:32,h:'三十二块',p:'sānshí’èr kuài'}
+    ];
+    var idx=0, shown=0, target=0, raf=null;
+    el.innerHTML='<div class="wk"><div class="bar" data-btns></div>'+
+      '<canvas data-cv></canvas>'+
+      '<div class="info" data-info><h4>价钱 · price</h4>Click a price, read it aloud in 块 as it counts up.</div></div>';
+    var bar=el.querySelector('[data-btns]'),cv=el.querySelector('[data-cv]'),info=el.querySelector('[data-info]');
+    PR.forEach(function(pr,i){ var b=document.createElement('button'); b.textContent=pr.n+'块';
+      b.onclick=function(){ idx=i; target=pr.n; shown=0; if(raf)cancelAnimationFrame(raf); animate();
+        info.innerHTML='<h4>读 · read it</h4><span class="han">'+pr.h+'</span> <span class="pin">'+pr.p+'</span>'; };
+      bar.appendChild(b); });
+    function animate(){ shown+= Math.max(1,(target-shown)*0.18); if(shown>=target-0.5){ shown=target; draw(); return; } draw(); raf=requestAnimationFrame(animate); }
+    function draw(){
+      var W=Math.min(el.clientWidth-32,640),H=150,c=hidpi(cv,W,H);
+      c.clearRect(0,0,W,H); c.fillStyle='#0a0f18'; c.fillRect(0,0,W,H);
+      c.fillStyle='#7e98ad'; c.font='15px -apple-system,sans-serif'; c.fillText('一共 · total',18,30);
+      c.fillStyle='#fbbf24'; c.font='700 62px var(--mono),Consolas,monospace'; c.textAlign='center';
+      c.fillText(Math.round(shown)+' 块', W/2, H/2+28); c.textAlign='left';
+    }
+    draw();
+  };
+
+  /* ---- W4 · TONE CLINIC (rAF pitch contour) ---- */
+  window.DeckW.tone=function(el){
+    /* tone: 1 flat-high, 2 rising, 3 dip, 4 falling; contour points 0..1 (pitch) */
+    var SYL=[
+      {h:'杯',p:'bēi',t:1,lv:'b = mīksts, bez elpas'},
+      {h:'啤',p:'pí',t:2,lv:'p = ar elpas grūdienu'},
+      {h:'茶',p:'chá',t:2,lv:'ch = mīksts'},
+      {h:'钱',p:'qián',t:2,lv:'q = mīksts "tsj"'},
+      {h:'想',p:'xiǎng',t:3,lv:'x = mīksts "sj"'},
+      {h:'热',p:'rè',t:4,lv:'r NErullē'},
+      {h:'肉',p:'ròu',t:4,lv:'r NErullē'}
+    ];
+    function contour(t){ if(t===1)return [.85,.85]; if(t===2)return [.35,.9]; if(t===3)return [.55,.2,.75]; return [.95,.25]; }
+    var cur=SYL[0], prog=0, raf=null;
+    el.innerHTML='<div class="wk"><div class="bar" data-btns></div>'+
+      '<canvas data-cv></canvas>'+
+      '<div class="info" data-info></div></div>';
+    var bar=el.querySelector('[data-btns]'),cv=el.querySelector('[data-cv]'),info=el.querySelector('[data-info]');
+    SYL.forEach(function(s,i){ var b=document.createElement('button'); b.innerHTML=s.h+' <span class="pin" style="color:#8fd0ff">'+s.p+'</span>';
+      b.onclick=function(){ cur=s; prog=0; if(raf)cancelAnimationFrame(raf); anim();
+        info.innerHTML='<h4>'+s.h+' · '+s.p+' (tone '+s.t+')</h4><span class="lv" style="color:#fbbf24">'+s.lv+'</span>'; };
+      bar.appendChild(b); });
+    function anim(){ prog+=0.03; if(prog>1)prog=1; draw(); if(prog<1) raf=requestAnimationFrame(anim); }
+    function draw(){
+      var W=Math.min(el.clientWidth-32,640),H=180,c=hidpi(cv,W,H);
+      c.clearRect(0,0,W,H); c.fillStyle='#0a0f18'; c.fillRect(0,0,W,H);
+      var padL=44,padR=20,padT=20,padB=28, gw=W-padL-padR, gh=H-padT-padB;
+      c.strokeStyle='#1c2c42'; c.lineWidth=1;
+      for(var k=0;k<=4;k++){ var yy=padT+gh*k/4; c.beginPath(); c.moveTo(padL,yy); c.lineTo(W-padR,yy); c.stroke(); }
+      c.fillStyle='#54708c'; c.font='12px var(--mono),monospace'; c.fillText('high',6,padT+6); c.fillText('low',10,padT+gh);
+      var pts=contour(cur.t);
+      function X(f){ return padL+gw*f; }
+      function Y(v){ return padT+gh*(1-v); }
+      c.strokeStyle='#38b6ff'; c.lineWidth=4; c.lineJoin='round'; c.beginPath();
+      var n=pts.length, drawTo=prog*(n-1);
+      for(var s=0;s<=drawTo;s+=0.02){ var seg=Math.floor(s), fr=s-seg; if(seg>=n-1){seg=n-2;fr=1;} var v=pts[seg]+(pts[seg+1]-pts[seg])*fr; var f=s/(n-1); if(s===0)c.moveTo(X(f),Y(v)); else c.lineTo(X(f),Y(v)); }
+      c.stroke();
+      var f=drawTo/(n-1), seg=Math.min(Math.floor(drawTo),n-2), fr=drawTo-seg, v=pts[seg]+(pts[seg+1]-pts[seg])*fr;
+      c.fillStyle='#fbbf24'; c.beginPath(); c.arc(X(f),Y(v),6,0,7); c.fill();
+      c.fillStyle='#eaf2fb'; c.font='700 30px -apple-system,sans-serif'; c.textAlign='right';
+      c.fillText(cur.h+' '+cur.p, W-padR, H-6); c.textAlign='left';
+    }
+    draw(); info.innerHTML='<h4>发音 · pick a syllable</h4>Trace the pitch shape with your hand.';
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('cfu01_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','cfu01_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Zhōngwén A2 · Unit 1</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:21px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:28px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("cfu01_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("cfu01_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="cfu01_deck_state")render();});',
+'setInterval(render,400);render();',
+'<\/script></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='cfu01_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}.lct-row-top{opacity:1}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="zh-CN">中文</option>
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="en">English</option>
+    <option value="zh-CN">中文</option>
+    <option value="ru">Русский</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'), line=document.getElementById('lctLine');
+  var lineTop=document.getElementById('lctLineTop'), lineBot=document.getElementById('lctLineBot');
+  var srcEl=document.getElementById('lctSrc'), btn=document.getElementById('lctBtn');
+  var gear=document.getElementById('lctGear'), status=document.getElementById('lctStatus');
+  var langBar=document.getElementById('lctLangBar'), srcSel=document.getElementById('lctSrcSel'), tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken='zh-CN', src='zh-CN', target='lv';
+  var rec=null, active=false;
+  var committed=[], lastInterim='', pending=''; var capTopB='', capBotB='', lctIdeaTimer=null, capTopAtB=0;
+  var finalTimer=null, silenceTimer=null;
+  var lastTrAt=0, lastTrText='', lastTrLen=0;
+  var netErrors=0; var cache=new Map(); var POLL_GAP_MS=700;
+  function setStatus(t){ status.textContent=t; status.classList.toggle('show', active||t==='mic blocked'||t==='use Chrome'); }
+  function tail(text,maxWords){ if(!text) return ''; var t=String(text).trim().replace(/\s+/g,' '); if(!t) return ''; var parts=t.split(' '); if(parts.length<=maxWords) return t; var s=parts.slice(-maxWords).join(' '); var m=s.match(/[.!?…]\s+(.+)$/)||s.match(/[,;:]\s+(.+)$/); return m?m[1]:s; }
+  function tlSrc(){ return src.slice(0,2); }
+  async function translateRemote(text){
+    try{ if(tlSrc()===target) return text;
+      var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+tlSrc()+'&tl='+target+'&dt=t&q='+encodeURIComponent(text);
+      var ctrl=new AbortController(); var tmo=setTimeout(function(){ ctrl.abort(); },3000);
+      var r=await fetch(url,{signal:ctrl.signal}); clearTimeout(tmo);
+      if(!r.ok) return null; var j=await r.json();
+      if(Array.isArray(j)&&Array.isArray(j[0])){ var out=''; j[0].forEach(function(seg){ if(seg&&seg[0]) out+=seg[0]; }); return out||null; }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){ if(!text||!text.trim()) return ''; var key=tlSrc()+'|'+target+'|'+text.trim().toLowerCase(); if(cache.has(key)) return cache.get(key); var out=await translateRemote(text); if(!out) out=text; cache.set(key,out); if(cache.size>250){ cache.delete(cache.keys().next().value); } return out; }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16,Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var idx=s.indexOf(' '); return idx>0?s.slice(idx+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB&&(capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB=capBotB?(capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctEndIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer=setTimeout(function(){ committed.length=0; capTopB=''; capBotB=''; capTopAtB=0; lastInterim=''; pending=''; render(); },30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer=null; } }
+  async function commitFinal(chunk){ chunk=chunk.trim(); if(!chunk) return; srcEl.textContent=tail(chunk,18); var tr=await translate(chunk); lctCommit(tr); lastInterim=''; lastTrLen=0; render(); }
+  async function translateInterim(text){ var now=performance.now(); if(now-lastTrAt<POLL_GAP_MS) return; if(text.length-lastTrLen<10&&text.length>0) return; if(text===lastTrText) return; lastTrAt=now; lastTrLen=text.length; lastTrText=text; try{ var tr=await translate(text); if(tr&&active){ lastInterim=tr; render(); } }catch(e){} }
+  function startRec(){
+    rec=new SR(); rec.continuous=true; rec.interimResults=true; rec.lang=spoken; if('maxAlternatives' in rec) rec.maxAlternatives=1;
+    rec.onresult=function(e){ netErrors=0; cancelSilence(); var interim='',fin='';
+      for(var k=e.resultIndex;k<e.results.length;k++){ var r=e.results[k]; if(r.isFinal) fin+=' '+r[0].transcript; else interim+=' '+r[0].transcript; }
+      if(fin){ pending+=' '+fin; if(finalTimer) clearTimeout(finalTimer); finalTimer=setTimeout(function(){ var c=pending; pending=''; commitFinal(c).then(armSilence); },120); }
+      if(interim){ srcEl.textContent=tail(interim.trim(),18); translateInterim(interim.trim()); }
+      render(); setStatus('live · '+tlSrc()+'→'+target); };
+    rec.onerror=function(ev){ if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active=false; }
+      else if(ev.error==='no-speech'||ev.error==='aborted'){ } else if(ev.error==='network'){ netErrors++; if(netErrors>=3){ active=false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect '+netErrors+'/3'); } else setStatus(ev.error); };
+    rec.onend=function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active&&rec){ try{ rec.start(); }catch(_){} } },350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){ active=false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend=null; rec.stop(); }catch(e){} rec=null; }
+      committed.length=0; capTopB=''; capBotB=''; capTopAtB=0; lastInterim=''; pending=''; render();
+    } else { active=true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on'); setStatus('starting…'); __holdMic().then(startRec); }
+  }
+  btn.addEventListener('click',function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click',function(e){ e.stopPropagation(); var open=langBar.classList.toggle('open'); gear.classList.toggle('on',open); });
+  document.addEventListener('keydown',function(e){ if((e.key==='l'||e.key==='L')&&!/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle(); });
+  srcSel.addEventListener('change',function(e){ e.stopPropagation(); spoken=srcSel.value; src=spoken; cache.clear(); if(active&&rec){ rec.onend=null; try{ rec.stop(); }catch(_){} rec=null; __holdMic().then(startRec); } if(active) setStatus('live · '+tlSrc()+'→'+target); });
+  tgtSel.addEventListener('change',function(e){ e.stopPropagation(); target=tgtSel.value.slice(0,2); cache.clear(); committed.length=0; capTopB=''; capBotB=''; capTopAtB=0; lastInterim=''; lastTrText=''; lastTrLen=0; render(); if(active) setStatus('live · '+tlSrc()+'→'+target); });
+  [srcSel,tgtSel].forEach(function(s){ s.addEventListener('click',function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<script>(function(){try{
+  var KEY='cfCapScale', root=document.documentElement;
+  function apply(v){ root.style.setProperty('--cap-scale', v); }
+  var saved=parseFloat(localStorage.getItem(KEY))||1; saved=Math.max(0.6,Math.min(1.9,saved)); apply(saved);
+  var st=document.createElement('style'); st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}.cap-fs-slider::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:#FFD24D;cursor:pointer}'; document.head.appendChild(st);
+  function mount(){ var lb=document.getElementById('lctLangBar'); if(!lb||lb.querySelector('.cap-fs-slider')) return;
+    var w=document.createElement('span'); w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w); var sl=w.querySelector('.cap-fs-slider'); sl.value=saved;
+    var stop=function(e){ e.stopPropagation(); };
+    sl.addEventListener('input',function(){ var v=parseFloat(sl.value)||1; apply(v); try{ localStorage.setItem(KEY,v); }catch(e){} });
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){ sl.addEventListener(ev,stop); });
+  }
+  if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>
