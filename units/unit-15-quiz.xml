@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U15-r1</text></category>
+    <info><text>English for Aviation Maintenance · Unit 15 — MEL dispatch with the duty engineer. Listening, reading, use of English and vocabulary. CEFR B2.</text></info>
+  </question>
+
+  <!-- ==================== LISTENING (8) ==================== -->
+
+  <question type="multichoice">
+    <name><text>U15 L1 — Dialogue 1 pack</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Which air-conditioning pack is inoperative?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Kārlis reports that the <b>number two</b> pack is inoperative; the flow-control valve fails to open.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Number two.</text><feedback format="html"><text><![CDATA[Correct — the number two pack.]]></text></feedback></answer>
+    <answer fraction="0"><text>Number one.</text><feedback format="html"><text><![CDATA[No — number one keeps working; number two is the fault.]]></text></feedback></answer>
+    <answer fraction="0"><text>Both of them.</text><feedback format="html"><text><![CDATA[No — only one pack fails, which is why dispatch is possible.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U15 L2 — Dialogue 1 altitude</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> The MEL lets the flight climb above FL310 with one pack inoperative.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. A single pack cannot pressurise the cabin above FL310, so the flight level must not exceed it.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No — FL310 is the limit, not a level to climb past.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — the flight must stay at or below FL310.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U15 L3 — pack interval days</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> How many calendar days is the rectification interval for the category C pack item? (Write the number.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A category C item gives a ten-day rectification interval.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>10</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — ten calendar days.]]></text></feedback></answer>
+    <answer fraction="0"><text>3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[No — three days is a category B item, like the APU.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U15 L4 — FL limitation</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> The single-pack altitude limitation is flight level ___. (Write the number, e.g. 310.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The limitation is FL310 — three one zero, as read on the call.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>310</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — FL310.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U15 L5 — Dialogue 2 static wick</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> Which document covers the missing static wick?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A missing part is not an MEL item. It goes to the <b>configuration deviation list</b> (CDL).</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>The CDL.</text><feedback format="html"><text><![CDATA[Correct — the configuration deviation list.]]></text></feedback></answer>
+    <answer fraction="0"><text>The MEL.</text><feedback format="html"><text><![CDATA[No — the MEL covers inoperative systems, not a missing part.]]></text></feedback></answer>
+    <answer fraction="0"><text>The load sheet.</text><feedback format="html"><text><![CDATA[No — the load sheet is about weight and balance.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U15 L6 — Dialogue 2 backup radar</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> The 737 has a second weather radar as a backup.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. Inga says there is only one radar, so there is no backup.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No — there is only one radar on this aircraft.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — no second radar; that is why the proviso matters.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U15 L7 — APU start attempts</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> How many start attempts did the crew make on the APU? (Write the number.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The crew tried three starts with no light-up.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — three attempts.]]></text></feedback></answer>
+    <answer fraction="0"><text>2</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[No — listen again; it was more than two.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U15 L8 — Dialogue 3 no-go?</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> Is the inoperative APU automatically a no-go item?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>No — the engineer reads the MEL first. With a ground air source it becomes a go item.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>It depends on the MEL.</text><feedback format="html"><text><![CDATA[Correct — the provisos decide, not the fault alone.]]></text></feedback></answer>
+    <answer fraction="0"><text>It is always a no-go item.</text><feedback format="html"><text><![CDATA[No — a met proviso makes it a go item.]]></text></feedback></answer>
+    <answer fraction="0"><text>It can never be deferred here.</text><feedback format="html"><text><![CDATA[No — it is deferred for three days under category B.]]></text></feedback></answer>
+  </question>
+
+  <!-- ==================== READING (5) ==================== -->
+
+  <question type="multichoice">
+    <name><text>U15 R1 — landing-light MEL text</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the MEL note.</b></p>
+    <p style="border-left:3px solid #2F5496;padding-left:10px"><i>MEL 33-42-01 · Landing light (one). Repair category C — rectification interval 10 calendar days. Number installed: 2. Number required: 1. One landing light may be inoperative provided the affected light is placarded and, for a night departure, the crew is briefed.</i></p>
+    <p>How many landing lights must work for dispatch?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Two are installed but only <b>one</b> is required for dispatch.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>One.</text><feedback format="html"><text><![CDATA[Correct — number required for dispatch is 1.]]></text></feedback></answer>
+    <answer fraction="0"><text>Two.</text><feedback format="html"><text><![CDATA[No — two are installed, but only one is required.]]></text></feedback></answer>
+    <answer fraction="0"><text>None at all.</text><feedback format="html"><text><![CDATA[No — at least one must work.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U15 R2 — landing-light placard</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the MEL note in R1 again.</b> The inoperative landing light must be placarded before dispatch.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The proviso requires the affected light to be placarded.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — the proviso requires a placard.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[No — read the proviso: the light must be placarded.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U15 R3 — repair category text</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this note.</b></p>
+    <p style="border-left:3px solid #2F5496;padding-left:10px"><i>Repair categories set the rectification interval: category A has an interval stated in a note; category B is 3 calendar days; category C is 10 calendar days; category D is 120 calendar days.</i></p>
+    <p>An item is category B. How long is the rectification interval?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Category B is a three-day interval.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Three days.</text><feedback format="html"><text><![CDATA[Correct — category B is 3 calendar days.]]></text></feedback></answer>
+    <answer fraction="0"><text>Ten days.</text><feedback format="html"><text><![CDATA[No — ten days is category C.]]></text></feedback></answer>
+    <answer fraction="0"><text>A hundred days.</text><feedback format="html"><text><![CDATA[No — that is closer to category D (120 days).]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U15 R4 — CRS timing text</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this note.</b></p>
+    <p style="border-left:3px solid #2F5496;padding-left:10px"><i>Sign the certificate of release to service only after the placard is fitted and both the maintenance (M) and operational (O) procedures are complete.</i></p>
+    <p>You may sign the release before fitting the placard.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The release is signed only after the placard is on and both procedures are done.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[No — the placard and both procedures come first.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — placard and procedures first, then sign.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U15 R5 — MEL vs CDL text</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this note.</b></p>
+    <p style="border-left:3px solid #2F5496;padding-left:10px"><i>The MEL covers systems and equipment that are inoperative. The configuration deviation list (CDL) covers secondary parts that are missing, such as a static wick or an access panel.</i></p>
+    <p>An access panel is missing from the airframe. Which document applies?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A missing part is a CDL matter, not an MEL matter.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>The CDL.</text><feedback format="html"><text><![CDATA[Correct — the CDL covers missing secondary parts.]]></text></feedback></answer>
+    <answer fraction="0"><text>The MEL alone.</text><feedback format="html"><text><![CDATA[No — the MEL is for inoperative systems, not missing parts.]]></text></feedback></answer>
+    <answer fraction="0"><text>The weight schedule.</text><feedback format="html"><text><![CDATA[No — that document is about mass and balance.]]></text></feedback></answer>
+  </question>
+
+  <!-- ==================== USE OF ENGLISH (7) ==================== -->
+
+  <question type="shortanswer">
+    <name><text>U15 U1 — prohibition modal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Rewrite with a modal. <i>It is not permitted to climb above FL310.</i><br>The flight ______ climb above FL310. (Two words.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A firm prohibition is <b>must not</b> + the bare verb.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>must not</text><feedback format="html"><text><![CDATA[Correct — must not climb.]]></text></feedback></answer>
+    <answer fraction="100"><text>mustn't</text><feedback format="html"><text><![CDATA[Correct — the contracted form.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use "must not" — a strong prohibition, no "to".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U15 U2 — future ability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Rewrite for the future. <i>We are able to fix it now.</i><br>Tomorrow we ______ fix it. (Four words; not a double modal.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>You cannot say "will can". Future ability is <b>will be able to</b>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>will be able to</text><feedback format="html"><text><![CDATA[Correct — will be able to fix it.]]></text></feedback></answer>
+    <answer fraction="0"><text>will can</text><feedback format="html"><text><![CDATA[No — modals never stack. Use "will be able to".]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The answer is "will be able to".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U15 U3 — impossibility modal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete for a physical impossibility.<br>A single pack ______ pressurise the cabin above FL310. (One word.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Impossibility uses <b>cannot</b> (or can't).</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>cannot</text><feedback format="html"><text><![CDATA[Correct — cannot pressurise.]]></text></feedback></answer>
+    <answer fraction="100"><text>can't</text><feedback format="html"><text><![CDATA[Correct — the contracted form.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use "cannot" — it is not physically possible.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U15 U4 — bank term (interval)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Name the term. <i>The time limit to repair a deferred item.</i><br>The ______ ______. (Two words.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The <b>rectification interval</b> — ten days for category C, three for B.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>rectification interval</text><feedback format="html"><text><![CDATA[Correct — the rectification interval.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The term is "rectification interval".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U15 U5 — permission modal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Rewrite with a modal. <i>The aircraft is allowed to dispatch with one pack out.</i><br>The aircraft ______ dispatch with one pack out. (One word.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Permission granted by the MEL is <b>may</b> (or can) + bare verb.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>may</text><feedback format="html"><text><![CDATA[Correct — may dispatch.]]></text></feedback></answer>
+    <answer fraction="100"><text>can</text><feedback format="html"><text><![CDATA[Also correct — can dispatch.]]></text></feedback></answer>
+    <answer fraction="0"><text>may to</text><feedback format="html"><text><![CDATA[No — never "to" after a modal. Just "may".]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use "may" or "can".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U15 U6 — bank term (placard)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Name the term. <i>A small warning label fitted near a broken control.</i><br>A ______. (One word.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <b>placard</b> — you fit an "INOP" placard by the switch.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>placard</text><feedback format="html"><text><![CDATA[Correct — a placard.]]></text></feedback></answer>
+    <answer fraction="0"><text>placate</text><feedback format="html"><text><![CDATA[No — "placate" is a different word. The label is a placard.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The term is "placard".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U15 U7 — fix the modal error</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Correct the error. <i>The aircraft may to dispatch tonight.</i><br>The aircraft ______ tonight. (Two words.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Drop the "to": a modal takes the bare verb, so <b>may dispatch</b>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>may dispatch</text><feedback format="html"><text><![CDATA[Correct — may dispatch, no "to".]]></text></feedback></answer>
+    <answer fraction="0"><text>may to dispatch</text><feedback format="html"><text><![CDATA[No — remove "to" after the modal.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The answer is "may dispatch".]]></text></feedback></answer>
+  </question>
+
+  <!-- ==================== VOCABULARY (4) ==================== -->
+
+  <question type="matching">
+    <name><text>U15 V1 — terms to meanings</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each MEL term to its meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Proviso = a condition to meet; limitation = a limit on the flight; no-go item = a fault that stops dispatch; serviceable = fit for use.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[proviso]]></text><answer><text>a condition you must meet to dispatch</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[limitation]]></text><answer><text>a limit on the flight, such as an altitude</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[no-go item]]></text><answer><text>a fault that stops dispatch</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[serviceable]]></text><answer><text>working and fit for use</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U15 V2 — documents to roles</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each document to what it records.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The MEL lists inoperative items; the CDL lists missing parts; the tech log records faults and actions; the CRS is the signed release.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[minimum equipment list]]></text><answer><text>which inoperative items still allow flight</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[configuration deviation list]]></text><answer><text>which missing parts still allow flight</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[technical log]]></text><answer><text>the running record of faults and actions</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[certificate of release to service]]></text><answer><text>the signed statement the aircraft is safe</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U15 V3 — collocation (interval)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which verb fits: "The rectification interval ______ in three days"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>An interval <b>expires</b>. After that, the item must be fixed or the aircraft is grounded.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>expires</text><feedback format="html"><text><![CDATA[Correct — the interval expires.]]></text></feedback></answer>
+    <answer fraction="0"><text>departs</text><feedback format="html"><text><![CDATA[No — aircraft depart; intervals expire.]]></text></feedback></answer>
+    <answer fraction="0"><text>resigns</text><feedback format="html"><text><![CDATA[No — that is about leaving a job.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U15 V4 — collocation (defect)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which verb fits: "______ the deferred defect in the technical log"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>You <b>raise</b> a deferred defect in the tech log — the standard collocation.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Raise</text><feedback format="html"><text><![CDATA[Correct — raise the deferred defect.]]></text></feedback></answer>
+    <answer fraction="0"><text>Launch</text><feedback format="html"><text><![CDATA[No — you do not launch a defect entry.]]></text></feedback></answer>
+    <answer fraction="0"><text>Rinse</text><feedback format="html"><text><![CDATA[No — that has nothing to do with a log entry.]]></text></feedback></answer>
+  </question>
+
+</quiz>

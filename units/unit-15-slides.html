@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 15 — Teacher Deck · MEL dispatch with the duty engineer</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:30px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:660px;min-height:340px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:340px;
+  border:1px dashed var(--line);border-radius:14px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:56px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.tab{display:grid;grid-template-columns:1fr;gap:8px}
+.row{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:#0f1726}
+.row b{color:#7fd0ff;font-family:var(--mono);font-size:14px}
+.gloss{border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:#0c1622;margin:6px 0}
+.gloss b{color:var(--amber)}
+.turnline{border-left:3px solid var(--line2);padding:4px 0 4px 14px;margin:8px 0}
+.turnline .who{font-family:var(--mono);font-size:12px;color:#7fd0ff;font-weight:700;letter-spacing:.06em}
+.ok{color:var(--good)} .no{color:var(--hot)}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tbl{width:100%;border-collapse:collapse;font-size:17px}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:6px 10px;text-align:left}
+.tbl th{color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em}
+.wrong{color:#ff9aa2} .right{color:#9af0c8}
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="TIMING 0-3 min. Open the class. Hold up the one question the whole unit answers: an aircraft has a broken item — can it still fly, and what do we have to do first? Tell the room the setting: night, a busy line station, the turnaround clock running, and the technician on the phone to the duty engineer. Name the shape of the 90 minutes so students know the plan: listen to three real calls, build the MEL and dispatch vocabulary, drill the modal grammar that dispatch lives on (may / must not / cannot), practise with eight self-checking exercises, then two role-plays and a Simplified-Technical-English writing task. One slogan to repeat all lesson: an item may be inoperative, but the aircraft only dispatches when every proviso is met.">
+    <div class="kick">English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 15</div>
+    <h1>MEL dispatch: the duty-engineer call</h1>
+    <p class="big muted">Read the Minimum Equipment List, weigh the conditions and limitations, fit the placard, and tell the duty engineer what the operational and maintenance procedures require — in clear spoken B2 English.</p>
+    <p class="pill">90-minute class · balanced skills · "inoperative is not the same as no-go — the provisos decide"</p>
+  </section>
+
+  <!-- 2 · BY THE END -->
+  <section class="slide" data-notes="TIMING 3-6 min. Read the three can-do outcomes aloud and keep them visible. Frame them as the exit test: by the end each learner can interpret an MEL item, argue go or no-go, and state both procedures. Point at the right-hand plan and give the timing so the class can pace itself. Stress that the exercises mark themselves on the page, so nobody waits for the teacher to confirm an answer — that frees the room to work at its own speed while the teacher circulates.">
+    <div class="kick">By the end · how the 90 minutes runs</div>
+    <h2>Three outcomes — and a clear plan</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">Interpret</b> an MEL item's conditions, limitations and procedures.</p>
+        <p><b style="color:var(--purple)">Decide</b> whether an aircraft can dispatch under the MEL — go or no-go.</p>
+        <p><b style="color:var(--good)">State</b> the operational and maintenance procedures the item requires.</p>
+      </div>
+      <div>
+        <p class="muted">Warm-up 4′ · listening 18′ · vocabulary 14′ · grammar 12′ · exercises 20′ · role-plays 14′ · writing 8′.</p>
+        <p class="muted">The eight exercises self-mark on the page. Circulate, listen for the modal errors, and correct in the moment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SCENARIO -->
+  <section class="slide" data-center data-notes="TIMING 6-9 min. Set the situation to switch on prior knowledge. Ask the room: you are on stand, the crew wrote up a fault, the captain wants an answer — what do you do first? Draw out that you do NOT decide alone; you call the duty engineer and open the MEL together. Pre-teach only the four words on the slide (MEL, inoperative, dispatch, placard) — everything else is glossed later. Keep the register professional but plain: short sentences, clear turns. This primes the first listening.">
+    <div class="kick">§1 · the situation</div>
+    <h2>Night at the line station — can we go?</h2>
+    <p class="big">An A320 is on stand, ready to fly. The crew wrote up a fault in the technical log. One item is inoperative, and the turnaround clock is running.</p>
+    <p class="muted" style="max-width:64ch">You do not decide alone. You call the duty engineer, open the Minimum Equipment List, read the conditions, and agree the go or no-go. Then you fit the placard, defer the defect, and sign the release.</p>
+  </section>
+
+  <!-- 4 · VOCAB PREVIEW WIDGET -->
+  <section class="slide" data-notes="TIMING 9-13 min (part of vocabulary block). Use this reveal tool to pre-teach the eight core terms before the first listening, so the audio is not a wall of new words. Click a term; the plain-words gloss and a spoken example appear. Say each term, have the class repeat, and drill the stress: rec-ti-fi-CA-tion, in-OP-er-a-tive. Point out that MEL, MMEL, CDL and CRS are read as letters, not words. Do not over-explain — students meet every term again in the bank and the exercises.">
+    <div class="kick">§2 · Interactive · vocabulary preview</div>
+    <h2>Eight core terms before you listen</h2>
+    <div class="cols">
+      <div class="dw" data-widget="vocab"></div>
+      <div><p>Tap a term to see the plain-words meaning and hear it in a sentence.</p>
+        <p class="muted">Read the abbreviations as letters: MEL, MMEL, CDL, CRS. Drill the stress and move on — every term returns in the bank and the exercises.</p></div>
+    </div>
+  </section>
+
+  <!-- 5 · LISTEN D1 -->
+  <section class="slide" data-notes="TIMING 13-16 min. Play Dialogue 1 (one air-conditioning pack inoperative) TWICE from body.html. First play: books closed, listen for the gist — what is broken, can it go? Second play: set the three listening questions on the slide. Do not let the class read the transcript on the first pass. After the second play, take answers orally, then open the transcript to check. This dialogue introduces the whole go-with-provisos pattern: category C, ten days, altitude limitation FL310, placard, collar the breaker, defer, sign.">
+    <div class="kick">§3 · Listening · Dialogue 1</div>
+    <h2>One air-conditioning pack inoperative</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Listen twice. Books closed first.</b></p>
+        <p>1 · Which pack is inoperative, and what is the fault code?</p>
+        <p>2 · What repair category is it, and how many days?</p>
+        <p>3 · What is the altitude limitation, and what must you fit?</p>
+      </div>
+      <div><p class="muted">Play from the unit page (Dialogue 1). Answers: number two pack, flow-control valve fails to open; category C, ten calendar days; not above FL310, an "INOP" placard by the switch.</p></div>
+    </div>
+  </section>
+
+  <!-- 6 · ALTITUDE WIDGET -->
+  <section class="slide" data-notes="TIMING 16-19 min. Use this gauge to make the FL310 limitation physical. Drag the flight-level slider and let the aircraft climb. Above FL310 the panel turns red: a single pack cannot pressurise the cabin that high, so the crew MUST NOT climb above the limit. Tie it to the modal grammar directly: 'may dispatch' but 'must not climb above FL310'. Ask a student to say the whole sentence. This is the bridge from the listening into the grammar focus.">
+    <div class="kick">§3 · Interactive · rAF · the altitude limitation</div>
+    <h2>Why FL310 — a single-pack limitation</h2>
+    <div class="cols">
+      <div class="dw" data-widget="alt"></div>
+      <div><p>Drag the flight level. One pack can pressurise the cabin only up to FL310.</p>
+        <p class="muted">The aircraft <b>may</b> dispatch, but the crew <b>must not</b> climb above the limitation. Read the whole sentence aloud with the class.</p></div>
+    </div>
+  </section>
+
+  <!-- 7 · LISTEN D2 -->
+  <section class="slide" data-notes="TIMING 19-22 min. Play Dialogue 2 (weather radar inoperative on a 737, plus a missing static wick). Two teaching points. First, the MEL: single radar, no backup, category C, ten days, the proviso is to avoid known or forecast thunderstorms — that avoidance is the OPERATIONAL procedure. Second, the missing static wick is NOT an MEL item; a missing part goes to the Configuration Deviation List (CDL). The CDL allows dispatch with one wick missing, no placard, but note it in the tech log. This contrast — MEL for inoperative, CDL for missing — is exam-worthy.">
+    <div class="kick">§3 · Listening · Dialogue 2</div>
+    <h2>Weather radar inoperative — and a missing part</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Listen for two lists.</b></p>
+        <p>1 · What does the MEL require for the radar?</p>
+        <p>2 · Where does the missing static wick go — MEL or CDL?</p>
+        <p>3 · Which item needs a placard, and which does not?</p>
+      </div>
+      <div><p class="muted">Radar: avoid thunderstorms (the operational procedure), placard, defer. Static wick: Configuration Deviation List, no placard, but record it in the technical log.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · LISTEN D3 + monologue -->
+  <section class="slide" data-notes="TIMING 22-25 min. Play Dialogue 3 (APU will not start — is it a no-go item?). The key idea: 'inoperative' does not automatically mean 'no-go'. The MEL, built from the manufacturer's Master MEL, makes the APU a GO item IF a ground air source is available and the crew uses a cross-bleed or air-cart start. Category B, so three days. Then play the short shift-handover voicemail (the monologue): it recaps the pack deferral and models a clean handover. Use both as the source for the listening exercises E8 and the quiz listening items.">
+    <div class="kick">§3 · Listening · Dialogue 3 + handover</div>
+    <h2>APU inoperative — is it a no-go item?</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Decide before the engineer does.</b></p>
+        <p>1 · Is a failed APU automatically a no-go item?</p>
+        <p>2 · Which proviso turns it into a go item?</p>
+        <p>3 · How does the crew start the engines without the APU?</p>
+      </div>
+      <div><p class="muted">Not automatic; category B, three days. Go item if a ground air source is available; engine start by cross-bleed or air-cart. Then play the handover voicemail as a model recap.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · INTERVAL WIDGET -->
+  <section class="slide" data-notes="TIMING 25-29 min (vocabulary block). Use the countdown to fix the repair categories and their rectification intervals: A has no standard interval (a note sets it), B is three calendar days, C is ten calendar days, D is one hundred and twenty days. Click each category; the bar fills to the number of days and drains as a reminder that the clock is running from the moment of deferral. Link to the dialogues: the pack and the radar were C (ten days); the APU was B (three days). Have students say 'the rectification interval for a category B item is three calendar days'.">
+    <div class="kick">§2 · Interactive · rAF · repair categories</div>
+    <h2>Category → rectification interval</h2>
+    <div class="cols">
+      <div class="dw" data-widget="interval"></div>
+      <div><p>Pick a repair category. The bar shows how many calendar days you have to fix it.</p>
+        <p class="muted">B = 3 days (the APU). C = 10 days (the pack and the radar). The clock starts the moment you defer the defect.</p></div>
+    </div>
+  </section>
+
+  <!-- 10 · VOCAB BANK -->
+  <section class="slide" data-notes="TIMING 29-32 min. Consolidate the twenty-term bank. Do not read every row; group them so they stick: the documents (MEL, MMEL, CDL, technical log, CRS); the states (inoperative, serviceable, unserviceable); the MEL machinery (repair category, rectification interval, proviso, limitation, deferred defect, placard); the procedures (operational M/O and maintenance); the outcome (dispatch, go item, no-go item); the people and places (duty engineer, line station). Ask quick checks: which word is the LABEL you fit? which is the TIME LIMIT? which is the CONDITION you must meet? Then move straight into a matching drill.">
+    <div class="kick">§2 · vocabulary bank — MEL &amp; dispatch</div>
+    <h2>Twenty terms, in four families</h2>
+    <div class="grid2">
+      <div class="card"><b class="tag">documents</b><p style="font-size:16px">MEL · master MEL · configuration deviation list · technical log · certificate of release to service</p></div>
+      <div class="card"><b class="tag">states</b><p style="font-size:16px">inoperative · serviceable · unserviceable</p></div>
+      <div class="card"><b class="tag">MEL machinery</b><p style="font-size:16px">repair category · rectification interval · proviso · limitation · deferred defect · placard</p></div>
+      <div class="card"><b class="tag">procedures &amp; outcome</b><p style="font-size:16px">operational procedure · maintenance procedure · dispatch · go item · no-go item · duty engineer · line station</p></div>
+    </div>
+  </section>
+
+  <!-- 11 · VOCAB MATCH WIDGET -->
+  <section class="slide" data-notes="TIMING 32-36 min. Run this as a whole-class or pairs matching game before the individual exercises. Click a term, then click its meaning; a correct pair locks green, a wrong pair flashes and resets. Keep score. Target the tricky pairs students confuse: proviso vs limitation (a proviso is any condition to meet; a limitation is specifically a limit on the flight, such as a maximum altitude); MEL vs MMEL vs CDL; serviceable vs unserviceable. When the board is clear, send them to Exercises E1 and E2 on the unit page.">
+    <div class="kick">§2 · Interactive · match term to meaning</div>
+    <h2>Match the term to its meaning</h2>
+    <div class="cols">
+      <div class="dw" data-widget="match"></div>
+      <div><p>Click a term, then its meaning. Correct pairs lock; wrong pairs reset.</p>
+        <p class="muted">Watch the confusable pairs: proviso vs limitation, MEL vs CDL, serviceable vs unserviceable. Then run E1 and E2 on the page.</p></div>
+    </div>
+  </section>
+
+  <!-- 12 · GRAMMAR -->
+  <section class="slide" data-notes="TIMING 36-41 min. Teach the grammar in context: dispatch is decided by what is ALLOWED and what is POSSIBLE, so the unit lives on modals. Map the four functions on the slide to the calls: may/can = permission (may dispatch); could/may/might = possibility (the fault could be in the valve); must not/may not = prohibition (must not climb above FL310); will be able to = future ability (we will be able to fix it tomorrow). Drill the one hard rule: a modal takes the bare verb — 'may dispatch', never 'may to dispatch' — and modals do not stack — never 'will can'.">
+    <div class="kick">§4 · grammar in context · modals</div>
+    <h2>Permission &amp; possibility — the modals dispatch runs on</h2>
+    <table class="tbl">
+      <tr><th>Function</th><th>Modal</th><th>From the calls</th></tr>
+      <tr><td>Permission (allowed)</td><td><code>may / can</code></td><td>The aircraft <b>may</b> dispatch with one pack inoperative.</td></tr>
+      <tr><td>Possibility (maybe)</td><td><code>could / may / might</code></td><td>The fault <b>could</b> be in the valve.</td></tr>
+      <tr><td>Prohibition (not allowed)</td><td><code>must not / may not</code></td><td>The flight <b>must not</b> climb above FL310.</td></tr>
+      <tr><td>Future ability</td><td><code>will be able to</code></td><td>We <b>will be able to</b> fix it tomorrow.</td></tr>
+    </table>
+    <p class="muted" style="margin-top:10px">Rule: a modal takes the bare verb — <b>may dispatch</b>, never <em>may to dispatch</em> — and modals never stack (<em>will can</em> ✗).</p>
+  </section>
+
+  <!-- 13 · L1 INTERFERENCE -->
+  <section class="slide" data-notes="TIMING 41-45 min. Address the first-language interference head-on, because Latvian and Russian speakers make these three errors predictably. One: adding 'to' after a modal, because their equivalent verbs take an infinitive — 'may to dispatch'. Two: dropping 'the', because neither Latvian nor Russian has articles — 'aircraft can dispatch if crew follows procedure'. Three: stacking modals for the future — 'we will can sign' — because the future is often one word in the first language. Drill the corrected forms chorally; you will hear all three again in the role-plays, so correct them live.">
+    <div class="kick">§4 · Latvian &amp; Russian speakers — three traps</div>
+    <h2>Three mistakes to catch and correct</h2>
+    <table class="tbl">
+      <tr><th>Why it happens</th><th>Wrong</th><th>Right</th></tr>
+      <tr><td>The modal takes an infinitive in the first language.</td><td class="wrong">may to dispatch</td><td class="right">may dispatch</td></tr>
+      <tr><td>No articles in Latvian or Russian.</td><td class="wrong">Aircraft can dispatch if crew follows procedure.</td><td class="right">The aircraft can dispatch if the crew follows the procedure.</td></tr>
+      <tr><td>The future is one word, so modals get stacked.</td><td class="wrong">we will can sign</td><td class="right">we will be able to sign</td></tr>
+    </table>
+  </section>
+
+  <!-- 14 · GO/NO-GO WIDGET -->
+  <section class="slide" data-notes="TIMING 45-49 min. This decision widget makes the go/no-go logic explicit and gives the modal grammar a job. Toggle the three gates — is the item listed in the MEL, are all provisos met, is the placard fitted — and watch the token travel to GO or NO-GO. Narrate with modals: if the item is not listed, the aircraft MAY NOT dispatch; if a proviso is unmet, it MUST NOT go until it is met; only when all three are green MAY it dispatch. Use it to set up the role-plays, where students run the same logic out loud.">
+    <div class="kick">§5 · Interactive · rAF · the dispatch decision</div>
+    <h2>Go or no-go — walk the logic</h2>
+    <div class="cols">
+      <div class="dw" data-widget="decision"></div>
+      <div><p>Flip each gate and watch the decision. All three green → the aircraft <b>may</b> dispatch.</p>
+        <p class="muted">If a proviso is unmet, it <b>must not</b> go until it is met. Narrate each path with the right modal.</p></div>
+    </div>
+  </section>
+
+  <!-- 15 · EXERCISE STAGING -->
+  <section class="slide" data-notes="TIMING 49-59 min. Stage the eight self-checking exercises on the unit page. Set them in two waves so nobody stalls. Wave one, vocabulary and grammar: E1 gap-fill, E2 matching, E3 dialogue completion, E4 modal transformation. Wave two, reading and listening: E5 read the MEL item, E6 find and fix eight errors, E7 read the tech-log deferred-defect sheet, E8 replay Dialogue 3. Learners press Check and the page marks each item; they open Show answers only after trying. Circulate and target the modal-plus-'to' and missing-article errors you flagged earlier. Full answers with a one-line why are in the solutions file.">
+    <div class="kick">§6 · exercises · self-checking on the page</div>
+    <h2>Eight exercises, sixty-four items, two waves</h2>
+    <div class="grid2">
+      <div class="card"><b class="tag">wave 1 · words &amp; grammar</b>
+        <p style="font-size:16px">E1 gap-fill · E2 matching · E3 dialogue completion · E4 rewrite with a modal</p></div>
+      <div class="card"><b class="tag">wave 2 · reading &amp; listening</b>
+        <p style="font-size:16px">E5 read the MEL item · E6 find &amp; fix eight errors · E7 read the tech-log entry · E8 replay Dialogue 3</p></div>
+    </div>
+    <p class="muted" style="margin-top:10px">Press <b>Check</b> for instant marking. Open <b>Show answers</b> only after trying. Circulate and correct the modal and article errors live.</p>
+  </section>
+
+  <!-- 16 · READING GENRES -->
+  <section class="slide" data-notes="TIMING part of exercise block. Draw attention to the authentic documentation genres the reading exercises use, because reading real maintenance paperwork is a core skill. E5 is an MEL item entry: repair category, number installed and required, the lettered provisos (a)(b)(c), and the (M) and (O) procedure blocks. E7 is a technical-log deferred-defect sheet: aircraft registration, station, defect, MEL reference, interval and expiry, provisos met, both procedures, and the signed action line. Teach students to find the answer by scanning the labelled fields, not by reading top to bottom.">
+    <div class="kick">§6 · reading · real documentation genres</div>
+    <h2>Read the paperwork like a technician</h2>
+    <div class="cols">
+      <div class="card"><p><b>E5 · MEL item entry</b></p><p style="font-size:16px" class="muted">Repair category · number installed / required · lettered provisos (a)(b)(c) · (M) and (O) blocks.</p></div>
+      <div class="card"><p><b>E7 · tech-log deferred-defect sheet</b></p><p style="font-size:16px" class="muted">A/C reg · station · defect · MEL ref · interval &amp; expiry · provisos met · signed action line.</p></div>
+    </div>
+    <p class="muted" style="margin-top:10px">Scan the labelled fields for the answer. Do not read top to bottom — find the field.</p>
+  </section>
+
+  <!-- 17 · ROLE-PLAYS -->
+  <section class="slide" data-notes="TIMING 59-73 min. Run the four role-play cards in pairs — one technician, one duty engineer — and swap roles after each card. Card 1: a landing light inoperative on a night departure. Card 2: anti-skid unserviceable on a wet-runway day, go or no-go. Card 3: read one VHF radio MEL item together, line by line. Card 4: a shift handover of a deferred APU defect. Insist on short clear sentences and the useful phrases. Listen for the three interference errors and recast them softly. Point students to the AI-partner prompts on the page for solo practice. Score with the B2 speaking rubric in the teacher key.">
+    <div class="kick">§7 · speaking · four role-plays</div>
+    <h2>Hold the call — technician and duty engineer</h2>
+    <div class="grid2">
+      <div class="card"><b>Card 1</b><p style="font-size:16px" class="muted">Landing light inoperative, night departure — agree category, interval, placard.</p></div>
+      <div class="card"><b>Card 2</b><p style="font-size:16px" class="muted">Anti-skid unserviceable, wet runway — go or no-go, and why.</p></div>
+      <div class="card"><b>Card 3</b><p style="font-size:16px" class="muted">One VHF radio inoperative — read the MEL item together, list the conditions.</p></div>
+      <div class="card"><b>Card 4</b><p style="font-size:16px" class="muted">Shift handover — the item, the limitation, the expiry of the interval.</p></div>
+    </div>
+    <p class="muted" style="margin-top:8px">Swap roles each card. Recast the modal and article errors softly. Score with the B2 rubric in the key.</p>
+  </section>
+
+  <!-- 18 · WRITING -->
+  <section class="slide" data-notes="TIMING 73-83 min. Launch the writing task and start it in class. Learners write a deferred-defect entry for the technical log: VHF 2 inoperative on an A320, category C, ten days, the proviso that one VHF works and the crew is briefed. Teach the Simplified Technical English habits explicitly: short sentences under about twenty words, one instruction each, the active voice, approved words. Show the self-check list. A full annotated model answer is in the solutions file — reveal it only after they draft. Remind them to end with the certificate of release to service.">
+    <div class="kick">§8 · writing · Simplified Technical English</div>
+    <h2>Write a deferred-defect entry</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Task:</b> VHF 2 is inoperative on an A320. MEL category C, ten days. Proviso: one VHF works and the crew is briefed.</p>
+        <p style="font-size:16px" class="muted">State the defect, the MEL reference, the limitation, the placard, and both procedures. Finish with the release. 90–120 words.</p>
+      </div>
+      <div><p><b>STE habits:</b> short sentences (under ~20 words) · one instruction each · active voice · approved words.</p>
+        <p class="muted">Start it in class. The annotated model answer is in the solutions file — reveal it after they draft.</p></div>
+    </div>
+  </section>
+
+  <!-- 19 · WRAP-UP -->
+  <section class="slide" data-center data-notes="TIMING 83-90 min. Close the loop. Ask three quick exit questions to check the outcomes: what turns an inoperative item into a go item? (all provisos met) — what is the rectification interval for a category B item? (three calendar days) — say one sentence with 'may' and one with 'must not'. Set the follow-up: finish the writing task, run the AI-partner prompts for ten minutes of solo speaking, and take the unit quiz. Leave the slogan on the board: inoperative is not the same as no-go — the provisos decide.">
+    <div class="kick">§9 · wrap-up · exit ticket</div>
+    <h2>Three questions before you go</h2>
+    <p class="big">1 · What turns an inoperative item into a go item?<br>2 · How long is the rectification interval for a category B item?<br>3 · Say one sentence with <b>may</b> and one with <b>must not</b>.</p>
+    <p class="pill">Homework: finish the writing · ten minutes with the AI partner · take the unit quiz</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS · canvas + rAF) ===================== -->
+<script>
+(function(){
+  function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;}
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+  window.DeckW={};
+
+  /* ---- vocab preview (reveal) ---- */
+  DeckW.vocab=function(host){
+    var TERMS=[
+      ["MEL","Minimum Equipment List — the book that says which items may be broken and still let the aircraft fly.","Open the MEL before you decide."],
+      ["inoperative","not working","The number two pack is inoperative."],
+      ["dispatch","release the aircraft to fly","The aircraft may dispatch with one pack inoperative."],
+      ["placard","a small warning label fitted near a broken control","Fit an INOP placard next to the switch."],
+      ["proviso","a condition you must meet to dispatch","You may go only if you meet each proviso."],
+      ["rectification interval","the time limit to repair a deferred item","The rectification interval is ten calendar days."],
+      ["deferred defect","a fault the aircraft may fly with, repaired later","Raise the deferred defect in the tech log."],
+      ["no-go item","a fault that stops dispatch","Is a failed APU a no-go item?"]
+    ];
+    var w=el('div','wk');
+    var bar=el('div','bar');
+    TERMS.forEach(function(t,i){var b=el('button',null,t[0]);b.onclick=function(){sel(i);};bar.appendChild(b);});
+    w.appendChild(bar);
+    var info=el('div','info','<h4>Tap a term</h4><p class="muted" style="margin:0">The meaning and a spoken example appear here.</p>');
+    w.appendChild(info);host.appendChild(w);
+    function sel(i){[].forEach.call(bar.children,function(b,k){b.classList.toggle('on',k===i);});
+      var t=TERMS[i];info.innerHTML='<h4>'+t[0]+'</h4><p style="margin:0 0 4px">'+t[1]+'</p><p class="muted" style="margin:0">&ldquo;'+t[2]+'&rdquo;</p>';}
+    sel(0);
+  };
+
+  /* ---- altitude limitation gauge (canvas + rAF) ---- */
+  DeckW.alt=function(host){
+    var w=el('div','wk'),bar=el('div','bar');
+    var lab=el('span',null,'Flight level: <b id="flv" style="color:#7fd0ff">FL290</b>');lab.style.fontSize='14px';
+    var sl=document.createElement('input');sl.type='range';sl.min=200;sl.max=410;sl.step=5;sl.value=290;
+    bar.appendChild(lab);w.appendChild(bar);w.appendChild(sl);
+    var cv=document.createElement('canvas');cv.width=620;cv.height=250;w.appendChild(cv);
+    var info=el('div','info','');w.appendChild(info);host.appendChild(w);
+    var ctx=cv.getContext('2d'),W=cv.width,H=cv.height,disp=290;
+    function Y(fl){return H-20-((fl-200)/(410-200))*(H-40);}
+    function draw(){
+      var tgt=+sl.value,d=tgt-disp;if(Math.abs(d)>0.6)disp+=d*0.16;else disp=tgt;
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle='#0a0f18';ctx.fillRect(0,0,W,H);
+      // scale
+      ctx.strokeStyle='#26384e';ctx.fillStyle='#5a7089';ctx.font='11px monospace';ctx.textAlign='right';
+      [200,250,310,350,410].forEach(function(fl){var y=Y(fl);ctx.beginPath();ctx.moveTo(60,y);ctx.lineTo(W-16,y);ctx.stroke();ctx.fillText('FL'+fl,54,y+3);});
+      // limit line
+      var yl=Y(310);ctx.setLineDash([7,5]);ctx.strokeStyle='#fbbf24';ctx.beginPath();ctx.moveTo(60,yl);ctx.lineTo(W-16,yl);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='#fbbf24';ctx.textAlign='left';ctx.fillText('MEL limitation FL310',66,yl-6);
+      // aircraft
+      var y=Y(disp),over=disp>310.5;
+      ctx.fillStyle=over?'#ff5667':'#34d399';
+      ctx.beginPath();ctx.moveTo(W-60,y);ctx.lineTo(W-120,y-9);ctx.lineTo(W-108,y);ctx.lineTo(W-120,y+9);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#e9f0f7';ctx.textAlign='right';ctx.font='13px monospace';ctx.fillText('FL'+Math.round(disp),W-124,y-12);
+      document.getElementById('flv').textContent='FL'+tgt;
+      info.innerHTML=over
+        ? '<h4 class="no" style="color:#ff9aa2">MUST NOT climb above FL310</h4><p style="margin:0">A single pack cannot pressurise the cabin above the limitation.</p>'
+        : '<h4 style="color:#9af0c8">MAY dispatch — within the limitation</h4><p style="margin:0">One pack can hold the cabin up to FL310.</p>';
+      requestAnimationFrame(draw);
+    }
+    sl.addEventListener('input',function(){});requestAnimationFrame(draw);
+  };
+
+  /* ---- rectification interval (canvas + rAF) ---- */
+  DeckW.interval=function(host){
+    var CAT={A:[3,'A','a note in the MEL sets the interval'],B:[3,'B','3 calendar days'],C:[10,'C','10 calendar days'],D:[120,'D','120 calendar days']};
+    var order=['A','B','C','D'],cur='C';
+    var w=el('div','wk'),bar=el('div','bar');
+    order.forEach(function(k){var b=el('button',null,'Category '+k);b.onclick=function(){pick(k);};bar.appendChild(b);});
+    w.appendChild(bar);
+    var cv=document.createElement('canvas');cv.width=620;cv.height=120;w.appendChild(cv);
+    var info=el('div','info','');w.appendChild(info);host.appendChild(w);
+    var ctx=cv.getContext('2d'),W=cv.width,H=cv.height,disp=0,tgt=1;
+    function pick(k){cur=k;[].forEach.call(bar.children,function(b,i){b.classList.toggle('on',order[i]===k);});
+      tgt=CAT[k][0]/120;
+      var d=CAT[k][0];
+      info.innerHTML='<h4>Category '+k+'</h4><p style="margin:0">Rectification interval: <b>'+(k==='A'?'set by a note':d+' calendar days')+'</b>. '+(k==='B'?'The APU item in the calls.':k==='C'?'The pack and the radar in the calls.':'')+'</p>';}
+    function draw(){var d=tgt-disp;if(Math.abs(d)>0.004)disp+=d*0.12;else disp=tgt;
+      ctx.clearRect(0,0,W,H);ctx.fillStyle='#0a0f18';ctx.fillRect(0,0,W,H);
+      var x=30,y=44,bw=W-60,bh=30;
+      ctx.strokeStyle='#26384e';ctx.strokeRect(x,y,bw,bh);
+      var g=ctx.createLinearGradient(x,0,x+bw,0);g.addColorStop(0,'#38b6ff');g.addColorStop(1,'#a78bfa');
+      ctx.fillStyle=g;ctx.fillRect(x,y,bw*disp,bh);
+      ctx.fillStyle='#7e98ad';ctx.font='11px monospace';ctx.textAlign='left';
+      [0,3,10,30,120].forEach(function(dd){var px=x+bw*(dd/120);ctx.fillText(dd+'d',px-6,y+bh+16);});
+      ctx.fillStyle='#e9f0f7';ctx.font='13px monospace';ctx.fillText('Category '+cur+' — '+CAT[cur][2],x,y-10);
+      requestAnimationFrame(draw);}
+    pick('C');requestAnimationFrame(draw);
+  };
+
+  /* ---- vocab matching game ---- */
+  DeckW.match=function(host){
+    var PAIRS=[
+      ["proviso","a condition you must meet to dispatch"],
+      ["limitation","a limit on the flight, such as a maximum altitude"],
+      ["placard","a warning label fitted near a broken control"],
+      ["deferred defect","a fault the aircraft may fly with, repaired later"],
+      ["no-go item","a fault that stops dispatch"],
+      ["serviceable","working and fit for use"]
+    ];
+    var terms=PAIRS.map(function(p,i){return{t:p[0],i:i};});
+    var means=PAIRS.map(function(p,i){return{m:p[1],i:i};});
+    // deterministic shuffle (no Math.random)
+    means=means.slice().reverse();terms=[terms[2],terms[0],terms[4],terms[1],terms[5],terms[3]];
+    var w=el('div','wk');var grid=el('div',null,'');grid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:8px';
+    var colL=el('div',null,''),colR=el('div',null,'');colL.style.display='grid';colL.style.gap='6px';colR.style.display='grid';colR.style.gap='6px';
+    var selT=null,done=0;
+    function mk(txt,key,idx){var b=el('button',null,txt);b.style.textAlign='left';b.style.whiteSpace='normal';b.dataset.key=key;b.dataset.idx=idx;return b;}
+    terms.forEach(function(o){var b=mk(o.t,'t',o.i);b.onclick=function(){pickT(b);};colL.appendChild(b);});
+    means.forEach(function(o){var b=mk(o.m,'m',o.i);b.onclick=function(){pickM(b);};colR.appendChild(b);});
+    grid.appendChild(colL);grid.appendChild(colR);w.appendChild(grid);
+    var info=el('div','info','<h4>Click a term, then its meaning</h4><p class="muted" style="margin:0">Correct pairs lock green.</p>');w.appendChild(info);host.appendChild(w);
+    function pickT(b){if(b.disabled)return;if(selT)selT.classList.remove('on');selT=b;b.classList.add('on');}
+    function pickM(b){if(b.disabled||!selT)return;
+      if(b.dataset.idx===selT.dataset.idx){b.disabled=selT.disabled=true;b.style.borderColor='#34d399';selT.style.borderColor='#34d399';b.classList.remove('on');selT.classList.remove('on');selT=null;done++;
+        info.innerHTML='<h4 style="color:#9af0c8">Matched — '+done+' / '+PAIRS.length+'</h4><p class="muted" style="margin:0">'+(done===PAIRS.length?'All matched. Send them to E1 and E2.':'Keep going.')+'</p>';}
+      else{b.style.borderColor='#ff5667';var bb=b;setTimeout(function(){bb.style.borderColor='';},400);
+        info.innerHTML='<h4 style="color:#ff9aa2">Not that one</h4><p class="muted" style="margin:0">Try again — think about the difference.</p>';}
+    }
+  };
+
+  /* ---- go / no-go decision (canvas + rAF) ---- */
+  DeckW.decision=function(host){
+    var gates=[{k:'listed',on:true,t:'Item listed in the MEL'},{k:'provisos',on:true,t:'All provisos met'},{k:'placard',on:true,t:'Placard fitted & defect deferred'}];
+    var w=el('div','wk'),bar=el('div','bar');
+    gates.forEach(function(g,i){var b=el('button','on',g.t);b.onclick=function(){g.on=!g.on;b.classList.toggle('on',g.on);};bar.appendChild(b);});
+    w.appendChild(bar);
+    var cv=document.createElement('canvas');cv.width=620;cv.height=150;w.appendChild(cv);
+    var info=el('div','info','');w.appendChild(info);host.appendChild(w);
+    var ctx=cv.getContext('2d'),W=cv.width,H=cv.height,t=0;
+    function draw(){t+=0.03;ctx.clearRect(0,0,W,H);ctx.fillStyle='#0a0f18';ctx.fillRect(0,0,W,H);
+      var go=gates.every(function(g){return g.on;});
+      var xs=[40,190,340,490,W-40],y=H/2;
+      for(var i=0;i<gates.length;i++){var pass=gates[i].on;
+        ctx.strokeStyle='#26384e';ctx.beginPath();ctx.moveTo(xs[i],y);ctx.lineTo(xs[i+1],y);ctx.stroke();
+        ctx.fillStyle=pass?'#34d399':'#ff5667';ctx.beginPath();ctx.arc(xs[i],y,11,0,7);ctx.fill();
+        ctx.fillStyle='#9db0c6';ctx.font='11px monospace';ctx.textAlign='center';ctx.fillText(gates[i].k,xs[i],y-20);
+      }
+      // endpoint
+      ctx.fillStyle=go?'#34d399':'#ff5667';ctx.beginPath();ctx.arc(xs[4],y,14,0,7);ctx.fill();
+      // moving token if go
+      if(go){var f=(t%1),px=xs[0]+(xs[4]-xs[0])*f;ctx.fillStyle='#fbbf24';ctx.beginPath();ctx.arc(px,y,6,0,7);ctx.fill();}
+      ctx.fillStyle='#e9f0f7';ctx.font='bold 15px monospace';ctx.textAlign='center';ctx.fillText(go?'GO':'NO-GO',xs[4],y+34);
+      info.innerHTML=go
+        ? '<h4 style="color:#9af0c8">The aircraft MAY dispatch</h4><p style="margin:0">Every gate is green — all provisos met, placard on, defect deferred.</p>'
+        : '<h4 style="color:#ff9aa2">The aircraft MUST NOT dispatch yet</h4><p style="margin:0">A gate is open. Fix it first, then the aircraft may go.</p>';
+      requestAnimationFrame(draw);}
+    requestAnimationFrame(draw);
+  };
+  window.DeckWReady=true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u15_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u15_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();presenter.document.write(PRES_HTML);presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 15</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:24px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:20px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">&lsaquo; Prev</button><button onclick="post(1)">Next &rsaquo;</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u15_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u15_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u15_deck_state")render();});',
+'render();',
+'<\/script></body></html>'
+].join('');
+window.addEventListener('storage',function(e){
+  if(e.key==='u15_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════ LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle. Toggle: CC button or "L" key. ════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-src{ display:none; font-family:system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:monospace; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:monospace; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src" id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn" id="lctBtn" title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+  </select>
+</div>
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'),lineTop=document.getElementById('lctLineTop'),lineBot=document.getElementById('lctLineBot');
+  var srcEl=document.getElementById('lctSrc'),btn=document.getElementById('lctBtn'),gear=document.getElementById('lctGear');
+  var status=document.getElementById('lctStatus'),langBar=document.getElementById('lctLangBar');
+  var srcSel=document.getElementById('lctSrcSel'),tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var spoken='en-US',src='en',target='lv',rec=null,active=false;
+  var capTop='',capBot='',lastInterim='',pending='',finalTimer=null,silenceTimer=null;
+  var lastTrAt=0,lastTrText='',lastTrLen=0,netErrors=0,cache=new Map(),POLL_GAP_MS=700;
+  function setStatus(t){status.textContent=t;status.classList.toggle('show',active||t==='mic blocked'||t==='use Chrome');}
+  function tail(text,mx){if(!text)return'';var t=String(text).trim().replace(/\s+/g,' ');var p=t.split(' ');return p.length<=mx?t:p.slice(-mx).join(' ');}
+  async function translateRemote(text){try{if(src===target)return text;
+    var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text);
+    var ctrl=new AbortController(),tmo=setTimeout(function(){ctrl.abort();},3000);
+    var r=await fetch(url,{signal:ctrl.signal});clearTimeout(tmo);if(!r.ok)return null;var j=await r.json();
+    if(Array.isArray(j)&&Array.isArray(j[0])){var out='';j[0].forEach(function(s){if(s&&s[0])out+=s[0];});return out||null;}return null;
+  }catch(e){return null;}}
+  async function translate(text){if(!text||!text.trim())return'';var key=src+'|'+target+'|'+text.trim().toLowerCase();
+    if(cache.has(key))return cache.get(key);var out=await translateRemote(text);if(!out)out=text;cache.set(key,out);
+    if(cache.size>250)cache.delete(cache.keys().next().value);return out;}
+  function cap(){var el=lineBot,box=(el&&el.parentElement&&el.parentElement.clientWidth)||900,fs=parseFloat(getComputedStyle(el).fontSize)||26;return Math.max(16,Math.floor(box/(fs*0.52)));}
+  function trim(t){t=(t||'').replace(/\s+/g,' ').trim();var c=cap();if(t.length<=c)return t;var s=t.slice(t.length-c),i=s.indexOf(' ');return i>0?s.slice(i+1):s;}
+  function draw(){var iv=(lastInterim||'').replace(/\s+/g,' ').trim(),c=cap();
+    if(capBot&&(capBot.length+(iv?iv.length+1:0))>c){capTop=capBot;capBot='';}
+    lineTop.textContent=trim(capTop);lineBot.textContent=trim((capBot+(capBot&&iv?' ':'')+iv).trim());srcEl.textContent=tail(pending||'',16);}
+  function commit(tr){tr=(tr||'').replace(/\s+/g,' ').trim();if(!tr)return;capBot=capBot?(capBot+' '+tr):tr;
+    var c=cap();while(capBot.length>c){var h=capBot.slice(0,c),sp=h.lastIndexOf(' '),cut=sp>0?sp:c;capTop=capBot.slice(0,cut).trim();capBot=capBot.slice(cut).trim();}draw();}
+  function armSilence(){cancelSilence();silenceTimer=setTimeout(function(){capTop='';capBot='';lastInterim='';pending='';draw();},30000);}
+  function cancelSilence(){if(silenceTimer){clearTimeout(silenceTimer);silenceTimer=null;}}
+  async function commitFinal(chunk){chunk=chunk.trim();if(!chunk)return;srcEl.textContent=tail(chunk,18);var tr=await translate(chunk);commit(tr);lastInterim='';lastTrLen=0;draw();}
+  async function translateInterim(text){var now=performance.now();if(now-lastTrAt<POLL_GAP_MS)return;
+    if(text.length-lastTrLen<10&&text.length>0)return;if(text===lastTrText)return;lastTrAt=now;lastTrLen=text.length;lastTrText=text;
+    try{var tr=await translate(text);if(tr&&active){lastInterim=tr;draw();}}catch(e){}}
+  function startRec(){rec=new SR();rec.continuous=true;rec.interimResults=true;rec.lang=spoken;
+    rec.onresult=function(e){netErrors=0;cancelSilence();var interim='',fin='';
+      for(var i=e.resultIndex;i<e.results.length;i++){var r=e.results[i];if(r.isFinal)fin+=' '+r[0].transcript;else interim+=' '+r[0].transcript;}
+      if(fin){pending+=' '+fin;if(finalTimer)clearTimeout(finalTimer);finalTimer=setTimeout(function(){var c=pending;pending='';commitFinal(c).then(armSilence);},120);}
+      if(interim){srcEl.textContent=tail(interim.trim(),18);translateInterim(interim.trim());}draw();setStatus('live · '+src+'→'+target);};
+    rec.onerror=function(ev){if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){setStatus('mic blocked');btn.classList.add('err');active=false;}
+      else if(ev.error==='network'){netErrors++;if(netErrors>=3){active=false;btn.classList.remove('on');btn.classList.add('err');setStatus('offline');}else setStatus('reconnect '+netErrors+'/3');}
+      else if(ev.error!=='no-speech'&&ev.error!=='aborted')setStatus(ev.error);};
+    rec.onend=function(){if(active){try{rec.start();}catch(e){setTimeout(function(){if(active&&rec){try{rec.start();}catch(_){}}},350);}}};
+    try{rec.start();}catch(e){}}
+  function toggle(){if(!SR){setStatus('use Chrome');btn.classList.add('err');return;}
+    if(active){active=false;btn.classList.remove('on');bar.classList.remove('on');setStatus('off');if(rec){try{rec.onend=null;rec.stop();}catch(e){}rec=null;}capTop='';capBot='';lastInterim='';pending='';draw();}
+    else{active=true;btn.classList.add('on');btn.classList.remove('err');bar.classList.add('on');setStatus('starting…');startRec();}}
+  btn.addEventListener('click',function(e){e.stopPropagation();toggle();});
+  gear.addEventListener('click',function(e){e.stopPropagation();var o=langBar.classList.toggle('open');gear.classList.toggle('on',o);});
+  document.addEventListener('keydown',function(e){if((e.key==='l'||e.key==='L')&&!/^(input|textarea|select)$/i.test((e.target.tagName||'')))toggle();});
+  srcSel.addEventListener('change',function(e){e.stopPropagation();spoken=srcSel.value;src=spoken.slice(0,2);cache.clear();
+    if(active&&rec){rec.onend=null;try{rec.stop();}catch(_){}rec=null;startRec();}if(active)setStatus('live · '+src+'→'+target);});
+  tgtSel.addEventListener('change',function(e){e.stopPropagation();target=tgtSel.value;cache.clear();capTop='';capBot='';lastInterim='';lastTrText='';lastTrLen=0;draw();if(active)setStatus('live · '+src+'→'+target);});
+  [srcSel,tgtSel].forEach(function(s){s.addEventListener('click',function(e){e.stopPropagation();});});
+})();
+</script>
+<script>(function(){try{
+  var KEY='u15CapScale',root=document.documentElement;
+  function apply(v){root.style.setProperty('--cap-scale',v);}
+  var saved=parseFloat(localStorage.getItem(KEY))||1;saved=Math.max(0.6,Math.min(1.9,saved));apply(saved);
+  var st=document.createElement('style');st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}';document.head.appendChild(st);
+  function mount(){var lb=document.getElementById('lctLangBar');if(!lb||lb.querySelector('.cap-fs-slider'))return;
+    var w=document.createElement('span');w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w);var sl=w.querySelector('.cap-fs-slider');sl.value=saved;
+    var stop=function(e){e.stopPropagation();};
+    sl.addEventListener('input',function(){var v=parseFloat(sl.value)||1;apply(v);try{localStorage.setItem(KEY,v);}catch(e){}});
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){sl.addEventListener(ev,stop);});}
+  if(document.readyState!=='loading')mount();else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 15 — Solutions · MEL dispatch with the duty engineer</title>
+<style>
+:root{--navy:#0f2942;--brand:#2F5496;--amber:#e0a53d;--ink:#1b2733;--ink-2:#5a6b7d;--line:#e2e6ec;--paper:#fbfaf7;--card:#fff;--ok:#2e9e6b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 'Inter','Segoe UI',system-ui,sans-serif}
+main{max-width:900px;margin:0 auto;padding:0 24px 80px}
+.mast{background:linear-gradient(135deg,#0f2942,#2F5496 70%);color:#fff;padding:38px 24px;margin-bottom:26px}
+.mast .in{max-width:900px;margin:0 auto}
+.mast .eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:12px;font-weight:700;opacity:.85}
+.mast h1{font-family:Georgia,serif;font-size:32px;margin:8px 0 6px}
+.mast p{margin:0;opacity:.92;font-size:15px}
+.gate{background:#fdf3e0;border:1px solid #f0dcb0;border-left:5px solid var(--amber);border-radius:10px;padding:12px 18px;margin:18px 0;font-size:14.5px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 28px;margin:20px 0;box-shadow:0 6px 22px rgba(16,32,54,.06)}
+h2{font-family:Georgia,serif;color:var(--navy);font-size:23px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:5px;height:22px;border-radius:3px;background:var(--amber)}
+h2 small{font-weight:400;color:var(--ink-2);font-size:14px;font-family:'Inter',sans-serif}
+h3{color:var(--navy);font-size:17px;margin:20px 0 8px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+th,td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:#f1f5fa;color:var(--navy);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em}
+td.n{font-weight:700;color:var(--brand);width:34px;white-space:nowrap}
+td.a{font-weight:600;color:var(--navy);white-space:nowrap}
+td.why{color:var(--ink-2)}
+code{background:#eef2f7;border:1px solid #dbe3ee;border-radius:5px;padding:1px 6px;font-family:Consolas,monospace;font-size:13.5px}
+.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:16px 20px;margin-top:12px}
+.model p{margin:6px 0}
+.ann{border-left:3px solid var(--ok);background:#f2fbf6;padding:8px 14px;margin:10px 0;font-size:14px;color:#245c43}
+.tag{display:inline-block;background:var(--brand);color:#fff;font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px;font-family:Consolas,monospace;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="mast"><div class="in">
+  <p class="eyebrow">English for Aviation Maintenance · Unit 15 · CEFR B2</p>
+  <h1>Solutions — E1 to E8, with the writing model</h1>
+  <p>Full model answers with a one-line reason for each. MEL dispatch conversation with the duty engineer.</p>
+</div></div>
+<main>
+
+<div class="gate">This file is for the teacher. It holds complete answers, so keep it out of the learner view until each exercise is attempted. Every answer carries a short <b>why</b> so the reason can be stated aloud on the spot.</div>
+
+<section id="e1">
+  <h2><span class="tag">E1</span> Gap-fill — put the right term in each gap <small>10 items</small></h2>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a">inoperative</td><td class="why">The pack is not working — the plain-word state that starts every write-up.</td></tr>
+    <tr><td class="n">2</td><td class="a">dispatch</td><td class="why">To release the aircraft to fly; the permission the MEL grants.</td></tr>
+    <tr><td class="n">3</td><td class="a">rectification interval</td><td class="why">The time limit to fix a deferred item; a category C item gives ten days.</td></tr>
+    <tr><td class="n">4</td><td class="a">placard</td><td class="why">The small "INOP" warning label fitted next to the broken control.</td></tr>
+    <tr><td class="n">5</td><td class="a">deferred defect</td><td class="why">A fault you fly with and repair later; it is raised in the tech log.</td></tr>
+    <tr><td class="n">6</td><td class="a">minimum equipment list</td><td class="why">The book you open to decide whether the item lets the aircraft fly.</td></tr>
+    <tr><td class="n">7</td><td class="a">proviso</td><td class="why">A condition you must meet before you may dispatch.</td></tr>
+    <tr><td class="n">8</td><td class="a">limitation</td><td class="why">A limit the MEL places on the flight, here on the flight level.</td></tr>
+    <tr><td class="n">9</td><td class="a">serviceable</td><td class="why">Fit for use; the aircraft's state once the item is placarded and deferred.</td></tr>
+    <tr><td class="n">10</td><td class="a">unserviceable</td><td class="why">Not fit for use — the opposite of serviceable.</td></tr>
+  </table>
+</section>
+
+<section id="e2">
+  <h2><span class="tag">E2</span> Matching — term to meaning <small>10 items</small></h2>
+  <table>
+    <tr><th>#</th><th>Term → answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a">technical log → the aircraft's running record of faults and actions</td><td class="why">The book that travels with the aircraft; every defect and action goes in it.</td></tr>
+    <tr><td class="n">2</td><td class="a">certificate of release to service → the signed statement that the aircraft is safe to fly</td><td class="why">The CRS; signed only after the placard and both procedures are complete.</td></tr>
+    <tr><td class="n">3</td><td class="a">repair category → the class (A, B, C, D) that sets the interval</td><td class="why">The category is what fixes how many days you have.</td></tr>
+    <tr><td class="n">4</td><td class="a">operational procedure → the action the crew must take in flight</td><td class="why">Marked "O" in the MEL; for the radar it was avoiding thunderstorms.</td></tr>
+    <tr><td class="n">5</td><td class="a">maintenance procedure → the action the technician must take</td><td class="why">Marked "M"; for the pack it was collaring the breaker.</td></tr>
+    <tr><td class="n">6</td><td class="a">configuration deviation list → the list for missing parts on the airframe</td><td class="why">The CDL covers a missing part (a wick, a panel), not an inoperative system.</td></tr>
+    <tr><td class="n">7</td><td class="a">no-go item → a fault that stops dispatch</td><td class="why">An item that is not in the MEL, or whose provisos cannot be met.</td></tr>
+    <tr><td class="n">8</td><td class="a">line station → an airport where aircraft are turned round</td><td class="why">Where line maintenance happens between flights.</td></tr>
+    <tr><td class="n">9</td><td class="a">duty engineer → the on-call engineer who makes the dispatch call</td><td class="why">The certifying engineer the technician phones for the decision.</td></tr>
+    <tr><td class="n">10</td><td class="a">master minimum equipment list → the manufacturer's base list the MEL is built from</td><td class="why">The MMEL is the source; the operator's MEL may be equal or more restrictive.</td></tr>
+  </table>
+</section>
+
+<section id="e3">
+  <h2><span class="tag">E3</span> Dialogue completion — the duty-engineer call <small>8 items</small></h2>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a">minimum equipment list</td><td class="why">You open the MEL first to see whether the item lets the aircraft fly.</td></tr>
+    <tr><td class="n">2</td><td class="a">repair category</td><td class="why">The category (here C) is read next; it decides the interval.</td></tr>
+    <tr><td class="n">3</td><td class="a">rectification interval</td><td class="why">Ten calendar days follows directly from category C.</td></tr>
+    <tr><td class="n">4</td><td class="a">proviso</td><td class="why">Permission is granted only if each condition is met.</td></tr>
+    <tr><td class="n">5</td><td class="a">placard</td><td class="why">The first condition is the "INOP" label on the switch.</td></tr>
+    <tr><td class="n">6</td><td class="a">deferred defect</td><td class="why">The fault is then raised in the tech log to fly with and fix later.</td></tr>
+    <tr><td class="n">7</td><td class="a">operational procedure</td><td class="why">The crew's in-flight action; here the night-flying action.</td></tr>
+    <tr><td class="n">8</td><td class="a">certificate of release to service</td><td class="why">The signature that closes the job and clears the aircraft.</td></tr>
+  </table>
+</section>
+
+<section id="e4">
+  <h2><span class="tag">E4</span> Grammar transformation — rewrite with a modal <small>8 items</small></h2>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a">must not</td><td class="why">"Not permitted" = a firm prohibition → <code>must not</code> + bare verb.</td></tr>
+    <tr><td class="n">2</td><td class="a">could (or may / might)</td><td class="why">"It is possible" = possibility, not certainty → <code>could / may / might</code>.</td></tr>
+    <tr><td class="n">3</td><td class="a">may (or can)</td><td class="why">"Is allowed to" = permission → <code>may / can</code>, no "to".</td></tr>
+    <tr><td class="n">4</td><td class="a">can</td><td class="why">"Are able to" now = present ability → <code>can</code>.</td></tr>
+    <tr><td class="n">5</td><td class="a">will be able to</td><td class="why">Future ability cannot be "will can"; use <code>will be able to</code>.</td></tr>
+    <tr><td class="n">6</td><td class="a">must not</td><td class="why">"Not allowed" = prohibition → <code>must not</code> run.</td></tr>
+    <tr><td class="n">7</td><td class="a">May (or Can)</td><td class="why">A permission question fronts the modal: <code>May the aircraft…?</code></td></tr>
+    <tr><td class="n">8</td><td class="a">must not</td><td class="why">"Forbidden" = the strongest prohibition → <code>must not</code> remove.</td></tr>
+  </table>
+</section>
+
+<section id="e5">
+  <h2><span class="tag">E5</span> Reading 1 — the MEL item entry <small>6 items</small></h2>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a">ten calendar days</td><td class="why">The entry states repair category C with a ten-day interval.</td></tr>
+    <tr><td class="n">2</td><td class="a">one</td><td class="why">Number installed 2, number required for dispatch 1.</td></tr>
+    <tr><td class="n">3</td><td class="a">not above FL310</td><td class="why">Proviso (b): the flight level must not exceed FL310.</td></tr>
+    <tr><td class="n">4</td><td class="a">placard (an "INOP" placard)</td><td class="why">Proviso (c): the pack control switch is placarded "INOP".</td></tr>
+    <tr><td class="n">5</td><td class="a">technical log</td><td class="why">The (M) block raises the deferred defect in the tech log.</td></tr>
+    <tr><td class="n">6</td><td class="a">after the placard and both procedures are done</td><td class="why">The entry allows the release only once placard and (M)+(O) are complete.</td></tr>
+  </table>
+</section>
+
+<section id="e6">
+  <h2><span class="tag">E6</span> Error-spotting — find and fix eight errors <small>8 items</small></h2>
+  <table>
+    <tr><th>#</th><th>Correction</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a">may dispatch</td><td class="why">A modal takes the bare verb — no "to" after <code>may</code>.</td></tr>
+    <tr><td class="n">2</td><td class="a">the crew</td><td class="why">English needs the article; "crew" here is a specific, known crew.</td></tr>
+    <tr><td class="n">3</td><td class="a">must not (climb)</td><td class="why">A firm prohibition is <code>must not</code>; "can not" is too weak for a rule.</td></tr>
+    <tr><td class="n">4</td><td class="a">placard</td><td class="why">"Placate" is the wrong word; the label is a <code>placard</code>.</td></tr>
+    <tr><td class="n">5</td><td class="a">will be able to</td><td class="why">No double modal — "will can" is impossible; use <code>will be able to</code>.</td></tr>
+    <tr><td class="n">6</td><td class="a">three (days)</td><td class="why">Category B, not C, so the interval is three calendar days.</td></tr>
+    <tr><td class="n">7</td><td class="a">deferred defect</td><td class="why">The fixed noun phrase is <code>deferred defect</code>, not "defer defect".</td></tr>
+    <tr><td class="n">8</td><td class="a">the placard</td><td class="why">Add the article: "once <code>the placard</code> is on".</td></tr>
+  </table>
+</section>
+
+<section id="e7">
+  <h2><span class="tag">E7</span> Reading 2 — the tech-log deferred-defect sheet <small>6 items</small></h2>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a">the APU fails to start</td><td class="why">The defect line records three start attempts and no light-up.</td></tr>
+    <tr><td class="n">2</td><td class="a">B</td><td class="why">The MEL ref line gives repair category B.</td></tr>
+    <tr><td class="n">3</td><td class="a">11 AUG</td><td class="why">Raised 08 AUG, category B = 3 days, so expiry is 11 AUG.</td></tr>
+    <tr><td class="n">4</td><td class="a">a ground air source is available</td><td class="why">The met proviso that turns the item into a go item.</td></tr>
+    <tr><td class="n">5</td><td class="a">APU MASTER switch</td><td class="why">The (M) block places the "INOP" placard on the APU MASTER switch.</td></tr>
+    <tr><td class="n">6</td><td class="a">the duty engineer</td><td class="why">The action line is signed by duty engineer R. Ozols.</td></tr>
+  </table>
+</section>
+
+<section id="e8">
+  <h2><span class="tag">E8</span> Listening review — replay Dialogue 3 (APU) <small>8 items</small></h2>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a">the APU</td><td class="why">Toms reports the APU will not start after three attempts.</td></tr>
+    <tr><td class="n">2</td><td class="a">no</td><td class="why">The engineer says it is not automatically a no-go item.</td></tr>
+    <tr><td class="n">3</td><td class="a">master minimum equipment list</td><td class="why">The operator's MEL is based on the manufacturer's MMEL.</td></tr>
+    <tr><td class="n">4</td><td class="a">B</td><td class="why">The APU item is repair category B.</td></tr>
+    <tr><td class="n">5</td><td class="a">three calendar days</td><td class="why">Category B gives a three-day rectification interval.</td></tr>
+    <tr><td class="n">6</td><td class="a">a ground air source (a ground cart)</td><td class="why">The proviso: a ground air source at each line station on the route.</td></tr>
+    <tr><td class="n">7</td><td class="a">a cross-bleed or air start from the cart</td><td class="why">Without the APU bleed air, the crew uses cross-bleed or the air cart.</td></tr>
+    <tr><td class="n">8</td><td class="a">once the placard is on and the tech log is complete</td><td class="why">The release waits on the placard and a complete tech-log entry.</td></tr>
+  </table>
+</section>
+
+<section id="writing">
+  <h2><span class="tag">WRITE</span> Model answer — deferred-defect entry (VHF 2) <small>annotated</small></h2>
+  <p>Task: VHF 2 inoperative on an A320; MEL category C (ten days); proviso that one VHF works and the crew is briefed. Write 90–120 words in Simplified Technical English.</p>
+  <div class="model">
+    <p><b>DEFERRED DEFECT — VHF 2 INOPERATIVE</b></p>
+    <p>Defect: VHF 2 is inoperative. VHF 1 is serviceable.</p>
+    <p>MEL reference: 23-12-02, repair category C. Rectification interval: 10 calendar days.</p>
+    <p>Proviso: one VHF radio must work. The crew must use VHF 1.</p>
+    <p>Limitation: none on the route. Placard: fit "INOP" on the VHF 2 control.</p>
+    <p>(M) Maintenance procedure: deactivate VHF 2. Raise the deferred defect in the technical log.</p>
+    <p>(O) Operational procedure: brief the crew. The crew must use VHF 1 for all calls.</p>
+    <p>Release: sign the certificate of release to service after the placard is on.</p>
+  </div>
+  <div class="ann"><b>Why it scores well — STE and MEL discipline.</b></div>
+  <table>
+    <tr><th>Feature</th><th>Where</th><th>Why it earns marks</th></tr>
+    <tr><td class="a">Short sentences</td><td>throughout</td><td>Every sentence is under about twenty words and carries one idea — a core STE rule.</td></tr>
+    <tr><td class="a">Active voice</td><td>"Fit…", "Deactivate…", "Brief the crew."</td><td>Instructions are direct commands, not passive "the crew should be briefed".</td></tr>
+    <tr><td class="a">Correct MEL terms</td><td>proviso · limitation · placard · deferred defect · rectification interval</td><td>Each bank term is used in its exact technical sense.</td></tr>
+    <tr><td class="a">Both procedures</td><td>(M) and (O) blocks</td><td>The maintenance action and the crew action are separated, as in a real entry.</td></tr>
+    <tr><td class="a">Modal accuracy</td><td>"one VHF radio <b>must</b> work", "The crew <b>must</b> use VHF 1"</td><td>Prohibition and requirement use <code>must</code> with the bare verb — no "to", no double modal.</td></tr>
+    <tr><td class="a">Ends with the release</td><td>final line</td><td>The entry closes with the certificate of release to service, the required last step.</td></tr>
+  </table>
+  <div class="ann"><b>Common learner slips to flag:</b> "VHF 2 <span style="text-decoration:line-through">may to be</span> deactivate" → <b>must be deactivated</b>; a missing article ("crew must use VHF 1" → "<b>the</b> crew"); and long, stacked sentences that break the one-idea STE rule.</div>
+</section>
+
+</main>
+</body>
+</html>
