@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English for Aviation Maintenance · Unit 18 — Teacher Deck · Reporting inspection findings</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--steel:#7fd0ff;
+  --mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:21px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:27px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.card p,.card li{font-size:18px}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:680px;margin:8px auto 0}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk button.good{color:#9af0c8}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:5px 9px;font-size:14px}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:58px;font-size:15px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.chip{display:inline-block;font-family:var(--mono);font-size:14px;background:#16263a;color:#cfe5ff;border:1px solid #314865;border-radius:8px;padding:6px 12px;margin:4px;cursor:pointer}
+.chip:hover{border-color:#38b6ff}
+.chip.picked{background:#16324c;color:#fff;border-color:#38b6ff}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.gramm{font-family:var(--mono);color:#9af0c8;background:#0c1622;border:1px solid #26384e;border-radius:8px;padding:10px 12px;font-size:16px}
+.wrong{color:#ff9aa2}.right{color:#9af0c8}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){.two{grid-template-columns:1fr}}
+.turn{margin:6px 0;font-size:19px}
+.turn b{color:var(--steel)}
+.rp{border:1px solid var(--line);border-radius:12px;padding:12px 16px;background:var(--panel);margin:8px 0}
+.rp h4{margin:0 0 6px;color:var(--amber);font-size:17px}
+.rp .lab{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--steel);margin-right:8px}
+.timing{font-family:var(--mono);font-size:14px;color:var(--good)}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="Welcome the class and set the frame. This is a 90-minute B2 unit for aircraft mechanics and avionics technicians working to EASA Part-66/145. The whole lesson lives in one scene: an afternoon borescope inspection in the hangar at Riga, an A320 registration YL-BBX in for a scheduled check, a work order for a borescope of the number-two engine. The technician, Jānis, finds a crack on a turbine blade and must report it to the lead, Elīna. By the end the students can describe a finding precisely, compare it against the manual's serviceable limit, and recommend accept, repair or refer with a reason. Tell them the grammar spine is one thing only — comparatives for limits ('the crack is longer than the limit'). Say the plan out loud: dialogue work, vocabulary, grammar, exercises, role-plays, a short written report. Timing target for this opener: about 3 minutes.">
+    <div class="kick">English for Aviation Maintenance · Unit 18 · CEFR B2 · 90 minutes</div>
+    <h1>Reporting inspection findings</h1>
+    <p class="big muted">Borescope and visual. Describe a defect's type, size, location and severity — then compare it against the manual's serviceable limit and recommend accept, repair or refer.</p>
+    <p class="pill">Scenario · Riga hangar · A320 YL-BBX · borescope of engine 2 &nbsp;·&nbsp; Grammar · comparatives for limits</p>
+  </section>
+
+  <!-- 2 · BY THE END -->
+  <section class="slide" data-notes="Read the three can-do outcomes aloud and keep them visible as the success criteria for the whole class. Outcome one: describe a defect's type, size, location and severity precisely — that is the report order they will drill. Outcome two: compare a finding against the manual's serviceable limit — that is where the comparative grammar does its work. Outcome three: recommend accept, repair or refer, with a clear reason. Stress the last three words: a reason. In the hangar a bare decision is not enough; the next shift and the engineer must see WHY. Then show the shape of the 90 minutes on the right so students know the rhythm: they warm up, hear the three dialogues, build the vocabulary, master one comparative pattern, practise on eight exercises, speak in pairs, and write one short report. Timing: about 3 minutes.">
+    <div class="kick">By the end of the class</div>
+    <h2>Three things every technician can do</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">1 · Describe precisely.</b> Give the type, the size, the location and the severity of a defect, in a clear order.</p>
+        <p><b style="color:var(--purple)">2 · Compare against the limit.</b> Judge the finding against the manual's serviceable limit, using a comparative with <b>than</b>.</p>
+        <p><b style="color:var(--good)">3 · Recommend, with a reason.</b> Say accept, repair or refer — and always give the reason.</p>
+      </div>
+      <div>
+        <p class="muted"><b>How the 90 minutes runs:</b></p>
+        <p class="timing">05 warm-up · 15 dialogues · 15 vocabulary<br>15 grammar · 20 exercises · 15 role-plays · 05 writing set</p>
+        <p class="muted">Everything happens inside one scene: the borescope of engine two on YL-BBX.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE SCENE -->
+  <section class="slide" data-notes="Paint the scene so the language has a home. It is the afternoon shift in the hangar at Riga. An A320, registration YL-BBX, is in for a scheduled check. There is a work order for a borescope inspection of the number-two engine. Jānis feeds the borescope — a small camera on a flexible probe — inside the engine, because you cannot open it on the wing. He finds a crack on a turbine blade and calls his lead, Elīna. Explain the professional habit the unit teaches: you never just say 'there is damage'. You report it in a fixed order and you check it against the book. Point at the four report words at the bottom — Type, Location, Dimension, Severity — and tell the class these four words are the backbone of everything today. Ask one quick question to the room: 'What tool looks inside an engine without opening it?' Answer: a borescope. Timing: about 3 minutes.">
+    <div class="kick">The scene</div>
+    <h2>An afternoon borescope in the Riga hangar</h2>
+    <div class="cols">
+      <div>
+        <p>An <b>A320</b>, registration <b>YL-BBX</b>, is in for a scheduled check. The work order asks for a <b>borescope inspection</b> of engine two.</p>
+        <p><b>Jānis</b> looks inside the engine with the borescope. He finds a <b>crack</b> on a turbine blade. He reports it to his lead, <b>Elīna</b>.</p>
+        <p class="muted">Then they open the maintenance manual and compare the finding against the serviceable limit.</p>
+      </div>
+      <div class="card">
+        <p style="margin:0 0 6px"><span class="tag">REPORT ORDER</span></p>
+        <p class="big" style="margin:6px 0"><b style="color:var(--steel)">Type → Location → Dimension → Severity</b></p>
+        <p class="muted" style="margin:0">Say them in this order every time. Then compare against the limit, then recommend.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · WARM-UP -->
+  <section class="slide" data-notes="A five-minute warm-up to switch the class into English and surface what they already know. Put the two questions on screen and take short answers from the room — do not correct heavily yet, just gather language. First question: what can go wrong inside a jet engine or on a panel? Expect crack, corrosion, dent, scratch — write their words up. Second question: before you accept any damage, what do you always check? Steer them toward 'the limit in the manual'. This primes the two halves of the unit: the vocabulary of defects, and the idea of a threshold you measure against. Keep it brisk and low-stakes. If the class is strong, ask a third: what three decisions can you make about a finding? (accept, repair, refer.) Timing: about 5 minutes.">
+    <div class="kick">Warm-up · talk to the class</div>
+    <h2>Two questions before we start</h2>
+    <div class="two">
+      <div class="card"><p><b>1.</b> What damage can you find inside an engine, or on a panel?</p><p class="muted">Collect words: crack, corrosion, dent, scratch, pitting…</p></div>
+      <div class="card"><p><b>2.</b> Before you accept any damage, what do you always check?</p><p class="muted">Steer to: the limit in the maintenance manual.</p></div>
+    </div>
+    <p class="muted" style="margin-top:18px">Write their words on the board. You will meet every one of them again in the next fifteen minutes.</p>
+  </section>
+
+  <!-- 5 · VOCAB — DEFECT TYPES -->
+  <section class="slide" data-notes="First vocabulary block: the types of defect. These are the naming words a technician must own. Drill pronunciation chorally: crack, corrosion, pitting, dent, erosion, scratch. Give the one-line plain meaning for each as you go — a crack is a thin line where the metal starts to split; corrosion is where the metal reacts with air or water and breaks down; pitting is small holes, often from corrosion; a dent is a small hollow pushed in; erosion is material worn away by hot gas or particles; a scratch is a thin surface mark. Use the widget: click a defect and its plain meaning appears; ask a student to make one sentence with it. Warn about false friends and spelling for Latvian and Russian speakers — 'corrosion' has double r, 'scratch' is one hard cluster. Do not rush; naming has to be automatic before they can describe. Timing: about 4 minutes.">
+    <div class="kick">Vocabulary · the defects</div>
+    <h2>Name the damage</h2>
+    <div class="dw" data-widget="defectMatch"></div>
+    <p class="note muted" style="text-align:center">Click a defect. Read the plain meaning aloud, then ask a student to use it in one short sentence.</p>
+  </section>
+
+  <!-- 6 · VOCAB — DESCRIBING WORDS -->
+  <section class="slide" data-notes="Second vocabulary block: the words that let you describe a defect precisely and judge it. Group them on the board under the four report headings. Location words: leading edge (the front edge that meets the airflow first), tip, near the fastener holes. Dimension: measured in millimetres — 'about four millimetres along the edge'. Severity: shallow versus deep, light versus heavy, minor. And the judgement pair the whole grammar hangs on: serviceable limit (the largest damage the manual allows), within limits (inside the maximum, still serviceable), out of limits (larger than allowed, not serviceable). Drill the collocations: run a borescope inspection, carry out a visual inspection, check the serviceable limit, refer to engineering. Tell the class every hard word gets a plain gloss and lives in their vocabulary bank. Timing: about 4 minutes.">
+    <div class="kick">Vocabulary · describing &amp; judging</div>
+    <h2>Words that make the report exact</h2>
+    <div class="two">
+      <div class="card">
+        <p><b style="color:var(--steel)">Location</b> — leading edge (front edge, meets the air first), tip, near the fastener holes.</p>
+        <p><b style="color:var(--steel)">Dimension</b> — the size in millimetres. <span class="muted">"about 4 mm along the edge."</span></p>
+        <p><b style="color:var(--steel)">Severity</b> — shallow / deep, light / heavy, minor.</p>
+      </div>
+      <div class="card">
+        <p><b style="color:var(--amber)">serviceable limit</b> — the largest damage the manual allows.</p>
+        <p><b style="color:var(--good)">within limits</b> — inside the maximum; still serviceable.</p>
+        <p><b style="color:var(--hot)">out of limits</b> — larger than allowed; not serviceable.</p>
+      </div>
+    </div>
+    <p class="note muted" style="margin-top:12px">Collocations to drill: <code>run a borescope inspection</code> · <code>check the serviceable limit</code> · <code>refer to engineering</code>.</p>
+  </section>
+
+  <!-- 7 · DIALOGUE 1 -->
+  <section class="slide" data-notes="Now the listening. Play Dialogue 1 from the student page while this slide is up; do not let them read first. Then read these key turns together. Dialogue 1 is the model for outcome one — describing a finding precisely. Elīna asks for the type first, then the location, then the dimension, then the severity — exactly the report order. Draw the class's attention to how Jānis answers: 'It is a crack' (type), 'on the leading edge of a turbine blade' (location), 'stage one, blade number twelve' (precise location), 'about four millimetres' (dimension), 'the crack looks shallow' (severity). Point out the connector 'although' in 'shallow, although the line is very clear' — a B2 connector inside a short sentence. Ask the class to find the four report parts in the turns. Timing for the dialogue block across slides 7 to 8: about 8 minutes.">
+    <div class="kick">Dialogue 1 · listen, then read</div>
+    <h2>Describe the borescope finding</h2>
+    <div class="two">
+      <div>
+        <p class="turn"><b>Elīna:</b> Give me the type of defect first, and then the location.</p>
+        <p class="turn"><b>Jānis:</b> It is a crack. The crack is on the leading edge of a turbine blade.</p>
+        <p class="turn"><b>Elīna:</b> Which stage is it, and which blade number?</p>
+        <p class="turn"><b>Jānis:</b> Stage one, blade number twelve. The crack starts near the tip.</p>
+      </div>
+      <div>
+        <p class="turn"><b>Elīna:</b> Now the dimension. How long is it on the screen?</p>
+        <p class="turn"><b>Jānis:</b> About four millimetres along the edge.</p>
+        <p class="turn"><b>Elīna:</b> And the severity — does it look deep?</p>
+        <p class="turn"><b>Jānis:</b> It looks shallow, although the line is very clear.</p>
+      </div>
+    </div>
+    <p class="note muted">Task for the room: find the four report parts — <b>type, location, dimension, severity</b>.</p>
+  </section>
+
+  <!-- 8 · REPORT ORDER DRILL -->
+  <section class="slide" data-notes="Turn the model into a habit with the report-order widget. The four cards — Type, Location, Dimension, Severity — start shuffled. Ask a student to click them into the correct reporting order. When the order is right, the widget locks green. Then run a quick oral drill around the room: give each student a defect from the board and make them describe it in the four-part order, out loud, in one breath: 'It is a dent, on the fan blade, about one point five millimetres, and it is shallow.' Insist on the order every time — this is what makes a report fast and complete on a busy shift. If they skip severity or dimension, send it back. Timing: about 4 minutes.">
+    <div class="kick">Drill · fix the order</div>
+    <h2>Put the report in order</h2>
+    <div class="dw" data-widget="reportOrder"></div>
+    <p class="note muted" style="text-align:center">Then go round the room: each student describes one defect in the four-part order, out loud.</p>
+  </section>
+
+  <!-- 9 · GRAMMAR FOCUS -->
+  <section class="slide" data-notes="The heart of the unit: comparatives for limits. Explain WHY this grammar and no other. Every finding is judged against a threshold — the serviceable limit — so you are always comparing two sizes: the finding and the limit. That comparison is a comparative plus 'than'. Teach the rule cleanly. Short adjective: add -er plus than — long becomes longer than, deep becomes deeper than, small becomes smaller than, short becomes shorter than. Spelling changes: big becomes bigger, wide becomes wider, shallow becomes shallower. Long adjective: use more plus than — severe becomes more severe than, serious becomes more serious than. Then the meaning rule, which is the point of it all: bigger than the limit means out of limits; smaller than the limit means within limits. Use the comparative-builder widget to let a student pick an adjective and see the correct form. Timing for the grammar block, slides 9 to 11: about 15 minutes.">
+    <div class="kick">Grammar focus · comparatives for limits</div>
+    <h2>You compare every finding with a limit</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Short adjective:</b> add <b>-er</b> + <b>than</b>.<br><code>long → longer than</code> · <code>deep → deeper than</code></p>
+        <p><b>Spelling:</b> <code>big → bigger</code> · <code>wide → wider</code> · <code>shallow → shallower</code></p>
+        <p><b>Long adjective:</b> use <b>more</b> + <b>than</b>.<br><code>severe → more severe than</code></p>
+      </div>
+      <div class="card">
+        <p class="gramm">bigger than the limit → <span class="wrong">out of limits</span></p>
+        <p class="gramm">smaller than the limit → <span class="right">within limits</span></p>
+        <p class="muted" style="margin:6px 0 0">The comparative is not decoration. It carries the whole decision.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · GRAMMAR — L1 INTERFERENCE -->
+  <section class="slide" data-notes="Now pre-empt the errors Latvian and Russian speakers will make, because they are predictable and worth naming. Error one, the double comparative: 'more longer than'. Both languages form comparatives with a single added word or ending, so learners over-mark English by using more AND -er together. Fix: never use 'more' with an -er word. Error two, the wrong link word: 'deeper as the limit' or 'bigger from the limit'. Russian uses a genitive after the comparative (roughly 'deeper of the limit') and German-influenced 'as' leaks in from other classes; Latvian speakers may reach for 'as'. Fix: English uses 'than'. Error three, 'than' spelled 'then': 'longer then allowed'. They sound almost the same, so it is a spelling and listening trap. Model each wrong sentence, then the correct recast, and drill chorally. Use the comparative-builder widget to show wrong forms flagged red. Do not lecture in the role-plays later — just recast softly. Timing: about 6 minutes.">
+    <div class="kick">Grammar · errors to expect (Latvian / Russian)</div>
+    <h2>Three traps — and the fix</h2>
+    <div class="card" style="margin-bottom:12px">
+      <p><span class="wrong">✗ The crack is <b>more longer</b> than the limit.</span> &nbsp;→&nbsp; <span class="right">✓ The crack is <b>longer</b> than the limit.</span> <span class="muted">— never "more" with an -er word.</span></p>
+      <p><span class="wrong">✗ The dent is deeper <b>as</b> the limit. / <b>from</b> the limit.</span> &nbsp;→&nbsp; <span class="right">✓ deeper <b>than</b> the limit.</span> <span class="muted">— English uses "than".</span></p>
+      <p><span class="wrong">✗ The pit is deeper <b>then</b> allowed.</span> &nbsp;→&nbsp; <span class="right">✓ deeper <b>than</b> allowed.</span> <span class="muted">— "than", not "then".</span></p>
+    </div>
+    <div class="dw" data-widget="comparativeBuilder"></div>
+  </section>
+
+  <!-- 11 · WITHIN / OUT OF LIMITS WIDGET -->
+  <section class="slide" data-notes="This is the visual anchor for the whole grammar. The limit-gauge widget shows two things: the finding size and the serviceable limit. Move the finding slider and the bar animates; the widget prints the verdict — within limits or out of limits — and, crucially, the comparative sentence that justifies it. Run the real cases from the scenario live. The leading-edge crack: finding 4 mm, limit 3 mm — 'the crack is longer than the limit, so it is out of limits'. The fan-blade dent: finding 1.5 mm, limit 2 mm — 'the dent is shallower than the limit, so it is within limits'. Ask the class to SAY the comparative sentence before you reveal it. This is where the grammar, the vocabulary and the decision all meet. Push a hard case: set finding equal to limit and ask what happens — at the limit it is still acceptable; only larger than the limit is out. Timing: about 5 minutes.">
+    <div class="kick">See it · finding against the limit</div>
+    <h2>Within limits or out of limits?</h2>
+    <div class="dw" data-widget="limitGauge"></div>
+    <p class="note muted" style="text-align:center">Set the crack to 4 mm, the limit to 3 mm. Ask the class to say the sentence <b>before</b> you reveal it.</p>
+  </section>
+
+  <!-- 12 · DIALOGUE 2 -->
+  <section class="slide" data-notes="Play Dialogue 2 from the student page, then read these turns. This dialogue models outcome two — comparing the finding against the serviceable limit. Notice the pattern repeats twice, once for the crack and once for the dent, so students hear the comparative in both directions. Crack: limit three millimetres, finding four — 'four is longer than three, so the crack is out of limits'. Dent: limit two, finding one point five — 'one point five is shallower than two, so the dent is within limits'. Highlight the professional move at the end: 'always compare the measured dimension against the serviceable limit before you decide.' Get two students to read Jānis and Elīna aloud for the crack pair, then swap for the dent pair. Correct only comparative errors. Timing: about 4 minutes.">
+    <div class="kick">Dialogue 2 · listen, then read</div>
+    <h2>Compare it against the serviceable limit</h2>
+    <div class="two">
+      <div>
+        <p class="turn"><b>Elīna:</b> What is the limit for a crack on the leading edge?</p>
+        <p class="turn"><b>Jānis:</b> The manual allows three millimetres.</p>
+        <p class="turn"><b>Elīna:</b> Our crack is four, so it is longer than the limit.</p>
+        <p class="turn"><b>Jānis:</b> Four is longer than three, so the crack is out of limits.</p>
+      </div>
+      <div>
+        <p class="turn"><b>Jānis:</b> The limit for a fan-blade dent is two millimetres.</p>
+        <p class="turn"><b>Elīna:</b> Our dent is one point five. Is that within limits?</p>
+        <p class="turn"><b>Jānis:</b> One point five is shallower than two, so it is within limits.</p>
+        <p class="turn"><b>Elīna:</b> Good. Always compare before you decide.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · READING — LIMITS TABLE -->
+  <section class="slide" data-notes="Bring in the authentic document genre: the maintenance manual damage-limits page, ATA chapter 72. This is Reading 2 on the student page — the AMM extract. Show the four limits and make the class read each as a comparative decision. Crack on the leading edge: acceptable up to 3 mm; longer than 3 mm is out of limits, refer to engineering. Dent on a fan blade: up to 2 mm deep. Scratch: up to 0.2 mm; shallower than that is within limits, accept. Corrosion: light corrosion may be blended, provided the final depth stays within the blend limit; deep pitting is out of limits. Teach the key professional note: always record the dimension, never estimate by feel, because a small error can flip the decision. Then quiz the room quickly with numbers: a 4 mm crack — out or within? A 0.1 mm scratch — out or within? This trains the numerical listening tested later. Timing: about 4 minutes.">
+    <div class="kick">Reading · maintenance manual (AMM 72-00)</div>
+    <h2>The serviceable limits page</h2>
+    <div class="two">
+      <div class="card">
+        <p><b>Crack (leading edge):</b> up to <b>3 mm</b>. Longer → out of limits → refer.</p>
+        <p><b>Dent (fan blade):</b> up to <b>2 mm</b> deep.</p>
+      </div>
+      <div class="card">
+        <p><b>Scratch:</b> up to <b>0.2 mm</b>. Shallower → within limits → accept.</p>
+        <p><b>Corrosion:</b> light → blend within limits. Deep pitting → out of limits.</p>
+      </div>
+    </div>
+    <p class="note muted" style="margin-top:12px"><b>Rule:</b> always record the dimension. Never estimate by feel — a small error can change the decision.</p>
+  </section>
+
+  <!-- 14 · DIALOGUE 3 -->
+  <section class="slide" data-notes="Play Dialogue 3, then read these turns. This models outcome three — recommending accept, repair or refer, each with a reason. Three findings on the wing access panel: light corrosion, a scratch, and the turbine crack from before. Walk the three decisions. Corrosion is light with shallow pitting, so they REPAIR it by blending and then protect the surface — a blend repair is acceptable provided the final depth stays within limits. The scratch is 0.1 mm against a 0.2 mm limit, shallower than the limit, so they ACCEPT it and record it. The crack is out of limits, so they REFER it to engineering, because engineering decides the repair. Hammer the closing line: accept, repair or refer — and always write the reason for each decision. Ask the class to state the plan back to you in one sentence. Timing: about 3 minutes.">
+    <div class="kick">Dialogue 3 · listen, then read</div>
+    <h2>Recommend: accept, repair or refer</h2>
+    <div class="two">
+      <div>
+        <p class="turn"><b>Jānis:</b> Light corrosion near the fastener holes. The pitting is shallow.</p>
+        <p class="turn"><b>Elīna:</b> For light corrosion we can blend, as long as we stay within limits.</p>
+        <p class="turn"><b>Jānis:</b> The scratch is 0.1 mm, and the limit is 0.2.</p>
+        <p class="turn"><b>Elīna:</b> Shallower than the limit. We accept it, then, and record it.</p>
+      </div>
+      <div>
+        <p class="turn"><b>Jānis:</b> But the crack is out of limits, so we cannot accept it.</p>
+        <p class="turn"><b>Elīna:</b> For the crack we refer the finding to engineering.</p>
+        <p class="turn"><b>Jānis:</b> So: accept the scratch, blend the corrosion, refer the crack.</p>
+        <p class="turn"><b>Elīna:</b> And always write the reason for each decision.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · DECISION WIDGET -->
+  <section class="slide" data-notes="Consolidate the three decisions with the decision-flow widget. Click a finding and the widget animates the path to the right box — Accept, Repair or Refer — and prints the reason as a comparative sentence. Run all four cases: the scratch (0.1 vs 0.2, shallower, accept), the dent (1.5 vs 2, shallower, accept), the light corrosion (blend, repair), and the crack (4 vs 3, longer, refer). Then close the loop by asking students to predict the box BEFORE they click. This ties the whole unit together: describe, compare, decide, justify. If time is short, do only the crack and the scratch to show the two extremes — the clear refer and the clear accept. Timing: about 4 minutes.">
+    <div class="kick">Decide · accept, repair or refer</div>
+    <h2>Where does each finding go?</h2>
+    <div class="dw" data-widget="decisionFlow"></div>
+    <p class="note muted" style="text-align:center">Ask students to predict the box <b>before</b> they click. Every decision needs a comparative reason.</p>
+  </section>
+
+  <!-- 16 · EXERCISE STAGING -->
+  <section class="slide" data-notes="Move the class to the student page for the exercises. There are eight, E1 to E8, and they self-mark on the page — students type, press Check, and the page marks each item. Stage them, do not just set them loose. E1 gap-fill and E2 matching consolidate the vocabulary — set these first, five minutes, individually. E3 dialogue completion and E4 comparative transformation drill the grammar — do E4 together on the board first, then let them finish. E5 is Reading 1, the borescope inspection report; E7 is Reading 2, the AMM limits page — these are the authentic genres, give them quiet reading time. E6 error-spotting is the interference drill — eight comparative mistakes to fix; this is the one to review as a class because it targets exactly the Latvian and Russian errors. E8 is a listening review of Dialogue 3. Total exercise block about 20 minutes. Circulate; collect common errors for a quick board round-up. Solutions are in the gated file if they want to self-check after trying.">
+    <div class="kick">Exercises · on the student page</div>
+    <h2>Stage E1–E8 — do not just set them loose</h2>
+    <div class="two">
+      <div class="card">
+        <p><b>E1 · E2</b> vocabulary — gap-fill &amp; matching. <span class="muted">First, 5 min, alone.</span></p>
+        <p><b>E3 · E4</b> grammar — dialogue &amp; comparatives. <span class="muted">Model E4 on the board first.</span></p>
+        <p><b>E5 · E7</b> reading — BIR report &amp; AMM limits. <span class="muted">Quiet reading time.</span></p>
+      </div>
+      <div class="card">
+        <p><b>E6</b> error-spotting — eight comparative mistakes. <span class="muted">Review this one as a class.</span></p>
+        <p><b>E8</b> listening — replay Dialogue 3.</p>
+        <p class="muted">They press <b>Check</b>; the page marks each item. Circulate and note common errors.</p>
+      </div>
+    </div>
+    <p class="timing" style="margin-top:10px">Exercise block ≈ 20 minutes.</p>
+  </section>
+
+  <!-- 17 · ROLE-PLAY MANAGEMENT -->
+  <section class="slide" data-notes="The speaking block — four role-play cards, in pairs, on the student page. Set the rule before they start: keep sentences short, and use a comparative every time you compare a finding with the limit. Card 1, describe the finding: A is the technician and reports type, location, dimension, severity — the report order from earlier. Card 2, compare with the limit: one reads the limit, the other compares with a comparative and decides within or out of limits. Card 3, recommend: for a scratch, corrosion and a crack, propose accept, repair or refer with a reason. Card 4, shift handover: summarise the main finding, the comparison and the recommendation for the next shift. Swap roles after each card so everyone both describes and decides. Your job is to circulate and listen for the three interference errors — recast softly, do not stop the flow. Use the CEFR speaking rubric in the teacher key to give one strength and one target per pair. Timing: about 15 minutes.">
+    <div class="kick">Speaking · four role-play cards (pairs)</div>
+    <h2>Run the role-plays</h2>
+    <div class="rp"><h4>Card 1 — Describe the finding</h4><span class="lab">A</span>Technician reports type, location, dimension, severity.</div>
+    <div class="rp"><h4>Card 2 — Compare with the limit</h4><span class="lab">A/B</span>One reads the limit; the other compares with a comparative and decides.</div>
+    <div class="rp"><h4>Card 3 — Recommend</h4><span class="lab">A/B</span>Accept, repair or refer for a scratch, corrosion and a crack — with a reason.</div>
+    <div class="rp"><h4>Card 4 — Shift handover</h4><span class="lab">A</span>Summarise the main finding, the comparison and the recommendation.</div>
+    <p class="note muted">Swap roles after each card. Circulate and recast the three comparative errors softly. Score with the rubric in the key.</p>
+  </section>
+
+  <!-- 18 · WRITING -->
+  <section class="slide" data-notes="Set the writing task and teach the Simplified Technical English habits that make maintenance writing safe. The task on the student page: a borescope of a combustion chamber finds a 5 mm crack on a liner panel; the serviceable limit is 4 mm; a nearby bracket has light corrosion within the blend limit. Write a 100 to 130 word finding report. Teach ASD-STE100 habits explicitly: one idea per sentence; short sentences; the active voice; approved simple words. Show the difference: not 'It was observed that a crack appeared to be present', but 'The borescope finds a crack.' Insist on the comparative for the comparison — 'the crack is longer than the limit, so it is out of limits' — and a clear recommendation with a reason. Point them at the self-check list on the page: type, location, dimension, severity; a comparative with than; within or out of limits; a recommendation and a reason. They can start in class and finish for homework. A model answer is in the gated file. Timing to set it up: about 5 minutes.">
+    <div class="kick">Writing · a borescope finding report</div>
+    <h2>Write it in Simplified Technical English</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Task:</b> a combustion-chamber borescope finds a <b>5 mm</b> crack on a liner panel. The limit is <b>4 mm</b>. A nearby bracket has light corrosion within the blend limit. Write the report — 100–130 words.</p>
+      </div>
+      <div class="card">
+        <p><b>STE habits:</b></p>
+        <p>• One idea per sentence. • Short sentences. • Active voice.</p>
+        <p class="gramm">The borescope finds a crack. The crack is longer than the limit, so it is out of limits.</p>
+      </div>
+    </div>
+    <p class="note muted" style="margin-top:10px">Cover: type · location · dimension · severity · a comparative with <b>than</b> · a recommendation and a reason.</p>
+  </section>
+
+  <!-- 19 · WRAP-UP -->
+  <section class="slide" data-center data-notes="Close the class and check the outcomes. Recap the spine in one breath: describe a finding in the order type, location, dimension, severity; compare it against the serviceable limit with a comparative and than; recommend accept, repair or refer, always with a reason. Run a fast exit ticket to confirm learning: give each student one finding and one limit — for example a 2.5 mm crack against a 3 mm limit — and ask for the full sentence with the decision: 'the crack is shorter than the limit, so it is within limits — accept.' Listen for the three errors one last time. Remind them the terms are for training only; on the job they always work from the current approved manual, task card and company procedures. Preview: next unit builds on this to write up the work order and close the task. Timing: about 3 minutes.">
+    <div class="kick">Wrap-up · exit ticket</div>
+    <h2>Describe · compare · recommend</h2>
+    <p class="big muted" style="max-width:24ch">Give each student one finding and one limit. They say the full sentence — comparative + decision + reason.</p>
+    <p class="pill">"The crack is shorter than the limit, so it is within limits — accept."</p>
+    <p class="muted" style="margin-top:14px;font-size:16px">Terms are for training only. On the job, always work from the current approved manual, task card and company procedures.</p>
+  </section>
+
+</div>
+
+<!-- ===================== INTERACTIVE DECK WIDGETS ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+
+  /* ---- W: DEFECT MATCH (click a defect → plain meaning) ---- */
+  window.DeckW.defectMatch=function(el){
+    var D=[
+      ['crack','a thin line where the metal has started to split'],
+      ['corrosion','damage where the metal reacts with air or water and breaks down'],
+      ['pitting','small holes or pits in a surface, often caused by corrosion'],
+      ['dent','a small hollow where a surface has been pushed in'],
+      ['erosion','loss of material worn away by hot gas or particles'],
+      ['scratch','a thin surface mark that removes a little material']
+    ];
+    var chips=D.map(function(d,i){return '<span class="chip" data-i="'+i+'">'+d[0]+'</span>';}).join('');
+    el.innerHTML='<div class="wk"><div class="bar" data-chips>'+chips+'</div>'+
+      '<div class="info" data-read><h4>Pick a defect</h4>Click a word above to see its plain meaning.</div></div>';
+    var read=el.querySelector('[data-read]');
+    el.querySelector('[data-chips]').addEventListener('click',function(e){
+      var c=e.target.closest('.chip'); if(!c) return;
+      Array.prototype.forEach.call(el.querySelectorAll('.chip'),function(x){x.classList.remove('picked');});
+      c.classList.add('picked');
+      var d=D[+c.getAttribute('data-i')];
+      read.innerHTML='<h4>'+d[0]+'</h4>'+d[1]+'.';
+    });
+  };
+
+  /* ---- W: REPORT ORDER (click cards into order) ---- */
+  window.DeckW.reportOrder=function(el){
+    var CORRECT=['Type','Location','Dimension','Severity'];
+    var shuffled=['Severity','Type','Dimension','Location'];
+    el.innerHTML='<div class="wk"><p class="note" style="margin:0 0 8px">Click the four parts in the order you report a finding.</p>'+
+      '<div class="bar" data-pool>'+shuffled.map(function(w){return '<span class="chip" data-w="'+w+'">'+w+'</span>';}).join('')+'</div>'+
+      '<div class="info" data-slot style="min-height:44px"><b>Your order:</b> <span data-seq class="muted">—</span></div></div>';
+    var pool=el.querySelector('[data-pool]'),seq=el.querySelector('[data-seq]'),slot=el.querySelector('[data-slot]');
+    var picked=[];
+    pool.addEventListener('click',function(e){
+      var c=e.target.closest('.chip'); if(!c||c.classList.contains('picked')) return;
+      c.classList.add('picked'); picked.push(c.getAttribute('data-w'));
+      seq.textContent=picked.join(' → '); seq.classList.remove('muted');
+      if(picked.length===4){
+        var ok=picked.every(function(w,i){return w===CORRECT[i];});
+        slot.innerHTML=ok?'<b class="right">✓ Correct order:</b> Type → Location → Dimension → Severity.'
+          :'<b class="wrong">✗ Not yet.</b> The order is Type → Location → Dimension → Severity. <button data-reset>Try again</button>';
+        var rb=slot.querySelector('[data-reset]'); if(rb) rb.addEventListener('click',function(){picked=[];Array.prototype.forEach.call(pool.children,function(x){x.classList.remove('picked');});seq.textContent='—';seq.classList.add('muted');slot.innerHTML='<b>Your order:</b> <span data-seq class="muted">—</span>';});
+      }
+    });
+  };
+
+  /* ---- W: COMPARATIVE BUILDER (pick adjective → correct form, wrong forms flagged) ---- */
+  window.DeckW.comparativeBuilder=function(el){
+    var ADJ=[
+      ['long','longer','short'],['deep','deeper','short'],['small','smaller','short'],
+      ['short','shorter','short'],['wide','wider','short'],['big','bigger','short'],
+      ['shallow','shallower','short'],['severe','more severe','long'],['serious','more serious','long']
+    ];
+    var chips=ADJ.map(function(a,i){return '<span class="chip" data-i="'+i+'">'+a[0]+'</span>';}).join('');
+    el.innerHTML='<div class="wk"><p class="note" style="margin:0 0 8px">Click an adjective. Build the comparative + <b>than</b>.</p>'+
+      '<div class="bar">'+chips+'</div>'+
+      '<div class="info" data-read><h4>Comparative for limits</h4>Pick an adjective to build the correct form.</div></div>';
+    var read=el.querySelector('[data-read]');
+    el.querySelector('.bar').addEventListener('click',function(e){
+      var c=e.target.closest('.chip'); if(!c) return;
+      Array.prototype.forEach.call(el.querySelectorAll('.chip'),function(x){x.classList.remove('picked');});
+      c.classList.add('picked');
+      var a=ADJ[+c.getAttribute('data-i')];
+      var rule=a[2]==='short'?'Short adjective → add <b>-er</b> + than.':'Long adjective → use <b>more</b> + than.';
+      var wrong=a[2]==='short'?('<span class="wrong">✗ more '+a[0]+' than</span>'):('<span class="wrong">✗ '+a[0]+'er than</span>');
+      read.innerHTML='<h4>'+a[0]+'</h4>'+rule+'<br><span class="right">✓ The crack is <b>'+a[1]+' than</b> the limit.</span><br>'+wrong+' &nbsp; <span class="wrong">✗ '+a[1]+' <b>as / then</b> the limit</span>';
+    });
+  };
+
+  /* ---- W: LIMIT GAUGE (canvas + rAF) ---- */
+  window.DeckW.limitGauge=function(el){
+    el.innerHTML='<div class="wk">'+
+      '<div style="display:grid;grid-template-columns:150px 1fr 60px;gap:10px;align-items:center;margin:4px 0"><label style="font-size:14px;color:#9db0c6;font-weight:600">Finding size</label><input type="range" data-find min="0" max="8" step="0.1" value="4"><span style="font-family:ui-monospace,monospace;font-size:14px;color:#7fd0ff;font-weight:700;text-align:right" data-findv>4.0 mm</span></div>'+
+      '<div style="display:grid;grid-template-columns:150px 1fr 60px;gap:10px;align-items:center;margin:4px 0"><label style="font-size:14px;color:#9db0c6;font-weight:600">Serviceable limit</label><input type="range" data-lim min="0" max="8" step="0.1" value="3"><span style="font-family:ui-monospace,monospace;font-size:14px;color:#fbbf24;font-weight:700;text-align:right" data-limv>3.0 mm</span></div>'+
+      '<canvas width="660" height="150"></canvas><div class="info" data-read></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d');
+    var find=el.querySelector('[data-find]'),lim=el.querySelector('[data-lim]');
+    var findV=el.querySelector('[data-findv]'),limV=el.querySelector('[data-limv]'),read=el.querySelector('[data-read]');
+    var W=cv.width,H=cv.height,pad=40,disp=0;
+    function vals(){return {f:+find.value,l:+lim.value};}
+    function update(){
+      var v=vals(); findV.textContent=v.f.toFixed(1)+' mm'; limV.textContent=v.l.toFixed(1)+' mm';
+      var out=v.f>v.l, eq=Math.abs(v.f-v.l)<0.05;
+      var comp=v.f>v.l?'longer than':(v.f<v.l?'shorter than':'equal to');
+      var msg;
+      if(eq) msg='<b style="color:#fbbf24">At the limit.</b> The finding equals the limit ('+v.l.toFixed(1)+' mm). At the limit it is still acceptable — accept.';
+      else if(out) msg='<b style="color:#ff9aa2">Out of limits.</b> The finding is '+comp+' the limit, so it is out of limits — refer it.';
+      else msg='<b style="color:#9af0c8">Within limits.</b> The finding is '+comp+' the limit, so it is within limits — accept.';
+      read.innerHTML='<h4>The finding against the limit</h4>'+msg;
+    }
+    function draw(){
+      var v=vals(); ctx.clearRect(0,0,W,H);
+      var scale=(W-2*pad)/8;
+      // limit marker line
+      var lx=pad+v.l*scale;
+      ctx.strokeStyle='#fbbf24'; ctx.setLineDash([6,5]); ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(lx,20); ctx.lineTo(lx,H-24); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle='#fbbf24'; ctx.font='12px ui-monospace,monospace'; ctx.textAlign='center';
+      ctx.fillText('limit '+v.l.toFixed(1),lx,16);
+      // finding bar (animated)
+      var target=v.f*scale; disp+=(target-disp)*0.2;
+      var out=v.f>v.l+0.05;
+      ctx.fillStyle=out?'rgba(255,86,103,.9)':'rgba(52,211,153,.9)';
+      ctx.fillRect(pad,H/2-18,disp,34);
+      ctx.fillStyle='#e9f0f7'; ctx.textAlign='left'; ctx.font='13px -apple-system,sans-serif';
+      ctx.fillText('finding '+v.f.toFixed(1)+' mm',pad+4,H/2+5);
+      // axis
+      ctx.strokeStyle='#26384e'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(pad,H-22); ctx.lineTo(W-pad,H-22); ctx.stroke();
+      requestAnimationFrame(draw);
+    }
+    find.addEventListener('input',update); lim.addEventListener('input',update);
+    update(); requestAnimationFrame(draw);
+  };
+
+  /* ---- W: DECISION FLOW (canvas + rAF) ---- */
+  window.DeckW.decisionFlow=function(el){
+    var CASES=[
+      {n:'Scratch 0.1 mm (limit 0.2)',box:0,reason:'shallower than the limit → within limits → accept.'},
+      {n:'Dent 1.5 mm (limit 2)',box:0,reason:'shallower than the limit → within limits → accept.'},
+      {n:'Light corrosion, shallow pitting',box:1,reason:'blend within the limit, then protect → repair.'},
+      {n:'Crack 4 mm (limit 3)',box:2,reason:'longer than the limit → out of limits → refer to engineering.'}
+    ];
+    el.innerHTML='<div class="wk"><div class="bar" data-bar>'+
+      CASES.map(function(c,i){return '<button data-i="'+i+'"'+(i===0?' class="on"':'')+'>'+c.n+'</button>';}).join('')+'</div>'+
+      '<canvas width="660" height="120"></canvas><div class="info" data-read></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]'),bar=el.querySelector('[data-bar]');
+    var W=cv.width,H=cv.height,cur=0,glow=0;
+    var BOX=[['ACCEPT','#34d399'],['REPAIR','#38b6ff'],['REFER','#ff5667']];
+    function draw(){
+      ctx.clearRect(0,0,W,H); glow+=0.05;
+      var bw=150,gap=(W-3*bw)/4,y=30,h=52;
+      for(var i=0;i<3;i++){
+        var x=gap+i*(bw+gap);
+        var active=i===CASES[cur].box;
+        ctx.fillStyle=active?BOX[i][1]:'#16263a';
+        ctx.globalAlpha=active?(0.55+0.35*Math.abs(Math.sin(glow))):0.5;
+        ctx.strokeStyle=BOX[i][1]; ctx.lineWidth=active?2.5:1;
+        roundRect(ctx,x,y,bw,h,10); ctx.fill(); ctx.globalAlpha=1; ctx.stroke();
+        ctx.fillStyle=active?'#04121f':'#9db0c6'; ctx.font='bold 17px ui-monospace,monospace'; ctx.textAlign='center';
+        ctx.fillText(BOX[i][0],x+bw/2,y+h/2+6);
+      }
+      requestAnimationFrame(draw);
+    }
+    function roundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+    function pick(i){cur=i;Array.prototype.forEach.call(bar.children,function(b,k){b.classList.toggle('on',k===i);});
+      var c=CASES[i]; read.innerHTML='<h4>'+c.n+'</h4>'+c.reason;}
+    bar.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;pick(+b.getAttribute('data-i'));});
+    pick(0); requestAnimationFrame(draw);
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u18_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u18_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 18</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:24px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u18_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u18_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u18_deck_state")render();});',
+'render();',
+'<\/script></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u18_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capQueueB=[], capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+</body>
+</html>

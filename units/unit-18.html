@@ -1,0 +1,1021 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English for Aviation Maintenance · Unit 18 — Reporting inspection findings (borescope and visual)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  article{max-width:960px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 30px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:22ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:64ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:15px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:72ch}
+  a{color:var(--color-primary)}
+  code,kbd{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .card.cando{border-left:4px solid var(--color-primary)}
+  .card h4{font-size:.98rem;margin:0 0 var(--space-3);color:var(--color-primary-dark)}
+  .card ul{margin:0;padding-left:1.1em}
+  .card li{margin:6px 0;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .callout.plain{border-left-color:var(--gold);background:var(--bg-margin)}
+  .pill{display:inline-block;font-size:11px;font-weight:600;font-family:var(--font-mono);padding:2px 9px;border-radius:20px;border:1px solid var(--border);color:var(--ink-muted);background:var(--bg-sunken)}
+  /* dialogue */
+  .dlg{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin:16px 0;box-shadow:var(--shadow-sm)}
+  .dlg h3{margin:0 0 4px}
+  .cast{font-size:13.5px;color:var(--ink-muted);margin:0 0 10px}
+  .lang-audio-slot{display:flex;align-items:center;gap:10px;min-height:52px;border:1px dashed var(--color-primary-soft);border-radius:var(--radius-sm);background:#eef2f9;color:var(--color-primary-dark);font-size:13.5px;font-family:var(--font-mono);padding:10px 14px;margin:6px 0}
+  .lang-audio-slot::before{content:"\25B6";font-size:15px}
+  .lang-audio-slot::after{content:"Audio player loads here \2014 listen first, then open the transcript.";color:var(--color-primary-dark)}
+  details.transcript{margin-top:8px;border-top:1px solid var(--border-soft);padding-top:8px}
+  details.transcript>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary);font-weight:700}
+  .turn{margin:7px 0;max-width:none}
+  .turn .who{display:inline-block;min-width:74px;font-weight:700;font-family:var(--font-mono);font-size:12.5px;color:var(--color-primary-dark);vertical-align:top}
+  .turn .said{color:#313648}
+  /* vocab */
+  table.dt{border-collapse:collapse;margin-top:12px;font-size:14.5px;width:100%}
+  table.dt th,table.dt td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.dt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-size:13px}
+  table.dt dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  table.dt td.mean{color:#3a3f4d}
+  table.dt td.eg{color:#313648}
+  table.dt td.col{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-muted)}
+  /* grammar */
+  .gtab td.wrong{color:var(--bad)} .gtab td.right{color:#256d36;font-weight:600}
+  .quote{border-left:3px solid var(--color-primary-soft);padding:4px 0 4px 14px;margin:10px 0;color:#313648;font-style:italic;font-family:var(--font-serif);font-size:16px}
+  /* exercises */
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:16px 20px;margin:16px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex h3{margin:2px 0 6px}
+  .ex ol{padding-left:1.4em} .ex ol li{margin:9px 0}
+  .ex.reading .rtext{background:var(--bg-sunken);border-radius:var(--radius-sm);padding:12px 16px;margin:10px 0;font-size:15px}
+  .ex.reading .rtext p{max-width:none;margin:6px 0}
+  .genre{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700}
+  .wordbank{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+  .wordbank span{font-family:var(--font-mono);font-size:12.5px;background:#eef2f9;border:1px solid #d6e0f0;color:var(--color-primary-dark);border-radius:14px;padding:3px 10px}
+  input.gap,select.gap{font-family:var(--font-sans);font-size:14.5px;border:1px solid var(--border);border-radius:6px;padding:5px 8px;background:#fff;color:var(--ink);min-width:150px}
+  input.gap:focus,select.gap:focus{outline:2px solid var(--color-primary-soft);border-color:var(--color-primary)}
+  input.gap.ok,select.gap.ok{border-color:var(--good);background:#eaf5ec}
+  input.gap.bad,select.gap.bad{border-color:var(--bad);background:#fbecea}
+  button.btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  button.btn:hover{border-color:var(--color-primary)}
+  button.btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .exfoot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .score{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--ink-muted)}
+  .score.done{color:#256d36}
+  details.answers{margin-top:10px;background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius-sm);padding:6px 14px}
+  details.answers>summary{cursor:pointer;font-weight:700;font-size:13.5px;color:var(--accent)}
+  details.answers li{margin:4px 0;font-size:14px}
+  /* speaking */
+  .roleplay{background:var(--bg-elevated);border:1px solid var(--border);border-top:4px solid var(--gold);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.05rem;color:var(--color-primary-dark)}
+  .roleplay .rp-row{margin:6px 0;font-size:14.5px}
+  .roleplay .rp-lab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:700;display:block}
+  .roleplay .phrases{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .roleplay .phrases span{font-size:13px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:12px;padding:3px 9px}
+  .aibox{background:#eef3fb;border:1px solid #d3e0f1;border-radius:var(--radius);padding:16px 20px;margin:18px 0}
+  .aibox h4{margin:0 0 6px;color:var(--color-primary-dark)}
+  .prompt{background:#fff;border:1px solid #d3e0f1;border-radius:var(--radius-sm);padding:10px 14px;margin:10px 0;font-size:14px;position:relative}
+  .prompt code{background:transparent;padding:0;font-family:var(--font-mono);font-size:13px;color:#313648;white-space:pre-wrap;display:block}
+  .copybtn{position:absolute;top:8px;right:8px;font-size:11px;padding:4px 9px}
+  /* writing */
+  .checklist{list-style:none;padding:0;margin:12px 0}
+  .checklist li{margin:6px 0;padding-left:26px;position:relative;font-size:14.5px}
+  .checklist li::before{content:"\2610";position:absolute;left:0;color:var(--color-primary);font-size:16px}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 18 of 32 · Reporting inspection findings (borescope and visual)</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 inspection findings — crack, corrosion, within limits</span></div></div></header>
+<article>
+
+  <header class="lec-hero">
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · EASA Part-66/145 · CEFR B2 · Unit 18</p>
+    <h1 class="lecture-title">Reporting inspection findings: borescope and visual.</h1>
+    <p class="subtitle">A borescope inspection of an engine turbine finds a crack. You describe the finding to your lead — its type, size, location and severity — then you compare it against the manual's serviceable limits and recommend accept, repair or refer. All of it in clear spoken B2 English, using comparatives to judge each finding against the limit.</p>
+    <div class="hero-meta">
+      <span>Scenario<strong>Report a borescope finding to the lead</strong></span>
+      <span>Vocabulary<strong>Inspection findings — 22 terms</strong></span>
+      <span>Grammar<strong>Comparatives for limits (longer than allowed)</strong></span>
+      <span>Class length<strong>90 minutes · balanced skills</strong></span>
+    </div>
+  </header>
+
+  <div class="card cando" style="margin-bottom:2rem">
+    <h4>By the end of this unit you can &hellip;</h4>
+    <ul>
+      <li>Can describe a defect's type, size, location and severity precisely.</li>
+      <li>Can compare a finding against the manual's serviceable limits.</li>
+      <li>Can recommend accept, repair or refer, with justification.</li>
+    </ul>
+  </div>
+
+  <!-- ============ SCENARIO ============ -->
+  <section class="lecture-section" id="scenario">
+    <h2><span class="secnum">01</span>The situation</h2>
+    <p>It is afternoon in the maintenance hangar at Riga. An Airbus A320, registration YL-BBX, has arrived for a scheduled inspection. The work order requires a borescope inspection of the number-two engine. Because you cannot dismantle the engine, you examine the internal components with the borescope camera instead.</p>
+    <p>You are the technician performing the inspection. On the display you notice a crack on a turbine blade, so you immediately have a reportable finding. First you describe the finding precisely to your lead: its type, its size, its location and its severity. Afterwards you both consult the maintenance manual and compare each finding against the published serviceable limits. Finally you recommend an appropriate action: accept it, repair it, or refer it to engineering. You must always justify the decision clearly.</p>
+    <div class="callout plain">
+      <h4>In plain words &mdash; four ideas before you start</h4>
+      <p style="margin:0"><b>Borescope</b> &mdash; a small camera on a flexible probe that looks inside an engine. <b>Finding</b> &mdash; anything you notice in an inspection that may be a defect. <b>Serviceable limit</b> &mdash; the largest damage the manual allows for a part to stay in use. <b>Comparatives</b> &mdash; the grammar you use to compare a finding with the limit: <i>longer than</i>, <i>deeper than</i>, <i>smaller than</i>. Every hard word is glossed in the vocabulary bank.</p>
+    </div>
+  </section>
+
+  <!-- ============ DIALOGUES ============ -->
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">02</span>Listen &mdash; describe it, compare it, decide it</h2>
+    <p>Listen to each part first. Do not read yet. Afterwards, open the transcript and verify the vocabulary. Concentrate on how the technician describes a finding accurately, and how the two colleagues compare each measurement against the published limit. The same two voices return throughout the exercises.</p>
+
+    <div class="dlg">
+      <h3>Dialogue 1 &mdash; Describe the borescope finding</h3>
+      <p class="cast">A = J&#257;nis, technician &middot; B = El&#299;na, lead technician</p>
+      <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u18-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:26 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">El&#299;na, I have finished the borescope inspection of engine 2, and I have one finding.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Good work, J&#257;nis. Give me the type of defect first, and then the location.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">It is a crack. The crack is on the leading edge of a turbine blade.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Which stage is it, and which blade number? Be precise, because the report must be exact.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">It is stage 1, blade number 12. The crack starts near the blade tip.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Understood. Now give me the dimension of the crack. How long is it on the screen?</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">The borescope measuring tool reads it at about 4 mm along the edge.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">4 mm on the leading edge. And the severity &mdash; does the crack look deep to you?</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">The crack looks shallow, although the line is very clear on the screen.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Is there any other defect near it, such as pitting or light erosion?</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">Yes. There is light erosion on the same blade, close to the tip.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">That is a good report. Type, location, dimension and severity &mdash; that is exactly what I need.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">I also saw a small dent on a fan blade during the visual inspection.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">We record every finding, although some are minor. Note the dent as well.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">The dent is small, so I will give you the exact dimension in a moment.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Perfect. Next, we compare each finding against the serviceable limits in the manual.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 2 &mdash; Compare the finding against the serviceable limits</h3>
+      <p class="cast">A = J&#257;nis, technician &middot; B = El&#299;na, lead technician</p>
+      <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u18-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:16 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Open the maintenance manual at chapter 72, and find the damage limits table.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">I have the table here. It lists the serviceable limit for each type of defect.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Start with the crack. What is the limit for a crack on the leading edge?</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">The maintenance manual allows 3 mm for a crack on the leading edge.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">And our crack is 4 mm, so the crack is longer than the limit.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">Yes. 4 mm is longer than 3, so the crack is out of limits.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Correct. A crack that is longer than allowed is not serviceable, so we cannot leave it.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">Now the dent. The limit for a fan-blade dent is 2 mm.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Our dent is 1.5 mm. Is that dimension within limits?</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">1.5 is shallower than 2, so the dent is within limits.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Good. The dent is smaller than the limit, so we can accept it as it is.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">The crack is the real problem, because it is bigger than the manual allows.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Exactly. Always compare the measured dimension against the serviceable limit before you decide.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">Should I write out of limits next to the crack on the report?</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Yes. Write it clearly, so the next action is obvious to the whole team.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 3 &mdash; Recommend accept, repair or refer</h3>
+      <p class="cast">A = J&#257;nis, technician &middot; B = El&#299;na, lead technician</p>
+      <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u18-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:26 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Now the visual inspection findings on the wing access panel. What did you see there?</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">I found corrosion on the panel, near the fastener holes on the lower edge.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Is it light corrosion, or is there deep pitting in the metal surface?</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">It is light. The pitting is shallow, and the affected area is quite small.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Good. For light corrosion we can blend the surface, as long as we stay within limits.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">So we repair it by blending, and then we protect the surface with primer again.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Correct. A blend repair is acceptable, provided the final depth stays within limits.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">There is also a scratch on the same panel, and a very small dent beside it.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">How deep is the scratch, compared with the limit in the maintenance manual?</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">The scratch is 0.1 mm, and the limit is 0.2.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">So the scratch is shallower than the limit. We accept it, then, and record it.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">Agreed. But the turbine crack is out of limits, so we cannot simply accept that one.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">For the crack we refer the finding to engineering, because they decide the repair.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">So the plan is: accept the scratch, blend the corrosion, and refer the crack.</span></p>
+        <p class="turn"><span class="who">El&#299;na</span><span class="said">Exactly. Accept, repair or refer &mdash; and always write the reason for each decision.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">Understood. I will write the recommendation and the reason next to every finding.</span></p>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 4 &mdash; Shift-handover voicemail</h3>
+      <p class="cast">A = J&#257;nis, technician (a spoken message for the duty engineer)</p>
+      <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u18-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:42 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">Hi, this is J&#257;nis, leaving a shift handover for the duty engineer on the late shift.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">I finished the borescope inspection of engine 2 this afternoon, on YL-BBX.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">The main finding is a crack on the leading edge of a stage-1 turbine blade.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">The crack is about 4 mm, so it is longer than the serviceable limit in the manual.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">Because the crack is out of limits, I refer this finding to engineering for a decision.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">The visual inspection findings are minor. The small dent and the scratch are both within limits.</span></p>
+        <p class="turn"><span class="who">J&#257;nis</span><span class="said">I will blend the light corrosion on the wing panel tomorrow. The full report is in the tech log.</span></p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ VOCABULARY ============ -->
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">03</span>Vocabulary bank &mdash; inspection findings</h2>
+    <p>These twenty-two specialist terms carry the entire unit. Each one includes a plain-words definition, an example at your level, and one frequent word partner (a collocation). You encounter every term in the dialogues, and you subsequently practise every term throughout the exercises.</p>
+    <table class="dt">
+      <thead><tr><th style="width:19%">Term</th><th style="width:33%">Plain meaning</th><th style="width:31%">Example</th><th style="width:17%">Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="borescope">borescope</dfn></td><td class="mean">A small camera on a flexible probe that looks inside an engine.</td><td class="eg">We use the borescope for this inspection, because we cannot open the engine to examine the turbine directly.</td><td class="col">run a borescope inspection</td></tr>
+        <tr><td><dfn data-term="visual inspection">visual inspection</dfn></td><td class="mean">A check made by looking at a part carefully, with good light.</td><td class="eg">During the visual inspection we examine every panel carefully, although the available light is frequently rather poor.</td><td class="col">carry out a visual inspection</td></tr>
+        <tr><td><dfn data-term="finding">finding</dfn></td><td class="mean">Anything you notice in an inspection that may be a defect.</td><td class="eg">We record each finding immediately, even when the damage initially appears completely insignificant.</td><td class="col">record a finding</td></tr>
+        <tr><td><dfn data-term="defect">defect</dfn></td><td class="mean">A fault or damage in a part.</td><td class="eg">A crack is a particularly serious defect, unless the measurement remains extremely short indeed.</td><td class="col">report a defect</td></tr>
+        <tr><td><dfn data-term="crack">crack</dfn></td><td class="mean">A thin line where the metal has started to split.</td><td class="eg">The crack is located on the leading edge, therefore we measure its length extremely carefully.</td><td class="col">a crack on the edge</td></tr>
+        <tr><td><dfn data-term="corrosion">corrosion</dfn></td><td class="mean">Damage where the metal reacts with air or water and breaks down.</td><td class="eg">Light corrosion is relatively common, although we still remove it completely from the affected surface.</td><td class="col">light corrosion</td></tr>
+        <tr><td><dfn data-term="pitting">pitting</dfn></td><td class="mean">Small holes or pits in a surface, often caused by corrosion.</td><td class="eg">The pitting is fortunately shallow, therefore a blend repair is entirely sufficient for this panel.</td><td class="col">shallow pitting</td></tr>
+        <tr><td><dfn data-term="dent">dent</dfn></td><td class="mean">A small hollow where a surface has been pushed in.</td><td class="eg">The dent is noticeably smaller than the limit, therefore we can confidently accept it today.</td><td class="col">a small dent</td></tr>
+        <tr><td><dfn data-term="erosion">erosion</dfn></td><td class="mean">Loss of material from a surface, worn away by hot gas or particles.</td><td class="eg">The erosion appears near the blade tip, because extremely hot gas flows fastest through that region.</td><td class="col">light erosion</td></tr>
+        <tr><td><dfn data-term="scratch">scratch</dfn></td><td class="mean">A thin surface mark that removes a little material.</td><td class="eg">The scratch is comparatively shallow, therefore it remains within the published serviceable limit.</td><td class="col">a shallow scratch</td></tr>
+        <tr><td><dfn data-term="leading edge">leading edge</dfn></td><td class="mean">The front edge of a blade or wing that meets the airflow first.</td><td class="eg">The crack is on the leading edge, where the gas hits the blade first.</td><td class="col">on the leading edge</td></tr>
+        <tr><td><dfn data-term="location">location</dfn></td><td class="mean">Where the defect is on the part.</td><td class="eg">Give the location first, so the inspector finds the defect quickly.</td><td class="col">give the location</td></tr>
+        <tr><td><dfn data-term="severity">severity</dfn></td><td class="mean">How serious a defect is.</td><td class="eg">The severity is low, although the crack is easy to see on the screen.</td><td class="col">judge the severity</td></tr>
+        <tr><td><dfn data-term="dimension">dimension</dfn></td><td class="mean">The size of the defect, measured in millimetres.</td><td class="eg">Write the dimension in millimetres, because feel alone is not accurate.</td><td class="col">measure the dimension</td></tr>
+        <tr><td><dfn data-term="serviceable limit">serviceable limit</dfn></td><td class="mean">The largest damage the manual allows for a part to stay in use.</td><td class="eg">The serviceable limit is 3 mm for a crack on this leading edge.</td><td class="col">check the serviceable limit</td></tr>
+        <tr><td><dfn data-term="within limits">within limits</dfn></td><td class="mean">Inside the allowed maximum; the part is still serviceable.</td><td class="eg">The dent is within limits, so we accept it and record the size.</td><td class="col">within limits</td></tr>
+        <tr><td><dfn data-term="out of limits">out of limits</dfn></td><td class="mean">Larger than the manual allows; the part is not serviceable.</td><td class="eg">The crack is out of limits, so we refer it to engineering.</td><td class="col">out of limits</td></tr>
+        <tr><td><dfn data-term="blend">blend</dfn></td><td class="mean">To smooth away a small defect so the surface returns within limits.</td><td class="eg">We blend the light corrosion, provided we stay within the depth limit.</td><td class="col">blend the surface</td></tr>
+        <tr><td><dfn data-term="maintenance manual">maintenance manual</dfn></td><td class="mean">The approved manual that gives the limits and the actions (the AMM).</td><td class="eg">The maintenance manual gives the limit for each type of defect.</td><td class="col">open the maintenance manual</td></tr>
+        <tr><td><dfn data-term="accept">accept</dfn></td><td class="mean">To leave a part in service because the finding is within limits.</td><td class="eg">We accept the scratch, because it is shallower than the limit.</td><td class="col">accept a finding</td></tr>
+        <tr><td><dfn data-term="repair">repair</dfn></td><td class="mean">To fix a part so it becomes serviceable again.</td><td class="eg">We repair the corrosion by blending, then we protect the surface.</td><td class="col">repair the panel</td></tr>
+        <tr><td><dfn data-term="refer">refer</dfn></td><td class="mean">To pass a finding to engineering for a decision.</td><td class="eg">We refer the crack to engineering, because it is out of limits.</td><td class="col">refer to engineering</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ GRAMMAR ============ -->
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">04</span>Grammar in context &mdash; comparatives for limits</h2>
+    <p>You evaluate every finding against a limit, so you continually compare two measurements: the finding and the limit. English expresses this comparison with the <b>comparative</b>. For a short adjective, add <b>-er</b> and afterwards <b>than</b>: <i>long &rarr; longer than</i>. For a longer adjective, use <b>more</b> and afterwards <b>than</b>: <i>severe &rarr; more severe than</i>. Listen carefully to how J&#257;nis and El&#299;na apply it.</p>
+
+    <p class="quote">El&#299;na: "Our crack is 4 mm, so the crack is <b>longer than</b> the limit."</p>
+    <p class="quote">J&#257;nis: "1.5 is <b>shallower than</b> 2, so the dent is within limits."</p>
+    <p class="quote">El&#299;na: "The dent is <b>smaller than</b> the limit, so we can accept it."</p>
+    <p class="quote">J&#257;nis: "The crack is <b>bigger than</b> the manual allows."</p>
+
+    <p>The underlying pattern is always identical: <b>comparative + than + the limit</b>. Whenever the finding is <i>bigger than</i> the limit, it is consequently <b>out of limits</b>. Whenever the finding is <i>smaller than</i> the limit, it is consequently <b>within limits</b>. Alternatively, you can say the finding is <b>not as deep as</b> the limit, which similarly means it remains within limits.</p>
+
+    <table class="dt gtab">
+      <thead><tr><th>Adjective</th><th>Comparative</th><th>Example at work</th></tr></thead>
+      <tbody>
+        <tr><td>long</td><td class="right">longer than</td><td>The crack is longer than the limit, so it is out of limits.</td></tr>
+        <tr><td>deep</td><td class="right">deeper than</td><td>The pit is deeper than allowed, so we cannot accept it.</td></tr>
+        <tr><td>small</td><td class="right">smaller than</td><td>The dent is smaller than the limit, so it is within limits.</td></tr>
+        <tr><td>severe</td><td class="right">more severe than</td><td>This finding is more severe than the last one.</td></tr>
+      </tbody>
+    </table>
+
+    <p>Two particular points deserve your attention. Firstly, always use <b>than</b> after the comparative, never <i>as</i>, <i>from</i> or <i>then</i>. Secondly, never combine <b>more</b> with an <b>-er</b> word: write <i>longer than</i>, never <i>more longer than</i>. These two mistakes are unfortunately the most frequent at your level.</p>
+
+    <h3>Three mistakes to avoid (Latvian &amp; Russian speakers)</h3>
+    <table class="dt gtab">
+      <thead><tr><th>Why it happens</th><th class="wrong">Wrong</th><th class="right">Right</th></tr></thead>
+      <tbody>
+        <tr><td>You add "more" to a short adjective that already has "-er", so you double the comparative.</td><td class="wrong">The crack is more longer than the limit.</td><td class="right">The crack is longer than the limit.</td></tr>
+        <tr><td>Your first language uses a word like "as" or "from" to compare, so you drop "than".</td><td class="wrong">The dent is deeper as the limit.</td><td class="right">The dent is deeper than the limit.</td></tr>
+        <tr><td>"Than" and "then" sound the same, so you write the time word by mistake.</td><td class="wrong">The pit is deeper then allowed.</td><td class="right">The pit is deeper than allowed.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ EXERCISES ============ -->
+  <section class="lecture-section" id="exercises">
+    <h2><span class="secnum">05</span>Exercises</h2>
+    <p>Work through E1 to E8. Type your answers, press <b>Check</b>, and the page marks each item. Open <b>Show answers</b> only after you try. Nobody else will confirm your English &mdash; the page will.</p>
+
+    <!-- E1 -->
+    <div class="ex" id="e1">
+      <span class="tag">E1 &middot; Gap-fill</span>
+      <h3>Put the right term in each gap</h3>
+      <p>Use one term from the bank in each sentence. Type it in the box.</p>
+      <div class="wordbank"><span>borescope</span><span>finding</span><span>defect</span><span>crack</span><span>corrosion</span><span>leading edge</span><span>severity</span><span>serviceable limit</span><span>within limits</span><span>maintenance manual</span></div>
+      <ol>
+        <li>We use a <input class="gap" data-answer="borescope" size="14"> to look inside the engine.</li>
+        <li>We record every <input class="gap" data-answer="finding" size="12"> from the inspection.</li>
+        <li>A crack is a serious <input class="gap" data-answer="defect" size="12">.</li>
+        <li>The <input class="gap" data-answer="crack" size="10"> is on the leading edge of the blade.</li>
+        <li>Light <input class="gap" data-answer="corrosion" size="12"> makes the metal surface rough.</li>
+        <li>The crack is on the <input class="gap" data-answer="leading edge" size="16"> of the turbine blade.</li>
+        <li>The <input class="gap" data-answer="severity" size="12"> of this defect is low.</li>
+        <li>We check the <input class="gap" data-answer="serviceable limit" size="20"> in the manual.</li>
+        <li>The dent is small, so it is <input class="gap" data-answer="within limits" size="16">.</li>
+        <li>The <input class="gap" data-answer="maintenance manual" size="22"> gives the limit for each defect.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e1">Check</button><span class="score" data-score="e1"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>borescope</li><li>finding</li><li>defect</li><li>crack</li><li>corrosion</li><li>leading edge</li><li>severity</li><li>serviceable limit</li><li>within limits</li><li>maintenance manual</li></ol></details>
+    </div>
+
+    <!-- E2 -->
+    <div class="ex" id="e2">
+      <span class="tag">E2 &middot; Matching</span>
+      <h3>Match each term to its meaning</h3>
+      <p>Choose the meaning that fits the term.</p>
+      <ol>
+        <li><b>visual inspection</b> &mdash; <select class="gap" data-answer="a check made by looking at a part carefully"><option value=""></option><option>a check made by looking at a part carefully</option><option>a camera on a probe that looks inside an engine</option><option>the size of a defect in millimetres</option></select></li>
+        <li><b>pitting</b> &mdash; <select class="gap" data-answer="small holes or pits in a surface"><option value=""></option><option>small holes or pits in a surface</option><option>a thin line where the metal has split</option><option>the front edge of a blade</option></select></li>
+        <li><b>dent</b> &mdash; <select class="gap" data-answer="a small hollow where a surface is pushed in"><option value=""></option><option>a small hollow where a surface is pushed in</option><option>loss of material worn away by hot gas</option><option>the largest damage the manual allows</option></select></li>
+        <li><b>erosion</b> &mdash; <select class="gap" data-answer="loss of material worn away by hot gas or particles"><option value=""></option><option>loss of material worn away by hot gas or particles</option><option>a thin surface mark</option><option>a fault passed to engineering</option></select></li>
+        <li><b>scratch</b> &mdash; <select class="gap" data-answer="a thin surface mark that removes a little material"><option value=""></option><option>a thin surface mark that removes a little material</option><option>a small hollow in the surface</option><option>where the defect is on the part</option></select></li>
+        <li><b>location</b> &mdash; <select class="gap" data-answer="where the defect is on the part"><option value=""></option><option>where the defect is on the part</option><option>how serious the defect is</option><option>the size of the defect</option></select></li>
+        <li><b>dimension</b> &mdash; <select class="gap" data-answer="the size of the defect in millimetres"><option value=""></option><option>the size of the defect in millimetres</option><option>the front edge of a blade</option><option>a check made by looking</option></select></li>
+        <li><b>out of limits</b> &mdash; <select class="gap" data-answer="larger than the manual allows; not serviceable"><option value=""></option><option>larger than the manual allows; not serviceable</option><option>inside the allowed maximum; serviceable</option><option>a small hollow in the metal</option></select></li>
+        <li><b>blend</b> &mdash; <select class="gap" data-answer="to smooth away a small defect within limits"><option value=""></option><option>to smooth away a small defect within limits</option><option>to pass a finding to engineering</option><option>to look inside the engine</option></select></li>
+        <li><b>accept</b> &mdash; <select class="gap" data-answer="to leave a part in service because it is within limits"><option value=""></option><option>to leave a part in service because it is within limits</option><option>to pass a finding to engineering</option><option>to measure the size of a defect</option></select></li>
+        <li><b>repair</b> &mdash; <select class="gap" data-answer="to fix a part so it becomes serviceable again"><option value=""></option><option>to fix a part so it becomes serviceable again</option><option>to leave a part exactly as it is</option><option>to look inside the engine with a camera</option></select></li>
+        <li><b>refer</b> &mdash; <select class="gap" data-answer="to pass a finding to engineering for a decision"><option value=""></option><option>to pass a finding to engineering for a decision</option><option>to smooth away a small defect</option><option>to accept a finding within limits</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e2">Check</button><span class="score" data-score="e2"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>a check made by looking at a part carefully</li><li>small holes or pits in a surface</li><li>a small hollow where a surface is pushed in</li><li>loss of material worn away by hot gas or particles</li><li>a thin surface mark that removes a little material</li><li>where the defect is on the part</li><li>the size of the defect in millimetres</li><li>larger than the manual allows; not serviceable</li><li>to smooth away a small defect within limits</li><li>to leave a part in service because it is within limits</li><li>to fix a part so it becomes serviceable again</li><li>to pass a finding to engineering for a decision</li></ol></details>
+    </div>
+
+    <!-- E3 -->
+    <div class="ex" id="e3">
+      <span class="tag">E3 &middot; Dialogue completion</span>
+      <h3>Complete the report call</h3>
+      <p>Fill each gap with the missing term. The call is like the ones you heard.</p>
+      <div class="wordbank"><span>borescope</span><span>location</span><span>crack</span><span>leading edge</span><span>dimension</span><span>severity</span><span>serviceable limit</span><span>out of limits</span><span>within limits</span></div>
+      <ol>
+        <li>J&#257;nis: I finished the <input class="gap" data-answer="borescope" size="14"> inspection of engine 2.</li>
+        <li>El&#299;na: Give me the type of defect and the <input class="gap" data-answer="location" size="12">.</li>
+        <li>J&#257;nis: It is a <input class="gap" data-answer="crack" size="10"> on the front of the blade.</li>
+        <li>J&#257;nis: The <input class="gap" data-answer="leading edge" size="16"> is where the gas hits the blade first.</li>
+        <li>El&#299;na: What is the <input class="gap" data-answer="dimension" size="12"> of the crack?</li>
+        <li>J&#257;nis: About 4 mm. The <input class="gap" data-answer="severity" size="12"> is low.</li>
+        <li>El&#299;na: We check it against the <input class="gap" data-answer="serviceable limit" size="20"> in the manual.</li>
+        <li>J&#257;nis: 4 is longer than 3, so the crack is <input class="gap" data-answer="out of limits" size="16">.</li>
+        <li>El&#299;na: The dent is smaller than the limit, so it is <input class="gap" data-answer="within limits" size="16">.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e3">Check</button><span class="score" data-score="e3"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>borescope</li><li>location</li><li>crack</li><li>leading edge</li><li>dimension</li><li>severity</li><li>serviceable limit</li><li>out of limits</li><li>within limits</li></ol></details>
+    </div>
+
+    <!-- E4 -->
+    <div class="ex" id="e4">
+      <span class="tag">E4 &middot; Grammar transformation</span>
+      <h3>Make the comparative</h3>
+      <p>Use the adjective in brackets. Write the comparative form only (for example <i>longer</i> or <i>more severe</i>). Do not write "than".</p>
+      <ol>
+        <li>(long) The crack is <input class="gap" data-answer="longer" size="12"> than the limit.</li>
+        <li>(deep) The pit is <input class="gap" data-answer="deeper" size="12"> than allowed.</li>
+        <li>(small) The dent is <input class="gap" data-answer="smaller" size="12"> than the limit.</li>
+        <li>(short) The scratch is <input class="gap" data-answer="shorter" size="12"> than the limit.</li>
+        <li>(severe) This finding is <input class="gap" data-answer="more severe" size="14"> than the last one.</li>
+        <li>(wide) The dent is <input class="gap" data-answer="wider" size="12"> than 2 mm.</li>
+        <li>(shallow) The pitting is <input class="gap" data-answer="shallower" size="14"> than the limit.</li>
+        <li>(big) The crack is <input class="gap" data-answer="bigger" size="12"> than the manual allows.</li>
+        <li>(serious) A crack is <input class="gap" data-answer="more serious" size="14"> than a scratch.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e4">Check</button><span class="score" data-score="e4"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>longer</li><li>deeper</li><li>smaller</li><li>shorter</li><li>more severe</li><li>wider</li><li>shallower</li><li>bigger</li><li>more serious</li></ol></details>
+    </div>
+
+    <!-- E5 -->
+    <div class="ex reading" id="e5">
+      <span class="tag">E5 &middot; Reading 1</span> <span class="genre">Genre: Borescope inspection report (BIR)</span>
+      <h3>Read the report, then answer</h3>
+      <div class="rtext">
+        <p><b>BORESCOPE INSPECTION REPORT &mdash; ENGINE No. 2</b></p>
+        <p><b>Aircraft:</b> A320, reg YL-BBX. <b>Engine:</b> CFM56, position two. <b>ATA:</b> 72-00.</p>
+        <p><b>Inspection:</b> scheduled borescope inspection of the high-pressure turbine.</p>
+        <p><b>Finding 1:</b> a crack on the leading edge of a stage-one turbine blade, blade number 12. Dimension: about 4 mm along the edge. Severity: the crack is clear, although it is shallow. Location: near the blade tip.</p>
+        <p><b>Finding 2:</b> light erosion on the same blade, close to the tip. The erosion is minor and needs no action now.</p>
+        <p><b>Finding 3:</b> a small dent on a fan blade, found during the visual inspection. Dimension: 1.5 mm deep.</p>
+        <p><b>Assessment:</b> the crack is longer than the serviceable limit in the maintenance manual, so it is out of limits. The dent is shallower than the limit, so it is within limits.</p>
+        <p><b>Recommendation:</b> refer the crack to engineering. Accept the dent. Monitor the erosion at the next inspection.</p>
+        <p><b>Inspector:</b> J. Ozols. <b>Status:</b> engine not released until engineering answers.</p>
+      </div>
+      <ol>
+        <li>What tool made this inspection? <select class="gap" data-answer="a borescope"><option value=""></option><option>a borescope</option><option>a torque wrench</option><option>a warning tag</option></select></li>
+        <li>Where is the crack? <select class="gap" data-answer="on the leading edge"><option value=""></option><option>on the leading edge</option><option>on the fan cowl</option><option>on the wing panel</option></select></li>
+        <li>What is the dimension of the crack? <input class="gap" data-answer="4 mm|about 4 mm|4" size="12"></li>
+        <li>Is the crack within limits or out of limits? <select class="gap" data-answer="out of limits"><option value=""></option><option>out of limits</option><option>within limits</option></select></li>
+        <li>What does the inspector recommend for the crack? <select class="gap" data-answer="refer it to engineering"><option value=""></option><option>refer it to engineering</option><option>accept it</option><option>blend it now</option></select></li>
+        <li>Why is the dent within limits? <select class="gap" data-answer="it is shallower than the limit"><option value=""></option><option>it is shallower than the limit</option><option>it is longer than the limit</option><option>it is on the leading edge</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e5">Check</button><span class="score" data-score="e5"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>a borescope</li><li>on the leading edge</li><li>4 mm</li><li>out of limits</li><li>refer it to engineering</li><li>it is shallower than the limit</li></ol></details>
+    </div>
+
+    <!-- E6 -->
+    <div class="ex" id="e6">
+      <span class="tag">E6 &middot; Error-spotting</span>
+      <h3>Find and fix eight errors</h3>
+      <p>Each sentence has a comparative mistake &mdash; a double comparative, or the wrong word instead of "than". Type the correct part in the box.</p>
+      <div class="rtext" style="background:var(--bg-sunken);border-radius:6px;padding:12px 16px">
+        <p>REPORT (to correct). [1] The crack is more longer than the limit. [2] The dent is deeper as the limit. [3] The pit is deeper then allowed. [4] The scratch is short than the limit. [5] The corrosion is more deep than the blend limit. [6] The crack is more serious as a scratch. [7] The dent is more small than the limit. [8] The finding is more big than allowed.</p>
+      </div>
+      <ol>
+        <li>[1] The crack is <b>more longer</b> than the limit. &rarr; The crack is <input class="gap" data-answer="longer" size="12"> than the limit.</li>
+        <li>[2] The dent is deeper <b>as</b> the limit. &rarr; The dent is deeper <input class="gap" data-answer="than" size="8"> the limit.</li>
+        <li>[3] The pit is deeper <b>then</b> allowed. &rarr; The pit is deeper <input class="gap" data-answer="than" size="8"> allowed.</li>
+        <li>[4] The scratch is <b>short</b> than the limit. &rarr; The scratch is <input class="gap" data-answer="shorter" size="12"> than the limit.</li>
+        <li>[5] The corrosion is <b>more deep</b> than the blend limit. &rarr; The corrosion is <input class="gap" data-answer="deeper" size="12"> than the blend limit.</li>
+        <li>[6] The crack is more serious <b>as</b> a scratch. &rarr; The crack is more serious <input class="gap" data-answer="than" size="8"> a scratch.</li>
+        <li>[7] The dent is <b>more small</b> than the limit. &rarr; The dent is <input class="gap" data-answer="smaller" size="12"> than the limit.</li>
+        <li>[8] The finding is <b>more big</b> than allowed. &rarr; The finding is <input class="gap" data-answer="bigger" size="12"> than allowed.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e6">Check</button><span class="score" data-score="e6"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>longer than the limit</li><li>deeper than the limit</li><li>deeper than allowed</li><li>shorter than the limit</li><li>deeper than the blend limit</li><li>more serious than a scratch</li><li>smaller than the limit</li><li>bigger than allowed</li></ol></details>
+    </div>
+
+    <!-- E7 -->
+    <div class="ex reading" id="e7">
+      <span class="tag">E7 &middot; Reading 2</span> <span class="genre">Genre: Maintenance manual &mdash; damage limits (AMM)</span>
+      <h3>Read the limits page, then answer</h3>
+      <div class="rtext">
+        <p><b>MAINTENANCE MANUAL &mdash; DAMAGE LIMITS (ATA 72-00)</b></p>
+        <p>This chapter gives the serviceable limits for turbine and fan blades. Compare every finding against the limit before you decide.</p>
+        <p><b>Cracks:</b> a crack on the leading edge is acceptable up to 3 mm. A crack that is longer than 3 mm is out of limits, and you must refer it to engineering.</p>
+        <p><b>Dents:</b> a dent on a fan blade is acceptable up to 2 mm deep. A dent that is deeper than 2 mm is out of limits.</p>
+        <p><b>Scratches:</b> a scratch is acceptable up to 0.2 mm deep. A scratch that is shallower than 0.2 mm is within limits, so you may accept it.</p>
+        <p><b>Corrosion:</b> light corrosion may be removed by blending, provided the final depth stays within the blend limit. Deep pitting is out of limits.</p>
+        <p><b>Note:</b> always record the dimension of each finding. Never estimate the size by feel, because a small error can change the decision. If a finding is out of limits, do not accept it. Refer it, so engineering can decide the repair.</p>
+      </div>
+      <ol>
+        <li>What is the crack limit on the leading edge? <input class="gap" data-answer="3 mm|3" size="10"></li>
+        <li>A crack of 4 mm is &hellip; <select class="gap" data-answer="out of limits"><option value=""></option><option>out of limits</option><option>within limits</option></select></li>
+        <li>What is the dent limit on a fan blade? <input class="gap" data-answer="2 mm|2" size="10"></li>
+        <li>How do you remove light corrosion? <select class="gap" data-answer="by blending"><option value=""></option><option>by blending</option><option>by referring it</option><option>by ignoring it</option></select></li>
+        <li>How should you record the dimension? <select class="gap" data-answer="measure it, do not estimate by feel"><option value=""></option><option>measure it, do not estimate by feel</option><option>estimate it by feel</option><option>leave it blank</option></select></li>
+        <li>What must you do with an out-of-limits finding? <select class="gap" data-answer="refer it to engineering"><option value=""></option><option>refer it to engineering</option><option>accept it</option><option>close the report</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e7">Check</button><span class="score" data-score="e7"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>3 mm</li><li>out of limits</li><li>2 mm</li><li>by blending</li><li>measure it, do not estimate by feel</li><li>refer it to engineering</li></ol></details>
+    </div>
+
+    <!-- E8 -->
+    <div class="ex" id="e8">
+      <span class="tag">E8 &middot; Listening review</span>
+      <h3>Replay Dialogue 3, then answer</h3>
+      <p>Play Dialogue 3 again. Answer from what you hear.</p>
+      <ol>
+        <li>Where are the visual findings? <select class="gap" data-answer="on the wing access panel"><option value=""></option><option>on the wing access panel</option><option>on the turbine blade</option><option>on the fan cowl</option></select></li>
+        <li>What did J&#257;nis find near the fastener holes? <select class="gap" data-answer="corrosion"><option value=""></option><option>corrosion</option><option>a crack</option><option>a torque seal</option></select></li>
+        <li>Is the pitting deep or shallow? <select class="gap" data-answer="shallow"><option value=""></option><option>shallow</option><option>deep</option></select></li>
+        <li>How do they repair the light corrosion? <input class="gap" data-answer="blend|blending|by blending" size="14"></li>
+        <li>How deep is the scratch? <input class="gap" data-answer="0.1 mm|0.1" size="10"></li>
+        <li>Is the scratch within limits? <select class="gap" data-answer="yes, it is within limits"><option value=""></option><option>yes, it is within limits</option><option>no, it is out of limits</option></select></li>
+        <li>What do they do with the scratch? <select class="gap" data-answer="accept it"><option value=""></option><option>accept it</option><option>refer it</option><option>blend it</option></select></li>
+        <li>What do they do with the crack, and why? <select class="gap" data-answer="refer it, because it is out of limits"><option value=""></option><option>refer it, because it is out of limits</option><option>accept it, because it is within limits</option><option>blend it, because it is shallow</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check" data-ex="e8">Check</button><span class="score" data-score="e8"></span></div>
+      <details class="answers"><summary>Show answers</summary><ol><li>on the wing access panel</li><li>corrosion</li><li>shallow</li><li>blend (blending)</li><li>0.1 mm</li><li>yes, it is within limits</li><li>accept it</li><li>refer it, because it is out of limits</li></ol></details>
+    </div>
+  </section>
+
+  <!-- ============ SPEAKING ============ -->
+  <section class="lecture-section" id="speaking">
+    <h2><span class="secnum">06</span>Speaking &mdash; role-plays</h2>
+    <p>Work in pairs. Take one role each, then swap after each card. Use the useful phrases, keep sentences short, and use a comparative every time you compare a finding with the limit.</p>
+
+    <div class="roleplay">
+      <h4>Role-play card 1 &mdash; Describe the finding</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>You have finished a borescope inspection of an engine turbine and you have one finding.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A)</span>Technician. Report the finding to your lead in a clear order.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>Give the type, the location, the dimension and the severity of the defect.</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>It is a crack.</span><span>It is on the leading edge.</span><span>The dimension is about 4 mm.</span><span>The severity is low.</span></div></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 2 &mdash; Compare it with the limit</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>You both open the maintenance manual and check the finding against the serviceable limit.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A/B)</span>One reads the limit; the other compares the finding with a comparative.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>Decide clearly whether the finding is within limits or out of limits, and say why.</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>The limit is 3 mm.</span><span>The crack is longer than the limit.</span><span>So it is out of limits.</span><span>The dent is smaller than the limit.</span></div></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 3 &mdash; Recommend accept, repair or refer</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>You have several findings from a visual inspection: a scratch, some corrosion and a crack.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A/B)</span>One proposes a decision for each finding; the other agrees or asks for the reason.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>Recommend accept, repair or refer for each finding, and give a clear reason.</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>Accept the scratch, because it is within limits.</span><span>Blend the corrosion.</span><span>Refer the crack, because it is out of limits.</span></div></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 4 &mdash; Shift handover</h4>
+      <div class="rp-row"><span class="rp-lab">Situation</span>You hand over the inspection findings to the next shift.</div>
+      <div class="rp-row"><span class="rp-lab">Your role (A)</span>Outgoing technician. Summarise the main finding, the comparison, and your recommendation.</div>
+      <div class="rp-row"><span class="rp-lab">Your goal</span>Make sure the next shift knows the crack is out of limits and referred to engineering.</div>
+      <div class="rp-row"><span class="rp-lab">Useful phrases</span><div class="phrases"><span>The main finding is a crack.</span><span>It is longer than the limit.</span><span>It is out of limits.</span><span>I referred it to engineering.</span></div></div>
+    </div>
+
+    <div class="aibox">
+      <h4>AI conversation partner</h4>
+      <p style="margin:0 0 4px">Paste one prompt into your chat buddy and work the task in English. The buddy stays in role, speaks at B2, and gently corrects your mistakes.</p>
+      <div class="prompt"><button class="btn copybtn copy">Copy</button><code>You are El&#299;na, my lead technician. I am the technician who has just finished a borescope inspection of an engine turbine. Ask me to describe my finding: the type of defect, the location, the dimension and the severity. Ask me one question each turn. Speak only at CEFR B2 with short sentences. If I make an English mistake, gently repeat my sentence the correct way, then continue. English only; you may add one Latvian word in brackets for a hard term.</code></div>
+      <div class="prompt"><button class="btn copybtn copy">Copy</button><code>You are El&#299;na, my lead technician. We are comparing my findings against the serviceable limits in the maintenance manual. Give me a limit, and make me compare my finding with a comparative ("The crack is longer than the limit."). Do not accept "more longer" or "deeper as"; if I say them, recast them as "longer than" and "deeper than". Speak only at CEFR B2, keep answers short, and ask me one follow-up question each turn. English only, with an optional one-word Latvian gloss for a hard term.</code></div>
+      <div class="prompt"><button class="btn copybtn copy">Copy</button><code>Role-play the decision on three findings: a scratch, some light corrosion, and a turbine crack. You are El&#299;na; I am the technician. Ask me to recommend accept, repair or refer for each finding, and to give a clear reason with a comparative. Make me use "than" correctly. Speak at CEFR B2, one question per turn, short sentences. Recast my mistakes softly instead of lecturing. English only, with one Latvian word in brackets if a term is hard.</code></div>
+    </div>
+  </section>
+
+  <!-- ============ WRITING ============ -->
+  <section class="lecture-section" id="writing">
+    <h2><span class="secnum">07</span>Writing &mdash; a borescope finding report</h2>
+    <p>Write a short finding report for the technical records. Use Simplified Technical English (ASD-STE100): one idea per sentence, short sentences, and the active voice. When you compare the finding with the limit, use a comparative with <b>than</b>. End with a clear recommendation and a reason.</p>
+    <div class="callout">
+      <h4>Task</h4>
+      <p style="margin:0">A borescope inspection of a combustion chamber finds a crack. The crack is on the leading edge of a liner panel. Its dimension is 5 mm. The serviceable limit in the maintenance manual is 4 mm. During the same check, a visual inspection finds light corrosion on a nearby bracket; the corrosion is within the blend limit. Write the report. Cover: the tool used; the type, location, dimension and severity of each finding; the comparison against the serviceable limit (use a comparative); and your recommendation (accept, repair or refer) with a reason. Write 100&ndash;130 words.</p>
+    </div>
+    <details class="answers"><summary>Show a model answer</summary>
+      <div class="rtext" style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:12px 16px;margin-top:8px">
+        <p><b>BORESCOPE INSPECTION REPORT &mdash; COMBUSTION CHAMBER</b></p>
+        <p>Inspection: borescope inspection of the combustion chamber.</p>
+        <p>Finding 1: a crack on the leading edge of a liner panel. Dimension: 5 mm. Severity: clear and open.</p>
+        <p>Assessment: the serviceable limit is 4 mm. The crack is longer than the limit, so it is out of limits.</p>
+        <p>Recommendation: refer the crack to engineering, because it is out of limits.</p>
+        <p>Finding 2: light corrosion on a nearby bracket, found by visual inspection. The pitting is shallow.</p>
+        <p>Assessment: the corrosion is within the blend limit.</p>
+        <p>Recommendation: repair it by blending, then protect the surface. Accept it after the blend.</p>
+        <p>Status: engine not released until engineering answers on Finding 1.</p>
+      </div>
+    </details>
+    <p style="margin-top:14px"><b>Self-check &mdash; tick each line before you hand in:</b></p>
+    <ul class="checklist">
+      <li>I gave the type, location, dimension and severity of each finding.</li>
+      <li>I compared the finding with the limit using a comparative and "than".</li>
+      <li>I wrote "within limits" or "out of limits" for each finding.</li>
+      <li>I ended with a recommendation (accept, repair or refer) and a reason.</li>
+    </ul>
+  </section>
+
+  <!-- ============ INTERACTIVE PRACTICE ============ -->
+  <style>
+    .widget{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin:14px 0;box-shadow:var(--shadow-sm)}
+    .widget h4{font-size:1rem;margin:0 0 4px;color:var(--color-primary-dark);font-family:var(--font-sans)}
+    .widget .widget-hint{font-size:14px;color:var(--ink-muted);margin:0 0 10px}
+    .widget-controls{display:grid;gap:8px;margin:6px 0}
+    .widget-row{display:grid;grid-template-columns:130px 1fr 62px;gap:10px;align-items:center}
+    .widget-row label{font-size:14px;color:var(--ink-soft);font-weight:600}
+    .widget-row input[type=range]{width:100%;accent-color:var(--color-primary)}
+    .widget-row .val{font-family:var(--font-mono);font-size:14px;font-weight:600;text-align:right;color:var(--color-primary)}
+    .widget-canvas-wrap canvas{display:block;width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken)}
+    .widget-readout{margin-top:10px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 13px;font-size:15px;min-height:44px}
+    .widget-readout b.good{color:var(--good)} .widget-readout b.bad{color:var(--bad)} .widget-readout b.warn{color:var(--gold)}
+    .widget-chips{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0}
+    .wchip{font-family:var(--font-mono);font-size:14px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer}
+    .wchip:hover{border-color:var(--color-primary)}
+    .wchip.picked{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
+    .wgood{color:var(--good);font-weight:600}.wbad{color:var(--bad);font-weight:600}
+  </style>
+  <section class="lecture-section" id="practice">
+    <h2><span class="secnum">08</span>Interactive practice</h2>
+    <p>Use these four tools to test the grammar and the decisions yourself. Move the sliders and click the buttons. Each tool marks your choice at once.</p>
+
+    <div class="widget" id="w-gauge">
+      <h4>1 &middot; Finding against the limit</h4>
+      <p class="widget-hint">Set the finding size and the serviceable limit. Read the verdict and the sentence.</p>
+      <div class="widget-controls">
+        <div class="widget-row"><label>Finding size</label><input type="range" data-find min="0" max="8" step="0.1" value="4"><span class="val" data-findv>4.0 mm</span></div>
+        <div class="widget-row"><label>Serviceable limit</label><input type="range" data-lim min="0" max="8" step="0.1" value="3"><span class="val" data-limv>3.0 mm</span></div>
+      </div>
+      <div class="widget-canvas-wrap"><canvas width="640" height="130"></canvas></div>
+      <div class="widget-readout" data-read></div>
+    </div>
+
+    <div class="widget" id="w-comp">
+      <h4>2 &middot; Build the comparative</h4>
+      <p class="widget-hint">Click an adjective. See the correct form with <b>than</b>, and the wrong forms to avoid.</p>
+      <div class="widget-chips" data-chips></div>
+      <div class="widget-readout" data-read>Click an adjective to build the comparative.</div>
+    </div>
+
+    <div class="widget" id="w-order">
+      <h4>3 &middot; Put the report in order</h4>
+      <p class="widget-hint">Click the four parts in the order you report a finding.</p>
+      <div class="widget-chips" data-pool></div>
+      <div class="widget-readout" data-slot><b>Your order:</b> <span data-seq style="color:var(--ink-muted)">&mdash;</span></div>
+    </div>
+
+    <div class="widget" id="w-decide">
+      <h4>4 &middot; Accept, repair or refer</h4>
+      <p class="widget-hint">Click a finding. See the box it goes to, and the reason.</p>
+      <div class="widget-chips" data-bar></div>
+      <div class="widget-canvas-wrap"><canvas width="640" height="110"></canvas></div>
+      <div class="widget-readout" data-read></div>
+    </div>
+  </section>
+
+  <!-- ============ WORKED REPORT EXAMPLES ============ -->
+  <section class="lecture-section" id="worked">
+    <h2><span class="secnum">09</span>Worked report lines</h2>
+    <p>These are model lines in Simplified Technical English. Read each one. Notice the short sentence, the active voice, and the comparative with <b>than</b>. Copy the pattern in your own report.</p>
+
+    <p><b>A crack that is out of limits:</b></p>
+    <pre class="worked">Finding: a crack on the leading edge of a stage-1 turbine blade.
+Dimension: 4 mm. Limit: 3 mm.
+The crack is longer than the limit, so it is out of limits.
+Recommendation: refer the crack to engineering.</pre>
+
+    <p><b>A dent that is within limits:</b></p>
+    <pre class="worked">Finding: a dent on a fan blade.
+Dimension: 1.5 mm. Limit: 2 mm.
+The dent is shallower than the limit, so it is within limits.
+Recommendation: accept the dent.</pre>
+
+    <p><b>A scratch that is within limits:</b></p>
+    <pre class="worked">Finding: a scratch on the wing access panel.
+Dimension: 0.1 mm. Limit: 0.2 mm.
+The scratch is shorter than the limit, so it is within limits.
+Recommendation: accept the scratch, and record it.</pre>
+
+    <p><b>Light corrosion &mdash; a repair by blending:</b></p>
+    <pre class="worked">Finding: light corrosion near the fastener holes. The pitting is shallow.
+The corrosion is within the blend limit.
+Recommendation: blend the surface, then apply primer. Accept after the blend.</pre>
+
+    <p><b>Erosion &mdash; monitor at the next check:</b></p>
+    <pre class="worked">Finding: light erosion near the blade tip.
+Severity: minor. The erosion is within limits.
+Recommendation: no action now. Monitor at the next inspection.</pre>
+
+    <p><b>A weak line (do not write this):</b></p>
+    <pre class="worked">Weak:  It was observed that a crack seemed to possibly be more longer than the allowed limit.
+Better: The crack is longer than the limit, so it is out of limits.</pre>
+  </section>
+
+  <!-- ============ SELF-CHECK ============ -->
+  <section class="lecture-section" id="checklist">
+    <h2><span class="secnum">10</span>Before you finish</h2>
+    <p>Tick each line. If you can tick them all, your finding report is complete.</p>
+    <ul class="checklist">
+      <li>I gave the <b>type</b>, <b>location</b>, <b>dimension</b> and <b>severity</b> of each finding.</li>
+      <li>I compared the finding with the limit using a comparative and <b>than</b>.</li>
+      <li>I wrote <b>within limits</b> or <b>out of limits</b> for each finding.</li>
+      <li>I ended with a recommendation &mdash; <b>accept, repair or refer</b> &mdash; and a reason.</li>
+      <li>I used short sentences and the active voice (Simplified Technical English).</li>
+    </ul>
+  </section>
+
+  <footer>
+    English for Aviation Maintenance &middot; Unit 18 &mdash; Reporting inspection findings (borescope and visual) &middot; CEFR B2 &middot; Self-study language unit. Terms are for training only; always work from the current approved AMM, task card and company procedures.
+  </footer>
+</article>
+
+<script>
+(function(){
+  // ---- self-checking exercises ----
+  function norm(s){return (s||"").toString().trim().toLowerCase().replace(/\s+/g," ").replace(/[’']/g,"'").replace(/[",;:.]/g,"");}
+  function ok(el){
+    var raw = el.getAttribute("data-answer")||"";
+    var alts = raw.split("|").map(norm);
+    var val = norm(el.value);
+    return val!=="" && alts.indexOf(val)!==-1;
+  }
+  document.querySelectorAll("button.check").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var box = document.getElementById(btn.getAttribute("data-ex"));
+      var fields = box.querySelectorAll("[data-answer]");
+      var good=0;
+      fields.forEach(function(f){
+        f.classList.remove("ok","bad");
+        if(ok(f)){f.classList.add("ok");good++;}
+        else{f.classList.add("bad");}
+      });
+      var sc = box.querySelector("[data-score]");
+      sc.textContent = good+" / "+fields.length+" correct";
+      sc.classList.toggle("done", good===fields.length);
+    });
+  });
+  // ---- copy buttons for AI prompts ----
+  document.querySelectorAll("button.copy").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var code = btn.parentElement.querySelector("code").textContent;
+      var done=function(){var t=btn.textContent;btn.textContent="Copied!";setTimeout(function(){btn.textContent=t;},1200);};
+      if(navigator.clipboard && navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(done,done);}
+      else{try{var ta=document.createElement("textarea");ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();done();}catch(e){done();}}
+    });
+  });
+})();
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 18 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI-->
+
+<!-- ============ INTERACTIVE PRACTICE WIDGETS ============ -->
+<script>
+(function(){
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+  var css=getComputedStyle(document.documentElement);
+  function cv(n){return (css.getPropertyValue(n)||'').trim();}
+  var C_GOOD=cv('--good')||'#43a047', C_BAD=cv('--bad')||'#c0392b', C_GOLD=cv('--gold')||'#c8821a',
+      C_PRIM=cv('--color-primary')||'#2F5496', C_INK=cv('--ink')||'#1f2230', C_LINE=cv('--border')||'#e7e3d8';
+
+  /* 1 · LIMIT GAUGE (canvas + rAF) */
+  (function(){
+    var el=document.getElementById('w-gauge'); if(!el) return;
+    var cvs=el.querySelector('canvas'),ctx=cvs.getContext('2d');
+    var find=el.querySelector('[data-find]'),lim=el.querySelector('[data-lim]');
+    var findV=el.querySelector('[data-findv]'),limV=el.querySelector('[data-limv]'),read=el.querySelector('[data-read]');
+    var W=cvs.width,H=cvs.height,pad=40,disp=0;
+    function vals(){return {f:+find.value,l:+lim.value};}
+    function update(){
+      var v=vals(); findV.textContent=v.f.toFixed(1)+' mm'; limV.textContent=v.l.toFixed(1)+' mm';
+      var eq=Math.abs(v.f-v.l)<0.05, comp=v.f>v.l?'longer than':(v.f<v.l?'shorter than':'equal to'), msg;
+      if(eq) msg='<b class="warn">At the limit.</b> The finding equals the limit. At the limit it is still acceptable &mdash; accept.';
+      else if(v.f>v.l) msg='<b class="bad">Out of limits.</b> The finding is '+comp+' the limit, so it is out of limits &mdash; refer it.';
+      else msg='<b class="good">Within limits.</b> The finding is '+comp+' the limit, so it is within limits &mdash; accept.';
+      read.innerHTML=msg;
+    }
+    function draw(){
+      var v=vals(); ctx.clearRect(0,0,W,H); var scale=(W-2*pad)/8, lx=pad+v.l*scale;
+      ctx.strokeStyle=C_GOLD; ctx.setLineDash([6,5]); ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(lx,18); ctx.lineTo(lx,H-22); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle=C_GOLD; ctx.font='12px monospace'; ctx.textAlign='center'; ctx.fillText('limit '+v.l.toFixed(1),lx,14);
+      var target=v.f*scale; disp+=(target-disp)*0.2; var out=v.f>v.l+0.05;
+      ctx.fillStyle=out?C_BAD:C_GOOD; ctx.globalAlpha=.85; ctx.fillRect(pad,H/2-16,disp,32); ctx.globalAlpha=1;
+      ctx.fillStyle=C_INK; ctx.textAlign='left'; ctx.font='13px sans-serif'; ctx.fillText('finding '+v.f.toFixed(1)+' mm',pad+4,H/2+5);
+      ctx.strokeStyle=C_LINE; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(pad,H-20); ctx.lineTo(W-pad,H-20); ctx.stroke();
+      requestAnimationFrame(draw);
+    }
+    find.addEventListener('input',update); lim.addEventListener('input',update);
+    update(); requestAnimationFrame(draw);
+  })();
+
+  /* 2 · COMPARATIVE BUILDER (buttons) */
+  (function(){
+    var el=document.getElementById('w-comp'); if(!el) return;
+    var ADJ=[['long','longer','s'],['deep','deeper','s'],['small','smaller','s'],['short','shorter','s'],
+             ['wide','wider','s'],['big','bigger','s'],['shallow','shallower','s'],['severe','more severe','l'],['serious','more serious','l']];
+    var chips=el.querySelector('[data-chips]'),read=el.querySelector('[data-read]');
+    chips.innerHTML=ADJ.map(function(a,i){return '<span class="wchip" data-i="'+i+'">'+a[0]+'</span>';}).join('');
+    chips.addEventListener('click',function(e){
+      var c=e.target.closest('.wchip'); if(!c) return;
+      Array.prototype.forEach.call(chips.children,function(x){x.classList.remove('picked');}); c.classList.add('picked');
+      var a=ADJ[+c.getAttribute('data-i')];
+      var rule=a[2]==='s'?'Short adjective &rarr; add <b>-er</b> + than.':'Long adjective &rarr; use <b>more</b> + than.';
+      var wrong=a[2]==='s'?('<span class="wbad">&#10007; more '+a[0]+' than</span>'):('<span class="wbad">&#10007; '+a[0]+'er than</span>');
+      read.innerHTML=rule+'<br><span class="wgood">&#10003; The crack is '+a[1]+' than the limit.</span><br>'+wrong+' &nbsp; <span class="wbad">&#10007; '+a[1]+' as / then the limit</span>';
+    });
+  })();
+
+  /* 3 · REPORT ORDER (buttons) */
+  (function(){
+    var el=document.getElementById('w-order'); if(!el) return;
+    var CORRECT=['Type','Location','Dimension','Severity'], SHUF=['Severity','Type','Dimension','Location'];
+    var pool=el.querySelector('[data-pool]'),slot=el.querySelector('[data-slot]');
+    function build(){ pool.innerHTML=SHUF.map(function(w){return '<span class="wchip" data-w="'+w+'">'+w+'</span>';}).join('');
+      slot.innerHTML='<b>Your order:</b> <span data-seq style="color:var(--ink-muted)">&mdash;</span>'; }
+    build(); var picked=[];
+    pool.addEventListener('click',function(e){
+      var c=e.target.closest('.wchip'); if(!c||c.classList.contains('picked')) return;
+      c.classList.add('picked'); picked.push(c.getAttribute('data-w'));
+      var seq=slot.querySelector('[data-seq]'); if(seq){seq.textContent=picked.join(' → ');seq.style.color=C_INK;}
+      if(picked.length===4){
+        var okAll=picked.every(function(w,i){return w===CORRECT[i];});
+        slot.innerHTML=okAll?'<span class="wgood">&#10003; Correct order:</span> Type &rarr; Location &rarr; Dimension &rarr; Severity.'
+          :'<span class="wbad">&#10007; Not yet.</span> The order is Type &rarr; Location &rarr; Dimension &rarr; Severity. <button class="btn" data-reset style="margin-left:6px">Try again</button>';
+        var rb=slot.querySelector('[data-reset]'); if(rb) rb.addEventListener('click',function(){picked=[];build();});
+      }
+    });
+  })();
+
+  /* 4 · DECISION FLOW (canvas + rAF) */
+  (function(){
+    var el=document.getElementById('w-decide'); if(!el) return;
+    var CASES=[
+      {n:'Scratch 0.1 mm',box:0,reason:'shallower than the 0.2 mm limit &rarr; within limits &rarr; accept.'},
+      {n:'Dent 1.5 mm',box:0,reason:'shallower than the 2 mm limit &rarr; within limits &rarr; accept.'},
+      {n:'Light corrosion',box:1,reason:'blend within the limit, then protect &rarr; repair.'},
+      {n:'Crack 4 mm',box:2,reason:'longer than the 3 mm limit &rarr; out of limits &rarr; refer.'}
+    ];
+    var bar=el.querySelector('[data-bar]'),cvs=el.querySelector('canvas'),ctx=cvs.getContext('2d'),read=el.querySelector('[data-read]');
+    var W=cvs.width,H=cvs.height,cur=0,glow=0, BOX=[['ACCEPT',C_GOOD],['REPAIR',C_PRIM],['REFER',C_BAD]];
+    bar.innerHTML=CASES.map(function(c,i){return '<span class="wchip'+(i===0?' picked':'')+'" data-i="'+i+'">'+c.n+'</span>';}).join('');
+    function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+    function draw(){
+      ctx.clearRect(0,0,W,H); glow+=0.05; var bw=170,gap=(W-3*bw)/4,y=28,h=52;
+      for(var i=0;i<3;i++){ var x=gap+i*(bw+gap), active=i===CASES[cur].box;
+        ctx.globalAlpha=active?(0.55+0.35*Math.abs(Math.sin(glow))):0.12; ctx.fillStyle=BOX[i][1];
+        rr(ctx,x,y,bw,h,10); ctx.fill(); ctx.globalAlpha=1; ctx.lineWidth=active?2.5:1; ctx.strokeStyle=BOX[i][1]; ctx.stroke();
+        ctx.fillStyle=active?'#fff':BOX[i][1]; ctx.font='bold 17px monospace'; ctx.textAlign='center'; ctx.fillText(BOX[i][0],x+bw/2,y+h/2+6);
+      }
+      requestAnimationFrame(draw);
+    }
+    function pick(i){cur=i;Array.prototype.forEach.call(bar.children,function(b,k){b.classList.toggle('picked',k===i);});
+      read.innerHTML='<b>'+CASES[i].n+':</b> '+CASES[i].reason; glow=0; requestAnimationFrame(function(){});}
+    bar.addEventListener('click',function(e){var b=e.target.closest('.wchip');if(!b)return;pick(+b.getAttribute('data-i'));});
+    pick(0); requestAnimationFrame(draw);
+  })();
+})();
+</script>
+
+<!-- ============ TSI BUDDY LITE (conversation partner, temperature 0.4) ============ -->
+<script src="tsi-buddy.js"></script>
+<script>
+(function(){
+  if(!window.TSIBuddy || !window.TSIBuddy.mount) return;
+  window.TSIBuddy.mount({
+    temperature: 0.4,
+    systemPrompt: "You are a conversation partner for Unit 18 of 'English for Aviation Maintenance' (EASA Part-66/145, CEFR B2). The scenario is an afternoon borescope inspection in the hangar at Riga: an A320 (reg YL-BBX) is in for a scheduled check, with a work order for a borescope inspection of the number-two engine. The technician (the learner, or Janis) finds a crack on a turbine blade. The task is to report inspection findings to the lead: describe each finding's type, size, location and severity; compare it against the serviceable limits in the maintenance manual; and recommend accept, repair or refer to engineering, with a clear reason. Play a role in this scenario, usually Elina the lead technician, or the duty engineer at handover. Stay inside the unit's scenarios. Use ONLY the unit knowledge base for technical facts; if the learner drifts off-topic, guide them back to the finding report. Speak ONLY at CEFR B2: short sentences, common words plus the unit's specialist terms, natural connectors (although, unless, as long as, because, provided). Keep every answer short, two or three sentences at most. Practise the grammar focus: comparatives for limits ('The crack is longer than the limit'; 'The dent is smaller than the limit, so it is within limits'). If the learner makes a comparative error, do NOT lecture; gently recast it the right way ('You mean: The crack is longer than the limit.') and continue. Watch for common Latvian/Russian errors: double comparative ('more longer than' -> 'longer than'), 'than' replaced by 'as' or 'from' ('deeper as the limit' -> 'deeper than the limit'), and 'than' written as 'then' ('deeper then allowed' -> 'deeper than allowed'). Ask exactly ONE follow-up question at the end of each turn to keep the report going. Use English only, but you may add one Latvian word in brackets after a hard term, for example 'crack (plaisa)'. Be encouraging and realistic, like a helpful lead on a busy shift."
+  });
+})();
+</script>
+</body></html>

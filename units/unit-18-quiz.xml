@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U18-r1</text></category>
+  </question>
+
+  <!-- ============================================================= -->
+  <!-- LISTENING (Dialogues 1-4) — 8 items: multichoice + truefalse + numerical -->
+  <!-- ============================================================= -->
+
+  <question type="multichoice">
+    <name><text>L1 — Dialogue 1: location of the crack</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Where is the crack that Jānis reports?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Jānis reports the crack "on the leading edge of a turbine blade" — the front edge that meets the airflow first.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[On the leading edge.]]></text><feedback format="html"><text><![CDATA[<p>Correct — stage-one turbine blade, on the leading edge near the tip.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[On the wing access panel.]]></text><feedback format="html"><text><![CDATA[<p>No — that is where the visual findings are, in Dialogue 3.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Near the lower fastener holes.]]></text><feedback format="html"><text><![CDATA[<p>No — the corrosion is near the fastener holes, not the crack.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L2 — Dialogue 1: severity of the crack</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Jānis says the crack looks deep.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>He says "the crack looks shallow, although the line is very clear." Shallow, not deep.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — he says the crack looks shallow.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — the crack looks shallow, but the line is clear.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L3 — Dialogue 1: crack dimension</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> How long is the crack, in millimetres? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The borescope measuring tool reads the crack at about <b>4</b> mm along the edge.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>4</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — about 4 mm.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>3 mm is the serviceable limit, not the crack length.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L4 — Dialogue 2: the crack limit</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> What is the serviceable limit for a crack on the leading edge, in millimetres? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"The maintenance manual allows three millimetres for a crack on the leading edge." The limit is <b>3</b> mm.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — the limit is 3 mm.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>4</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>4 mm is the measured crack, which is longer than the limit.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L5 — Dialogue 2: the dent dimension</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> How deep is the fan-blade dent, in millimetres? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"Our dent is one point five millimetres." The dent is <b>1.5</b> mm, shallower than the 2 mm limit.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>1.5</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — 1.5 mm, within limits.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>2</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>2 mm is the limit for the dent, not the measured depth.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L6 — Dialogue 3: decision on the scratch</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> What do they decide to do with the scratch?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The scratch is 0.1 mm and the limit is 0.2 mm. It is shallower than the limit, so they accept it and record it.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Accept it.]]></text><feedback format="html"><text><![CDATA[<p>Correct — it is within limits, so accept and record it.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Refer it to engineering.]]></text><feedback format="html"><text><![CDATA[<p>No — that is the crack, which is out of limits.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Blend it, then add primer.]]></text><feedback format="html"><text><![CDATA[<p>No — blending is for the light corrosion, not the scratch.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L7 — Dialogue 3: scratch depth</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> How deep is the scratch, in millimetres? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"The scratch is zero point one millimetres, and the limit is zero point two." The scratch is <b>0.1</b> mm.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>0.1</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — 0.1 mm, shallower than the 0.2 mm limit.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>0.2</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>0.2 mm is the scratch limit, not the measured depth.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L8 — Dialogue 4: the handover decision</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 4 (the voicemail) again.</b> Jānis refers the crack to engineering because it is out of limits.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"Because the crack is out of limits, I refer this finding to engineering for a decision." True.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — the crack is longer than the limit, so he refers it.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No — he does refer the crack, because it is out of limits.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================= -->
+  <!-- READING (short new specialism texts) — 5 items -->
+  <!-- ============================================================= -->
+
+  <question type="multichoice">
+    <name><text>R1 — Task card: trailing-edge nick</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read the task-card extract, then answer.</p><blockquote><b>TASK CARD 72-31-00-210.</b> Inspect the stage-1 turbine blades with a borescope. Record any crack, dent or erosion. A nick on the trailing edge is acceptable up to 1.5 mm. A nick that is deeper than 1.5 mm must be referred to engineering.</blockquote><p>A technician measures a trailing-edge nick at 2 mm. This nick is:</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>2 mm is deeper than the 1.5 mm limit, so the nick is out of limits and must be referred.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Out of limits.]]></text><feedback format="html"><text><![CDATA[<p>Correct — 2 mm is deeper than the 1.5 mm limit.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Within limits, so accept it.]]></text><feedback format="html"><text><![CDATA[<p>No — 2 mm is above the 1.5 mm limit.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Acceptable after a blend repair.]]></text><feedback format="html"><text><![CDATA[<p>The card says refer it, not blend it.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R2 — Service bulletin: fan-blade erosion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read the service-bulletin extract, then answer.</p><blockquote><b>SB A320-72-1043.</b> Inspect the fan blades for erosion on the leading edge. A blade with erosion wider than 6 mm is out of limits and must be removed. A blade within the limit may stay in service.</blockquote><p>A blade with 8 mm of leading-edge erosion may stay in service.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>8 mm is wider than the 6 mm limit, so the blade is out of limits and must be removed.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — 8 mm is wider than the 6 mm limit.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — it is out of limits and must be removed.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R3 — Work order: deep pitting</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read the work-order extract, then answer.</p><blockquote><b>WORK ORDER 4471 — wing access panel.</b> Light corrosion was found near the lower fastener holes. Procedure: blend light corrosion, then apply primer. Refer any corrosion with deep pitting to engineering.</blockquote><p>What must the technician do with corrosion that has deep pitting?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Light corrosion is blended; corrosion with deep pitting is out of limits, so it is referred to engineering.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Refer it to engineering.]]></text><feedback format="html"><text><![CDATA[<p>Correct — deep pitting is out of limits.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Blend it, then apply primer.]]></text><feedback format="html"><text><![CDATA[<p>That is the action for light corrosion, not deep pitting.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Accept it and close the order.]]></text><feedback format="html"><text><![CDATA[<p>No — you never accept an out-of-limits finding.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 — MEL: windshield heat</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read the MEL extract, then answer.</p><blockquote><b>MINIMUM EQUIPMENT LIST.</b> One of the two windshield heat systems may be inoperative for up to three days, provided the other system works normally. The aircraft may then be dispatched.</blockquote><p>With one windshield heat system inoperative and the other working, the aircraft may be dispatched for up to three days.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The MEL allows dispatch with one system inoperative for up to three days, if the other works. True.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — dispatch is allowed for up to three days under the MEL.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No — the MEL does allow it, if the other system works.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R5 — BITE readout: hard fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read the built-in-test readout, then answer.</p><blockquote><b>BITE READOUT — WEATHER RADAR.</b> Fault 34-11, antenna drive. The test shows the fault is present now (a hard fault), not intermittent. A hard fault must be rectified before dispatch.</blockquote><p>According to the readout, a hard fault must be:</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The readout states a hard fault is present now and must be rectified before dispatch — not merely logged or deferred.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Fixed before dispatch.]]></text><feedback format="html"><text><![CDATA[<p>Correct — a hard fault must be rectified before dispatch.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Recorded in the technical log.]]></text><feedback format="html"><text><![CDATA[<p>Recording alone is not enough for a hard fault.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Left until the next scheduled check.]]></text><feedback format="html"><text><![CDATA[<p>No — a hard fault cannot be deferred to the next check.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================= -->
+  <!-- USE OF ENGLISH — 8 shortanswer items: comparatives + bank terms -->
+  <!-- ============================================================= -->
+
+  <question type="shortanswer">
+    <name><text>U1 — comparative: long</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The crack is 4 mm. The limit is 3 mm. Complete with one word:</p><p>"The crack is ______ than the limit." (long)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Short adjective: add <b>-er</b>. long → <b>longer</b>. 4 mm is longer than 3 mm, so the crack is out of limits.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>longer</text><feedback format="html"><text><![CDATA[<p>Correct — longer than the limit.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 — comparative: deep</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete with one word:</p><p>"The pit is ______ than allowed." (deep)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Short adjective: deep → <b>deeper</b>. Note "than", not "then" or "as".</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>deeper</text><feedback format="html"><text><![CDATA[<p>Correct — deeper than allowed.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 — correct the error: more small</text></name>
+    <questiontext format="html"><text><![CDATA[<p>This sentence has a comparative error: "The dent is <b>more small</b> than the limit."</p><p>Write the correct comparative word for "small".</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Never use "more" with a short adjective. small → <b>smaller</b>, not "more small".</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>smaller</text><feedback format="html"><text><![CDATA[<p>Correct — smaller.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 — the link word</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete with one word:</p><p>"The scratch is shallower ______ the limit."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A comparison uses <b>than</b> — not "as", "from" or "then".</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>than</text><feedback format="html"><text><![CDATA[<p>Correct — "than" links the comparison.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 — comparative: severe</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete with two words:</p><p>"This finding is ______ ______ than the last one." (severe)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Long adjective: use <b>more</b>. severe → <b>more severe</b>, never "severer".</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>more severe</text><feedback format="html"><text><![CDATA[<p>Correct — more severe than.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 — bank term: the allowed maximum</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete with the bank term (two words):</p><p>"The largest damage the manual allows is the ______ ______."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The <b>serviceable limit</b> is the largest damage the manual allows for a part to stay in use.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>serviceable limit</text><feedback format="html"><text><![CDATA[<p>Correct — the serviceable limit.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U7 — bank term: bigger than allowed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete with the bank term (three words):</p><p>"A crack that is bigger than the manual allows is ______ ______ ______."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Bigger than the limit = <b>out of limits</b> — the part is not serviceable.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>out of limits</text><feedback format="html"><text><![CDATA[<p>Correct — out of limits.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U8 — comparative: big</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete with one word:</p><p>"The crack is ______ than the manual allows." (big)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Short vowel + consonant: double the last letter. big → <b>bigger</b>, never "more big".</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>bigger</text><feedback format="html"><text><![CDATA[<p>Correct — bigger.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================= -->
+  <!-- VOCABULARY — 4 items: matching + multichoice -->
+  <!-- ============================================================= -->
+
+  <question type="matching">
+    <name><text>V1 — match the defect to its meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each defect to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>borescope = a camera on a probe; corrosion = metal breaking down; pitting = small holes; dent = a pushed-in hollow; erosion = material worn away.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[borescope]]></text><answer><text>a camera on a probe that looks inside an engine</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[corrosion]]></text><answer><text>metal that breaks down by reacting with air or water</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[pitting]]></text><answer><text>small holes or pits in a surface</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[dent]]></text><answer><text>a small hollow where a surface is pushed in</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[erosion]]></text><answer><text>material worn away by hot gas or particles</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 — match the term to its action</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the action or meaning that fits it.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>serviceable limit = check it in the manual; blend = smooth a small defect; accept = leave it in service; repair = make it serviceable again; refer = pass it to engineering.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[serviceable limit]]></text><answer><text>the largest damage the manual allows</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[blend]]></text><answer><text>smooth away a small defect within limits</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[accept]]></text><answer><text>leave the part in service as it is</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[repair]]></text><answer><text>fix the part so it is serviceable again</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[refer]]></text><answer><text>pass the finding to engineering for a decision</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V3 — meaning: the front edge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which term means the front edge of a blade that meets the airflow first?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The <b>leading edge</b> is the front edge that meets the airflow first — where the reported crack sits.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Leading edge.]]></text><feedback format="html"><text><![CDATA[<p>Correct — the front edge that meets the airflow.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Serviceable limit.]]></text><feedback format="html"><text><![CDATA[<p>No — that is the largest damage the manual allows.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Visual inspection.]]></text><feedback format="html"><text><![CDATA[<p>No — that is a check made by looking carefully.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V4 — collocation: borescope inspection</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which collocation is correct?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The natural verb is <b>run</b> (or carry out) a borescope inspection — not "close" or "blend" one.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[run a borescope inspection]]></text><feedback format="html"><text><![CDATA[<p>Correct — run (or carry out) a borescope inspection.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[close a borescope inspection]]></text><feedback format="html"><text><![CDATA[<p>No — you close a work order, not an inspection.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[blend a borescope inspection]]></text><feedback format="html"><text><![CDATA[<p>No — you blend a surface defect, not an inspection.</p>]]></text></feedback></answer>
+  </question>
+
+</quiz>
