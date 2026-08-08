@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 12 — Teacher Key &amp; Staging</title>
+<style>
+:root{--navy:#0f2942;--brand:#2F5496;--amber:#e0a53d;--ink:#1b2733;--ink-2:#5a6b7d;
+  --line:#e2e6ec;--paper:#fbfaf7;--card:#fff;--ok:#2e9e6b;--red:#c0392b;
+  --shadow:0 1px 2px rgba(16,32,54,.06),0 8px 28px rgba(16,32,54,.07);--radius:14px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:16.5px/1.6 'Inter','Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:960px;margin:0 auto;padding:0 22px 96px}
+.mast{background:linear-gradient(135deg,#0f2942,#2F5496 62%,#3c66a8);color:#fff;padding:40px 0 34px;margin-bottom:24px}
+.mast .in{max-width:960px;margin:0 auto;padding:0 22px}
+.mast .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.mast h1{font-family:Georgia,serif;font-size:33px;margin:8px 0 6px}
+.mast .pill{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;margin-top:6px}
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px 26px;margin:20px 0;box-shadow:var(--shadow)}
+h2{font-family:Georgia,serif;font-size:23px;color:var(--navy);margin:0 0 4px;display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:5px;height:23px;border-radius:3px;background:var(--amber)}
+h3{font-size:16.5px;color:var(--navy);margin:20px 0 6px}
+p{margin:10px 0}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0;font-size:14.5px;
+  border:1px solid var(--line);border-radius:10px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:12px;letter-spacing:.05em;
+  text-transform:uppercase;padding:9px 12px;border-bottom:1px solid var(--line)}
+td{padding:9px 12px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+td.t{font-weight:700;color:var(--brand);white-space:nowrap;text-align:center;width:70px}
+td.a{font-weight:600;color:var(--navy)}
+.total{font-weight:700;color:var(--navy)}
+.err{color:var(--red);font-weight:600}.fix{color:var(--ok);font-weight:600}
+.callout{background:#f4f8ff;border:1px solid #d7e4f7;border-left:5px solid var(--brand);
+  border-radius:12px;padding:14px 18px;margin:14px 0;font-size:14.5px}
+.flag{display:inline-block;font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px;color:#fff;margin-right:6px}
+.lv{background:#7b1e3b}.ru{background:#1e3a7b}
+ul{padding-left:22px}li{margin:6px 0}
+code{background:#eef2f7;border:1px solid #dce3ec;border-radius:5px;padding:1px 5px;font-size:13.5px}
+.band-top{background:#eef9f2}.band-at{background:#f6fbff}.band-app{background:#fff8ec}.band-below{background:#fdf2f2}
+footer{color:var(--ink-2);font-size:13px;text-align:center;margin-top:34px}
+</style></head>
+<body>
+<div class="mast"><div class="in">
+  <div class="eyebrow">English for Aviation Maintenance · Unit 12</div>
+  <h1>Teacher Key — Simulation: avionics fault-find</h1>
+  <span class="pill">90-minute class · CEFR B2 · staging · interference notes · speaking rubric · quiz key</span>
+</div></div>
+<main>
+
+<!-- STAGING -->
+<section id="staging">
+  <h2>Unit staging &amp; timing (90 minutes)</h2>
+  <p>The unit is a full troubleshooting simulation. Learners move from a BITE code, through the WDM and a
+    continuity check, to isolating the LRU and writing the result. Keep the pace brisk; the reading and role-plays
+    carry the back half of the lesson.</p>
+  <table><thead><tr><th>Time</th><th>Stage</th><th>What happens</th><th>Materials</th></tr></thead><tbody>
+    <tr><td class="t">6 min</td><td class="a">Warm-up · the situation</td><td>Set the scene: late shift, blank nav display, tight turnaround. Elicit what learners would do first.</td><td>§00 Scenario</td></tr>
+    <tr><td class="t">8 min</td><td class="a">Dialogue 1 — the BITE code</td><td>Play twice. First for gist (what is the fault?), then with the transcript for the fault code and pins.</td><td>Audio 1 + transcript</td></tr>
+    <tr><td class="t">12 min</td><td class="a">Vocabulary + E1, E2</td><td>Drill the 20 bank terms with the glosses; run E1 (gap-fill) and E2 (matching) as pair work, then check.</td><td>§02 · E1 · E2</td></tr>
+    <tr><td class="t">12 min</td><td class="a">Dialogue 2 + E3</td><td>Play Dialogue 2 (tracing the wires). Highlight the safety line "never test a live circuit". Complete E3.</td><td>Audio 2 · E3</td></tr>
+    <tr><td class="t">10 min</td><td class="a">Grammar — sequencing + E4</td><td>Teach the sequencing table (First / Next / Once / Finally). Model on the board, then run E4.</td><td>§03 · E4</td></tr>
+    <tr><td class="t">8 min</td><td class="a">Dialogue 3 + monologue + E8</td><td>Play Dialogue 3 and the shift-handover message. Learners answer E8 with transcripts closed.</td><td>Audio 3, 4 · E8</td></tr>
+    <tr><td class="t">10 min</td><td class="a">Reading — E5, E7</td><td>Read the AMM task card and the tech log / MEL note. Short-answer comprehension; discuss the MEL deferral.</td><td>E5 · E7</td></tr>
+    <tr><td class="t">6 min</td><td class="a">Error-spotting — E6</td><td>Target the Latvian / Russian slips (articles, <em>must to</em>, <em>at first</em>). Fast whole-class check.</td><td>E6</td></tr>
+    <tr><td class="t">12 min</td><td class="a">Speaking — role-plays</td><td>Pairs take a card each and run the simulation aloud, using the sequencing words. Swap roles. Use the rubric.</td><td>4 role-play cards + AI partner</td></tr>
+    <tr><td class="t">6 min</td><td class="a">Writing — start the tech-log entry</td><td>Learners begin the "action taken" entry (60–90 words, STE habits). Finish for homework.</td><td>§06 Writing</td></tr>
+    <tr><td class="total">90 min</td><td class="total">Total</td><td>Full 90-minute lesson; the writing task continues at home.</td><td>—</td></tr>
+  </tbody></table>
+  <p class="callout"><strong>If short on time:</strong> set E5 and E7 for homework and protect the speaking stage — the
+    can-do outcomes are all spoken and written. <strong>If ahead:</strong> use the extension activities below.</p>
+</section>
+
+<!-- INTERFERENCE -->
+<section id="interference">
+  <h2>Latvian &amp; Russian interference — why each error happens</h2>
+  <p>Latvian and Russian share two features that shape these learners' English: neither language has articles, and
+    neither uses an infinitive marker after a modal. Both facts surface exactly in troubleshooting talk.</p>
+
+  <h3><span class="flag lv">LV</span><span class="flag ru">RU</span> 1 · Dropped articles</h3>
+  <p><span class="err">"Measure pin voltage."</span> → <span class="fix">"Measure <u>the</u> pin voltage."</span>
+    Latvian and Russian have no <em>a/the</em>, so learners omit them, especially before a known, specific thing
+    (<em>the</em> connector, <em>the</em> harness, <em>the</em> reading). This is the single most frequent slip in the unit.
+    Drill it as a fixed habit: "known thing → <em>the</em>".</p>
+
+  <h3><span class="flag ru">RU</span> 2 · Missing article vs over-use of "the"</h3>
+  <p>Russian speakers sometimes over-correct once taught articles, inserting <em>the</em> before uncountable readings
+    (<span class="err">"the resistance is high"</span> is fine, but <span class="err">"do the continuity check"</span> should be
+    <span class="fix">"do a continuity check"</span> on first mention). Point out first-mention <em>a</em> vs known <em>the</em>.</p>
+
+  <h3><span class="flag lv">LV</span><span class="flag ru">RU</span> 3 · "must to" after a modal</h3>
+  <p><span class="err">"You must to disconnect it."</span> → <span class="fix">"You must disconnect it."</span>
+    Latvian (<em>jums jāatvieno</em>) and Russian (<em>вы должны отсоединить</em>) both attach a to-like form, so learners
+    carry it over. Rule: after <em>must / can / should / will</em>, use the bare base verb.</p>
+
+  <h3><span class="flag lv">LV</span><span class="flag ru">RU</span> 4 · "At first" for step one</h3>
+  <p><span class="err">"At first, run the BITE."</span> → <span class="fix">"First, run the BITE."</span>
+    Both first languages use one adverb (<em>vispirms</em> / <em>сначала</em>) for both "firstly" and "at first", so learners
+    reach for <em>at first</em>, which in English means "in the beginning, but it changed later". Teach the contrast directly.</p>
+
+  <h3><span class="flag ru">RU</span> 5 · Present continuous with a dropped auxiliary or the bare "-ing"</h3>
+  <p><span class="err">"I am check the harness."</span> / <span class="err">"I checking now."</span> →
+    <span class="fix">"I am checking the harness."</span> Russian has no <em>be + -ing</em> aspect, so the form is assembled
+    incompletely. Narrating live actions in the role-play is the best practice for it.</p>
+
+  <h3><span class="flag lv">LV</span><span class="flag ru">RU</span> 6 · Verb–noun collocation (<em>make</em> vs <em>do</em>)</h3>
+  <p><span class="err">"Make a continuity check."</span> → <span class="fix">"Do / run a continuity check."</span>
+    Both languages use one verb (<em>darīt</em> / <em>делать</em>) where English splits <em>make</em> and <em>do</em>.
+    Teach the fixed pairs: <em>run</em> the BITE, <em>do</em> a check, <em>read</em> a code, <em>set</em> the meter.</p>
+
+  <h3><span class="flag ru">RU</span> 7 · Consonant clusters &amp; word stress in the terms</h3>
+  <p>Watch pronunciation of <code>splice</code>, <code>shield</code>, <code>bonding</code> and <code>intermittent</code>
+    (stress on the third syllable: in-ter-<u>MIT</u>-tent). Russian speakers may soften final consonants; model and chorus.</p>
+</section>
+
+<!-- EXTENSION -->
+<section id="extension">
+  <h2>Extension activities</h2>
+  <ul>
+    <li><strong>Second fault card.</strong> Give a new BITE code and a different symptom (e.g. a short circuit between
+      pins, or a ground fault to the airframe). Learners narrate the isolation from scratch, in the correct order.</li>
+    <li><strong>Board the flowchart.</strong> In pairs, draw the diagnostic flow (BITE → WDM → disconnect → continuity →
+      repair → re-test → log), labelling every arrow with a sequencing word.</li>
+    <li><strong>STE re-write.</strong> Hand out a wordy, passive maintenance note and have learners re-write it in
+      Simplified Technical English: one idea per sentence, the active voice, approved words only.</li>
+    <li><strong>MEL decision.</strong> Discuss when the fault could be deferred under the MEL (category C, up to three
+      days) and when it must not — a good bridge to regulatory reading.</li>
+    <li><strong>Telephone gap.</strong> One learner reads the shift-handover message aloud once; the partner, who cannot
+      see it, must reconstruct the fault code, connector and next action. Trains listening for spoken figures.</li>
+    <li><strong>Pronunciation clinic.</strong> Minimal-pair and stress drill on the seven flagged terms above.</li>
+  </ul>
+</section>
+
+<!-- RUBRIC -->
+<section id="rubric">
+  <h2>CEFR B2 speaking rubric — the role-plays</h2>
+  <p>Use for the paired simulation and the shift-handover / pilot cards. Five criteria; four bands. B2 is the target
+    band ("At B2"). Give each learner a profile across the five rows rather than a single number.</p>
+  <table><thead><tr><th>Criterion</th><th class="band-top">Above B2</th><th class="band-at">At B2 (target)</th><th class="band-app">Approaching B2</th><th class="band-below">Below B2</th></tr></thead><tbody>
+    <tr><td class="a">Range</td>
+      <td class="band-top">Uses the full term set and varied structures precisely and flexibly.</td>
+      <td class="band-at">Handles the bank terms and sequencing structures; enough range to narrate each step clearly.</td>
+      <td class="band-app">Core terms present but limited variety; leans on a few structures.</td>
+      <td class="band-below">Very restricted; misses key terms, so the step is unclear.</td></tr>
+    <tr><td class="a">Accuracy</td>
+      <td class="band-top">Errors rare and self-repaired; articles and modals consistently correct.</td>
+      <td class="band-at">Good control; slips (articles, <em>must to</em>) do not block meaning and are often self-corrected.</td>
+      <td class="band-app">Frequent L1-driven errors that sometimes obscure the instruction.</td>
+      <td class="band-below">Errors dense enough that the partner cannot follow safely.</td></tr>
+    <tr><td class="a">Fluency</td>
+      <td class="band-top">Smooth, natural pace; hesitation only for genuine thought.</td>
+      <td class="band-at">Keeps going at a steady pace; pauses to plan a step but does not stall.</td>
+      <td class="band-app">Noticeable hesitation; the narration stops and starts.</td>
+      <td class="band-below">Long pauses; cannot sustain the running commentary.</td></tr>
+    <tr><td class="a">Interaction</td>
+      <td class="band-top">Leads and follows fluently; asks for and confirms readings, checks safety unprompted.</td>
+      <td class="band-at">Asks for each reading, confirms steps, and responds to the partner's cues.</td>
+      <td class="band-app">Responds but rarely initiates; needs prompting to confirm or query.</td>
+      <td class="band-below">Little real exchange; talks over or ignores the partner.</td></tr>
+    <tr><td class="a">Coherence</td>
+      <td class="band-top">Steps flow in a clear order with varied, well-placed connectors.</td>
+      <td class="band-at">Uses sequencing words correctly so the order of the fault-find is easy to follow.</td>
+      <td class="band-app">Order mostly clear but connectors are few or repetitive.</td>
+      <td class="band-below">Steps out of order or unlinked; the listener loses the thread.</td></tr>
+  </tbody></table>
+  <p class="callout"><strong>Quick decision:</strong> a learner is "At B2" overall if a partner who cannot see the
+    diagram could carry out the fault-find from the spoken narration alone.</p>
+</section>
+
+<!-- QUIZ KEY -->
+<section id="quizkey">
+  <h2>Quiz key — full answers &amp; per-item rationale</h2>
+  <p>25 items · Listening 8 · Reading 5 · Use of English 8 · Vocabulary 4. Matching and short-answer scores scale by
+    the number of pairs / gaps.</p>
+
+  <h3>Listening (L1–L8)</h3>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Rationale</th></tr></thead><tbody>
+    <tr><td class="a">L1</td><td class="a">The wiring and data bus</td><td>The lead says the code points to the data bus, not the screen.</td></tr>
+    <tr><td class="a">L2</td><td class="a">False</td><td>Wiring is traced first because a new box is expensive.</td></tr>
+    <tr><td class="a">L3</td><td class="a">So the circuit is not live</td><td>"You must never test a live circuit."</td></tr>
+    <tr><td class="a">L4</td><td class="a">True</td><td>Pin five reads near zero — a healthy conductor.</td></tr>
+    <tr><td class="a">L5</td><td class="a">1</td><td>The BITE returned "a single fault code".</td></tr>
+    <tr><td class="a">L6</td><td class="a">2</td><td>Data runs on pin 4 and pin 5.</td></tr>
+    <tr><td class="a">L7</td><td class="a">4</td><td>The open circuit was on pin four.</td></tr>
+    <tr><td class="a">L8</td><td class="a">1</td><td>"Carry out one more functional test before the first flight."</td></tr>
+  </tbody></table>
+
+  <h3>Reading (R1–R5)</h3>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Rationale</th></tr></thead><tbody>
+    <tr><td class="a">R1</td><td class="a">A chafed data wire</td><td>The SB names a chafed wire where the harness passes a bracket.</td></tr>
+    <tr><td class="a">R2</td><td class="a">False</td><td>The SB is "recommended / optional", not mandatory (an AD would be).</td></tr>
+    <tr><td class="a">R3</td><td class="a">A protective sleeve</td><td>The SB adds a sleeve over the harness at the chafe point.</td></tr>
+    <tr><td class="a">R4</td><td class="a">False</td><td>"If any fault code returns, do not release the aircraft."</td></tr>
+    <tr><td class="a">R5</td><td class="a">A clean pass</td><td>The BITE must give a clean pass with no fault code.</td></tr>
+  </tbody></table>
+
+  <h3>Use of English (U1–U8)</h3>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Rationale</th></tr></thead><tbody>
+    <tr><td class="a">U1</td><td class="a">First / To start</td><td>Step-one marker; not <em>At first</em>.</td></tr>
+    <tr><td class="a">U2</td><td class="a">Finally / Lastly / In the end</td><td>Last-step marker.</td></tr>
+    <tr><td class="a">U3</td><td class="a">the</td><td>A known thing takes <em>the</em> — a top LV/RU slip.</td></tr>
+    <tr><td class="a">U4</td><td class="a">to</td><td>Remove <em>to</em>: a modal takes the bare base verb.</td></tr>
+    <tr><td class="a">U5</td><td class="a">open circuit</td><td>A break where no current flows.</td></tr>
+    <tr><td class="a">U6</td><td class="a">continuity check</td><td>The meter test that confirms a whole wire.</td></tr>
+    <tr><td class="a">U7</td><td class="a">ground fault</td><td>A live conductor touching the airframe.</td></tr>
+    <tr><td class="a">U8</td><td class="a">Once / As soon as / When / After</td><td>A time conjunction for a waiting step.</td></tr>
+  </tbody></table>
+
+  <h3>Vocabulary (V1–V4)</h3>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Rationale</th></tr></thead><tbody>
+    <tr><td class="a">V1</td><td class="a">BITE→self-test · fault code→names the fault · WDM→wiring book · LRU→swappable box · harness→wire bundle · splice→wire joint</td><td>Term ↔ plain meaning.</td></tr>
+    <tr><td class="a">V2</td><td class="a">run the BITE · read a fault code · disconnect a connector · probe a pin · do a continuity check · set the multimeter</td><td>Term ↔ its working verb.</td></tr>
+    <tr><td class="a">V3</td><td class="a">harness</td><td>A taped bundle of wires routed as one assembly.</td></tr>
+    <tr><td class="a">V4</td><td class="a">set</td><td>We <em>set</em> a meter to a range; <em>make/open/read</em> do not collocate.</td></tr>
+  </tbody></table>
+  <p class="callout"><strong>Pass mark:</strong> 80% (20 / 25) unlocks the worked solutions. Below that, re-teach the
+    articles-and-modals cluster and replay Dialogue 2, which carries most of the listening answers.</p>
+</section>
+
+<footer>English for Aviation Maintenance · Unit 12 — Simulation: avionics fault-find · Teacher key (gated).</footer>
+</main>
+</body></html>

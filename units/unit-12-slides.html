@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 12 — Teacher Deck · Simulation: avionics fault-find</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.12}
+h2{font-size:30px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.card p{margin:8px 0;font-size:18px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:660px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.term{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:9px 12px}
+.term b{color:#7fd0ff;font-size:15px}.term span{display:block;color:#bcccdd;font-size:13.5px;margin-top:2px}
+.dlg{background:#0f1726;border:1px solid var(--line2);border-radius:12px;padding:14px 18px;font-size:18px;line-height:1.6}
+.dlg .a{color:#7fd0ff;font-weight:700}.dlg .b{color:var(--amber);font-weight:700}
+.step{background:#0f1726;border:1px solid var(--line2);border-radius:9px;padding:8px 12px;margin:6px 0;font-size:18px}
+.step b{color:var(--good)}
+.tf{border-left:3px solid var(--hot)}.tf b{color:#ff9aa2}
+.rp{border:1px solid #4a3f22;background:#1b1608;border-radius:12px;padding:12px 16px}
+.rp h4{margin:0 0 4px;color:var(--amber);font-size:16px}.rp p{font-size:15px;margin:4px 0}
+/* deck widget skin (dark) */
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk button:disabled{cursor:default;opacity:.9}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%;margin-top:4px}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:0 0 8px}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:58px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="Timing: 1 min. Open the unit. This is a full simulation day — students move from a BITE fault code, through the wiring diagram, to isolating the LRU and writing the result. Name the single language habit the unit trains: narrate every diagnostic step in the correct order, so a partner can follow and the work stays safe. Tell the room the class is 90 minutes and ends with a spoken role-play and a written tech-log entry. Remind them captions can be turned on with the CC button or the L key, and a Latvian or Russian subtitle appears live.">
+    <div class="kick">English for Aviation Maintenance · Unit 12 · Simulation day · CEFR B2</div>
+    <h1>Simulation: avionics fault-find</h1>
+    <p class="big muted">From a BITE code, trace the WDM, isolate the LRU, and document the result — narrating each step clearly to a partner.</p>
+    <p class="pill">90-minute class · listening · vocabulary · grammar (sequencing) · reading · speaking · writing</p>
+  </section>
+
+  <!-- 2 · BY THE END -->
+  <section class="slide" data-notes="Timing: 3 min. Set the three can-do outcomes and how the lesson runs. Read each outcome aloud and check students understand the words BITE, WDM, LRU before moving on — they are the spine of the whole unit. Stress that the exercises E1–E8 are practice, and the pass mark on the quiz is 80 percent. Point at the right-hand card: the lesson is balanced across the four skills, so nobody can sit out the speaking or the writing.">
+    <div class="kick">By the end · how the lesson runs</div>
+    <h2>Three outcomes — one simulation</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">Isolate.</b> Integrate the BITE readout, the WDM and troubleshooting talk to isolate an avionics fault.</p>
+        <p><b style="color:var(--purple)">Narrate.</b> Describe each diagnostic step clearly to a partner, in the correct order.</p>
+        <p><b style="color:var(--good)">Record.</b> Write the outcome and the next required action in the tech log.</p>
+      </div>
+      <div>
+        <p><b>Flow:</b> listen to three dialogues → build the vocabulary → drill the sequencing grammar → read the documents → run the role-play → write the entry.</p>
+        <p class="muted">Balanced skills. The quiz at the end passes at <b>80%</b>; the worked answers unlock after that.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE SITUATION -->
+  <section class="slide" data-notes="Timing: 6 min (warm-up). Set the scene and elicit. It is the late shift at a line station. A pilot has written up a nav display that went blank in the cruise, recovered once, then failed again. The aircraft has a tight two-hour turnaround. Ask the class: what would you check first? Guide them to the BITE self-test — it usually names the fault before you touch a wire. Keep this quick and get everyone talking; it activates the vocabulary they already have.">
+    <div class="kick">§00 · the situation</div>
+    <h2>Late shift · blank nav display · two-hour turnaround</h2>
+    <div class="cols">
+      <div>
+        <p class="big">The display went blank in the cruise. It came back once, then failed again — a classic intermittent fault.</p>
+        <p class="muted">You have two hours. Work quickly, but methodically: interrogate the BITE, trace the WDM, isolate the fault, and document it.</p>
+      </div>
+      <div class="card">
+        <p><b>Elicit from the class:</b></p>
+        <p>• What do you check first?</p>
+        <p>• Do you change the box straight away?</p>
+        <p>• How do you find where the signal is lost?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · DIALOGUE 1 -->
+  <section class="slide" data-notes="Timing: 8 min. Play Dialogue 1 twice. First for gist — ask: what is the fault, and does the code point to the screen or the wiring? Then play again with the transcript open and pull out the exact figures: one single fault code, 27-FC-114; data on pin 4 and pin 5; connector D-27A; the fault is intermittent. Highlight the reasoning: a replacement box is expensive, so trace the wiring first. This dialogue feeds listening quiz items L1, L2, L5 and L6.">
+    <div class="kick">§01 · Listening · Dialogue 1 — reading the BITE code</div>
+    <h2>The code points to the wiring, not the screen</h2>
+    <div class="cols">
+      <div class="dlg">
+        <p><span class="a">A:</span> The BITE has returned a single fault code — two-seven, F-C, one-one-four.</p>
+        <p><span class="b">B:</span> That code points towards the data bus, rather than the display screen itself.</p>
+        <p><span class="a">A:</span> So the LRU behind the panel might be serviceable.</p>
+        <p><span class="b">B:</span> Because a replacement box is expensive, we trace the wiring first.</p>
+      </div>
+      <div>
+        <p><b>Listen for the figures:</b></p>
+        <p class="step">One fault code · <code>27-FC-114</code></p>
+        <p class="step">Data on <b>pin 4</b> and <b>pin 5</b></p>
+        <p class="step">Connector <code>D-27A</code> · fault is <b>intermittent</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · WIDGET BITE -->
+  <section class="slide" data-notes="Timing: 4 min (interactive). Run the BITE self-test widget on the screen. Press Run with the box unrepaired: the scan animates and returns FAULT 27-FC-114, display data loss. Tick 'harness repaired' and run again: it returns a CLEAN PASS. Use it to drive the key idea — the fault code is a clue that points to the wiring, and the same test proves the fix at the end. Invite a student up to press the buttons and read the readout aloud.">
+    <div class="kick">§01 · Interactive · the BITE self-test</div>
+    <h2>Run the self-test — before and after the repair</h2>
+    <div class="cols">
+      <div class="dw" data-widget="bite"></div>
+      <div>
+        <p>The same BITE test both <b>finds</b> the fault and later <b>clears</b> it.</p>
+        <p class="muted">Unrepaired → fault code 27-FC-114. After the harness repair → a clean pass, which proves the box was never faulty.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · VOCABULARY 1 -->
+  <section class="slide" data-notes="Timing: 6 min. Present the core terms with the plain-word glosses. Drill pronunciation of the harder ones — splice, shield, bonding, intermittent (stress in-ter-MIT-tent). Concept-check: which of these is a self-test? which is the book of wiring? which box can you swap on the line? Keep it snappy; the matching happens in the exercise, not here.">
+    <div class="kick">§02 · Vocabulary · the toolkit words (1 of 2)</div>
+    <h2>The words you must own</h2>
+    <div class="grid3">
+      <div class="term"><b>BITE</b><span>the system's own self-test</span></div>
+      <div class="term"><b>fault code</b><span>a number that names the fault</span></div>
+      <div class="term"><b>WDM</b><span>the book of aircraft wiring</span></div>
+      <div class="term"><b>LRU</b><span>a box you can swap on the line</span></div>
+      <div class="term"><b>harness</b><span>a bundle of taped wires</span></div>
+      <div class="term"><b>connector</b><span>the plug that joins two harnesses</span></div>
+      <div class="term"><b>pin</b><span>one metal contact in a connector</span></div>
+      <div class="term"><b>continuity check</b><span>a test that a wire is whole</span></div>
+      <div class="term"><b>multimeter</b><span>a meter for volts, ohms, continuity</span></div>
+    </div>
+  </section>
+
+  <!-- 7 · VOCABULARY 2 + E1/E2 -->
+  <section class="slide" data-notes="Timing: 6 min. Present the fault-and-repair words, then stage exercises E1 and E2 in the workbook. E1 is a gap-fill of the terms; E2 matches term to meaning. Run them as pair work, then check as a class. Point out the fixed collocations on the right — run the BITE, do a continuity check, set the multimeter — because Latvian and Russian learners tend to say 'make a continuity check'.">
+    <div class="kick">§02 · Vocabulary · the toolkit words (2 of 2) + E1, E2</div>
+    <h2>Faults, repairs — and their verbs</h2>
+    <div class="cols">
+      <div class="grid2">
+        <div class="term"><b>open circuit</b><span>a break; no current flows</span></div>
+        <div class="term"><b>short circuit</b><span>two wires touch — wrong path</span></div>
+        <div class="term"><b>ground fault</b><span>a live wire touches the airframe</span></div>
+        <div class="term"><b>splice</b><span>a joint between two wires</span></div>
+        <div class="term"><b>terminal</b><span>the end fitting of a wire</span></div>
+        <div class="term"><b>intermittent fault</b><span>comes and goes</span></div>
+      </div>
+      <div class="card">
+        <p><b>Fixed verbs (drill these):</b></p>
+        <p><b style="color:var(--good)">run</b> the BITE · <b style="color:var(--good)">read</b> a fault code</p>
+        <p><b style="color:var(--good)">do</b> a continuity check · <b style="color:var(--good)">set</b> the multimeter</p>
+        <p class="muted">Now do <b>E1</b> (gap-fill) and <b>E2</b> (matching) in pairs, then check.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · DIALOGUE 2 -->
+  <section class="slide" data-notes="Timing: 7 min. Play Dialogue 2 (tracing the wires) and complete E3. This is the safety heart of the unit: the connector must be disconnected before any continuity test, because you must never test a live circuit. Pull out the readings — pin 4 is O.L. (an open circuit); pin 5 is near zero (healthy). Then the cause is found: a burnt splice and a loose terminal. Feeds listening items L3, L4 and L7.">
+    <div class="kick">§01 · Listening · Dialogue 2 — tracing the wires</div>
+    <h2>Disconnect first · then probe each pin</h2>
+    <div class="cols">
+      <div class="dlg">
+        <p><span class="b">B:</span> First disconnect the connector, because you must never test a live circuit.</p>
+        <p><span class="a">A:</span> The meter shows an extremely high value — no path at all.</p>
+        <p><span class="b">B:</span> That is a classic open circuit. Now confirm pin five.</p>
+        <p><span class="a">A:</span> Pin five is healthy — resistance almost zero.</p>
+      </div>
+      <div>
+        <p class="step tf"><b>Safety:</b> never test a live circuit — open the connector first.</p>
+        <p class="step"><b>Pin 4:</b> very high reading = <b>open circuit</b></p>
+        <p class="step"><b>Pin 5:</b> ≈ 0 Ω = <b>healthy</b></p>
+        <p class="muted">Cause: a burnt splice + a loose terminal. Now do <b>E3</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · WIDGET PROBE -->
+  <section class="slide" data-notes="Timing: 5 min (interactive). Use the continuity-probe widget. Probe pin 4 with the splice unrepaired: the meter needle swings to O.L. and the broken conductor shows a red gap — an open circuit. Probe pin 5: the needle stays near zero — a healthy wire. Then tick 'splice repaired' and probe pin 4 again: near zero. This makes the abstract meter reading concrete. Ask a student to predict each reading before you probe.">
+    <div class="kick">§01 · Interactive · the continuity check</div>
+    <h2>Probe a pin — read the meter</h2>
+    <div class="cols">
+      <div class="dw" data-widget="probe"></div>
+      <div>
+        <p>A high reading with <b>no path</b> is an open circuit. A reading near <b>zero</b> is a whole, healthy wire.</p>
+        <p class="muted">Probe pin 4 (broken) → O.L. · probe pin 5 → ≈0 Ω · repair the splice → pin 4 now ≈0 Ω.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · SAFETY / FAULT TYPES -->
+  <section class="slide" data-notes="Timing: 3 min. Consolidate the three fault types the class must tell apart, because the quiz and the role-play both use them. Open circuit — a break, no current. Short circuit — two conductors touch, wrong path. Ground fault — a live wire touches the airframe. Remind them of the golden safety rule again: disconnect before testing continuity. Then note the last checks in the dialogue: no short circuit between pins, no ground fault to the airframe, and re-check the bonding strap.">
+    <div class="kick">§01 · consolidate · three faults to tell apart</div>
+    <h2>Open · short · ground — and the safety rule</h2>
+    <div class="grid3">
+      <div class="card"><p><b style="color:var(--hot)">Open circuit</b><br><span class="muted">a break — no current can flow. Meter reads very high.</span></p></div>
+      <div class="card"><p><b style="color:var(--amber)">Short circuit</b><br><span class="muted">two conductors touch — the current takes a wrong path.</span></p></div>
+      <div class="card"><p><b style="color:var(--purple)">Ground fault</b><br><span class="muted">a live wire touches the airframe, which it never should.</span></p></div>
+    </div>
+    <p class="pill" style="margin-top:16px">Golden rule · disconnect the connector <b>before</b> any continuity test — never test a live circuit.</p>
+  </section>
+
+  <!-- 11 · GRAMMAR -->
+  <section class="slide" data-notes="Timing: 6 min. Teach the grammar focus: sequencing diagnostic steps. A fault-find is a story told in order. Put the pattern on the board: sequencing word + comma + base verb (no 'to'). Drill the four stages — First / Next (Then, After that) / Once (As soon as) / Finally. Model each with a real step from today. This sets up E4 and the role-play, where students must narrate in order.">
+    <div class="kick">§03 · Grammar · sequencing diagnostic steps</div>
+    <h2>Name each step before you do it</h2>
+    <div class="cols">
+      <div>
+        <p class="step"><b>First,</b> read the fault code.</p>
+        <p class="step"><b>Next,</b> measure the pin voltage.</p>
+        <p class="step"><b>Once</b> the meter is set, probe pin 4.</p>
+        <p class="step"><b>Finally,</b> sign the tech log.</p>
+      </div>
+      <div class="card">
+        <p><b>The pattern:</b></p>
+        <p class="big">sequencing word <b>+ comma +</b> base verb</p>
+        <p class="muted">No <em>to</em> after the imperative. "Next, measure…", not "Next, to measure…".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · WIDGET SEQ -->
+  <section class="slide" data-notes="Timing: 4 min (interactive). Use the sequencer widget. The six steps appear shuffled; click them into the correct order of a real fault-find. A correct click turns the step green and advances the token; a wrong click flashes red. Do it once as a class, thinking aloud with the sequencing words. Then set E4 in the workbook, which practises the same words in gaps.">
+    <div class="kick">§03 · Interactive · order the fault-find</div>
+    <h2>Put the steps in the right order</h2>
+    <div class="cols">
+      <div class="dw" data-widget="seq"></div>
+      <div>
+        <p>Click the steps top-to-bottom in the order a real fault-find happens.</p>
+        <p class="muted">Say each one aloud with its sequencing word. Then do <b>E4</b> in pairs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · COMMON MISTAKES -->
+  <section class="slide" data-notes="Timing: 4 min. Front the three interference errors, because they are the most common slips for Latvian and Russian speakers, and E6 targets them. One: dropped articles — 'measure pin voltage' should be 'measure the pin voltage', because neither first language has articles. Two: 'must to' — a modal is followed by the bare base verb, so 'you must open', never 'you must to open'. Three: 'at first' — this means 'in the beginning, but it changed later'; for step one, always say 'First'. Elicit the correction each time rather than giving it.">
+    <div class="kick">§03 · Common mistakes · Latvian &amp; Russian</div>
+    <h2>Three slips to watch</h2>
+    <div class="grid3">
+      <div class="card"><p><b style="color:var(--hot)">✗ measure pin voltage</b><br><b style="color:var(--good)">✓ measure the pin voltage</b><br><span class="muted">A known thing needs <em>the</em>.</span></p></div>
+      <div class="card"><p><b style="color:var(--hot)">✗ you must to open it</b><br><b style="color:var(--good)">✓ you must open it</b><br><span class="muted">A modal takes the base verb.</span></p></div>
+      <div class="card"><p><b style="color:var(--hot)">✗ At first, read the code</b><br><b style="color:var(--good)">✓ First, read the code</b><br><span class="muted"><em>At first</em> = it changed later.</span></p></div>
+    </div>
+    <p class="muted" style="margin-top:14px">Now do <b>E6</b> (error-spotting) — eight lines, one fix each.</p>
+  </section>
+
+  <!-- 14 · DIALOGUE 3 + HANDOVER -->
+  <section class="slide" data-notes="Timing: 8 min. Play Dialogue 3 (isolate and log) and the shift-handover message, then set E8, which students answer with the transcript closed to test their ear. The repair is confirmed: pin 4 now reads near zero, the BITE gives a clean pass, so the LRU was serviceable — the fault lived in the harness. Draw out the tech-log advice: state clearly what you found and what you did, add the fault code and the pins, then sign and date it. The handover message models exactly the writing task that follows.">
+    <div class="kick">§01 · Listening · Dialogue 3 + shift handover</div>
+    <h2>Confirm the fix · log it · hand over</h2>
+    <div class="cols">
+      <div class="dlg">
+        <p><span class="a">A:</span> The continuity check now passes on pin four — near zero.</p>
+        <p><span class="b">B:</span> And the BITE reports a clean pass. So the LRU was never faulty.</p>
+        <p><span class="a">A:</span> That saved us a new box. What should I record as the action?</p>
+        <p><span class="b">B:</span> State what you found and what you did. Add the code and the pins. Then sign and date it.</p>
+      </div>
+      <div>
+        <p class="step"><b>Result:</b> harness fault cured; LRU serviceable.</p>
+        <p class="step"><b>Log:</b> fault code + connector + pins + action.</p>
+        <p class="step"><b>Next:</b> one functional test before the first flight.</p>
+        <p class="muted">Now do <b>E8</b> with the transcript closed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · READING -->
+  <section class="slide" data-notes="Timing: 10 min. Set the two reading documents, E5 and E7. E5 is an AMM task card — a numbered procedure with a warning. E7 is the tech log plus an MEL note. Read for the exact facts: the warning, the two data pins, what a high reading means, the LRU status, and the next action. Then discuss the MEL note — when could the fault be deferred (category C, up to three days) and when must it not be. This bridges into authentic regulatory reading.">
+    <div class="kick">§04 · Reading · authentic documents</div>
+    <h2>Read the task card &amp; the tech log</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">E5 · AMM task card</b></p>
+        <p class="muted">A numbered fault-isolation procedure with a safety warning. Read for the pins, the meaning of a high reading, and the LRU decision.</p>
+      </div>
+      <div class="card">
+        <p><b style="color:var(--purple)">E7 · Tech log + MEL note</b></p>
+        <p class="muted">The pilot report, the action taken, the next action — and when the display may be deferred under the MEL (category C, up to 3 days).</p>
+      </div>
+    </div>
+    <p class="pill" style="margin-top:14px">Answer in one or two words. Then discuss: defer, or fix now?</p>
+  </section>
+
+  <!-- 16 · SPEAKING -->
+  <section class="slide" data-notes="Timing: 12 min. This is the core of the simulation. Put students in pairs and give each a card. Cards 1 and 2 are the technician and the lead running the fault-find together — one narrates and does the work, the other reads the WDM and checks safety. Cards 3 and 4 are the shift handover and talking to the pilot. They must use the sequencing words and say every step before doing it. Swap roles so everyone leads and follows. Circulate with the B2 speaking rubric in the teacher key and note articles, 'must to', and order. If a pair finishes early, point them to the AI conversation-partner prompts in the workbook.">
+    <div class="kick">§05 · Speaking · run the simulation</div>
+    <h2>Four role-play cards — narrate every step</h2>
+    <div class="grid2">
+      <div class="rp"><h4>1 · The technician</h4><p>Hold the multimeter and the WDM. Narrate each step before you do it, and isolate the fault.</p></div>
+      <div class="rp"><h4>2 · The lead technician</h4><p>Read the WDM, ask for each reading, and stop any unsafe step. Do not touch the tools.</p></div>
+      <div class="rp"><h4>3 · Shift handover</h4><p>Brief the morning team in 60 seconds: fault code, what you found, what you did, next action.</p></div>
+      <div class="rp"><h4>4 · Talking to the pilot</h4><p>Explain, calmly and clearly, that the fault was in the harness, not the box — and it is fixed.</p></div>
+    </div>
+    <p class="muted" style="margin-top:12px">Swap roles. Assess with the B2 rubric (range · accuracy · fluency · interaction · coherence).</p>
+  </section>
+
+  <!-- 17 · WRITING -->
+  <section class="slide" data-notes="Timing: 6 min (start in class, finish for homework). Set the writing task: the 'action taken' tech-log entry, 60 to 90 words, in three short parts — fault found, action taken, next action. Teach the Simplified Technical English habits on the right: one instruction per sentence, the active voice, short sentences, approved words only. They must name the fault code, the connector, the pins, and the LRU status. Model the first sentence together, then let them draft. The shift-handover message they just heard is the spoken version of this.">
+    <div class="kick">§06 · Writing · the tech-log entry</div>
+    <h2>Write it in Simplified Technical English</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Task:</b> 60–90 words, three parts:</p>
+        <p class="step">1 · Fault found</p>
+        <p class="step">2 · Action taken</p>
+        <p class="step">3 · Next action</p>
+      </div>
+      <div>
+        <p><b>STE habits:</b></p>
+        <p class="muted">• one idea per sentence · • the active voice · • short sentences · • only approved words</p>
+        <p class="muted">Name the <b>fault code</b>, the <b>connector</b>, the <b>pins</b>, and the <b>LRU status</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP-UP -->
+  <section class="slide" data-center data-notes="Timing: 2 min. Close the loop. Recap the arc in one breath: a single BITE code pointed to the wiring; you disconnected and ran a continuity check; pin 4 was open at a burnt splice; you repaired it, re-ran the BITE clean, so the LRU was serviceable; then you logged the fault code, connector, pins and next action, signed and dated it. Praise the habit the unit trained — narrating each step in order keeps the work safe and lets a partner follow. Point them to the quiz (pass at 80%) and remind them the writing entry is due next time. Turn on the captions for any student who wants a Latvian or Russian subtitle of this summary.">
+    <div class="kick">Recap · close</div>
+    <h2>Code → trace → isolate → log</h2>
+    <p class="big muted">One BITE code pointed to the wiring · disconnect, then a continuity check · pin 4 open at a burnt splice · repair, re-run the BITE clean · the LRU was serviceable · log the code, connector, pins and next action, then sign and date it.</p>
+    <p>Next: the <b>quiz</b> (pass at 80%) · finish the <b>tech-log entry</b> for homework.</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+
+  /* ---- W: BITE SELF-TEST ---- */
+  window.DeckW.bite=function(el){
+    el.innerHTML='<div class="wk">'
+      +'<div class="bar"><button class="prim" data-run>▶ Run BITE self-test</button>'
+      +'<label style="color:#9db0c6;font-size:14px"><input type="checkbox" data-fix> harness repaired</label></div>'
+      +'<canvas width="600" height="210"></canvas>'
+      +'<div class="info"><h4>BITE readout</h4><div data-msg>Press "Run BITE self-test".</div></div></div>';
+    var cv=el.querySelector('canvas'), ctx=cv.getContext('2d');
+    var msg=el.querySelector('[data-msg]'), fix=el.querySelector('[data-fix]');
+    var scanning=false, sx=24, done=false;
+    function draw(){
+      var W=cv.width,H=cv.height;
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle='#0a0f18'; ctx.fillRect(20,20,W-40,H-40);
+      ctx.strokeStyle='#314865'; ctx.lineWidth=2; ctx.strokeRect(20,20,W-40,H-40);
+      ctx.font='16px Consolas, monospace';
+      if(scanning){
+        ctx.strokeStyle='#38b6ff'; ctx.lineWidth=3;
+        ctx.beginPath(); ctx.moveTo(sx,24); ctx.lineTo(sx,H-24); ctx.stroke();
+        ctx.fillStyle='#7fd0ff'; ctx.fillText('SELF-TEST RUNNING...', 40, 52);
+      } else if(done){
+        if(fix.checked){
+          ctx.fillStyle='#34d399'; ctx.font='bold 28px Consolas, monospace';
+          ctx.fillText('CLEAN PASS', 40, H/2-4);
+          ctx.font='16px Consolas, monospace'; ctx.fillStyle='#bfe0cb';
+          ctx.fillText('NAV DISPLAY - NO FAULT', 40, H/2+28);
+        } else {
+          ctx.fillStyle='#ff5667'; ctx.font='bold 28px Consolas, monospace';
+          ctx.fillText('FAULT  27-FC-114', 40, H/2-4);
+          ctx.font='15px Consolas, monospace'; ctx.fillStyle='#ffb3b8';
+          ctx.fillText('DISPLAY DATA LOSS - INTERMITTENT', 40, H/2+24);
+          ctx.fillStyle='#9db0c6';
+          ctx.fillText('check data bus - connector D-27A - pins 4/5', 40, H/2+48);
+        }
+      } else {
+        ctx.fillStyle='#54708c'; ctx.fillText('BITE idle - press Run.', 40, H/2);
+      }
+    }
+    function tick(){
+      if(!scanning){return;}
+      sx+=9;
+      if(sx>=cv.width-24){ scanning=false; done=true; result(); draw(); return; }
+      draw(); requestAnimationFrame(tick);
+    }
+    function result(){
+      if(fix.checked){ msg.innerHTML='<b style="color:#34d399">CLEAN PASS.</b> No fault code. The LRU is serviceable - do not change the display unit.'; }
+      else { msg.innerHTML='<b style="color:#ff5667">FAULT 27-FC-114.</b> Display data loss, reported as intermittent. Trace the wiring on connector D-27A before you condemn the box.'; }
+    }
+    el.querySelector('[data-run]').addEventListener('click',function(){
+      scanning=true; done=false; sx=24; msg.textContent='Running...'; requestAnimationFrame(tick);
+    });
+    fix.addEventListener('change',function(){ if(done){ result(); draw(); } });
+    draw();
+  };
+
+  /* ---- W: CONTINUITY PROBE ---- */
+  window.DeckW.probe=function(el){
+    el.innerHTML='<div class="wk">'
+      +'<div class="bar"><button data-p4>Probe pin 4</button><button data-p5>Probe pin 5</button>'
+      +'<label style="color:#9db0c6;font-size:14px"><input type="checkbox" data-fix> splice repaired</label></div>'
+      +'<canvas width="600" height="320"></canvas>'
+      +'<div class="info"><h4>Multimeter (set to continuity)</h4><div data-msg>Choose a pin to probe.</div></div></div>';
+    var cv=el.querySelector('canvas'), ctx=cv.getContext('2d');
+    var msg=el.querySelector('[data-msg]'), fix=el.querySelector('[data-fix]');
+    var target=0, ang=0, probing=null, animating=false;
+    function box(){
+      var W=cv.width;
+      ctx.fillStyle='#16263a'; ctx.strokeStyle='#314865'; ctx.lineWidth=2;
+      ctx.fillRect(28,50,72,110); ctx.strokeRect(28,50,72,110);
+      ctx.fillRect(W-100,50,72,110); ctx.strokeRect(W-100,50,72,110);
+      ctx.fillStyle='#7fd0ff'; ctx.font='12px Consolas,monospace';
+      ctx.fillText('D-27A',34,44); ctx.fillText('DISPLAY',W-96,44);
+    }
+    function wire(y,label,broken){
+      var W=cv.width, x0=100, x1=W-100, hl=(probing===label);
+      ctx.lineWidth=hl?5:3; ctx.strokeStyle= hl? '#f7c22d' : '#5a7fa8';
+      if(broken){
+        var mid=(x0+x1)/2;
+        ctx.beginPath(); ctx.moveTo(x0,y); ctx.lineTo(mid-14,y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(mid+14,y); ctx.lineTo(x1,y); ctx.stroke();
+        ctx.strokeStyle='#ff5667'; ctx.lineWidth=2;
+        ctx.beginPath(); ctx.moveTo(mid-9,y-9); ctx.lineTo(mid+9,y+9); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(mid-9,y+9); ctx.lineTo(mid+9,y-9); ctx.stroke();
+      } else {
+        ctx.beginPath(); ctx.moveTo(x0,y); ctx.lineTo(x1,y); ctx.stroke();
+      }
+      ctx.fillStyle='#9db0c6'; ctx.font='12px Consolas,monospace';
+      ctx.fillText(label, x0+8, y-9);
+    }
+    function gauge(){
+      var W=cv.width, cx=W/2, cy=250, r=62;
+      ctx.strokeStyle='#314865'; ctx.lineWidth=3;
+      ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,2*Math.PI); ctx.stroke();
+      var a=Math.PI + ang*Math.PI;
+      ctx.strokeStyle='#f7c22d'; ctx.lineWidth=3;
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+r*Math.cos(a), cy+r*Math.sin(a)); ctx.stroke();
+      ctx.fillStyle='#7e98ad'; ctx.font='11px Consolas,monospace';
+      ctx.fillText('0 ohm', cx-r-2, cy+2); ctx.fillText('O.L.', cx+r-24, cy+2);
+      ctx.fillStyle= ang>0.5?'#ff9aa2':'#9af0c8'; ctx.font='bold 15px Consolas,monospace';
+      ctx.fillText(ang>0.5?'O.L. (open)':(probing?'~ 0 ohm (good)':''), cx-46, cy-24);
+    }
+    function draw(){ ctx.clearRect(0,0,cv.width,cv.height); box(); wire(90,'pin 4', !fix.checked); wire(140,'pin 5', false); gauge(); }
+    function tick(){
+      var d=target-ang;
+      if(Math.abs(d)>0.008){ ang+=d*0.15; draw(); requestAnimationFrame(tick); }
+      else { ang=target; animating=false; draw(); }
+    }
+    function probe(pin){
+      probing=pin;
+      var open=(pin==='pin 4' && !fix.checked);
+      target=open?1:0.05;
+      if(!animating){ animating=true; requestAnimationFrame(tick); }
+      if(open){ msg.innerHTML='<b style="color:#ff5667">Pin 4: O.L. - open circuit.</b> No path at all. The conductor is broken. Find the burnt splice.'; }
+      else if(pin==='pin 4'){ msg.innerHTML='<b style="color:#34d399">Pin 4: about 0 ohm - good.</b> After the repair, the path is clean end to end.'; }
+      else { msg.innerHTML='<b style="color:#34d399">Pin 5: about 0 ohm - good.</b> A healthy conductor; only pin 4 was open.'; }
+    }
+    el.querySelector('[data-p4]').addEventListener('click',function(){probe('pin 4');});
+    el.querySelector('[data-p5]').addEventListener('click',function(){probe('pin 5');});
+    fix.addEventListener('change',function(){ draw(); if(probing) probe(probing); });
+    draw();
+  };
+
+  /* ---- W: SEQUENCE THE STEPS ---- */
+  window.DeckW.seq=function(el){
+    var STEPS=['First, read the fault code on the BITE',
+               'Then, open the WDM and find the connector',
+               'Before testing, disconnect the connector',
+               'Once the meter is set, probe pin 4',
+               'Then, repair the splice and re-fit',
+               'Finally, sign and date the tech log'];
+    var order=[0,1,2,3,4,5];
+    for(var i=order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=order[i];order[i]=order[j];order[j]=t;}
+    var next=0, tokenX=0, tokenTarget=0, moving=false;
+    el.innerHTML='<div class="wk"><p class="note">Click the steps in the correct order of a real fault-find.</p>'
+      +'<div data-chips style="display:flex;flex-direction:column;gap:6px"></div>'
+      +'<canvas width="600" height="54"></canvas>'
+      +'<div class="info"><h4>Order</h4><div data-msg>Start with the very first step.</div></div></div>';
+    var chips=el.querySelector('[data-chips]'), cv=el.querySelector('canvas'), ctx=cv.getContext('2d'), msg=el.querySelector('[data-msg]');
+    order.forEach(function(idx){
+      var b=document.createElement('button'); b.textContent=STEPS[idx]; b.setAttribute('data-idx',idx);
+      b.style.textAlign='left'; b.style.width='100%';
+      b.addEventListener('click',function(){ pick(idx,b); });
+      chips.appendChild(b);
+    });
+    function drawToken(){
+      var d=tokenTarget-tokenX;
+      if(Math.abs(d)>0.004){tokenX+=d*0.2;} else {tokenX=tokenTarget; moving=false;}
+      ctx.clearRect(0,0,cv.width,cv.height);
+      ctx.strokeStyle='#314865'; ctx.lineWidth=4;
+      ctx.beginPath(); ctx.moveTo(24,27); ctx.lineTo(cv.width-24,27); ctx.stroke();
+      for(var k=0;k<6;k++){var x=24+(cv.width-48)*k/5; ctx.fillStyle=k<next?'#34d399':'#54708c'; ctx.beginPath(); ctx.arc(x,27,6,0,7); ctx.fill();}
+      ctx.fillStyle='#f7c22d'; ctx.beginPath(); ctx.arc(24+(cv.width-48)*tokenX,27,9,0,7); ctx.fill();
+      if(moving) requestAnimationFrame(drawToken);
+    }
+    function pick(idx,b){
+      if(b.disabled) return;
+      if(idx===next){
+        b.style.background='#10271e'; b.style.color='#9af0c8'; b.style.borderColor='#2f6b4e'; b.disabled=true;
+        next++; tokenTarget=clamp(next/5,0,1); if(!moving){moving=true; requestAnimationFrame(drawToken);}
+        if(next===6){ msg.innerHTML='<b style="color:#34d399">Correct order!</b> That is a clean, narrated fault-find.'; }
+        else { msg.innerHTML='Good - step '+next+' done. Now find step '+(next+1)+'.'; }
+      } else {
+        var ob=b.style.background;
+        b.style.background='#241316'; b.style.color='#ff9aa2';
+        setTimeout(function(){ if(!b.disabled){ b.style.background=ob; b.style.color=''; } },500);
+        msg.innerHTML='<b style="color:#ff5667">Not yet.</b> That step comes later. Find the earliest step still left.';
+      }
+    }
+    drawToken();
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u12s12_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u12s12_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter - Unit 12</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:24px;color:#9db0c6;font-size:17px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">&lsaquo; Prev</button><button onclick="post(1)">Next &rsaquo;</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u12s12_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("Next: "+(s.titles[i+1]||"")):"- end of deck -";}',
+'function post(d){localStorage.setItem("u12s12_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u12s12_deck_state")render();});',
+'render();',
+'<\/script></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u12s12_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,80); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech -> live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left;
+            pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;
+            font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB;
+            background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto;
+            width:50px; height:50px; border-radius:50%; cursor:pointer;
+            background:#F7C22D; color:#020E27; border:2px solid #F7C22D;
+            font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px;
+            box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051;
+               font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em;
+               text-transform:uppercase; color:#020E27; background:#F7C22D;
+               border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto;
+             width:42px; height:42px; border-radius:50%; cursor:pointer;
+             background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4);
+             font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052;
+                display:none; align-items:center; gap:8px;
+                background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px;
+                padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px;
+                       font-weight:700; color:#E8EDF5; background:#162030;
+                       border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">&#9881;</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">&#127908;</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">&rarr;</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capQueueB=[], capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '->' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '->' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '->' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+</body>
+</html>

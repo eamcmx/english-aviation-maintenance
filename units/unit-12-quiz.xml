@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English for Aviation Maintenance · Unit 12 — Simulation: avionics fault-find · CEFR B2
+     Moodle XML. 25 items across 5 types (multichoice, truefalse, numerical, shortanswer, matching).
+     Split by skill: Listening (8) · Reading (5) · Use of English (8) · Vocabulary (4).
+     Anti-bias: correct option never the longest/most-hedged; no "all of the above";
+     every question has generalfeedback; every choosable option has feedback. -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U12-r1</text></category>
+    <info format="html"><text><![CDATA[Unit 12 — Simulation: avionics fault-find. Listening, reading, use of English and vocabulary at CEFR B2.]]></text></info>
+  </question>
+
+  <!-- ============================ LISTENING (8) ============================ -->
+
+  <question type="multichoice">
+    <name><text>L1 · Dialogue 1 — what the fault code points to</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> When the BITE returns the fault code, what does the lead technician say it points towards?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The lead says the code "points towards the data bus, rather than the display screen itself". That is why they trace the wiring before condemning the expensive box.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[The wiring and data bus]]></text><feedback format="html"><text><![CDATA[Correct — the code points to the data bus, so they trace the wiring first.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The display screen itself]]></text><feedback format="html"><text><![CDATA[No — the lead says the fault is not the screen, which may be serviceable.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The pilot's incorrect report]]></text><feedback format="html"><text><![CDATA[No — the pilot report is accepted; the code points to the data bus.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The aircraft battery supply]]></text><feedback format="html"><text><![CDATA[No — the battery is never mentioned; the code points to the data bus.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L2 · Dialogue 1 — order of work</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> The technicians decide to replace the display box first, and only trace the wiring afterwards.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. Because a replacement box is expensive, they trace the wiring first. The box is swapped only if the wiring is proved good.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="0" format="moodle_auto_format"><text>true</text><feedback format="html"><text><![CDATA[No — they trace the wiring first, because the box is expensive.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>false</text><feedback format="html"><text><![CDATA[Correct — wiring is traced first; the box is a last resort.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L3 · Dialogue 2 — why disconnect first</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> Why must the connector be disconnected before the continuity check?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The lead warns: "you must never test a live circuit". A continuity check is done on a dead circuit, so the connector is opened first.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[So the circuit is not live]]></text><feedback format="html"><text><![CDATA[Correct — you must never test a live circuit for continuity.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Because the multimeter needs charging first]]></text><feedback format="html"><text><![CDATA[No — this is a safety point about live circuits, not the meter's battery.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[So the fault code can be cleared quickly]]></text><feedback format="html"><text><![CDATA[No — clearing the code is not the reason to disconnect.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Because pin five must be removed first]]></text><feedback format="html"><text><![CDATA[No — no pin is removed; the whole connector is opened for safety.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L4 · Dialogue 2 — pin five reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> Pin five was found to be healthy, with a resistance close to zero.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. Pin five reads almost zero ohms, which shows a whole, unbroken conductor. Only pin four was open.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100" format="moodle_auto_format"><text>true</text><feedback format="html"><text><![CDATA[Correct — pin five reads near zero, so that conductor is good.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>false</text><feedback format="html"><text><![CDATA[No — pin five was the healthy one; pin four was open.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L5 · Dialogue 1 — number of fault codes</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> How many separate fault codes did the BITE return? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>One. The BITE "returned a single fault code" — 27-FC-114. A clean, single code makes the fault easier to trace.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100" format="moodle_auto_format"><text>1</text><feedback format="html"><text><![CDATA[Correct — a single fault code was returned.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L6 · Dialogue 1 — number of data pins</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> How many pins carry the display data through the connector? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Two. The diagram shows the data travelling on pin four and pin five, through connector D-27A.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100" format="moodle_auto_format"><text>2</text><feedback format="html"><text><![CDATA[Correct — pin four and pin five, so two pins.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L7 · Dialogue 2 — the open pin</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> On which pin number was the open circuit found? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Pin four. It showed an extremely high value with no path — a classic open circuit. Pin five was healthy.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100" format="moodle_auto_format"><text>4</text><feedback format="html"><text><![CDATA[Correct — the open circuit was on pin four.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L8 · Dialogue 4 — tests before flight</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to the shift-handover message (Dialogue 4) again.</strong> How many functional tests are still required before the first flight? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>One. Nadia asks the morning team to "carry out one more functional test before the first flight". Everything else is complete.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100" format="moodle_auto_format"><text>1</text><feedback format="html"><text><![CDATA[Correct — one more functional test is required.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <!-- ============================ READING (5) ============================ -->
+
+  <question type="multichoice">
+    <name><text>R1 · Service Bulletin — the cause</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this Service Bulletin, then answer.</strong></p>
+    <blockquote><em>SERVICE BULLETIN 34-1187 (category: recommended).</em> Some nav display units show a blank screen after long flights. The cause is a chafed data wire near connector D-27A, where the harness passes a metal bracket. This bulletin adds a protective sleeve over the harness at that point. The work takes about one hour. It is optional, but operators with two or more blank-screen events should carry it out at the next check.</blockquote>
+    <p>According to the bulletin, what causes the blank screen?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The bulletin names "a chafed data wire near connector D-27A", worn where the harness rubs a metal bracket. The fix protects that spot with a sleeve.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[A chafed data wire]]></text><feedback format="html"><text><![CDATA[Correct — the wire is chafed where it passes a metal bracket.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A faulty display unit board]]></text><feedback format="html"><text><![CDATA[No — the display unit board is not blamed; the wire is chafed.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A software error in the BITE]]></text><feedback format="html"><text><![CDATA[No — the bulletin describes a wiring problem, not software.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A loose bracket in the cockpit]]></text><feedback format="html"><text><![CDATA[No — the bracket is the rubbing point, but the fault is the chafed wire.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R2 · Service Bulletin — is it mandatory?</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read Service Bulletin 34-1187 again</strong> (see question R1). The bulletin is mandatory for all operators.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The bulletin is "category: recommended" and "optional". Only operators with two or more events are advised to do it. A mandatory instruction would be an Airworthiness Directive (AD).</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="0" format="moodle_auto_format"><text>true</text><feedback format="html"><text><![CDATA[No — it is recommended and optional, not mandatory.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>false</text><feedback format="html"><text><![CDATA[Correct — it is recommended/optional; an AD would be mandatory.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R3 · Service Bulletin — the fix</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read Service Bulletin 34-1187 again</strong> (see question R1). What does the bulletin add to protect the harness?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>It "adds a protective sleeve over the harness" at the point where it passes the bracket, so the wire can no longer chafe.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[A protective sleeve]]></text><feedback format="html"><text><![CDATA[Correct — a sleeve is added over the harness at the bracket.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A second data connector]]></text><feedback format="html"><text><![CDATA[No — no extra connector is fitted; a sleeve is added.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A new metal support bracket]]></text><feedback format="html"><text><![CDATA[No — the bracket is the cause of the chafe, not the fix.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[An extra grounding strap]]></text><feedback format="html"><text><![CDATA[No — bonding is not the issue here; a protective sleeve is added.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 · Work Order — release decision</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this Work Order, then answer.</strong></p>
+    <blockquote><em>WORK ORDER WO-55821.</em> Task: functional test of the number-one nav display after a harness repair. Steps: apply power, run the BITE, and confirm a clean pass with no fault code. Then check the display in day and night brightness. Record the result in the tech log. If any fault code returns, do not release the aircraft; raise a new work order and inform the duty engineer.</blockquote>
+    <p>If a fault code returns during the test, the technician may still release the aircraft.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The work order is explicit: "If any fault code returns, do not release the aircraft." A new work order is raised and the duty engineer is informed.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="0" format="moodle_auto_format"><text>true</text><feedback format="html"><text><![CDATA[No — a returning fault code means the aircraft must not be released.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>false</text><feedback format="html"><text><![CDATA[Correct — do not release; raise a new work order instead.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R5 · Work Order — what to confirm</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read Work Order WO-55821 again</strong> (see question R4). What must the technician confirm when the BITE is run?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The order says "confirm a clean pass with no fault code". Only then may the brightness checks and the release proceed.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[A clean pass]]></text><feedback format="html"><text><![CDATA[Correct — a clean pass with no fault code is required.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A single stored fault code]]></text><feedback format="html"><text><![CDATA[No — any returning fault code stops the release.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The correct connector number]]></text><feedback format="html"><text><![CDATA[No — the BITE step confirms a clean pass, not a connector number.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A high resistance reading]]></text><feedback format="html"><text><![CDATA[No — a high reading means an open circuit; the BITE must pass cleanly.]]></text></feedback></answer>
+  </question>
+
+  <!-- ======================= USE OF ENGLISH (8) ======================= -->
+
+  <question type="shortanswer">
+    <name><text>U1 · Sequencing — first step</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Add ONE sequencing word for the very first action. Use a capital letter.</p><p>"____, run the BITE self-test."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><em>First</em> (or <em>To start</em>) marks step one. Do not use <em>At first</em>, which means "in the beginning, but it changed later".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>First</text><feedback format="html"><text><![CDATA[Correct — First marks step one.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>To start</text><feedback format="html"><text><![CDATA[Also correct — To start marks step one.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[Use First (or To start) for step one, not At first.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 · Sequencing — last step</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Add ONE sequencing word for the last action. Use a capital letter.</p><p>"____, sign the tech log and hand the aircraft back."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><em>Finally</em> (or <em>Lastly</em> / <em>In the end</em>) marks the last step of a procedure.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>Finally</text><feedback format="html"><text><![CDATA[Correct — Finally marks the last step.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>Lastly</text><feedback format="html"><text><![CDATA[Also correct — Lastly marks the last step.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>In the end</text><feedback format="html"><text><![CDATA[Also correct — In the end marks the last step.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[Use Finally, Lastly or In the end for the last step.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 · Article before a known thing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Add the ONE missing word.</p><p>"Next, measure ____ pin voltage at the box."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>English needs <em>the</em> before a thing that is already known. Latvian and Russian have no articles, so this word is easy to drop.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>the</text><feedback format="html"><text><![CDATA[Correct — the pin voltage (a known, specific thing).]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[The missing word is the.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 · Modal + base verb</text></name>
+    <questiontext format="html"><text><![CDATA[<p>One extra word is wrong in this sentence: "First you must to open the connector." Write the ONE word that must be removed.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>After a modal such as <em>must, can, should</em>, use the base verb alone: <em>must open</em>, not <em>must to open</em>. Remove <em>to</em>.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>to</text><feedback format="html"><text><![CDATA[Correct — remove to: "you must open the connector".]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[Remove to — a modal is followed by the base verb.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 · Term gap — no current path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Fill the gap with a term from the unit (two words).</p><p>"A break in the conductor, where no current can flow, is an ____ ____."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>An <em>open circuit</em> is a break where the path is interrupted, so a meter reads a very high value with no path.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>open circuit</text><feedback format="html"><text><![CDATA[Correct — an open circuit.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[The term is open circuit.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 · Term gap — the meter test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Fill the gap with a term from the unit (two words).</p><p>"The meter test that confirms a wire is whole from end to end is a ____ ____."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <em>continuity check</em> confirms that a conductor is unbroken. You <em>do</em> or <em>run</em> a continuity check.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>continuity check</text><feedback format="html"><text><![CDATA[Correct — a continuity check.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[The term is continuity check.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U7 · Term gap — live wire to airframe</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Fill the gap with a term from the unit (two words).</p><p>"A fault where a live conductor touches the metal airframe is a ____ ____."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <em>ground fault</em> is a live conductor touching the airframe, which it should never do. Check for it after finding an open circuit.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>ground fault</text><feedback format="html"><text><![CDATA[Correct — a ground fault.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[The term is ground fault.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U8 · Time conjunction for a waiting step</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Join the two steps with ONE time word (a step that waits for another). Use a capital letter.</p><p>"____ you find the break, open the tape carefully."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><em>Once</em>, <em>As soon as</em>, <em>When</em> or <em>After</em> all mark a step that waits for the one before it.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>Once</text><feedback format="html"><text><![CDATA[Correct — Once marks a waiting step.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>As soon as</text><feedback format="html"><text><![CDATA[Also correct — As soon as marks a waiting step.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>When</text><feedback format="html"><text><![CDATA[Also correct — When marks a waiting step.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>After</text><feedback format="html"><text><![CDATA[Also correct — After marks a waiting step.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[Use Once, As soon as, When or After.]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ VOCABULARY (4) ============================ -->
+
+  <question type="matching">
+    <name><text>V1 · Match the term to its meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each avionics term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>BITE tests itself; a fault code names the fault; the WDM is the wiring book; an LRU is a swappable box; a harness is a wire bundle; a splice is a joint between two conductors.</p>]]></text></generalfeedback>
+    <defaultgrade>6</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>the system's own self-test</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[fault code]]></text><answer><text>a number that names the fault</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[WDM]]></text><answer><text>the book of aircraft wiring</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[LRU]]></text><answer><text>a box you can swap on the line</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[harness]]></text><answer><text>a bundle of taped wires</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[splice]]></text><answer><text>a joint where two wires are joined</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 · Match the term to its verb (collocation)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the verb that goes with it in the workshop.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>You <em>run</em> the BITE, <em>read</em> a fault code, <em>disconnect</em> a connector, <em>probe</em> a pin, <em>do</em> a continuity check, and <em>set</em> the multimeter.</p>]]></text></generalfeedback>
+    <defaultgrade>6</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[the BITE]]></text><answer><text>run</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[a fault code]]></text><answer><text>read</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[a connector]]></text><answer><text>disconnect</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[a pin]]></text><answer><text>probe</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[a continuity check]]></text><answer><text>do</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[the multimeter]]></text><answer><text>set</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V3 · Which word means a wire bundle?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which term means "a bundle of wires taped together and routed as one assembly"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <em>harness</em> is the taped bundle of wires. A connector joins harnesses; a terminal is an end fitting; a multimeter is the test tool.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[harness]]></text><feedback format="html"><text><![CDATA[Correct — the harness is the taped bundle of wires.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[connector]]></text><feedback format="html"><text><![CDATA[No — a connector is the plug that joins two harnesses.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[terminal]]></text><feedback format="html"><text><![CDATA[No — a terminal is the end fitting of a single conductor.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[multimeter]]></text><feedback format="html"><text><![CDATA[No — a multimeter is the meter you test with.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V4 · Complete the collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Choose the correct verb to complete the collocation:</p><p>"Before you probe, ____ the multimeter to continuity."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>We <em>set</em> the multimeter to a range or function. "Make", "open" and "read" do not collocate with a meter's setting.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[set]]></text><feedback format="html"><text><![CDATA[Correct — set the multimeter to continuity.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[make]]></text><feedback format="html"><text><![CDATA[No — we do not "make" a meter to a range; we set it.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[open]]></text><feedback format="html"><text><![CDATA[No — you open a connector, but you set a meter.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[read]]></text><feedback format="html"><text><![CDATA[No — you read the value after you set the meter.]]></text></feedback></answer>
+  </question>
+
+</quiz>

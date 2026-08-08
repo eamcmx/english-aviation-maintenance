@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 12 — Solutions (E1–E8 + writing model)</title>
+<style>
+:root{--navy:#0f2942;--brand:#2F5496;--amber:#e0a53d;--amber-soft:#fdf3e0;--ink:#1b2733;
+  --ink-2:#5a6b7d;--line:#e2e6ec;--paper:#fbfaf7;--card:#fff;--ok:#2e9e6b;
+  --shadow:0 1px 2px rgba(16,32,54,.06),0 8px 28px rgba(16,32,54,.07);--radius:14px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:16.5px/1.6 'Inter','Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:900px;margin:0 auto;padding:0 22px 90px}
+.mast{background:linear-gradient(135deg,#0f2942,#2F5496 62%,#3c66a8);color:#fff;padding:40px 0 34px;margin-bottom:26px}
+.mast .in{max-width:900px;margin:0 auto;padding:0 22px}
+.mast .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.mast h1{font-family:Georgia,serif;font-size:33px;margin:8px 0 6px}
+.mast .pill{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;margin-top:6px}
+.note{background:#fff8e8;border:1px solid #f0dfbe;border-left:5px solid var(--amber);
+  border-radius:12px;padding:14px 18px;margin:18px 0;font-size:14.5px;color:#5a4a24}
+.ex{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);
+  border-radius:var(--radius);padding:22px 24px;margin:20px 0;box-shadow:var(--shadow)}
+.ex h2{font-family:Georgia,serif;font-size:21px;color:var(--navy);margin:0 0 4px}
+.ex .sub{color:var(--ink-2);font-size:13.5px;margin:0 0 12px}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:8px 0;font-size:14.5px;
+  border:1px solid var(--line);border-radius:10px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:12px;letter-spacing:.05em;
+  text-transform:uppercase;padding:9px 12px;border-bottom:1px solid var(--line)}
+td{padding:9px 12px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.n{font-weight:700;color:var(--brand);width:34px;text-align:center}
+td.a{font-weight:600;color:var(--navy);white-space:nowrap}
+td.why{color:var(--ink-2);font-size:13.5px}
+.ans{color:var(--ok);font-weight:700}
+.model{background:#f7faff;border:1px solid #d7e4f7;border-radius:12px;padding:16px 20px;margin-top:8px}
+.model p{margin:8px 0}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;color:#fff;
+  background:var(--brand);border-radius:6px;padding:2px 9px;vertical-align:middle}
+.anno{border-left:3px solid var(--amber);background:#fffdf6;padding:6px 12px;margin:6px 0;
+  font-size:13.5px;color:#5a4a24}
+code{background:#eef2f7;border:1px solid #dce3ec;border-radius:5px;padding:1px 5px;font-size:13.5px}
+footer{color:var(--ink-2);font-size:13px;text-align:center;margin-top:34px}
+</style></head>
+<body>
+<div class="mast"><div class="in">
+  <div class="eyebrow">English for Aviation Maintenance · Unit 12</div>
+  <h1>Solutions — Simulation: avionics fault-find</h1>
+  <span class="pill">Teacher / gated key · full answers for E1–E8 · CEFR B2</span>
+</div></div>
+<main>
+
+<div class="note"><strong>How to use this key.</strong> Each answer carries a one-line reason. Where more than one
+answer is correct (E4 sequencing words), any listed option is acceptable if the sentence still reads in the right
+order. Marking is case-insensitive; the article and the base-verb rule still matter.</div>
+
+<!-- E1 -->
+<div class="ex" id="e1">
+  <h2><span class="tag">E1</span> Gap-fill — put the right term in each gap</h2>
+  <p class="sub">10 items · one point each · terms taken from the vocabulary bank.</p>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead><tbody>
+    <tr><td class="n">1</td><td class="a">open circuit</td><td class="why">A high value with no path means the conductor is broken.</td></tr>
+    <tr><td class="n">2</td><td class="a">multimeter</td><td class="why">The hand tool you set before probing anything.</td></tr>
+    <tr><td class="n">3</td><td class="a">short circuit</td><td class="why">Two bare conductors touching create a wrong path.</td></tr>
+    <tr><td class="n">4</td><td class="a">ground fault</td><td class="why">A live wire touching the airframe is a ground fault.</td></tr>
+    <tr><td class="n">5</td><td class="a">harness</td><td class="why">The bundle that routes the wires through the airframe.</td></tr>
+    <tr><td class="n">6</td><td class="a">continuity check</td><td class="why">The meter test that confirms a wire is whole end to end.</td></tr>
+    <tr><td class="n">7</td><td class="a">resistance</td><td class="why">What the meter reads, in ohms.</td></tr>
+    <tr><td class="n">8</td><td class="a">bonding</td><td class="why">A bonding strap ties parts to a common ground.</td></tr>
+    <tr><td class="n">9</td><td class="a">isolate</td><td class="why">To narrow a fault down to one component.</td></tr>
+    <tr><td class="n">10</td><td class="a">pin voltage</td><td class="why">Measured at the box with the system powered.</td></tr>
+  </tbody></table>
+</div>
+
+<!-- E2 -->
+<div class="ex" id="e2">
+  <h2><span class="tag">E2</span> Matching — term to its meaning</h2>
+  <p class="sub">10 items · one point each.</p>
+  <table><thead><tr><th>#</th><th>Term</th><th>Answer &amp; why</th></tr></thead><tbody>
+    <tr><td class="n">1</td><td class="a">BITE</td><td class="why"><span class="ans">the system's own self-test</span> — software that tests itself.</td></tr>
+    <tr><td class="n">2</td><td class="a">fault code</td><td class="why"><span class="ans">a number that names the fault</span> — the BITE's output.</td></tr>
+    <tr><td class="n">3</td><td class="a">WDM</td><td class="why"><span class="ans">the book of aircraft wiring</span> — where you trace connectors and pins.</td></tr>
+    <tr><td class="n">4</td><td class="a">LRU</td><td class="why"><span class="ans">a box you can swap on the line</span> — a line replaceable unit.</td></tr>
+    <tr><td class="n">5</td><td class="a">connector</td><td class="why"><span class="ans">the plug that joins two harnesses</span>.</td></tr>
+    <tr><td class="n">6</td><td class="a">pin</td><td class="why"><span class="ans">one metal contact in a connector</span> — carries one signal.</td></tr>
+    <tr><td class="n">7</td><td class="a">shield</td><td class="why"><span class="ans">a metal wrap that blocks noise</span> around a conductor.</td></tr>
+    <tr><td class="n">8</td><td class="a">intermittent fault</td><td class="why"><span class="ans">a fault that comes and goes</span> — the hardest to catch.</td></tr>
+    <tr><td class="n">9</td><td class="a">splice</td><td class="why"><span class="ans">a joint where two wires are joined</span>.</td></tr>
+    <tr><td class="n">10</td><td class="a">terminal</td><td class="why"><span class="ans">the end fitting where a wire is fixed</span>.</td></tr>
+  </tbody></table>
+</div>
+
+<!-- E3 -->
+<div class="ex" id="e3">
+  <h2><span class="tag">E3</span> Dialogue completion — complete the fault-find talk</h2>
+  <p class="sub">10 items · one point each.</p>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead><tbody>
+    <tr><td class="n">1</td><td class="a">BITE</td><td class="why">The self-test is run first; it returns the code.</td></tr>
+    <tr><td class="n">2</td><td class="a">WDM</td><td class="why">Opened to find the connector reference.</td></tr>
+    <tr><td class="n">3</td><td class="a">pin</td><td class="why">Data runs on pin 4 and pin 5.</td></tr>
+    <tr><td class="n">4</td><td class="a">disconnect</td><td class="why">Never test a live circuit — open it first.</td></tr>
+    <tr><td class="n">5</td><td class="a">circuit</td><td class="why">No path = an open circuit.</td></tr>
+    <tr><td class="n">6</td><td class="a">resistance</td><td class="why">The meter reads resistance in ohms.</td></tr>
+    <tr><td class="n">7</td><td class="a">good <span style="color:var(--ink-2)">/ fine</span></td><td class="why">Near-zero resistance = a healthy conductor.</td></tr>
+    <tr><td class="n">8</td><td class="a">splice</td><td class="why">A burnt splice broke the conductor.</td></tr>
+    <tr><td class="n">9</td><td class="a">check</td><td class="why">The continuity check now passes.</td></tr>
+    <tr><td class="n">10</td><td class="a">LRU</td><td class="why">The box was serviceable all along.</td></tr>
+  </tbody></table>
+</div>
+
+<!-- E4 -->
+<div class="ex" id="e4">
+  <h2><span class="tag">E4</span> Grammar transformation — add the right sequencing word</h2>
+  <p class="sub">10 items · one point each · several orders possible; a clean set is shown. A comma follows the word, and a base verb follows the comma.</p>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead><tbody>
+    <tr><td class="n">1</td><td class="a">First <span style="color:var(--ink-2)">/ To start</span></td><td class="why">Marks step one. Not <em>At first</em>.</td></tr>
+    <tr><td class="n">2</td><td class="a">Next <span style="color:var(--ink-2)">/ Then / After that</span></td><td class="why">The next step in the chain.</td></tr>
+    <tr><td class="n">3</td><td class="a">Before</td><td class="why">A step that must happen ahead of the test.</td></tr>
+    <tr><td class="n">4</td><td class="a">Once <span style="color:var(--ink-2)">/ As soon as</span></td><td class="why">A step that waits for the meter to be set.</td></tr>
+    <tr><td class="n">5</td><td class="a">Then <span style="color:var(--ink-2)">/ Next / After that</span></td><td class="why">The following action.</td></tr>
+    <tr><td class="n">6</td><td class="a">After that <span style="color:var(--ink-2)">/ Then / Next</span></td><td class="why">Repeat the same test on pin 5.</td></tr>
+    <tr><td class="n">7</td><td class="a">As soon as <span style="color:var(--ink-2)">/ Once</span></td><td class="why">A step triggered by finding the break.</td></tr>
+    <tr><td class="n">8</td><td class="a">Then <span style="color:var(--ink-2)">/ Next / After that</span></td><td class="why">The repair action follows.</td></tr>
+    <tr><td class="n">9</td><td class="a">Next <span style="color:var(--ink-2)">/ Then / After that</span></td><td class="why">Re-run the BITE.</td></tr>
+    <tr><td class="n">10</td><td class="a">Finally <span style="color:var(--ink-2)">/ In the end / Lastly</span></td><td class="why">The last step of the job.</td></tr>
+  </tbody></table>
+</div>
+
+<!-- E5 -->
+<div class="ex" id="e5">
+  <h2><span class="tag">E5</span> Reading 1 — AMM task card</h2>
+  <p class="sub">6 items · one point each · one- or two-word answers.</p>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead><tbody>
+    <tr><td class="n">1</td><td class="a">the display unit</td><td class="why">The warning says it must have no power before testing.</td></tr>
+    <tr><td class="n">2</td><td class="a">the BITE</td><td class="why">The fault code is read on the BITE.</td></tr>
+    <tr><td class="n">3</td><td class="a">pin 4 and pin 5</td><td class="why">The two data pins named in the procedure.</td></tr>
+    <tr><td class="n">4</td><td class="a">a high reading</td><td class="why">A high reading shows an open circuit; near-zero is healthy.</td></tr>
+    <tr><td class="n">5</td><td class="a">a burnt splice or a loose terminal</td><td class="why">Both are named as causes of the open wire.</td></tr>
+    <tr><td class="n">6</td><td class="a">yes</td><td class="why">If the code has gone, the LRU is serviceable — do not change it.</td></tr>
+  </tbody></table>
+</div>
+
+<!-- E6 -->
+<div class="ex" id="e6">
+  <h2><span class="tag">E6</span> Error-spotting — find and fix the eight mistakes</h2>
+  <p class="sub">8 items · one point each · common Latvian and Russian slips.</p>
+  <table><thead><tr><th>#</th><th>Fix</th><th>Why</th></tr></thead><tbody>
+    <tr><td class="n">1</td><td class="a">First</td><td class="why"><em>At first</em> means "it changed later"; step one is <em>First</em>.</td></tr>
+    <tr><td class="n">2</td><td class="a">must</td><td class="why">A modal takes the base verb — no <em>to</em> after <em>must</em>.</td></tr>
+    <tr><td class="n">3</td><td class="a">the</td><td class="why">A known thing needs the article: <em>the</em> pin voltage.</td></tr>
+    <tr><td class="n">4</td><td class="a">am checking</td><td class="why">Present continuous = <em>be</em> + <em>-ing</em>, not <em>am check</em>.</td></tr>
+    <tr><td class="n">5</td><td class="a">do <span style="color:var(--ink-2)">/ run</span></td><td class="why">We <em>do</em> or <em>run</em> a continuity check, never <em>make</em>.</td></tr>
+    <tr><td class="n">6</td><td class="a">the</td><td class="why">The article is needed: lost in <em>the</em> harness.</td></tr>
+    <tr><td class="n">7</td><td class="a">an</td><td class="why">Use <em>an</em> before a vowel sound: <em>an</em> open circuit.</td></tr>
+    <tr><td class="n">8</td><td class="a">is</td><td class="why">Subject–verb agreement: <em>the reading is</em> (singular).</td></tr>
+  </tbody></table>
+</div>
+
+<!-- E7 -->
+<div class="ex" id="e7">
+  <h2><span class="tag">E7</span> Reading 2 — tech log &amp; MEL note</h2>
+  <p class="sub">6 items · one point each.</p>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead><tbody>
+    <tr><td class="n">1</td><td class="a">the nav display went blank</td><td class="why">Pilot report: blank in cruise, back once, then blank again.</td></tr>
+    <tr><td class="n">2</td><td class="a">D-27A</td><td class="why">The connector traced through the WDM.</td></tr>
+    <tr><td class="n">3</td><td class="a">an open circuit</td><td class="why">Found on pin 4, caused by a burnt splice + loose terminal.</td></tr>
+    <tr><td class="n">4</td><td class="a">no <span style="color:var(--ink-2)">(not changed)</span></td><td class="why">The LRU was serviceable, so the display unit stayed in place.</td></tr>
+    <tr><td class="n">5</td><td class="a">a functional test</td><td class="why">One functional test is required before the first flight.</td></tr>
+    <tr><td class="n">6</td><td class="a">C</td><td class="why">MEL item 34-21 may be deferred under category C.</td></tr>
+  </tbody></table>
+</div>
+
+<!-- E8 -->
+<div class="ex" id="e8">
+  <h2><span class="tag">E8</span> Listening review — Dialogue 3</h2>
+  <p class="sub">6 items · one point each · answered from the audio, transcript closed.</p>
+  <table><thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead><tbody>
+    <tr><td class="n">1</td><td class="a">pin 4</td><td class="why">A re-checked pin 4 after repairing the splice.</td></tr>
+    <tr><td class="n">2</td><td class="a">near zero</td><td class="why">A clean, low resistance = a good path end to end.</td></tr>
+    <tr><td class="n">3</td><td class="a">no</td><td class="why">The fault code was gone; the BITE reported a clean pass.</td></tr>
+    <tr><td class="n">4</td><td class="a">no <span style="color:var(--ink-2)">(the harness)</span></td><td class="why">The LRU was serviceable; the fault lived in the harness.</td></tr>
+    <tr><td class="n">5</td><td class="a">what he found and did</td><td class="why">B says: state clearly what you found and what you did — plus code and pins.</td></tr>
+    <tr><td class="n">6</td><td class="a">sign and date it</td><td class="why">Sign it, date it, then hand the aircraft back.</td></tr>
+  </tbody></table>
+</div>
+
+<!-- WRITING MODEL -->
+<div class="ex" id="writing">
+  <h2><span class="tag">WRITING</span> Tech-log entry — annotated model answer</h2>
+  <p class="sub">Target: 60–90 words, three parts, Simplified Technical English habits.</p>
+  <div class="model">
+    <p><strong>Fault found.</strong> BITE gave fault code 27-FC-114, display data loss. WDM traced to connector D-27A,
+      data pins 4 and 5. Continuity check found an open circuit on pin 4. A burnt splice and a loose terminal were in the harness.</p>
+    <p><strong>Action taken.</strong> The splice was repaired. The terminal was re-seated. The connector was re-fitted.
+      The BITE was run again and gave a clean pass. The LRU is serviceable; the display unit was not changed.</p>
+    <p><strong>Next action.</strong> Do one functional test before the first flight. If the fault returns, treat it as
+      intermittent and re-inspect the splice.</p>
+    <p style="color:var(--ink-2);font-size:13.5px;margin-top:10px"><strong>Word count:</strong> 78 words — inside the 60–90 band.</p>
+  </div>
+  <h3 style="color:var(--navy);font-size:16px;margin:16px 0 6px">Why it scores well (STE habits)</h3>
+  <div class="anno"><strong>One idea per sentence.</strong> Each action is its own short sentence ("The splice was repaired."), so the next reader cannot mis-read a compound instruction.</div>
+  <div class="anno"><strong>Short sentences.</strong> Every sentence stays well under 20 words, which keeps the entry scannable on a busy line.</div>
+  <div class="anno"><strong>Facts named exactly.</strong> The fault code, connector <code>D-27A</code>, pins 4 and 5, and the LRU status are all stated — the next technician needs no guesswork.</div>
+  <div class="anno"><strong>The next action is explicit.</strong> "Do one functional test before the first flight" tells the morning team precisely what remains.</div>
+  <div class="anno"><strong>Acceptable variation.</strong> Learners may use the active voice throughout ("I repaired the splice. I re-seated the terminal."). STE prefers the active voice for instructions; the passive is acceptable in a record of completed work. Both are marked correct.</div>
+  <h3 style="color:var(--navy);font-size:16px;margin:16px 0 6px">Marking guide (5 points)</h3>
+  <table><thead><tr><th>Point</th><th>Award if…</th></tr></thead><tbody>
+    <tr><td class="a">Fault code</td><td class="why">27-FC-114 (or "display data loss") is named.</td></tr>
+    <tr><td class="a">Location</td><td class="why">Connector D-27A and pins 4/5 (open circuit on pin 4) are named.</td></tr>
+    <tr><td class="a">Action</td><td class="why">Splice repaired / terminal re-seated / connector re-fitted / BITE re-run clean.</td></tr>
+    <tr><td class="a">LRU status</td><td class="why">States the LRU is serviceable and the unit was not changed.</td></tr>
+    <tr><td class="a">Next action + register</td><td class="why">One functional test before flight; short sentences, one idea each.</td></tr>
+  </tbody></table>
+</div>
+
+<footer>English for Aviation Maintenance · Unit 12 — Simulation: avionics fault-find · Gated solutions key.</footer>
+</main>
+</body></html>

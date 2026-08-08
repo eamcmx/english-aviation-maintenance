@@ -1,0 +1,755 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Simulation: avionics fault-find</title><!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 12 of 32 · Simulation: avionics fault-find</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 avionics diagnosis — continuity check, ground fault, harness</span></div></div></header><!-- Unit 12 — English for Aviation Maintenance — Simulation: avionics fault-find (CEFR B2) -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 12 · Simulation: avionics fault-find · English for Aviation Maintenance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  article{max-width:1000px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:60px 0 32px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:22ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:64ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:14px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:74ch}
+  p.lede{font-size:18px;color:#3a3f4d}
+  code{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  a{color:var(--color-primary)}
+  .cando{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius) var(--radius) 0;padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm);margin:var(--space-5) 0}
+  .cando h4{margin:0 0 var(--space-3);color:var(--color-primary-dark);font-family:var(--font-sans);text-transform:uppercase;letter-spacing:.08em;font-size:12px}
+  .cando ul{margin:0;padding-left:1.15em}
+  .cando li{margin:6px 0;color:#33384a;font-weight:500}
+  .callout{border:1px solid var(--border);border-left:4px solid var(--gold);background:var(--bg-margin);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .dialogue{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:6px 4px;margin:var(--space-4) 0;box-shadow:var(--shadow-sm)}
+  .dlg-head{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-primary);font-weight:600;padding:12px 18px 4px;display:flex;align-items:center;gap:9px}
+  .dlg-head:before{content:"";width:16px;height:2px;background:var(--color-primary)}
+  .lang-audio-slot{margin:10px 18px;padding:16px;border:1px dashed var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken);color:var(--ink-muted);font-family:var(--font-mono);font-size:12px;text-align:center}
+  .lang-audio-slot:before{content:"\1F50A  audio player loads here";}
+  .transcript{margin:6px 14px 14px;border-top:1px solid var(--border-soft)}
+  .transcript>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;color:var(--color-primary);font-weight:600;padding:10px 4px;list-style:none}
+  .transcript>summary::-webkit-details-marker{display:none}
+  .transcript>summary:before{content:"\25B8  ";}
+  .transcript[open]>summary:before{content:"\25BE  ";}
+  .turn{display:grid;grid-template-columns:78px 1fr;gap:12px;margin:0;padding:6px 6px;max-width:none;border-bottom:1px solid var(--border-soft)}
+  .turn .spk{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--color-primary-dark)}
+  .turn .said{color:#2b2f3c}
+  table.vocab,table.gram{border-collapse:collapse;width:100%;margin-top:12px;font-size:14.5px}
+  table.vocab th,table.vocab td,table.gram th,table.gram td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vocab th,table.gram th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  table.vocab dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  table.vocab td.ex{color:var(--ink-soft)}
+  table.vocab td.col{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-muted)}
+  .fix{display:grid;gap:6px;margin:10px 0}
+  .fix .row{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;background:var(--bg-elevated)}
+  .fix .n{font-family:var(--font-mono);font-weight:700;color:var(--color-primary)}
+  .wrong{color:var(--bad)} .right{color:var(--good)}
+  .wrong:before{content:"\2717 ";font-weight:700}
+  .right:before{content:"\2713 ";font-weight:700}
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:16px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex h3{margin:0 0 4px}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex ol{padding-left:1.4em}
+  .ex li{margin:9px 0}
+  .ex .reading-text{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;margin:10px 0;font-size:15px}
+  .ex .reading-text p{max-width:none;margin:6px 0}
+  .doc-meta{font-family:var(--font-mono);font-size:11px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:8px}
+  .wordbank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+  .wordbank span{font-family:var(--font-mono);font-size:12.5px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:20px;padding:4px 11px}
+  input.gap,select.gap{font-family:var(--font-mono);font-size:13.5px;border:1px solid var(--border);border-radius:6px;padding:4px 8px;background:#fff;color:var(--ink);min-width:120px}
+  input.gap.right,select.gap.right{border-color:var(--good);background:#eaf5ec}
+  input.gap.wrong,select.gap.wrong{border-color:var(--bad);background:#fbecea}
+  input.gap:focus,select.gap:focus{outline:2px solid var(--color-primary-soft);border-color:var(--color-primary)}
+  .btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  .btn:hover{border-color:var(--color-primary)}
+  .btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .exfoot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .score{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--color-primary-dark)}
+  details.reveal{margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken)}
+  details.reveal>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;color:var(--color-primary);font-weight:700;padding:9px 13px;list-style:none}
+  details.reveal>summary::-webkit-details-marker{display:none}
+  details.reveal>summary:before{content:"\25B8  show answers";}
+  details.reveal[open]>summary:before{content:"\25BE  answers";}
+  details.reveal .body{padding:4px 14px 12px;font-size:14px}
+  details.reveal .body p{margin:6px 0;max-width:none}
+  .roleplay{background:var(--bg-elevated);border:1px solid var(--border);border-top:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.05rem}
+  .roleplay .field{margin:7px 0;font-size:14.5px}
+  .roleplay .flab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--color-primary);font-weight:700;display:block;margin-bottom:1px}
+  .roleplay .phrases{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .roleplay .phrases span{font-size:13px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:20px;padding:3px 10px}
+  .rp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.rp-grid{grid-template-columns:1fr}}
+  .aibox{background:linear-gradient(180deg,#f4eefb,#fbfaf6);border:1px solid #e0d2f1;border-radius:var(--radius);padding:16px 20px;margin:16px 0}
+  .aibox h4{margin:0 0 6px}
+  .prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 13px;margin:9px 0;font-size:14px;font-family:var(--font-mono);color:#33384a;white-space:pre-wrap}
+  .copybtn{font-family:var(--font-mono);font-size:11px;border:1px solid var(--border);background:var(--bg-sunken);border-radius:6px;padding:3px 9px;cursor:pointer;float:right;margin-left:8px}
+  .copybtn:hover{border-color:var(--color-primary)}
+  .checklist{margin:10px 0;padding-left:0;list-style:none}
+  .checklist li{margin:6px 0;padding-left:26px;position:relative}
+  .checklist li:before{content:"\2610";position:absolute;left:0;font-size:18px;color:var(--color-primary)}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+
+<article>
+
+  <header class="lec-hero">
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · Unit 12 · Simulation Day · CEFR B2</p>
+    <h1 class="lecture-title">Simulation: avionics fault-find</h1>
+    <p class="subtitle">A full troubleshooting run, spoken aloud with a partner. You begin from a BITE code, trace the WDM, isolate the LRU, and record the result in the tech log — exactly the way a real hangar team reasons through it.</p>
+    <div class="hero-meta">
+      <span>Vocabulary<strong>Avionics diagnosis — 20 terms</strong></span>
+      <span>Grammar<strong>Sequencing diagnostic steps</strong></span>
+      <span>Scenario<strong>A320 nav-display fault, line station</strong></span>
+      <span>Skills<strong>Listen · speak · read · write</strong></span>
+    </div>
+    <div class="cando">
+      <h4>By the end of this unit you can &hellip;</h4>
+      <ul>
+        <li>Can integrate BITE, WDM and troubleshooting talk to isolate an avionics fault.</li>
+        <li>Can narrate each diagnostic step clearly to a partner.</li>
+        <li>Can record the outcome and the next required action.</li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="lecture-section" id="scenario">
+    <h2><span class="secnum">00</span>The situation</h2>
+    <p class="lede">It is the late shift at a line station, and a pilot has just written up a fault in the tech log.</p>
+    <p>The nav display went completely blank during the cruise, although it recovered once before failing again. The aircraft is now on the ground for a tight two-hour turnaround, so you and your partner must work quickly but methodically. First you interrogate the BITE self-test, because it usually names the fault before you touch anything. Then you trace the wiring through the WDM, unless the fault code already points straight to a single box. As you go, you check the harness, isolate the faulty section, and decide whether the LRU is genuinely defective. Finally, you write a clear tech-log entry and state precisely what the next team must do before flight. Study the three dialogues below, and then run the simulation yourself with a partner.</p>
+  </section>
+
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">01</span>Model dialogues</h2>
+    <p>Listen first, before you read anything. After that, open the transcript and read along carefully. Notice how the two technicians name each diagnostic step aloud before they actually perform it, so that nothing is missed and nobody is caught out.</p>
+
+    <div class="dialogue">
+      <div class="dlg-head">Dialogue 1 — Reading the BITE code</div>
+      <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u12-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:24 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="spk">A —</span> <span class="said">The pilot wrote up a nav display that went completely blank during the cruise, without any warning.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Understood. Before we assume anything, let us run the BITE self-test on the display unit.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">The BITE has returned a single fault code, and it reads two-seven, F-C, one-one-four.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Good. That fault code points towards the data bus, rather than the display screen itself.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">So the LRU behind the panel might be serviceable, although the signal is clearly being lost.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Exactly. Because a replacement box is expensive, we trace the wiring first. Bring the WDM.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">The WDM is open, and it shows the display unit, the connector, and the data harness.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">First, record the connector reference. After that, identify the pins that actually carry the data.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">According to the diagram, the data travels on pin 4 and pin 5, through connector D-27A.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Good work. Note that the fault code also reports the signal loss as intermittent.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">If the fault comes and goes, then a loose pin or a cracked conductor is likely.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Precisely. An intermittent fault is the hardest to catch, so we must work methodically.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">Where should I begin the troubleshooting, at the connector or further along at the box?</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Begin at the connector, since it fails more often. Later, we may measure the pin voltage.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">Understood. I will isolate the faulty section step by step, and narrate every move to you.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Perfect. Read every step aloud as you go, because safety always comes before speed.</span></p>
+      </details>
+    </div>
+
+    <div class="dialogue">
+      <div class="dlg-head">Dialogue 2 — Tracing the wires</div>
+      <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u12-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:19 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="spk">A —</span> <span class="said">I have set the multimeter to continuity, and I am ready to begin the continuity check.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Good, but first disconnect the connector, because you must never test a live circuit.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">The connector is open and safe now, so I am probing pin 4 to the far end.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">While you hold the probes steady, tell me what the multimeter reads for resistance.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">The meter shows an extremely high value, which means there is no path at all.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">That reading is a classic open circuit, so the conductor is broken somewhere in the harness.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">Before I decide anything, let me test pin 5 as well, just to be certain.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Yes, because a single reading is never enough. Always confirm each pin separately.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">Pin 5 is healthy. Its resistance is almost zero, so that conductor is clearly good.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">So we have one open circuit on pin 4. Now we must locate exactly where it breaks.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">There is a splice about halfway along the harness, so I will carefully open the tape.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Mind the shield as you cut, and do not nick the conductor underneath the insulation.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">The splice looks badly burnt, and one terminal has partly slipped out of the connector.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">That explains the intermittent signal. Now check for a short circuit and for a ground fault.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">There is no short circuit between the pins, and no ground fault down to the airframe.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Good. Re-check the bonding strap as well, and then we can repair the splice properly.</span></p>
+      </details>
+    </div>
+
+    <div class="dialogue">
+      <div class="dlg-head">Dialogue 3 — Isolate the LRU and log it</div>
+      <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u12-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:18 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="spk">A —</span> <span class="said">The splice is now repaired, so I have run the continuity check again on pin 4.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Excellent. And what does the meter read this time?</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">The resistance is close to zero, which shows a clean path from one end to the other.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">So the harness fault is cured. However, we must still clear the LRU before we close up.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">I have already re-fitted the connector and run the BITE self-test a second time.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Tell me, does the fault code return, or has it disappeared completely now?</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">The fault code has gone, and the BITE now reports a clean pass on the display unit.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Good, so the LRU was never faulty. The real problem lived in the harness all along.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">That has saved us a new box, because the display unit is genuinely expensive to replace.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">True. We isolated the actual fault, and that is precisely what careful troubleshooting achieves.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">I will complete the tech log now. What exactly should I record as the action taken?</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Keep it short but complete. State clearly what you found, and what you did about it.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">I will write that I repaired an open circuit at the splice on connector D-27A.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Add the affected pins and the fault code too, so the next technician reads it quickly.</span></p>
+        <p class="turn"><span class="spk">A —</span> <span class="said">Done. I have logged the fault code, the pins, and the continuity check result.</span></p>
+        <p class="turn"><span class="spk">B —</span> <span class="said">Well done. Now sign it, date it, and we can finally hand the aircraft back.</span></p>
+      </details>
+    </div>
+
+    <div class="dialogue mono">
+      <div class="dlg-head">Bonus listening — Shift-handover voicemail</div>
+      <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u12-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:55 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn"><span class="spk">Nadia —</span> <span class="said">Hi, this is Nadia calling at the end of the late shift, with a message for the morning team. We have closed the nav display fault on aircraft Alpha-Charlie. The BITE returned fault code two-seven, F-C, one-one-four, which is a display data loss. We traced the wiring through the WDM to connector D-27A. There was an open circuit on pin 4, hidden deep inside the harness. We found a badly burnt splice and a loose terminal. So we repaired the splice and re-fitted the connector carefully. The continuity check then passed, and the BITE is now completely clean. Because the LRU was serviceable, we did not change the display unit. The tech log is signed and complete. However, please carry out one more functional test before the first flight. Thanks very much, and have a good shift.</span></p>
+      </details>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">02</span>Vocabulary bank</h2>
+    <p>These 20 terms are the working language of avionics fault-finding, and they are the only hard words in this unit. Each meaning is written in plain English, so that you can understand it without a dictionary. Every row also gives one example from the hangar and one common word pair, which is called a collocation.</p>
+    <table class="vocab">
+      <thead><tr><th>Term</th><th>Plain meaning</th><th>Example at work</th><th>Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="BITE">BITE</dfn></td><td>Built-in test equipment: software inside the system that tests itself and reports any faults it finds.</td><td class="ex">Always run the BITE first, because it often names the fault before you touch a wire.</td><td class="col">run the BITE</td></tr>
+        <tr><td><dfn data-term="fault code">fault code</dfn></td><td>A code number that the BITE displays in order to identify which particular fault it has detected.</td><td class="ex">Because the fault code points to the data bus, we suspect the wiring rather than the screen.</td><td class="col">read a fault code</td></tr>
+        <tr><td><dfn data-term="WDM">WDM</dfn></td><td>Wiring diagram manual: the reference book that shows how every wire in the aircraft is routed.</td><td class="ex">Open the WDM at the correct figure, so that you can trace the connector and its pins.</td><td class="col">trace the WDM</td></tr>
+        <tr><td><dfn data-term="LRU">LRU</dfn></td><td>Line replaceable unit: a self-contained box that a technician can swap quickly on the line.</td><td class="ex">Never condemn the LRU until you have traced the wiring that actually feeds it.</td><td class="col">swap an LRU</td></tr>
+        <tr><td><dfn data-term="harness">harness</dfn></td><td>A bundle of wires that are taped together and routed as one assembly through the airframe.</td><td class="ex">The conductor is broken somewhere inside the harness, although the connector looks perfectly clean.</td><td class="col">a wiring harness</td></tr>
+        <tr><td><dfn data-term="connector">connector</dfn></td><td>The plug and socket that join two harnesses, so that signals can pass between them.</td><td class="ex">First disconnect the connector, otherwise you risk testing a circuit that is still live.</td><td class="col">disconnect a connector</td></tr>
+        <tr><td><dfn data-term="pin">pin</dfn></td><td>A single metal contact inside a connector, which carries one signal or one supply.</td><td class="ex">Probe each pin separately, because one healthy reading does not clear the whole connector.</td><td class="col">probe a pin</td></tr>
+        <tr><td><dfn data-term="continuity check">continuity check</dfn></td><td>A meter test that confirms whether a wire is whole and unbroken from one end to the other.</td><td class="ex">The continuity check passed on pin 4, which proves the repaired splice now conducts.</td><td class="col">do a continuity check</td></tr>
+        <tr><td><dfn data-term="open circuit">open circuit</dfn></td><td>A break in the conductor, where no current can flow because the path is interrupted.</td><td class="ex">A very high reading with no path usually means an open circuit inside the harness.</td><td class="col">find an open circuit</td></tr>
+        <tr><td><dfn data-term="short circuit">short circuit</dfn></td><td>A fault where two conductors touch, so the current follows a wrong and unintended path.</td><td class="ex">Check for a short circuit between the pins before you refit the connector.</td><td class="col">a short circuit</td></tr>
+        <tr><td><dfn data-term="ground fault">ground fault</dfn></td><td>A fault where a live conductor touches the metal airframe, which it should never do.</td><td class="ex">There was no ground fault to the airframe, so the insulation is still sound.</td><td class="col">a ground fault</td></tr>
+        <tr><td><dfn data-term="multimeter">multimeter</dfn></td><td>A hand-held meter that can read voltage, resistance and continuity, depending on the setting.</td><td class="ex">Set the multimeter to continuity before you probe, otherwise the reading will mislead you.</td><td class="col">set the multimeter</td></tr>
+        <tr><td><dfn data-term="pin voltage">pin voltage</dfn></td><td>The voltage measured at one particular pin, usually while the system is powered.</td><td class="ex">Next, measure the pin voltage at the box, in case the supply itself is missing.</td><td class="col">measure the pin voltage</td></tr>
+        <tr><td><dfn data-term="resistance">resistance</dfn></td><td>A measure, in ohms, of how strongly a conductor opposes the current flowing through it.</td><td class="ex">Because its resistance is almost zero, that conductor is clearly healthy and unbroken.</td><td class="col">read the resistance</td></tr>
+        <tr><td><dfn data-term="bonding">bonding</dfn></td><td>A metal link that ties separate parts to a common ground, so that no charge builds up.</td><td class="ex">Re-check the bonding strap as well, since a poor bond can imitate other faults.</td><td class="col">a bonding strap</td></tr>
+        <tr><td><dfn data-term="shield">shield</dfn></td><td>A metal wrap around a conductor that blocks electrical noise from reaching the signal.</td><td class="ex">Mind the shield as you cut the tape, so that you do not nick the conductor.</td><td class="col">a cable shield</td></tr>
+        <tr><td><dfn data-term="intermittent fault">intermittent fault</dfn></td><td>A fault that appears and disappears, which makes it far harder to locate and confirm.</td><td class="ex">An intermittent fault often hides at a loose terminal, so inspect every contact carefully.</td><td class="col">an intermittent fault</td></tr>
+        <tr><td><dfn data-term="splice">splice</dfn></td><td>A joint where two conductors are permanently joined, usually crimped and then insulated.</td><td class="ex">The splice looked badly burnt, which explained the loss of signal on that pin.</td><td class="col">repair a splice</td></tr>
+        <tr><td><dfn data-term="terminal">terminal</dfn></td><td>The end fitting where a conductor is secured, either into a connector or onto a stud.</td><td class="ex">One terminal had slipped out of the connector, so the contact became unreliable.</td><td class="col">a loose terminal</td></tr>
+        <tr><td><dfn data-term="isolate">isolate</dfn></td><td>To narrow a fault down, step by step, until it sits inside one single component.</td><td class="ex">We isolated the real fault to the harness, rather than blaming the expensive box.</td><td class="col">isolate the fault</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">03</span>Grammar in context — sequencing diagnostic steps</h2>
+    <p class="lede">A fault-find is a story that you must tell in the correct order, because a partner can only follow you if each step is named before it happens.</p>
+    <p>Look again at Dialogue 2, where the technicians use small linking words to mark the order of their steps. These words are called sequencing words, and they keep a shared job clear and safe:</p>
+    <div class="callout">
+      <p style="margin:4px 0"><strong>&ldquo;First,</strong> disconnect the connector.&rdquo;</p>
+      <p style="margin:4px 0"><strong>&ldquo;Then</strong> find the pins that carry the data.&rdquo;</p>
+      <p style="margin:4px 0"><strong>&ldquo;Next,</strong> measure the pin voltage.&rdquo;</p>
+      <p style="margin:4px 0"><strong>&ldquo;Before</strong> we swap any box, we trace the wiring.&rdquo;</p>
+      <p style="margin:4px 0"><strong>&ldquo;As soon as</strong> the meter is set, probe pin 4.&rdquo;</p>
+    </div>
+    <p>Put the sequencing word at the start of the step, and follow it with a comma. Then use the plain imperative for the action, which means a base verb with no <em>to</em> in front of it.</p>
+    <table class="gram">
+      <thead><tr><th>Stage</th><th>Sequencing words</th><th>Example step</th></tr></thead>
+      <tbody>
+        <tr><td>The first step</td><td>First, / To start,</td><td>First, read the fault code.</td></tr>
+        <tr><td>The next step</td><td>Next, / Then / After that,</td><td>Next, measure the pin voltage.</td></tr>
+        <tr><td>A step that waits for another</td><td>Once &hellip; / As soon as &hellip;</td><td>Once the meter is set, probe pin 4.</td></tr>
+        <tr><td>The last step</td><td>Finally, / In the end,</td><td>Finally, sign the tech log.</td></tr>
+      </tbody>
+    </table>
+    <h3>Common mistakes (Latvian &amp; Russian speakers)</h3>
+    <p>Latvian and Russian have no articles, and in both languages the verb after a modal takes no <em>to</em>. Because these habits carry into English, watch these three patterns very closely:</p>
+    <div class="fix">
+      <div class="row"><span class="n">1</span><div><span class="wrong">Next, measure pin voltage.</span><br><span class="right">Next, measure the pin voltage.</span><br><span style="font-size:13px;color:var(--ink-muted)">English needs <em>the</em> before a thing that is already known. Latvian and Russian drop it, so remember to add it back.</span></div></div>
+      <div class="row"><span class="n">2</span><div><span class="wrong">First you must to open the connector.</span><br><span class="right">First you must open the connector.</span><br><span style="font-size:13px;color:var(--ink-muted)">After a modal such as <em>must, can</em> or <em>should</em>, use the base verb alone, with no <em>to</em>.</span></div></div>
+      <div class="row"><span class="n">3</span><div><span class="wrong">At first, read the fault code.</span><br><span class="right">First, read the fault code.</span><br><span style="font-size:13px;color:var(--ink-muted)"><em>At first</em> means &ldquo;in the beginning, but it changed later&rdquo;. For step one of a procedure, always say <em>First</em>.</span></div></div>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="exercises">
+    <h2><span class="secnum">04</span>Exercises</h2>
+    <p>Work through each exercise carefully, and then press <em>Check</em>, so that the page marks your answers immediately. Because this is self-study, nobody else will correct you, which means the honest practice is entirely your own. Open <em>show answers</em> only after you have genuinely attempted the whole exercise yourself.</p>
+
+    <div class="ex" id="e1">
+      <span class="tag">E1 · Gap-fill</span>
+      <h3>Put the right term in each gap</h3>
+      <p>Read each sentence carefully, and then type one term from the bank into the gap, making sure you spell it exactly. Although the sentences are new, every answer is a term that appeared in the dialogues.</p>
+      <div class="wordbank">
+        <span>continuity check</span><span>ground fault</span><span>harness</span><span>open circuit</span><span>short circuit</span><span>multimeter</span><span>pin voltage</span><span>resistance</span><span>bonding</span><span>isolate</span>
+      </div>
+      <ol>
+        <li>When the meter shows a high value and no continuous path, the conductor has an <input class="gap" data-answer="open circuit"> somewhere along it.</li>
+        <li>Before you probe anything at all, set the <input class="gap" data-answer="multimeter"> to the continuity range.</li>
+        <li>Wherever two bare conductors accidentally touch each other, they create a dangerous <input class="gap" data-answer="short circuit">.</li>
+        <li>When a live wire touches the metal airframe by mistake, the result is a <input class="gap" data-answer="ground fault">.</li>
+        <li>The individual wires are bundled together and routed through the airframe inside a <input class="gap" data-answer="harness">.</li>
+        <li>To confirm that a repaired wire now conducts from end to end, always perform a <input class="gap" data-answer="continuity check">.</li>
+        <li>The meter displays the <input class="gap" data-answer="resistance"> of the conductor, measured in ohms.</li>
+        <li>So that no charge can build up, a <input class="gap" data-answer="bonding"> strap ties the parts to a common ground.</li>
+        <li>Working carefully and methodically, we <input class="gap" data-answer="isolate"> the fault down to one single component.</li>
+        <li>With the system powered, measure the <input class="gap" data-answer="pin voltage"> at the box to confirm the supply is present.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span></div>
+      <details class="reveal"><summary></summary><div class="body">
+        <p>1 open circuit · 2 multimeter · 3 short circuit · 4 ground fault · 5 harness · 6 continuity check · 7 resistance · 8 bonding · 9 isolate · 10 pin voltage.</p>
+      </div></details>
+    </div>
+
+    <div class="ex" id="e2">
+      <span class="tag">E2 · Matching</span>
+      <h3>Match the term to its meaning</h3>
+      <p>Choose the correct meaning for each term from the menu.</p>
+      <ol>
+        <li><strong>BITE</strong> — <select class="gap" data-answer="the system's own self-test"><option value="">choose &hellip;</option><option>the system's own self-test</option><option>a bundle of wires</option><option>a break in the wire</option><option>the end fitting of a wire</option></select></li>
+        <li><strong>fault code</strong> — <select class="gap" data-answer="a number that names the fault"><option value="">choose &hellip;</option><option>a number that names the fault</option><option>a metal wrap that blocks noise</option><option>a meter for voltage</option><option>a plug that joins harnesses</option></select></li>
+        <li><strong>WDM</strong> — <select class="gap" data-answer="the book of aircraft wiring"><option value="">choose &hellip;</option><option>the book of aircraft wiring</option><option>a fault that comes and goes</option><option>a joint between two wires</option><option>a metal contact in a plug</option></select></li>
+        <li><strong>LRU</strong> — <select class="gap" data-answer="a box you can swap on the line"><option value="">choose &hellip;</option><option>a box you can swap on the line</option><option>a wire that touches the frame</option><option>the voltage at one pin</option><option>a common ground link</option></select></li>
+        <li><strong>connector</strong> — <select class="gap" data-answer="the plug that joins two harnesses"><option value="">choose &hellip;</option><option>the plug that joins two harnesses</option><option>a number that names a fault</option><option>a test of a whole wire</option><option>a bundle of taped wires</option></select></li>
+        <li><strong>pin</strong> — <select class="gap" data-answer="one metal contact in a connector"><option value="">choose &hellip;</option><option>one metal contact in a connector</option><option>the self-test system</option><option>a break with no current</option><option>a meter reading in ohms</option></select></li>
+        <li><strong>shield</strong> — <select class="gap" data-answer="a metal wrap that blocks noise"><option value="">choose &hellip;</option><option>a metal wrap that blocks noise</option><option>a box you swap on the line</option><option>a wrong current path</option><option>the last step of a job</option></select></li>
+        <li><strong>intermittent fault</strong> — <select class="gap" data-answer="a fault that comes and goes"><option value="">choose &hellip;</option><option>a fault that comes and goes</option><option>a plug between harnesses</option><option>a book of wiring</option><option>a metal contact</option></select></li>
+        <li><strong>splice</strong> — <select class="gap" data-answer="a joint where two wires are joined"><option value="">choose &hellip;</option><option>a joint where two wires are joined</option><option>a number for a fault</option><option>a self-test system</option><option>a bundle of wires</option></select></li>
+        <li><strong>terminal</strong> — <select class="gap" data-answer="the end fitting where a wire is fixed"><option value="">choose &hellip;</option><option>the end fitting where a wire is fixed</option><option>a wire touching the frame</option><option>a meter for continuity</option><option>a self-test code</option></select></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span></div>
+      <details class="reveal"><summary></summary><div class="body">
+        <p>BITE = self-test · fault code = a number that names the fault · WDM = the book of aircraft wiring · LRU = a box you can swap · connector = the plug that joins harnesses · pin = one metal contact · shield = a metal wrap that blocks noise · intermittent fault = comes and goes · splice = a joint of two wires · terminal = the end fitting.</p>
+      </div></details>
+    </div>
+
+    <div class="ex" id="e3">
+      <span class="tag">E3 · Dialogue completion</span>
+      <h3>Complete the fault-find talk</h3>
+      <p>Fill each gap with one word or term. The dialogue follows the same job as the models.</p>
+      <ol>
+        <li>A: I ran the <input class="gap" data-answer="BITE"> and it returned one fault code.</li>
+        <li>B: Good. Open the <input class="gap" data-answer="WDM"> and find the connector reference.</li>
+        <li>A: According to the diagram, the data runs on <input class="gap" data-answer="pin"> 4 and pin 5.</li>
+        <li>B: First, <input class="gap" data-answer="disconnect"> the connector, because you must never test a live circuit.</li>
+        <li>A: The meter shows no path, so this is clearly an open <input class="gap" data-answer="circuit">.</li>
+        <li>B: Check the other wire too. What is the <input class="gap" data-answer="resistance"> on that pin?</li>
+        <li>A: It is near zero, so that conductor is perfectly <input class="gap" data-answer="good|fine">.</li>
+        <li>B: There is a burnt <input class="gap" data-answer="splice"> in the harness, so repair it carefully.</li>
+        <li>A: Done. The continuity <input class="gap" data-answer="check"> now passes on both pins.</li>
+        <li>B: So the <input class="gap" data-answer="LRU"> was serviceable. Please write up the tech log.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span></div>
+      <details class="reveal"><summary></summary><div class="body">
+        <p>1 BITE · 2 WDM · 3 pin · 4 disconnect · 5 circuit · 6 resistance · 7 good/fine · 8 splice · 9 check · 10 LRU.</p>
+      </div></details>
+    </div>
+
+    <div class="ex" id="e4">
+      <span class="tag">E4 · Grammar transformation</span>
+      <h3>Add the right sequencing word</h3>
+      <p>Read the ordered steps of the job, and type one sequencing word in each gap. Use a capital letter, and remember the comma.</p>
+      <ol>
+        <li><input class="gap" data-answer="First|To start"> , read the fault code on the BITE.</li>
+        <li><input class="gap" data-answer="Next|Then|After that"> , open the WDM and find the connector.</li>
+        <li><input class="gap" data-answer="Before"> you test the wire, disconnect the connector.</li>
+        <li><input class="gap" data-answer="Once|As soon as"> the meter is set to continuity, probe pin 4.</li>
+        <li><input class="gap" data-answer="Then|Next|After that"> , read the resistance on the conductor.</li>
+        <li><input class="gap" data-answer="After that|Then|Next"> , check pin 5 in exactly the same way.</li>
+        <li><input class="gap" data-answer="As soon as|Once"> you find the break, open the tape carefully.</li>
+        <li><input class="gap" data-answer="Then|Next|After that"> , repair the splice and re-fit the connector.</li>
+        <li><input class="gap" data-answer="Next|Then|After that"> , run the BITE self-test a second time.</li>
+        <li><input class="gap" data-answer="Finally|In the end|Lastly"> , sign the tech log and hand the aircraft back.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span></div>
+      <details class="reveal"><summary></summary><div class="body">
+        <p>Several orders are possible. A clean set: 1 First · 2 Next · 3 Before · 4 Once · 5 Then · 6 After that · 7 As soon as · 8 Then · 9 Next · 10 Finally. Remember the comma after the word, and a base verb with no <em>to</em>.</p>
+      </div></details>
+    </div>
+
+    <div class="ex reading" id="e5">
+      <span class="tag">E5 · Reading 1 — AMM task card</span>
+      <h3>Read the task card, then answer</h3>
+      <div class="reading-text">
+        <div class="doc-meta">AMM TASK 34-21-00-810 · NAV DISPLAY — FAULT ISOLATION · SUBTASK 05</div>
+        <p><strong>Warning.</strong> Make sure the display unit has no power before you test, because a live circuit can injure you and can also damage the meter.</p>
+        <p><strong>Procedure.</strong> First, read the fault code on the BITE, and write it in the tech log. Next, open the WDM at figure 34-21-14, so that you can find connector D-27A and the two data pins. Then disconnect the connector, and do a continuity check on pin 4 and pin 5.</p>
+        <p>A healthy wire shows near-zero resistance, whereas a high reading shows an open circuit inside the harness. If the wire is open, look for a burnt splice or a loose terminal, and repair it. After that, re-fit the connector and run the BITE again. If the fault code has gone, the LRU is serviceable, so do not change the display unit. Finally, sign the tech log, and record the next required action before flight.</p>
+      </div>
+      <p>Answer in one or two words.</p>
+      <ol>
+        <li>What must have no power before the test? <input class="gap" data-answer="the display unit|display unit"></li>
+        <li>Where do you read the fault code? <input class="gap" data-answer="the BITE|BITE"></li>
+        <li>Which two pins carry the data? <input class="gap" data-answer="4 and 5|pin 4 and pin 5|4 and pin 5"></li>
+        <li>What reading shows an open circuit? <input class="gap" data-answer="a high reading|high|high reading"></li>
+        <li>What two faults cause the open wire? <input class="gap" data-answer="burnt splice and loose terminal|a burnt splice or a loose terminal|splice and terminal"></li>
+        <li>If the fault code has gone, is the LRU serviceable? <input class="gap" data-answer="yes|yes it is|serviceable|good"></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span></div>
+      <details class="reveal"><summary></summary><div class="body">
+        <p>1 the display unit · 2 the BITE · 3 pin 4 and pin 5 · 4 a high reading · 5 a burnt splice or a loose terminal · 6 yes, the LRU is serviceable.</p>
+      </div></details>
+    </div>
+
+    <div class="ex" id="e6">
+      <span class="tag">E6 · Error-spotting</span>
+      <h3>Find and fix the eight mistakes</h3>
+      <p>Each line has one language mistake. Type the correct word or words in the box. These are common Latvian and Russian slips.</p>
+      <ol>
+        <li>&ldquo;At first, run the BITE self-test.&rdquo; &nbsp;Fix <em>At first</em>: <input class="gap" data-answer="First"></li>
+        <li>&ldquo;You must to disconnect the connector.&rdquo; &nbsp;Fix <em>must to</em>: <input class="gap" data-answer="must"></li>
+        <li>&ldquo;Measure pin voltage at pin 4.&rdquo; &nbsp;Add the missing word before <em>pin voltage</em>: <input class="gap" data-answer="the"></li>
+        <li>&ldquo;I am check the harness now.&rdquo; &nbsp;Fix <em>am check</em>: <input class="gap" data-answer="am checking|checking"></li>
+        <li>&ldquo;Please make a continuity check on pin 5.&rdquo; &nbsp;Fix <em>make</em>: <input class="gap" data-answer="do|run"></li>
+        <li>&ldquo;The signal is lost in harness.&rdquo; &nbsp;Add the missing word before <em>harness</em>: <input class="gap" data-answer="the"></li>
+        <li>&ldquo;We found a open circuit.&rdquo; &nbsp;Fix <em>a</em>: <input class="gap" data-answer="an"></li>
+        <li>&ldquo;The reading are very high.&rdquo; &nbsp;Fix <em>are</em>: <input class="gap" data-answer="is"></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span></div>
+      <details class="reveal"><summary></summary><div class="body">
+        <p>1 First · 2 must · 3 the · 4 am checking · 5 do / run · 6 the · 7 an · 8 is.</p>
+      </div></details>
+    </div>
+
+    <div class="ex reading" id="e7">
+      <span class="tag">E7 · Reading 2 — Tech log &amp; MEL note</span>
+      <h3>Read the entries, then answer</h3>
+      <div class="reading-text">
+        <div class="doc-meta">TECH LOG · A/C REG: OY-ACX · ATA 34 · SECTOR: LATE SHIFT</div>
+        <p><strong>Pilot report.</strong> The nav display went blank during the cruise. It came back once, and then it went blank again.</p>
+        <p><strong>Action taken.</strong> BITE run; fault code 27-FC-114 recorded, which is a display data loss. The WDM was traced to connector D-27A, data pins 4 and 5. The continuity check found an open circuit on pin 4, because a burnt splice and a loose terminal were present in the harness. The splice was repaired, and the terminal was re-seated. The connector was re-fitted, and the BITE was re-run, which gave a clean pass. The LRU is serviceable, so the display unit was not changed. The bonding strap was checked, and the continuity check passed.</p>
+        <p><strong>Next action.</strong> One functional test is required before the first flight. If the fault returns, treat it as intermittent and re-inspect the splice.</p>
+        <p><strong>MEL note.</strong> If the fault returns and cannot be cleared, the display may be deferred under MEL item 34-21, category C, for up to three days, provided one display unit stays operative.</p>
+      </div>
+      <p>Answer in one or two words.</p>
+      <ol>
+        <li>According to the pilot report, what happened to the display during the cruise? <input class="gap" data-answer="blank nav display|nav display blank|blank display|display went blank|it went blank"></li>
+        <li>Which connector was traced through the wiring diagram manual? <input class="gap" data-answer="D-27A|d-27a"></li>
+        <li>What exactly did the continuity check reveal on pin 4? <input class="gap" data-answer="an open circuit|open circuit"></li>
+        <li>Was the LRU changed, or was it left in place because it was serviceable? <input class="gap" data-answer="no|no it was not|not changed|left in place"></li>
+        <li>What is the one action that is still required before the first flight? <input class="gap" data-answer="a functional test|functional test|one functional test"></li>
+        <li>Under which MEL category may the display be deferred if needed? <input class="gap" data-answer="C|category c|c"></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span></div>
+      <details class="reveal"><summary></summary><div class="body">
+        <p>1 the nav display went blank · 2 D-27A · 3 an open circuit · 4 no, it was not changed · 5 a functional test · 6 category C.</p>
+      </div></details>
+    </div>
+
+    <div class="ex" id="e8">
+      <span class="tag">E8 · Listening review — Dialogue 3</span>
+      <h3>Replay Dialogue 3, then answer</h3>
+      <p>Play Dialogue 3 one more time, but keep the transcript closed while you listen, because this exercise tests your ear rather than your reading. As soon as you are confident, answer each question in one or two words.</p>
+      <ol>
+        <li>Which pin did A re-check with the continuity check after the repair? <input class="gap" data-answer="pin 4|4"></li>
+        <li>What was the resistance reading once the splice had been repaired? <input class="gap" data-answer="near zero|almost zero|close to zero|zero|low"></li>
+        <li>When the BITE was run again, did the fault code come back? <input class="gap" data-answer="no|no it did not|gone"></li>
+        <li>Was the LRU faulty, or was the real problem in the harness? <input class="gap" data-answer="no|no it was not|not faulty|serviceable|the harness"></li>
+        <li>What did B advise A to record clearly in the tech log? <input class="gap" data-answer="the action|what he found and did|the fault code and pins|action taken"></li>
+        <li>What are the last two things A must do before handing the aircraft back? <input class="gap" data-answer="sign and date|sign it and date it|sign and date it|hand it back"></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary check">Check</button><span class="score"></span></div>
+      <details class="reveal"><summary></summary><div class="body">
+        <p>1 pin 4 · 2 near zero · 3 no, it was gone · 4 no, the LRU was serviceable · 5 what he found and what he did (the fault code and pins) · 6 sign it and date it, then hand the aircraft back.</p>
+      </div></details>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="speaking">
+    <h2><span class="secnum">05</span>Speaking — run the simulation</h2>
+    <p>Work in pairs, and take one card each. Say every step out loud before you do it, and use the sequencing words from the grammar table above. Change roles when you finish, so that you both practise leading and following.</p>
+    <div class="rp-grid">
+      <div class="roleplay">
+        <h4>Role-play card 1 — The technician</h4>
+        <div class="field"><span class="flab">Situation</span>A nav display is blank, and you have only two hours before the flight.</div>
+        <div class="field"><span class="flab">Your role</span>You hold the multimeter and the WDM, and you do all the hands-on work.</div>
+        <div class="field"><span class="flab">Your goal</span>Narrate each step to your lead before you do it, and isolate the fault.</div>
+        <div class="field"><span class="flab">Useful phrases</span>
+          <div class="phrases"><span>First, I will run the BITE.</span><span>Next, I probe pin 4.</span><span>The reading is high, so it is an open circuit.</span></div>
+        </div>
+      </div>
+      <div class="roleplay">
+        <h4>Role-play card 2 — The lead technician</h4>
+        <div class="field"><span class="flab">Situation</span>You guide a junior through the fault-find, and you watch closely for safety.</div>
+        <div class="field"><span class="flab">Your role</span>You read the WDM and confirm each step, but you do not touch the tools.</div>
+        <div class="field"><span class="flab">Your goal</span>Ask for each reading, stop any unsafe step, and confirm the LRU status.</div>
+        <div class="field"><span class="flab">Useful phrases</span>
+          <div class="phrases"><span>What is the resistance?</span><span>Disconnect it first.</span><span>Check for a short circuit too.</span></div>
+        </div>
+      </div>
+      <div class="roleplay">
+        <h4>Role-play card 3 — Shift handover</h4>
+        <div class="field"><span class="flab">Situation</span>Your shift is ending, and the next team must finish the remaining work.</div>
+        <div class="field"><span class="flab">Your role</span>You brief the morning technician in about sixty seconds.</div>
+        <div class="field"><span class="flab">Your goal</span>State the fault code, what you found, what you did, and the next action.</div>
+        <div class="field"><span class="flab">Useful phrases</span>
+          <div class="phrases"><span>We traced it to connector D-27A.</span><span>We repaired the splice.</span><span>One functional test is still required.</span></div>
+        </div>
+      </div>
+      <div class="roleplay">
+        <h4>Role-play card 4 — Talking to the pilot</h4>
+        <div class="field"><span class="flab">Situation</span>The pilot wants to know whether the aircraft is ready for the flight.</div>
+        <div class="field"><span class="flab">Your role</span>You are the technician, so keep it clear and calm, and use no slang.</div>
+        <div class="field"><span class="flab">Your goal</span>Explain that the fault was in the harness, not the box, and that it is fixed.</div>
+        <div class="field"><span class="flab">Useful phrases</span>
+          <div class="phrases"><span>The fault was an open circuit.</span><span>The LRU is serviceable.</span><span>We just need one more test.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aibox">
+      <h4>AI conversation partner</h4>
+      <p>Open your chat buddy, copy one prompt below, and paste it in. The AI will play the other person and speak at your level, and it will gently correct your English as you go.</p>
+      <div class="prompt"><button class="copybtn">copy</button>You are my lead technician in an aircraft hangar. I am a junior avionics technician. We are fault-finding a blank nav display, starting from a BITE code. Speak only at CEFR B2 level, with short sentences. Keep your answers short. Ask me one question each turn. If I make an English mistake, gently say the correct form, then carry on. Begin by asking me for the fault code.</div>
+      <div class="prompt"><button class="copybtn">copy</button>You are the morning technician taking over my shift. I must brief you in one minute about a nav-display fault we traced to connector D-27A. Speak only at CEFR B2 level. Keep your replies short, and ask me one follow-up question each turn. If I make an English error, recast it correctly in one line, then continue. Start by asking me what the fault code was.</div>
+      <div class="prompt"><button class="copybtn">copy</button>You are an airline pilot. I am the technician who fixed your nav display. Ask me if the aircraft is ready. Speak only at CEFR B2 level, with short, calm sentences. Ask one question each turn. If my English is wrong, gently give the correct form, then keep talking. Begin now by asking whether the display is fixed.</div>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="writing">
+    <h2><span class="secnum">06</span>Writing — a tech-log entry</h2>
+    <p class="lede">Write the &ldquo;action taken&rdquo; entry for the fault-find you have just run, so that the next technician can understand it fast.</p>
+    <p><strong>Task.</strong> Write 60&ndash;90 words in three short parts: <em>fault found</em>, <em>action taken</em>, and <em>next action</em>. Use Simplified Technical English habits, which means one instruction per sentence, the active voice, short sentences, and only approved words. Name the fault code, the connector, the pins, and the LRU status.</p>
+    <details class="reveal"><summary></summary><div class="body">
+      <p><strong>Model answer.</strong></p>
+      <p><strong>Fault found.</strong> BITE gave fault code 27-FC-114, display data loss. WDM traced to connector D-27A, data pins 4 and 5. Continuity check found an open circuit on pin 4. A burnt splice and a loose terminal were in the harness.</p>
+      <p><strong>Action taken.</strong> The splice was repaired. The terminal was re-seated. The connector was re-fitted. The BITE was run again and gave a clean pass. The LRU is serviceable; the display unit was not changed.</p>
+      <p><strong>Next action.</strong> Do one functional test before the first flight. If the fault returns, treat it as intermittent and re-inspect the splice.</p>
+    </div></details>
+    <h3>Self-check</h3>
+    <ul class="checklist">
+      <li>Did I name the fault code, the connector, and the pins?</li>
+      <li>Did I say whether the LRU is serviceable or was changed?</li>
+      <li>Is every sentence short, with one idea and the active voice?</li>
+      <li>Did I write the next required action for the morning team?</li>
+    </ul>
+  </section>
+
+  <footer>
+    English for Aviation Maintenance · Unit 12 — Simulation: avionics fault-find · CEFR B2 · Self-study language unit.
+  </footer>
+
+</article>
+
+<script>
+(function(){
+  function norm(s){return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.’']/g,'').replace(/[,;:!?]+$/,'');}
+  document.querySelectorAll('button.check').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var ex=btn.closest('.ex'); if(!ex) return;
+      var fields=ex.querySelectorAll('[data-answer]'); var ok=0,total=0;
+      fields.forEach(function(f){
+        total++;
+        var want=(f.getAttribute('data-answer')||'').split('|').map(function(x){return norm(x);});
+        var got=norm(f.value);
+        if(got && want.indexOf(got)!==-1){f.classList.add('right');f.classList.remove('wrong');ok++;}
+        else{f.classList.add('wrong');f.classList.remove('right');}
+      });
+      var sc=ex.querySelector('.score');
+      if(sc) sc.textContent=ok+' / '+total+' correct'+(ok===total?'  ✓ all right':'');
+    });
+  });
+  document.querySelectorAll('.copybtn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=b.parentNode.textContent.replace(/^copy/,'').trim();
+      if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1200);});}
+    });
+  });
+})();
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 12 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body></html>
