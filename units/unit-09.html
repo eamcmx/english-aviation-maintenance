@@ -1,0 +1,771 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Talking through a troubleshooting approach</title>
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  article{max-width:1000px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 30px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:26ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:66ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:14px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:74ch}
+  code{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  a{color:var(--color-primary)}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .card h4{font-size:.98rem;margin:0 0 var(--space-3);color:var(--color-primary-dark)}
+  .card ul{margin:0;padding-left:1.1em}
+  .card li{margin:6px 0;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .scenario-box{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius);padding:var(--space-4) var(--space-5);font-family:var(--font-serif);font-size:18px;line-height:1.6;color:#33384a}
+  .dialogue{border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-elevated);box-shadow:var(--shadow-sm);margin:var(--space-4) 0 var(--space-5);overflow:hidden}
+  .dialogue h3{margin:0;padding:13px 18px;background:var(--bg-sunken);border-bottom:1px solid var(--border);font-size:1.02rem;display:flex;align-items:center;gap:10px}
+  .dialogue h3 .badge{font-family:var(--font-mono);font-size:11px;font-weight:700;color:#fff;background:var(--color-primary);padding:2px 9px;border-radius:20px;letter-spacing:.04em}
+  .lang-audio-slot{margin:0;padding:14px 18px;background:#eef2f9;border-bottom:1px dashed #cfdcef;font-family:var(--font-mono);font-size:12px;color:var(--color-primary-dark)}
+  .lang-audio-slot:before{content:"AUDIO \25BA track "attr(data-audio)" \2014 press play, listen first"}
+  details.transcript{padding:6px 18px 14px}
+  details.transcript summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary);font-weight:700;padding:8px 0}
+  .turn{margin:6px 0;max-width:76ch}
+  .turn .spk{display:inline-block;min-width:1.4em;font-family:var(--font-mono);font-weight:700;color:var(--color-primary);margin-right:6px}
+  .turn.b .spk{color:var(--accent)}
+  .said{color:#262b38}
+  table.vt{border-collapse:collapse;width:100%;font-size:14px;margin-top:10px}
+  table.vt th,table.vt td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  .vt td.col{color:var(--ink-muted);font-family:var(--font-mono);font-size:12.5px}
+  table.gt{border-collapse:collapse;width:100%;font-size:14.5px;margin:12px 0}
+  table.gt th,table.gt td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.gt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  .quote{border-left:4px solid var(--gold);background:var(--bg-margin);padding:10px 16px;margin:10px 0;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-family:var(--font-serif);font-size:16px}
+  .mistake{display:grid;grid-template-columns:1fr;gap:6px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 15px;margin:10px 0;background:var(--bg-elevated)}
+  .mistake .wrong{color:var(--bad)}.mistake .right{color:var(--good)}
+  .mistake .why{font-size:13.5px;color:var(--ink-muted)}
+  .x{color:var(--bad);font-weight:700}.tick{color:var(--good);font-weight:700}
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex h3{margin:0 0 4px;font-size:1.06rem}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex .instr{font-weight:600;color:var(--ink-soft);margin:2px 0 10px;max-width:72ch}
+  .ex ol{margin:6px 0;padding-left:1.4em}
+  .ex ol li{margin:8px 0}
+  .wordbank{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 12px}
+  .wordbank span{font-family:var(--font-mono);font-size:12.5px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:20px;padding:4px 11px}
+  input.gap,select.gap{font-family:var(--font-sans);font-size:14px;border:1px solid var(--border);border-radius:6px;padding:5px 9px;background:#fff;min-width:120px}
+  input.gap:focus,select.gap:focus{outline:2px solid var(--color-primary-soft);border-color:var(--color-primary)}
+  input.gap.right,select.gap.right{border-color:var(--good);background:#eaf5ec}
+  input.gap.wrong,select.gap.wrong{border-color:var(--bad);background:#fbecea}
+  .reading-text{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;margin:10px 0;font-family:var(--font-mono);font-size:13.5px;line-height:1.6}
+  .reading-text p{max-width:none;margin:6px 0}
+  .reading-text .doc-head{font-weight:700;color:var(--color-primary-dark);letter-spacing:.03em;border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:8px}
+  .btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  .btn:hover{border-color:var(--color-primary)}
+  .btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .score{font-family:var(--font-mono);font-weight:700;margin-left:12px;color:var(--color-primary-dark)}
+  details.reveal{margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken);padding:0 14px}
+  details.reveal summary{cursor:pointer;font-weight:700;color:var(--color-primary);padding:10px 0;font-size:14px}
+  details.reveal ol{margin:0 0 12px}
+  .roleplay{border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:var(--radius-sm);padding:14px 18px;margin:12px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.02rem}
+  .roleplay .field{margin:7px 0}
+  .roleplay .flab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:700;display:block}
+  .roleplay .phr{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .roleplay .phr span{font-size:13px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:6px;padding:3px 9px}
+  .ai-box{background:linear-gradient(180deg,#f4eefb,#fbfaf6);border:1px solid #e0d2f1;border-radius:var(--radius-lg);padding:20px 22px;margin:var(--space-5) 0}
+  .ai-box h3{margin:0 0 4px}
+  .prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin:10px 0;font-size:14px;position:relative}
+  .prompt code{background:none;padding:0;display:block;white-space:pre-wrap;line-height:1.55;color:#33384a}
+  .copybtn{position:absolute;top:10px;right:10px}
+  .checklist{list-style:none;padding:0;margin:10px 0}
+  .checklist li{padding:7px 0 7px 30px;position:relative}
+  .checklist li:before{content:"\2610";position:absolute;left:4px;font-size:18px;color:var(--color-primary)}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 9 of 32 · Talking through a troubleshooting approach</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 fault isolation — symptom, root cause, isolate</span></div></div></header>
+<article>
+
+<header class="lec-hero">
+  <p class="eyebrow"><span class="dot"></span>Unit 9 &middot; English for Aviation Maintenance &middot; EASA Part-66/145 &middot; CEFR B2</p>
+  <h1 class="lecture-title">Talking through a troubleshooting approach</h1>
+  <p class="subtitle">Two technicians look at the same fault and reason out loud, because guessing wastes time and good parts. Is the problem electrical or mechanical? They propose a test sequence, use conditional language to link each test to a likely result, and finally agree what to try next.</p>
+  <div class="hero-meta">
+    <span>Unit<strong>9 &middot; Talking through a troubleshooting approach</strong></span>
+    <span>Function<strong>Propose, justify and agree a fault-isolation plan</strong></span>
+    <span>Grammar<strong>First conditional for reasoning</strong></span>
+    <span>AI stage<strong>Consultant &middot; conversation partner</strong></span>
+  </div>
+  <div class="card" style="margin-top:22px">
+    <h4>By the end of this unit you can &hellip;</h4>
+    <ul>
+      <li>Can propose and justify a logical fault-isolation sequence.</li>
+      <li>Can use conditional language to reason about causes and effects.</li>
+      <li>Can agree or disagree with a colleague's diagnosis, giving reasons.</li>
+    </ul>
+  </div>
+</header>
+
+<section class="lecture-section" id="scenario">
+  <h2><span class="secnum">00</span>The scenario</h2>
+  <div class="scenario-box">
+    <p style="margin:0">You are in the hangar with a colleague, although neither of you knows yet why the right flap moves so slowly. One of you suspects the fault is electrical, while the other is convinced it is mechanical. You cannot simply change parts at random, because that approach wastes both time and serviceable units. Instead, you must reason it out together, propose a sensible test, and agree the next step before you touch anything.</p>
+  </div>
+  <p>Good troubleshooting is really a disciplined habit of thought, rather than luck or intuition. You always start from the visible symptom, and then you work backwards towards the underlying root cause. Before each test, you say clearly what result you expect. If a test passes, you have eliminated one possible cause; if it fails, you have learned something valuable instead. Throughout this unit you rehearse that out-loud reasoning with a colleague, and you use the first conditional to connect every test to its likely outcome.</p>
+</section>
+
+<section class="lecture-section" id="dialogues">
+  <h2><span class="secnum">01</span>Model dialogues &mdash; listen first</h2>
+  <p>Listen to each recording before you read the transcript, and replay it twice if you possibly can. On the first pass, simply follow the reasoning between the two technicians. On the second pass, catch the conditional sentences and the specialist words that carry the essential meaning.</p>
+
+  <div class="dialogue">
+    <h3><span class="badge">DIALOGUE 1</span> Is it electrical or mechanical?</h3>
+    <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u09-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:51 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">The right flap moves slowly today, although the left one behaves normally. That sluggish movement is our main symptom.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Right, so our first job is to isolate the fault systematically. Is the underlying problem electrical or mechanical?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Good question. If the motor runs but the flap still sticks, the root cause is almost certainly mechanical.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">However, if the motor stays completely silent, the fault is probably electrical instead.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Exactly, so let us not guess randomly. Instead, we should follow a logical, repeatable sequence.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Agreed. First I will check the circuit breaker on panel P6, because a tripped breaker would explain everything.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">If the breaker is tripped, reset it once and then watch it carefully for a moment.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">The breaker looks perfectly fine, however, because it has clearly not tripped at all.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Then we should test the connector at the actuator, since a loose connector often causes an intermittent fault.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">True, because the fault comes and goes unpredictably, so a loose connection fits the evidence well.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">I will run a continuity check along the wire, and if there is no continuity, the wire is broken.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Meanwhile, I will feel along the flap track carefully, checking for any stiffness or obstruction.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The continuity reading is good, so the wiring is definitely not the root cause here.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">And the track moves completely freely, so it is clearly not a mechanical jam either.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Then the actuator itself must be weak, although we should not replace it prematurely.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Agreed. If it fails the bench test tomorrow, we will replace the actuator immediately.</span></p>
+    </details>
+  </div>
+  <div class="dialogue">
+    <h3><span class="badge">DIALOGUE 2</span> An intermittent radio fault</h3>
+    <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u09-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:42 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">The VHF radio keeps dropping out during flight, so the crew recorded the complaint in the tech log.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">An intermittent fault is genuinely the hardest kind to troubleshoot, because it usually hides on the ground.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Let us start with the BITE, since the built-in test may have stored a useful fault code.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good idea. The BITE reports a fault on the antenna feeder line, which narrows things down nicely.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">So we open the wiring diagram and carefully trace that particular feeder line.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">The diagram shows one connector hidden behind the panel, so let us inspect it first.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The connector pins look perfectly clean, although the harness behind it is badly chafed.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">A chafed harness can easily cause a short circuit against the metal frame.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Or alternatively an open circuit, if one wire inside is completely broken.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Let us test both possibilities, so I will measure continuity carefully from end to end.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">If the reading jumps whenever I gently shake the harness, the intermittent fault is there.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">It jumps immediately, so the harness is clearly the root cause, not the radio itself.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Then let us not swap the radio unnecessarily, because that would waste a perfectly good unit.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Agreed. We take the harness to the workbench and bench test each individual wire.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">If any single wire fails the bench test, we will build a completely new harness.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">And afterwards we sign the radio as serviceable, because the real fix is in the wiring.</span></p>
+    </details>
+  </div>
+  <div class="dialogue">
+    <h3><span class="badge">DIALOGUE 3</span> A spongy brake &mdash; agree the next test</h3>
+    <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u09-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:34 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">The left brake feels worryingly soft, because the pilot reported a spongy pedal after landing.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">That symptom points to two possible areas: trapped air in the line, or a worn seal.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Let us consult the AMM first, since it lists the correct fault isolation steps.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">The AMM says bleed the brake thoroughly, and then carefully test the system pressure.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">If the pedal feels firm after bleeding, then the root cause was simply trapped air.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">However, if it stays soft, we isolate the fault to a slowly leaking seal instead.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">We have bled the line completely, but unfortunately the pedal is still quite soft.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">So trapped air was clearly not the problem, because a seal is leaking somewhere.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">I can actually see hydraulic fluid near the piston, which is a very useful clue.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good. The seal is definitely the root cause, so the brake is not serviceable now.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Unfortunately, we do not have the correct seal kit anywhere in stock today.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Then we must check the MEL carefully. Can we legally defer this particular fault?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The MEL allows a defer for one brake, provided that we respect the stated limits.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Fine. We defer it, raise a work order, and record everything clearly in the tech log.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">I will also fit a warning placard in the flight deck, so that nobody forgets.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good. As soon as the seal arrives, we will replace it and clear the defer.</span></p>
+    </details>
+  </div>
+  <div class="dialogue">
+    <h3><span class="badge">DIALOGUE 4</span> Bonus listening &mdash; shift handover voicemail</h3>
+    <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u09-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:55 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">M</span><span class="said">Hi, this is the late shift lead, and here is my handover for the night.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">Aircraft nine two one is parked in bay four, and the main open fault is the right flap.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">It still moves slowly, so unfortunately the symptom has not gone away yet.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">We ran a continuity check on the wiring, and thankfully the wiring is perfectly good.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">The harness is also completely clean, so the root cause is definitely not electrical.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">We strongly suspect the actuator is weak, and the bench test is booked for the morning.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">Please do not sign the flap as serviceable yet, because the fault is still open.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">The complaint remains recorded in the tech log for the next shift to read.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">If the bench test fails tomorrow, please order a brand new actuator straight away.</span></p>
+      <p class="turn"><span class="spk">M</span><span class="said">Thanks very much, and have a good, safe shift. Call me if anything changes.</span></p>
+    </details>
+  </div>
+</section>
+
+<section class="lecture-section" id="vocabulary">
+  <h2><span class="secnum">02</span>Vocabulary bank &mdash; fault isolation</h2>
+  <p>These are the specialist terms you need for troubleshooting a fault. Each term has a plain meaning, one example sentence at your level, and one common collocation. Learn the collocation as well, because that is how technicians naturally combine the word on the job.</p>
+  <table class="vt">
+    <thead><tr><th style="width:160px">Term</th><th>Plain meaning</th><th>Example at level</th><th style="width:150px">Collocation</th></tr></thead>
+    <tbody>
+      <tr><td><dfn data-term="symptom">symptom</dfn></td><td>A visible sign that clearly tells you something is wrong.</td><td>The sluggish flap is the very first symptom of the underlying fault.</td><td class="col">the main symptom</td></tr>
+      <tr><td><dfn data-term="root cause">root cause</dfn></td><td>The real underlying reason for the fault, not just the visible sign.</td><td>A loose connector turned out to be the root cause of the drop-out.</td><td class="col">find the root cause</td></tr>
+      <tr><td><dfn data-term="isolate">isolate</dfn></td><td>To narrow the fault down systematically to one part or area.</td><td>We always isolate the fault carefully before we change any expensive part.</td><td class="col">isolate the fault</td></tr>
+      <tr><td><dfn data-term="fault">fault</dfn></td><td>Something broken, or something not working the way it should.</td><td>The fault comes and goes unpredictably during almost every flight.</td><td class="col">clear a fault</td></tr>
+      <tr><td><dfn data-term="intermittent">intermittent</dfn></td><td>A fault that appears and disappears, rather than being there constantly.</td><td>An intermittent fault is notoriously hard to catch on the ground.</td><td class="col">an intermittent fault</td></tr>
+      <tr><td><dfn data-term="troubleshoot">troubleshoot</dfn></td><td>To find the underlying cause of a fault methodically, step by step.</td><td>We always troubleshoot the radio thoroughly before we decide to swap it.</td><td class="col">troubleshoot a fault</td></tr>
+      <tr><td><dfn data-term="BITE">BITE</dfn></td><td>Built-in test equipment; the automated self-test that displays fault codes.</td><td>The BITE conveniently stored a fault code on the antenna feeder line.</td><td class="col">run the BITE</td></tr>
+      <tr><td><dfn data-term="wiring diagram">wiring diagram</dfn></td><td>A technical drawing that shows exactly how the wires connect together.</td><td>We carefully trace the affected line on the wiring diagram.</td><td class="col">read the wiring diagram</td></tr>
+      <tr><td><dfn data-term="harness">harness</dfn></td><td>A bundle of electrical wires wrapped and routed together.</td><td>A badly chafed harness can easily short against the metal frame.</td><td class="col">a chafed harness</td></tr>
+      <tr><td><dfn data-term="connector">connector</dfn></td><td>A plug that mechanically joins two wires or two units together.</td><td>A loose connector very often gives an annoying intermittent fault.</td><td class="col">a loose connector</td></tr>
+      <tr><td><dfn data-term="continuity">continuity</dfn></td><td>An unbroken electrical path for the current along a wire.</td><td>No continuity means the wire is broken somewhere along its length.</td><td class="col">a continuity check</td></tr>
+      <tr><td><dfn data-term="short circuit">short circuit</dfn></td><td>When the current takes a wrong, direct path it should not take.</td><td>A bare wire touching the frame immediately makes a short circuit.</td><td class="col">a short circuit</td></tr>
+      <tr><td><dfn data-term="open circuit">open circuit</dfn></td><td>A complete break in the path, so no current can flow at all.</td><td>An open circuit means the wire is cut somewhere inside the harness.</td><td class="col">an open circuit</td></tr>
+      <tr><td><dfn data-term="circuit breaker">circuit breaker</dfn></td><td>A protective switch that trips automatically to protect a circuit.</td><td>Reset the circuit breaker once, and then watch it carefully.</td><td class="col">a tripped circuit breaker</td></tr>
+      <tr><td><dfn data-term="bench test">bench test</dfn></td><td>A controlled test of a unit on the workbench, away from the aircraft.</td><td>If the actuator fails the bench test, we replace it immediately.</td><td class="col">run a bench test</td></tr>
+      <tr><td><dfn data-term="swap">swap</dfn></td><td>To exchange one unit for another, usually in order to check it.</td><td>Let us not swap the radio without proper evidence first.</td><td class="col">swap a unit</td></tr>
+      <tr><td><dfn data-term="serviceable">serviceable</dfn></td><td>Fit to use, and legally acceptable to fit or to fly.</td><td>We sign the radio as serviceable only after the harness is repaired.</td><td class="col">a serviceable part</td></tr>
+      <tr><td><dfn data-term="tech log">tech log</dfn></td><td>The aircraft logbook that records each fault and each action taken.</td><td>The crew clearly recorded the radio fault in the tech log.</td><td class="col">a tech log entry</td></tr>
+      <tr><td><dfn data-term="AMM">AMM</dfn></td><td>The Aircraft Maintenance Manual, which contains the approved repair steps.</td><td>The AMM helpfully lists the correct fault isolation steps.</td><td class="col">check the AMM</td></tr>
+      <tr><td><dfn data-term="defer">defer</dfn></td><td>To carry a fault now and rectify it later, under the MEL.</td><td>The MEL clearly allows us to defer one leaking brake.</td><td class="col">defer a defect</td></tr>
+      <tr><td><dfn data-term="MEL">MEL</dfn></td><td>The minimum equipment list; it states what may be unserviceable for dispatch.</td><td>Always check the MEL carefully before you defer any fault.</td><td class="col">check the MEL</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="lecture-section" id="grammar">
+  <h2><span class="secnum">03</span>Grammar in context &mdash; the first conditional</h2>
+  <p>In troubleshooting you constantly link a likely test to a likely result, and English does this neatly with the first conditional. You state what you will do, and you state what happens if the condition turns out to be true. Look carefully at these three lines taken directly from the dialogues.</p>
+  <div class="quote">&ldquo;<b>If</b> the motor stays silent, the fault <b>is</b> probably electrical.&rdquo; &mdash; Dialogue 1</div>
+  <div class="quote">&ldquo;<b>If</b> it <b>fails</b> the bench test, we <b>replace</b> the actuator.&rdquo; &mdash; Dialogue 1</div>
+  <div class="quote">&ldquo;<b>If</b> a wire <b>fails</b> the bench test, we build a new harness.&rdquo; &mdash; Dialogue 2</div>
+  <p>The rule itself is short, although many learners still apply it incorrectly. In the <i>if</i>-clause you must use the present tense, and never <i>will</i>. The other clause carries the result, and it can take <i>will</i>, the present tense, or a direct order. So you correctly say &ldquo;if it <i>fails</i>, we <i>replace</i> it&rdquo;, and never &ldquo;if it will fail&rdquo;. Importantly, the same rule also holds after <i>when</i>, <i>as soon as</i> and <i>unless</i>.</p>
+  <table class="gt">
+    <thead><tr><th>Function</th><th>Structure</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Likely test &rarr; likely result</td><td>If + present, + present</td><td>If the breaker trips, the light goes off.</td></tr>
+      <tr><td>Test &rarr; instruction</td><td>If + present, + order</td><td>If it fails the test, replace it.</td></tr>
+      <tr><td>Cause &rarr; future effect</td><td>If + present, + will</td><td>If the harness moves, the reading will jump.</td></tr>
+      <tr><td>Negative condition</td><td>If + present negative, + result</td><td>If there is no continuity, the wire is broken.</td></tr>
+    </tbody>
+  </table>
+  <h3>Three common mistakes (Latvian and Russian speakers)</h3>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> If it <b>will fail</b> the bench test, we replace it.</div>
+    <div class="right"><span class="tick">&#10003;</span> If it <b>fails</b> the bench test, we replace it.</div>
+    <div class="why">Why: use the present tense in the <i>if</i>-clause, never <i>will</i>, although Latvian and Russian often use a future form here.</div>
+  </div>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> If <b>breaker</b> trips, <b>technician</b> resets it.</div>
+    <div class="right"><span class="tick">&#10003;</span> If <b>the breaker</b> trips, <b>the technician</b> resets it.</div>
+    <div class="why">Why: English needs the article <i>the</i>, whereas Latvian and Russian have no articles, so learners frequently drop them.</div>
+  </div>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> When you <b>will find</b> a short circuit, tell me.</div>
+    <div class="right"><span class="tick">&#10003;</span> As soon as you <b>find</b> a short circuit, tell me.</div>
+    <div class="why">Why: after <i>when</i>, <i>if</i> or <i>as soon as</i>, use the present tense, because a future form is not allowed in the time clause.</div>
+  </div>
+</section>
+
+<section class="lecture-section" id="exercises">
+  <h2><span class="secnum">04</span>Exercises</h2>
+  <p>Do the exercises in order. Type your answer, and then press <b>Check</b>, because the page immediately marks each answer green or red. Open the <b>Answers</b> only after you have honestly attempted the exercise yourself.</p>
+
+  <div class="ex" id="e1">
+    <span class="tag">E1 &middot; Gap-fill</span>
+    <h3>Put the right term in the gap</h3>
+    <p class="instr">Read each sentence. Write one term from the bank in the gap.</p>
+    <div class="wordbank"><span>symptom</span><span>root cause</span><span>isolate</span><span>connector</span><span>continuity</span><span>circuit breaker</span><span>bench test</span><span>troubleshoot</span><span>wiring diagram</span><span>swap</span></div>
+    <ol>
+      <li>A sign that something is wrong is a <input class="gap" size="10" data-answer="symptom">.</li>
+      <li>The real underlying reason for a fault is the <input class="gap" size="12" data-answer="root cause">.</li>
+      <li>To narrow a fault down to one part is to <input class="gap" size="9" data-answer="isolate"> it.</li>
+      <li>A plug that joins two wires is a <input class="gap" size="11" data-answer="connector">.</li>
+      <li>An unbroken path for the current is called <input class="gap" size="11" data-answer="continuity">.</li>
+      <li>A switch that trips to protect a circuit is a <input class="gap" size="14" data-answer="circuit breaker">.</li>
+      <li>A controlled test of a unit off the aircraft is a <input class="gap" size="11" data-answer="bench test">.</li>
+      <li>To find a fault methodically, step by step, is to <input class="gap" size="12" data-answer="troubleshoot">.</li>
+      <li>A drawing that shows how the wires connect is a <input class="gap" size="14" data-answer="wiring diagram">.</li>
+      <li>To change one unit for another to check it is to <input class="gap" size="7" data-answer="swap"> it.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>symptom</li><li>root cause</li><li>isolate</li><li>connector</li><li>continuity</li><li>circuit breaker</li><li>bench test</li><li>troubleshoot</li><li>wiring diagram</li><li>swap</li></ol></details>
+  </div>
+
+  <div class="ex" id="e2">
+    <span class="tag">E2 &middot; Matching</span>
+    <h3>Match the term to its meaning</h3>
+    <p class="instr">Choose the correct meaning for each term.</p>
+    <ol>
+      <li><dfn>isolate</dfn> &rarr; <select class="gap" data-answer="to narrow a fault down to one part or area"><option value="">choose&hellip;</option><option>to narrow a fault down to one part or area</option><option>a bundle of wires wrapped together</option><option>the list of what may be unserviceable</option><option>a sign that something is wrong</option></select></li>
+      <li><dfn>intermittent</dfn> &rarr; <select class="gap" data-answer="coming and going, not there all the time"><option value="">choose&hellip;</option><option>coming and going, not there all the time</option><option>fit to use and legal to fly</option><option>an unbroken path for the current</option><option>a plug that joins two wires</option></select></li>
+      <li><dfn>continuity</dfn> &rarr; <select class="gap" data-answer="an unbroken path for the current in a wire"><option value="">choose&hellip;</option><option>an unbroken path for the current in a wire</option><option>to carry a fault and fix it later</option><option>the real reason for a fault</option><option>a switch that trips to protect a circuit</option></select></li>
+      <li><dfn>harness</dfn> &rarr; <select class="gap" data-answer="a bundle of wires wrapped together"><option value="">choose&hellip;</option><option>a bundle of wires wrapped together</option><option>a controlled test on the workbench</option><option>a sign that something is wrong</option><option>the self-test that shows fault codes</option></select></li>
+      <li><dfn>defer</dfn> &rarr; <select class="gap" data-answer="to carry a fault now and fix it later"><option value="">choose&hellip;</option><option>to carry a fault now and fix it later</option><option>to change one unit for another</option><option>a break in the path, so no current flows</option><option>the drawing that shows the wires</option></select></li>
+      <li><dfn>AMM</dfn> &rarr; <select class="gap" data-answer="the manual with the maintenance and repair steps"><option value="">choose&hellip;</option><option>the manual with the maintenance and repair steps</option><option>a fault that comes and goes</option><option>fit to use and legal to fly</option><option>a plug that joins two wires</option></select></li>
+      <li><dfn>MEL</dfn> &rarr; <select class="gap" data-answer="the list of what may be unserviceable for dispatch"><option value="">choose&hellip;</option><option>the list of what may be unserviceable for dispatch</option><option>an unbroken path for the current</option><option>the real reason for a fault</option><option>a bundle of wires wrapped together</option></select></li>
+      <li><dfn>serviceable</dfn> &rarr; <select class="gap" data-answer="fit to use, and legal to fit or fly"><option value="">choose&hellip;</option><option>fit to use, and legal to fit or fly</option><option>coming and going, not all the time</option><option>a switch that trips to protect a circuit</option><option>a controlled test on the workbench</option></select></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>to narrow a fault down to one part or area</li><li>coming and going, not there all the time</li><li>an unbroken path for the current in a wire</li><li>a bundle of wires wrapped together</li><li>to carry a fault now and fix it later</li><li>the manual with the maintenance and repair steps</li><li>the list of what may be unserviceable for dispatch</li><li>fit to use, and legal to fit or fly</li></ol></details>
+  </div>
+
+  <div class="ex" id="e3">
+    <span class="tag">E3 &middot; Dialogue completion</span>
+    <h3>Complete the troubleshooting talk</h3>
+    <p class="instr">Read the short exchange. Write one term in each gap.</p>
+    <ol>
+      <li>A: The radio drops out in flight, so the crew wrote the <input class="gap" size="8" data-answer="fault"> in the log.</li>
+      <li>B: The fault comes and goes, so it is clearly <input class="gap" size="12" data-answer="intermittent">.</li>
+      <li>A: Let us run the <input class="gap" size="6" data-answer="bite|BITE"> to read the stored fault code.</li>
+      <li>B: The pins are clean, but the <input class="gap" size="9" data-answer="harness"> behind the panel is chafed.</li>
+      <li>A: A bare wire touching the frame can make a <input class="gap" size="13" data-answer="short circuit">.</li>
+      <li>B: Or an <input class="gap" size="12" data-answer="open circuit">, if the wire is completely broken.</li>
+      <li>A: The wiring is the root cause, so the radio itself is <input class="gap" size="12" data-answer="serviceable">.</li>
+      <li>B: I will close the <input class="gap" size="9" data-answer="tech log"> once the harness is properly fixed.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>fault</li><li>intermittent</li><li>BITE</li><li>harness</li><li>short circuit</li><li>open circuit</li><li>serviceable</li><li>tech log</li></ol></details>
+  </div>
+
+  <div class="ex" id="e4">
+    <span class="tag">E4 &middot; Grammar transformation</span>
+    <h3>Put the verb in the right form</h3>
+    <p class="instr">This is the first conditional. Put the verb in brackets in the present tense.</p>
+    <ol>
+      <li>If the motor <input class="gap" size="8" data-answer="stays"> (stay) silent, the fault is electrical.</li>
+      <li>If the breaker <input class="gap" size="8" data-answer="trips"> (trip) again, stop and check it.</li>
+      <li>If there <input class="gap" size="6" data-answer="is"> (be) no continuity, the wire is broken.</li>
+      <li>If the harness <input class="gap" size="8" data-answer="moves"> (move), the reading jumps at once.</li>
+      <li>If it <input class="gap" size="8" data-answer="fails"> (fail) the bench test, we replace it.</li>
+      <li>If you <input class="gap" size="8" data-answer="find"> (find) a short circuit, tell me at once.</li>
+      <li>If the pedal <input class="gap" size="8" data-answer="stays"> (stay) soft, we isolate a leaking seal.</li>
+      <li>If the clip <input class="gap" size="6" data-answer="is"> (be) serviceable, fit it straight away.</li>
+      <li>If the BITE <input class="gap" size="8" data-answer="shows"> (show) a code, we read it first.</li>
+      <li>If the seal <input class="gap" size="8" data-answer="leaks"> (leak), the brake is not serviceable.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>stays</li><li>trips</li><li>is</li><li>moves</li><li>fails</li><li>find</li><li>stays</li><li>is</li><li>shows</li><li>leaks</li></ol></details>
+  </div>
+
+  <div class="ex" id="e5">
+    <span class="tag">E5 &middot; Reading 1</span>
+    <h3>Read an AMM fault-isolation task</h3>
+    <p class="instr">Read the task. Then answer the six questions. Write short answers.</p>
+    <div class="reading-text reading">
+      <p class="doc-head">AIRCRAFT MAINTENANCE MANUAL &mdash; TASK 27-51-00 &mdash; RIGHT FLAP SLOW</p>
+      <p>The purpose of this task is to isolate the fault when the right flap moves slowly. The symptom is simple: the flap still moves, but it is noticeably slow on one side only.</p>
+      <p>First, check the circuit breaker on panel P6, and if it is tripped, reset it once and observe it. If the breaker trips again immediately, stop the test, because the root cause may be a short circuit.</p>
+      <p>Next, open the wiring diagram for the flap motor, and carefully trace the line down to the actuator. Then inspect the connector at the actuator, because a loose connector usually gives an intermittent fault.</p>
+      <p>After that, run a continuity check on the wire, and if there is no continuity, the wire is broken somewhere. If the wiring is good, remove the actuator and send it away for a bench test.</p>
+      <p>If the actuator fails the bench test, replace it with a fully serviceable unit. Finally, record every step in the tech log, and sign the release only when the flap is properly fixed.</p>
+      <p>Caution: do not defer this fault without first consulting the MEL.</p>
+    </div>
+    <ol>
+      <li>What is the symptom? <input class="gap" size="22" data-answer="the flap moves slowly|the flap is slow|slow flap|it is slow|the flap moves but it is slow"></li>
+      <li>Which breaker do you check first? <input class="gap" size="16" data-answer="p6|panel p6|the p6 breaker|the breaker on p6"></li>
+      <li>What may make the breaker trip again? <input class="gap" size="16" data-answer="a short circuit|short circuit"></li>
+      <li>What do you inspect at the actuator? <input class="gap" size="16" data-answer="the connector|connector|a loose connector"></li>
+      <li>What does no continuity mean? <input class="gap" size="18" data-answer="the wire is broken|a broken wire|broken wire|the wire is cut"></li>
+      <li>Where do you record each step? <input class="gap" size="14" data-answer="the tech log|tech log|in the tech log"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>the flap moves slowly</li><li>P6 (the breaker on panel P6)</li><li>a short circuit</li><li>the connector</li><li>the wire is broken</li><li>the tech log</li></ol></details>
+  </div>
+
+  <div class="ex" id="e6">
+    <span class="tag">E6 &middot; Error-spotting</span>
+    <h3>Find and fix the errors</h3>
+    <p class="instr">This draft note has eight errors in the first conditional and the articles. Write the correct line in each gap.</p>
+    <div class="reading-text">
+      <p class="doc-head">DRAFT FAULT NOTE &mdash; FIX EIGHT ERRORS</p>
+      <p>(1) If it will fail the bench test, we replace it.</p>
+      <p>(2) If the breaker will trip, reset it once.</p>
+      <p>(3) If motor stays silent, the fault is electrical.</p>
+      <p>(4) When you will find a short circuit, stop.</p>
+      <p>(5) If the harness will move, the reading jumps.</p>
+      <p>(6) If there will be no continuity, the wire is broken.</p>
+      <p>(7) If connector is loose, the fault is intermittent.</p>
+      <p>(8) If it fails, replace to the actuator.</p>
+    </div>
+    <ol>
+      <li>(1) &rarr; <input class="gap" size="46" data-answer="if it fails the bench test, we replace it|if it fails the bench test we replace it"></li>
+      <li>(2) &rarr; <input class="gap" size="42" data-answer="if the breaker trips, reset it once|if the breaker trips reset it once"></li>
+      <li>(3) &rarr; <input class="gap" size="46" data-answer="if the motor stays silent, the fault is electrical|if the motor stays silent the fault is electrical"></li>
+      <li>(4) &rarr; <input class="gap" size="42" data-answer="when you find a short circuit, stop|when you find a short circuit stop|as soon as you find a short circuit, stop|as soon as you find a short circuit stop"></li>
+      <li>(5) &rarr; <input class="gap" size="42" data-answer="if the harness moves, the reading jumps|if the harness moves the reading jumps"></li>
+      <li>(6) &rarr; <input class="gap" size="46" data-answer="if there is no continuity, the wire is broken|if there is no continuity the wire is broken"></li>
+      <li>(7) &rarr; <input class="gap" size="46" data-answer="if the connector is loose, the fault is intermittent|if the connector is loose the fault is intermittent"></li>
+      <li>(8) &rarr; <input class="gap" size="34" data-answer="if it fails, replace the actuator|if it fails replace the actuator"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>If it fails the bench test, we replace it. (present, not <i>will</i>)</li><li>If the breaker trips, reset it once. (present, not <i>will</i>)</li><li>If the motor stays silent, the fault is electrical. (add <i>the</i>)</li><li>When you find a short circuit, stop. (present after <i>when</i>)</li><li>If the harness moves, the reading jumps. (present, not <i>will</i>)</li><li>If there is no continuity, the wire is broken. (present, not <i>will</i>)</li><li>If the connector is loose, the fault is intermittent. (add <i>the</i>)</li><li>If it fails, replace the actuator. (no <i>to</i> after replace)</li></ol></details>
+  </div>
+
+  <div class="ex" id="e7">
+    <span class="tag">E7 &middot; Reading 2</span>
+    <h3>Read a BITE maintenance readout</h3>
+    <p class="instr">Read the readout. Then answer the six questions. Write short answers.</p>
+    <div class="reading-text reading">
+      <p class="doc-head">BITE MAINTENANCE READOUT &mdash; VHF-1 &mdash; REG YL-ABC</p>
+      <p>This maintenance readout covers the number one VHF radio on registration YL-ABC. The stored fault code is 23-12, which clearly points to the antenna feeder line.</p>
+      <p>The crew report says the VHF radio drops out during flight, and the fault is obviously intermittent. In the first test, the BITE self-test was run at the gate, and it showed a fault on the feeder line.</p>
+      <p>In the second test, the wiring diagram was checked, and one connector was found sitting behind the side panel. The finding is important, because the connector pins are clean, but the harness behind it is badly chafed.</p>
+      <p>The risk is serious, because a chafed harness can cause either a short circuit or an open circuit. In the third test, continuity was measured from end to end, and the reading jumps whenever the harness moves.</p>
+      <p>The conclusion is that the harness is the root cause, so the radio itself is serviceable. Therefore, do not swap the radio; instead, build a completely new harness on the bench.</p>
+      <p>Remember to bench test each new wire before you fit it. Note that the fault is still open in the tech log, and you must not defer it without the MEL.</p>
+    </div>
+    <ol>
+      <li>What is the fault code? <input class="gap" size="18" data-answer="23-12|23-12 feeder line|feeder line|2312"></li>
+      <li>Is the fault steady or intermittent? <input class="gap" size="14" data-answer="intermittent|it is intermittent"></li>
+      <li>What is chafed? <input class="gap" size="14" data-answer="the harness|harness"></li>
+      <li>What is the root cause? <input class="gap" size="14" data-answer="the harness|harness|the chafed harness"></li>
+      <li>Should you swap the radio? <input class="gap" size="12" data-answer="no|do not swap|no do not swap|no, do not swap"></li>
+      <li>Where is the fault recorded? <input class="gap" size="14" data-answer="the tech log|tech log|in the tech log"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>23-12 (feeder line)</li><li>intermittent</li><li>the harness</li><li>the harness</li><li>no, do not swap it</li><li>the tech log</li></ol></details>
+  </div>
+
+  <div class="ex" id="e8">
+    <span class="tag">E8 &middot; Listening review</span>
+    <h3>Questions on Dialogue 3</h3>
+    <p class="instr">Play Dialogue 3 again. Then answer. Write short answers.</p>
+    <ol>
+      <li>What feels soft in Dialogue 3? <input class="gap" size="16" data-answer="the left brake|the brake|left brake|the pedal"></li>
+      <li>Which manual do they check first? <input class="gap" size="10" data-answer="the amm|amm"></li>
+      <li>What do they do to the brake first? <input class="gap" size="16" data-answer="bleed it|bleed the brake|bleed the line|they bleed it"></li>
+      <li>After bleeding, is the pedal firm or still soft? <input class="gap" size="14" data-answer="still soft|soft|it is still soft"></li>
+      <li>What is the root cause? <input class="gap" size="18" data-answer="a leaking seal|the seal|leaking seal|seal|a worn seal"></li>
+      <li>Why can they not fix it today? <input class="gap" size="24" data-answer="no seal kit|no kit in stock|the seal kit is not in stock|no seal kit in stock"></li>
+      <li>What do they check to carry the fault? <input class="gap" size="10" data-answer="the mel|mel"></li>
+      <li>What do they fit in the flight deck? <input class="gap" size="20" data-answer="a warning placard|a placard|warning placard|placard"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>the left brake</li><li>the AMM</li><li>bleed the brake</li><li>still soft</li><li>a leaking seal</li><li>the seal kit is not in stock</li><li>the MEL</li><li>a warning placard</li></ol></details>
+  </div>
+</section>
+
+<section class="lecture-section" id="speaking">
+  <h2><span class="secnum">05</span>Speaking: reason it out with a colleague</h2>
+  <p>Work in pairs, so that one person is technician A and the other is technician B. Use the useful phrases, propose a test, and say what you expect with <i>if</i>. Then agree the next step together, and change roles after each card.</p>
+
+  <div class="roleplay">
+    <h4>Role-play card 1 &mdash; Electrical or mechanical?</h4>
+    <div class="field"><span class="flab">Situation</span> The right flap moves slowly, although the cause is not clear yet.</div>
+    <div class="field"><span class="flab">Your role</span> Technician A. You suspect the fault is electrical.</div>
+    <div class="field"><span class="flab">Your goal</span> Propose a logical sequence: check the circuit breaker, then the connector, then a continuity check. Say clearly what each result would mean.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>Let us isolate the fault first.</span><span>If the motor is silent, it is electrical.</span><span>If the breaker trips, we have a short circuit.</span><span>Let us not guess.</span><span>What do you think?</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 2 &mdash; Swap or bench test?</h4>
+    <div class="field"><span class="flab">Situation</span> The VHF radio has an intermittent fault, and the BITE points to the feeder line.</div>
+    <div class="field"><span class="flab">Your role</span> Technician B. You want to save a good radio.</div>
+    <div class="field"><span class="flab">Your goal</span> Agree to test the harness before you swap the radio, and decide to bench test each wire.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>Let us not swap the radio yet.</span><span>If the reading jumps, the harness is the cause.</span><span>Let us bench test each wire.</span><span>I agree with you.</span><span>Can we check the harness first?</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 3 &mdash; Rectify or defer?</h4>
+    <div class="field"><span class="flab">Situation</span> A brake seal is leaking, and the seal kit is not in stock today.</div>
+    <div class="field"><span class="flab">Your role</span> Technician A, deciding together with your colleague.</div>
+    <div class="field"><span class="flab">Your goal</span> Check the AMM steps, agree the root cause, then check the MEL and decide to defer the fault.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>The root cause is a leaking seal.</span><span>The brake is not serviceable now.</span><span>Can we defer this under the MEL?</span><span>Let us raise a work order.</span><span>Note it in the tech log.</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 4 &mdash; Disagree with a diagnosis</h4>
+    <div class="field"><span class="flab">Situation</span> Your colleague wants to change the actuator at once, although you are not sure.</div>
+    <div class="field"><span class="flab">Your role</span> Technician B. You disagree, and you give reasons.</div>
+    <div class="field"><span class="flab">Your goal</span> Say clearly why you disagree, ask for a continuity check and a bench test first, and then reach an agreement.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>I see your point, but&hellip;</span><span>I am not sure that is the root cause.</span><span>Can we test the wiring first?</span><span>If the bench test fails, then we replace it.</span><span>Let us agree on this.</span></div>
+    </div>
+  </div>
+
+  <div class="ai-partner ai-box">
+    <h3>AI conversation partner</h3>
+    <p>Copy one prompt into the chat buddy, and speak your part out loud, because the AI plays your colleague and gently corrects your English.</p>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are my colleague in the hangar, and I am a technician. The scenario: the right flap moves slowly, and we do not know why. Debate with me whether the fault is electrical or mechanical. Make me propose a test sequence and say what each result means with "if". Speak only at CEFR B2 with short sentences and the unit's terms (symptom, root cause, isolate, circuit breaker, connector, continuity, bench test). Keep every reply to two or three sentences, and ask me one question each turn. If I make an error, gently recast my sentence the right way, then continue. Watch my first conditional: if I say "if it will fail", reply naturally "yes, if it fails". English only; you may add one Latvian gloss in brackets for a hard term.</code></div>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are an avionics technician, and I am your colleague. The scenario: a VHF radio has an intermittent fault, and the BITE points to the feeder line. I want to swap the radio; you think we should test the harness first. Disagree with me politely and give reasons. Speak only at CEFR B2 with short sentences and the unit's terms (intermittent, BITE, wiring diagram, harness, short circuit, open circuit, swap, bench test). Keep replies short, two or three sentences, and ask me one question each turn. If I make an English error, recast it gently and move on. Watch my "if"-clauses: model "if the reading jumps" not "if the reading will jump". English only, with an optional one-word Latvian gloss for a hard term.</code></div>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are my colleague, and I am a technician. The scenario: a brake seal is leaking, the pedal is still soft, and the seal kit is not in stock. Help me decide to rectify or defer. Make me check the AMM steps, agree the root cause, then check the MEL and decide to defer the fault. Speak only at CEFR B2 with short sentences and the unit's terms (symptom, isolate, root cause, serviceable, AMM, MEL, defer, tech log). Keep replies short and ask me one question each turn. Recast my errors gently, never lecture. Watch the first conditional: model "if it stays soft" not "if it will stay soft". English only; one Latvian gloss in brackets is allowed for a hard term.</code></div>
+  </div>
+</section>
+
+<section class="lecture-section" id="writing">
+  <h2><span class="secnum">06</span>Writing: a fault-isolation tech log entry</h2>
+  <p>Write a short tech log entry for the flap fault, and use Simplified Technical English (ASD-STE100), because short sentences and approved words are much easier to read on the line. Write one instruction per sentence, keep every sentence under twenty words, and use the present tense in every <i>if</i>-clause, with no <i>will</i>.</p>
+  <div class="callout">
+    <h4>Your task</h4>
+    <p>Write 80&ndash;110 words to record the troubleshooting. Give the symptom, the tests you ran, and the root cause. Use the first conditional for the next step, so you say clearly what you do <i>if</i> the bench test fails. Keep every sentence short and clear.</p>
+  </div>
+  <details class="reveal model"><summary>Show model answer</summary>
+    <div class="reading-text">
+      <p class="doc-head">TECH LOG ENTRY &mdash; RIGHT FLAP SLOW &mdash; FAULT ISOLATION</p>
+      <p>Symptom: the right flap moves slowly on one side, although the left flap is normal.</p>
+      <p>Test 1: check the circuit breaker on panel P6. The breaker is not tripped.</p>
+      <p>Test 2: inspect the connector at the actuator. The connector is clean and tight.</p>
+      <p>Test 3: run a continuity check on the wire. The continuity reading is good.</p>
+      <p>Result: the wiring is not the root cause, so the actuator is probably weak.</p>
+      <p>Next step: send the actuator for a bench test. If it fails, replace it with a serviceable unit.</p>
+      <p>Note: the fault is still open in the tech log. Do not defer without the MEL.</p>
+    </div>
+  </details>
+  <h3>Self-check</h3>
+  <ul class="checklist">
+    <li>Did I use short sentences and simple words (Simplified Technical English)?</li>
+    <li>Did I give the symptom, the tests I ran, and the root cause?</li>
+    <li>Did I use the present tense in every <i>if</i>-clause, with no <i>will</i>?</li>
+    <li>Did I write the next step clearly, with <i>if</i> for the bench test?</li>
+  </ul>
+</section>
+
+</article>
+<script>
+(function(){
+  document.querySelectorAll('.check-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var ex=btn.closest('.ex');
+      var fields=ex.querySelectorAll('[data-answer]');
+      var ok=0,tot=0;
+      fields.forEach(function(f){
+        tot++;
+        var val=(f.value||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[?.!,]+$/,'');
+        var answers=f.getAttribute('data-answer').toLowerCase().split('|').map(function(s){return s.trim();});
+        if(val!=='' && answers.indexOf(val)!==-1){f.classList.add('right','correct');f.classList.remove('wrong');ok++;}
+        else{f.classList.add('wrong');f.classList.remove('right','correct');}
+      });
+      var sc=ex.querySelector('.score');
+      if(sc){sc.textContent=ok+' / '+tot+' correct';}
+    });
+  });
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var code=btn.parentElement.querySelector('code');
+      var text=code?code.textContent:'';
+      if(navigator.clipboard){navigator.clipboard.writeText(text);}
+      var old=btn.textContent;btn.textContent='Copied';
+      setTimeout(function(){btn.textContent=old;},1200);
+    });
+  });
+})();
+</script>
+<script>
+(function(){
+  if(!window.TSIBuddy) return;
+  TSIBuddy.mount({
+    temperature: 0.3,
+    contextLabel: "Unit 9 \u00b7 Talking through a troubleshooting approach",
+    openingLine: "I want to practise troubleshooting talk. Please play my colleague in the hangar.",
+    systemPrompt: "You are a conversation partner for a CEFR B2 English lesson for aircraft maintenance technicians (EASA Part-66/145). The unit is 'Talking through a troubleshooting approach'. Stay inside the unit's scenarios: two technicians reason about a fault, propose a fault-isolation sequence, use the first conditional to link a test to a result, and agree or disagree on the next step (the slow right flap, the intermittent VHF radio, the spongy brake). Play the colleague the learner assigns. Speak ONLY at CEFR B2: short sentences, common words plus the unit's specialist terms (symptom, root cause, isolate, fault, intermittent, troubleshoot, BITE, wiring diagram, harness, connector, continuity, short circuit, open circuit, circuit breaker, bench test, swap, serviceable, tech log, AMM, defer, MEL). Keep every answer short, two or three sentences at most, and ask exactly ONE follow-up question each turn. Push the learner to justify each step: ask 'why do you think so?' or 'what would that test show?'. When the learner makes an English error, gently recast the sentence the correct way and then continue; never lecture. Pay special attention to the first conditional (their Latvian and Russian first languages form it differently): if they say 'if it will fail', reply naturally 'yes, if it fails'; if they drop an article and say 'if breaker trips', model 'if the breaker trips'; if they say 'when you will find', model 'as soon as you find'. Use English only. You may add one Latvian gloss in brackets for a single hard term if the learner seems stuck. Never write the learner's tech log entry for them; instead prompt them with one guiding question."
+  });
+})();
+</script>
+
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 9 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body></html>

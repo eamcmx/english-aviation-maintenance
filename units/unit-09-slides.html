@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 9 — Teacher Deck · Talking through a troubleshooting approach</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:21px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:680px;min-height:320px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:320px;border:1px dashed var(--line);border-radius:14px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk button.bad{background:#2a1417;color:#ff9aa2;border-color:#7a3030}
+.wk button.good{background:#10271e;color:#9af0c8;border-color:#2f6b4e}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:56px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.tag{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.chip{display:inline-block;font-family:var(--mono);font-size:13px;color:#cfe5ff;background:#16263a;border:1px solid #314865;border-radius:16px;padding:4px 12px;margin:3px 5px 3px 0}
+table.gt{border-collapse:collapse;width:100%;font-size:18px;margin-top:6px}
+table.gt th,table.gt td{border:1px solid var(--line);padding:7px 11px;text-align:left}
+table.gt th{color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.04em}
+.wrong{color:#ff9aa2;font-weight:700}.right{color:#9af0c8;font-weight:700}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="Open the unit. This is a 90-minute B2 class for aircraft maintenance technicians. The whole lesson turns on one workplace act: two technicians talk through a fault, propose a logical test sequence, and agree what to do next. Name the three can-do outcomes on the slide and tell the class they will do all three by the end — propose and justify a fault-isolation sequence, reason with the first conditional, and agree or disagree with a colleague, giving reasons. Keep the register professional but the sentences short: that is exactly what B2 in the hangar sounds like. The grammar engine of the unit is the first conditional — 'if it fails, replace it' — because diagnosis is a chain of tests linked to likely results.">
+    <div class="kick">English for Aviation Maintenance · Unit 9 · CEFR B2 · EASA Part-66/145</div>
+    <h1>Talking through a troubleshooting approach</h1>
+    <p class="big muted">Propose a logical fault-isolation sequence · reason with the first conditional (if it fails, replace it) · agree or disagree with a colleague, giving reasons.</p>
+    <p class="pill">90-minute class &nbsp;·&nbsp; 4 audio tracks &nbsp;·&nbsp; slow flap · intermittent radio · spongy brake</p>
+  </section>
+
+  <!-- 2 · BY THE END / MAP -->
+  <section class="slide" data-notes="Set the map and the timing so the class knows the shape of the hour. Three outcomes on the left; the running order on the right. Stress that listening and speaking carry the main outcomes — the reading and the writing support them. Tell the class the assessment is formative: the quiz and the writing are practice, not a test they can fail today. Point at the balance of skills: they will listen twice to each dialogue, build vocabulary, drill one grammar point, read two real documents, then do the role-plays that are the heart of the class.">
+    <div class="kick">By the end · how the hour runs</div>
+    <h2>Three outcomes — and the running order</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">Outcome 1.</b> Propose and justify a logical fault-isolation sequence.</p>
+        <p><b style="color:var(--purple)">Outcome 2.</b> Use conditional language to reason about causes and effects.</p>
+        <p><b style="color:var(--good)">Outcome 3.</b> Agree or disagree with a colleague's diagnosis, giving reasons.</p>
+      </div>
+      <div>
+        <p class="muted">Warm-up → Listening 1 → Vocabulary → Grammar → Listening 2 &amp; 3 → Reading → <b>Role-plays</b> → Writing.</p>
+        <p class="muted">The role-plays (cards 1–4) are the centre of the class. The quiz and the tech-log entry are formative practice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · WARM-UP -->
+  <section class="slide" data-center data-notes="Run the warm-up cold, before any teaching. Show the symptom — the right flap moves slowly, the left is normal — and ask the room: electrical or mechanical? Take a show of hands and two quick reasons for each side. Do NOT confirm the answer; the point is to create a question the listening will settle. Pre-teach only one word if needed: symptom (a visible sign that something is wrong). Everything else waits for the vocabulary stage. Keep it to five minutes.">
+    <div class="kick">§0 · warm-up · 5 min</div>
+    <h2>The right flap moves slowly. Electrical or mechanical?</h2>
+    <p class="big">One flap is sluggish; the other is normal. That is the <b>symptom</b> — a visible sign that something is wrong.</p>
+    <p class="muted" style="max-width:60ch">Hands up: electrical or mechanical? Give one reason. Hold the guesses — the first dialogue will settle it.</p>
+    <p><span class="chip">symptom</span><span class="chip">root cause</span><span class="chip">isolate the fault</span></p>
+  </section>
+
+  <!-- 4 · WIDGET seq -->
+  <section class="slide" data-notes="First interactive tool: the fault-isolation sequence. The class does not guess randomly — a professional follows a repeatable order. Have a learner come to the board and click the four tests in the logical order: check the breaker on panel P6, then test the connector, then run a continuity check, then bench test the unit. The widget only accepts the next correct step and animates the current moving down the chain, so the ordering is felt, not just told. Elicit WHY each step comes where it does: cheap and quick tests first, expensive removal last. This sets up the first can-do outcome and the language of sequencing (first, then, after that, finally).">
+    <div class="kick">§1 · interactive · build the sequence · 6 min</div>
+    <h2>Isolate the fault — put the tests in a logical order</h2>
+    <div class="cols">
+      <div class="dw" data-widget="seq"></div>
+      <div><p>Cheap, quick checks first; expensive removal last. Click the tests in order and watch the sequence build.</p>
+        <p class="muted">Language to elicit: <i>first…, then…, after that…, finally…</i> — and one reason per step.</p></div>
+    </div>
+  </section>
+
+  <!-- 5 · LISTENING 1 -->
+  <section class="slide" data-notes="Play Dialogue 1 twice. First listen for gist — what is the fault, and is it electrical or mechanical in the end? Second listen for the sequence — board the four tests as the class hears them (breaker, connector, continuity, feel the track), and the result of each. Draw the class to the reasoning language: 'if the motor runs but the flap still sticks, the root cause is mechanical'; 'if the motor stays silent, the fault is probably electrical'. That is the first conditional doing diagnostic work — flag it now, teach it fully two slides on. Turn on the captions (CC or L) if any learner needs the support in Latvian or Russian.">
+    <div class="kick">§2 · listening · Dialogue 1 · 8 min</div>
+    <h2>Dialogue 1 — “Is it electrical or mechanical?”</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Listen 1 (gist):</b> What is the fault? Electrical or mechanical?</p>
+        <p><b>Listen 2 (detail):</b> Board the tests in order and the result of each.</p>
+        <p class="muted">Answer: the wiring is good and the track is free, so the actuator is weak — it goes for a bench test.</p>
+      </div>
+      <div>
+        <p class="muted">Reasoning lines to notice:</p>
+        <p>“If the motor runs but the flap still sticks, the root cause is mechanical.”</p>
+        <p>“If the motor stays silent, the fault is probably electrical.”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · DIALOGUE 1 DEBRIEF -->
+  <section class="slide" data-notes="Debrief the logic before moving on. Walk the chain the technicians actually followed: breaker on P6 (fine), connector (fine), continuity check (good — so not the wiring), feel the track (free — so not a mechanical jam), therefore the actuator is the last suspect and gets a bench test. The teaching point: they never swapped a part on a guess. Each test either cleared a suspect or pointed on. This is the model the learners will reproduce in the role-plays. Also mark the two agreement moves — 'Agreed', 'Exactly' — and the caution 'we should not replace it prematurely'.">
+    <div class="kick">§2 · debrief · the diagnostic chain</div>
+    <h2>No guessing — each test clears a suspect or points on</h2>
+    <table class="gt">
+      <thead><tr><th>Test</th><th>Result</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Breaker on P6</td><td>Not tripped</td><td>Power side looks fine</td></tr>
+        <tr><td>Continuity check</td><td>Good</td><td>Wiring is not the root cause</td></tr>
+        <tr><td>Feel the track</td><td>Free</td><td>Not a mechanical jam</td></tr>
+        <tr><td>Actuator (bench test)</td><td>Booked</td><td>Last suspect — test before you replace</td></tr>
+      </tbody>
+    </table>
+    <p class="muted">Agreement moves to reuse: “Agreed.” · “Exactly.” · “We should not replace it prematurely.”</p>
+  </section>
+
+  <!-- 7 · VOCABULARY INTRO -->
+  <section class="slide" data-notes="Present the vocabulary field — fault isolation — in three groups so it is not a flat list of twenty terms. Group 1, the diagnosis words: symptom, root cause, isolate, fault, intermittent, troubleshoot. Group 2, the electrical words: BITE, wiring diagram, harness, connector, continuity, short circuit, open circuit, circuit breaker. Group 3, the decision and paperwork words: bench test, swap, serviceable, tech log, AMM, defer, MEL. Give the gloss and one collocation for each — learners must learn the collocation, because that is how the word is really used (a tripped circuit breaker, a chafed harness, run the BITE, check the MEL). Drill the three hard-to-say ones: circuit breaker, continuity, serviceable.">
+    <div class="kick">§3 · vocabulary · fault isolation · part 1</div>
+    <h2>Twenty-one terms in three groups</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">Diagnosis:</b> symptom · root cause · isolate · fault · intermittent · troubleshoot</p>
+        <p><b style="color:var(--purple)">Electrical:</b> BITE · wiring diagram · harness · connector · continuity · short circuit · open circuit · circuit breaker</p>
+        <p><b style="color:var(--good)">Decision &amp; paperwork:</b> bench test · swap · serviceable · tech log · AMM · defer · MEL</p>
+      </div>
+      <div>
+        <p class="muted">Learn the collocation, not just the word:</p>
+        <p><span class="chip">the main symptom</span><span class="chip">a tripped circuit breaker</span><span class="chip">a chafed harness</span><span class="chip">run the BITE</span><span class="chip">check the MEL</span></p>
+        <p class="muted">Drill: <b>CIRcuit breaker · conTINuity · SERviceable</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · VOCABULARY ACTIVITY (DOM interactive) -->
+  <section class="slide" data-notes="Quick controlled practice on the terms before grammar. This is the E1/E2 stage in the deck: click a term to reveal its plain meaning, then set the class the collocation drill on the right. Keep it brisk — two minutes of retrieval, then move on. Learners who finish fast can build one sentence per term out loud with a partner. The reveal buttons are for the front of the room; the workbook exercises E1 and E2 give every learner the written practice.">
+    <div class="kick">§3 · vocabulary · part 2 · check meaning</div>
+    <h2>Tap a term — check the meaning</h2>
+    <div class="cols">
+      <div class="dw" data-widget="vocab"></div>
+      <div><p>Front-of-room retrieval. Then set <b>E1</b> (gap-fill) and <b>E2</b> (matching) in the workbook.</p>
+        <p class="muted">Fast finishers: build one spoken sentence per term with a partner, using the collocation.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · WIDGET cond (first conditional) -->
+  <section class="slide" data-notes="The grammar centrepiece: the first conditional as a diagnostic tool. State the rule in one line — present tense in the if-clause, never 'will'; the result can take will, the present, or an order. Use the machine: pick an if-clause and watch the current flow to the result. When the class picks the correct present-tense form ('if it fails'), the circuit completes and the lamp lights; when they pick 'if it will fail', the circuit breaks — the visual makes the rule stick. Run through the three real dialogue examples on the buttons. This is where the Latvian and Russian error is born, so pre-empt it here before the error-spotting exercise.">
+    <div class="kick">§4 · interactive · first conditional · 8 min</div>
+    <h2>“If it fails, replace it” — the diagnostic conditional</h2>
+    <div class="cols">
+      <div class="dw" data-widget="cond"></div>
+      <div><p><b>Rule:</b> present tense in the <i>if</i>-clause, never <i>will</i>. The result can take <i>will</i>, the present, or an order.</p>
+        <p class="muted">Complete the circuit with the correct form. <i>Will</i> after <i>if</i> breaks it.</p></div>
+    </div>
+  </section>
+
+  <!-- 10 · GRAMMAR MISTAKES (LV/RU) -->
+  <section class="slide" data-notes="Now name the three interference errors directly, because both first languages here — Latvian and Russian — produce them. Error 1: a future form after 'if' (both languages mark the future in both clauses; English keeps the if-clause present). Error 2: dropped articles (neither language has articles, so 'the' before breaker, harness, actuator gets lost). Error 3: a future after 'when' and 'as soon as'. Show the wrong/right pairs and recast, do not lecture. Then set the error-spotting exercise E6, which has all three baked in. Keep the tone practical: these are predictable, fixable habits.">
+    <div class="kick">§4 · grammar · three habits to fix</div>
+    <h2>Latvian and Russian — the errors to pre-empt</h2>
+    <table class="gt">
+      <thead><tr><th>Not this</th><th>This</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td class="wrong">If it will fail, we replace it.</td><td class="right">If it fails, we replace it.</td><td>Present tense after <i>if</i></td></tr>
+        <tr><td class="wrong">If breaker trips, technician resets it.</td><td class="right">If the breaker trips, the technician resets it.</td><td>Add the article <i>the</i></td></tr>
+        <tr><td class="wrong">When you will find a short circuit…</td><td class="right">As soon as you find a short circuit…</td><td>Present in the time clause</td></tr>
+      </tbody>
+    </table>
+    <p class="muted">Then set <b>E6</b> (error-spotting) — all three habits are in the draft note.</p>
+  </section>
+
+  <!-- 11 · WIDGET dtree -->
+  <section class="slide" data-notes="A reasoning tool that ties grammar to diagnosis. Three yes/no observations feed a verdict gauge: is the motor silent, is continuity good, is the track free? The needle swings toward electrical, mechanical, or 'test the actuator'. Have the class narrate each move with a first conditional — 'if the motor is silent, the fault is electrical'; 'if continuity is bad, the wire is broken'; 'if the track is stiff, it is a mechanical jam'. This rehearses the exact talk they will produce in role-play card 1. Toggle the switches and let learners predict the needle before it moves.">
+    <div class="kick">§4 · interactive · reason to a verdict · 5 min</div>
+    <h2>Electrical or mechanical? — reason it out</h2>
+    <div class="cols">
+      <div class="dw" data-widget="dtree"></div>
+      <div><p>Toggle the three observations and predict the verdict. Narrate each move with <i>if</i>.</p>
+        <p class="muted">“If the motor is silent, it is electrical.” · “If the track is stiff, it is mechanical.”</p></div>
+    </div>
+  </section>
+
+  <!-- 12 · LISTENING 2 & 3 intro -->
+  <section class="slide" data-notes="Play Dialogue 2 (the intermittent VHF radio) and Dialogue 3 (the spongy brake). For Dialogue 2, the task is the swap-or-test decision: the BITE points to the feeder line, the harness is chafed, and the reading jumps when it is shaken — so the harness is the root cause and the radio is serviceable; they do NOT swap it. For Dialogue 3, the task is rectify-or-defer: bleeding does not fix the soft pedal, a seal is leaking, the kit is out of stock, so they check the MEL, defer one brake within the limits, raise a work order, fit a placard and record it. Set E8 on Dialogue 3. Highlight the agree/disagree moves — this is the language for the role-plays.">
+    <div class="kick">§5 · listening · Dialogues 2 &amp; 3 · 10 min</div>
+    <h2>Swap or test? — and — Rectify or defer?</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Dialogue 2 — radio.</b> Chafed harness is the root cause; the radio is serviceable. Decision: <b>do not swap</b> — build a new harness.</p>
+        <p><b>Dialogue 3 — brake.</b> Bleeding fails; a seal leaks; the kit is out of stock. Decision: check the MEL and <b>defer</b> one brake within the limits.</p>
+      </div>
+      <div>
+        <p class="muted">Set <b>E8</b> on Dialogue 3. Listen for the agree/disagree moves:</p>
+        <p>“Let us not swap the radio yet.” · “Can we defer this under the MEL?” · “Agreed.”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · EXERCISE STAGING E1-E4 -->
+  <section class="slide" data-notes="Stage the controlled-practice exercises. E1 gap-fill and E2 matching lock the vocabulary; E3 completes a troubleshooting exchange; E4 drills the first conditional. Run them as individual work with a quick pair-check, then a whole-class answer sweep. The workbook marks each answer green or red on Check, so you can circulate rather than mark from the front. Keep the pace up — aim for two to three minutes per exercise here, and save time for the reading and speaking.">
+    <div class="kick">§6 · practice · E1–E4 · staging</div>
+    <h2>Controlled practice — vocabulary and grammar</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>E1</b> gap-fill — the ten core terms.</p>
+        <p><b>E2</b> matching — term to plain meaning.</p>
+        <p><b>E3</b> dialogue completion — terms in context.</p>
+        <p><b>E4</b> transformation — first conditional, present tense.</p>
+      </div>
+      <div>
+        <p class="muted">Individual → pair-check → class sweep. The workbook self-marks on <b>Check</b>.</p>
+        <p class="muted">Two to three minutes each; protect time for reading and speaking.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 · READING STAGING E5 & E7 -->
+  <section class="slide" data-notes="The reading stage uses two authentic document genres. E5 is an AMM fault-isolation task — the class reads the approved steps and answers six questions; the point is that the manual encodes the same logical sequence the learners built by hand. E7 is a BITE maintenance readout — a fault code, three tests, a conclusion — and the reading skill is following a diagnosis to its root cause. If time is tight, move one of these to homework, but do at least one in class so learners see how the spoken talk maps onto written maintenance documents.">
+    <div class="kick">§7 · reading · E5 &amp; E7 · 10 min</div>
+    <h2>Read the documents behind the talk</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>E5 — AMM task 27-51-00.</b> The approved fault-isolation steps for a slow flap. Six short questions.</p>
+        <p><b>E7 — BITE readout, VHF-1.</b> A fault code, three tests, a conclusion: the harness is the root cause.</p>
+      </div>
+      <div>
+        <p class="muted">Skill: follow a diagnosis to its root cause in a real document.</p>
+        <p class="muted">Short on time? One in class, one for homework.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · SPEAKING / ROLE-PLAY MANAGEMENT -->
+  <section class="slide" data-notes="This is the heart of the class — protect it. Four role-play cards, in pairs, roles rotating each card. Card 1: electrical or mechanical (propose a sequence, say what each result means). Card 2: swap or bench test (agree to test the harness before swapping the radio). Card 3: rectify or defer (check the AMM, agree the root cause, check the MEL, defer). Card 4: disagree with a diagnosis (give reasons, ask for a continuity check and a bench test first). Set up: give the useful phrases, model one exchange with a strong pair, then run all four cards. Monitor with the speaking rubric in the teacher key — one strength and one target per learner. The commonest lift is interaction: insist on a reason every time a learner agrees or disagrees. The AI conversation-partner prompts in the workbook let a learner rehearse alone or as homework.">
+    <div class="kick">§8 · speaking · role-plays · 18 min · the core</div>
+    <h2>Four cards — propose, reason, agree or disagree</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Card 1</b> — electrical or mechanical? Propose the sequence.</p>
+        <p><b>Card 2</b> — swap or bench test? Save the good radio.</p>
+        <p><b>Card 3</b> — rectify or defer? Check the AMM and the MEL.</p>
+        <p><b>Card 4</b> — disagree with a diagnosis, giving reasons.</p>
+      </div>
+      <div>
+        <p class="muted">Useful phrases to seed:</p>
+        <p>“If the motor is silent, it is electrical.” · “Let us not swap it yet.” · “I see your point, but…” · “Can we test the wiring first?”</p>
+        <p class="muted">Monitor with the rubric — push for a reason on every agree/disagree.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · WRITING -->
+  <section class="slide" data-notes="Start the writing in class and finish it for homework. The task is a fault-isolation tech-log entry for the flap fault, written in Simplified Technical English (ASD-STE100): one instruction per sentence, every sentence under twenty words, approved plain words, present tense in every if-clause. Board the shape — symptom, tests, result, next step, note — and write the first two lines together. The next-step line must use the first conditional: 'If it fails, replace it.' The self-check list in the workbook mirrors the marking. The annotated model is in the solutions file for after they attempt it.">
+    <div class="kick">§9 · writing · STE tech-log entry · start in class</div>
+    <h2>Write a fault-isolation tech-log entry (Simplified Technical English)</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Shape:</b> symptom → tests → result → next step → note. 80–110 words.</p>
+        <p><b>STE habits:</b> one instruction per sentence · under twenty words · plain approved words · present tense in every <i>if</i>-clause.</p>
+      </div>
+      <div>
+        <p class="muted">The next step must use the first conditional:</p>
+        <p><span class="right">“If it fails, replace it.”</span></p>
+        <p class="muted">Board the first two lines together; finish for homework.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · WRAP -->
+  <section class="slide" data-center data-notes="Close and consolidate. Five one-liners: a symptom is the sign, the root cause is the reason; isolate the fault with a logical sequence, cheap tests first; reason with the first conditional — present tense after if, never will; agree or disagree with a reason, never a bare yes or no; and record honestly — keep the fault open until it is truly fixed, and never defer without the MEL. Exit ticket: each learner says or writes one first-conditional sentence about the next test on a fault of their choice. Point them to the formative quiz and the writing task, and remind them the AI partner prompts let them rehearse the role-plays before the next class.">
+    <div class="kick">Recap · close</div>
+    <h2>Isolate it · reason with <i>if</i> · agree with a reason · record it</h2>
+    <p class="big muted">Symptom vs root cause · cheap tests first, expensive removal last · present tense after <i>if</i>, never <i>will</i> · agree or disagree <b>with a reason</b> · keep the fault open until it is fixed — no defer without the MEL.</p>
+    <p><b>Exit ticket:</b> one first-conditional sentence about the next test you would run.</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS · canvas + rAF) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+
+  /* ---- W1: FAULT-ISOLATION SEQUENCE BUILDER (canvas + rAF) ---- */
+  window.DeckW.seq=function(el){
+    var STEPS=[
+      {k:'breaker',t:'Check the breaker (P6)'},
+      {k:'connector',t:'Test the connector'},
+      {k:'cont',t:'Run a continuity check'},
+      {k:'bench',t:'Bench test the unit'}
+    ];
+    var ORDER=['breaker','connector','cont','bench'];
+    var SHOW=[STEPS[2],STEPS[0],STEPS[3],STEPS[1]]; // deliberately not in correct order
+    el.innerHTML='<div class="wk"><canvas width="680" height="150"></canvas>'+
+      '<div class="bar" data-btns style="margin-top:10px"></div>'+
+      '<div class="bar"><button data-reset class="prim">reset</button></div>'+
+      '<div class="info" data-info><h4>Build the sequence</h4>Click the tests in the logical order. Cheap, quick checks first; expensive removal last.</div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),btns=el.querySelector('[data-btns]'),info=el.querySelector('[data-info]');
+    var W=cv.width,H=cv.height,chosen=[],flow=0,target=0;
+    SHOW.forEach(function(s){
+      var b=document.createElement('button');b.textContent=s.t;b.setAttribute('data-k',s.k);
+      b.addEventListener('click',function(){pick(s.k,b);});btns.appendChild(b);
+    });
+    el.querySelector('[data-reset]').addEventListener('click',function(){
+      chosen=[];flow=0;target=0;
+      Array.prototype.forEach.call(btns.children,function(c){c.classList.remove('good','bad');c.disabled=false;});
+      info.innerHTML='<h4>Build the sequence</h4>Click the tests in the logical order. Cheap, quick checks first; expensive removal last.';
+    });
+    function pick(k,b){
+      var next=ORDER[chosen.length];
+      if(k===next){
+        chosen.push(k);b.classList.add('good');b.disabled=true;target=chosen.length;
+        var labels={breaker:'the circuit breaker on panel P6',connector:'the connector at the actuator',cont:'a continuity check on the wire',bench:'a bench test of the actuator'};
+        var lead=['First','Then','After that','Finally'][chosen.length-1];
+        info.innerHTML='<h4>Step '+chosen.length+' of 4</h4>'+lead+', check '+labels[k]+'.'+(chosen.length===4?' <b class="right">Full sequence built — no guessing.</b>':'');
+      } else {
+        b.classList.add('bad');setTimeout(function(){b.classList.remove('bad');},450);
+        var nm={breaker:'the breaker',connector:'the connector',cont:'the continuity check',bench:'the bench test'};
+        info.innerHTML='<h4>Not yet</h4>Do the cheap, quick tests first. The next step is <b>'+nm[next]+'</b>, not '+nm[k]+'.';
+      }
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      var n=4,pad=60,gap=(W-2*pad)/(n-1),cy=64;
+      // segments
+      for(var i=0;i<n-1;i++){
+        ctx.strokeStyle=(i<chosen.length-1)?'#38b6ff':'#26384e';ctx.lineWidth=3;
+        ctx.beginPath();ctx.moveTo(pad+i*gap,cy);ctx.lineTo(pad+(i+1)*gap,cy);ctx.stroke();
+      }
+      // nodes
+      for(var j=0;j<n;j++){
+        var x=pad+j*gap,done=j<chosen.length;
+        ctx.fillStyle=done?'#16324c':'#0f1726';ctx.strokeStyle=done?'#38b6ff':'#3a4a60';ctx.lineWidth=2;
+        ctx.beginPath();ctx.arc(x,cy,18,0,7);ctx.fill();ctx.stroke();
+        ctx.fillStyle=done?'#9af0c8':'#7e98ad';ctx.font='13px ui-monospace,monospace';ctx.textAlign='center';
+        ctx.fillText(String(j+1),x,cy+4);
+        ctx.fillStyle=done?'#cfe5ff':'#5b6b86';ctx.font='12px sans-serif';
+        var lab=['breaker','connector','continuity','bench test'][j];
+        ctx.fillText(lab,x,cy+40);
+      }
+      // moving token along completed part
+      flow+=(target-flow)*0.12;
+      if(chosen.length>0){
+        var seg=clamp(flow,0,n-1);var xi=pad+seg*gap;
+        var pr=5+1.6*Math.sin(Date.now()*0.006);
+        ctx.fillStyle='#fbbf24';ctx.beginPath();ctx.arc(xi,cy,pr,0,7);ctx.fill();
+      }
+      ctx.fillStyle='#7e98ad';ctx.font='12px sans-serif';ctx.textAlign='left';
+      ctx.fillText('cheap · quick',pad-14,H-10);ctx.textAlign='right';ctx.fillText('expensive · last',W-pad+14,H-10);ctx.textAlign='left';
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  };
+
+  /* ---- W2: FIRST-CONDITIONAL CIRCUIT (canvas + rAF) ---- */
+  window.DeckW.cond=function(el){
+    var CASES=[
+      {ifp:'If it fails the bench test,',ifw:'If it will fail the bench test,',res:'we replace it.'},
+      {ifp:'If the breaker trips,',ifw:'If the breaker will trip,',res:'reset it once.'},
+      {ifp:'If there is no continuity,',ifw:'If there will be no continuity,',res:'the wire is broken.'}
+    ];
+    el.innerHTML='<div class="wk"><canvas width="680" height="150"></canvas>'+
+      '<div class="bar" style="margin-top:10px"><span class="note" style="font-weight:700;color:#9db0c6">Pick the if-clause:</span>'+
+      '<button data-form="p" class="prim">present tense</button><button data-form="w">with “will”</button></div>'+
+      '<div class="bar"><span class="note" style="color:#9db0c6">Example:</span><button data-ex="0" class="on">1</button><button data-ex="1">2</button><button data-ex="2">3</button></div>'+
+      '<div class="info" data-info></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),info=el.querySelector('[data-info]');
+    var W=cv.width,H=cv.height,cur=0,form='p',lit=0,t=0;
+    function setInfo(){
+      var C=CASES[cur];
+      if(form==='p') info.innerHTML='<h4 style="color:#9af0c8">Circuit complete ✓</h4><span class="right">'+C.ifp+'</span> '+C.res+' &mdash; present tense in the <i>if</i>-clause. Correct.';
+      else info.innerHTML='<h4 style="color:#ff9aa2">Circuit broken ✗</h4><span class="wrong">'+C.ifw+'</span> '+C.res+' &mdash; never use <i>will</i> after <i>if</i>. Use the present tense.';
+    }
+    el.querySelectorAll('[data-form]').forEach(function(b){b.addEventListener('click',function(){
+      form=b.getAttribute('data-form');
+      el.querySelectorAll('[data-form]').forEach(function(x){x.classList.toggle('prim',x===b);x.classList.toggle('on',x===b);});
+      setInfo();
+    });});
+    el.querySelectorAll('[data-ex]').forEach(function(b){b.addEventListener('click',function(){
+      cur=+b.getAttribute('data-ex');
+      el.querySelectorAll('[data-ex]').forEach(function(x){x.classList.toggle('on',x===b);});
+      setInfo();
+    });});
+    function draw(){
+      ctx.clearRect(0,0,W,H);t++;
+      var ok=(form==='p');lit+=((ok?1:0)-lit)*0.12;
+      var y=70,x0=70,x1=W-70,mid=(x0+x1)/2;
+      // two boxes
+      function box(cx,label,sub,col){
+        ctx.fillStyle='#0f1726';ctx.strokeStyle=col;ctx.lineWidth=2;
+        roundRect(cx-90,y-30,180,60,10);ctx.fill();ctx.stroke();
+        ctx.fillStyle=col;ctx.font='13px ui-monospace,monospace';ctx.textAlign='center';ctx.fillText(label,cx,y-4);
+        ctx.fillStyle='#9db0c6';ctx.font='12px sans-serif';ctx.fillText(sub,cx,y+16);
+      }
+      box(x0+90,'IF-CLAUSE',ok?'present tense':'“will” — wrong','#7fd0ff');
+      box(x1-90,'RESULT','the action',ok?'#9af0c8':'#5b6b86');
+      // wire between boxes
+      var wx0=x0+180,wx1=x1-180;
+      ctx.strokeStyle=ok?'#34d399':'#3a4a60';ctx.lineWidth=4;
+      ctx.beginPath();ctx.moveTo(wx0,y);
+      if(ok){ctx.lineTo(wx1,y);}else{ctx.lineTo(mid-14,y);ctx.moveTo(mid+14,y);ctx.lineTo(wx1,y);}
+      ctx.stroke();
+      if(!ok){ // spark at the break
+        ctx.fillStyle='#ff5667';ctx.font='18px sans-serif';ctx.textAlign='center';ctx.fillText('✗',mid,y+6);
+      } else { // moving current pulses
+        for(var k=0;k<3;k++){
+          var f=((t*0.02)+k/3)%1;var px=wx0+(wx1-wx0)*f;
+          ctx.fillStyle='rgba(52,211,153,'+(0.5+0.5*Math.sin(t*0.1+k))+')';
+          ctx.beginPath();ctx.arc(px,y,4,0,7);ctx.fill();
+        }
+      }
+      // lamp
+      var lx=x1-90,ly=y-52;
+      ctx.beginPath();ctx.arc(lx,ly,10,0,7);
+      ctx.fillStyle='rgba(52,211,153,'+lit+')';ctx.fill();ctx.strokeStyle='#3a4a60';ctx.lineWidth=1.5;ctx.stroke();
+      requestAnimationFrame(draw);
+    }
+    function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+    setInfo();requestAnimationFrame(draw);
+  };
+
+  /* ---- W3: ELECTRICAL-vs-MECHANICAL VERDICT GAUGE (canvas + rAF) ---- */
+  window.DeckW.dtree=function(el){
+    el.innerHTML='<div class="wk"><canvas width="680" height="200"></canvas>'+
+      '<div class="bar" data-tog style="margin-top:10px"></div>'+
+      '<div class="info" data-info></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),tog=el.querySelector('[data-tog]'),info=el.querySelector('[data-info]');
+    var W=cv.width,H=cv.height;
+    var st={silent:false,contGood:true,trackFree:true};
+    var TOG=[
+      {k:'silent',on:'Motor is silent',off:'Motor runs'},
+      {k:'contGood',on:'Continuity good',off:'No continuity'},
+      {k:'trackFree',on:'Track free',off:'Track stiff'}
+    ];
+    TOG.forEach(function(x){
+      var b=document.createElement('button');b.setAttribute('data-k',x.k);
+      b.addEventListener('click',function(){st[x.k]=!st[x.k];label(b,x);verdict();});
+      tog.appendChild(b);label(b,x);
+    });
+    function label(b,x){b.textContent=st[x.k]?x.on:x.off;b.classList.toggle('on',st[x.k]);}
+    var target=0.5,disp=0.5,vtext='';
+    function verdict(){
+      // 0 = electrical (left), 0.5 = actuator (centre), 1 = mechanical (right)
+      if(st.silent){target=0.1;vtext='<h4 style="color:#7fd0ff">Electrical</h4>If the motor is silent, the fault is electrical. Check the breaker and the wiring.';}
+      else if(!st.contGood){target=0.2;vtext='<h4 style="color:#7fd0ff">Electrical</h4>If there is no continuity, the wire is broken. That is an electrical fault.';}
+      else if(!st.trackFree){target=0.9;vtext='<h4 style="color:#fbbf24">Mechanical</h4>If the track is stiff, it is a mechanical jam. Free the track before you replace anything.';}
+      else {target=0.5;vtext='<h4 style="color:#9af0c8">Test the actuator</h4>Motor runs, wiring is good, track is free — the actuator is the last suspect. Send it for a bench test.';}
+      info.innerHTML=vtext;
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      var cx=W/2,cy=170,R=120;
+      // arc band
+      ctx.lineWidth=16;
+      ctx.strokeStyle='#16324c';ctx.beginPath();ctx.arc(cx,cy,R,Math.PI,Math.PI*1.33);ctx.stroke();
+      ctx.strokeStyle='#2a3b22';ctx.beginPath();ctx.arc(cx,cy,R,Math.PI*1.33,Math.PI*1.66);ctx.stroke();
+      ctx.strokeStyle='#3a2a12';ctx.beginPath();ctx.arc(cx,cy,R,Math.PI*1.66,Math.PI*2);ctx.stroke();
+      ctx.fillStyle='#7fd0ff';ctx.font='13px sans-serif';ctx.textAlign='center';
+      ctx.fillText('ELECTRICAL',cx-R*0.7,cy-R*0.55);
+      ctx.fillStyle='#9af0c8';ctx.fillText('actuator',cx,cy-R-6);
+      ctx.fillStyle='#fbbf24';ctx.fillText('MECHANICAL',cx+R*0.7,cy-R*0.55);
+      // needle eases to target
+      disp+=(target-disp)*0.1;
+      var ang=Math.PI+disp*Math.PI;
+      var nx=cx+Math.cos(ang)*(R-6),ny=cy+Math.sin(ang)*(R-6);
+      ctx.strokeStyle='#e9f0f7';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(nx,ny);ctx.stroke();
+      ctx.fillStyle='#e9f0f7';ctx.beginPath();ctx.arc(cx,cy,6,0,7);ctx.fill();
+      requestAnimationFrame(draw);
+    }
+    verdict();requestAnimationFrame(draw);
+  };
+
+  /* ---- W4: VOCABULARY REVEAL (DOM interactive) ---- */
+  window.DeckW.vocab=function(el){
+    var V=[
+      ['symptom','a visible sign that something is wrong'],
+      ['root cause','the real underlying reason for a fault'],
+      ['isolate','to narrow a fault down to one part'],
+      ['intermittent','coming and going, not there all the time'],
+      ['harness','a bundle of wires wrapped together'],
+      ['continuity','an unbroken path for the current'],
+      ['serviceable','fit to use and legal to fly'],
+      ['defer','to carry a fault now and fix it later']
+    ];
+    var html='<div class="wk"><div class="bar" data-terms></div><div class="info" data-info><h4>Tap a term</h4>Click a term to check its plain meaning.</div></div>';
+    el.innerHTML=html;
+    var terms=el.querySelector('[data-terms]'),info=el.querySelector('[data-info]');
+    V.forEach(function(v){
+      var b=document.createElement('button');b.textContent=v[0];
+      b.addEventListener('click',function(){
+        Array.prototype.forEach.call(terms.children,function(c){c.classList.remove('on');});
+        b.classList.add('on');
+        info.innerHTML='<h4>'+v[0]+'</h4>'+v[1]+'.';
+      });
+      terms.appendChild(b);
+    });
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u09_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u09_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 9</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:24px;color:#9db0c6;font-size:17px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u09_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u09_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u09_deck_state")render();});',
+'render();',
+'<\/scr'+'ipt></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u09_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,60); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}.lct-row-top{opacity:1}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capQueueB=[], capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+</body>
+</html>

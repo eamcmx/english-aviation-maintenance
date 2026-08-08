@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Unit 9 · Talking through a troubleshooting approach · CEFR B2 · English for Aviation Maintenance
+     Moodle XML. 22 items across 5 types (multichoice, truefalse, numerical, shortanswer, matching),
+     split by skill: LISTENING, READING, USE OF ENGLISH, VOCABULARY. No Cloze. -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U09-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 9 rich quiz — fault-isolation talk, first conditional, agree/disagree.</p>]]></text></info>
+  </question>
+
+  <!-- ===================== LISTENING (7) ===================== -->
+
+  <question type="multichoice">
+    <name><text>L1 · Dialogue 1 · electrical or mechanical</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> The motor runs, but the flap still sticks. On the technicians' logic, the root cause is most likely:</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>If the motor runs, the electrical drive works, so a flap that still sticks points to a <b>mechanical</b> problem. A silent motor would point to an electrical fault instead.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[mechanical]]></text><feedback format="html"><text><![CDATA[<p>Correct. A running motor plus a sticking flap means the drive works but the movement is blocked — mechanical.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[electrical]]></text><feedback format="html"><text><![CDATA[<p>No. An electrical fault would usually leave the motor silent, but here the motor runs.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a tripped circuit breaker]]></text><feedback format="html"><text><![CDATA[<p>No. A tripped breaker would stop the motor; the motor is running here.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a broken feeder wire]]></text><feedback format="html"><text><![CDATA[<p>No. A broken wire is an electrical fault, and the motor would not run.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L2 · Dialogue 1 · do not replace yet</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> The technicians decide to replace the actuator at once, before any bench test.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. They agree the actuator is weak but say they should not replace it prematurely. They will replace it only if it fails the bench test tomorrow.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>Not quite. They hold off and wait for the bench-test result.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct. They replace the actuator only if it fails the bench test.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L3 · Dialogue 1 · which panel</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Which panel number is the circuit breaker on? Write the number only (for example, panel P6 &rarr; 6).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Technician B says the breaker is on <b>panel P6</b>, so the number is 6.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>6</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — panel P6.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L4 · Dialogue 2 · root cause of the radio fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> What is the real root cause of the intermittent radio fault?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The reading jumps when the harness is shaken, so the <b>chafed harness</b> is the root cause. The radio itself is serviceable.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[the chafed harness]]></text><feedback format="html"><text><![CDATA[<p>Correct. The reading jumps whenever the harness moves.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the VHF radio unit itself]]></text><feedback format="html"><text><![CDATA[<p>No. They decide the radio is serviceable and must not be swapped.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a tripped circuit breaker]]></text><feedback format="html"><text><![CDATA[<p>No. No breaker is mentioned in this dialogue.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the antenna itself]]></text><feedback format="html"><text><![CDATA[<p>No. The BITE points to the feeder line, and the fault is found in the harness.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L5 · Dialogue 2 · swap the radio</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> The technicians decide to swap the radio to clear the fault.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. They say they must not swap a good unit. They build a new harness instead, because the wiring is the real fix.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>Not quite. Swapping the radio would waste a serviceable unit.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct. They repair the harness and keep the radio.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L6 · Voicemail · which bay</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to the shift-handover voicemail (Dialogue 4) again.</b> Which bay is the aircraft parked in? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The shift lead says the aircraft is parked in <b>bay four</b>, so the number is 4.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>4</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — bay four.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L7 · Voicemail · aircraft number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to the voicemail again.</b> The shift lead says the aircraft number as three separate digits. Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"Aircraft nine two one" is spoken digit by digit, so the number is <b>921</b>.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>921</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — nine two one is 921.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ===================== READING (4) ===================== -->
+
+  <question type="multichoice">
+    <name><text>R1 · Task card reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the task card, then answer.</b></p>
+    <div style="border:1px solid #bbb;padding:8px 12px;border-radius:6px">
+    <p><b>TASK CARD 32-41-07 — MAIN WHEEL BRAKE — SPONGY PEDAL</b></p>
+    <p>Symptom: the pedal feels soft after landing. First, bleed the brake and test the pressure. If the pedal is firm, the cause was trapped air. If it stays soft, isolate the fault to a leaking seal. Do not defer without the MEL.</p></div>
+    <p>According to the card, what does a <b>firm</b> pedal after bleeding tell you?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The card says a firm pedal after bleeding means the cause was <b>trapped air</b>. A pedal that stays soft points to a leaking seal.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The cause was trapped air.]]></text><feedback format="html"><text><![CDATA[<p>Correct. Bleeding removes trapped air, so a firm pedal means air was the cause.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A seal is leaking somewhere.]]></text><feedback format="html"><text><![CDATA[<p>No. A leaking seal is shown by a pedal that <i>stays</i> soft.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The brake may be deferred at once.]]></text><feedback format="html"><text><![CDATA[<p>No. The card says do not defer without the MEL.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The pressure test can be skipped.]]></text><feedback format="html"><text><![CDATA[<p>No. The card tells you to test the pressure, not skip it.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R2 · Service Bulletin reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the Service Bulletin extract, then answer.</b></p>
+    <div style="border:1px solid #bbb;padding:8px 12px;border-radius:6px">
+    <p><b>SERVICE BULLETIN SB 24-118 — FLAP ACTUATOR HARNESS</b></p>
+    <p>Some harnesses chafe against the frame and cause an intermittent fault. Inspect the harness for chafing. If you find bare wire, build a new harness. A continuity check alone may pass, so shake the harness while you test.</p></div>
+    <p><b>True or false:</b> The bulletin says a continuity check on its own always finds this fault.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The bulletin warns that a continuity check alone <i>may pass</i>, so you must shake the harness while testing to catch the intermittent fault.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>Not quite. The check alone may pass and miss the fault.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct. You must shake the harness while testing.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R3 · MEL reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the MEL extract, then answer.</b></p>
+    <div style="border:1px solid #bbb;padding:8px 12px;border-radius:6px">
+    <p><b>MINIMUM EQUIPMENT LIST — ITEM 32-45 — WHEEL BRAKE</b></p>
+    <p>One main-wheel brake may be inoperative. The crew must respect the stated speed and load limits. Raise a work order and record the defect in the tech log. Fit a placard in the flight deck. Rectify within ten days.</p></div>
+    <p>Under this MEL item, what must the crew do first to carry the fault legally?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The MEL lets one brake be inoperative <b>only if the crew respects the stated limits</b>. A placard and a tech-log entry are also required, but the limits are the condition for deferring.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Respect the stated speed and load limits.]]></text><feedback format="html"><text><![CDATA[<p>Correct. The defer is allowed only within the stated limits.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Ignore the limits and dispatch as normal.]]></text><feedback format="html"><text><![CDATA[<p>No. The limits must be respected.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Rectify the brake within twenty-four hours.]]></text><feedback format="html"><text><![CDATA[<p>No. The item allows ten days, not twenty-four hours.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Remove the placard from the flight deck.]]></text><feedback format="html"><text><![CDATA[<p>No. A placard must be fitted, not removed.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 · Work order reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the work order, then answer.</b></p>
+    <div style="border:1px solid #bbb;padding:8px 12px;border-radius:6px">
+    <p><b>WORK ORDER WO-5521 — VHF-1 INTERMITTENT</b></p>
+    <p>Fault isolated to a chafed harness behind the panel. Radio tested good and is serviceable. Action: build a new harness and bench test each wire. Do not sign the release until the harness is fitted and the fault is cleared.</p></div>
+    <p><b>True or false:</b> The work order says the release may be signed before the new harness is fitted.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The work order says clearly: do not sign the release until the harness is fitted and the fault is cleared.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>Not quite. The release waits until the fault is cleared.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct. No sign-off until the harness is fitted.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ===================== USE OF ENGLISH (7) ===================== -->
+
+  <question type="shortanswer">
+    <name><text>U1 · first conditional · stay</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the first conditional. Use the present tense of the verb in brackets.</p><p>"If the motor ______ (stay) silent, the fault is electrical."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The <i>if</i>-clause takes the present tense: <b>stays</b>. Never use <i>will</i> after <i>if</i>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>stays</text><feedback format="html"><text><![CDATA[<p>Correct — present tense in the if-clause.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use the present tense: <i>stays</i>, not <i>will stay</i>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 · first conditional · trip</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the first conditional. Use the present tense of the verb in brackets.</p><p>"If the breaker ______ (trip) again, stop and check it."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Present tense in the if-clause: <b>trips</b>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>trips</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use <i>trips</i>, not <i>will trip</i>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 · first conditional · be</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the first conditional. Use the present tense of the verb in brackets.</p><p>"If there ______ (be) no continuity, the wire is broken."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>With "there", the present is <b>is</b>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>is</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use <i>is</i>, not <i>will be</i>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 · time clause · find</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the time clause. Use the present tense of the verb in brackets.</p><p>"As soon as you ______ (find) a short circuit, tell me."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>After <i>as soon as</i>, use the present tense: <b>find</b>. A future form is not allowed in a time clause.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>find</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use <i>find</i>, not <i>will find</i>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 · article</text></name>
+    <questiontext format="html"><text><![CDATA[<p>One word is missing. Write the missing article.</p><p>"If ______ breaker trips, reset it once."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>English needs <b>the</b> before <i>breaker</i>. Latvian and Russian have no articles, so this word is easy to drop.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>the</text><feedback format="html"><text><![CDATA[<p>Correct — "if the breaker trips".</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The missing word is the article <i>the</i>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 · correct the verb</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The sentence has a verb error: "If it <b>will fail</b> the bench test, we replace it." Write the one word that should replace "will fail".</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The if-clause needs the present tense: <b>fails</b>. So the sentence is "If it fails the bench test, we replace it."</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>fails</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Replace "will fail" with <i>fails</i>.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U7 · bank term · self-test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing bank term (four letters). "The ______ is the built-in self-test that stores fault codes."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The built-in test equipment is the <b>BITE</b>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>BITE</text><feedback format="html"><text><![CDATA[<p>Correct — built-in test equipment.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>bite</text><feedback format="html"><text><![CDATA[<p>Correct — built-in test equipment.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The term is <i>BITE</i>.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ===================== VOCABULARY (4) ===================== -->
+
+  <question type="matching">
+    <name><text>V1 · term to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>symptom = a visible sign; root cause = the real underlying reason; isolate = narrow the fault to one part; harness = a bundle of wires; continuity = an unbroken path for the current.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[symptom]]></text><answer><text>a visible sign that something is wrong</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[root cause]]></text><answer><text>the real underlying reason for a fault</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[isolate]]></text><answer><text>to narrow a fault down to one part</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[harness]]></text><answer><text>a bundle of wires wrapped together</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[continuity]]></text><answer><text>an unbroken path for the current</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 · term to collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the word it naturally goes with on the job.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Learn the collocation, because that is how technicians combine the word: a tripped circuit breaker, a chafed harness, run the BITE, check the MEL, a continuity check.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[circuit breaker]]></text><answer><text>tripped</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[harness]]></text><answer><text>chafed</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>run</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[MEL]]></text><answer><text>check</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[continuity]]></text><answer><text>check</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V3 · collocation · run a ___</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which word best completes the collocation? "First, run a ______ on the wire to check the path."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>You <b>run a continuity check</b> to see whether the current has an unbroken path. A short circuit or an open circuit is a fault, not a test you run.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[continuity check]]></text><feedback format="html"><text><![CDATA[<p>Correct — a continuity check tests the path.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[short circuit fault]]></text><feedback format="html"><text><![CDATA[<p>No. A short circuit is a fault, not a test.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[tech log entry]]></text><feedback format="html"><text><![CDATA[<p>No. You do not "run" a tech log entry.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[root cause report]]></text><feedback format="html"><text><![CDATA[<p>No. That is not a test you run on a wire.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>V4 · meaning · serviceable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <b>serviceable</b> mean?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>Serviceable</b> means fit to use and legal to fit or fly. You sign a part as serviceable only after the fault is fixed.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[fit to use and legal to fly]]></text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a fault that comes and goes during flight]]></text><feedback format="html"><text><![CDATA[<p>No. That describes an <i>intermittent</i> fault.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a plug that joins two wires together]]></text><feedback format="html"><text><![CDATA[<p>No. That is a <i>connector</i>.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a bundle of wires wrapped together]]></text><feedback format="html"><text><![CDATA[<p>No. That is a <i>harness</i>.</p>]]></text></feedback></answer>
+  </question>
+
+</quiz>

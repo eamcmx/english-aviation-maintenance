@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 9 — Solutions (E1–E8 + writing model) · Talking through a troubleshooting approach</title>
+<style>
+:root{--bg:#0e1420;--panel:#182536;--ink:#e9f0f7;--muted:#9db0c6;--line:#2a3c54;--accent:#38b6ff;--good:#34d399;--amber:#fbbf24;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:#0a0f18;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;padding:0 0 60px}
+header{background:linear-gradient(120% 100% at 50% 0%,#12203300,#0a0f18),radial-gradient(120% 120% at 0% 0%,#16324c,#0a0f18);padding:34px 6vw 22px;border-bottom:1px solid var(--line)}
+.kick{letter-spacing:.16em;text-transform:uppercase;font-size:12px;font-weight:800;color:var(--accent)}
+h1{font-size:30px;margin:.2em 0 .1em}
+.sub{color:var(--muted);font-size:16px;max-width:70ch}
+.gated{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:12px;color:#020E27;background:var(--amber);border-radius:6px;padding:3px 10px;font-weight:700}
+main{padding:0 6vw}
+section{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin:22px 0}
+h2{font-size:22px;margin:.1em 0 .1em;color:#cfe5ff}
+.tag{font-family:var(--mono);font-size:12px;font-weight:700;color:#020E27;background:var(--accent);border-radius:5px;padding:2px 8px;margin-right:8px}
+.note{color:var(--muted);font-size:14.5px;margin:.2em 0 1em}
+table{border-collapse:collapse;width:100%;font-size:15.5px;margin-top:6px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+td.n{font-family:var(--mono);color:#7fd0ff;width:36px}
+td.a{color:#eafff4;font-weight:600;width:34%}
+td.w{color:#c7d6e6}
+.a b{color:var(--good)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:5px;padding:.05em .4em;color:#cfe5ff}
+.doc{background:#0c1622;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:10px}
+.doc .head{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#7fd0ff;font-weight:700;margin-bottom:8px}
+.doc p{margin:.35em 0}
+.anno{border-left:3px solid var(--amber);padding:6px 12px;margin:8px 0;background:rgba(251,191,36,.07);font-size:14.5px;color:#f3ead9}
+.anno b{color:var(--amber)}
+.ok{color:var(--good);font-weight:700}
+</style>
+</head>
+<body>
+<header>
+  <div class="kick">English for Aviation Maintenance · Unit 9 · CEFR B2</div>
+  <h1>Solutions — Talking through a troubleshooting approach</h1>
+  <p class="sub">Complete model answers for exercises E1–E8, each with a one-line reason, plus the annotated model for the writing task. Full worked answers are shown because this file is released only after learners attempt the unit.</p>
+  <span class="gated">GATED · teacher / post-attempt release</span>
+</header>
+<main>
+
+<section id="e1">
+  <h2><span class="tag">E1</span>Gap-fill — put the right term in the gap</h2>
+  <p class="note">Read each sentence. Write one term from the bank in the gap.</p>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a"><b>symptom</b></td><td class="w">A visible sign that something is wrong is the symptom, not the cause.</td></tr>
+    <tr><td class="n">2</td><td class="a"><b>root cause</b></td><td class="w">The real underlying reason is the root cause, deeper than the symptom.</td></tr>
+    <tr><td class="n">3</td><td class="a"><b>isolate</b></td><td class="w">To narrow a fault to one part is to isolate it.</td></tr>
+    <tr><td class="n">4</td><td class="a"><b>connector</b></td><td class="w">A plug that joins two wires is a connector.</td></tr>
+    <tr><td class="n">5</td><td class="a"><b>continuity</b></td><td class="w">An unbroken path for the current is continuity.</td></tr>
+    <tr><td class="n">6</td><td class="a"><b>circuit breaker</b></td><td class="w">A switch that trips to protect a circuit is a circuit breaker.</td></tr>
+    <tr><td class="n">7</td><td class="a"><b>bench test</b></td><td class="w">A controlled test of a unit off the aircraft is a bench test.</td></tr>
+    <tr><td class="n">8</td><td class="a"><b>troubleshoot</b></td><td class="w">To find a fault methodically, step by step, is to troubleshoot.</td></tr>
+    <tr><td class="n">9</td><td class="a"><b>wiring diagram</b></td><td class="w">A drawing that shows how the wires connect is a wiring diagram.</td></tr>
+    <tr><td class="n">10</td><td class="a"><b>swap</b></td><td class="w">To change one unit for another to check it is to swap it.</td></tr>
+  </table>
+</section>
+
+<section id="e2">
+  <h2><span class="tag">E2</span>Matching — match the term to its meaning</h2>
+  <p class="note">Choose the correct meaning for each term.</p>
+  <table>
+    <tr><th>Term</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">isolate</td><td class="a"><b>to narrow a fault down to one part or area</b></td><td class="w">Isolating means closing in on one part, not the whole system.</td></tr>
+    <tr><td class="n">intermittent</td><td class="a"><b>coming and going, not there all the time</b></td><td class="w">An intermittent fault appears and disappears.</td></tr>
+    <tr><td class="n">continuity</td><td class="a"><b>an unbroken path for the current in a wire</b></td><td class="w">Continuity = the current can flow all the way through.</td></tr>
+    <tr><td class="n">harness</td><td class="a"><b>a bundle of wires wrapped together</b></td><td class="w">A harness bundles and routes many wires as one.</td></tr>
+    <tr><td class="n">defer</td><td class="a"><b>to carry a fault now and fix it later</b></td><td class="w">Deferring means flying with the fault, under the MEL, and fixing it later.</td></tr>
+    <tr><td class="n">AMM</td><td class="a"><b>the manual with the maintenance and repair steps</b></td><td class="w">AMM = Aircraft Maintenance Manual.</td></tr>
+    <tr><td class="n">MEL</td><td class="a"><b>the list of what may be unserviceable for dispatch</b></td><td class="w">The MEL says what may be inoperative and still fly.</td></tr>
+    <tr><td class="n">serviceable</td><td class="a"><b>fit to use, and legal to fit or fly</b></td><td class="w">Serviceable = usable and legally acceptable.</td></tr>
+  </table>
+</section>
+
+<section id="e3">
+  <h2><span class="tag">E3</span>Dialogue completion — complete the troubleshooting talk</h2>
+  <p class="note">Read the short exchange. Write one term in each gap.</p>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a"><b>fault</b></td><td class="w">The crew writes the fault (the defect) in the log.</td></tr>
+    <tr><td class="n">2</td><td class="a"><b>intermittent</b></td><td class="w">"Comes and goes" is the definition of an intermittent fault.</td></tr>
+    <tr><td class="n">3</td><td class="a"><b>BITE</b></td><td class="w">The BITE self-test reads a stored fault code.</td></tr>
+    <tr><td class="n">4</td><td class="a"><b>harness</b></td><td class="w">The bundle of wires behind the panel is the harness.</td></tr>
+    <tr><td class="n">5</td><td class="a"><b>short circuit</b></td><td class="w">A bare wire touching the frame makes a short circuit.</td></tr>
+    <tr><td class="n">6</td><td class="a"><b>open circuit</b></td><td class="w">A completely broken wire is an open circuit.</td></tr>
+    <tr><td class="n">7</td><td class="a"><b>serviceable</b></td><td class="w">If the wiring is the cause, the radio itself is serviceable.</td></tr>
+    <tr><td class="n">8</td><td class="a"><b>tech log</b></td><td class="w">You close the tech-log entry once the harness is fixed.</td></tr>
+  </table>
+</section>
+
+<section id="e4">
+  <h2><span class="tag">E4</span>Grammar transformation — put the verb in the right form</h2>
+  <p class="note">First conditional. Put the verb in brackets in the present tense (never <i>will</i> in the <i>if</i>-clause).</p>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a"><b>stays</b></td><td class="w">Present tense after <i>if</i>; third person adds <code>-s</code>.</td></tr>
+    <tr><td class="n">2</td><td class="a"><b>trips</b></td><td class="w">Present tense after <i>if</i>; third person <code>-s</code>.</td></tr>
+    <tr><td class="n">3</td><td class="a"><b>is</b></td><td class="w">Present of <i>be</i> with "there".</td></tr>
+    <tr><td class="n">4</td><td class="a"><b>moves</b></td><td class="w">Present tense; the harness moves (third person <code>-s</code>).</td></tr>
+    <tr><td class="n">5</td><td class="a"><b>fails</b></td><td class="w">Present tense after <i>if</i>, not <i>will fail</i>.</td></tr>
+    <tr><td class="n">6</td><td class="a"><b>find</b></td><td class="w">Present tense; "you" takes no <code>-s</code>.</td></tr>
+    <tr><td class="n">7</td><td class="a"><b>stays</b></td><td class="w">Present tense after <i>if</i>; the pedal stays soft.</td></tr>
+    <tr><td class="n">8</td><td class="a"><b>is</b></td><td class="w">Present of <i>be</i>; the clip is serviceable.</td></tr>
+    <tr><td class="n">9</td><td class="a"><b>shows</b></td><td class="w">Present tense; the BITE shows a code.</td></tr>
+    <tr><td class="n">10</td><td class="a"><b>leaks</b></td><td class="w">Present tense; the seal leaks.</td></tr>
+  </table>
+</section>
+
+<section id="e5">
+  <h2><span class="tag">E5</span>Reading 1 — AMM fault-isolation task (Task 27-51-00)</h2>
+  <p class="note">Short answers, taken from the text.</p>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a"><b>The flap moves slowly (on one side)</b></td><td class="w">The task states the symptom is a slow but still-moving flap.</td></tr>
+    <tr><td class="n">2</td><td class="a"><b>P6 — the breaker on panel P6</b></td><td class="w">Step one is the circuit breaker on panel P6.</td></tr>
+    <tr><td class="n">3</td><td class="a"><b>A short circuit</b></td><td class="w">If the breaker trips again at once, the cause may be a short circuit.</td></tr>
+    <tr><td class="n">4</td><td class="a"><b>The connector</b></td><td class="w">You inspect the connector at the actuator for a loose fit.</td></tr>
+    <tr><td class="n">5</td><td class="a"><b>The wire is broken</b></td><td class="w">No continuity means the current cannot pass, so the wire is broken.</td></tr>
+    <tr><td class="n">6</td><td class="a"><b>The tech log</b></td><td class="w">The task says record every step in the tech log.</td></tr>
+  </table>
+</section>
+
+<section id="e6">
+  <h2><span class="tag">E6</span>Error-spotting — find and fix eight errors</h2>
+  <p class="note">Each draft line has one first-conditional or article error. Corrected lines below.</p>
+  <table>
+    <tr><th>#</th><th>Corrected line</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a"><b>If it fails the bench test, we replace it.</b></td><td class="w">Present tense in the <i>if</i>-clause, not <i>will fail</i>.</td></tr>
+    <tr><td class="n">2</td><td class="a"><b>If the breaker trips, reset it once.</b></td><td class="w">Present tense, not <i>will trip</i>.</td></tr>
+    <tr><td class="n">3</td><td class="a"><b>If the motor stays silent, the fault is electrical.</b></td><td class="w">Add the article <i>the</i> before <i>motor</i>.</td></tr>
+    <tr><td class="n">4</td><td class="a"><b>When you find a short circuit, stop.</b></td><td class="w">Present tense after <i>when</i> (or use <i>as soon as</i>).</td></tr>
+    <tr><td class="n">5</td><td class="a"><b>If the harness moves, the reading jumps.</b></td><td class="w">Present tense, not <i>will move</i>.</td></tr>
+    <tr><td class="n">6</td><td class="a"><b>If there is no continuity, the wire is broken.</b></td><td class="w">Present tense, not <i>will be</i>.</td></tr>
+    <tr><td class="n">7</td><td class="a"><b>If the connector is loose, the fault is intermittent.</b></td><td class="w">Add the article <i>the</i> before <i>connector</i>.</td></tr>
+    <tr><td class="n">8</td><td class="a"><b>If it fails, replace the actuator.</b></td><td class="w"><i>Replace</i> takes a direct object — no <i>to</i>.</td></tr>
+  </table>
+</section>
+
+<section id="e7">
+  <h2><span class="tag">E7</span>Reading 2 — BITE maintenance readout (VHF-1, YL-ABC)</h2>
+  <p class="note">Short answers, taken from the readout.</p>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a"><b>23-12 (the feeder line)</b></td><td class="w">The stored fault code is 23-12, pointing to the antenna feeder line.</td></tr>
+    <tr><td class="n">2</td><td class="a"><b>Intermittent</b></td><td class="w">The crew report says the radio drops out — the fault comes and goes.</td></tr>
+    <tr><td class="n">3</td><td class="a"><b>The harness</b></td><td class="w">The pins are clean, but the harness behind them is chafed.</td></tr>
+    <tr><td class="n">4</td><td class="a"><b>The harness (the chafed harness)</b></td><td class="w">The reading jumps when the harness moves, so it is the root cause.</td></tr>
+    <tr><td class="n">5</td><td class="a"><b>No — do not swap it</b></td><td class="w">The radio is serviceable; the fix is a new harness.</td></tr>
+    <tr><td class="n">6</td><td class="a"><b>The tech log</b></td><td class="w">The fault is still open in the tech log until it is cleared.</td></tr>
+  </table>
+</section>
+
+<section id="e8">
+  <h2><span class="tag">E8</span>Listening review — questions on Dialogue 3</h2>
+  <p class="note">Short answers from the spongy-brake dialogue.</p>
+  <table>
+    <tr><th>#</th><th>Answer</th><th>Why</th></tr>
+    <tr><td class="n">1</td><td class="a"><b>The left brake (a soft pedal)</b></td><td class="w">The pilot reported a spongy pedal on the left brake.</td></tr>
+    <tr><td class="n">2</td><td class="a"><b>The AMM</b></td><td class="w">They consult the AMM for the correct fault-isolation steps.</td></tr>
+    <tr><td class="n">3</td><td class="a"><b>Bleed the brake</b></td><td class="w">The AMM says bleed the brake, then test the pressure.</td></tr>
+    <tr><td class="n">4</td><td class="a"><b>Still soft</b></td><td class="w">The pedal stays soft after bleeding, so air was not the cause.</td></tr>
+    <tr><td class="n">5</td><td class="a"><b>A leaking seal</b></td><td class="w">Hydraulic fluid near the piston confirms a leaking seal.</td></tr>
+    <tr><td class="n">6</td><td class="a"><b>The seal kit is not in stock</b></td><td class="w">They cannot fit the seal today because the kit is out of stock.</td></tr>
+    <tr><td class="n">7</td><td class="a"><b>The MEL</b></td><td class="w">They check the MEL to see if they can defer the fault.</td></tr>
+    <tr><td class="n">8</td><td class="a"><b>A warning placard</b></td><td class="w">A placard in the flight deck reminds the crew of the deferred brake.</td></tr>
+  </table>
+</section>
+
+<section id="writing">
+  <h2><span class="tag">WRITING</span>Model answer — a fault-isolation tech log entry (annotated)</h2>
+  <p class="note">80–110 words, Simplified Technical English (ASD-STE100): one instruction per sentence, short sentences (under 20 words), present tense in every <i>if</i>-clause. The annotations show why the model works.</p>
+  <div class="doc">
+    <div class="head">TECH LOG ENTRY — RIGHT FLAP SLOW — FAULT ISOLATION</div>
+    <p>Symptom: the right flap moves slowly on one side. The left flap is normal.</p>
+    <p>Test 1: check the circuit breaker on panel P6. The breaker is not tripped.</p>
+    <p>Test 2: inspect the connector at the actuator. The connector is clean and tight.</p>
+    <p>Test 3: run a continuity check on the wire. The reading is good.</p>
+    <p>Result: the wiring is not the root cause. The actuator is probably weak.</p>
+    <p>Next step: send the actuator for a bench test. If it fails, replace it.</p>
+    <p>Note: the fault is still open. Do not defer without the MEL.</p>
+  </div>
+  <div class="anno"><b>Why it works — 1 (structure):</b> the entry follows the fault-isolation sequence — symptom, tests, result, next step, note. A reader finds each part at once.</div>
+  <div class="anno"><b>Why it works — 2 (STE):</b> one idea per sentence, every sentence under twenty words, and plain approved words (<i>check</i>, <i>inspect</i>, <i>run</i>, <i>send</i>). No long chains of clauses.</div>
+  <div class="anno"><b>Why it works — 3 (grammar focus):</b> the next step uses the first conditional correctly — <span class="ok">"If it fails, replace it."</span> Present tense in the <i>if</i>-clause, an order in the result. No <i>will</i>.</div>
+  <div class="anno"><b>Why it works — 4 (register + safety):</b> it names the root cause honestly, keeps the fault open, and blocks an illegal defer ("Do not defer without the MEL"). That is the professional habit the unit trains.</div>
+  <p class="note" style="margin-top:12px">Word count of the model: about 95 words — inside the 80–110 target. A learner answer that reaches the same four features earns full marks, even with different wording.</p>
+</section>
+
+</main>
+</body>
+</html>
