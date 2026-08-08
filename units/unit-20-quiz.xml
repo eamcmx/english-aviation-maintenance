@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U20-r1</text></category>
+    <info format="html"><text><![CDATA[Unit 20 — Simulation: building a full documentation trail. CEFR B2. Split by skill: Listening, Reading, Use of English, Vocabulary.]]></text></info>
+  </question>
+
+  <!-- ============================ LISTENING (7) ============================ -->
+
+  <question type="multichoice">
+    <name><text>U20-L1 Dialogue 1 — where the fault is recorded</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again</b> (Laying out the documentation trail). Where do you record the fault first?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The mentor says: "You write the defect in the tech log, because every fault starts there." The tech log is always the first record.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[In the tech log]]></text><feedback format="html"><text><![CDATA[Correct — every fault starts in the tech log.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[On the task card]]></text><feedback format="html"><text><![CDATA[The task card lists the repair steps; it does not record the original fault.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[In the parts store log]]></text><feedback format="html"><text><![CDATA[The store handles parts, not the defect record.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U20-L2 Dialogue 1 — where the repair steps live</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> True or false: the repair steps are in the IPC.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[False. "No. The repair steps are in the AMM, the aircraft maintenance manual." The IPC only holds the part numbers.]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[The IPC holds part numbers, not repair steps.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — the repair steps are in the AMM.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U20-L3 Dialogue 2 — serial or batch</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again</b> (Adding traceability to the parts). The seal came in a sealed bag with no serial number. Which number does the technician record?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA["Then record the batch number, since the seal has no serial number." A part with no serial number is traced by its batch number.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The batch number]]></text><feedback format="html"><text><![CDATA[Correct — no serial number, so the batch number gives traceability.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The serial number]]></text><feedback format="html"><text><![CDATA[There is no serial number on this seal.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The station number]]></text><feedback format="html"><text><![CDATA[That is not a part-traceability number.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U20-L4 Dialogue 3 — how many sign-off blocks</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again</b> (Defending the trail to the auditor). How many sign-off blocks does the auditor see? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Two. "I can see two sign-off blocks." One is for the work, and the other is for the inspection.]]></text></generalfeedback>
+    <answer fraction="100"><text>2</text><feedback format="html"><text><![CDATA[Correct — two sign-off blocks: one for the work, one for the inspection.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U20-L5 Dialogue 3 — who is speaker A</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> True or false: speaker A is the auditor.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[True. A opens with "I am the auditor today. Show me the documentation trail for this defect."]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — A says "I am the auditor today."]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Listen again to the first line: A introduces the auditor role.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U20-L6 Dialogue 2 — what confirms safety-critical work</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> What confirms the safety-critical work before release?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA["A dual inspection means a second person confirms the safety-critical work." A second qualified person must check it.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[A dual inspection]]></text><feedback format="html"><text><![CDATA[Correct — a second qualified person confirms it.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A single signature only]]></text><feedback format="html"><text><![CDATA[Safety-critical work needs a second person, not one signature alone.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A quick visual glance later]]></text><feedback format="html"><text><![CDATA[A glance is not a recorded dual inspection.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U20-L7 Dialogue 1 — how many defects today</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> For how many defects do you build the documentation trail on simulation day? Write the number.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[One. "You must build a full documentation trail for one defect." The whole trail follows that single fault.]]></text></generalfeedback>
+    <answer fraction="100"><text>1</text><feedback format="html"><text><![CDATA[Correct — one defect, one clear trail, from find to fix.]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <!-- ============================ READING (5) ============================ -->
+
+  <question type="multichoice">
+    <name><text>U20-R1 MEL — deferred defect</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the MEL entry.</b></p><p><i>MEL entry: The No. 2 cabin reading light is inoperative. Under the Minimum Equipment List, the aircraft may be dispatched with this item deferred for up to 10 days, provided the light is placarded 'INOP' and a repair interval is opened.</i></p><p>What does the MEL allow here?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The Minimum Equipment List lets an aircraft fly with a listed item deferred, under conditions (here: a placard and a repair interval). It does not force grounding.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Dispatch with the fault deferred]]></text><feedback format="html"><text><![CDATA[Correct — dispatch is allowed for up to 10 days under the stated conditions.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Immediate grounding of the aircraft]]></text><feedback format="html"><text><![CDATA[The MEL exists precisely to avoid grounding for a listed, deferrable item.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Repair before the next flight only]]></text><feedback format="html"><text><![CDATA[The repair interval is up to 10 days, not before the next flight.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U20-R2 Service Bulletin — mandatory or not</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the Service Bulletin note.</b></p><p><i>Service Bulletin SB-52-0042 (recommended) introduces an improved cabin door seal with a longer service life. It is not mandatory. Operators may embody it at the next scheduled door maintenance.</i></p><p>True or false: this Service Bulletin must be embodied before the next flight.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[False. The SB is marked "recommended" and "not mandatory"; it may be embodied at the next scheduled door maintenance.]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[A recommended SB is not compulsory before flight.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — it is recommended, not mandatory.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U20-R3 Work order — why raised</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the work-order note.</b></p><p><i>Work order WO-5501 was raised to investigate a repeated 'DOOR' caution on the flight deck. The tech log shows the same message on three sectors. The task card asks the technician to run a BITE test on the door control unit.</i></p><p>Why was the work order raised?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The trigger was a recurring caution message ("the same message on three sectors"), so the job is to investigate it with a BITE test.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[A caution message kept recurring]]></text><feedback format="html"><text><![CDATA[Correct — the same 'DOOR' caution appeared on three sectors.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The door seal was worn on the edge]]></text><feedback format="html"><text><![CDATA[That is a different defect; this work order is about a caution message.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A scheduled overhaul became due]]></text><feedback format="html"><text><![CDATA[This is a fault investigation, not a scheduled overhaul.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U20-R4 BITE readout — next document</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the BITE readout.</b></p><p><i>BITE readout: DOOR CTRL UNIT — FAULT CODE 21-51, micro-switch open circuit. The built-in test equipment isolates the fault to the door micro-switch wiring, so the technician can go straight to the wiring diagram.</i></p><p>True or false: the BITE readout points the technician to the wiring diagram.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[True. The built-in test equipment isolates the fault to the micro-switch wiring, so the next document is the wiring diagram.]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — the readout sends the technician to the wiring diagram.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Read again: the fault is isolated to the wiring, so the wiring diagram is next.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U20-R5 Airworthiness Directive — status</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read the Airworthiness Directive note.</b></p><p><i>Airworthiness Directive AD-2026-11 is mandatory. It requires a one-time inspection of the cabin door hinge for cracks within 300 flight hours. Non-compliance makes the aircraft unairworthy.</i></p><p>What is true of this Airworthiness Directive?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[An Airworthiness Directive is mandatory. Unlike a recommended Service Bulletin, non-compliance makes the aircraft unairworthy.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[It is mandatory to comply]]></text><feedback format="html"><text><![CDATA[Correct — an AD is compulsory; non-compliance grounds the aircraft.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[It is only a recommendation]]></text><feedback format="html"><text><![CDATA[A recommendation would be a Service Bulletin, not an AD.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[It applies to the engine only]]></text><feedback format="html"><text><![CDATA[This AD is about the cabin door hinge.]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ USE OF ENGLISH (7) ============================ -->
+
+  <question type="shortanswer">
+    <name><text>U20-U1 Linking word — result</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write <b>one</b> linking word that shows a <b>result</b>:</p><p>"The seal was worn. ______, we replaced it."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[A result connector fits: Therefore / So / Consequently. The replacement follows from the worn seal.]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>Therefore</text><feedback format="html"><text><![CDATA[Correct — "Therefore" marks the result.]]></text></feedback></answer>
+    <answer fraction="100"><text>So</text><feedback format="html"><text><![CDATA[Correct — "So" also shows the result.]]></text></feedback></answer>
+    <answer fraction="100"><text>Consequently</text><feedback format="html"><text><![CDATA[Correct — "Consequently" shows the result.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U20-U2 Linking word — reason</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write <b>one</b> linking word that gives the <b>reason</b>:</p><p>"We removed the valve ______ it was leaking."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[A reason connector introduces the cause: because / since / as.]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>because</text><feedback format="html"><text><![CDATA[Correct — "because" introduces the reason.]]></text></feedback></answer>
+    <answer fraction="100"><text>since</text><feedback format="html"><text><![CDATA[Correct — "since" can mean "because" here.]]></text></feedback></answer>
+    <answer fraction="100"><text>as</text><feedback format="html"><text><![CDATA[Correct — "as" can give the reason.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U20-U3 One connector per join</text></name>
+    <questiontext format="html"><text><![CDATA[<p>This sentence has two linking words for one join: "Because the seal was worn, so we replaced it."</p><p>Type only the <b>one word you delete</b> to correct it.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[English uses one linking word per join. "Because" already links the cause, so delete "so".]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>so</text><feedback format="html"><text><![CDATA[Correct — delete "so"; "Because…" is enough.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U20-U4 because + clause</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the <b>one word</b> that fits before a clause:</p><p>"The flight was delayed ______ the seal was worn." (not "because of")</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA["because of" takes a noun; before a clause use "because" (also "since" or "as").]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>because</text><feedback format="html"><text><![CDATA[Correct — "because" + clause.]]></text></feedback></answer>
+    <answer fraction="100"><text>since</text><feedback format="html"><text><![CDATA[Accepted — "since" also introduces the clause.]]></text></feedback></answer>
+    <answer fraction="100"><text>as</text><feedback format="html"><text><![CDATA[Accepted — "as" also introduces the clause.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U20-U5 Bank term — one tracked item</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the term (two words):</p><p>"The unique code for one single tracked item is the ______ ______."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[A serial number identifies one single item, and no other. A batch number, by contrast, covers a whole group.]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>serial number</text><feedback format="html"><text><![CDATA[Correct — the serial number identifies one single item.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U20-U6 Bank term — second check</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the term (one word):</p><p>"A second qualified person confirms safety-critical work in a ______ inspection."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[A dual inspection is the second, independent check of safety-critical work.]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>dual</text><feedback format="html"><text><![CDATA[Correct — a dual inspection.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U20-U7 Linking word — reason at the batch step</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write <b>one</b> linking word giving the <b>reason</b>:</p><p>"Record the batch number ______ the seal has no serial number."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[This is a reason join: since / because / as. In the dialogue the mentor uses "since".]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>since</text><feedback format="html"><text><![CDATA[Correct — "since" gives the reason (as in the dialogue).]]></text></feedback></answer>
+    <answer fraction="100"><text>because</text><feedback format="html"><text><![CDATA[Correct — "because" gives the reason.]]></text></feedback></answer>
+    <answer fraction="100"><text>as</text><feedback format="html"><text><![CDATA[Correct — "as" can give the reason.]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================ VOCABULARY (4) ============================ -->
+
+  <question type="matching">
+    <name><text>U20-V1 Match term to plain meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each documentation-trail term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[Documentation trail = the whole linked set; traceability = following it start to end; cross-reference = the link between documents; audit trail = what an auditor follows; rectification = the completed repair; corrective action = the exact work done.]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[documentation trail]]></text><answer><text>the full set of linked records for one defect</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[traceability]]></text><answer><text>being able to follow a job from start to finish</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[cross-reference]]></text><answer><text>a link from one document to a place in another</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[audit trail]]></text><answer><text>the linked record an auditor follows to check work</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[rectification]]></text><answer><text>the completed repair that clears the defect</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[corrective action]]></text><answer><text>the exact work carried out to fix the defect</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U20-V2 Match term to its verb (collocation)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the verb it goes with in a maintenance record.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[raise a work order · quote the part number · carry out a dual inspection · note the batch number · sign the sign-off block. Learning the verb helps you write the record correctly.]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[a work order]]></text><answer><text>raise</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[the part number]]></text><answer><text>quote</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[a dual inspection]]></text><answer><text>carry out</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[the batch number]]></text><answer><text>note</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[the sign-off block]]></text><answer><text>sign</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U20-V3 Collocation — work order</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Choose the correct verb: "You ______ a work order to open the job."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The fixed collocation is "raise a work order". You raise it to open and authorise the job.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[raise]]></text><feedback format="html"><text><![CDATA[Correct — you raise a work order.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[announce]]></text><feedback format="html"><text><![CDATA[Not the maintenance collocation.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[publish]]></text><feedback format="html"><text><![CDATA[We do not "publish" a work order.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U20-V4 Collocation — batch number</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Choose the correct verb: "When there is no serial number, ______ the batch number on the record."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[The collocation is "note the batch number" (also "record the batch number"). You write it down for traceability.]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[note]]></text><feedback format="html"><text><![CDATA[Correct — note (record) the batch number.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[ignore]]></text><feedback format="html"><text><![CDATA[Ignoring it would break traceability.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[delete]]></text><feedback format="html"><text><![CDATA[You keep the batch number, not delete it.]]></text></feedback></answer>
+  </question>
+
+</quiz>

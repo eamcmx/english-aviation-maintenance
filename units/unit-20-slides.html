@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English for Aviation Maintenance · Unit 20 — Teacher Deck · Simulation: building a full documentation trail</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:21px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:28px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}ol{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+b.accent{color:var(--accent)}b.good{color:var(--good)}b.amber{color:var(--amber)}b.purple{color:var(--purple)}b.hot{color:var(--hot)}
+.dw{width:100%;max-width:680px;min-height:340px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:340px;
+  border:1px dashed var(--line);border-radius:14px}
+/* deck widget skin (dark) */
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk button.ok{background:#10271e;color:#9af0c8;border-color:#2f6b4e}
+.wk button.no{background:#241316;color:#ff9aa2;border-color:#7a3030}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:5px 9px;font-size:14px}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:64px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.flab{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:#7fd0ff;font-weight:700;display:block;margin:7px 0 1px}
+/* dialogue turns */
+.dlg{border:1px solid var(--line);border-radius:12px;background:#0e1a2a;padding:8px 6px}
+.dlg .t{display:flex;gap:10px;align-items:baseline;padding:5px 12px;font-size:18px}
+.dlg .t .s{font-family:var(--mono);font-weight:700;color:var(--accent);min-width:20px}
+.dlg .t.b .s{color:var(--amber)}
+.gloss{border-top:3px solid #566782;border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:#0f1726}
+.gloss b{color:var(--good)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:900px){.two{grid-template-columns:1fr}}
+.wr{background:rgba(255,86,103,.14);border-left:3px solid var(--hot);padding:7px 12px;border-radius:8px;margin:6px 0;font-size:18px}
+.ri{background:rgba(52,211,153,.14);border-left:3px solid var(--good);padding:7px 12px;border-radius:8px;margin:6px 0;font-size:18px}
+.tl{font-family:var(--mono);font-size:12px;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px;font-weight:700}
+table.stg{border-collapse:collapse;width:100%;font-size:16px}
+table.stg th,table.stg td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.stg th{color:var(--muted);background:#0c1622;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+table.stg td.min{font-family:var(--mono);color:var(--amber);white-space:nowrap}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="TIMING 0–3 min. Open the simulation day. Set the frame in one breath: today the class does not learn a new document — they ASSEMBLE all the documents they already know into one connected trail for a single defect, and then defend it to a mock auditor. Say the headline outcome out loud: by the end each student can build a coherent, STE-compliant paper trail for one defect from find to fix, cross-reference the task card, IPC and tech log correctly, and defend the clarity of the trail. Name the running example now so it recurs all lesson: a worn cabin door seal on aircraft YL-BAM. Tell them the whole day is language for reasoning — the linking words that show WHY one step followed the last. This deck has four interactive widgets (press → to reach the first); the CC button (or key L) gives live translated captions for anyone who needs Latvian or Russian support.">
+    <div class="kick">English for Aviation Maintenance · Unit 20 · Simulation day · CEFR B2</div>
+    <h1>Building a full documentation trail</h1>
+    <p class="big muted">One defect — a worn cabin door seal — from find to fix. Assemble the tech log, work order, task card, IPC and AMM into one connected trail, write it in Simplified Technical English, and defend it to a mock auditor.</p>
+    <p class="pill">90 minutes · balanced skills · vocabulary field: documentation trail · grammar: linking words for cohesion</p>
+  </section>
+
+  <!-- 2 · OUTCOMES + HOW THE DAY RUNS -->
+  <section class="slide" data-notes="TIMING 3–6 min. Read the three can-do outcomes as the exit test — every student should be able to do all three by the bell. Then walk the shape of the 90 minutes using the right-hand column so students know where they are heading: listen, then vocabulary, then grammar (the linking words), then controlled practice, then the role-plays, then the writing. Emphasise the balance: this is a balanced-skills day — they will listen, read, speak AND write. Make the assessment relationship clear: nothing here is graded homework; the mock-auditor role-play and the written trail ARE the performance, and the rubric on the teacher key is how you will judge the speaking. Keep instructions to the learner even simpler than the content — model that now.">
+    <div class="kick">By the end · how the 90 minutes run</div>
+    <h2>Three things every technician can do by the bell</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="accent">1 — Build.</b> Produce a coherent, STE-compliant paper trail for one defect, from find to fix.</p>
+        <p><b class="purple">2 — Cross-reference.</b> Link the task card, the IPC and the tech log correctly, so nothing is orphaned.</p>
+        <p><b class="good">3 — Defend.</b> Present the finished trail and justify its clarity to a mock auditor.</p>
+      </div>
+      <div>
+        <p class="muted" style="margin-top:0"><b>The day in order:</b></p>
+        <p class="muted">Listen (3 dialogues) → vocabulary bank → grammar: linking words → controlled practice E1–E8 → role-plays → write and defend the trail.</p>
+        <p class="muted">The role-play and the written trail are the real performance. Use the speaking rubric on the teacher key to grade.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE SITUATION -->
+  <section class="slide" data-center data-notes="TIMING 6–10 min. Warm-up and hook. Tell the story: it is simulation day at a Part-145 organisation; there is exactly ONE defect, and the whole day belongs to the paperwork that proves the repair. Land the core idea that reframes the whole unit — in aviation an incomplete trail is treated as a genuine defect, EVEN IF the physical repair was faultless. Give the real-world consequence: investigators repeatedly find the engineering was correct but the documentation was deficient — a missing signature, a broken cross-reference, or a part with no serial number can ground an expensive aircraft for hours. Ask the room a quick eliciting question: 'What is the very first record you make when you find a fault?' (Answer: the tech log.) That primes the trail-order widget two slides on. Keep the register professional but the sentences short.">
+    <div class="kick">§0 · the situation</div>
+    <h2>Today the trail matters more than the tool</h2>
+    <p class="big">You have one defect on aircraft YL-BAM: a worn cabin door seal. Every certified repair leaves a connected chain of records — and an independent reader must be able to follow it without asking you a single question.</p>
+    <p class="muted" style="max-width:64ch">In aviation an incomplete trail is a <b class="amber">defect</b> in itself, even when the repair was perfect. A missing signature or a broken cross-reference can ground an aircraft for hours. Today you build the trail with the same discipline you give the repair.</p>
+  </section>
+
+  <!-- 4 · THE RECORDS IN ORDER -->
+  <section class="slide" data-notes="TIMING 10–13 min. Pre-teach the shape of the trail before the widget makes them order it. Read the chain left to right and say what each record DOES, in one plain sentence each: tech log records the fault; work order opens and authorises the job; task card lists every step; IPC gives the part number; AMM gives the approved repair steps and torque values; dual inspection is a second person confirming safety-critical work; the sign-off block records who did the work, and the release to service says the aircraft is safe to fly. Stress the one word that holds it together: cross-reference — each record points to the next by a reference number, and that is what delivers traceability. Tell them the next slide is a hands-on ordering task; do not give the order away — let them try it.">
+    <div class="kick">§1 · the documentation trail</div>
+    <h2>Eight records, one connected chain</h2>
+    <div class="card">
+      <p style="margin:.1em 0"><b class="accent">Tech log</b> — record the fault → <b class="accent">Work order</b> — open the job → <b class="accent">Task card</b> — list the steps → <b class="accent">IPC</b> — part number → <b class="accent">AMM</b> — repair steps &amp; torque → <b class="accent">Dual inspection</b> — a second check → <b class="accent">Sign-off block</b> — who did the work → <b class="accent">Release to service</b> — safe to fly.</p>
+      <p class="muted" style="margin:.5em 0 0">What holds it together is the <b class="amber">cross-reference</b>: each record points to the next by a matching <b class="amber">reference number</b>. That link is what gives you <b class="good">traceability</b> — find to fix.</p>
+    </div>
+  </section>
+
+  <!-- 5 · WIDGET: TRAIL BUILDER -->
+  <section class="slide" data-notes="TIMING 13–19 min. Interactive. Hand the room the trail-builder: students click the eight scrambled records into the correct order; the canvas draws and animates the chain as each correct record locks in, and a wrong click flashes and gives a hint. Run it as a whole-class elicitation first — nominate a student for each step and ask WHY it comes there ('Why does the tech log come first?' — because every fault starts there). Then let pairs rebuild it on their own device or on paper. The teaching point is not memorising an order for its own sake; it is that the order is a chain of REASONS — you cannot list steps before a task card exists, and you cannot release the aircraft before the dual inspection. Reset and race a second time for fluency. This widget previews the exact sequence they will write up in the §6 writing task.">
+    <div class="kick">§1 · Interactive · put the trail in order</div>
+    <h2>Trail builder — click the records into sequence</h2>
+    <div class="cols">
+      <div class="dw" data-widget="trail"></div>
+      <div><p>Click each record in the order it happens on the job. The chain animates as you get each one right.</p>
+        <p class="muted">The order is a chain of <b>reasons</b>: you cannot list steps before the task card exists, and you cannot release the aircraft before the dual inspection.</p></div>
+    </div>
+  </section>
+
+  <!-- 6 · DIALOGUE 1 -->
+  <section class="slide" data-notes="TIMING 19–24 min. Listening 1. Play Audio track 1 (Laying out the documentation trail) once, books closed — students just catch the shape. Play again and have them note the ORDER of the documents mentioned. Then reveal these key lines. Drill the two target lines chorally for the linking-word rhythm: 'You write the defect in the tech log, BECAUSE every fault starts there' and 'Through cross-reference. Each document points to the next one, SO the trail is complete.' Check the two glossed terms on the right. Concept-check questions: Which document opens the job? (work order) Where are the repair steps? (AMM, not the IPC) Keep the pace up; this is comprehension, not analysis.">
+    <div class="kick">§2 · Listening · Dialogue 1</div>
+    <h2>Laying out the documentation trail</h2>
+    <div class="cols">
+      <div class="dlg">
+        <div class="t"><span class="s">A</span><span>You write the defect in the tech log, <b class="amber">because</b> every fault starts there.</span></div>
+        <div class="t b"><span class="s">B</span><span>How do I find the correct part for the seal?</span></div>
+        <div class="t"><span class="s">A</span><span>You look in the IPC. The IPC is the illustrated parts catalogue.</span></div>
+        <div class="t b"><span class="s">B</span><span>There are so many documents. How do they stay connected?</span></div>
+        <div class="t"><span class="s">A</span><span>Through cross-reference. Each document points to the next one, <b class="amber">so</b> the trail is complete.</span></div>
+      </div>
+      <div class="gloss">
+        <p style="margin:.1em 0"><b>tech log</b> — the official log where every fault is first written down.</p>
+        <p style="margin:.6em 0 0"><b>cross-reference</b> — a link that sends the reader from one document to the exact place in another.</p>
+        <p class="muted" style="margin:.6em 0 0">CCQ: Which document opens the job? Where are the repair steps written?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · DIALOGUE 2 -->
+  <section class="slide" data-notes="TIMING 24–29 min. Listening 2. Play Audio track 2 (Adding traceability to the parts). The new idea is part traceability: a tracked part carries a SERIAL number (identifies one single item); a part that arrives sealed in a bag carries a BATCH number instead. Elicit the rule from the dialogue rather than stating it: 'The seal came in a sealed bag — which number does B record, and why?' (batch number, SINCE the seal has no serial number). Also surface the two close-out terms: dual inspection (a second qualified person confirms safety-critical work) and release to service (the signed statement that the aircraft is serviceable). These feed the serial-or-batch widget on the next slide. Drill the target line: 'Then record the batch number, SINCE the seal has no serial number.'">
+    <div class="kick">§2 · Listening · Dialogue 2</div>
+    <h2>Adding traceability to the parts</h2>
+    <div class="cols">
+      <div class="dlg">
+        <div class="t"><span class="s">A</span><span>For a tracked part, yes. The serial number identifies that one single item.</span></div>
+        <div class="t b"><span class="s">B</span><span>This seal came in a sealed bag with a batch number.</span></div>
+        <div class="t"><span class="s">A</span><span>Then record the batch number, <b class="amber">since</b> the seal has no serial number.</span></div>
+        <div class="t b"><span class="s">B</span><span>After the work, a colleague checked it. Is that the dual inspection?</span></div>
+        <div class="t"><span class="s">A</span><span>Yes. A dual inspection means a second person confirms the safety-critical work.</span></div>
+      </div>
+      <div class="gloss">
+        <p style="margin:.1em 0"><b>serial number</b> — the unique code for one single tracked item, and no other.</p>
+        <p style="margin:.6em 0 0"><b>batch number</b> — the code on a group of identical parts made together.</p>
+        <p class="muted" style="margin:.6em 0 0">CCQ: The seal has no serial number — which number do you record, and why?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · WIDGET: SERIAL OR BATCH -->
+  <section class="slide" data-notes="TIMING 29–34 min. Interactive. The serial-or-batch decision widget: students set two switches — is the part TRACKED, and does it HAVE a serial number — and the canvas lights the field they must record on the parts label. The rule to draw out: always record the part number; then record the serial number for a tracked item that has one, but fall back to the batch number when there is no serial number. Ask students to say the reason aloud each time using a linking word ('There is no serial number, SO I record the batch number'). This rehearses both the traceability content AND the grammar target in one move. Warn against the common shortcut of recording only the part number — that gives a part type but no traceability of the individual item.">
+    <div class="kick">§2 · Interactive · traceability of a part</div>
+    <h2>Serial or batch? — record the right number</h2>
+    <div class="cols">
+      <div class="dw" data-widget="parts"></div>
+      <div><p>Set the two switches for the part in your hand. The label shows which number gives full traceability.</p>
+        <p class="muted">Always record the <b>part number</b>. Then a <b>serial number</b> if the item has one — otherwise the <b>batch number</b>. Say the reason with a linking word.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · DIALOGUE 3 -->
+  <section class="slide" data-notes="TIMING 34–39 min. Listening 3 — the performance model. Play Audio track 3 (Defending the trail to the auditor): speaker A is the mock auditor, B is the technician defending the trail. This is the exact interaction students will perform in the role-plays, so treat it as a model. Point out HOW B defends: every answer starts from a record and follows a cross-reference ('The cross-reference takes you from the tech log to the task card and the part number'). Highlight the result connectors that make the reasoning audible: 'One is for the work, and the other is for the inspection. THEREFORE both are signed'; 'Very clear. AS A RESULT, I can trust this trail.' Tell students to steal these moves. This sets up the grammar focus next.">
+    <div class="kick">§2 · Listening · Dialogue 3</div>
+    <h2>Defending the trail to the auditor</h2>
+    <div class="cols">
+      <div class="dlg">
+        <div class="t"><span class="s">A</span><span>How do I know which part you fitted?</span></div>
+        <div class="t b"><span class="s">B</span><span>The cross-reference takes you from the tech log to the task card and the part number.</span></div>
+        <div class="t"><span class="s">A</span><span>I can see two sign-off blocks. Why are there two?</span></div>
+        <div class="t b"><span class="s">B</span><span>One is for the work, and the other is for the inspection. <b class="amber">Therefore</b> both are signed.</span></div>
+        <div class="t"><span class="s">A</span><span>Very clear. <b class="amber">As a result</b>, I can trust this trail without asking you more.</span></div>
+      </div>
+      <div class="gloss">
+        <p style="margin:.1em 0"><b>audit trail</b> — the complete linked record an auditor follows to check the work.</p>
+        <p style="margin:.6em 0 0"><b>sign-off block</b> — the box where a person signs to confirm the work.</p>
+        <p class="muted" style="margin:.6em 0 0">This is the model for the mock-auditor role-play. Steal B's moves.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · VOCABULARY BANK -->
+  <section class="slide" data-notes="TIMING 39–45 min. Vocabulary. The bank holds 20 taught terms; every one is glossed in plain words in the unit and spoken in a dialogue. Do not read all twenty aloud — that is dull. Instead run a quick sorting task on the board using the three columns shown: documents (tech log, work order, task card, IPC, AMM), the numbers that give traceability (part number, serial number, batch number, reference number), and the close-out terms (dual inspection, sign-off block, release to service, serviceable). The connective concepts — documentation trail, traceability, cross-reference, audit trail, defect, rectification, corrective action — sit across all three. Drill the collocations, because that is where Latvian and Russian speakers slip (say 'RAISE a work order', 'QUOTE the part number', 'CARRY OUT a dual inspection'). The matching widget on the next slide checks retention.">
+    <div class="kick">§3 · Vocabulary bank · 20 terms</div>
+    <h2>Sort the terms — documents, numbers, close-out</h2>
+    <div class="card">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+        <div><span class="flab">The documents</span><p style="margin:.2em 0;font-size:18px">tech log · work order · task card · IPC · AMM</p></div>
+        <div><span class="flab">The numbers (traceability)</span><p style="margin:.2em 0;font-size:18px">part number · serial number · batch number · reference number</p></div>
+        <div><span class="flab">Close-out</span><p style="margin:.2em 0;font-size:18px">dual inspection · sign-off block · release to service · serviceable</p></div>
+      </div>
+      <p class="muted" style="margin:.7em 0 0">Across all three: <b>documentation trail · traceability · cross-reference · audit trail · defect · rectification · corrective action</b>. Drill the verb: <b class="amber">raise</b> a work order · <b class="amber">quote</b> the part number · <b class="amber">carry out</b> a dual inspection.</p>
+    </div>
+  </section>
+
+  <!-- 11 · WIDGET: VOCAB MATCH -->
+  <section class="slide" data-notes="TIMING 45–49 min. Interactive. The term-matching widget: a term is shown and the student picks its plain meaning from four options; the canvas keeps a live score bar and animates a correct/incorrect pulse. Run it as a fast whole-class quiz — hands up, first correct answer, then move on. Keep the energy high; this is retrieval practice, not new input. If a term is missed twice, send the class back to the bank on the previous slide for its collocation, because the partner word is usually the memory hook. Tell students this same discrimination — meaning vs near-meaning — is exactly what exercise E2 tests on paper.">
+    <div class="kick">§3 · Interactive · check the terms</div>
+    <h2>Match each term to its plain meaning</h2>
+    <div class="cols">
+      <div class="dw" data-widget="match"></div>
+      <div><p>Pick the plain meaning for each term. The bar tracks your score.</p>
+        <p class="muted">If a term slips twice, go back to its <b>collocation</b> in the bank — the partner word is the memory hook. This is what E2 tests on paper.</p></div>
+    </div>
+  </section>
+
+  <!-- 12 · GRAMMAR FOCUS -->
+  <section class="slide" data-notes="TIMING 49–54 min. Grammar in context — the heart of the unit. The audit trail must show a REASONED sequence: the auditor needs to see WHY one step followed another, and linking words carry that reasoning. Teach them by JOB, not as a vocabulary list: give a reason (because, since, as), show a result (so, therefore, as a result, consequently), mark a sequence (first, then, after that, before, after), show a contrast (however, although, but). Pull the three authentic examples from the dialogues shown here so the grammar stays anchored to real records. The rule to enforce all lesson: one linking word per join, and keep the sentence short. The joiner widget on the next slide lets them test connectors against a relation.">
+    <div class="kick">§4 · Grammar · linking words for cohesion</div>
+    <h2>Linking words carry the reasoning</h2>
+    <div class="cols">
+      <div class="card" style="font-size:18px">
+        <p style="margin:.1em 0"><b class="good">Give a reason:</b> because · since · as<br><small>We replaced the seal <b>because</b> it was worn.</small></p>
+        <p style="margin:.5em 0"><b class="accent">Show a result:</b> so · therefore · as a result · consequently<br><small>The seal was worn, <b>so</b> we replaced it.</small></p>
+        <p style="margin:.5em 0"><b class="amber">Mark a sequence:</b> first · then · after that · before · after<br><small><b>First</b> we opened the panel. <b>Then</b> we removed the seal.</small></p>
+        <p style="margin:.5em 0 0"><b class="purple">Show a contrast:</b> however · although · but<br><small>The repair was correct. <b>However</b>, the trail was not complete.</small></p>
+      </div>
+      <div><p>The auditor grades the <b>reasoning</b>, not just the facts. A precise connector saves a long spoken explanation.</p>
+        <p class="muted">The rule for the whole lesson: <b class="amber">one</b> linking word per join, and keep the sentence short.</p></div>
+    </div>
+  </section>
+
+  <!-- 13 · WIDGET: LINKING-WORD JOINER -->
+  <section class="slide" data-notes="TIMING 54–58 min. Interactive. The joiner widget shows two facts and asks the student to pick a connector; the canvas draws the join and animates it, and the info panel says whether the connector expresses the right relation (reason / result / sequence / contrast) for that pair. Use it to make the by-job classification stick: the same two facts can take 'so' (result) but not 'because' (which would reverse the logic). Push students to read the whole pair before choosing — meaning first, connector second. This directly rehearses exercise E4. Do two or three together on the board, then let pairs run the rest.">
+    <div class="kick">§4 · Interactive · pick the connector</div>
+    <h2>Linking-word joiner — does it fit the relation?</h2>
+    <div class="cols">
+      <div class="dw" data-widget="linker"></div>
+      <div><p>Choose the connector that joins the two facts correctly. The widget checks it against the relation.</p>
+        <p class="muted">Read the whole pair first — <b>meaning</b> decides the connector. This is exactly what E4 practises.</p></div>
+    </div>
+  </section>
+
+  <!-- 14 · L1 INTERFERENCE -->
+  <section class="slide" data-notes="TIMING 58–62 min. Error correction, aimed at the class's first languages. Three errors recur because Latvian and Russian build these joins differently. One — the DOUBLE connector: Latvian and Russian happily pair a subordinator with a resumptive word (jo…tāpēc / потому что…поэтому), which surfaces as 'Because the seal was worn, SO we replaced it.' English allows only one. Two — the missing FULL STOP before a conjunctive adverb: 'The valve leaked therefore we removed it' needs a sentence break or 'so', because 'therefore' is not a comma-splice conjunction. Three — 'because OF' before a clause: neither L1 marks the difference between a preposition (because of + noun) and a conjunction (because + clause), so learners overuse 'because of'. Drill the fixes on the right. These three are the marking priorities in the written trail and in E6.">
+    <div class="kick">§4 · Latvian / Russian interference</div>
+    <h2>Three joins to fix on sight</h2>
+    <div class="two">
+      <div>
+        <div class="wr">✗ Because the seal was worn, <b>so</b> we replaced it.</div>
+        <div class="ri">✓ Because the seal was worn, we replaced it. <small>(one linking word, not two)</small></div>
+        <div class="wr">✗ The valve leaked <b>therefore</b> we removed it.</div>
+        <div class="ri">✓ The valve leaked. Therefore, we removed it. <small>(new sentence, or use "so")</small></div>
+      </div>
+      <div>
+        <div class="wr">✗ The flight was delayed <b>because of</b> the seal was worn.</div>
+        <div class="ri">✓ The flight was delayed <b>because</b> the seal was worn. <small>(because + clause; because of + noun)</small></div>
+        <p class="muted" style="margin-top:14px">Why it happens: both L1s allow a paired connector and mark cause differently. These three are the top marking priorities in the written trail and in E6.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · EXERCISE STAGING -->
+  <section class="slide" data-notes="TIMING 62–70 min. Controlled practice. The unit carries eight exercises, E1–E8, and they climb from recognising terms to constructing reasoning — do not do all eight in class; choose by the clock. Recommended in-class core: E1 (gap-fill terms), E3 (dialogue completion — checks the listening), E4 (add the linking word — the grammar target), E6 (error-spotting — the L1 fixes). Set E2, E5, E7 (the two readings) and E8 (listening review) for pairs or homework. The Check buttons self-mark and the answer keys are collapsible, so tell students to commit an answer BEFORE opening the key — verification only helps once they have decided. Circulate and note who still pairs two connectors; that is your feedback for the writing task.">
+    <div class="kick">§5 · Exercises · E1–E8, 60+ items</div>
+    <h2>Run the practice — pick by the clock</h2>
+    <table class="stg">
+      <tr><th>Do in class (core)</th><th>Focus</th><th class="min">Time</th></tr>
+      <tr><td>E1 · Gap-fill</td><td>the 20 bank terms</td><td class="min">3 min</td></tr>
+      <tr><td>E3 · Dialogue completion</td><td>checks the listening</td><td class="min">3 min</td></tr>
+      <tr><td>E4 · Add the linking word</td><td>the grammar target</td><td class="min">4 min</td></tr>
+      <tr><td>E6 · Error-spotting</td><td>the L1 fixes</td><td class="min">4 min</td></tr>
+      <tr><td colspan="3" style="color:#7e98ad;font-size:14px">Set for pairs / homework: E2 matching · E5 &amp; E7 readings · E8 listening review</td></tr>
+    </table>
+    <p class="muted" style="margin:.6em 0 0">Each exercise self-marks with <b>Check</b>. Rule: decide your answer, then open the key.</p>
+  </section>
+
+  <!-- 16 · WIDGET: XREF / AUDIT CHECK -->
+  <section class="slide" data-notes="TIMING 70–74 min. Interactive. The cross-reference checker mirrors the mock audit: pick a scenario — a clean trail, or the real audit finding QA-2026-018 — then click each link to verify that the reference numbers match; the canvas draws the link green when it matches and red when it is broken, animated. Use it to teach the auditor's actual question: 'Does this reference number match?' In the finding scenario the task-card reference does not match the tech log, so the auditor cannot connect the card to the original defect — that is precisely the kind of gap that grounds an aircraft although the repair was perfect. This primes the role-plays: the auditor role is exactly this click-and-check behaviour, in speech.">
+    <div class="kick">§5 · Interactive · be the auditor</div>
+    <h2>Cross-reference checker — do the numbers match?</h2>
+    <div class="cols">
+      <div class="dw" data-widget="xref"></div>
+      <div><p>Pick a scenario, then click each link to check the reference number. Green means it matches; red means the link is broken.</p>
+        <p class="muted">A broken cross-reference grounds an aircraft <b>although</b> the repair was perfect. This is the auditor's real question — and the role-play.</p></div>
+    </div>
+  </section>
+
+  <!-- 17 · SPEAKING / ROLE-PLAYS -->
+  <section class="slide" data-notes="TIMING 74–82 min. Speaking — the main output. Four role-play cards, worked in pairs, five minutes then swap: (1) mentor and junior — explain the order of the documents; (2) technician and stores — confirm the part number and the serial or batch number; (3) mock auditor and technician — test every cross-reference and sign-off block; (4) peer review — find one broken link and one weak connector, then fix them together. Set the success criterion out loud: every claim must be joined with a clear linking word, and if the partner cannot follow a link they stop the speaker at once — that pressure is the point. Grade with the CEFR B2 speaking rubric on the teacher key (range, accuracy, fluency, interaction, coherence). For a solo learner, the three AI-partner prompts in the unit put a mentor, an auditor and a peer reviewer in the chat buddy. Circulate; feed the coherence band.">
+    <div class="kick">§6 · Speaking · four role-play cards</div>
+    <h2>Present the trail — and defend it</h2>
+    <div class="two">
+      <div class="card"><b class="accent">Card 1 · Mentor &amp; junior</b><p style="font-size:17px;margin:.3em 0 0">Explain the trail from the tech log to the sign-off block, in order.</p></div>
+      <div class="card"><b class="accent">Card 2 · Technician &amp; stores</b><p style="font-size:17px;margin:.3em 0 0">Confirm the part number, and the serial or the batch number.</p></div>
+      <div class="card"><b class="accent">Card 3 · Mock auditor &amp; technician</b><p style="font-size:17px;margin:.3em 0 0">Test every cross-reference and every sign-off block; find any broken link.</p></div>
+      <div class="card"><b class="accent">Card 4 · Peer review</b><p style="font-size:17px;margin:.3em 0 0">Find one broken link and one weak connector, then fix them together.</p></div>
+    </div>
+    <p class="muted" style="margin:.6em 0 0">Success = every claim joined with a clear linking word. Grade with the B2 speaking rubric (teacher key). Swap roles after five minutes.</p>
+  </section>
+
+  <!-- 18 · WRITING TASK -->
+  <section class="slide" data-notes="TIMING 82–88 min. Writing — start in class, finish for homework. Give the brief: write the documentation-trail summary for today's defect on YL-BAM — six to eight short lines, a linking word in most lines, covering the defect, the documents in order, the part traceability, the dual inspection, and the release to service. Enforce Simplified Technical English habits: one instruction per sentence, short sentences, keep the articles, name each record and its reference number. Model the first two lines on the board using the model answer structure (Defect: … in the tech log, TL-0912. Documents: a work order WO-4471 was raised, SO task card TC-52-11-07 was issued.). Point them at the four-item self-check list. Then peer-review against Card 4. Collect and mark against the same rubric plus the STE habits.">
+    <div class="kick">§7 · Writing · build it yourself</div>
+    <h2>Write the trail for today's defect</h2>
+    <div class="cols">
+      <div class="card">
+        <p style="margin:.1em 0"><b>Defect:</b> worn cabin door seal on YL-BAM, entered in the tech log (TL-0912).</p>
+        <p class="muted" style="margin:.4em 0 0">WO-4471 raised → task card TC-52-11-07 → part number from the IPC → new seal, batch B-2231, no serial number → torqued to the AMM value → dual inspection → both sign-off blocks → release to service.</p>
+      </div>
+      <div><p>Six to eight short lines. A linking word in most lines. STE habits: one idea per sentence, keep the articles, name every reference number.</p>
+        <p class="muted">Model two lines on the board, then peer-review with Card 4 and the self-check list.</p></div>
+    </div>
+  </section>
+
+  <!-- 19 · WRAP-UP -->
+  <section class="slide" data-center data-notes="TIMING 88–90 min. Close and exit ticket. Six one-liners: one defect, one connected trail, from find to fix. The tech log records the fault; the work order opens the job; the task card lists the steps; the IPC gives the part number and the AMM gives the repair steps. Cross-reference every record by a matching reference number — that is traceability. Record the part number, and a serial number or, when there is none, a batch number. A dual inspection and two sign-off blocks close the safety-critical work, then the release to service. Join every step with one linking word, not two, in short sentences — that is how you defend the trail. Exit ticket (30 seconds, spoken or on a slip): 'Name the first record you make, and one linking word you would use to justify the repair.' Praise the best defences you heard in the role-plays.">
+    <div class="kick">Recap · exit ticket</div>
+    <h2>One defect · one clear trail · find to fix</h2>
+    <p class="big muted">Tech log → work order → task card → IPC + AMM → dual inspection → sign-off → release. Cross-reference every record by a matching number — that is <b class="good">traceability</b>. Part number, plus a <b class="amber">serial</b> or a <b class="amber">batch</b> number. Join every step with <b>one</b> linking word, in short sentences — that is how you defend it.</p>
+    <p>Exit ticket: <b>name the first record you make, and one linking word you would use to justify the repair.</b></p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS + canvas + rAF) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function E(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function dpr(){return Math.max(1,Math.min(2,window.devicePixelRatio||1));}
+  function fitCanvas(c,w,h){var r=dpr();c.width=w*r;c.height=h*r;c.style.width=w+'px';c.style.height=h+'px';var x=c.getContext('2d');x.setTransform(r,0,0,r,0,0);return x;}
+
+  /* ---- W1: TRAIL BUILDER (click records into order; rAF pulse along the chain) ---- */
+  window.DeckW.trail=function(root){
+    var STEPS=[
+      {k:'Tech log', d:'Record the defect first — every fault starts here.'},
+      {k:'Work order', d:'Open and authorise the job.'},
+      {k:'Task card', d:'List every repair step in order.'},
+      {k:'IPC', d:'Find the part number for the seal.'},
+      {k:'AMM', d:'Find the approved repair steps and torque value.'},
+      {k:'Dual inspection', d:'A second qualified person confirms the work.'},
+      {k:'Sign-off block', d:'Record who did the work and the check.'},
+      {k:'Release to service', d:'Sign that the aircraft is serviceable.'}
+    ];
+    var scramble=[3,0,6,2,7,1,5,4];
+    root.innerHTML='<div class="wk"><div class="bar" data-btns></div>'+
+      '<canvas height="150"></canvas>'+
+      '<div class="info" data-why><h4>Build the trail</h4>Click the records in the order they happen on the job.</div>'+
+      '<div class="bar" style="margin-top:10px"><button data-reset>↺ Reset</button></div></div>';
+    var btns=root.querySelector('[data-btns]'),why=root.querySelector('[data-why]'),c=root.querySelector('canvas');
+    var W=Math.min(660,root.clientWidth-32)||620,H=150;var ctx=fitCanvas(c,W,H);
+    var next=0, done=[], pulse=0, raf=null;
+    var chips=scramble.map(function(si){var b=E('button',null,STEPS[si].k);b.dataset.si=si;btns.appendChild(b);return b;});
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      var n=STEPS.length,pad=18,gap=(W-2*pad)/(n-1);
+      // baseline links
+      for(var j=0;j<n-1;j++){
+        var x1=pad+j*gap,x2=pad+(j+1)*gap,y=64;
+        ctx.strokeStyle=(j<done.length-1)?'#38b6ff':'#26384e';ctx.lineWidth=(j<done.length-1)?3:2;
+        ctx.beginPath();ctx.moveTo(x1,y);ctx.lineTo(x2,y);ctx.stroke();
+      }
+      // moving pulse along completed chain
+      if(done.length>1){
+        var seg=done.length-1,t=(pulse%1)*seg,k=Math.floor(t),f=t-k;
+        var px=pad+(k+f)*gap,py=64;
+        ctx.fillStyle='#7fd0ff';ctx.beginPath();ctx.arc(px,py,5,0,7);ctx.fill();
+      }
+      for(var i=0;i<n;i++){
+        var x=pad+i*gap,y=64,filled=i<done.length;
+        ctx.fillStyle=filled?'#16324c':'#0f1726';ctx.strokeStyle=filled?'#38b6ff':'#314865';ctx.lineWidth=2;
+        ctx.beginPath();ctx.arc(x,y,13,0,7);ctx.fill();ctx.stroke();
+        ctx.fillStyle=filled?'#e9f0f7':'#5b6b86';ctx.font='700 12px ui-monospace,Consolas,monospace';ctx.textAlign='center';
+        ctx.fillText(String(i+1),x,y+4);
+        if(filled){ctx.fillStyle='#9db0c6';ctx.font='11px -apple-system,Segoe UI,sans-serif';
+          var lab=STEPS[done[i]].k;ctx.save();ctx.translate(x,y+30);ctx.rotate(-0.5);ctx.fillText(lab,0,0);ctx.restore();}
+      }
+    }
+    function loop(){pulse+=0.02;draw();raf=requestAnimationFrame(loop);}
+    chips.forEach(function(b){b.addEventListener('click',function(){
+      var si=+b.dataset.si;
+      if(si===next){
+        done.push(si);b.classList.add('ok');b.disabled=true;next++;
+        why.innerHTML='<h4>✓ '+ (done.length) +'. '+STEPS[si].k+'</h4>'+STEPS[si].d;
+        if(next===STEPS.length){why.innerHTML='<h4 style="color:#9af0c8">Trail complete — find to fix.</h4>Every record now points to the next by a reference number. That is full traceability.';}
+      }else{
+        b.classList.add('no');why.innerHTML='<h4 style="color:#ff9aa2">Not yet.</h4>The next record is #'+(next+1)+'. Ask: what must exist before '+STEPS[si].k+'?';
+        setTimeout(function(){b.classList.remove('no');},450);
+      }
+    });});
+    root.querySelector('[data-reset]').addEventListener('click',function(){
+      done=[];next=0;chips.forEach(function(b){b.classList.remove('ok');b.disabled=false;});
+      why.innerHTML='<h4>Build the trail</h4>Click the records in the order they happen on the job.';
+    });
+    loop();
+  };
+
+  /* ---- W2: SERIAL OR BATCH (two switches; canvas label highlights the field; rAF glow) ---- */
+  window.DeckW.parts=function(root){
+    root.innerHTML='<div class="wk"><div class="bar">'+
+      '<button data-tr class="on">Tracked part: YES</button>'+
+      '<button data-sn class="on">Has serial number: YES</button></div>'+
+      '<canvas height="150"></canvas>'+
+      '<div class="info" data-why></div></div>';
+    var bTr=root.querySelector('[data-tr]'),bSn=root.querySelector('[data-sn]'),why=root.querySelector('[data-why]'),c=root.querySelector('canvas');
+    var W=Math.min(660,root.clientWidth-32)||620,H=150;var ctx=fitCanvas(c,W,H);
+    var tracked=true,serial=true,glow=0,raf=null;
+    function fields(){
+      // always part number; serial if tracked&serial; else batch
+      var useSerial=tracked&&serial;
+      return [
+        {t:'PART NUMBER',v:'52-11-07-01',on:true},
+        {t:'SERIAL NUMBER',v: useSerial?'SN-88231':'—',on:useSerial},
+        {t:'BATCH NUMBER',v: useSerial?'—':'B-2231',on:!useSerial}
+      ];
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      // label card
+      ctx.fillStyle='#0e1a2a';ctx.strokeStyle='#314865';ctx.lineWidth=2;
+      roundRect(ctx,14,14,W-28,H-28,10);ctx.fill();ctx.stroke();
+      ctx.fillStyle='#7fd0ff';ctx.font='700 11px ui-monospace,Consolas,monospace';ctx.textAlign='left';
+      ctx.fillText('PARTS LABEL · CABIN DOOR SEAL',30,38);
+      var F=fields(),y=64,g=0.4+0.35*(1+Math.sin(glow))/2;
+      F.forEach(function(f,i){
+        var yy=y+i*26;
+        ctx.fillStyle=f.on?'#9af0c8':'#5b6b86';ctx.font='12px ui-monospace,Consolas,monospace';
+        ctx.fillText(f.t,30,yy);
+        if(f.on){ctx.fillStyle='rgba(52,211,153,'+g.toFixed(2)+')';roundRect(ctx,180,yy-13,150,18,5);ctx.fill();}
+        ctx.fillStyle=f.on?'#e9f0f7':'#5b6b86';ctx.font='700 13px ui-monospace,Consolas,monospace';
+        ctx.fillText(f.v,188,yy);
+        if(f.on){ctx.fillStyle='#34d399';ctx.font='11px -apple-system,sans-serif';ctx.fillText('✓ record this',340,yy);}
+      });
+    }
+    function loop(){glow+=0.08;draw();raf=requestAnimationFrame(loop);}
+    function upd(){
+      bTr.textContent='Tracked part: '+(tracked?'YES':'NO');bTr.classList.toggle('on',tracked);
+      bSn.textContent='Has serial number: '+(serial?'YES':'NO');bSn.classList.toggle('on',serial);
+      bSn.disabled=!tracked; bSn.style.opacity=tracked?1:0.5;
+      var useSerial=tracked&&serial;
+      why.innerHTML= useSerial
+        ? '<h4>Record the serial number</h4>A tracked part with a serial number needs the part number <b>and</b> the serial number, <b>so</b> you can trace that one single item.'
+        : (tracked
+           ? '<h4>Record the batch number</h4>The part is tracked but has no serial number, <b>so</b> record the batch number instead — it still gives traceability of the group.'
+           : '<h4>Record the batch number</h4>An untracked part carries no serial number, <b>so</b> the part number and the batch number give the traceability you need.');
+    }
+    bTr.addEventListener('click',function(){tracked=!tracked;if(!tracked)serial=false;upd();});
+    bSn.addEventListener('click',function(){if(!tracked)return;serial=!serial;upd();});
+    function roundRect(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
+    upd();loop();
+  };
+
+  /* ---- W3: LINKING-WORD JOINER (pick connector; rAF flowing dash) ---- */
+  window.DeckW.linker=function(root){
+    var PAIRS=[
+      {a:'The seal was worn.',b:'We replaced it.',rel:'result',good:['so','therefore','as a result','consequently']},
+      {a:'We replaced the seal',b:'it was worn.',rel:'reason',good:['because','since','as']},
+      {a:'We opened the panel.',b:'we removed the seal.',rel:'sequence',good:['then','after that']},
+      {a:'The repair was correct.',b:'the trail was not complete.',rel:'contrast',good:['however','but','although']}
+    ];
+    var CONN=['because','since','so','therefore','then','after that','however','but'];
+    var relName={reason:'a reason',result:'a result',sequence:'a sequence',contrast:'a contrast'};
+    root.innerHTML='<div class="wk"><div class="bar">'+
+      '<span class="flab" style="margin:0 6px 0 0">Facts</span><select data-p></select></div>'+
+      '<canvas height="140"></canvas>'+
+      '<div class="bar"><span class="flab" style="margin:0 6px 0 0">Connector</span><select data-c></select>'+
+      '<button data-go class="prim">Join</button></div>'+
+      '<div class="info" data-why><h4>Join two facts</h4>Pick the facts, then the connector that fits the relation.</div></div>';
+    var pSel=root.querySelector('[data-p]'),cSel=root.querySelector('[data-c]'),go=root.querySelector('[data-go]'),why=root.querySelector('[data-why]'),c=root.querySelector('canvas');
+    PAIRS.forEach(function(p,i){var o=E('option',null,p.a+' … '+p.b);o.value=i;pSel.appendChild(o);});
+    CONN.forEach(function(w){var o=E('option',null,w);o.value=w;cSel.appendChild(o);});
+    var W=Math.min(660,root.clientWidth-32)||620,H=140;var ctx=fitCanvas(c,W,H);
+    var dash=0,fit=null,raf=null;
+    function draw(){
+      ctx.clearRect(0,0,W,H);var p=PAIRS[+pSel.value];
+      box(30,30,'FACT 1',p.a,'#38b6ff');
+      box(W-260,84,'FACT 2',p.b,'#fbbf24');
+      // arrow
+      var col= fit===null?'#5b6b86':(fit?'#34d399':'#ff5667');
+      ctx.strokeStyle=col;ctx.lineWidth=3;ctx.setLineDash([9,7]);ctx.lineDashOffset=-dash;
+      ctx.beginPath();ctx.moveTo(150,58);ctx.bezierCurveTo(W/2,58,W/2,100,W-262,100);ctx.stroke();ctx.setLineDash([]);
+      var w=cSel.value;
+      ctx.fillStyle=col;ctx.font='700 14px ui-monospace,Consolas,monospace';ctx.textAlign='center';
+      ctx.fillText(w,W/2,72);
+    }
+    function box(x,y,lab,text,col){
+      ctx.fillStyle='#0e1a2a';ctx.strokeStyle=col;ctx.lineWidth=2;rr(x,y,224,40,8);ctx.fill();ctx.stroke();
+      ctx.fillStyle=col;ctx.font='700 9px ui-monospace,Consolas,monospace';ctx.textAlign='left';ctx.fillText(lab,x+10,y+14);
+      ctx.fillStyle='#e9f0f7';ctx.font='12px -apple-system,Segoe UI,sans-serif';
+      ctx.fillText(text.length>30?text.slice(0,29)+'…':text,x+10,y+30);
+    }
+    function rr(a,b,w,h,r){ctx.beginPath();ctx.moveTo(a+r,b);ctx.arcTo(a+w,b,a+w,b+h,r);ctx.arcTo(a+w,b+h,a,b+h,r);ctx.arcTo(a,b+h,a,b,r);ctx.arcTo(a,b,a+w,b,r);ctx.closePath();}
+    function loop(){dash+=0.9;draw();raf=requestAnimationFrame(loop);}
+    function check(){
+      var p=PAIRS[+pSel.value],w=cSel.value;fit=p.good.indexOf(w)>-1;
+      why.innerHTML= fit
+        ? '<h4 style="color:#9af0c8">✓ Fits</h4>These two facts have <b>'+relName[p.rel]+'</b> relation, and "'+w+'" shows '+relName[p.rel]+'. One connector, short sentence — done.'
+        : '<h4 style="color:#ff9aa2">✗ Wrong job</h4>These two facts need <b>'+relName[p.rel]+'</b>, but "'+w+'" does not show that. Try: '+p.good.slice(0,3).join(' · ')+'.';
+    }
+    pSel.addEventListener('change',function(){fit=null;why.innerHTML='<h4>Join two facts</h4>Now pick the connector that fits the relation.';});
+    go.addEventListener('click',check);
+    loop();
+  };
+
+  /* ---- W4: CROSS-REFERENCE CHECKER (click links; rAF pulse; green/red) ---- */
+  window.DeckW.xref=function(root){
+    var SC={
+      good:{name:'Good trail — all links sound',links:[
+        {a:'Tech log TL-0912',b:'Task card TC-52-11-07',match:true,ok:'The task card quotes TL-0912. The link holds.'},
+        {a:'Task card TC-52-11-07',b:'IPC fig 52-11 item 7',match:true,ok:'The card cross-references the IPC figure. Part number traceable.'},
+        {a:'Sign-off block',b:'Release to service',match:true,ok:'Both blocks signed, then release. Close-out complete.'}]},
+      finding:{name:'Audit finding QA-2026-018',links:[
+        {a:'Tech log TL-0912',b:'Task card TC-52-11-07',match:false,ok:'BROKEN: the card’s reference number does not match the tech log. The auditor cannot reach the original defect.'},
+        {a:'Task card TC-52-11-07',b:'IPC fig 52-11 item 7',match:true,ok:'This link is sound — the IPC cross-reference matches.'},
+        {a:'Part label',b:'Batch number B-2231',match:false,ok:'BROKEN: batch number missing on the record. No serial number, so traceability of the part fails.'}]}
+    };
+    root.innerHTML='<div class="wk"><div class="bar"><span class="flab" style="margin:0 6px 0 0">Scenario</span>'+
+      '<select data-sc><option value="good">Good trail</option><option value="finding">Audit finding QA-2026-018</option></select></div>'+
+      '<canvas height="160"></canvas>'+
+      '<div class="bar" data-links></div>'+
+      '<div class="info" data-why><h4>Check the cross-references</h4>Click each link to test whether the reference numbers match.</div></div>';
+    var scSel=root.querySelector('[data-sc]'),lb=root.querySelector('[data-links]'),why=root.querySelector('[data-why]'),c=root.querySelector('canvas');
+    var W=Math.min(660,root.clientWidth-32)||620,H=160;var ctx=fitCanvas(c,W,H);
+    var state=[],checked=[],t=0,raf=null;
+    function build(){
+      var s=SC[scSel.value];state=s.links;checked=state.map(function(){return null;});
+      lb.innerHTML='';state.forEach(function(L,i){var b=E('button',null,'Check link '+(i+1));b.dataset.i=i;
+        b.addEventListener('click',function(){
+          checked[i]=L.match;b.classList.remove('ok','no');b.classList.add(L.match?'ok':'no');
+          why.innerHTML='<h4 style="color:'+(L.match?'#9af0c8':'#ff9aa2')+'">'+(L.match?'✓ Match':'✗ Broken link')+'</h4>'+L.ok;
+        });lb.appendChild(b);});
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);var n=state.length,rowH=(H-20)/n;
+      for(var i=0;i<n;i++){
+        var y=18+i*rowH+rowH/2, x1=30,x2=W-30;
+        // node a
+        node(x1,y,state[i].a,'left');node(x2,y,state[i].b,'right');
+        var st=checked[i];
+        var col= st===null?'#26384e':(st?'#34d399':'#ff5667');
+        ctx.strokeStyle=col;ctx.lineWidth= st===null?2:3;
+        if(st===false)ctx.setLineDash([8,6]);else ctx.setLineDash([]);
+        ctx.lineDashOffset=-t;
+        ctx.beginPath();ctx.moveTo(x1+120,y);ctx.lineTo(x2-120,y);ctx.stroke();ctx.setLineDash([]);
+        if(st!==null){var mx=(x1+x2)/2;ctx.fillStyle=col;ctx.beginPath();ctx.arc(mx+((t/3)%40)-20,y,3,0,7);ctx.fill();
+          ctx.font='700 11px ui-monospace';ctx.textAlign='center';ctx.fillText(st?'MATCH':'BROKEN',mx,y-8);}
+      }
+    }
+    function node(x,y,label,side){
+      var w=118,a= side==='left'?x:x-w;
+      ctx.fillStyle='#16324c';ctx.strokeStyle='#38b6ff';ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.rect(a,y-14,w,28);ctx.fill();ctx.stroke();
+      ctx.fillStyle='#cfe5ff';ctx.font='10px ui-monospace,Consolas,monospace';ctx.textAlign='center';
+      var lab=label.length>17?label.slice(0,16)+'…':label;ctx.fillText(lab,a+w/2,y+3);
+    }
+    function loop(){t+=1.2;draw();raf=requestAnimationFrame(loop);}
+    scSel.addEventListener('change',function(){build();why.innerHTML='<h4>Check the cross-references</h4>Click each link to test whether the reference numbers match.';});
+    build();loop();
+  };
+
+  window.DeckWReady=true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u20_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u20_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 20</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9;white-space:pre-wrap}',
+'.next{margin-top:24px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes · classroom timing</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u20_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u20_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u20_deck_state")render();});',
+'render();setInterval(render,1000);',
+'<\/scr'+'ipt></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u20_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'), line=document.getElementById('lctLine');
+  var lineTop=document.getElementById('lctLineTop'), lineBot=document.getElementById('lctLineBot');
+  var srcEl=document.getElementById('lctSrc'), btn=document.getElementById('lctBtn'), gear=document.getElementById('lctGear');
+  var status=document.getElementById('lctStatus'), langBar=document.getElementById('lctLangBar');
+  var srcSel=document.getElementById('lctSrcSel'), tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken='en-US', src='en', target='lv';
+  var rec=null, active=false;
+  var lastInterim='', pending=''; var capTopB='', capBotB='', lctIdeaTimer=null, capTopAtB=0;
+  var finalTimer=null, silenceTimer=null;
+  var lastTrAt=0, lastTrText='', lastTrLen=0, netErrors=0;
+  var cache=new Map(); var POLL_GAP_MS=700;
+  function setStatus(t){ status.textContent=t; status.classList.toggle('show', active||t==='mic blocked'||t==='use Chrome'); }
+  function tail(text,maxWords){ if(!text) return ''; var t=String(text).trim().replace(/\s+/g,' '); if(!t) return ''; var parts=t.split(' '); if(parts.length<=maxWords) return t; var s=parts.slice(-maxWords).join(' '); var m=s.match(/[.!?…]\s+(.+)$/)||s.match(/[,;:]\s+(.+)$/); return m?m[1]:s; }
+  async function translateRemote(text){
+    try{ if(src===target) return text;
+      var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text);
+      var ctrl=new AbortController(); var tmo=setTimeout(function(){ ctrl.abort(); },3000);
+      var r=await fetch(url,{signal:ctrl.signal}); clearTimeout(tmo);
+      if(!r.ok) return null; var j=await r.json();
+      if(Array.isArray(j)&&Array.isArray(j[0])){ var out=''; j[0].forEach(function(seg){ if(seg&&seg[0]) out+=seg[0]; }); return out||null; }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){ if(!text||!text.trim()) return ''; var key=src+'|'+target+'|'+text.trim().toLowerCase(); if(cache.has(key)) return cache.get(key); var out=await translateRemote(text); if(!out) out=text; cache.set(key,out); if(cache.size>250){ cache.delete(cache.keys().next().value); } return out; }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16,Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0?s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB&&(capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB=capBotB?(capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctEndIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer=setTimeout(function(){ capTopB=''; capBotB=''; capTopAtB=0; lastInterim=''; pending=''; render(); },30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer=null; } }
+  async function commitFinal(chunk){ chunk=chunk.trim(); if(!chunk) return; srcEl.textContent=tail(chunk,18); var tr=await translate(chunk); lctCommit(tr); lastInterim=''; lastTrLen=0; render(); }
+  async function translateInterim(text){ var now=performance.now(); if(now-lastTrAt<POLL_GAP_MS) return; if(text.length-lastTrLen<10&&text.length>0) return; if(text===lastTrText) return; lastTrAt=now; lastTrLen=text.length; lastTrText=text; try{ var tr=await translate(text); if(tr&&active){ lastInterim=tr; render(); } }catch(e){} }
+  function startRec(){
+    rec=new SR(); rec.continuous=true; rec.interimResults=true; rec.lang=spoken; if('maxAlternatives' in rec) rec.maxAlternatives=1;
+    rec.onresult=function(e){ netErrors=0; cancelSilence(); var interim='',fin='';
+      for(var i=e.resultIndex;i<e.results.length;i++){ var r=e.results[i]; if(r.isFinal) fin+=' '+r[0].transcript; else interim+=' '+r[0].transcript; }
+      if(fin){ pending+=' '+fin; if(finalTimer) clearTimeout(finalTimer); finalTimer=setTimeout(function(){ var c=pending; pending=''; commitFinal(c).then(armSilence); },120); }
+      if(interim){ srcEl.textContent=tail(interim.trim(),18); translateInterim(interim.trim()); }
+      render(); setStatus('live · '+src+'→'+target); };
+    rec.onerror=function(ev){ if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active=false; }
+      else if(ev.error==='no-speech'||ev.error==='aborted'){ }
+      else if(ev.error==='network'){ netErrors++; if(netErrors>=3){ active=false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect '+netErrors+'/3'); }
+      else setStatus(ev.error); };
+    rec.onend=function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active&&rec){ try{ rec.start(); }catch(_){} } },350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){ active=false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend=null; rec.stop(); }catch(e){} rec=null; } capTopB=''; capBotB=''; capTopAtB=0; lastInterim=''; pending=''; render();
+    } else { active=true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on'); setStatus('starting…'); __holdMic().then(startRec); }
+  }
+  btn.addEventListener('click',function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click',function(e){ e.stopPropagation(); var open=langBar.classList.toggle('open'); gear.classList.toggle('on',open); });
+  document.addEventListener('keydown',function(e){ if((e.key==='l'||e.key==='L')&&!/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle(); });
+  srcSel.addEventListener('change',function(e){ e.stopPropagation(); spoken=srcSel.value; src=spoken.slice(0,2); cache.clear(); if(active&&rec){ rec.onend=null; try{ rec.stop(); }catch(_){} rec=null; __holdMic().then(startRec); } if(active) setStatus('live · '+src+'→'+target); });
+  tgtSel.addEventListener('change',function(e){ e.stopPropagation(); target=tgtSel.value; cache.clear(); capTopB=''; capBotB=''; capTopAtB=0; lastInterim=''; lastTrText=''; lastTrLen=0; render(); if(active) setStatus('live · '+src+'→'+target); });
+  [srcSel,tgtSel].forEach(function(s){ s.addEventListener('click',function(e){ e.stopPropagation(); }); });
+  // reveal the source-language line under the translation while captions run
+  btn.addEventListener('dblclick',function(){ document.body.classList.toggle('lct-show-src'); });
+})();
+</script>
+
+</body>
+</html>
