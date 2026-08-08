@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English for Aviation Maintenance · Unit 27 · Negotiating in a planning/production meeting (CEFR B2)
+     Moodle XML question bank. Split by skill: Listening / Reading / Use of English / Vocabulary.
+     No Cloze. CDATA on every HTML stem. Every question has generalfeedback; every option has feedback. -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U27-r1</text></category>
+    <info format="html"><text><![CDATA[Unit 27 revision bank — production-meeting negotiation, future forms, and the production-planning vocabulary field.]]></text></info>
+  </question>
+
+  <!-- ============================================================= LISTENING (8) -->
+
+  <question type="multichoice">
+    <name><text>U27 L1 — the principal blocker</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> What is the main blocker on aircraft YL-BBX at the start of the meeting?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The shift lead reports that the wiring is complete but the BITE test failed, so the avionics modification cannot be signed off. That failed test is the blocker.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[The BITE test on the avionics mod failed.]]></text><feedback format="html"><text><![CDATA[Correct — the wiring is done, but the failed BITE test holds the whole task.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The rigging cable set was delivered late.]]></text><feedback format="html"><text><![CDATA[No — the spares, including the cable set, are already in the store.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The cabin task card was signed off early.]]></text><feedback format="html"><text><![CDATA[No — the cabin activity in Bay 3 simply has a buffer; it is not the blocker.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Two mechanics were moved to the wrong bay.]]></text><feedback format="html"><text><![CDATA[No — the mechanics are reassigned on purpose, from Bay 3 to the mod.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U27 L2 — moving the mechanics</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> The planner agrees to move two mechanics from Bay 3 onto the avionics modification.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The planner says: &ldquo;I am going to reassign two mechanics from Bay 3 onto the avionics modification.&rdquo; So the statement is true.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[Correct — the cabin activity has a buffer, so its people can move.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[Listen again — the planner clearly agrees to reassign two people from Bay 3.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U27 L3 — hours behind</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> How many hours behind schedule is the aircraft at the start of the meeting? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>&ldquo;Currently, we are approximately two hours behind.&rdquo; The answer is 2.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="html"><text>2</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — two hours of slippage.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>0</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[No — the team is already behind, not on time.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U27 L4 — deadline for the test</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> By what time must the BITE test be completed? Write it as a 24-hour time with no colon (for example, 1800).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>&ldquo;With two extra mechanics, we will complete the test by 18:00.&rdquo; The answer is 1800.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="html"><text>1800</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — the test is due by 18:00.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>2200</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[No — 22:00 is the release slot, not the test deadline.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U27 L5 — why rigging keeps priority</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> Why does the flight-control rigging keep top priority?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The avionics lead says the rigging &ldquo;retains absolute priority&rdquo; because &ldquo;rushing a control cable is never acceptable.&rdquo; Safety governs the order of work.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Rushing a control cable is never safe.]]></text><feedback format="html"><text><![CDATA[Correct — safety on the control run is why it stays first.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[It has by far the shortest lead time here.]]></text><feedback format="html"><text><![CDATA[No — the cable set has a long lead time of four hours.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[It needs the fewest people of any job.]]></text><feedback format="html"><text><![CDATA[No — the reason given is safety, not the number of people.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[It can run at the same time as ducts.]]></text><feedback format="html"><text><![CDATA[No — running tasks together is a separate proposal, not the reason.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U27 L6 — rigging lead time</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> How many hours does the cable set take to rig and tension? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>&ldquo;The cable set requires four hours to rig and tension.&rdquo; The answer is 4.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="html"><text>4</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — a four-hour lead time on the rigging.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>2</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[No — two hours is the slippage, not the rigging time.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U27 L7 — the spares runner</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> The spares runner is kept on the job because the spares are still in transit.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>&ldquo;The spares are already available in the store, so the runner is unnecessary.&rdquo; The runner is removed, so the statement is false.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[Correct — the spares are in the store, so the runner joins the duct activity.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[Listen again — the spares are already in the store, so no runner is needed.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U27 L8 — start time of the rigging</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> At what time do they start the rigging? Write it as a 24-hour time with no colon (for example, 1815).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>&ldquo;We are commencing the rigging at 18:15, immediately after the test passes.&rdquo; The answer is 1815.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="html"><text>1815</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — the rigging starts at 18:15.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>1800</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Close — 18:00 is the test deadline; the rigging starts at 18:15.]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================= READING (5) -->
+
+  <question type="multichoice">
+    <name><text>U27 R1 — work order sign-off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this work order, then answer.</p>
+<pre>WORK ORDER 4471 — YL-BBX
+Task: replace the No.2 main-wheel tyre.
+Zone: Bay 2.  Estimated man-hours: 1.5.
+Spares: tyre and O-ring drawn from store.
+Sign-off: one B1 mechanic and one inspector.</pre>
+<p>Who must sign off the completed task?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The sign-off line names one B1 mechanic and one inspector. Read the sign-off line, not the zone or the spares line.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[A mechanic and an inspector.]]></text><feedback format="html"><text><![CDATA[Correct — the sign-off line asks for both.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The production planner on their own.]]></text><feedback format="html"><text><![CDATA[No — the planner is not named on the sign-off line.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Two avionics technicians together.]]></text><feedback format="html"><text><![CDATA[No — a tyre change is a mechanical task, not an avionics one.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The store keeper and a planner.]]></text><feedback format="html"><text><![CDATA[No — the store only issues the spares; it does not sign the task off.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U27 R2 — a Service Bulletin</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this Service Bulletin note, then decide.</p>
+<pre>SB 34-1180 (avionics): inspect the ADIRU wiring loom for chafing.
+Compliance: within 600 flight hours.  Category: recommended, not mandatory.</pre>
+<p><strong>Statement:</strong> This Service Bulletin is mandatory and must be embodied today.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The category is &ldquo;recommended, not mandatory,&rdquo; and compliance is allowed within 600 flight hours &mdash; not today. The statement is false.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[Correct — it is recommended, and there are 600 flight hours to comply.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[No — a recommended SB is not mandatory, and the window is 600 flight hours.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U27 R3 — an MEL deferral</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this tech-log entry, then answer.</p>
+<pre>TECH LOG / MEL — YL-BBX
+Defect: forward galley oven inoperative.
+MEL ref: 25-30-01, Category C (rectify within 10 days).
+Action: item deferred; placard fitted; parts on order.</pre>
+<p>Under this MEL category, by when must the oven be repaired?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Category C allows rectification within 10 days, so the deferral is legal and the aircraft can fly with the oven placarded.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Within ten days.]]></text><feedback format="html"><text><![CDATA[Correct — Category C gives a 10-day window.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Before the next departure.]]></text><feedback format="html"><text><![CDATA[No — the item is deferred and placarded, so the aircraft may fly.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Within three days at most.]]></text><feedback format="html"><text><![CDATA[No — the note states ten days, not three.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Only at the annual base check.]]></text><feedback format="html"><text><![CDATA[No — the window is ten days, far sooner than the base check.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U27 R4 — a BITE readout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this BITE readout, then decide.</p>
+<pre>BITE READOUT — TCAS computer
+Result: PASS.  No faults stored.  Self-test complete.</pre>
+<p><strong>Statement:</strong> The readout shows a stored fault that blocks release to service.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The result is PASS with no faults stored, so nothing blocks the release. The statement is false.</p>]]></text></generalfeedback>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[Correct — a PASS with no stored faults is a clean readout.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[No — the readout passed with no faults stored.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U27 R5 — an Airworthiness Directive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this Airworthiness Directive note, then answer.</p>
+<pre>AD 2024-07-02: repetitive inspection of the elevator hinge bolts.
+Interval: every 200 flight hours.  Status: mandatory (airworthiness).</pre>
+<p>How often must the elevator hinge bolts be inspected?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The AD sets a repetitive interval of every 200 flight hours, and it is mandatory. Read the interval line.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Every 200 flight hours.]]></text><feedback format="html"><text><![CDATA[Correct — a repetitive 200-flight-hour interval.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Once at the next base check.]]></text><feedback format="html"><text><![CDATA[No — it is repetitive, not a one-off task.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Only after a heavy landing.]]></text><feedback format="html"><text><![CDATA[No — the trigger is flight hours, not a hard landing.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Every 600 flight hours or so.]]></text><feedback format="html"><text><![CDATA[No — the interval is 200 flight hours, not 600.]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================= USE OF ENGLISH (8) -->
+
+  <question type="shortanswer">
+    <name><text>U27 U1 — future form: a promise</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the promise. Use the word in brackets in the correct future form.</p>
+<p>&ldquo;With two mechanics, we ______ (finish) the test by 18:00.&rdquo;</p><p>Write the two-word verb phrase.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A promise made at the moment of speaking takes <em>will</em> + base verb: <strong>will finish</strong>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="html"><text>will finish</text><feedback format="html"><text><![CDATA[Correct — will + base verb for a promise.]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>'ll finish</text><feedback format="html"><text><![CDATA[Correct — the contracted form of will finish.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[Use will + the base verb: will finish. Do not add "to".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U27 U2 — future form: a decided plan</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the sentence. The plan was decided before the meeting.</p>
+<p>&ldquo;I ______ (reassign) two mechanics from Bay 3.&rdquo;</p><p>Write the verb phrase.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A plan decided beforehand takes <em>be going to</em>: <strong>am going to reassign</strong>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="html"><text>am going to reassign</text><feedback format="html"><text><![CDATA[Correct — be going to for a decided plan.]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>'m going to reassign</text><feedback format="html"><text><![CDATA[Correct — the contracted form.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[A pre-decided plan uses be going to: am going to reassign.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U27 U3 — future form: a fixed arrangement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the sentence. The time is already fixed with the team.</p>
+<p>&ldquo;We ______ (start) the rigging at 18:15.&rdquo;</p><p>Write the two-word verb phrase.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A fixed arrangement with a clock time takes the present continuous: <strong>are starting</strong>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="html"><text>are starting</text><feedback format="html"><text><![CDATA[Correct — present continuous for a fixed arrangement.]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>'re starting</text><feedback format="html"><text><![CDATA[Correct — the contracted form.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[A fixed time uses the present continuous: are starting.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U27 U4 — future form: a timetable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the sentence. The slot is a fixed schedule you do not control.</p>
+<p>&ldquo;The slot ______ (be) at 22:00.&rdquo;</p><p>Write one word.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A timetable you do not control takes the present simple: <strong>is</strong>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="html"><text>is</text><feedback format="html"><text><![CDATA[Correct — present simple for a fixed timetable.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[A timetable uses the present simple: is.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U27 U5 — correct the error</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Correct the error. Rewrite the underlined verb phrase.</p>
+<p>&ldquo;You have my word. We <u>will to protect</u> the slot.&rdquo;</p><p>Write the two-word verb phrase.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Never put <em>to</em> after <em>will</em>. Use <em>will</em> + base verb: <strong>will protect</strong>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="html"><text>will protect</text><feedback format="html"><text><![CDATA[Correct — will + base verb, with no "to".]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>'ll protect</text><feedback format="html"><text><![CDATA[Correct — the contracted form.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[Drop the "to": will protect.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U27 U6 — bank term: the slow step</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the one bank word that fits.</p>
+<p>The single slow step that holds up the whole job is the ______.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The slow step that restricts everything is the <strong>bottleneck</strong>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="html"><text>bottleneck</text><feedback format="html"><text><![CDATA[Correct — the bottleneck restricts the whole operation.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[The slow, limiting step is the bottleneck.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U27 U7 — bank term: spare time</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the one bank word that fits.</p>
+<p>Spare time deliberately built into the plan for problems is a ______.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Reserve time built into a plan is a <strong>buffer</strong>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="html"><text>buffer</text><feedback format="html"><text><![CDATA[Correct — a buffer absorbs problems.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[Reserve time in a plan is a buffer.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U27 U8 — bank term: the driving chain</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the two-word bank term that fits.</p>
+<p>The chain of tasks that sets the earliest possible finish is the ______.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The chain that sets the earliest finish is the <strong>critical path</strong>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100" format="html"><text>critical path</text><feedback format="html"><text><![CDATA[Correct — the critical path drives the turnaround.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>*</text><feedback format="html"><text><![CDATA[The driving chain of tasks is the critical path.]]></text></feedback></answer>
+  </question>
+
+  <!-- ============================================================= VOCABULARY (4) -->
+
+  <question type="matching">
+    <name><text>U27 V1 — term and meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each production-planning term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>slot = the fixed ready time; manpower = the workers you have; slippage = time fallen behind; milestone = a key checkpoint; handover = the pass to the next team.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[All matched — the vocabulary field is secure.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some pairs are wrong — check the meanings again.]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Re-read the vocabulary bank and try the pairs once more.]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[slot]]></text><answer><text>the fixed time the aircraft must be ready</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[manpower]]></text><answer><text>the number of workers you have for the job</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[slippage]]></text><answer><text>the time a task has fallen behind the plan</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[milestone]]></text><answer><text>a key checkpoint that shows progress</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[handover]]></text><answer><text>the pass of a job to the next team</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U27 V2 — term and word partner</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the verb or phrase it usually goes with (its word partner).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>protect the <em>slot</em>; clear a <em>blocker</em>; raise a <em>work order</em>; sign off the <em>task card</em>; hit a <em>milestone</em>.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[All matched — you know the collocations.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some partners are wrong — look at the vocabulary bank's word-partner column.]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Check the word-partner column and try again.]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[slot]]></text><answer><text>protect the ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[blocker]]></text><answer><text>clear a ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[work order]]></text><answer><text>raise a ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[task card]]></text><answer><text>sign off the ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[milestone]]></text><answer><text>hit a ___</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U27 V3 — collocation with slot</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which verb goes best with <em>slot</em> in a production meeting?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>We <strong>protect</strong> the slot &mdash; we work to keep the fixed release time. The other verbs do not partner with <em>slot</em>.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[protect the slot]]></text><feedback format="html"><text><![CDATA[Correct — protect the slot is the standard collocation.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[tension the slot]]></text><feedback format="html"><text><![CDATA[No — you tension a cable, not a slot.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[embody the slot]]></text><feedback format="html"><text><![CDATA[No — you embody a Service Bulletin, not a slot.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[placard the slot]]></text><feedback format="html"><text><![CDATA[No — you placard a deferred defect, not a slot.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U27 V4 — the grounded aircraft</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An aircraft that cannot fly until a fault is fixed is described by which term?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>AOG</strong> means &ldquo;aircraft on ground&rdquo;: it cannot fly until the defect is rectified. The other terms name documents or time, not a grounded aircraft.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[AOG]]></text><feedback format="html"><text><![CDATA[Correct — aircraft on ground.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[a lead time]]></text><feedback format="html"><text><![CDATA[No — lead time is a waiting period, not a grounded aircraft.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[a work order]]></text><feedback format="html"><text><![CDATA[No — a work order is the document that authorises a job.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[the turnaround]]></text><feedback format="html"><text><![CDATA[No — the turnaround is the whole arrival-to-release period.]]></text></feedback></answer>
+  </question>
+
+</quiz>

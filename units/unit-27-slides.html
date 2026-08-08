@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 27 · Teacher Deck — Negotiating in a planning/production meeting</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.02fr .98fr;gap:30px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted);margin:2px 3px}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:14.5px;color:var(--muted)}
+.dw{width:100%;max-width:660px;min-height:330px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:330px;border:1px dashed var(--line);border-radius:14px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:5px 9px;font-size:14px}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:56px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.rowg{display:grid;grid-template-columns:150px 1fr 54px;gap:10px;align-items:center;margin:5px 0}
+.rowg label{font-size:13px;color:#9db0c6;font-weight:600}
+.rowg .v{font-family:var(--mono);font-size:13px;text-align:right;color:#7fd0ff;font-weight:700}
+.turn{margin:6px 0;padding:8px 13px;border-radius:11px;background:#0f1726;border:1px solid #26384e;font-size:17px}
+.turn.b{background:#1a1710;border-color:#4a3f22}
+.turn .w{font-family:var(--mono);font-size:11px;font-weight:700;color:#7fd0ff;margin-right:8px}
+.turn.b .w{color:var(--amber)}
+.gt{border-collapse:collapse;width:100%;margin-top:6px}
+.gt th,.gt td{border:1px solid var(--line2);padding:7px 11px;text-align:left;font-size:15px}
+.gt th{background:#16263a;color:#9ec9ff;font-weight:700}
+.fixrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:7px 0}
+.wrong{color:#ff9aa2}.right{color:#9af0c8}
+.wrong:before{content:"\2717 ";font-weight:700}.right:before{content:"\2713 ";font-weight:700}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.tl{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.tl .step{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:start}
+.tl .t{font-family:var(--mono);font-size:13px;color:#7fd0ff;font-weight:700;padding-top:2px}
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="TIMING 0:00–0:02. Open the class. This is a 90-minute B2 lesson for aircraft mechanics and avionics technicians in an EASA Part-145 hangar. The whole lesson lives inside ONE authentic situation: a morning production meeting where aircraft YL-BBX (an A320) is two hours behind, with a release slot at 22:00. Say the outcome out loud: by the end, every learner can present a task status and its blocker in three sentences, negotiate priorities and resources and justify the trade-off, and agree who does what by when. Tell them the language target too — future forms for commitments (will / going to / present continuous). Keep your own English short and calm; you are modelling the register the meeting needs. Press L any time to switch on the live caption translator for a mixed-L1 room (Latvian / Russian).">
+    <div class="kick">English for Aviation Maintenance · Unit 27 of 32 · CEFR B2</div>
+    <h1>Negotiating in a planning / production meeting</h1>
+    <p class="big muted">Present a status &amp; blocker · negotiate priorities and resources · agree actions and deadlines</p>
+    <div style="margin-top:14px">
+      <span class="pill">🕐 90-minute class</span>
+      <span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span>
+      <span class="pill">🔧 future forms for commitments</span>
+    </div>
+    <p class="muted" style="margin-top:22px;font-size:16px">Teacher deck — press <code>P</code> for speaker notes &amp; timing · <code>L</code> for live captions</p>
+  </section>
+
+  <!-- 2 · OBJECTIVES + MAP -->
+  <section class="slide" data-notes="TIMING 0:02–0:05. Set the map and the assessment honestly. Read the three can-do outcomes; they map one-to-one onto the three negotiation dialogues the class will hear. Then walk the lesson map on the right so the room knows the shape: listen, harvest the vocabulary, study the grammar in context, drill it, negotiate in role-plays, and write a Simplified Technical English handover note. Stress that everything is practice — the graded piece is the spoken role-play and the written note. Point out the interactive widgets in the deck (the timeline, the form-picker, the resource board, the risk gauge): they are there for you to demonstrate a point live, then hand the mouse to a learner. Keep this slide to three minutes.">
+    <div class="kick">Outcomes &amp; lesson map</div>
+    <h2>What the class can do by 90 minutes</h2>
+    <div class="cols">
+      <div>
+        <div class="card"><b>Can-do outcomes</b>
+          <ul>
+            <li>Present the status and blockers of a task <b>concisely</b>.</li>
+            <li>Negotiate priorities and resources, <b>justifying the trade-off</b>.</li>
+            <li>Agree actions and deadlines with the team.</li>
+          </ul>
+        </div>
+        <p class="muted" style="font-size:15px;margin-top:10px">Language target: <b>will</b> (promise) · <b>going to</b> (decided plan) · <b>present continuous</b> (fixed arrangement).</p>
+      </div>
+      <div class="card">
+        <b>Lesson map (90 min)</b>
+        <div class="tl">
+          <div class="step"><span class="t">0–10</span><span>Scenario + warm-up</span></div>
+          <div class="step"><span class="t">10–28</span><span>Listening ×3 (the meeting)</span></div>
+          <div class="step"><span class="t">28–43</span><span>Vocabulary: production planning</span></div>
+          <div class="step"><span class="t">43–58</span><span>Grammar: future forms</span></div>
+          <div class="step"><span class="t">58–70</span><span>Controlled practice + reading</span></div>
+          <div class="step"><span class="t">70–82</span><span>Role-plays (negotiate)</span></div>
+          <div class="step"><span class="t">82–90</span><span>Writing: STE handover + wrap</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SCENARIO -->
+  <section class="slide" data-notes="TIMING 0:05–0:08. Build the situation vividly, because every task hangs off it. Draw the picture: Bay 2, aircraft YL-BBX, a release slot at 22:00 tonight. One task on the critical path — an avionics modification — is behind, because the BITE test failed. The wiring is done; the test is the blocker; the task card cannot be signed. The shift lead must present that status, argue for two extra mechanics, and protect the slot. Elicit from the room, in their words: what is a slot? what happens if we miss it? (AOG — an expensive aircraft-on-ground overnight). Do not pre-teach every term yet; just seed the tension. Keep the register calm and factual — that is exactly the professional habit the unit trains.">
+    <div class="kick">The situation</div>
+    <h2>Aircraft YL-BBX — behind, on the critical path</h2>
+    <div class="cols">
+      <div>
+        <ul>
+          <li><b>Release slot:</b> 22:00 tonight. The team is ~2 hours behind.</li>
+          <li><b>The blocker:</b> the avionics mod — wiring done, but the <b>BITE test failed</b>.</li>
+          <li><b>The ask:</b> two extra mechanics to clear the test by 18:00.</li>
+          <li><b>The risk:</b> miss the slot &rarr; the aircraft goes <b>AOG</b>.</li>
+        </ul>
+        <p class="muted" style="font-size:16px">Every negotiation follows one pattern: <b>state the status &rarr; propose &rarr; justify the trade-off &rarr; agree a deadline.</b></p>
+      </div>
+      <div class="card">
+        <b>Ask the room</b>
+        <ul>
+          <li>What does <i>protect the slot</i> mean?</li>
+          <li>Which job can safely wait, and why?</li>
+          <li>Who signs the aircraft back to service?</li>
+        </ul>
+        <p class="muted" style="font-size:14px">Collect answers on the board; you will confirm the exact terms in the vocabulary block.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · WARM-UP -->
+  <section class="slide" data-notes="TIMING 0:08–0:10. Quick pair warm-up to activate schema and get everyone speaking before the listening. Put learners in pairs for two minutes on the three prompts. Monitor for the target language surfacing naturally (deadline, people, priority) and note two good phrases to praise. Do NOT correct future-form errors yet — you will harvest them deliberately later. Nominate one or two pairs to report a single sentence. This is a fluency warm-up: reward ideas and clear delivery, not accuracy.">
+    <div class="kick">Warm-up · pairs · 2 min</div>
+    <h2>Before the meeting starts</h2>
+    <div class="card" style="max-width:820px">
+      <ul>
+        <li>Think of a time a job ran late. What was the one step that held everything up?</li>
+        <li>Your team is short of people for two jobs today. How do you decide which job comes first?</li>
+        <li>What three facts must be in a good handover to the next shift?</li>
+      </ul>
+    </div>
+    <p class="muted" style="margin-top:12px">Report one sentence to the class. Keep it short and factual — meeting register.</p>
+  </section>
+
+  <!-- 5 · LISTENING 1 -->
+  <section class="slide" data-notes="TIMING 0:10–0:16. Dialogue 1 — the morning status update (16 turns). Stage it in three plays. PLAY 1, books closed, gist: 'How far behind is the aircraft, and what is the blocker?' (two hours; the failed BITE test). PLAY 2, set two detail questions before you play: 'What does the lead ask for?' and 'Which job is moved, and why can it wait?' (two mechanics; the Bay 3 cabin job, because it has a buffer until Friday). PLAY 3, books open on the transcript in body.html, read along. Highlight the model line on screen — the request with will — and the planner's decision with going to. Point out the connectors: however, as soon as, if. Keep total time to six minutes; do not over-explain, the language is recycled all lesson.">
+    <div class="kick">Listening 1 · Dialogue 1 · ~16 turns</div>
+    <h2>The morning status update</h2>
+    <div class="cols">
+      <div>
+        <div class="turn"><span class="w">LEAD</span>The release slot is 22:00 tonight. We are approximately two hours behind.</div>
+        <div class="turn b"><span class="w">PLANNER</span>Explain exactly which component is blocking the whole task.</div>
+        <div class="turn"><span class="w">LEAD</span>The wiring is complete, but the BITE test failed. I need additional manpower.</div>
+        <div class="turn b"><span class="w">PLANNER</span>I am going to reassign two mechanics from Bay 3 onto the modification.</div>
+      </div>
+      <div class="card">
+        <b>Listen for</b>
+        <ul>
+          <li>How far behind? <span class="muted">(two hours)</span></li>
+          <li>The blocker? <span class="muted">(failed BITE test)</span></li>
+          <li>The request? <span class="muted">(two mechanics)</span></li>
+          <li>Which job waits, and why? <span class="muted">(Bay 3 cabin — has a buffer)</span></li>
+        </ul>
+        <p class="note">Play twice with books closed, once with the transcript open.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · LISTENING 2 -->
+  <section class="slide" data-notes="TIMING 0:16–0:22. Dialogue 2 — trading priorities and resources (16 turns). This is the heart of the negotiation, so mine it. PLAY 1 gist: 'What is the real bottleneck now?' (the flight-control rigging — a four-hour lead time). PLAY 2 detail: 'What does one speaker propose, and why does the other hesitate?' (run rigging and duct at the same time; it needs more people). Then the key move to name explicitly: they JUSTIFY a trade-off — the rigging keeps priority because rushing a control cable is never safe. Draw the whole class's attention to that 'because' clause; it is exactly what the role-play will be graded on. Elicit two more justification phrases onto the board. Six minutes.">
+    <div class="kick">Listening 2 · Dialogue 2 · ~16 turns</div>
+    <h2>Trading priorities and resources</h2>
+    <div class="cols">
+      <div>
+        <div class="turn"><span class="w">A</span>The cable set requires four hours to rig. That is the genuine bottleneck.</div>
+        <div class="turn b"><span class="w">B</span>Unless we commence by 18:00, we cannot protect the slot.</div>
+        <div class="turn"><span class="w">A</span>Which activity carries greater risk if we rush it?</div>
+        <div class="turn b"><span class="w">B</span>The rigging. Rushing a control cable is never acceptable, so it keeps priority.</div>
+      </div>
+      <div class="card">
+        <b>The negotiation move</b>
+        <p>State a position &rarr; give a reason with <b>because / so</b> &rarr; reach agreement.</p>
+        <p class="muted" style="font-size:15px">&ldquo;The rigging keeps priority, <b>because</b> rushing a control cable is never safe.&rdquo;</p>
+        <p class="note">Ask the room for two more &ldquo;because&rdquo; reasons. Write them up.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · LISTENING 3 + 4 -->
+  <section class="slide" data-notes="TIMING 0:22–0:28. Two short pieces. Dialogue 3 — agreeing actions and deadlines (15 turns): here the meeting CLOSES, so every line fixes an owner, a task and a deadline. Play once for the actions grid: who does the test, who rigs with whom, who covers the duct, who verifies the spares, and the final milestone (release to service, transfer by 21:30). This is a listening-for-detail task and it feeds Exercise E8 later. Dialogue 4 — the shift-handover announcement (9 turns, one speaker): a monologue in the genre of a real hangar handover. Play it as a model for the writing task at the end; ask the class to notice how short and factual each sentence is (one idea per line — that is Simplified Technical English). Keep to six minutes; the detail work is done in the exercises.">
+    <div class="kick">Listening 3 &amp; 4 · agree &amp; hand over</div>
+    <h2>Actions, deadlines, and the handover</h2>
+    <div class="cols">
+      <div>
+        <b>Dialogue 3 — the actions grid</b>
+        <table class="gt">
+          <tr><th>Owner</th><th>Action</th><th>By when</th></tr>
+          <tr><td>Shift lead</td><td>BITE test</td><td>18:00</td></tr>
+          <tr><td>Lead + Toms</td><td>Rigging</td><td>from 18:15</td></tr>
+          <tr><td>Anna</td><td>Duct activity</td><td>hourly report</td></tr>
+          <tr><td>Team</td><td>Transfer aircraft</td><td>by 21:30</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <b>Dialogue 4 — handover monologue</b>
+        <p class="muted" style="font-size:16px">One speaker. Short factual lines. A model for the writing task.</p>
+        <div class="turn">This is the shift handover for YL-BBX, in Bay 2. The slot is 22:00.</div>
+        <div class="turn">If the rigging slips, escalate to the planner. Otherwise the aircraft becomes AOG.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · VOCABULARY FIELD + WIDGET -->
+  <section class="slide" data-notes="TIMING 0:28–0:37. Vocabulary field: production planning. Do NOT read all twenty terms aloud — that kills the room. Instead teach the six load-bearing ones through the live widget on the right: slot, critical path, bottleneck, lead time, buffer, milestone. Demonstrate first: drag the 'extra mechanics on the mod' slider and show the test-finish time move earlier; explain that finishing the test by 18:00 is the milestone that protects the 22:00 slot, because the rigging needs the whole evening. Then HAND THE MOUSE to a learner and ask 'how many mechanics protect the slot?' (two). The rest of the bank — handover, spares, work order, task card, AOG, resource, priority, turnaround, slippage, manpower, shift, bay, release to service — students meet in the body page and drill in E1–E3. Nine minutes total across this and the next slide.">
+    <div class="kick">Vocabulary · production planning</div>
+    <h2>The words that run the meeting</h2>
+    <div class="cols">
+      <div>
+        <p>Six terms carry the whole negotiation. Teach these live; the other fourteen are drilled in E1–E3.</p>
+        <ul style="font-size:18px">
+          <li><b>slot</b> — the fixed ready-and-return time</li>
+          <li><b>critical path</b> — the chain that sets the finish</li>
+          <li><b>bottleneck</b> — the one slow step</li>
+          <li><b>lead time</b> — the wait before a task is ready</li>
+          <li><b>buffer</b> — spare time for problems</li>
+          <li><b>milestone</b> — a key checkpoint</li>
+        </ul>
+      </div>
+      <div class="dw" data-widget="critpath"></div>
+    </div>
+  </section>
+
+  <!-- 9 · VOCAB PRACTICE STAGING -->
+  <section class="slide" data-notes="TIMING 0:37–0:43. Stage the vocabulary drills in the body page. E1 gap-fill (10 items) — do the first item together on the board, then set them off individually; the page self-marks. E2 term-and-meaning matching (10) and E3 the meeting exchange (9) can be done in pairs for peer support in a mixed-L1 room. Circulate. The one pronunciation trap to pre-empt: 'manpower' stress on the first syllable, and 'AOG' said as three letters. Confirm answers by projecting the body page's Answers panel. If time is short, set E3 for homework. Keep this to six minutes.">
+    <div class="kick">Controlled practice · vocabulary</div>
+    <h2>Fix the field: E1 – E3</h2>
+    <div class="cols">
+      <div class="card">
+        <b>Run order</b>
+        <ul>
+          <li><span class="tag">E1</span> Gap-fill, 10 items — model item 1, then solo.</li>
+          <li><span class="tag">E2</span> Term &harr; meaning, 10 — pairs.</li>
+          <li><span class="tag">E3</span> Complete the exchange, 9 — pairs.</li>
+        </ul>
+        <p class="note">The body page marks each answer automatically. Project the Answers panel to confirm.</p>
+      </div>
+      <div class="card">
+        <b>Pronunciation to pre-teach</b>
+        <ul>
+          <li><b>MAN</b>-power · <b>TURN</b>-around · <b>CRIT</b>-i-cal path</li>
+          <li><b>A-O-G</b> — say the three letters.</li>
+          <li><i>lead</i> time = /liːd/ (not the metal).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · GRAMMAR OVERVIEW + WIDGET -->
+  <section class="slide" data-notes="TIMING 0:43–0:49. Grammar in context: future forms for commitments. The core idea in one line: in a planning meeting you choose the future form by MEANING, not by time words. Use the form-picker widget live. Click 'Promise / decide now' and show WILL; click 'Plan decided before' and show GOING TO; click 'Fixed arrangement + time' and show the PRESENT CONTINUOUS; click 'Timetable' and show the PRESENT SIMPLE. For each, read the authentic line from the dialogues that appears. Then hand the mouse to a learner and give them a meaning to find the form for. The trap for Latvian and Russian speakers — using the present tense for a future promise — comes two slides on; flag that it is coming. Six minutes.">
+    <div class="kick">Grammar in context · future forms</div>
+    <h2>Choose the form by meaning</h2>
+    <div class="cols">
+      <div>
+        <table class="gt">
+          <tr><th>Meaning</th><th>Form</th><th>Example</th></tr>
+          <tr><td>Promise / decide now</td><td><b>will</b> + base</td><td>We will finish by 18:00.</td></tr>
+          <tr><td>Plan decided before</td><td><b>going to</b></td><td>I am going to brief the inspector.</td></tr>
+          <tr><td>Fixed arrangement + time</td><td><b>present continuous</b></td><td>We are starting at 18:15.</td></tr>
+          <tr><td>Timetable</td><td><b>present simple</b></td><td>The slot is at 22:00.</td></tr>
+        </table>
+      </div>
+      <div class="dw" data-widget="forms"></div>
+    </div>
+  </section>
+
+  <!-- 11 · WILL vs GOING TO vs CONTINUOUS -->
+  <section class="slide" data-notes="TIMING 0:49–0:53. Sharpen the one contrast learners most confuse: WILL versus GOING TO versus the PRESENT CONTINUOUS. Concept-check with three quick questions, hands up. 1) 'The test failed — I'll get two more mechanics.' Decided before or now? (now → will). 2) 'I am going to brief the inspector.' Before or now? (before → going to). 3) 'We are starting at 18:15.' Is a specific time fixed? (yes → present continuous). Drill the form fast: 'will' + BASE VERB, no 'to'; 'going to' + BASE; 'be' + verb-ING for the arrangement. This slide is the bridge into the error-spotting; keep it tight, four minutes.">
+    <div class="kick">Grammar · the key contrast</div>
+    <h2>Decided now, decided before, or fixed?</h2>
+    <div class="card" style="max-width:860px">
+      <p><b>will</b> — you decide as you speak: &ldquo;The test failed &mdash; <b>I'll get</b> two more mechanics.&rdquo;</p>
+      <p><b>going to</b> — you decided earlier: &ldquo;<b>I'm going to</b> brief the inspector.&rdquo;</p>
+      <p><b>present continuous</b> — a fixed arrangement with a time: &ldquo;<b>We're starting</b> at 18:15.&rdquo;</p>
+      <p class="muted" style="font-size:16px">Form drill: <b>will + base verb</b> (no <i>to</i>) · <b>am/is/are going to + base</b> · <b>am/is/are + -ing</b>.</p>
+    </div>
+  </section>
+
+  <!-- 12 · INTERFERENCE ERRORS -->
+  <section class="slide" data-notes="TIMING 0:53–0:58. The predictable first-language interference for Latvian and Russian speakers — name it, so they can self-monitor. THREE errors. 1) Present tense for a future promise: 'I do it tomorrow' — because Latvian and Russian routinely use a present/perfective form where English needs 'will'. Recast to 'I will do it tomorrow.' 2) An extra 'to' after 'will': 'we will to finish' — a transfer from infinitive patterns; English uses the bare infinitive, 'we will finish.' 3) 'will' for an already-arranged plan: 'Tomorrow I will meet the planner at 9:00' — English prefers the present continuous for a fixed arrangement, 'I am meeting the planner at 9:00.' Do not lecture the rule list; show the pair, say the correct version, and move on. These three are exactly what E6 tests. Five minutes.">
+    <div class="kick">First-language interference · LV / RU</div>
+    <h2>Three errors to catch and recast</h2>
+    <div class="card" style="max-width:900px">
+      <div class="fixrow"><div class="wrong">I <b>do</b> it tomorrow.</div><div class="right">I <b>will do</b> it tomorrow.</div></div>
+      <small>LV/RU often use a present form for a future promise. English needs <b>will</b>.</small>
+      <div class="fixrow" style="margin-top:12px"><div class="wrong">We <b>will to finish</b> it.</div><div class="right">We <b>will finish</b> it.</div></div>
+      <small>No <b>to</b> after <b>will</b> — use the bare verb.</small>
+      <div class="fixrow" style="margin-top:12px"><div class="wrong">Tomorrow I <b>will meet</b> the planner at 9:00.</div><div class="right">Tomorrow I <b>am meeting</b> the planner at 9:00.</div></div>
+      <small>An arranged plan takes the present continuous, not <b>will</b>.</small>
+    </div>
+  </section>
+
+  <!-- 13 · PRACTICE + READING STAGING -->
+  <section class="slide" data-notes="TIMING 0:58–0:66. Controlled grammar + reading. E4 (choose the future form, 9 items) is the core grammar drill — set it solo, then peer-check. E6 (fix the handover note, 8 errors) recycles the three interference errors from the last slide; do it as a race in pairs. Between the two grammar drills, run the reading: E5 is a daily production-plan board (an authentic genre) with six short-answer questions; E7 is an MEL deferral / planning note with six more. Reading is deliberately scanning practice — tell them to find the number or the word, not read every line. Confirm from the body page's Answers panels. Eight minutes; if pushed, keep E4 and E5 in class and set E6/E7 for homework.">
+    <div class="kick">Controlled practice · grammar + reading</div>
+    <h2>E4 – E7</h2>
+    <div class="cols">
+      <div class="card">
+        <b>Grammar</b>
+        <ul>
+          <li><span class="tag">E4</span> Choose the future form, 9 — solo, then peer-check.</li>
+          <li><span class="tag">E6</span> Fix the handover note, 8 errors — pairs, as a race.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <b>Reading (scan, don't read every line)</b>
+        <ul>
+          <li><span class="tag">E5</span> Daily production-plan board, 6 Qs.</li>
+          <li><span class="tag">E7</span> MEL deferral / planning note, 6 Qs.</li>
+        </ul>
+        <p class="note">Genres: production plan, MEL, tech log — real hangar documents.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 · LISTENING FOR NUMBERS -->
+  <section class="slide" data-notes="TIMING 0:66–0:70. A short, sharp listening-for-figures task — understanding spoken numbers and times is a real, separate skill that the quiz also tests. Replay Dialogue 3 and run E8 (8 questions): the test deadline (18:00), who rigs with the lead (Toms), the rigging start (18:15), who runs the duct (Anna), who checks the spares (the shift lead), the final milestone (release to service), the transfer time (21:30), and who to escalate to (the planner). Read the times aloud yourself first in two ways — 'eighteen hundred' and 'six p.m.' — so learners map the spoken form to the figure. Four minutes.">
+    <div class="kick">Listening for figures · E8</div>
+    <h2>Catch the numbers and times</h2>
+    <div class="cols">
+      <div>
+        <p>Replay <b>Dialogue 3</b>. Understanding spoken times and quantities is its own skill — and the quiz tests it.</p>
+        <ul>
+          <li>Test done by? <span class="muted">18:00 — &ldquo;eighteen hundred&rdquo;</span></li>
+          <li>Rigging starts? <span class="muted">18:15</span></li>
+          <li>Transfer by? <span class="muted">21:30</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <b>Say each time two ways</b>
+        <p class="muted" style="font-size:17px">18:00 = &ldquo;eighteen hundred&rdquo; = &ldquo;six p.m.&rdquo;<br>21:30 = &ldquo;twenty-one thirty&rdquo; = &ldquo;half past nine&rdquo;</p>
+        <p class="note">Model it, then have the class read the times back.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · RESOURCE SIMULATOR + WIDGET -->
+  <section class="slide" data-notes="TIMING 0:70–0:74. Warm the room up for the role-plays with the resource board. This widget models the exact headline scenario: two sliders — mechanics moved from Bay 3, and whether the duct runs in parallel — and it tells you whether both the modification and the buffered cabin job stay safe. Demonstrate the trade-off out loud in target language: 'If I move two mechanics, the mod is safe, BUT the Bay 3 job loses its cover — is that acceptable? Yes, because it has a buffer until Friday.' That sentence is the model the learners will produce. Hand the mouse to a student, give them a target, and make them justify their setting with a 'because' clause. Four minutes, then straight into cards.">
+    <div class="kick">Negotiation model · resource board</div>
+    <h2>Move people — justify the trade-off</h2>
+    <div class="cols">
+      <div>
+        <p>Set the board, then say the trade-off out loud:</p>
+        <p class="muted" style="font-size:17px">&ldquo;I am moving two mechanics onto the mod. The Bay 3 job can wait, <b>because</b> it has a buffer until Friday.&rdquo;</p>
+        <p class="note">Every setting must come with a reason. That reason is what the role-play rewards.</p>
+      </div>
+      <div class="dw" data-widget="manpower"></div>
+    </div>
+  </section>
+
+  <!-- 16 · ROLE-PLAYS -->
+  <section class="slide" data-notes="TIMING 0:74–0:82. The productive core — the four role-play cards in the body page. Manage it tightly. Put learners in pairs (A = shift lead, B = planner). Give the phrase bank 60 seconds of silent reading first. Run Card 1 (present the status) and Card 2 (argue for manpower) as A; then swap so B does Card 3 (negotiate the trade-off) and Card 4 (agree actions and deadlines). Two minutes per card. Circulate with a slip of paper: log two good justifications and two future-form slips for delayed feedback — do NOT interrupt the flow. Insist on the three-part status (task, progress, blocker) and at least one 'because' reason and one future-form commitment per learner. For a mixed-L1 pair that stalls, the AI conversation-partner prompts in the body page are the scaffold. After the last card, give 60 seconds of whole-class feedback from your slip. Eight minutes.">
+    <div class="kick">Speaking · role-plays · pairs</div>
+    <h2>Run the meeting — four cards</h2>
+    <div class="cols">
+      <div>
+        <table class="gt">
+          <tr><th>Card</th><th>Role</th><th>Goal</th></tr>
+          <tr><td>1</td><td>Shift lead</td><td>Present status + blocker in 3 sentences</td></tr>
+          <tr><td>2</td><td>Shift lead</td><td>Win two mechanics; name the job that waits</td></tr>
+          <tr><td>3</td><td>Planner</td><td>Decide priority; justify with a reason</td></tr>
+          <tr><td>4</td><td>Shift lead</td><td>Fix one action, one owner, one deadline each</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <b>Insist on</b>
+        <ul>
+          <li>Status in three sentences: task &rarr; progress &rarr; blocker.</li>
+          <li>One <b>because</b> reason per learner.</li>
+          <li>One future-form commitment (will / going to).</li>
+        </ul>
+        <p class="note">Log slips for delayed feedback — do not stop the flow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · RISK + WIDGET -->
+  <section class="slide" data-notes="TIMING 0:82–0:85. A quick consolidation of the stakes, using the risk gauge. Slide the slippage from zero upward and watch the buffer eaten until the needle hits the AOG zone. Tie it back to the language: a small slippage is reported calmly with a plan ('We are two hours behind, but with two mechanics we will recover by 18:00'); a slippage that threatens the slot is escalated ('If the rigging slips, I will escalate to the planner immediately'). This is where 'if / unless / as soon as' earn their place. Keep it to three minutes — it is a bridge to the writing task.">
+    <div class="kick">Risk · slippage vs buffer</div>
+    <h2>When does slippage become AOG?</h2>
+    <div class="cols">
+      <div>
+        <p>Slide the slippage up and watch the buffer disappear.</p>
+        <ul>
+          <li>Small slip &rarr; report calmly <span class="muted">with a plan</span>.</li>
+          <li>Slip threatens the slot &rarr; <b>escalate</b>.</li>
+        </ul>
+        <p class="muted" style="font-size:16px">&ldquo;<b>If</b> the rigging slips, I will escalate. <b>As soon as</b> the test passes, we start the rigging.&rdquo;</p>
+      </div>
+      <div class="dw" data-widget="slippage"></div>
+    </div>
+  </section>
+
+  <!-- 18 · WRITING -->
+  <section class="slide" data-notes="TIMING 0:85–0:90. The writing task — a shift-handover note in Simplified Technical English, started in class and finished for homework. Point back to Dialogue 4 as the model. Give the STE rules explicitly on the board: short sentences (one idea per line), active voice, present or future tense, no opinion — only facts and the plan. Set the content checklist: the slot, the status of the modification, the rigging plan, the spares, and at least one commitment in a future form. Have them write the first three lines now while you circulate, then set the rest. Tell them the model answer is in the body page but to try first. Close with the exit ticket on the next slide.">
+    <div class="kick">Writing · Simplified Technical English</div>
+    <h2>Write the shift-handover note</h2>
+    <div class="cols">
+      <div>
+        <b>Task</b>
+        <p>6–8 short lines for the night shift. Include: the slot, the mod status, the rigging plan, the spares, and one future-form commitment.</p>
+        <p class="muted" style="font-size:16px">Model line: &ldquo;<b>We will transfer</b> the aircraft by 21:30.&rdquo;</p>
+      </div>
+      <div class="card">
+        <b>STE habits</b>
+        <ul>
+          <li>One idea per line. Short sentences.</li>
+          <li>Active voice. Facts, not opinion.</li>
+          <li>Name the blocker — or write &ldquo;no blocker&rdquo;.</li>
+        </ul>
+        <p class="note">Start three lines in class; finish for homework.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 19 · WRAP -->
+  <section class="slide" data-center data-notes="TIMING 0:90. Close in one minute. Recap the three moves the class now owns: present a status in three sentences (task, progress, blocker); negotiate a priority and justify it with a 'because'; agree an action, an owner and a deadline using a future form. Remind them of the one grammar rule that fixes most of their errors: choose the future form by MEANING — will to promise, going to for a decided plan, present continuous for a fixed arrangement. Homework: finish the handover note and do E6/E7 if not done. Give the exit ticket: each learner says one commitment about their own next shift using a future form. Thank the room and dismiss.">
+    <div class="kick">Wrap-up</div>
+    <h2>Three moves you now own</h2>
+    <p class="big">Present a status &nbsp;·&nbsp; justify a priority &nbsp;·&nbsp; agree who does what by when</p>
+    <p class="muted" style="max-width:760px;margin-top:14px">Grammar in one line: choose the future form by <b>meaning</b> — <b>will</b> to promise, <b>going to</b> for a decided plan, <b>present continuous</b> for a fixed arrangement.</p>
+    <div class="card" style="margin-top:16px;max-width:640px">
+      <b>Exit ticket</b>
+      <p style="margin:.3em 0">Say one commitment about your own next shift, using a future form.</p>
+    </div>
+    <p class="muted" style="margin-top:14px;font-size:15px">Homework: finish the STE handover note · complete E6 &amp; E7.</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS ===================== -->
+<script>
+(function(){
+  window.DeckW = window.DeckW || {};
+
+  /* ---- W: CRITICAL-PATH / SLOT TIMELINE (canvas + rAF) ---- */
+  window.DeckW.critpath = function(el){
+    el.innerHTML =
+      '<div class="wk">'+
+      '<div class="rowg"><label>Extra mechanics on the mod</label><input type="range" min="0" max="3" value="0" data-m><span class="v" data-mv>0</span></div>'+
+      '<canvas width="640" height="180"></canvas>'+
+      '<div class="info" data-read></div>'+
+      '<p class="note">Finish the BITE test by 18:00 to leave the evening for the rigging and protect the 22:00 slot.</p></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]');
+    var m=el.querySelector('[data-m]'),mv=el.querySelector('[data-mv]');
+    var W=cv.width,H=cv.height,pad=44,t=0,dispFin=20,targetFin=20;
+    var T0=16,T1=23; // timeline 16:00..23:00
+    function X(h){return pad+(h-T0)/(T1-T0)*(W-2*pad);}
+    function calc(){var extra=+m.value; targetFin=20-extra; if(targetFin<17)targetFin=17; return targetFin;}
+    function update(){mv.textContent=m.value; calc();
+      var fin=targetFin, safe=fin<=18;
+      var msg = safe
+        ? "<b style='color:#9af0c8'>Slot protected.</b> The test finishes by "+fmt(fin)+", leaving the evening for the rigging before 22:00."
+        : "<b style='color:#ff9aa2'>Slot at risk.</b> The test only finishes at "+fmt(fin)+" — too late to complete the rigging before the 22:00 slot.";
+      read.innerHTML="<h4>Plan check</h4>"+msg;}
+    function fmt(h){var hh=Math.floor(h),mm=Math.round((h-hh)*60);return (hh<10?'0':'')+hh+':'+(mm<10?'0':'')+mm;}
+    m.addEventListener('input',update);
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      // axis
+      ctx.strokeStyle="#3a4a60";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad,H-40);ctx.lineTo(W-pad,H-40);ctx.stroke();
+      ctx.fillStyle="#9db0c6";ctx.font="11px ui-monospace,monospace";
+      for(var h=T0;h<=T1;h++){var x=X(h);ctx.strokeStyle="#1c2b3f";ctx.beginPath();ctx.moveTo(x,34);ctx.lineTo(x,H-40);ctx.stroke();ctx.fillStyle="#5f7791";ctx.fillText((h<10?'0':'')+h+':00',x-13,H-24);}
+      // slot 22:00 marker
+      ctx.strokeStyle="#ff5667";ctx.lineWidth=2;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(X(22),30);ctx.lineTo(X(22),H-40);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle="#ff9aa2";ctx.fillText("SLOT 22:00",X(22)-30,24);
+      // 18:00 milestone
+      ctx.strokeStyle="#fbbf24";ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(X(18),30);ctx.lineTo(X(18),H-40);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle="#f3d27a";ctx.fillText("18:00",X(18)-14,24);
+      // test bar (16:00 -> dispFin)
+      var d=targetFin-dispFin; dispFin+= Math.abs(d)>0.02? d*0.15 : d;
+      var y1=44;
+      ctx.fillStyle=dispFin<=18?"rgba(52,211,153,.35)":"rgba(255,86,103,.30)";
+      ctx.strokeStyle=dispFin<=18?"#34d399":"#ff5667";ctx.lineWidth=1.5;
+      roundRect(ctx,X(16),y1,X(dispFin)-X(16),26,6);ctx.fill();ctx.stroke();
+      ctx.fillStyle="#cfe0ee";ctx.font="12px Inter,sans-serif";ctx.fillText("BITE test",X(16)+8,y1+17);
+      // rigging bar (18:15 -> 21:30) shown fixed
+      var y2=y1+40;
+      ctx.fillStyle="rgba(56,182,255,.20)";ctx.strokeStyle="#38b6ff";
+      roundRect(ctx,X(18.25),y2,X(21.5)-X(18.25),26,6);ctx.fill();ctx.stroke();
+      ctx.fillStyle="#cfe0ee";ctx.fillText("rigging (needs the evening)",X(18.25)+8,y2+17);
+      t++;requestAnimationFrame(draw);
+    }
+    function roundRect(c,x,y,w,h,r){if(w<1)w=1;c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+    update();requestAnimationFrame(draw);
+  };
+
+  /* ---- W: FUTURE-FORM PICKER (canvas pulse + rAF) ---- */
+  window.DeckW.forms = function(el){
+    var DATA=[
+      {k:'Promise / decide now',f:'will + base verb',ex:'"With two mechanics, we WILL FINISH the test by 18:00."',c:'#34d399'},
+      {k:'Plan decided before',f:'be going to + base',ex:'"I AM GOING TO reassign two mechanics from Bay 3."',c:'#a78bfa'},
+      {k:'Fixed arrangement + time',f:'present continuous',ex:'"We ARE STARTING the rigging at 18:15."',c:'#38b6ff'},
+      {k:'Timetable',f:'present simple',ex:'"The slot IS at 22:00."',c:'#fbbf24'}
+    ];
+    var btns=DATA.map(function(d,i){return '<button data-i="'+i+'">'+d.k+'</button>';}).join('');
+    el.innerHTML='<div class="wk"><div class="bar">'+btns+'</div>'+
+      '<canvas width="640" height="120"></canvas>'+
+      '<div class="info" data-read><h4>Pick a meaning</h4>Click a button to reveal the form and an authentic line.</div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]');
+    var W=cv.width,H=cv.height,sel=-1,t=0;
+    el.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){
+      sel=+b.getAttribute('data-i');t=0;
+      el.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');
+      var d=DATA[sel];
+      read.innerHTML="<h4 style='color:"+d.c+"'>"+d.f+"</h4>"+d.ex;
+    });});
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      if(sel<0){ctx.fillStyle="#4a5f78";ctx.font="14px Inter,sans-serif";ctx.fillText("← choose a meaning",20,H/2);requestAnimationFrame(draw);return;}
+      var d=DATA[sel];
+      var pulse=0.5+0.5*Math.sin(t*0.09);
+      ctx.fillStyle="rgba(0,0,0,0)";
+      // card
+      ctx.strokeStyle=d.c;ctx.lineWidth=2;ctx.globalAlpha=0.5+0.5*pulse;
+      rr(ctx,24,24,W-48,H-48,12);ctx.stroke();ctx.globalAlpha=1;
+      ctx.fillStyle=d.c;ctx.font="700 24px Inter,sans-serif";ctx.fillText(d.f,42,66);
+      ctx.fillStyle="#9db0c6";ctx.font="13px ui-monospace,monospace";ctx.fillText(d.k,42,92);
+      t++;requestAnimationFrame(draw);
+    }
+    function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+    requestAnimationFrame(draw);
+  };
+
+  /* ---- W: RESOURCE BOARD (canvas + rAF) ---- */
+  window.DeckW.manpower = function(el){
+    el.innerHTML='<div class="wk">'+
+      '<div class="rowg"><label>Mechanics moved from Bay 3</label><input type="range" min="0" max="3" value="2" data-mv2><span class="v" data-vv>2</span></div>'+
+      '<div class="bar"><button data-par class="on">Duct: parallel ON</button></div>'+
+      '<canvas width="640" height="150"></canvas>'+
+      '<div class="info" data-read></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]');
+    var mv=el.querySelector('[data-mv2]'),vv=el.querySelector('[data-vv]'),par=el.querySelector('[data-par]');
+    var W=cv.width,H=cv.height,parallel=true,t=0,mod=0,cab=0,tMod=0,tCab=0;
+    par.addEventListener('click',function(){parallel=!parallel;par.classList.toggle('on',parallel);par.textContent='Duct: parallel '+(parallel?'ON':'OFF');update();});
+    mv.addEventListener('input',update);
+    function update(){vv.textContent=mv.value;var moved=+mv.value;
+      // mod safe if >=2 moved; cabin safe because it has a buffer, unless we strip it AND run duct in parallel with too few
+      tMod = moved>=2?92:(moved==1?58:30);
+      tCab = 70 + (parallel?0:12) - (moved>=3?18:0); if(tCab>96)tCab=96; if(tCab<20)tCab=20;
+      var modOk=tMod>=80, cabOk=tCab>=45;
+      var msg;
+      if(modOk&&cabOk) msg="<b style='color:#9af0c8'>Both safe.</b> The mod clears the test, and the Bay 3 job keeps enough cover — it has a buffer until Friday.";
+      else if(modOk&&!cabOk) msg="<b style='color:#f3d27a'>Mod safe, Bay 3 tight.</b> You stripped Bay 3 too far. Say the trade-off out loud and confirm the buffer still holds.";
+      else msg="<b style='color:#ff9aa2'>Mod at risk.</b> Fewer than two mechanics will not clear the BITE test in time. Move more people onto the modification.";
+      read.innerHTML="<h4>Board state</h4>"+msg;}
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      tMod=tMod||30;tCab=tCab||70;
+      mod+=(tMod-mod)*0.15;cab+=(tCab-cab)*0.15;
+      bar("Avionics mod (BITE test)",26,mod,80);
+      bar("Bay 3 cabin (has buffer)",92,cab,45);
+      t++;requestAnimationFrame(draw);
+    }
+    function bar(label,y,val,thresh){
+      var x=180,w=W-x-30;
+      ctx.fillStyle="#9db0c6";ctx.font="13px Inter,sans-serif";ctx.fillText(label,20,y+18);
+      ctx.fillStyle="#0a0f18";ctx.strokeStyle="#26384e";rr(ctx,x,y,w,22,7);ctx.fill();ctx.stroke();
+      var ok=val>=thresh,col=ok?"#34d399":"#ff5667";
+      ctx.fillStyle=ok?"rgba(52,211,153,.5)":"rgba(255,86,103,.45)";rr(ctx,x,y,w*val/100,22,7);ctx.fill();
+      // threshold tick
+      ctx.strokeStyle="#f3d27a";ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(x+w*thresh/100,y-3);ctx.lineTo(x+w*thresh/100,y+25);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle=col;ctx.font="700 12px ui-monospace,monospace";ctx.fillText(Math.round(val)+'%',x+w+4-2,y+16);
+    }
+    function rr(c,x,y,w,h,r){if(w<1)w=1;c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+    update();requestAnimationFrame(draw);
+  };
+
+  /* ---- W: SLIPPAGE RISK GAUGE (canvas + rAF) ---- */
+  window.DeckW.slippage = function(el){
+    el.innerHTML='<div class="wk">'+
+      '<div class="rowg"><label>Slippage (hours behind)</label><input type="range" min="0" max="4" step="0.5" value="2" data-sl><span class="v" data-slv>2.0</span></div>'+
+      '<canvas width="640" height="180"></canvas>'+
+      '<div class="info" data-read></div>'+
+      '<p class="note">The plan carries a small buffer. Beyond it, the 22:00 slot is lost and the aircraft goes AOG.</p></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),read=el.querySelector('[data-read]');
+    var sl=el.querySelector('[data-sl]'),slv=el.querySelector('[data-slv]');
+    var W=cv.width,H=cv.height,disp=2,target=2,t=0,BUFFER=2.5;
+    sl.addEventListener('input',update);
+    function update(){slv.textContent=(+sl.value).toFixed(1);target=+sl.value;
+      var over=target>BUFFER;
+      var msg = target<=1.5
+        ? "<b style='color:#9af0c8'>Recoverable.</b> Report it calmly with a plan: &ldquo;We are "+target.toFixed(1)+" hours behind, but we will recover by 18:00.&rdquo;"
+        : (!over
+        ? "<b style='color:#f3d27a'>Tight.</b> The buffer is nearly gone. Watch the milestone closely and warn the planner early."
+        : "<b style='color:#ff9aa2'>Slot lost — AOG risk.</b> Slippage of "+target.toFixed(1)+" h exceeds the buffer. Escalate to the planner immediately.");
+      read.innerHTML="<h4>Risk state</h4>"+msg;}
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      disp+=(target-disp)*0.15;
+      var cx=W/2,cy=150,R=110;
+      // arc gauge from 180deg(0h) to 0deg(4h)
+      for(var i=0;i<=100;i++){
+        var a=Math.PI - Math.PI*(i/100);
+        var frac=i/100*4;
+        ctx.strokeStyle = frac<=1.5? "#34d399" : (frac<=BUFFER? "#fbbf24":"#ff5667");
+        ctx.globalAlpha=0.9;ctx.lineWidth=13;
+        ctx.beginPath();ctx.arc(cx,cy,R,a-0.02,a+0.001);ctx.stroke();
+      }
+      ctx.globalAlpha=1;
+      // buffer marker
+      var ab=Math.PI - Math.PI*(BUFFER/4);
+      ctx.strokeStyle="#e9f0f7";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx+Math.cos(ab)*(R-10),cy+Math.sin(ab)*(R-10));ctx.lineTo(cx+Math.cos(ab)*(R+10),cy+Math.sin(ab)*(R+10));ctx.stroke();
+      ctx.fillStyle="#9db0c6";ctx.font="11px ui-monospace,monospace";ctx.fillText("buffer",cx+Math.cos(ab)*(R+26)-16,cy+Math.sin(ab)*(R+26));
+      // needle
+      var an=Math.PI - Math.PI*(disp/4);
+      var col=disp<=1.5?"#34d399":(disp<=BUFFER?"#fbbf24":"#ff5667");
+      ctx.strokeStyle=col;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(an)*(R-16),cy+Math.sin(an)*(R-16));ctx.stroke();
+      ctx.fillStyle=col;ctx.beginPath();ctx.arc(cx,cy,7,0,7);ctx.fill();
+      ctx.fillStyle=col;ctx.font="700 22px Inter,sans-serif";ctx.textAlign="center";ctx.fillText(disp.toFixed(1)+" h behind",cx,cy-40);ctx.textAlign="left";
+      t++;requestAnimationFrame(draw);
+    }
+    update();requestAnimationFrame(draw);
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u27s1_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u27s1_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 27</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:26px;color:#9db0c6;font-size:17px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u27s1_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u27s1_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u27s1_deck_state")render();});',
+'render();setInterval(render,700);',
+'</scr'+'ipt></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u27s1_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capQueueB=[], capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<script>(function(){try{
+  var KEY='tsiCapScale', root=document.documentElement;
+  function apply(v){ root.style.setProperty('--cap-scale', v); }
+  var saved=parseFloat(localStorage.getItem(KEY))||1; saved=Math.max(0.6,Math.min(1.9,saved)); apply(saved);
+  var st=document.createElement('style'); st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}.cap-fs-slider::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:#FFD24D;cursor:pointer}'; document.head.appendChild(st);
+  function mount(){ var lb=document.getElementById('lctLangBar'); if(!lb||lb.querySelector('.cap-fs-slider')) return;
+    var w=document.createElement('span'); w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w); var sl=w.querySelector('.cap-fs-slider'); sl.value=saved;
+    var stop=function(e){ e.stopPropagation(); };
+    sl.addEventListener('input',function(){ var v=parseFloat(sl.value)||1; apply(v); try{ localStorage.setItem(KEY,v); }catch(e){} });
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){ sl.addEventListener(ev,stop); });
+  }
+  if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>

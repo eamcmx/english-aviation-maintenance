@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 30 — Teacher Deck · Mentoring: explaining a task to a junior</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}ol{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:660px;min-height:340px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:340px;
+  border:1px dashed var(--line);border-radius:14px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.prim{background:#16324c;color:#7fd0ff;border-color:#2a557e}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:52px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.turnbox{background:#0f1726;border:1px solid #314865;border-radius:12px;padding:12px 16px;margin:8px 0}
+.turnbox .who{font-family:var(--mono);font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.who.a{color:var(--accent)}.who.b{color:var(--amber)}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.good{color:var(--good)}.hot{color:var(--hot)}.amber{color:var(--amber)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.mini{font-size:16px;line-height:1.4}
+table.t{border-collapse:collapse;width:100%;font-size:16px}
+table.t th,table.t td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+table.t th{color:var(--muted);background:#0f1726;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="0:00–0:03 — Open the class. This is Unit 30 of English for Aviation Maintenance, a 90-minute double period at CEFR B2. The taught skill today is MENTORING: how an experienced technician explains a task, step by step, to a junior who is new to it. Say the shape of the lesson out loud: three short dialogues around one real job — coaching a new technician through a main-wheel change, checking that the junior understood, and correcting a deliberate error kindly. The language target is small and powerful: sequencers (First, Next, Then, After that, Finally) plus imperatives (read the card, torque the nut). Tell the room the whole unit lives on the printed pack (body.html) — this deck is the classroom stage for it. Press L any time to turn on the live caption translator for Latvian or Russian first-language learners; press P to open the private presenter window with these timings.">
+    <div class="kick">English for Aviation Maintenance · Unit 30 · EASA Part-66/145 · CEFR B2</div>
+    <h1>Mentoring: explaining a task to a junior</h1>
+    <p class="big muted">Coach a new technician through a main-wheel change — give a clear walk-through, check understanding, and correct one deliberate error the constructive way.</p>
+    <p class="pill">90-minute class · sequencers + imperatives · walk-through · competence · sign-off authority</p>
+  </section>
+
+  <!-- 2 · OUTCOMES + MAP -->
+  <section class="slide" data-notes="0:03–0:06 — Set the destination and the map before any activity, because learners work harder when the target is visible. Read the three can-do outcomes: explain a procedure step by step at a level a junior understands; check understanding and correct errors constructively; relate the task to its safety and airworthiness rationale. Then walk the timing column on the right so the class can see the whole 90 minutes. Stress that today is BALANCED — listening, speaking, reading and writing all appear. The assessment note: the printed pack has eight self-checking exercises; the quiz at the end is the formal check. Keep this slide up while learners settle; it doubles as the lesson contract.">
+    <div class="kick">By the end · and how the 90 minutes runs</div>
+    <h2>Three can-do outcomes</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="good">1 · Explain.</b> Explain a procedure step by step at a level a junior understands.</p>
+        <p><b class="amber">2 · Check &amp; correct.</b> Check understanding, and correct errors constructively — show the fault, give the reason.</p>
+        <p><b style="color:var(--purple)">3 · Rationale.</b> Relate the task to its safety and airworthiness rationale.</p>
+      </div>
+      <div>
+        <table class="t">
+          <tr><th>Stage</th><th>Min</th></tr>
+          <tr><td>Warm-up + scenario</td><td>8</td></tr>
+          <tr><td>Dialogues 1–3 (listen ×2)</td><td>20</td></tr>
+          <tr><td>Vocabulary bank (20 terms)</td><td>12</td></tr>
+          <tr><td>Grammar: sequencers + imperatives</td><td>12</td></tr>
+          <tr><td>Exercises E1–E8</td><td>18</td></tr>
+          <tr><td>Role-plays (4 cards)</td><td>12</td></tr>
+          <tr><td>Writing (start in class)</td><td>6</td></tr>
+          <tr><td>Wrap-up + exit ticket</td><td>2</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · WARM-UP -->
+  <section class="slide" data-center data-notes="0:06–0:08 — Warm-up, books closed. Elicit from the room, do not present. Ask: 'When an experienced technician teaches a new one at the aircraft, what does good teaching look like?' Collect three or four ideas on the board. Steer toward: one step at a time; show, then let them try; say WHY, not just what; check they understood before moving on. Then plant today's twist — the mentor will teach a wheel change AND correct one deliberate mistake without saying only the word 'wrong'. Ask the two first-language groups (Latvian, Russian) to notice one thing: English gives a teaching order with just 'First', never 'in first'. Keep it to two minutes; the point is to activate the topic, not to teach yet.">
+    <div class="kick">Warm-up · books closed · 2 min</div>
+    <h2>What does good on-the-job coaching sound like?</h2>
+    <p class="big">One step at a time · show then let them try · say <em>why</em>, not only <em>what</em> · check before moving on.</p>
+    <p class="muted" style="max-width:60ch">Today the mentor also corrects one deliberate error — the constructive way: show the fault, give the reason, let the junior fix it. Listen for how the order is signalled: <b>First… Next… Then… Finally.</b></p>
+  </section>
+
+  <!-- 4 · DIALOGUE 1 -->
+  <section class="slide" data-notes="0:08–0:14 — Dialogue 1, 'The walk-through'. Play the audio track once, books closed, for gist: what job is it, and who is teaching whom? Play a second time with the transcript open. Then run the gist questions on the right chorally. The teaching points to surface: the mentor frames this as on-the-job training — real work AND learning at once; the first instruction is 'First, read the task card completely', because it lists every step in order; and before jacking, the FOD (foreign object debris) check comes first. End on the comprehension check the mentor runs in the last two turns — model that a good mentor asks the junior to say the safety-critical step back. Drill the two glossed terms here: walk-through and task card.">
+    <div class="kick">Dialogue 1 · listen ×2 · The walk-through</div>
+    <h2>Set the scene, then the first steps</h2>
+    <div class="cols">
+      <div>
+        <div class="turnbox"><span class="who a">Mentor</span><p class="mini" style="margin:4px 0 0">Today I will mentor you through a complete main-wheel change, so watch my walk-through carefully first.</p></div>
+        <div class="turnbox"><span class="who b">Junior</span><p class="mini" style="margin:4px 0 0">Although I have observed a wheel change before, this is my first without close supervision.</p></div>
+        <div class="turnbox"><span class="who a">Mentor</span><p class="mini" style="margin:4px 0 0">First, read the task card completely, because it lists every step in the correct order.</p></div>
+      </div>
+      <div>
+        <p><b>Gist check (chorus):</b></p>
+        <ol class="mini">
+          <li>What is the job? <span class="muted">a main-wheel change</span></li>
+          <li>What comes before jacking? <span class="muted">the FOD check + reading the task card</span></li>
+          <li>Why read the task card first? <span class="muted">it lists every step in order</span></li>
+        </ol>
+        <p class="pill">glossed: walk-through · task card</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · DIALOGUE 2 + TORQUE WIDGET -->
+  <section class="slide" data-notes="0:14–0:20 — Dialogue 2, 'Torque, lockwire, and a deliberate error'. This is the heart of the unit. Play once for the plot: the junior reaches for the WRONG tool (an ordinary ratchet) and later fits the lockwire the WRONG way. Play again and freeze on the correction turns. Two language moments to teach: (1) the mentor never just says 'wrong' — 'A ratchet is completely wrong here, so which tool do we use?' hands the thinking back to the junior; (2) 'First, set the exact value; then torque the nut' — sequencer plus imperative in one breath. Use the torque widget live: drag the slider and let the needle chase the value; the wrench 'clicks' only at the specified 300 Nm. Make the room say the number — comprehension of spoken figures is a real skill and the quiz tests it. Drill: torque wrench, torque, lockwire.">
+    <div class="kick">Dialogue 2 · CENTREPIECE · torque, lockwire, a deliberate error</div>
+    <h2>Set the value first — then torque</h2>
+    <div class="cols">
+      <div class="dw" data-widget="torque"></div>
+      <div>
+        <p class="mini"><b>Correct the tool, hand back the thinking:</b> “A ratchet is completely wrong here, <em>so which tool do we use?</em>”</p>
+        <p class="mini"><b>Sequencer + imperative:</b> “<b>First, set</b> the exact value; <b>then torque</b> the nut.”</p>
+        <p class="pill">spec: 300 Nm · say the number aloud</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · LOCKWIRE WIDGET -->
+  <section class="slide" data-notes="0:20–0:24 — Stay in Dialogue 2 for the second deliberate error: the lockwire runs the wrong way. Use the lockwire widget: toggle 'tightening (correct)' and 'loosening (wrong)' and let the arrow animate. The rule the mentor gives is the language target too: 'The lockwire must always pull the nut tight, never loose.' Notice the constructive-correction frame in the script — the junior thanks the mentor 'for the constructive feedback, not simply the word wrong', and the mentor answers 'I show the actual fault, and I always give a reason.' Put that on the board as the unit's motto for correction. This is also where you preview role-play card 2. Drill: lockwire, feedback, rationale.">
+    <div class="kick">Dialogue 2 · the second error · lockwire direction</div>
+    <h2>The wire must pull the nut <span class="good">tight</span>, never <span class="hot">loose</span></h2>
+    <div class="cols">
+      <div class="dw" data-widget="lockwire"></div>
+      <div>
+        <p class="mini"><b>Constructive correction (the unit motto):</b></p>
+        <p class="mini">“I show the <b>actual fault</b>, and I <b>always give a reason</b>.” — not simply the word <span class="hot">wrong</span>.</p>
+        <p class="pill">glossed: lockwire · feedback · rationale</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · DIALOGUE 3 -->
+  <section class="slide" data-notes="0:24–0:28 — Dialogue 3, 'Checking understanding and sign-off authority'. Play once. The mentor runs a full comprehension check: why torque before the lockwire (because the lockwire only secures a nut already torqued), and what the rationale for the whole job is (airworthiness — a loose main wheel is an unacceptable risk). Then the airworthiness/authority point: the junior does NOT have sign-off authority; that needs a valid licence and a formal competence assessment. Make sure the class hears that today 'counts as on-the-job training toward that assessment'. This slide feeds role-play cards 3 and 4 and exercise E8. Drill: comprehension check, competence, sign-off authority, airworthiness.">
+    <div class="kick">Dialogue 3 · checking understanding + sign-off authority</div>
+    <h2>Check the reason — then the authority</h2>
+    <div class="grid2">
+      <div class="card"><p class="mini"><b>Q:</b> Why torque before the lockwire?<br><b class="good">A:</b> the lockwire only secures a nut that is already torqued.</p></div>
+      <div class="card"><p class="mini"><b>Q:</b> Rationale for the whole job?<br><b class="good">A:</b> airworthiness — a loose main wheel is an unacceptable risk.</p></div>
+      <div class="card"><p class="mini"><b>Q:</b> Can the junior sign it off?<br><b class="amber">A:</b> not yet — no sign-off authority.</p></div>
+      <div class="card"><p class="mini"><b>Q:</b> What does sign-off need?<br><b class="amber">A:</b> a valid licence and a formal competence assessment.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · VOCABULARY -->
+  <section class="slide" data-notes="0:28–0:40 — Vocabulary bank, 20 terms. Do not read the table aloud slot-by-slot — that wastes the twelve minutes. Instead: (1) put the six 'coaching' terms and the six 'wheel-change' terms in two columns and cold-call the plain meaning; (2) drill the collocations, because that is what makes B2 sound natural — give a walk-through, build competence, set the torque wrench, protect airworthiness, check for foreign object debris; (3) fast oral gap-fill from the example sentences. Only the taught terms are 'hard words' allowed today, and each has a plain gloss in the pack. Latvian and Russian learners: watch article-heavy collocations — 'set THE torque wrench', 'follow THE task card'. This slide sets up E1 (gap-fill) and E2 (matching).">
+    <div class="kick">Vocabulary · 20 terms · plain meaning + collocation</div>
+    <h2>Two families: coaching &amp; the wheel change</h2>
+    <div class="cols">
+      <div class="card">
+        <p class="mini good" style="margin:0 0 4px"><b>Coaching</b></p>
+        <p class="mini" style="margin:0">mentor · walk-through · on-the-job training · demonstration · comprehension check · supervision · feedback · hands-on practice · competence · sign-off authority</p>
+      </div>
+      <div class="card">
+        <p class="mini amber" style="margin:0 0 4px"><b>The wheel change</b></p>
+        <p class="mini" style="margin:0">task card · foreign object debris · jack · wheel change · axle · torque wrench · torque · lockwire · rationale · airworthiness</p>
+      </div>
+    </div>
+    <p class="pill">drill the collocations: give a walk-through · build competence · set the torque wrench · protect airworthiness</p>
+  </section>
+
+  <!-- 9 · GRAMMAR — SEQUENCE BUILDER WIDGET -->
+  <section class="slide" data-notes="0:40–0:48 — Grammar focus, part 1: sequencers. Teaching is ordered instruction, so the order must be SIGNALLED. Elicit the set: First, Next, Then, After that, Once…, As soon as…, Finally. Use the sequence-builder widget live: the six steps of the wheel change are shuffled; the class calls out the order and you click them. The canvas chains them and refuses a wrong order, which makes the 'fixed sequence' point physical. Say the rule: one sequencer per step, so the order is always clear. This is the exact skill E4 (transformation) and the writing task rehearse. Keep the pace brisk — the widget is the teaching, not decoration.">
+    <div class="kick">Grammar 1 · Interactive · sequencers</div>
+    <h2>Signal the order — one sequencer per step</h2>
+    <div class="cols">
+      <div class="dw" data-widget="seq"></div>
+      <div>
+        <p class="mini">Set: <code>First</code> · <code>Next</code> · <code>Then</code> · <code>After that</code> · <code>Once…</code> · <code>As soon as…</code> · <code>Finally</code></p>
+        <p class="muted mini">Click the six steps in the correct order. The chain only builds when the order is right — because the sequence really is fixed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · GRAMMAR — IMPERATIVE FORM -->
+  <section class="slide" data-notes="0:48–0:52 — Grammar focus, part 2: the imperative. Show the form on the board: sequencer + comma + PLAIN verb, no subject. 'First, read the task card.' Not 'First, you read…', not 'First, you are reading…'. Explain WHY the imperative suits teaching: it is short, so the junior hears one clear action and can follow it. Contrast the three forms in the table quickly and have the class convert two on the spot. This is the moment to name the interference errors on the next slide, so keep it tight — four minutes.">
+    <div class="kick">Grammar 2 · the teaching imperative</div>
+    <h2>Sequencer + comma + <span class="good">plain verb</span> — no subject</h2>
+    <table class="t">
+      <tr><th>Do not say</th><th>Say</th><th>Why</th></tr>
+      <tr><td class="hot">First, you read the card.</td><td class="good">First, read the card.</td><td>a teaching step drops the subject</td></tr>
+      <tr><td class="hot">Then, you are torquing the nut.</td><td class="good">Then, torque the nut.</td><td>use the plain verb, not the continuous</td></tr>
+      <tr><td class="hot">Finally, must to fit the lockwire.</td><td class="good">Finally, fit the lockwire.</td><td>no <em>must to</em>; just the imperative</td></tr>
+    </table>
+    <p class="muted mini">Short imperatives = one clear action the junior can follow correctly. This is exactly what E4 and the writing task rehearse.</p>
+  </section>
+
+  <!-- 11 · L1 INTERFERENCE -->
+  <section class="slide" data-notes="0:52–0:55 — First-language interference, named openly because naming it fixes it. Three errors are almost guaranteed with Latvian and Russian speakers. One: 'in first' — a direct calque of the Latvian/Russian ordinal phrasing; English is just 'First'. Two: dropped articles — 'put wheel on axle' — because neither Latvian nor Russian has articles, so learners lose 'the' before a known part; English needs 'put THE wheel on THE axle'. Three: the continuous or an added subject for a command — 'then you are torquing the nut' — because the aspect maps differently; a teaching step wants the bare imperative. Drill each correction chorally. Reassure the class these are predictable, not careless — the fix is a habit. The full teacher key expands the reason behind each.">
+    <div class="kick">First-language watch · Latvian &amp; Russian</div>
+    <h2>Three predictable slips — and the fix</h2>
+    <div class="grid3">
+      <div class="card"><p class="mini hot" style="margin:0">✗ In first, remove the wheel.</p><p class="mini good" style="margin:6px 0 0">✓ First, remove the wheel.</p><p class="muted mini" style="margin:6px 0 0">No <em>in first</em> — a calque of the L1 ordinal.</p></div>
+      <div class="card"><p class="mini hot" style="margin:0">✗ Put wheel on axle.</p><p class="mini good" style="margin:6px 0 0">✓ Put <b>the</b> wheel on <b>the</b> axle.</p><p class="muted mini" style="margin:6px 0 0">L1 has no articles — <em>the</em> is easy to lose.</p></div>
+      <div class="card"><p class="mini hot" style="margin:0">✗ Then you are torquing it.</p><p class="mini good" style="margin:6px 0 0">✓ Then, torque it.</p><p class="muted mini" style="margin:6px 0 0">Bare imperative — no continuous, no <em>you</em>.</p></div>
+    </div>
+  </section>
+
+  <!-- 12 · EXERCISES E1–E4 -->
+  <section class="slide" data-notes="0:55–1:04 — Controlled practice, first block. Learners open the pack. E1 gap-fill (10 items) recycles the coaching terms — set a two-minute limit, then peer-check. E2 matching (10) pairs the wheel-change terms with plain meanings. E3 dialogue completion (8) rebuilds a coaching exchange one word at a time. E4 is the grammar transformation (8) — 'First, you read the task card' becomes 'First, read the task card'; this is the target structure, so monitor it closely and feed back on any dropped articles. Each exercise self-checks in the pack; the full model answers with a one-line why are in the solutions file. Circulate, do not front-lead.">
+    <div class="kick">Exercises · controlled practice · block A</div>
+    <h2>E1–E4 · vocabulary + the target structure</h2>
+    <table class="t">
+      <tr><th>Ex</th><th>Type</th><th>Focus</th><th>Items</th></tr>
+      <tr><td><span class="tag">E1</span></td><td>Gap-fill</td><td>coaching terms</td><td>10</td></tr>
+      <tr><td><span class="tag">E2</span></td><td>Matching</td><td>wheel-change terms → meaning</td><td>10</td></tr>
+      <tr><td><span class="tag">E3</span></td><td>Dialogue completion</td><td>a coaching walk-through</td><td>8</td></tr>
+      <tr><td><span class="tag">E4</span></td><td>Transformation</td><td>you + verb → plain imperative</td><td>8</td></tr>
+    </table>
+    <p class="muted mini">Set a time limit per exercise, then peer-check. Watch E4 for dropped articles.</p>
+  </section>
+
+  <!-- 13 · EXERCISES E5–E8 -->
+  <section class="slide" data-notes="1:04–1:13 — Controlled practice, second block, weighted to reading and listening. E5 is Reading 1: an authentic-style TASK CARD (AMM 32-41-11, main wheel change, A320, W/O 5120) with six questions — the answer to 'what value do you torque the nut to?' is 300 Nm, a spoken-figure link to Dialogue 2. E6 is error-spotting (8): a junior's badly written steps carry the exact interference errors from slide 11 — 'in first', dropped articles, the continuous, 'must to'. E7 is Reading 2: an on-the-job training RECORD (Part-145, trainee D. Petrovs, mentor K. Ozols, Licence LV.66.2210) — practise reading a real training-record genre. E8 is a listening review on Dialogue 3. This block feeds the quiz directly.">
+    <div class="kick">Exercises · controlled practice · block B</div>
+    <h2>E5–E8 · reading the documents + listening back</h2>
+    <table class="t">
+      <tr><th>Ex</th><th>Type</th><th>Document / focus</th><th>Items</th></tr>
+      <tr><td><span class="tag">E5</span></td><td>Reading 1</td><td>Task card AMM 32-41-11 (A320)</td><td>6</td></tr>
+      <tr><td><span class="tag">E6</span></td><td>Error-spotting</td><td>the L1 interference errors</td><td>8</td></tr>
+      <tr><td><span class="tag">E7</span></td><td>Reading 2</td><td>OJT training record (Part-145)</td><td>6</td></tr>
+      <tr><td><span class="tag">E8</span></td><td>Listening review</td><td>replay Dialogue 3</td><td>8</td></tr>
+    </table>
+    <p class="muted mini">Authentic genres: task card, work order, training record. Answers with a one-line why are in the solutions file.</p>
+  </section>
+
+  <!-- 14 · COMPREHENSION-CHECK / CONSTRUCTIVE CORRECTION -->
+  <section class="slide" data-center data-notes="1:13–1:15 — Micro-input before the role-plays, because the speaking is only as good as the technique behind it. Two teachable moves. First, the COMPREHENSION CHECK: never ask 'OK?' — a junior always says yes. Ask them to say the safety-critical step back: 'Which action comes before jacking?' Second, CONSTRUCTIVE CORRECTION: show the fault, give the reason, let them fix it. Model the difference live — say 'that's wrong' (unhelpful), then 'your lockwire pulls the nut loose; it must pull it tight — try again' (helpful). Give the class these two sentence frames to carry into the role-plays. Ninety seconds, then straight into speaking.">
+    <div class="kick">Technique · before the role-plays</div>
+    <h2>Check by asking them to say it back — correct by giving the reason</h2>
+    <p class="big">Not “OK?” → “<b>Which action comes before jacking?</b>”</p>
+    <p class="big muted">Not “that’s wrong” → “<b>Your lockwire pulls the nut loose; it must pull it tight — try again.</b>”</p>
+  </section>
+
+  <!-- 15 · ROLE-PLAYS -->
+  <section class="slide" data-notes="1:15–1:27 — Role-plays, the productive core of the balanced lesson. Four cards in the pack. Pair the class; A is the mentor, B is the junior, then swap. Card 1 walk-through: teach the first steps in order. Card 2 correcting a mistake: the junior grabs a ratchet and mis-fits the lockwire — the mentor must show the fault and give the reason. Card 3 comprehension check: ask why each step matters, link to airworthiness. Card 4 sign-off authority: explain why the junior cannot sign yet. Give each pair three minutes per card, monitor for the target structure (sequencer + imperative) and the correction frame, and note errors for a delayed feedback slot — do not interrupt fluency. Fast finishers use the AI conversation-partner prompts in the pack. Score two pairs against the CEFR B2 speaking rubric in the teacher key.">
+    <div class="kick">Speaking · 4 role-play cards · pairs, then swap</div>
+    <h2>Mentor ↔ junior — run all four cards</h2>
+    <div class="grid2">
+      <div class="card"><p class="mini"><b class="good">Card 1 · The walk-through.</b> Teach the first steps in order, one clear instruction at a time.</p></div>
+      <div class="card"><p class="mini"><b class="amber">Card 2 · Correcting a mistake.</b> The junior grabs a ratchet, mis-fits the lockwire — show the fault, give the reason.</p></div>
+      <div class="card"><p class="mini"><b class="good">Card 3 · Comprehension check.</b> Ask why each step matters; link the answers to airworthiness.</p></div>
+      <div class="card"><p class="mini"><b class="amber">Card 4 · Sign-off authority.</b> Explain why the junior cannot certify the job yet.</p></div>
+    </div>
+    <p class="muted mini">3 min/card, then swap · monitor for sequencer + imperative + the correction frame · delayed feedback, not interruption.</p>
+  </section>
+
+  <!-- 16 · WRITING + STE -->
+  <section class="slide" data-notes="1:27–1:33 — Writing task, started in class and finished for homework. The brief: write the first six steps of a main-wheel change as teaching instructions, about 60–90 words, a sequencer and an imperative in each step, with the safety rationale added to at least one step. Teach the four Simplified Technical English habits on the right — one idea per sentence, short common words, the same word for the same thing, sentences under twenty words, and the imperative not 'you should'. This is where ASD-STE100 meets the grammar target: clean, ordered, unambiguous instructions are a safety artefact, not just good style. Show the self-check list from the pack; the annotated model answer is in the solutions file. Let them draft the first two steps now so you can catch problems before they leave.">
+    <div class="kick">Writing · start in class · Simplified Technical English</div>
+    <h2>Write the six steps as teaching instructions</h2>
+    <div class="cols">
+      <div>
+        <p class="mini"><b>Brief.</b> First six steps of a main-wheel change, 60–90 words. A sequencer + an imperative in each step. Add the safety rationale to at least one step.</p>
+        <p class="pill">one action per step · keep it under 20 words</p>
+      </div>
+      <div class="card">
+        <p class="mini good" style="margin:0 0 4px"><b>STE habits (ASD-STE100)</b></p>
+        <ul class="mini" style="margin:0">
+          <li>One idea per sentence.</li>
+          <li>Short, common words.</li>
+          <li>Same word for the same thing.</li>
+          <li>Imperative — <em>read the card</em>, not <em>you should read the card</em>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · SAFETY RATIONALE -->
+  <section class="slide" data-center data-notes="1:33–1:35 — Pull the thread that runs through the whole unit: every step protects airworthiness, and a good mentor names that reason. Ask the room to give the rationale for three steps: the FOD check (loose items can damage the aircraft or be trapped), the axle inspection (a crack can grow and fail in service), the lockwire (it stops the torqued nut turning loose in service). This is can-do outcome 3 and it is what separates a technician who follows steps from one who understands them. Keep it to ninety seconds — it is the moral of the lesson, not new content.">
+    <div class="kick">The through-line · outcome 3</div>
+    <h2>Every step protects <span class="good">airworthiness</span> — name the reason</h2>
+    <div class="grid3">
+      <div class="card"><p class="mini"><b>FOD check</b><br><span class="muted">loose items can damage the aircraft or be trapped</span></p></div>
+      <div class="card"><p class="mini"><b>Axle inspection</b><br><span class="muted">a crack can grow and fail in service</span></p></div>
+      <div class="card"><p class="mini"><b>Lockwire</b><br><span class="muted">stops the torqued nut turning loose in service</span></p></div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP-UP -->
+  <section class="slide" data-center data-notes="1:35–1:37 — Wrap-up and exit ticket. Recap in one breath: teach with sequencers plus imperatives; check understanding by asking the junior to say the safety-critical step back; correct by showing the fault and giving the reason; and tie every step to airworthiness. Exit ticket, spoken or written: each learner gives ONE teaching instruction for any step of the wheel change, using a sequencer and an imperative — a quick check of the target structure at the door. Set homework: finish the writing task, and do any unfinished exercises. Point them to the quiz as the formal check. Thank the room and close.">
+    <div class="kick">Wrap-up · exit ticket · homework</div>
+    <h2>Sequencer + imperative · check · correct · rationale</h2>
+    <p class="big muted">Exit ticket: each learner says <b>one</b> teaching instruction for any step — a sequencer + an imperative. Homework: finish the writing task and any unfinished exercises; then the quiz is the formal check.</p>
+    <p class="pill">“First, read the task card.” · “Then, torque the nut to 300 Nm.” · “Finally, fit the lockwire.”</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS, canvas + rAF) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+
+  /* ---- W: TORQUE WRENCH DIAL (rAF) ---- */
+  window.DeckW.torque=function(el){
+    el.innerHTML='<div class="wk">'+
+      '<div class="bar"><span class="note" style="font-weight:700;color:#9db0c6">TORQUE</span>'+
+      '<button data-spec class="prim">Set to spec (300 Nm)</button>'+
+      '<button data-zero>Back to 0</button></div>'+
+      '<canvas width="620" height="300"></canvas>'+
+      '<input type="range" min="0" max="400" value="0" step="1" data-r>'+
+      '<div class="info"><h4 data-h>Wrench value</h4><span data-t>Drag the slider. The wrench clicks only at the specified value.</span></div>'+
+      '</div>';
+    var cv=el.querySelector('canvas'), ctx=cv.getContext('2d'), r=el.querySelector('[data-r]');
+    var H=el.querySelector('[data-h]'), T=el.querySelector('[data-t]');
+    var target=0, cur=0, spec=300, raf=null;
+    function draw(){
+      cur += (target-cur)*0.18;
+      if(Math.abs(target-cur)<0.4) cur=target;
+      ctx.clearRect(0,0,620,300);
+      var cx=310, cy=250, R=190;
+      // arc
+      ctx.lineWidth=16; ctx.strokeStyle='#26384e';
+      ctx.beginPath(); ctx.arc(cx,cy,R,Math.PI,2*Math.PI); ctx.stroke();
+      // spec zone
+      var a0=Math.PI+(spec-6)/400*Math.PI, a1=Math.PI+(spec+6)/400*Math.PI;
+      ctx.strokeStyle='#34d399'; ctx.beginPath(); ctx.arc(cx,cy,R,a0,a1); ctx.stroke();
+      // filled value
+      var av=Math.PI+cur/400*Math.PI;
+      ctx.strokeStyle= (Math.abs(cur-spec)<=4)?'#34d399':'#38b6ff';
+      ctx.beginPath(); ctx.arc(cx,cy,R,Math.PI,av); ctx.stroke();
+      // needle
+      ctx.strokeStyle='#e9f0f7'; ctx.lineWidth=4;
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(av)*(R-24),cy+Math.sin(av)*(R-24)); ctx.stroke();
+      ctx.fillStyle='#e9f0f7'; ctx.beginPath(); ctx.arc(cx,cy,7,0,2*Math.PI); ctx.fill();
+      // number
+      ctx.fillStyle='#e9f0f7'; ctx.font='700 46px ui-monospace,Consolas,monospace'; ctx.textAlign='center';
+      ctx.fillText(Math.round(cur)+' Nm', cx, cy-46);
+      ctx.fillStyle='#7e98ad'; ctx.font='13px ui-monospace,Consolas,monospace';
+      ctx.fillText('spec 300 Nm', cx, cy-18);
+      if(target!==cur){ raf=requestAnimationFrame(draw); } else { raf=null; feedback(); }
+    }
+    function feedback(){
+      if(Math.abs(cur-spec)<=4){ H.textContent='✓ CLICK — value reached'; H.style.color='#34d399';
+        T.textContent='The wrench clicks at 300 Nm. First, set the value; then torque the nut.'; }
+      else if(cur<spec){ H.textContent='Under-torqued'; H.style.color='#fbbf24';
+        T.textContent='Below spec ('+Math.round(cur)+' Nm). Keep pulling smoothly until it clicks at 300.'; }
+      else { H.textContent='Over-torqued'; H.style.color='#ff5667';
+        T.textContent='Above spec ('+Math.round(cur)+' Nm). Never guess — reset and set the wrench correctly.'; }
+    }
+    function go(v){ target=clamp(+v,0,400); if(!raf) raf=requestAnimationFrame(draw); }
+    r.addEventListener('input',function(){ go(r.value); });
+    el.querySelector('[data-spec]').addEventListener('click',function(){ r.value=300; go(300); });
+    el.querySelector('[data-zero]').addEventListener('click',function(){ r.value=0; go(0); });
+    draw();
+  };
+
+  /* ---- W: LOCKWIRE DIRECTION (rAF) ---- */
+  window.DeckW.lockwire=function(el){
+    el.innerHTML='<div class="wk">'+
+      '<div class="bar"><span class="note" style="font-weight:700;color:#9db0c6">LOCKWIRE</span>'+
+      '<button data-ok class="prim on">Tightening (correct)</button>'+
+      '<button data-bad>Loosening (wrong)</button></div>'+
+      '<canvas width="620" height="280"></canvas>'+
+      '<div class="info"><h4 data-h>Correct direction</h4><span data-t>The wire is routed so any turn of the nut pulls the wire tight.</span></div>'+
+      '</div>';
+    var cv=el.querySelector('canvas'), ctx=cv.getContext('2d');
+    var H=el.querySelector('[data-h]'), T=el.querySelector('[data-t]');
+    var good=true, t=0, raf=null;
+    function draw(){
+      t+=0.03;
+      ctx.clearRect(0,0,620,280);
+      var cx=250, cy=150, R=70;
+      // nut (hexagon)
+      ctx.strokeStyle='#9db0c6'; ctx.lineWidth=6; ctx.beginPath();
+      for(var i=0;i<6;i++){ var a=i/6*2*Math.PI+Math.PI/6; var x=cx+Math.cos(a)*R, y=cy+Math.sin(a)*R; if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);} ctx.closePath(); ctx.stroke();
+      ctx.fillStyle='#0f1726'; ctx.beginPath(); ctx.arc(cx,cy,26,0,2*Math.PI); ctx.fill();
+      // rotation arrow (nut wants to loosen anticlockwise)
+      var col= good?'#34d399':'#ff5667';
+      ctx.strokeStyle=col; ctx.lineWidth=5;
+      var dir = good? 1 : -1;
+      var base = t*dir;
+      ctx.beginPath(); ctx.arc(cx,cy,R+22,base,base+2.2); ctx.stroke();
+      var ha=base+2.2; var hx=cx+Math.cos(ha)*(R+22), hy=cy+Math.sin(ha)*(R+22);
+      ctx.beginPath(); ctx.moveTo(hx,hy); ctx.lineTo(hx-dir*10,hy-12); ctx.lineTo(hx+dir*10,hy-4); ctx.closePath(); ctx.fillStyle=col; ctx.fill();
+      // the wire, to an anchor on the right
+      var ax=470, ay=110;
+      ctx.strokeStyle=col; ctx.lineWidth=3;
+      ctx.beginPath();
+      var sag = good? -10 : (18+8*Math.sin(t*2)); // wrong => slack, wobbling
+      ctx.moveTo(cx+R, cy-14);
+      ctx.quadraticCurveTo((cx+ax)/2, (cy+ay)/2 + sag, ax, ay);
+      ctx.stroke();
+      // twist marks
+      for(var k=0;k<6;k++){ var f=k/6; var xx=(cx+R)+(ax-(cx+R))*f; var yy=(cy-14)+((ay)-(cy-14))*f + (good?-4:12); ctx.strokeStyle=col; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(xx-4,yy-4); ctx.lineTo(xx+4,yy+4); ctx.stroke(); }
+      // anchor
+      ctx.fillStyle='#9db0c6'; ctx.fillRect(ax-4,ay-16,8,32);
+      // labels
+      ctx.fillStyle=col; ctx.font='700 18px -apple-system,Segoe UI,Roboto,sans-serif'; ctx.textAlign='left';
+      ctx.fillText(good?'wire PULLS TIGHT':'wire GOES SLACK', 330, 250);
+      raf=requestAnimationFrame(draw);
+    }
+    function set(g){ good=g; t=0;
+      el.querySelector('[data-ok]').classList.toggle('on',g);
+      el.querySelector('[data-bad]').classList.toggle('on',!g);
+      if(g){ H.textContent='✓ Correct direction'; H.style.color='#34d399';
+        T.textContent='Routed so the nut, as it tries to loosen, pulls the wire tight. Safe.'; }
+      else { H.textContent='✗ Wrong direction'; H.style.color='#ff5667';
+        T.textContent='Routed the wrong way — as the nut loosens, the wire goes slack. It cannot hold the nut.'; }
+    }
+    el.querySelector('[data-ok]').addEventListener('click',function(){ set(true); });
+    el.querySelector('[data-bad]').addEventListener('click',function(){ set(false); });
+    set(true); if(!raf) raf=requestAnimationFrame(draw);
+  };
+
+  /* ---- W: SEQUENCE BUILDER (rAF) ---- */
+  window.DeckW.seq=function(el){
+    var STEPS=[
+      {n:'Read the task card', s:'First'},
+      {n:'Check for foreign object debris', s:'Next'},
+      {n:'Jack the aircraft', s:'Then'},
+      {n:'Remove the wheel, inspect the axle', s:'After that'},
+      {n:'Torque the nut to 300 Nm', s:'Now'},
+      {n:'Fit the lockwire', s:'Finally'}
+    ];
+    var order=[0,1,2,3,4,5];
+    // deterministic shuffle (no Math.random): fixed scramble
+    var shown=[2,0,4,1,5,3];
+    el.innerHTML='<div class="wk">'+
+      '<div class="bar"><span class="note" style="font-weight:700;color:#9db0c6">BUILD THE ORDER</span>'+
+      '<button data-reset>Reset</button></div>'+
+      '<div data-btns style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px"></div>'+
+      '<canvas width="620" height="230"></canvas>'+
+      '<div class="info"><h4 data-h>Click the steps in order</h4><span data-t>Start with the first step of a wheel change.</span></div>'+
+      '</div>';
+    var btns=el.querySelector('[data-btns]'), cv=el.querySelector('canvas'), ctx=cv.getContext('2d');
+    var H=el.querySelector('[data-h]'), T=el.querySelector('[data-t]');
+    var placed=[], next=0, flash=0, raf=null;
+    function build(){
+      placed=[]; next=0; flash=0; btns.innerHTML='';
+      shown.forEach(function(idx){
+        var b=document.createElement('button'); b.textContent=STEPS[idx].n; b.dataset.idx=idx;
+        b.addEventListener('click',function(){ pick(idx,b); });
+        btns.appendChild(b);
+      });
+      H.textContent='Click the steps in order'; H.style.color='#38b6ff';
+      T.textContent='Start with the first step of a wheel change.';
+      if(!raf) raf=requestAnimationFrame(draw);
+    }
+    function pick(idx,b){
+      if(b.disabled) return;
+      if(idx===next){ placed.push(idx); b.disabled=true; b.style.opacity=.35; next++;
+        if(next===STEPS.length){ H.textContent='✓ Correct sequence'; H.style.color='#34d399';
+          T.textContent='One sequencer per step: First, Next, Then, After that, Now, Finally.'; }
+        else { H.textContent='Good — next step?'; H.style.color='#34d399'; T.textContent=STEPS[next-1].s+', '+STEPS[next-1].n.toLowerCase()+'.'; }
+      } else { flash=1; H.textContent='✗ Not yet — that step comes later'; H.style.color='#ff5667';
+        T.textContent='The sequence is fixed. What must happen before that?'; }
+    }
+    function draw(){
+      if(flash>0) flash=Math.max(0,flash-0.05);
+      ctx.clearRect(0,0,620,230);
+      var x=20,y=30,w=580;
+      for(var i=0;i<STEPS.length;i++){
+        var done=i<placed.length;
+        var yy=y+i*32;
+        ctx.fillStyle= done?'#16324c':'#0f1726';
+        ctx.strokeStyle= done?'#38b6ff':'#26384e'; ctx.lineWidth=1.5;
+        ctx.beginPath(); ctx.roundRect(x,yy,w,26,7); ctx.fill(); ctx.stroke();
+        ctx.fillStyle= done?'#7fd0ff':'#4a5f78'; ctx.font='700 13px ui-monospace,Consolas,monospace'; ctx.textAlign='left';
+        ctx.fillText((done? (STEPS[placed[i]].s) : '···'), x+10, yy+17);
+        ctx.fillStyle= done?'#e9f0f7':'#3a4a5e'; ctx.font='14px -apple-system,Segoe UI,Roboto,sans-serif';
+        ctx.fillText(done? STEPS[placed[i]].n : 'step '+(i+1), x+110, yy+17);
+      }
+      if(flash>0){ ctx.strokeStyle='rgba(255,86,103,'+flash+')'; ctx.lineWidth=3; ctx.strokeRect(2,2,616,226); }
+      raf=requestAnimationFrame(draw);
+    }
+    if(!ctx.roundRect){ ctx.roundRect=function(x,y,w,h,r){this.moveTo(x+r,y);this.arcTo(x+w,y,x+w,y+h,r);this.arcTo(x+w,y+h,x,y+h,r);this.arcTo(x,y+h,x,y,r);this.arcTo(x,y,x+w,y,r);return this;}; }
+    el.querySelector('[data-reset]').addEventListener('click',build);
+    build();
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u30_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u30_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 30</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:28px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function stt(){try{return JSON.parse(localStorage.getItem("u30_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=stt();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u30_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u30_deck_state")render();});',
+'render();',
+'<\/scr'+'ipt></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u30_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,80); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left;
+            pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;
+            font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB;
+            background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto;
+            width:50px; height:50px; border-radius:50%; cursor:pointer;
+            background:#F7C22D; color:#020E27; border:2px solid #F7C22D;
+            font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px;
+            box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051;
+               font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em;
+               text-transform:uppercase; color:#020E27; background:#F7C22D;
+               border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto;
+             width:42px; height:42px; border-radius:50%; cursor:pointer;
+             background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4);
+             font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052;
+                display:none; align-items:center; gap:8px;
+                background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px;
+                padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px;
+                       font-weight:700; color:#E8EDF5; background:#162030;
+                       border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="it-IT">Italiano</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<script>(function(){try{
+  var KEY='tsiCapScale', root=document.documentElement;
+  function apply(v){ root.style.setProperty('--cap-scale', v); }
+  var saved=parseFloat(localStorage.getItem(KEY))||1; saved=Math.max(0.6,Math.min(1.9,saved)); apply(saved);
+  var st=document.createElement('style'); st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}.cap-fs-slider::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:#FFD24D;cursor:pointer}'; document.head.appendChild(st);
+  function mount(){ var lb=document.getElementById('lctLangBar'); if(!lb||lb.querySelector('.cap-fs-slider')) return;
+    var w=document.createElement('span'); w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w); var sl=w.querySelector('.cap-fs-slider'); sl.value=saved;
+    var stop=function(e){ e.stopPropagation(); };
+    sl.addEventListener('input',function(){ var v=parseFloat(sl.value)||1; apply(v); try{ localStorage.setItem(KEY,v); }catch(e){} });
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){ sl.addEventListener(ev,stop); });
+  }
+  if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>

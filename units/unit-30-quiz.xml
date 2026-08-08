@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U30-r1</text></category>
+    <info format="html"><text><![CDATA[<p>English for Aviation Maintenance — Unit 30: Mentoring: explaining a task to a junior (CEFR B2). Split by skill: Listening, Reading, Use of English, Vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ══════════════════ LISTENING (7) ══════════════════ -->
+
+  <question type="multichoice">
+    <name><text>U30-LIS-01 Before jacking</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again — The walk-through.</b> The mentor asks which important action comes <em>before</em> jacking the aircraft. What is the correct answer?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The junior answers: the foreign object debris check, and reading the entire task card in the correct order. Both happen before the aircraft is lifted.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Check for foreign object debris and read the task card.]]></text><feedback format="html"><text><![CDATA[<p>Correct — both come before the aircraft is jacked.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Lift the aircraft on the jack, then remove the old wheel.]]></text><feedback format="html"><text><![CDATA[<p>No — jacking is the step in question, so it cannot come before itself.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Set the torque wrench and confirm the specified value.]]></text><feedback format="html"><text><![CDATA[<p>No — torque comes much later, after the new wheel is fitted.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Fit the new lockwire around the hub and pull it tight.]]></text><feedback format="html"><text><![CDATA[<p>No — the lockwire is the final step of the job.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U30-LIS-02 First without supervision</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> True or false: the junior has already changed a wheel alone, without close supervision.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The junior says: "Although I have observed a wheel change before, this is my first without close supervision." Observing is not the same as doing it alone.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — the junior had only <em>observed</em> one before.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — this is the junior's first without close supervision.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U30-LIS-03 Torque value</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again — Torque, lockwire, and a deliberate error.</b> What torque value, in newton metres, does the task card specify for the wheel nut? Enter the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>300. The junior reads: "The task card specifies three hundred newton metres for this particular wheel nut."</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>300</text><feedback format="html"><text><![CDATA[<p>Correct — 300 Nm.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U30-LIS-04 What holds the nut</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> After the nut is torqued, what stops it from turning loose?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The lockwire — fitted through the nut and around the hub so it pulls the nut tight, never loose.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The lockwire, fitted so it pulls the nut tight.]]></text><feedback format="html"><text><![CDATA[<p>Correct — the lockwire secures the torqued nut.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The ratchet, tightened firmly against the wheel hub.]]></text><feedback format="html"><text><![CDATA[<p>No — a ratchet is the wrong tool and does not lock anything.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A second nut, added on top to lock the first one.]]></text><feedback format="html"><text><![CDATA[<p>No — no second nut is mentioned in the dialogue.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The jack, holding steady pressure under the axle.]]></text><feedback format="html"><text><![CDATA[<p>No — the jack lifts the aircraft; it does not hold the nut.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U30-LIS-05 Lockwire direction</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> True or false: the mentor says the lockwire may run in either direction.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The mentor says: "The lockwire must always pull the nut tight, never loose." Direction matters.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — the junior assumed that, and the mentor corrected it.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — the wire must pull the nut tight, never loose.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U30-LIS-06 Errors corrected</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again — Checking understanding and sign-off authority.</b> How many errors did the mentor say he had to correct during the wheel change? Enter the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>1. The mentor says: "Strong, ordered work, although I had to correct the lockwire direction once."</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>1</text><feedback format="html"><text><![CDATA[<p>Correct — one error, the lockwire direction.</p>]]></text></feedback><tolerance>0</tolerance></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U30-LIS-07 Sign-off authority requires</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> What does the mentor say sign-off authority requires?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>"Sign-off authority requires a valid licence and a formal competence assessment." Practice alone is not enough.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[A valid licence and a formal competence assessment.]]></text><feedback format="html"><text><![CDATA[<p>Correct — both are named in the dialogue.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A completed walk-through and a supervisor's spoken approval.]]></text><feedback format="html"><text><![CDATA[<p>No — a spoken approval is not sign-off authority.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[More hands-on practice and a signed foreign-object check.]]></text><feedback format="html"><text><![CDATA[<p>No — practice helps, but it is not the requirement stated.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A finished wheel change and a full comprehension check.]]></text><feedback format="html"><text><![CDATA[<p>No — those happened today, yet the junior still cannot sign off.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ══════════════════ READING (5) ══════════════════ -->
+
+  <question type="multichoice">
+    <name><text>U30-RD-01 MEL</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this note.</b></p><blockquote>A Minimum Equipment List (MEL) item lets an aircraft fly with a named part inoperative for a limited time, if the stated conditions are met.</blockquote><p>What does an MEL item allow?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>An MEL permits flight with a listed item inoperative, but only under set conditions and for a limited time — it is not permanent and not unconditional.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Flight with a listed item inoperative, under set conditions.]]></text><feedback format="html"><text><![CDATA[<p>Correct — limited time, stated conditions.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Permanent removal of a part that is no longer needed at all.]]></text><feedback format="html"><text><![CDATA[<p>No — the MEL is temporary, not a permanent removal.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Any repair to be delayed until the next heavy maintenance check.]]></text><feedback format="html"><text><![CDATA[<p>No — the time limit and conditions are much tighter than that.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The crew to ignore a fault light for the rest of the aircraft's life.]]></text><feedback format="html"><text><![CDATA[<p>No — nothing is ignored; conditions must be met.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U30-RD-02 Service Bulletin</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this note.</b></p><blockquote>A Service Bulletin (SB) is issued by the manufacturer and is usually recommended, not mandatory — unless an Airworthiness Directive makes it compulsory.</blockquote><p>True or false: a Service Bulletin is always mandatory on its own.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. An SB is usually a recommendation. It becomes mandatory only when an Airworthiness Directive requires it.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No — an SB is usually recommended, not compulsory.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct — only an AD can make it mandatory.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U30-RD-03 BITE readout</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this note about avionics work.</b></p><blockquote>A Built-In Test Equipment (BITE) readout on the avionics display shows fault codes stored by a system's self-test. The technician reads the code, then finds it in the fault-isolation manual.</blockquote><p>What does a BITE readout give the technician?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>BITE shows stored fault codes from the system's own self-test. The technician still has to look the code up and act on it — the system does not repair itself.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Stored fault codes from a system's self-test.]]></text><feedback format="html"><text><![CDATA[<p>Correct — codes to look up in the manual.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A direct repair, carried out automatically by the system.]]></text><feedback format="html"><text><![CDATA[<p>No — BITE reports faults; it does not fix them.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The full wiring diagram for the whole avionics bay.]]></text><feedback format="html"><text><![CDATA[<p>No — that is a separate document, not the BITE readout.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A spoken warning sent to the flight crew in the cockpit.]]></text><feedback format="html"><text><![CDATA[<p>No — BITE is read by the technician on the display.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U30-RD-04 Tech log deferred defect</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this note.</b></p><blockquote>The technical log records every defect and the action taken. A deferred defect must be entered with its MEL reference.</blockquote><p>True or false: a deferred defect is entered in the technical log with its MEL reference.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The note states exactly that: a deferred defect must be entered with its MEL reference.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — the MEL reference goes in the log.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>No — the note requires the MEL reference to be recorded.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U30-RD-05 Airworthiness Directive</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Read this note.</b></p><blockquote>An Airworthiness Directive (AD) is issued by the regulator, not the manufacturer, and compliance is mandatory by a stated deadline.</blockquote><p>Who issues an AD, and is it mandatory?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The regulator issues an AD, and compliance is mandatory by the stated deadline. An SB, by contrast, comes from the manufacturer and is usually only recommended.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[The regulator; compliance is mandatory by a deadline.]]></text><feedback format="html"><text><![CDATA[<p>Correct — regulator-issued and compulsory.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The manufacturer; it is only a recommendation to operators.]]></text><feedback format="html"><text><![CDATA[<p>No — that describes a Service Bulletin, not an AD.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The mentor; it applies only during on-the-job training.]]></text><feedback format="html"><text><![CDATA[<p>No — an AD is a regulatory document, not a training note.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The flight crew; it applies for one single flight only.]]></text><feedback format="html"><text><![CDATA[<p>No — the crew do not issue ADs.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ══════════════════ USE OF ENGLISH (7) ══════════════════ -->
+
+  <question type="shortanswer">
+    <name><text>U30-UE-01 Imperative fit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Change to a teaching imperative. Write the ONE word that fills the gap.</p><p><i>First, you fit the lockwire.</i> &rarr; First, <b>______</b> the lockwire.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A teaching step drops the subject and uses the plain verb: <b>fit</b>. "First, fit the lockwire."</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>fit</text><feedback format="html"><text><![CDATA[<p>Correct — the bare imperative.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>fit the lockwire</text><feedback format="html"><text><![CDATA[<p>Accepted — the full imperative step.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U30-UE-02 Final sequencer</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Add the sequencer that marks the LAST step. Write one word.</p><p><b>______</b>, fit the lockwire.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>Finally</b> marks the last step: "Finally, fit the lockwire." (Also fine: <i>Lastly</i>.)</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>Finally</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>Finally,</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>Lastly</text><feedback format="html"><text><![CDATA[<p>Accepted.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U30-UE-03 Fix in first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Correct the sequencer error. Write the corrected opening word.</p><p><i>In first, read the task card.</i> &rarr; <b>______</b>, read the task card.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>English does not say "in first". The sequencer is just <b>First</b>: "First, read the task card."</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>First</text><feedback format="html"><text><![CDATA[<p>Correct — no "in".</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>First,</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U30-UE-04 Add the articles</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Rewrite this step with the two missing articles.</p><p><i>Put wheel on axle.</i></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Both parts are known, so each needs <b>the</b>: "Put <b>the</b> wheel on <b>the</b> axle." Latvian and Russian have no articles, so they are easy to drop.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>Put the wheel on the axle</text><feedback format="html"><text><![CDATA[<p>Correct — both articles restored.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>Put the wheel on the axle.</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U30-UE-05 Torque wrench</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the term. Write one word.</p><p>The tool that tightens a fastener to an exact value is a torque <b>______</b>.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>wrench</b>. A torque wrench tightens to an exact, specified value — you never guess it.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>wrench</text><feedback format="html"><text><![CDATA[<p>Correct — a torque wrench.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U30-UE-06 Imperative torque</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Change to a teaching imperative. Write the ONE word that fills the gap.</p><p><i>Then, you are torquing the nut.</i> &rarr; Then, <b>______</b> the nut.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Use the plain verb, not the continuous: <b>torque</b>. "Then, torque the nut."</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>torque</text><feedback format="html"><text><![CDATA[<p>Correct — plain imperative.</p>]]></text></feedback></answer>
+    <answer fraction="100"><text>torque the nut</text><feedback format="html"><text><![CDATA[<p>Accepted.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U30-UE-07 Rationale</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Complete the term from the vocabulary bank. Write one word.</p><p>The safety reason behind a step is the <b>______</b>.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><b>rationale</b>. A good mentor always gives the rationale, so the junior understands why the step matters.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>rationale</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  </question>
+
+  <!-- ══════════════════ VOCABULARY (4) ══════════════════ -->
+
+  <question type="matching">
+    <name><text>U30-VOC-01 Term to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its plain meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>mentor = an experienced technician who guides a junior; lockwire = wire that stops a fastener turning loose; axle = the shaft the wheel turns on; airworthiness = the state of being safe and legal to fly; task card = the card that lists the steps of one job.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[<p>All five matched correctly.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some pairs are right — check the rest.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the meanings in the vocabulary bank and try again.</p>]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[mentor]]></text><answer><text>an experienced technician who guides a junior</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[lockwire]]></text><answer><text>wire that stops a fastener turning loose</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[axle]]></text><answer><text>the shaft the wheel turns on</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[airworthiness]]></text><answer><text>the state of being safe and legal to fly</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[task card]]></text><answer><text>the card that lists the steps of one job</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U30-VOC-02 Collocations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the verb phrase it completes.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>give a walk-through; build competence; set the torque wrench; protect airworthiness; check for foreign object debris. Learning the natural partner word makes B2 speech fluent.</p>]]></text></generalfeedback>
+    <shuffleanswers>1</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[<p>All five collocations matched.</p>]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[<p>Some are right — check the rest against the vocabulary bank.</p>]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[<p>Review the collocation column in the vocabulary bank.</p>]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[walk-through]]></text><answer><text>give a ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[competence]]></text><answer><text>build ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[torque wrench]]></text><answer><text>set the ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[airworthiness]]></text><answer><text>protect ___</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[foreign object debris]]></text><answer><text>check for ___</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U30-VOC-03 Correct collocation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which phrase is the correct collocation for a demonstration of a task?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>We <b>give</b> a walk-through. English pairs "give" with walk-through, demonstration and feedback.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[give a walk-through]]></text><feedback format="html"><text><![CDATA[<p>Correct — the natural collocation.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[make a walk-through slowly]]></text><feedback format="html"><text><![CDATA[<p>No — "make" is not used with walk-through.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[open a walk-through first]]></text><feedback format="html"><text><![CDATA[<p>No — "open" does not collocate here.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[do a walk-through for me]]></text><feedback format="html"><text><![CDATA[<p>No — "give a walk-through" is the fixed phrase.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U30-VOC-04 Meaning of competence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Choose the best meaning of <b>competence</b> in this unit.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Competence is proven ability to do a task correctly and safely. It grows with supervised practice and is confirmed by a formal assessment.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[Proven ability to do a task correctly and safely.]]></text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[A strong wish to finish the task before the others do.]]></text><feedback format="html"><text><![CDATA[<p>No — that confuses competence with competition.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[Permission to certify that a job is fully complete.]]></text><feedback format="html"><text><![CDATA[<p>No — that is sign-off authority, not competence.</p>]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[The tool used to tighten a nut to a set value.]]></text><feedback format="html"><text><![CDATA[<p>No — that is a torque wrench.</p>]]></text></feedback></answer>
+  </question>
+
+</quiz>

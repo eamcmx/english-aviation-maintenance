@@ -1,0 +1,1839 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Certifying release to service</title><!--CF-LANG-UI--><style>/* CourseForge LANG: the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+/* LANG edition: Lang Buddy (in-lesson tutor) + pronunciation practice.
+   Uses the unit design tokens from lang-ui.css (--brand, --amber, --ink, --ink-2, --line, --paper). */
+
+.lb-root { font: 15px/1.6 'Inter', 'Segoe UI', system-ui, sans-serif; }
+
+.lb-fab {
+  position: fixed; right: 20px; bottom: 20px; z-index: 60;
+  display: flex; align-items: center; gap: 9px;
+  background: var(--brand, #2F5496); color: #fff; border: 0; cursor: pointer;
+  border-radius: 999px; padding: 12px 20px 12px 16px; font-size: 14.5px; font-weight: 600;
+  box-shadow: 0 2px 6px rgba(16, 32, 54, .16), 0 12px 30px rgba(16, 32, 54, .22);
+  transition: transform .16s, box-shadow .16s;
+}
+.lb-fab:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(16, 32, 54, .2), 0 18px 40px rgba(16, 32, 54, .26); }
+.lb-fab-i { font-size: 17px; line-height: 1; }
+
+.lb-panel {
+  position: fixed; right: 20px; bottom: 20px; z-index: 61;
+  width: 390px; max-width: calc(100vw - 32px); height: 580px; max-height: calc(100vh - 40px);
+  display: flex; flex-direction: column; overflow: hidden;
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(16, 32, 54, .1), 0 26px 60px rgba(16, 32, 54, .24);
+}
+.lb-panel[hidden] { display: none; }
+
+.lb-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line, #e2e6ec);
+  background: linear-gradient(180deg, #fff, #f8fafc);
+}
+.lb-head b { font-size: 15px; color: var(--ink, #1b2733); display: block; }
+.lb-sub { font-size: 12px; color: var(--ink-2, #5a6b7d); }
+.lb-x { background: 0; border: 0; font-size: 22px; line-height: 1; color: var(--ink-2, #5a6b7d); cursor: pointer; padding: 0 4px; }
+.lb-x:hover { color: var(--ink, #1b2733); }
+
+.lb-log { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.lb-msg { max-width: 84%; padding: 9px 13px; border-radius: 14px; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap; }
+.lb-you { align-self: flex-end; background: var(--brand, #2F5496); color: #fff; border-bottom-right-radius: 5px; }
+.lb-bot { align-self: flex-start; background: #f2f5f9; color: var(--ink, #1b2733); border-bottom-left-radius: 5px; }
+.lb-think { color: var(--ink-2, #5a6b7d); font-style: italic; }
+.lb-err { background: #fdeceb; color: #8c2f27; }
+
+.lb-gate { background: #fffdf6; border: 1px solid #f0dfbe; border-radius: 12px; padding: 13px 14px; font-size: 13.5px; }
+.lb-gate p { margin: 0 0 10px; color: var(--ink-2, #5a6b7d); line-height: 1.5; }
+.lb-key { width: 100%; padding: 9px 11px; border: 1px solid var(--line, #e2e6ec); border-radius: 9px; font-size: 13.5px; }
+.lb-save { margin-top: 9px; background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 9px; padding: 9px 16px; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+.lb-help { display: block; margin-top: 9px; font-size: 12.5px; color: var(--brand, #2F5496); }
+
+.lb-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
+.lb-q {
+  background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px;
+  padding: 6px 13px; font-size: 12.5px; color: var(--ink-2, #5a6b7d); cursor: pointer; transition: .15s;
+}
+.lb-q:hover { border-color: var(--brand, #2F5496); color: var(--brand, #2F5496); background: #f6f9fd; }
+.lb-more { border-style: dashed; color: var(--brand, #2F5496); }
+.lb-more::before { content: "+ "; }
+
+.lb-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line, #e2e6ec); background: #fbfcfe; }
+.lb-in { flex: 1; min-width: 0; padding: 10px 13px; border: 1px solid var(--line, #e2e6ec); border-radius: 11px; font-size: 14.5px; font-family: inherit; }
+.lb-in:focus { outline: 0; border-color: var(--brand, #2F5496); box-shadow: 0 0 0 3px rgba(47, 84, 150, .12); }
+.lb-send { background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 11px; padding: 10px 17px; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 560px) {
+  .lb-panel { right: 8px; left: 8px; bottom: 8px; width: auto; height: calc(100vh - 70px); }
+  .lb-fab-t { display: none; }
+  .lb-fab { padding: 14px; }
+}
+
+/* ---- pronunciation practice ---------------------------------------------------------------- */
+.pron { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; padding: 18px 20px; margin: 20px 0; }
+.pron h3 { margin: 0 0 4px; font-size: 16.5px; color: var(--brand, #2F5496); }
+.pron .hint { margin: 0 0 14px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.pron-line { border-top: 1px solid #eef1f5; padding: 13px 0; }
+.pron-line:first-of-type { border-top: 0; }
+.pron-target { font-size: 15.5px; line-height: 1.6; color: var(--ink, #1b2733); margin-bottom: 9px; }
+.pron-target span { padding: 1px 2px; border-radius: 4px; }
+.pron-target span.hit { background: #e6f6ee; color: #0f6e56; }
+.pron-target span.miss { background: #fdeceb; color: #8c2f27; }
+.pron-bar { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.pron-rec {
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  background: var(--brand, #2F5496); color: #fff; border: 0; border-radius: 999px;
+  padding: 8px 16px; font-size: 13.5px; font-weight: 600; font-family: inherit;
+}
+.pron-rec[data-on="1"] { background: #c0392b; animation: pron-pulse 1.1s ease-in-out infinite; }
+@keyframes pron-pulse { 0%, 100% { opacity: 1 } 50% { opacity: .62 } }
+.pron-score { font-size: 13.5px; font-weight: 600; color: var(--ink-2, #5a6b7d); }
+.pron-score.good { color: #0f6e56; }
+.pron-score.poor { color: #8c2f27; }
+.pron-heard { font-size: 13px; color: var(--ink-2, #5a6b7d); margin-top: 7px; font-style: italic; }
+.pron-note { font-size: 12.5px; color: var(--ink-2, #5a6b7d); margin-top: 12px; }
+
+/* ---- unit figures --------------------------------------------------------------------------- */
+.lang-fig { margin: 26px 0; padding: 0; background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 14px; overflow: hidden; }
+.lang-fig .fig-head { padding: 13px 20px; border-bottom: 1px solid var(--line, #e2e6ec); background: #fbfcfe; font-size: 13.5px; color: var(--ink-2, #5a6b7d); }
+.lang-fig .fig-head b { color: var(--brand, #2F5496); font-weight: 600; }
+.lang-fig .fig-body { padding: 18px 16px; overflow-x: auto; }
+.lang-fig .fig-cap { margin: 0; padding: 0 20px 16px; font-size: 13.5px; color: var(--ink-2, #5a6b7d); line-height: 1.55; }
+.lang-fig .fig-bar { padding: 0 20px 16px; }
+.fig-btn { background: #fff; border: 1px solid var(--line, #e2e6ec); border-radius: 999px; padding: 7px 15px; font-size: 12.5px; font-family: inherit; color: var(--brand, #2F5496); cursor: pointer; }
+.fig-btn:hover { border-color: var(--brand, #2F5496); background: #f6f9fd; }
+.fig-quiz { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 9px; padding: 0 20px 18px; }
+.fig-quiz label { display: flex; align-items: center; gap: 8px; }
+.fig-quiz label span { width: 22px; height: 22px; flex: none; border-radius: 50%; background: var(--brand, #2F5496); color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.fig-quiz input { flex: 1; min-width: 0; padding: 7px 10px; border: 1px solid var(--line, #e2e6ec); border-radius: 8px; font-size: 13px; font-family: inherit; }
+.fig-quiz input.ok { border-color: #0f6e56; background: #e6f6ee; color: #0f6e56; }
+.fig-quiz input.bad { border-color: #c0392b; background: #fdeceb; color: #8c2f27; }
+</style><!--/CF-LANG-UI--></head><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 29 of 32 · Certifying release to service</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 release to service, CRS, independent inspection, airworthy</span></div></div></header><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Certifying release to service · English for Aviation Maintenance · Unit 29</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  article{max-width:920px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 32px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(2rem,4.4vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:22ch}
+  .subtitle{font-size:19px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:60ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-4)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:15px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.15rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:70ch}
+  p.lede{font-size:18px;color:#3a3f4d}
+  a{color:var(--color-primary)}
+  code{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  dfn[data-term]{font-style:normal;font-weight:600;color:var(--color-primary-dark);border-bottom:1px dotted var(--color-primary-soft);cursor:help}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .card h4{font-size:.98rem;margin:0 0 var(--space-3);color:var(--color-primary-dark)}
+  .card ul{margin:0;padding-left:1.1em}
+  .card li{margin:6px 0;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .scenario-box{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius);padding:var(--space-4) var(--space-5)}
+  .scenario-box p{font-family:var(--font-serif);font-size:18px;color:#33384a;max-width:74ch}
+  /* dialogues */
+  .dialogue{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:8px 4px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .dialogue h3{margin:8px 14px 4px}
+  .dia-meta{font-family:var(--font-mono);font-size:12px;color:var(--ink-muted);margin:0 14px 8px}
+  .lang-audio-slot{margin:10px 14px;min-height:54px;border:1px dashed var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken);display:flex;align-items:center;justify-content:center;color:var(--ink-muted);font-size:13px;font-family:var(--font-mono)}
+  .lang-audio-slot:before{content:"\25B6  audio track "attr(data-audio)}
+  details.transcript{margin:8px 14px 12px;border-top:1px solid var(--border-soft);padding-top:6px}
+  details.transcript>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-primary);font-weight:600;padding:6px 0}
+  .turn{margin:7px 0;padding:0 6px;max-width:72ch}
+  .turn .sp{font-family:var(--font-mono);font-weight:700;font-size:12px;color:var(--color-primary);margin-right:8px}
+  .turn.b .sp{color:var(--accent)}
+  /* vocab */
+  table.vocab{border-collapse:collapse;width:100%;margin-top:12px;font-size:14.5px}
+  table.vocab th,table.vocab td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vocab th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  table.vocab td.coll{font-family:var(--font-mono);font-size:12.5px;color:var(--color-primary-dark);white-space:nowrap}
+  /* grammar */
+  table.form{border-collapse:collapse;margin:12px 0;font-size:14.5px;width:100%}
+  table.form th,table.form td{border:1px solid var(--border);padding:7px 11px;text-align:left}
+  table.form th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  table.form td.aux{font-family:var(--font-mono);color:var(--color-primary-dark);font-weight:600}
+  .mistake{display:grid;grid-template-columns:1fr;gap:4px;border:1px solid var(--border);border-left:4px solid var(--signal);border-radius:var(--radius-sm);padding:10px 14px;margin:10px 0;background:var(--bg-elevated)}
+  .mistake .wrong{color:var(--bad)}.mistake .right{color:var(--good)}
+  .mistake .why{font-size:13.5px;color:var(--ink-muted)}
+  /* exercises */
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:16px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex h3{margin:2px 0 6px}
+  .ex ol{margin:8px 0;padding-left:1.4em}
+  .ex ol.plain{list-style:decimal}
+  .ex li{margin:9px 0;max-width:74ch}
+  .ex .instr{font-size:15px;color:var(--ink-soft);margin:2px 0 8px}
+  .ex input[type=text]{font-family:var(--font-sans);font-size:15px;border:1px solid var(--border);border-radius:6px;padding:5px 9px;min-width:150px;background:#fff}
+  .ex select{font-family:var(--font-sans);font-size:14.5px;border:1px solid var(--border);border-radius:6px;padding:5px 8px;background:#fff}
+  .ex input.right,.ex select.right{border-color:var(--good);background:#eaf5ec}
+  .ex input.wrong,.ex select.wrong{border-color:var(--bad);background:#fbecea}
+  button.btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 15px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  button.btn:hover{border-color:var(--color-primary)}
+  button.btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .score{font-family:var(--font-mono);font-weight:700;margin-left:12px;color:var(--color-primary-dark)}
+  .exfoot{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+  details.key{margin-top:10px}
+  details.key>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;color:var(--accent);font-weight:600}
+  details.key ol{font-size:14px;color:#3a3f4d}
+  .reading-text{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;margin:10px 0;font-size:15px;line-height:1.7;box-shadow:var(--shadow-sm)}
+  .reading-text .doc-head{font-family:var(--font-mono);font-size:12px;color:var(--color-primary);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:8px}
+  .reading-text .row{display:block;margin:3px 0}
+  .badtext{background:#fff;border:1px dashed #d3a26a;border-radius:var(--radius-sm);padding:12px 16px;margin:10px 0;font-family:var(--font-mono);font-size:13.5px;line-height:1.9;white-space:pre-wrap}
+  /* speaking */
+  .roleplay{background:var(--bg-elevated);border:1px solid var(--border);border-top:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-family:var(--font-sans);font-size:15px;color:var(--color-primary-dark)}
+  .roleplay .field{margin:6px 0;font-size:14.5px}
+  .roleplay .flab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-primary);font-weight:700;display:block}
+  .roleplay .phrases{background:var(--bg-sunken);border-radius:var(--radius-sm);padding:8px 12px;margin-top:6px}
+  .roleplay .phrases li{margin:4px 0;font-size:14px}
+  .ai-box{background:linear-gradient(180deg,#f4eefb,#faf7fe);border:1px solid #e0d2f1;border-radius:var(--radius);padding:16px 20px;margin:18px 0}
+  .ai-box h4{color:#5a4fcf;margin:0 0 8px}
+  .ai-prompt{background:#fff;border:1px solid #e0d2f1;border-radius:var(--radius-sm);padding:10px 14px;margin:10px 0;font-size:14px;position:relative}
+  .ai-prompt .plabel{font-family:var(--font-mono);font-size:11px;color:#5a4fcf;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+  .ai-prompt p{margin:5px 0 0;color:#33384a;font-style:italic}
+  .checklist{list-style:none;padding:0;margin:10px 0}
+  .checklist li{margin:6px 0;padding-left:26px;position:relative}
+  .checklist li:before{content:"\2610";position:absolute;left:0;color:var(--color-primary);font-size:18px}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<article>
+
+  <header class="lec-hero">
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · EASA Part-66/145 · Unit 29 · CEFR B2</p>
+    <h1 class="lecture-title">Certifying release to service.</h1>
+    <p class="subtitle">Hand an aircraft over for release. State the completed work, confirm the checks, and justify the certificate to certifying staff, in the plain, impersonal English a release is written in.</p>
+    <div class="hero-meta">
+      <span>Unit<strong>29, Certifying release to service</strong></span>
+      <span>Vocabulary<strong>CRS · independent inspection · airworthy</strong></span>
+      <span>Grammar<strong>Present perfect passive</strong></span>
+      <span>Class length<strong>90 minutes · self-study</strong></span>
+    </div>
+    <div class="card" style="margin-top:var(--space-5)">
+      <h4>By the end of this unit you can &hellip;</h4>
+      <ul>
+        <li>Can state precisely what work was done and what remains open.</li>
+        <li>Can explain the basis for a certificate of release to service.</li>
+        <li>Can confirm all documentation and independent checks are complete.</li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="lecture-section" id="scenario">
+    <h2><span class="secnum">01</span>The situation</h2>
+    <div class="scenario-box">
+      <p>It is the end of a shift in the hangar. You have finished the work, and now you must hand the aircraft over. The certifying staff will not sign until you are clear. You must say what was done, what is still open, and why the aircraft is safe to fly. In this unit you practise that handover, so the release to service is quick and correct.</p>
+    </div>
+    <p class="lede">A release to service is a promise in writing. Because you are declaring the aircraft airworthy, the language must be exact, and nothing important can be omitted.</p>
+    <p>Listen to the three dialogues first, before you read the words. Try to catch the completed work and the open items, although this is difficult at first. Then open the transcript and read along. After that, build the specialist vocabulary, study the grammar, and complete the eight exercises. Finish with the speaking cards and the writing task, unless your teacher directs you differently. Throughout, notice how the certifying staff describe finished work impersonally, because a release records what has been done, not who did it.</p>
+  </section>
+
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">02</span>Model dialogues</h2>
+    <p class="instr" style="color:var(--ink-soft)">Listen first with the transcript closed. Then open it and read along.</p>
+
+    <div class="dialogue">
+      <h3>Dialogue 1: Handing over a landing-gear job</h3>
+      <p class="dia-meta">A = J&#257;nis, mechanic (B1) &nbsp;·&nbsp; B = El&#299;na, certifying staff</p>
+      <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u29-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:16 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn a"><span class="sp">J&#256;NIS</span>Morning, El&#299;na. I have finished the work order on the main landing gear.</p>
+        <p class="turn b"><span class="sp">EL&#298;NA</span>Good. Talk me through it before I look at the release to service.</p>
+        <p class="turn a"><span class="sp">J&#256;NIS</span>The task card told me to change the shock strut seal. I followed the aircraft maintenance manual for every step.</p>
+        <p class="turn b"><span class="sp">EL&#298;NA</span>Was the old seal unserviceable, or was it just a routine change?</p>
+        <p class="turn a"><span class="sp">J&#256;NIS</span>It was unserviceable. It was leaking fluid, so the rectification was needed.</p>
+        <p class="turn b"><span class="sp">EL&#298;NA</span>Fine. What is the scope of work on this pack, exactly?</p>
+        <p class="turn a"><span class="sp">J&#256;NIS</span>One seal change, one leak check, and a functional test of the gear.</p>
+        <p class="turn b"><span class="sp">EL&#298;NA</span>And the new seal, is it serviceable, with full traceability?</p>
+        <p class="turn a"><span class="sp">J&#256;NIS</span>Yes. It is serviceable. The certificate gives full traceability back to the maker.</p>
+        <p class="turn b"><span class="sp">EL&#298;NA</span>Good. Has the functional test been passed?</p>
+        <p class="turn a"><span class="sp">J&#256;NIS</span>It has passed. The gear moved freely, and there was no leak after the test.</p>
+        <p class="turn b"><span class="sp">EL&#298;NA</span>Is any item still open that I should know about?</p>
+        <p class="turn a"><span class="sp">J&#256;NIS</span>One small thing. The gear-bay light is dead, so I have logged it.</p>
+        <p class="turn b"><span class="sp">EL&#298;NA</span>Then that becomes a deferred defect. We carry it under the rules.</p>
+        <p class="turn a"><span class="sp">J&#256;NIS</span>I have already written everything in the technical log.</p>
+        <p class="turn b"><span class="sp">EL&#298;NA</span>Perfect. If the paperwork is complete, I can call it airworthy and release it.</p>
+      </details>
+    </div>
+
+    <div class="dialogue">
+      <h3>Dialogue 2: An independent inspection on a control run</h3>
+      <p class="dia-meta">A = Roberts, avionics technician (B2) &nbsp;·&nbsp; B = Anna, certifying staff</p>
+      <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u29-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:22 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn a"><span class="sp">ROBERTS</span>Anna, the aileron control run is repaired. Can you do the independent inspection?</p>
+        <p class="turn b"><span class="sp">ANNA</span>Yes. This is a control-cable job, so it needs a duplicate inspection by two people.</p>
+        <p class="turn a"><span class="sp">ROBERTS</span>I know. I am the first person, and you are the certifying staff for the second check.</p>
+        <p class="turn b"><span class="sp">ANNA</span>Correct. Show me the task card and the approved data you used.</p>
+        <p class="turn a"><span class="sp">ROBERTS</span>Here. I worked from the wiring diagram and the approved data in the manual.</p>
+        <p class="turn b"><span class="sp">ANNA</span>Good. Has the cable tension been set to the figure in the book?</p>
+        <p class="turn a"><span class="sp">ROBERTS</span>Yes. I used a calibrated tensiometer, and I have recorded the reading.</p>
+        <p class="turn b"><span class="sp">ANNA</span>Let me check the turnbuckle and the locking wire myself.</p>
+        <p class="turn a"><span class="sp">ROBERTS</span>Please do. The independent inspection is there to catch my mistakes.</p>
+        <p class="turn b"><span class="sp">ANNA</span>The lock wire looks correct. The connector has full traceability, which is good.</p>
+        <p class="turn a"><span class="sp">ROBERTS</span>Do you want a functional test before the sign-off?</p>
+        <p class="turn b"><span class="sp">ANNA</span>Yes. Move the control, and I will watch the surface and the sense.</p>
+        <p class="turn a"><span class="sp">ROBERTS</span>The aileron moves the right way. Up on this side, down on the other.</p>
+        <p class="turn b"><span class="sp">ANNA</span>Good sense, correct rigging. The functional test has been passed.</p>
+        <p class="turn a"><span class="sp">ROBERTS</span>Then can you do the sign-off for the duplicate inspection?</p>
+        <p class="turn b"><span class="sp">ANNA</span>Yes. Both signatures go on the task card, and the record is complete.</p>
+      </details>
+    </div>
+
+    <div class="dialogue">
+      <h3>Dialogue 3: Justifying the certificate of release to service</h3>
+      <p class="dia-meta">A = El&#299;na, certifying engineer &nbsp;·&nbsp; B = M&#257;ris, shift supervisor</p>
+      <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u29-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:16 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn a"><span class="sp">EL&#298;NA</span>M&#257;ris, I am ready to raise the certificate of release to service for the A320.</p>
+        <p class="turn b"><span class="sp">M&#256;RIS</span>Good. Before you sign, tell me the basis for the release to service.</p>
+        <p class="turn a"><span class="sp">EL&#298;NA</span>All task cards are closed. All the independent checks are complete.</p>
+        <p class="turn b"><span class="sp">M&#256;RIS</span>And the one defect from last night, how are we handling it?</p>
+        <p class="turn a"><span class="sp">EL&#298;NA</span>The left reading light is dead. I have made it a deferred defect.</p>
+        <p class="turn b"><span class="sp">M&#256;RIS</span>Is that allowed? Check the minimum equipment list first.</p>
+        <p class="turn a"><span class="sp">EL&#298;NA</span>I did. The minimum equipment list lets us defer one reading light.</p>
+        <p class="turn b"><span class="sp">M&#256;RIS</span>Good. So the aircraft is still serviceable for the flight?</p>
+        <p class="turn a"><span class="sp">EL&#298;NA</span>Yes. It is serviceable and airworthy with that item deferred.</p>
+        <p class="turn b"><span class="sp">M&#256;RIS</span>Where has the deferred defect been written down?</p>
+        <p class="turn a"><span class="sp">EL&#298;NA</span>It is in the technical log, with the MEL reference and a time limit.</p>
+        <p class="turn b"><span class="sp">M&#256;RIS</span>And can every certifying staff on the next shift see it?</p>
+        <p class="turn a"><span class="sp">EL&#298;NA</span>Yes. The entry is clear, and the placard is on the light switch.</p>
+        <p class="turn b"><span class="sp">M&#256;RIS</span>Then the basis is solid. Completed work, closed cards, one legal deferral.</p>
+        <p class="turn a"><span class="sp">EL&#298;NA</span>So I can do the sign-off and issue the certificate now?</p>
+        <p class="turn b"><span class="sp">M&#256;RIS</span>Yes. Sign it. The aircraft is airworthy and released to service.</p>
+      </details>
+    </div>
+
+    <div class="dialogue">
+      <h3>Shift-handover voicemail</h3>
+      <p class="dia-meta">A short monologue, listen and note the open item.</p>
+      <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u29-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:06 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <p class="turn a"><span class="sp">VOICE</span>This is the shift-handover message for stand four-two. The A320 is almost ready for release to service.</p>
+        <p class="turn a"><span class="sp">VOICE</span>All task cards are closed. The duplicate inspection on the aileron has been signed off.</p>
+        <p class="turn a"><span class="sp">VOICE</span>One item is open. The left reading light is unserviceable, so it is now a deferred defect.</p>
+        <p class="turn a"><span class="sp">VOICE</span>It sits under the minimum equipment list, with a time limit. The entry is in the technical log.</p>
+        <p class="turn a"><span class="sp">VOICE</span>Please check the placard on the switch. The next certifying staff can issue the certificate after a walk-round.</p>
+        <p class="turn a"><span class="sp">VOICE</span>Remember, the release to service cannot be signed until the documentation is complete.</p>
+        <p class="turn a"><span class="sp">VOICE</span>Because the reading light is deferred, please brief the crew during the walk-round.</p>
+        <p class="turn a"><span class="sp">VOICE</span>If anything looks unusual, do not sign the certificate; instead, call me immediately.</p>
+        <p class="turn a"><span class="sp">VOICE</span>The independent inspection paperwork is on the desk, although the supervisor still needs to countersign it.</p>
+        <p class="turn a"><span class="sp">VOICE</span>Everything else is serviceable and airworthy. Thank you, and have a good shift.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">03</span>Vocabulary bank</h2>
+    <p class="instr" style="color:var(--ink-soft)">Twenty terms from the release-to-service world. Each has a plain meaning, one example, and one common phrase.</p>
+    <table class="vocab">
+      <thead><tr><th>Term</th><th>Plain meaning</th><th>Example at level</th><th>Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="release to service">release to service</dfn></td><td>the act of returning an aircraft to flying after maintenance work</td><td>The release to service is the final step, once every check is complete.</td><td class="coll">approve the release</td></tr>
+        <tr><td><dfn data-term="certificate of release to service">certificate of release to service</dfn></td><td>the signed document (the CRS) that returns the aircraft to flight</td><td>She has issued the certificate of release to service, because the documentation is complete.</td><td class="coll">issue the CRS</td></tr>
+        <tr><td><dfn data-term="airworthy">airworthy</dfn></td><td>safe and fit to fly</td><td>Although the light is deferred, the aircraft is airworthy and ready.</td><td class="coll">declare it airworthy</td></tr>
+        <tr><td><dfn data-term="certifying staff">certifying staff</dfn></td><td>the licensed person allowed to sign the release</td><td>Only authorised certifying staff may sign this release, because they carry the responsibility.</td><td class="coll">authorised certifying staff</td></tr>
+        <tr><td><dfn data-term="independent inspection">independent inspection</dfn></td><td>a check of important work by a second, separate person</td><td>The rigging needs an independent inspection before flight, unless the manual says otherwise.</td><td class="coll">carry out an independent inspection</td></tr>
+        <tr><td><dfn data-term="duplicate inspection">duplicate inspection</dfn></td><td>a two-person check on a critical control system</td><td>A control run always needs a duplicate inspection, because a single error is dangerous.</td><td class="coll">a two-stage duplicate inspection</td></tr>
+        <tr><td><dfn data-term="technical log">technical log</dfn></td><td>the aircraft's running record of faults and actions</td><td>Every action is recorded in the technical log, so the history is never lost.</td><td class="coll">enter it in the tech log</td></tr>
+        <tr><td><dfn data-term="work order">work order</dfn></td><td>the document that lists the jobs to be done</td><td>The work order lists three separate tasks, although only two are urgent today.</td><td class="coll">close the work order</td></tr>
+        <tr><td><dfn data-term="task card">task card</dfn></td><td>a card with the steps for one job</td><td>Read the task card carefully before you start, because the sequence matters.</td><td class="coll">sign the task card</td></tr>
+        <tr><td><dfn data-term="deferred defect">deferred defect</dfn></td><td>a fault that is allowed to wait for a set time</td><td>The inoperative light became a deferred defect, which we monitor until rectification.</td><td class="coll">raise a deferred defect</td></tr>
+        <tr><td><dfn data-term="minimum equipment list">minimum equipment list</dfn></td><td>the list (MEL) of items that may be inoperative for flight</td><td>The minimum equipment list allows this deferral, provided a placard is fitted.</td><td class="coll">check the MEL</td></tr>
+        <tr><td><dfn data-term="aircraft maintenance manual">aircraft maintenance manual</dfn></td><td>the maker's manual (AMM) with the correct steps</td><td>Follow the aircraft maintenance manual precisely, because approved data is mandatory.</td><td class="coll">refer to the AMM</td></tr>
+        <tr><td><dfn data-term="functional test">functional test</dfn></td><td>a test to show a system operates after the job</td><td>The functional test has been passed, so the system operates correctly.</td><td class="coll">run a functional test</td></tr>
+        <tr><td><dfn data-term="serviceable">serviceable</dfn></td><td>good to use; fit for its purpose</td><td>The replacement part is fully serviceable, and its traceability is documented.</td><td class="coll">fully serviceable</td></tr>
+        <tr><td><dfn data-term="unserviceable">unserviceable</dfn></td><td>not fit to use; must not be used</td><td>The old seal was unserviceable, because it was leaking hydraulic fluid.</td><td class="coll">tag it unserviceable</td></tr>
+        <tr><td><dfn data-term="rectification">rectification</dfn></td><td>the work of correcting a fault</td><td>As soon as the leak was located, the rectification was completed.</td><td class="coll">carry out the rectification</td></tr>
+        <tr><td><dfn data-term="sign-off">sign-off</dfn></td><td>recording that a job is finished, with a signature</td><td>The sign-off is recorded on the task card, once both signatures are present.</td><td class="coll">complete the sign-off</td></tr>
+        <tr><td><dfn data-term="traceability">traceability</dfn></td><td>a clear history showing where a part originated</td><td>The label provides full traceability, so we know exactly where the part originated.</td><td class="coll">part traceability</td></tr>
+        <tr><td><dfn data-term="scope of work">scope of work</dfn></td><td>the exact description of what the job covers</td><td>The scope of work covers one seal and one functional test, nothing more.</td><td class="coll">agree the scope of work</td></tr>
+        <tr><td><dfn data-term="approved data">approved data</dfn></td><td>official, accepted instructions you are permitted to use</td><td>I set the cable tension from the approved data, although the figure looked unusual.</td><td class="coll">work to approved data</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">04</span>Grammar in context, present perfect passive</h2>
+    <p class="lede">A release says what has been done. It does not say who did it. So we use the present perfect passive.</p>
+    <p>Look at these lines from the dialogues. The action is finished, and it still matters now. We do not name the person. The work is the subject, not the worker.</p>
+    <div class="callout">
+      <p style="margin:0"><b>From Dialogue 1:</b> &ldquo;Has the functional test <b>been passed</b>?&rdquo;, &ldquo;It <b>has passed</b>.&rdquo;<br>
+      <b>From Dialogue 2:</b> &ldquo;Has the cable tension <b>been set</b> to the figure in the book?&rdquo;<br>
+      <b>From Dialogue 3:</b> &ldquo;Where <b>has</b> the deferred defect <b>been written</b> down?&rdquo;</p>
+    </div>
+    <p>Notice why this structure dominates a release. The organisation, not the individual, carries the responsibility. Therefore the certifying staff describe the maintenance impersonally. The documentation records the outcome, although the mechanic stays identifiable through the signature. Because the participle expresses a finished result, the reader immediately understands the current condition.</p>
+    <p>The form is simple. Take <code>have</code> or <code>has</code>, then <code>been</code>, then the past participle (the third form of the verb). The subject is the equipment, not the person.</p>
+    <table class="form">
+      <thead><tr><th>Subject</th><th>have / has</th><th>been</th><th>past participle</th><th>Full sentence</th></tr></thead>
+      <tbody>
+        <tr><td>All checks</td><td class="aux">have</td><td class="aux">been</td><td>completed</td><td>All checks have been completed.</td></tr>
+        <tr><td>The seal</td><td class="aux">has</td><td class="aux">been</td><td>replaced</td><td>The seal has been replaced.</td></tr>
+        <tr><td>The defect</td><td class="aux">has</td><td class="aux">been</td><td>deferred</td><td>The defect has been deferred.</td></tr>
+        <tr><td>Both signatures</td><td class="aux">have</td><td class="aux">been</td><td>recorded</td><td>Both signatures have been recorded.</td></tr>
+      </tbody>
+    </table>
+    <h3>Three common mistakes (Latvian &amp; Russian speakers)</h3>
+    <div class="mistake">
+      <span class="wrong">&#10007; All checks have completed.</span>
+      <span class="right">&#10003; All checks have been completed.</span>
+      <span class="why">Do not drop <b>been</b>. Latvian and Russian have no such helper, so it is easy to lose. The passive always needs <b>been</b>.</span>
+    </div>
+    <div class="mistake">
+      <span class="wrong">&#10007; The aircraft has been release to service.</span>
+      <span class="right">&#10003; The aircraft has been released to service.</span>
+      <span class="why">Use the past participle, not the base verb. Add the <b>-ed</b>: release &rarr; released.</span>
+    </div>
+    <div class="mistake">
+      <span class="wrong">&#10007; All the tasks are completed.</span>
+      <span class="right">&#10003; All the tasks have been completed.</span>
+      <span class="why">The present simple passive is not the same. For a finished job that matters now, use <b>have been</b>, not <b>are</b>. Russian and Latvian have no present perfect, so this slip is common.</span>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="exercises">
+    <h2><span class="secnum">05</span>Exercises</h2>
+    <p class="instr" style="color:var(--ink-soft)">Do all eight. Type your answers, press <b>Check</b>, then open the key to compare.</p>
+
+    <div class="ex" id="e1">
+      <span class="tag">E1 &middot; Gap-fill</span>
+      <h3>Put the right term in the gap</h3>
+      <p class="instr">Use a term from the vocabulary bank. One term per gap.</p>
+      <ol class="plain">
+        <li>Before I sign, I must confirm the aircraft is <input type="text" data-answer="airworthy"> and safe.</li>
+        <li>A second, separate person does an <input type="text" data-answer="independent inspection"> on important work.</li>
+        <li>A control-cable job needs a <input type="text" data-answer="duplicate inspection"> by two people.</li>
+        <li>The licensed person who signs the release is the <input type="text" data-answer="certifying staff">.</li>
+        <li>Every fault and action is written in the <input type="text" data-answer="technical log">.</li>
+        <li>The list of jobs for this aircraft is on the <input type="text" data-answer="work order">.</li>
+        <li>The steps for one single job are printed on a <input type="text" data-answer="task card">.</li>
+        <li>A fault we are allowed to fix later is a <input type="text" data-answer="deferred defect">.</li>
+        <li>The <input type="text" data-answer="minimum equipment list"> says which items may be off for flight.</li>
+        <li>We only fit a part that is <input type="text" data-answer="serviceable"> and traceable.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary" data-check>Check</button><span class="score"></span></div>
+      <details class="key"><summary>Show answer key</summary>
+        <ol class="plain"><li>airworthy</li><li>independent inspection</li><li>duplicate inspection</li><li>certifying staff</li><li>technical log</li><li>work order</li><li>task card</li><li>deferred defect</li><li>minimum equipment list</li><li>serviceable</li></ol>
+      </details>
+    </div>
+
+    <div class="ex" id="e2">
+      <span class="tag">E2 &middot; Matching</span>
+      <h3>Match the term to its meaning</h3>
+      <p class="instr">Choose the letter of the correct meaning for each term.</p>
+      <ol class="plain">
+        <li>release to service &nbsp;<select data-answer="a"><option value="">, </option><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="i">I</option><option value="j">J</option></select></li>
+        <li>certificate of release to service &nbsp;<select data-answer="b"><option value="">, </option><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="i">I</option><option value="j">J</option></select></li>
+        <li>aircraft maintenance manual &nbsp;<select data-answer="c"><option value="">, </option><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="i">I</option><option value="j">J</option></select></li>
+        <li>functional test &nbsp;<select data-answer="d"><option value="">, </option><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="i">I</option><option value="j">J</option></select></li>
+        <li>unserviceable &nbsp;<select data-answer="e"><option value="">, </option><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="i">I</option><option value="j">J</option></select></li>
+        <li>rectification &nbsp;<select data-answer="f"><option value="">, </option><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="i">I</option><option value="j">J</option></select></li>
+        <li>scope of work &nbsp;<select data-answer="g"><option value="">, </option><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="i">I</option><option value="j">J</option></select></li>
+        <li>approved data &nbsp;<select data-answer="h"><option value="">, </option><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="i">I</option><option value="j">J</option></select></li>
+        <li>traceability &nbsp;<select data-answer="i"><option value="">, </option><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="i">I</option><option value="j">J</option></select></li>
+        <li>sign-off &nbsp;<select data-answer="j"><option value="">, </option><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="i">I</option><option value="j">J</option></select></li>
+      </ol>
+      <ol style="font-size:14px;color:#3a3f4d">
+        <li value="1"><b>A</b>, the act of returning the aircraft to flight</li>
+        <li><b>B</b>, the signed paper that returns it to flight</li>
+        <li><b>C</b>, the maker's book with the correct steps</li>
+        <li><b>D</b>, a test to show a system works after the job</li>
+        <li><b>E</b>, not fit to use; must not be used</li>
+        <li><b>F</b>, the work of fixing a fault</li>
+        <li><b>G</b>, the exact list of what the job covers</li>
+        <li><b>H</b>, official instructions you are allowed to use</li>
+        <li><b>I</b>, a clear history of where a part came from</li>
+        <li><b>J</b>, recording a done job with a signature</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary" data-check>Check</button><span class="score"></span></div>
+      <details class="key"><summary>Show answer key</summary>
+        <p>1-A, 2-B, 3-C, 4-D, 5-E, 6-F, 7-G, 8-H, 9-I, 10-J.</p>
+      </details>
+    </div>
+
+    <div class="ex" id="e3">
+      <span class="tag">E3 &middot; Dialogue completion</span>
+      <h3>Complete the handover</h3>
+      <p class="instr">Fill each gap with one word. The dialogue is a short release handover.</p>
+      <ol class="plain">
+        <li>MECH: I have <input type="text" data-answer="finished"> the work order on the brakes.</li>
+        <li>CERT: Good. Has the functional test been <input type="text" data-answer="passed">?</li>
+        <li>MECH: Yes, it has. The system is <input type="text" data-answer="serviceable"> now.</li>
+        <li>CERT: Is any item still <input type="text" data-answer="open">?</li>
+        <li>MECH: One light is dead. I have made it a deferred <input type="text" data-answer="defect">.</li>
+        <li>CERT: Is that in the technical <input type="text" data-answer="log">?</li>
+        <li>MECH: Yes. It has been <input type="text" data-answer="written"> down, with the MEL reference.</li>
+        <li>CERT: Then the aircraft is <input type="text" data-answer="airworthy">, and I can sign the release.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary" data-check>Check</button><span class="score"></span></div>
+      <details class="key"><summary>Show answer key</summary>
+        <ol class="plain"><li>finished</li><li>passed</li><li>serviceable</li><li>open</li><li>defect</li><li>log</li><li>written</li><li>airworthy</li></ol>
+      </details>
+    </div>
+
+    <div class="ex" id="e4">
+      <span class="tag">E4 &middot; Grammar transformation</span>
+      <h3>Rewrite in the present perfect passive</h3>
+      <p class="instr">Change the active sentence into a release-style passive. Do not name the person. Example: <i>We have completed all checks.</i> &rarr; <i>All checks have been completed.</i></p>
+      <ol class="plain">
+        <li>We have replaced the seal. &rarr; The seal <input type="text" data-answer="has been replaced">.</li>
+        <li>We have closed all the task cards. &rarr; All the task cards <input type="text" data-answer="have been closed">.</li>
+        <li>We have passed the functional test. &rarr; The functional test <input type="text" data-answer="has been passed">.</li>
+        <li>We have deferred the defect. &rarr; The defect <input type="text" data-answer="has been deferred">.</li>
+        <li>We have recorded both signatures. &rarr; Both signatures <input type="text" data-answer="have been recorded">.</li>
+        <li>We have set the cable tension. &rarr; The cable tension <input type="text" data-answer="has been set">.</li>
+        <li>We have signed off the inspection. &rarr; The inspection <input type="text" data-answer="has been signed off">.</li>
+        <li>We have issued the certificate. &rarr; The certificate <input type="text" data-answer="has been issued">.</li>
+      </ol>
+      <div class="exfoot"><button class="btn primary" data-check>Check</button><span class="score"></span></div>
+      <details class="key"><summary>Show answer key</summary>
+        <ol class="plain"><li>has been replaced</li><li>have been closed</li><li>has been passed</li><li>has been deferred</li><li>have been recorded</li><li>has been set</li><li>has been signed off</li><li>has been issued</li></ol>
+      </details>
+    </div>
+
+    <div class="ex" id="e5">
+      <span class="tag">E5 &middot; Reading 1</span>
+      <h3>Read a task card, then answer</h3>
+      <p class="instr">Read this task card from a work pack. Then answer the six questions below.</p>
+      <div class="reading-text">
+        <span class="doc-head">TASK CARD 32-11-04 &middot; MAIN LANDING GEAR &middot; A320 &middot; W/O 4471</span>
+        <span class="row"><b>Description:</b> Replace shock strut seal, left main landing gear.</span>
+        <span class="row"><b>Reference:</b> Aircraft maintenance manual, AMM 32-11-04, Rev 61. Approved data only.</span>
+        <span class="row"><b>Step 1:</b> Depressurise the strut. Confirm zero pressure on the gauge.</span>
+        <span class="row"><b>Step 2:</b> Remove the old seal. Tag it unserviceable. Record the batch number.</span>
+        <span class="row"><b>Step 3:</b> Fit the new seal. Confirm it is serviceable, with full traceability on the label.</span>
+        <span class="row"><b>Step 4:</b> Service the strut to the correct pressure. Check for leaks.</span>
+        <span class="row"><b>Step 5:</b> Functional test, retract and extend the gear once. No leak, free movement.</span>
+        <span class="row"><b>Note:</b> A second person is not required. This is not a duplicate-inspection item.</span>
+        <span class="row"><b>Sign-off:</b> Mechanic signature ______. Enter the result in the technical log.</span>
+        <span class="row"><b>Open item:</b> Gear-bay light inoperative, raise as a deferred defect under the MEL.</span>
+      </div>
+      <ol class="plain">
+        <li>Which manual must the mechanic use? <input type="text" data-answer="aircraft maintenance manual|amm"></li>
+        <li>What must be done to the old seal? <input type="text" data-answer="tag it unserviceable|tagged unserviceable|unserviceable"></li>
+        <li>Is a second person needed for this card? <input type="text" data-answer="no"></li>
+        <li>What test is done at Step 5? <input type="text" data-answer="functional test"></li>
+        <li>Where is the result recorded? <input type="text" data-answer="technical log|the technical log"></li>
+        <li>How is the gear-bay light handled? <input type="text" data-answer="deferred defect|as a deferred defect"></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary" data-check>Check</button><span class="score"></span></div>
+      <details class="key"><summary>Show answer key</summary>
+        <ol class="plain"><li>the aircraft maintenance manual (AMM)</li><li>tag it unserviceable</li><li>no</li><li>a functional test</li><li>the technical log</li><li>as a deferred defect</li></ol>
+      </details>
+    </div>
+
+    <div class="ex" id="e6">
+      <span class="tag">E6 &middot; Error-spotting</span>
+      <h3>Find and fix eight errors</h3>
+      <p class="instr">This technical-log entry has eight errors. They are grammar and word errors. Type the correction for each numbered word or phrase.</p>
+      <div class="badtext">The seal <b>(1) are replaced</b> and the strut serviced. All checks <b>(2) have completed</b>. The old seal was <b>(3) serviceable</b>, so it was removed. The functional test <b>(4) has been pass</b>. The gear-bay light is dead; it <b>(5) has been defer</b>. The item is in the <b>(6) technical book</b>. The aircraft <b>(7) has been release to service</b>. The <b>(8) certify staff</b> has signed the record.</div>
+      <ol class="plain">
+        <li>(1) <input type="text" data-answer="has been replaced"></li>
+        <li>(2) <input type="text" data-answer="have been completed"></li>
+        <li>(3) <input type="text" data-answer="unserviceable"></li>
+        <li>(4) <input type="text" data-answer="has been passed"></li>
+        <li>(5) <input type="text" data-answer="has been deferred"></li>
+        <li>(6) <input type="text" data-answer="technical log"></li>
+        <li>(7) <input type="text" data-answer="has been released to service"></li>
+        <li>(8) <input type="text" data-answer="certifying staff"></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary" data-check>Check</button><span class="score"></span></div>
+      <details class="key"><summary>Show answer key</summary>
+        <ol class="plain"><li>has been replaced</li><li>have been completed</li><li>unserviceable</li><li>has been passed</li><li>has been deferred</li><li>technical log</li><li>has been released to service</li><li>certifying staff</li></ol>
+      </details>
+    </div>
+
+    <div class="ex" id="e7">
+      <span class="tag">E7 &middot; Reading 2</span>
+      <h3>Read a CRS statement and a MEL entry</h3>
+      <p class="instr">Read this release record. Then answer the six questions.</p>
+      <div class="reading-text">
+        <span class="doc-head">CERTIFICATE OF RELEASE TO SERVICE &middot; PART-145 &middot; A320 &middot; REG YL-AAB</span>
+        <span class="row">The following work has been carried out to approved data: left main landing gear shock strut seal replaced; strut serviced; leak check and functional test completed.</span>
+        <span class="row">All task cards on work order 4471 have been closed. The independent checks have been completed and signed off.</span>
+        <span class="row"><b>Deferred item, MEL 33-51-01:</b> left reading light inoperative. One light may be inoperative for flight. A placard has been fitted. Time limit: category C, 10 days.</span>
+        <span class="row">On the basis of the completed work above, this aircraft is considered airworthy and is released to service.</span>
+        <span class="row"><b>Certifying staff:</b> E. Ozola, Licence No. LV.66.1234. Date: 08 Aug 2026.</span>
+      </div>
+      <ol class="plain">
+        <li>What data was the work carried out to? <input type="text" data-answer="approved data"></li>
+        <li>Which work order is closed? <input type="text" data-answer="4471|work order 4471"></li>
+        <li>Which item is deferred? <input type="text" data-answer="reading light|left reading light|the reading light"></li>
+        <li>What list allows the deferral? <input type="text" data-answer="mel|minimum equipment list|the mel"></li>
+        <li>How many days is the time limit? <input type="text" data-answer="10|10 days|ten days"></li>
+        <li>Who signed the certificate? <input type="text" data-answer="e. ozola|ozola|e ozola"></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary" data-check>Check</button><span class="score"></span></div>
+      <details class="key"><summary>Show answer key</summary>
+        <ol class="plain"><li>approved data</li><li>work order 4471</li><li>the left reading light</li><li>the minimum equipment list (MEL)</li><li>10 days</li><li>E. Ozola</li></ol>
+      </details>
+    </div>
+
+    <div class="ex" id="e8">
+      <span class="tag">E8 &middot; Listening review</span>
+      <h3>Answer on Dialogue 3</h3>
+      <p class="instr">Replay Dialogue 3 (the certificate of release to service). Then answer. Write short answers.</p>
+      <ol class="plain">
+        <li>What does El&#299;na want to raise? <input type="text" data-answer="certificate of release to service|the certificate of release to service|crs"></li>
+        <li>What does M&#257;ris ask for before she signs? <input type="text" data-answer="the basis|basis|the basis for the release"></li>
+        <li>What is the state of the task cards? <input type="text" data-answer="closed|all closed|all task cards are closed"></li>
+        <li>What is wrong with the reading light? <input type="text" data-answer="dead|it is dead|inoperative"></li>
+        <li>What did El&#299;na check before deferring? <input type="text" data-answer="minimum equipment list|the mel|mel"></li>
+        <li>Where is the deferred defect written? <input type="text" data-answer="technical log|the technical log|tech log"></li>
+        <li>Where is the placard fitted? <input type="text" data-answer="on the light switch|light switch|the switch"></li>
+        <li>Is the aircraft airworthy in the end? <input type="text" data-answer="yes"></li>
+      </ol>
+      <div class="exfoot"><button class="btn primary" data-check>Check</button><span class="score"></span></div>
+      <details class="key"><summary>Show answer key</summary>
+        <ol class="plain"><li>the certificate of release to service</li><li>the basis for the release to service</li><li>they are all closed</li><li>it is dead / inoperative</li><li>the minimum equipment list (MEL)</li><li>the technical log</li><li>on the light switch</li><li>yes</li></ol>
+      </details>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="speaking">
+    <h2><span class="secnum">06</span>Speaking, role-plays</h2>
+    <p class="instr" style="color:var(--ink-soft)">Work with a partner, or use the AI conversation partner below. Use the useful phrases.</p>
+
+    <div class="roleplay">
+      <h4>Role-play card 1: The gear handover</h4>
+      <div class="field"><span class="flab">Situation</span> You have finished a landing-gear seal change. The certifying staff is ready to sign.</div>
+      <div class="field"><span class="flab">Your role</span> You are the mechanic (B1).</div>
+      <div class="field"><span class="flab">Your goal</span> State the completed work and the one open item clearly.</div>
+      <div class="phrases"><span class="flab">Useful phrases</span>
+        <ul><li>I have finished the work order on&hellip;</li><li>The functional test has been passed.</li><li>One item is still open&hellip;</li><li>It has been written in the technical log.</li></ul>
+      </div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 2: The duplicate inspection</h4>
+      <div class="field"><span class="flab">Situation</span> An aileron control run has been repaired. It needs a two-person check.</div>
+      <div class="field"><span class="flab">Your role</span> You are the certifying staff doing the independent inspection.</div>
+      <div class="field"><span class="flab">Your goal</span> Ask for the approved data, check the work, and confirm the sign-off.</div>
+      <div class="phrases"><span class="flab">Useful phrases</span>
+        <ul><li>Show me the approved data you used.</li><li>Has the cable tension been set?</li><li>The connector has full traceability.</li><li>Both signatures have been recorded.</li></ul>
+      </div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 3: Justifying the CRS</h4>
+      <div class="field"><span class="flab">Situation</span> You must explain the basis for a certificate of release to service, with one deferred item.</div>
+      <div class="field"><span class="flab">Your role</span> You are the certifying engineer.</div>
+      <div class="field"><span class="flab">Your goal</span> Show the work is complete and the deferral is legal under the MEL.</div>
+      <div class="phrases"><span class="flab">Useful phrases</span>
+        <ul><li>All task cards have been closed.</li><li>The defect has been deferred under the MEL.</li><li>It has been recorded in the technical log.</li><li>The aircraft is airworthy and released to service.</li></ul>
+      </div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 4: The shift handover</h4>
+      <div class="field"><span class="flab">Situation</span> Your shift is ending. You hand an almost-ready aircraft to the next certifying staff.</div>
+      <div class="field"><span class="flab">Your role</span> You are the outgoing engineer.</div>
+      <div class="field"><span class="flab">Your goal</span> Say what has been done, what is open, and what is left before release.</div>
+      <div class="phrases"><span class="flab">Useful phrases</span>
+        <ul><li>The duplicate inspection has been signed off.</li><li>One item is unserviceable and deferred.</li><li>The certificate can be issued after a walk-round.</li><li>Everything else is serviceable and airworthy.</li></ul>
+      </div>
+    </div>
+
+    <div class="ai-box">
+      <h4>AI conversation partner</h4>
+      <p style="margin:0 0 6px;font-size:14.5px">Copy a prompt into the chat buddy. It will play the other person and help you speak.</p>
+      <div class="ai-prompt"><span class="plabel">Prompt 1, certifying staff</span>
+        <p>You are El&#299;na, the certifying staff in an EASA Part-145 hangar. I am the mechanic handing over a landing-gear job. Ask me what work has been completed and what is still open, before you sign the release to service. Speak only at CEFR B2 with short sentences. Ask me one question each turn. If I make a grammar mistake, gently repeat my sentence the correct way, then continue.</p>
+      </div>
+      <div class="ai-prompt"><span class="plabel">Prompt 2, independent inspector</span>
+        <p>You are Anna, doing an independent inspection on an aileron control run. I am the avionics technician. Ask me for the approved data, the cable tension, and the traceability of the part, before you agree the sign-off. Speak only at CEFR B2, short sentences, one question per turn. Recast my errors gently by saying the correct sentence, and do not lecture me.</p>
+      </div>
+      <div class="ai-prompt"><span class="plabel">Prompt 3, shift supervisor</span>
+        <p>You are M&#257;ris, a shift supervisor. I want to issue a certificate of release to service with one deferred defect. Ask me for the basis: the completed work, the closed task cards, and the MEL reference. Speak only at CEFR B2 with short sentences. Ask one question each turn. If I slip, recast my sentence correctly, then ask the next question.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lecture-section" id="writing">
+    <h2><span class="secnum">07</span>Writing task</h2>
+    <p class="lede">Write a certificate of release to service statement in Simplified Technical English.</p>
+    <p>A professional release avoids ambiguity completely. Consequently, every statement confirms a completed action, a documented reference, or an approved deferral. Because approving staff rely entirely on your wording, imprecise language is unacceptable. The certificate becomes permanent evidence, therefore accuracy is essential.</p>
+    <p><b>Task.</b> An A320 has had a nose-wheel tyre change on work order 5120. All task cards are closed. The independent check is done. One item is deferred: the cabin reading light at seat 12C is inoperative, deferred under the MEL for 10 days. Write the CRS statement (about 60–80 words). Use the present perfect passive. Keep sentences short. Do not name the worker.</p>
+    <div class="callout">
+      <h4>Simplified Technical English: write it clean</h4>
+      <p style="margin:0">One idea per sentence. Use short, common words. Use the same word for the same thing. Keep each sentence under 20 words. Write in the passive: <i>has been done</i>, not <i>we did</i>.</p>
+    </div>
+    <details class="key"><summary>Show a model answer</summary>
+      <div class="reading-text">
+        <span class="doc-head">Model answer</span>
+        <span class="row">The following work has been carried out to approved data. The nose-wheel tyre has been replaced on work order 5120. All task cards have been closed. The independent inspection has been completed and signed off. One item has been deferred under the MEL: the reading light at seat 12C is inoperative, category C, 10 days. A placard has been fitted. On this basis, the aircraft is airworthy and is released to service.</span>
+      </div>
+    </details>
+    <h3>Self-check</h3>
+    <ul class="checklist">
+      <li>Did I use the present perfect passive (<i>has been / have been</i> + participle)?</li>
+      <li>Did I keep every sentence short, with one idea each?</li>
+      <li>Did I state the completed work, the open item, and the MEL basis?</li>
+      <li>Did I avoid naming the worker, and end with &ldquo;released to service&rdquo;?</li>
+    </ul>
+  </section>
+
+  <footer>
+    English for Aviation Maintenance &middot; Unit 29 &middot; Certifying release to service &middot; CEFR B2 &middot; Self-study pack.
+  </footer>
+</article>
+
+<script>
+(function(){
+  function norm(s){
+    return (s||'').trim().toLowerCase()
+      .replace(/’/g,"'").replace(/[.,;:]+$/,'')
+      .replace(/\s+/g,' ');
+  }
+  document.querySelectorAll('[data-check]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var ex=btn.closest('.ex');
+      var fields=ex.querySelectorAll('input[data-answer],select[data-answer]');
+      var ok=0,tot=0;
+      fields.forEach(function(f){
+        tot++;
+        var accepted=f.getAttribute('data-answer').split('|').map(norm);
+        var val=norm(f.value);
+        if(val!=='' && accepted.indexOf(val)>-1){
+          f.classList.add('right');f.classList.remove('wrong');ok++;
+        }else{
+          f.classList.add('wrong');f.classList.remove('right');
+        }
+      });
+      var out=ex.querySelector('.score');
+      if(out) out.textContent=ok+' / '+tot+' correct';
+    });
+  });
+})();
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 29 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><script>window.__LANG_BUDDY__={"terms": [{"term": "release to service", "def": "the act of returning an aircraft to flying after maintenance work"}, {"term": "certificate of release to service", "def": "the signed document (the CRS) that returns the aircraft to flight"}, {"term": "airworthy", "def": "safe and fit to fly"}, {"term": "certifying staff", "def": "the licensed person allowed to sign the release"}, {"term": "independent inspection", "def": "a check of important work by a second, separate person"}, {"term": "duplicate inspection", "def": "a two-person check on a critical control system"}, {"term": "technical log", "def": "the aircraft's running record of faults and actions"}, {"term": "work order", "def": "the document that lists the jobs to be done"}, {"term": "task card", "def": "a card with the steps for one job"}, {"term": "deferred defect", "def": "a fault that is allowed to wait for a set time"}, {"term": "minimum equipment list", "def": "the list (MEL) of items that may be inoperative for flight"}, {"term": "aircraft maintenance manual", "def": "the maker's manual (AMM) with the correct steps"}, {"term": "functional test", "def": "a test to show a system operates after the job"}, {"term": "serviceable", "def": "good to use; fit for its purpose"}, {"term": "unserviceable", "def": "not fit to use; must not be used"}, {"term": "rectification", "def": "the work of correcting a fault"}, {"term": "sign-off", "def": "recording that a job is finished, with a signature"}, {"term": "traceability", "def": "a clear history showing where a part originated"}, {"term": "scope of work", "def": "the exact description of what the job covers"}, {"term": "approved data", "def": "official, accepted instructions you are permitted to use"}], "lines": [], "roleplays": ["You have finished a landing-gear seal change. The certifying staff is ready to sign.", "An aileron control run has been repaired. It needs a two-person check.", "You must explain the basis for a certificate of release to service, with one deferred item.", "Your shift is ending. You hand an almost-ready aircraft to the next certifying staff."], "grammar": "A release says what has been done. It does not say who did it. So we use the present perfect passive.", "scenario": "It is the end of a shift in the hangar. You have finished the work, and now you must hand the aircraft over. The certifying staff will not sign until you are clear. You must say what was done, what is still open, and why the aircraft is safe to fly. In this unit you practise that handover, so the release to service is ", "pron": [], "course": "English for Aviation Maintenance", "unit": 29, "total": 32, "title": "Certifying release to service", "cefr": "B2", "language": "English", "langCode": "en-GB", "l1": [], "ai": {"mode": "byo", "vendor": "mistral", "model": "mistral-small-latest"}, "figures": []};</script><script>// LANG edition: "Lang Buddy": the in-lesson tutor.
+//
+// It is injected into every unit by polish_unit.py, which also embeds window.__LANG_BUDDY__ with
+// the unit's own content (vocabulary bank, dialogue lines, grammar point, role-play cards) so the
+// buddy answers about THIS lesson rather than about English in general.
+//
+// Three ways to reach a model, chosen per course at build time:
+//   proxy: the page holds NO credential; it POSTs to a small endpoint that keeps the key.
+//   embedded: an institutional key is baked into the page. Convenient, but any learner who opens
+//              devtools can read it, so it is only defensible behind a login.
+//   byo: the learner pastes their own key; it is kept in localStorage and never leaves the
+//              browser except to the vendor.
+// Vendors: anything OpenAI-compatible (Mistral, OpenAI, Groq, DeepSeek, OpenRouter, Azure, a local
+// server), plus Anthropic and Google, whose request shapes differ.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !CFG.ai) return;
+
+  var AI = CFG.ai;
+  var LS_KEY = 'langbuddy.key.' + (AI.vendor || 'x');
+  var LS_HIST = 'langbuddy.hist.' + (CFG.course || '') + '.' + (CFG.unit || 0);
+
+  var PRESETS = {
+    mistral: { base: 'https://api.mistral.ai/v1', shape: 'openai', model: 'mistral-small-latest', keyUrl: 'https://console.mistral.ai/api-keys' },
+    openai: { base: 'https://api.openai.com/v1', shape: 'openai', model: 'gpt-4o-mini', keyUrl: 'https://platform.openai.com/api-keys' },
+    groq: { base: 'https://api.groq.com/openai/v1', shape: 'openai', model: 'llama-3.1-8b-instant', keyUrl: 'https://console.groq.com/keys' },
+    deepseek: { base: 'https://api.deepseek.com/v1', shape: 'openai', model: 'deepseek-chat', keyUrl: 'https://platform.deepseek.com/api_keys' },
+    openrouter: { base: 'https://openrouter.ai/api/v1', shape: 'openai', model: 'mistralai/mistral-small', keyUrl: 'https://openrouter.ai/keys' },
+    anthropic: { base: 'https://api.anthropic.com/v1', shape: 'anthropic', model: 'claude-haiku-4-5-20251001', keyUrl: 'https://console.anthropic.com/settings/keys' },
+    google: { base: 'https://generativelanguage.googleapis.com/v1beta', shape: 'google', model: 'gemini-2.0-flash', keyUrl: 'https://aistudio.google.com/apikey' }
+  };
+  var P = PRESETS[AI.vendor] || PRESETS.mistral;
+  var BASE = AI.baseUrl || P.base;
+  var SHAPE = AI.shape || P.shape;
+  var MODEL = AI.model || P.model;
+
+  function storedKey() {
+    try { return localStorage.getItem(LS_KEY) || ''; } catch (e) { return ''; }
+  }
+  function activeKey() {
+    return AI.mode === 'embedded' ? (AI.key || '') : storedKey();
+  }
+  function needsKey() {
+    return AI.mode !== 'proxy' && !activeKey();
+  }
+
+  // ---- what the buddy knows about this unit -------------------------------------------------
+  function systemPrompt() {
+    var lang = CFG.language || 'English';
+    var terms = (CFG.terms || []).map(function (t) { return t.term + (t.def ? ' = ' + t.def : ''); }).join('; ');
+    var lines = (CFG.lines || []).slice(0, 24).join('\n');
+    var l1 = (CFG.l1 || []).join(' or ');
+    return [
+      'You are Lang Buddy, a patient ' + lang + ' tutor inside an online lesson.',
+      'The learner is studying "' + (CFG.course || lang) + '", unit ' + (CFG.unit || '') + ': "' + (CFG.title || '') + '".',
+      'Their level is CEFR ' + (CFG.cefr || 'B1') + '. Answer AT that level: short sentences, common words,',
+      'one idea per sentence. Never lecture. Keep answers under 90 words unless asked for more.',
+      '',
+      'Reply in ' + lang + ' by default. The learner may write to you in their own language;',
+      'that is fine, still reply in ' + lang + ', and you may add one short gloss in their language in',
+      'brackets for a hard word. If they ask you directly to explain in their language, do so briefly,',
+      'then give the ' + lang + ' version.',
+      (l1 ? '(Their first language is usually ' + l1 + ', which helps you gloss and predict mistakes. '
+        + 'Never announce this: just answer.)' : ''),
+      '',
+      'THIS UNIT teaches: ' + (CFG.scenario || CFG.title || ''),
+      (CFG.grammar ? 'Grammar focus: ' + CFG.grammar : ''),
+      (terms ? 'Vocabulary bank: ' + terms : ''),
+      (lines ? 'Lines from the unit dialogues you can refer to:\n' + lines : ''),
+      '',
+      'Rules. Answer questions about this unit first, using its own words and examples.',
+      'For exercises, give a hint or an example with a DIFFERENT word, never the answer itself;',
+      'if the learner insists, ask them to try once more, then explain the reasoning without',
+      'writing their answer for them. Correct their mistakes gently: repeat their sentence',
+      'correctly, then continue. If a question has nothing to do with language or this subject,',
+      'say so kindly and steer back to the lesson.'
+    ].filter(Boolean).join('\n');
+  }
+
+  // ---- vendor calls -------------------------------------------------------------------------
+  function callModel(messages, onDone, onFail) {
+    var key = activeKey();
+    var url, headers = { 'Content-Type': 'application/json' }, body;
+
+    if (AI.mode === 'proxy') {
+      url = AI.proxyUrl;
+      body = { model: MODEL, messages: [{ role: 'system', content: systemPrompt() }].concat(messages) };
+    } else if (SHAPE === 'anthropic') {
+      url = BASE + '/messages';
+      headers['x-api-key'] = key;
+      headers['anthropic-version'] = '2023-06-01';
+      headers['anthropic-dangerous-direct-browser-access'] = 'true';
+      body = { model: MODEL, max_tokens: 500, system: systemPrompt(), messages: messages };
+    } else if (SHAPE === 'google') {
+      url = BASE + '/models/' + MODEL + ':generateContent?key=' + encodeURIComponent(key);
+      body = {
+        systemInstruction: { parts: [{ text: systemPrompt() }] },
+        contents: messages.map(function (m) {
+          return { role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] };
+        })
+      };
+    } else {
+      url = BASE + '/chat/completions';
+      headers.Authorization = 'Bearer ' + key;
+      body = {
+        model: MODEL, max_tokens: 500, temperature: 0.4,
+        messages: [{ role: 'system', content: systemPrompt() }].concat(messages)
+      };
+    }
+
+    fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(body) })
+      .then(function (r) {
+        return r.text().then(function (t) {
+          var j = null;
+          try { j = JSON.parse(t); } catch (e) { /* keep the raw body for the error message */ }
+          if (!r.ok) {
+            var msg = (j && j.error && (j.error.message || j.error)) || t.slice(0, 160);
+            throw new Error(r.status === 401 || r.status === 403
+              ? 'The key was refused. Check it and try again.'
+              : (r.status === 429 ? 'Too many questions right now. Wait a moment, then ask again.' : String(msg)));
+          }
+          var out = '';
+          if (SHAPE === 'anthropic' && j.content) out = (j.content[0] || {}).text || '';
+          else if (SHAPE === 'google' && j.candidates) out = (((j.candidates[0] || {}).content || {}).parts || [{}])[0].text || '';
+          else out = (((j.choices || [{}])[0] || {}).message || {}).content || '';
+          if (!out) throw new Error('The model sent an empty answer. Try asking again.');
+          return out.trim();
+        });
+      })
+      .then(onDone)
+      .catch(function (e) { onFail(e.message || String(e)); });
+  }
+
+  // ---- UI -----------------------------------------------------------------------------------
+  var hist = [];
+  try { hist = JSON.parse(localStorage.getItem(LS_HIST) || '[]'); } catch (e) { hist = []; }
+
+  var root = document.createElement('div');
+  root.className = 'lb-root';
+  root.innerHTML =
+    '<button class="lb-fab" aria-label="Open Lang Buddy"><span class="lb-fab-i">💬</span>'
+    + '<span class="lb-fab-t">Lang Buddy</span></button>'
+    + '<section class="lb-panel" hidden aria-label="Lang Buddy">'
+    + '  <header class="lb-head"><div><b>Lang Buddy</b>'
+    + '    <span class="lb-sub">Unit ' + (CFG.unit || '') + ' · answers at ' + (CFG.cefr || 'B1') + '</span></div>'
+    + '    <button class="lb-x" aria-label="Close">×</button></header>'
+    + '  <div class="lb-log" role="log"></div>'
+    + '  <div class="lb-quick"></div>'
+    + '  <form class="lb-form"><input class="lb-in" autocomplete="off"'
+    + '    placeholder="Ask about this unit…"><button class="lb-send">Send</button></form>'
+    + '</section>';
+  document.body.appendChild(root);
+
+  var fab = root.querySelector('.lb-fab');
+  var panel = root.querySelector('.lb-panel');
+  var log = root.querySelector('.lb-log');
+  var form = root.querySelector('.lb-form');
+  var input = root.querySelector('.lb-in');
+  var quick = root.querySelector('.lb-quick');
+
+  function bubble(role, text, cls) {
+    var d = document.createElement('div');
+    d.className = 'lb-msg lb-' + role + (cls ? ' ' + cls : '');
+    d.textContent = text;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+    return d;
+  }
+
+  function keyGate() {
+    var box = document.createElement('div');
+    box.className = 'lb-gate';
+    box.innerHTML =
+      '<p>Lang Buddy needs a key for <b>' + (AI.vendor || 'the model') + '</b>. It is stored only in this'
+      + ' browser and is sent to the vendor, never to us.</p>'
+      + '<input class="lb-key" type="password" placeholder="Paste your API key">'
+      + '<button class="lb-save">Save key</button>'
+      + '<a class="lb-help" href="' + (P.keyUrl || '#') + '" target="_blank" rel="noopener">Where do I get one?</a>';
+    log.appendChild(box);
+    box.querySelector('.lb-save').addEventListener('click', function () {
+      var v = box.querySelector('.lb-key').value.trim();
+      if (!v) return;
+      try { localStorage.setItem(LS_KEY, v); } catch (e) { /* private mode: key lives for this page only */ }
+      AI.key = v;
+      box.remove();
+      bubble('bot', 'Thank you. Ask me anything about this unit.');
+      renderQuick();
+    });
+  }
+
+  var busy = false;
+  function ask(text) {
+    if (busy || !text.trim()) return;
+    if (needsKey()) { keyGate(); return; }
+    busy = true;
+    bubble('you', text);
+    hist.push({ role: 'user', content: text });
+    var think = bubble('bot', 'thinking…', 'lb-think');
+    callModel(hist.slice(-10), function (out) {
+      think.classList.remove('lb-think');
+      think.textContent = out;
+      hist.push({ role: 'assistant', content: out });
+      try { localStorage.setItem(LS_HIST, JSON.stringify(hist.slice(-20))); } catch (e) { /* full or blocked */ }
+      busy = false;
+    }, function (err) {
+      think.classList.remove('lb-think');
+      think.classList.add('lb-err');
+      think.textContent = err;
+      hist.pop();
+      busy = false;
+    });
+  }
+
+  // The suggestions are there to get a learner started, not to own half the panel. Once one is
+  // used (or the learner types anything) they fold into a single chip they can reopen.
+  var quickOpen = true;
+  function renderQuick() {
+    if (!quickOpen) {
+      quick.innerHTML = '';
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'lb-q lb-more';
+      more.textContent = 'Things to try';
+      more.addEventListener('click', function () { quickOpen = true; renderQuick(); });
+      quick.appendChild(more);
+      return;
+    }
+    var acts = [
+      ['Explain the grammar', 'Explain this unit\'s grammar point simply, with two examples from aircraft maintenance.'],
+      ['Quiz me on the words', 'Quiz me on five words from this unit\'s vocabulary bank. Ask one at a time and wait for my answer.'],
+      ['I do not understand a word', 'I will name a word from this unit. Explain it simply and give one example sentence.']
+    ];
+    (CFG.roleplays || []).slice(0, 2).forEach(function (r, i) {
+      acts.unshift(['Role-play ' + (i + 1), 'Let us role-play. ' + r + ' You start. Speak only at CEFR '
+        + (CFG.cefr || 'B1') + ', keep your turns short, and ask me one question each turn.']);
+    });
+    quick.innerHTML = '';
+    acts.slice(0, 5).forEach(function (a) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lb-q';
+      b.textContent = a[0];
+      b.addEventListener('click', function () { ask(a[1]); quickOpen = false; renderQuick(); });
+      quick.appendChild(b);
+    });
+  }
+
+  function open() {
+    panel.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    if (!log.childElementCount) {
+      if (hist.length) {
+        hist.forEach(function (m) { bubble(m.role === 'user' ? 'you' : 'bot', m.content); });
+      } else {
+        bubble('bot', 'Hello. I can explain anything in this unit: a word, the grammar, a dialogue line. '
+          + 'You can write to me in your own language if that is easier.');
+      }
+      if (needsKey()) keyGate(); else renderQuick();
+    }
+    setTimeout(function () { input.focus(); }, 60);
+  }
+  function close() { panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); }
+
+  fab.addEventListener('click', function () { panel.hidden ? open() : close(); });
+  root.querySelector('.lb-x').addEventListener('click', close);
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value;
+    input.value = '';
+    if (v.trim() && quickOpen) { quickOpen = false; renderQuick(); }
+    ask(v);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });
+})();
+</script><script>// LANG edition: pronunciation practice.
+//
+// The learner reads a line from this unit's dialogues out loud; the browser's own speech
+// recognition transcribes it and we score the transcript word by word against the target. No key,
+// no server, nothing leaves the browser beyond the recognition service the browser already uses.
+// Chrome and Edge support this; Firefox and Safari do not, so we say so rather than showing a
+// button that does nothing.
+(function () {
+  var CFG = window.__LANG_BUDDY__;
+  if (!CFG || !(CFG.pron || []).length) return;
+
+  var host = document.getElementById('speaking') || document.getElementById('dialogues');
+  if (!host) return;
+
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var LANG = CFG.langCode || 'en-GB';
+
+  // Words we do not penalise: the learner saying "the" instead of "a" is not a pronunciation fault
+  // worth a red mark in a technical-English lesson.
+  var SKIP = { a: 1, an: 1, the: 1, is: 1, are: 1, and: 1, to: 1, of: 1, it: 1, in: 1, that: 1 };
+
+  function norm(s) {
+    return String(s || '').toLowerCase()
+      .replace(/[^\p{L}\p{N}' ]/gu, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function words(s) { return norm(s).split(' ').filter(Boolean); }
+
+  var card = document.createElement('div');
+  card.className = 'pron';
+  card.innerHTML = '<h3>Say it out loud</h3><p class="hint">Press record and read the line. '
+    + 'You will see which words came through clearly.</p>';
+
+  if (!SR) {
+    card.innerHTML += '<p class="pron-note">Your browser cannot listen. Open this lesson in Chrome '
+      + 'or Edge to use this exercise. You can still read the lines aloud with your teacher.</p>';
+    host.appendChild(card);
+    return;
+  }
+
+  CFG.pron.slice(0, 4).forEach(function (target, i) {
+    var row = document.createElement('div');
+    row.className = 'pron-line';
+    row.innerHTML =
+      '<div class="pron-target" id="pt' + i + '"></div>'
+      + '<div class="pron-bar"><button type="button" class="pron-rec">🎙 Record</button>'
+      + '<span class="pron-score"></span></div><div class="pron-heard"></div>';
+    card.appendChild(row);
+
+    var tgtEl = row.querySelector('.pron-target');
+    var btn = row.querySelector('.pron-rec');
+    var scoreEl = row.querySelector('.pron-score');
+    var heardEl = row.querySelector('.pron-heard');
+    var tw = words(target);
+
+    // render the target with each word in its own span so we can mark it later
+    target.split(/(\s+)/).forEach(function (chunk) {
+      if (/^\s+$/.test(chunk)) { tgtEl.appendChild(document.createTextNode(chunk)); return; }
+      var s = document.createElement('span');
+      s.textContent = chunk;
+      s.dataset.w = norm(chunk);
+      tgtEl.appendChild(s);
+    });
+
+    var rec = null;
+    function stop() {
+      if (rec) { try { rec.stop(); } catch (e) { /* already stopped */ } rec = null; }
+      btn.dataset.on = '';
+      btn.textContent = '🎙 Record';
+    }
+
+    function grade(said) {
+      var heard = words(said);
+      var pool = heard.slice();
+      var hits = 0, counted = 0;
+      tw.forEach(function (w) {
+        if (SKIP[w]) return;
+        counted++;
+        var at = pool.indexOf(w);
+        if (at >= 0) { hits++; pool.splice(at, 1); }
+      });
+      var pct = counted ? Math.round(100 * hits / counted) : 0;
+
+      var got = words(said);
+      tgtEl.querySelectorAll('span').forEach(function (s) {
+        var w = s.dataset.w;
+        if (!w || SKIP[w]) { s.className = ''; return; }
+        s.className = got.indexOf(w) >= 0 ? 'hit' : 'miss';
+      });
+      scoreEl.textContent = pct + '% clear (' + hits + ' of ' + counted + ' words)';
+      scoreEl.className = 'pron-score ' + (pct >= 80 ? 'good' : (pct >= 55 ? '' : 'poor'));
+      heardEl.textContent = said ? 'We heard: ' + said : 'We heard nothing. Try again, a little louder.';
+    }
+
+    btn.addEventListener('click', function () {
+      if (rec) { stop(); return; }
+      rec = new SR();
+      rec.lang = LANG;
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      btn.dataset.on = '1';
+      btn.textContent = '● Listening, press to stop';
+      scoreEl.textContent = '';
+      heardEl.textContent = '';
+      rec.onresult = function (e) {
+        var said = '';
+        for (var k = 0; k < e.results.length; k++) said += e.results[k][0].transcript + ' ';
+        grade(said.trim());
+      };
+      rec.onerror = function (e) {
+        heardEl.textContent = e.error === 'not-allowed'
+          ? 'The microphone is blocked. Allow it in the address bar, then try again.'
+          : 'The microphone did not work. Try again.';
+        stop();
+      };
+      rec.onend = stop;
+      try { rec.start(); } catch (e) { stop(); }
+    });
+  });
+
+  card.insertAdjacentHTML('beforeend',
+    '<p class="pron-note">Scoring counts the words the browser recognised, so it rewards clear '
+    + 'consonants and word stress. It is practice, not an exam.</p>');
+  host.appendChild(card);
+})();
+</script><script>// LANG edition: unit figures, second generation.
+//
+// The first generation had five abstract layout templates (boxes, arrows, tables) and every unit
+// got the same five in the same sections. Rejected, rightly: a figure in a maintenance-English
+// course should look like the THING it teaches the words for, not like a slide.
+//
+// So the renderer now draws SCENES of the domain's real artifacts:
+//   paper     a paper form: tech log page, task card, NRC, CRS, with ruling, boxes and a stamp
+//   screen    an avionics maintenance display: dark bezel, phosphor text, line-select keys
+//   aircraft  an aircraft side view with located callouts (zones, stations, components)
+//   panel     an instrument panel: round gauges + annunciator lights
+//   wiring    two LRUs, a connector pair and the wires between them, labelled
+// plus the quieter diagram types (flow, tree, compare, timeline) for when the language function
+// needs them, capped by the authoring rules to at most one per unit.
+//
+// Figures stay DATA authored per unit; the drawing lives here so quality is uniform. Callout
+// terms carry class "figlab", which the label-it mode blanks and quizzes.
+(function () {
+  var SPEC = (window.__LANG_BUDDY__ || {}).figures;
+  if (!SPEC || !SPEC.length) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var INK = '#1b2733', INK2 = '#5a6b7d', BRAND = '#2F5496', AMBER = '#e0a53d', LINE = '#dbe1e9';
+  var PAPER = '#fdfcf7', RULE = '#c9cfd8', GREEN = '#0f6e56', RED = '#b3362b';
+  var MONO = 'JetBrains Mono, Consolas, monospace';
+  var SANS = 'Inter, Segoe UI, sans-serif';
+  var HAND = 'Segoe Print, Bradley Hand, Comic Sans MS, cursive';
+
+  function el(name, attrs, text) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) if (attrs.hasOwnProperty(k)) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function svg(w, h) {
+    var s = el('svg', { viewBox: '0 0 ' + w + ' ' + h, width: '100%',
+      preserveAspectRatio: 'xMidYMid meet', role: 'img' });
+    s.style.maxWidth = w + 'px';
+    s.style.display = 'block';
+    s.style.margin = '0 auto';
+    return s;
+  }
+  function wrap(s, max) {
+    var out = [], line = '';
+    String(s || '').split(/\s+/).forEach(function (w) {
+      if ((line + ' ' + w).trim().length > max) { if (line) out.push(line); line = w; }
+      else line = (line ? line + ' ' : '') + w;
+    });
+    if (line) out.push(line);
+    return out;
+  }
+  function txt(parent, str, x, y, o) {
+    o = o || {};
+    var t = el('text', { x: x, y: y, 'font-size': o.size || 13, fill: o.fill || INK,
+      'font-family': o.font || SANS });
+    if (o.anchor) t.setAttribute('text-anchor', o.anchor);
+    if (o.weight) t.setAttribute('font-weight', o.weight);
+    if (o.spacing) t.setAttribute('letter-spacing', o.spacing);
+    if (o.cls) t.setAttribute('class', o.cls);
+    if (o.rotate) t.setAttribute('transform', 'rotate(' + o.rotate + ' ' + x + ' ' + y + ')');
+    t.textContent = str;
+    parent.appendChild(t);
+    return t;
+  }
+  function textBlock(parent, str, x, y, max, size, fill, lh, font) {
+    var lines = wrap(str, max);
+    lines.forEach(function (l, i) {
+      txt(parent, l, x, y + i * (lh || size + 4), { size: size, fill: fill, font: font });
+    });
+    return lines.length * (lh || size + 4);
+  }
+  function box(parent, x, y, w, h, fill, stroke, r, sw) {
+    var b = el('rect', { x: x, y: y, width: w, height: h, rx: r == null ? 8 : r,
+      fill: fill || '#fff', stroke: stroke || LINE, 'stroke-width': sw == null ? 1.2 : sw });
+    parent.appendChild(b);
+    return b;
+  }
+
+  // Numbered callout: an elbow leader from the source to the margin legend. Straight diagonals
+  // crossed the artwork (and each other); right angles through a gutter never do.
+  function callout(parent, n, cx, cy, tx, ty, term) {
+    var gx = tx - 26;
+    parent.appendChild(el('path', {
+      d: 'M' + cx + ' ' + cy + ' H' + gx + ' V' + ty + ' H' + (tx - 11),
+      stroke: AMBER, 'stroke-width': 1.6, fill: 'none', 'stroke-linejoin': 'round' }));
+    parent.appendChild(el('circle', { cx: cx, cy: cy, r: 3.2, fill: AMBER }));
+    parent.appendChild(el('circle', { cx: tx, cy: ty, r: 11, fill: AMBER }));
+    txt(parent, String(n), tx, ty + 4, { size: 11.5, fill: '#2c1e05', anchor: 'middle', weight: '700' });
+    txt(parent, term, tx + 17, ty + 4, { size: 12.5, fill: INK, weight: '600', cls: 'figlab' });
+  }
+  // Legend rows read top to bottom, so the callouts must be numbered by source height, not by
+  // the order the spec happened to collect them.
+  function legend(parent, co, tx, ty0) {
+    co.sort(function (a, b) { return a.y - b.y; });
+    co.forEach(function (c, i) {
+      callout(parent, i + 1, c.x, c.y, tx, ty0 + i * 34, c.term);
+    });
+  }
+
+  // ---- paper: a real-looking maintenance form -------------------------------------------------
+  function drawPaper(f) {
+    var W = 720, PX = 26, PW = 500;                       // page x/width; callouts live right of it
+    var rows = f.sections || [];
+    var fields = f.fields || [];
+    // measure
+    var y = 96 + (fields.length ? 46 : 0);
+    var heights = rows.map(function (r) {
+      return 30 + wrap(r.text || '', 52).length * 19 + 8;
+    });
+    var H = y + heights.reduce(function (a, b) { return a + b + 10; }, 0) + (f.sign ? 58 : 26);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Form'));
+    // page with a soft shadow and a punched-holes margin
+    box(s, PX + 3, 21, PW, H - 36, '#00000018', 'none', 3);
+    box(s, PX, 18, PW, H - 36, PAPER, '#b9c0cb', 3);
+    [0.25, 0.5, 0.75].forEach(function (fr) {
+      s.appendChild(el('circle', { cx: PX + 14, cy: 18 + (H - 36) * fr, r: 5, fill: '#fff', stroke: RULE }));
+    });
+    // form header band
+    box(s, PX + 28, 32, PW - 44, 34, '#eef2f8', '#b9c0cb', 2);
+    txt(s, f.form || f.title || 'MAINTENANCE RECORD', PX + 40, 54,
+      { size: 13.5, weight: '700', spacing: '.08em', fill: '#243a5c' });
+    txt(s, f.formNo || 'FORM ' + (f.no || 'M-01'), PX + PW - 26, 54, { size: 10.5, fill: INK2, anchor: 'end', font: MONO });
+    var cy = 76;
+    // small field boxes across the top
+    if (fields.length) {
+      var fw = (PW - 44) / Math.min(4, fields.length);
+      fields.slice(0, 4).forEach(function (fd, i) {
+        var fx = PX + 28 + i * fw;
+        box(s, fx, cy, fw, 36, '#fff', RULE, 0, 1);
+        txt(s, (fd[0] || '').toUpperCase(), fx + 6, cy + 12, { size: 8.5, fill: INK2, spacing: '.06em' });
+        txt(s, fd[1] || '', fx + 6, cy + 29, { size: 12.5, font: MONO, fill: '#1f2c46' });
+      });
+      cy += 46;
+    }
+    // ruled sections
+    var nCo = 0, co = [];
+    rows.forEach(function (r, i) {
+      var rh = heights[i];
+      box(s, PX + 28, cy, PW - 44, rh, '#fff', RULE, 0, 1);
+      txt(s, (r.title || '').toUpperCase(), PX + 36, cy + 15, { size: 9.5, fill: INK2, spacing: '.08em', weight: '600' });
+      // faint ruling behind the entry
+      for (var ry = cy + 34; ry < cy + rh - 6; ry += 19) {
+        s.appendChild(el('path', { d: 'M' + (PX + 36) + ' ' + ry + ' L' + (PX + PW - 30) + ' ' + ry,
+          stroke: '#e7ebf1', 'stroke-width': 1 }));
+      }
+      textBlock(s, r.text || '', PX + 36, cy + 30, 52, 12.5,
+        r.hand === false ? INK : '#27418c', 19, r.hand === false ? MONO : HAND);
+      if (r.co) co.push({ n: ++nCo, x: PX + PW - 44, y: cy + Math.min(18, rh / 2), term: r.co });
+      cy += rh + 10;
+    });
+    // stamp
+    if (f.stamp) {
+      var stC = f.stamp.tone === 'green' ? GREEN : RED;
+      var g = el('g', { transform: 'rotate(-7 ' + (PX + PW - 150) + ' ' + (cy - 46) + ')' });
+      box(g, PX + PW - 250, cy - 66, 208, 40, 'none', stC, 4, 2.4);
+      txt(g, f.stamp.text || 'DEFERRED', PX + PW - 146, cy - 40,
+        { size: 14.5, fill: stC, anchor: 'middle', weight: '700', spacing: '.06em' });
+      s.appendChild(g);
+      if (f.stamp.co) co.push({ n: ++nCo, x: PX + PW - 60, y: cy - 46, term: f.stamp.co });
+    }
+    // signature strip
+    if (f.sign) {
+      var sw2 = (PW - 44) / f.sign.length;
+      f.sign.forEach(function (lab, i) {
+        var sx = PX + 28 + i * sw2;
+        box(s, sx, cy, sw2, 36, '#fff', RULE, 0, 1);
+        txt(s, (lab.co ? lab.t : lab).toUpperCase(), sx + 6, cy + 31, { size: 8.5, fill: INK2, spacing: '.05em' });
+        if (lab.co) co.push({ n: ++nCo, x: sx + sw2 - 12, y: cy + 18, term: lab.co });
+      });
+      cy += 46;
+    }
+    legend(s, co, PW + 62, 46);
+    return s;
+  }
+
+  // ---- screen: an avionics maintenance display ------------------------------------------------
+  function drawScreen(f) {
+    var W = 720, SX = 30, SW = 470;
+    var lines = f.lines || [];
+    var H = 150 + lines.length * 26 + (f.footer ? 34 : 0);
+    var s = svg(W, Math.max(H, 210));
+    s.appendChild(el('title', {}, f.title || 'Display'));
+    // bezel + screws
+    box(s, SX, 18, SW, H - 36, '#3a3f47', '#23272d', 14, 2);
+    [[SX + 16, 32], [SX + SW - 16, 32], [SX + 16, H - 32], [SX + SW - 16, H - 32]].forEach(function (p) {
+      s.appendChild(el('circle', { cx: p[0], cy: p[1], r: 3.4, fill: '#20242a' }));
+    });
+    // glass
+    box(s, SX + 26, 38, SW - 52, H - 76, '#0a0f0c', '#000', 4);
+    // title row, inverse video
+    box(s, SX + 34, 48, SW - 68, 22, '#8fd6a8', 'none', 1);
+    txt(s, (f.title || 'MAINTENANCE STATUS').toUpperCase(), SX + SW / 2, 64,
+      { size: 13, font: MONO, fill: '#0a0f0c', anchor: 'middle', weight: '700' });
+    var co = [], nCo = 0;
+    lines.forEach(function (ln, i) {
+      var y = 96 + i * 26;
+      var tone = ln.tone === 'amber' ? '#f2c14e' : (ln.tone === 'cyan' ? '#7fd8e8' : '#8fd6a8');
+      // line-select key marks on the bezel
+      txt(s, '-', SX + 12, y + 1, { size: 15, fill: '#79808a', font: MONO });
+      txt(s, ln.t || '', SX + 44, y, { size: 13.5, font: MONO, fill: tone, spacing: '.04em' });
+      if (ln.co) co.push({ n: ++nCo, x: SX + SW - 36, y: y - 4, term: ln.co });
+    });
+    if (f.footer) {
+      txt(s, f.footer, SX + 44, H - 52, { size: 12, font: MONO, fill: '#5f9b74' });
+    }
+    legend(s, co, SW + 76, 52);
+    return s;
+  }
+
+  // ---- aircraft: a side view with located callouts --------------------------------------------
+  function drawAircraft(f) {
+    var W = 720, H = 300;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Aircraft'));
+    var g = el('g', { transform: 'translate(30 40)' });
+    s.appendChild(g);
+    // blueprint-style airliner, drawn in a 560x190 box: fuselage, fin, tailplane, wing, engine
+    var body = '#eef3fa', line = '#2F5496';
+    // fuselage
+    g.appendChild(el('path', { d:
+      'M20 120 Q26 96 66 90 L400 84 Q436 62 452 34 L468 36 Q462 74 436 92 L470 96 ' +
+      'Q500 98 512 108 Q500 122 462 126 L96 132 Q40 132 20 120 Z',
+      fill: body, stroke: line, 'stroke-width': 2 }));
+    // fin flash + tailplane
+    g.appendChild(el('path', { d: 'M406 88 L446 40 L462 42 L436 90 Z', fill: '#d5e2f4', stroke: line, 'stroke-width': 1.4 }));
+    g.appendChild(el('path', { d: 'M430 100 L488 92 L494 98 L438 108 Z', fill: body, stroke: line, 'stroke-width': 1.4 }));
+    // cockpit windows
+    g.appendChild(el('path', { d: 'M40 100 L62 96 L60 104 L42 106 Z', fill: '#26364e' }));
+    // cabin windows
+    for (var wx = 84; wx <= 380; wx += 18) {
+      g.appendChild(el('circle', { cx: wx, cy: 102, r: 2.4, fill: '#7f93ad' }));
+    }
+    // wing (sweeping toward viewer) + engine pod
+    g.appendChild(el('path', { d: 'M180 122 L266 118 L360 176 L330 184 Z', fill: '#d5e2f4', stroke: line, 'stroke-width': 1.6 }));
+    g.appendChild(el('path', { d: 'M204 128 Q200 152 216 152 Q234 152 232 128 Z', fill: '#c3d3e8', stroke: line, 'stroke-width': 1.4 }));
+    g.appendChild(el('ellipse', { cx: 218, cy: 143, rx: 20, ry: 12, fill: '#fff', stroke: line, 'stroke-width': 1.6 }));
+    g.appendChild(el('circle', { cx: 206, cy: 143, r: 7, fill: '#8ba3c2' }));
+    // gear
+    [[96, 132], [258, 136]].forEach(function (p) {
+      g.appendChild(el('path', { d: 'M' + p[0] + ' ' + p[1] + ' L' + p[0] + ' ' + (p[1] + 16), stroke: line, 'stroke-width': 2.4 }));
+      g.appendChild(el('circle', { cx: p[0], cy: p[1] + 21, r: 6, fill: '#39434f' }));
+    });
+    // ground line
+    g.appendChild(el('path', { d: 'M0 172 L560 172', stroke: '#c9cfd8', 'stroke-width': 1.4, 'stroke-dasharray': '7 5' }));
+    // callouts: numbered dots on the airframe, terms in a legend strip below. Scattering the
+    // terms around the drawing collided with the fin and the gear; a legend never does.
+    var pts = (f.points || []).slice(0, 6);
+    var legendRows = Math.ceil(pts.length / 3);
+    s.setAttribute('viewBox', '0 0 ' + W + ' ' + (252 + legendRows * 34 + 16));
+    pts.forEach(function (p, i) {
+      var px = 30 + 560 * (p.x == null ? 0.5 : p.x);
+      var py = 40 + 190 * (p.y == null ? 0.5 : p.y);
+      s.appendChild(el('circle', { cx: px, cy: py, r: 10.5, fill: AMBER, stroke: '#fff', 'stroke-width': 2 }));
+      txt(s, String(i + 1), px, py + 4, { size: 11, fill: '#2c1e05', anchor: 'middle', weight: '700' });
+      var lx = 46 + (i % 3) * 224, ly = 262 + Math.floor(i / 3) * 34;
+      s.appendChild(el('circle', { cx: lx, cy: ly, r: 11, fill: AMBER }));
+      txt(s, String(i + 1), lx, ly + 4, { size: 11.5, fill: '#2c1e05', anchor: 'middle', weight: '700' });
+      txt(s, p.co || '', lx + 18, ly + 4.5, { size: 12.5, weight: '600', cls: 'figlab' });
+    });
+    return s;
+  }
+
+  // ---- panel: gauges and annunciators ----------------------------------------------------------
+  function drawPanel(f) {
+    var W = 720;
+    var gs = (f.gauges || []).slice(0, 3), ls = (f.lights || []).slice(0, 6);
+    var H = (gs.length ? 190 : 30) + (ls.length ? Math.ceil(ls.length / 3) * 54 + 30 : 0) + 40;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Panel'));
+    box(s, 26, 18, 500, H - 34, '#2e343c', '#1e232a', 10, 2);
+    var co = [], nCo = 0;
+    gs.forEach(function (gg, i) {
+      var cx = 110 + i * 160, cy2 = 96;
+      s.appendChild(el('circle', { cx: cx, cy: cy2, r: 52, fill: '#11151a', stroke: '#565e69', 'stroke-width': 3 }));
+      // ticks
+      for (var a = -210; a <= 30; a += 30) {
+        var ar = a * Math.PI / 180;
+        s.appendChild(el('path', { d: 'M' + (cx + 40 * Math.cos(ar)) + ' ' + (cy2 + 40 * Math.sin(ar))
+          + ' L' + (cx + 47 * Math.cos(ar)) + ' ' + (cy2 + 47 * Math.sin(ar)),
+        stroke: '#c9d2dc', 'stroke-width': 2 }));
+      }
+      // red arc at the top end
+      s.appendChild(el('path', { d: 'M' + (cx + 44 * Math.cos(0)) + ' ' + (cy2 + 44 * Math.sin(0))
+        + ' A44 44 0 0 0 ' + (cx + 44 * Math.cos(30 * Math.PI / 180)) + ' ' + (cy2 + 44 * Math.sin(30 * Math.PI / 180)),
+      stroke: '#c94f42', 'stroke-width': 5, fill: 'none' }));
+      // needle
+      var v = Math.max(0, Math.min(1, gg.value == null ? 0.6 : gg.value));
+      var na = (-210 + v * 240) * Math.PI / 180;
+      s.appendChild(el('path', { d: 'M' + cx + ' ' + cy2 + ' L' + (cx + 38 * Math.cos(na)) + ' ' + (cy2 + 38 * Math.sin(na)),
+        stroke: '#f2f5f8', 'stroke-width': 3, 'stroke-linecap': 'round' }));
+      s.appendChild(el('circle', { cx: cx, cy: cy2, r: 5, fill: '#f2f5f8' }));
+      txt(s, gg.label || '', cx, cy2 + 68, { size: 10.5, fill: '#c9d2dc', anchor: 'middle', font: MONO, spacing: '.06em' });
+      if (gg.unit) txt(s, gg.unit, cx, cy2 + 24, { size: 9, fill: '#8b95a1', anchor: 'middle', font: MONO });
+      if (gg.co) co.push({ n: ++nCo, x: cx + 34, y: cy2 - 34, term: gg.co });
+    });
+    var ly0 = gs.length ? 190 : 40;
+    ls.forEach(function (l, i) {
+      var lx = 48 + (i % 3) * 156, ly = ly0 + Math.floor(i / 3) * 54;
+      var on = l.on !== false;
+      var toneBg = l.tone === 'red' ? (on ? '#c94f42' : '#3a2320') : l.tone === 'green'
+        ? (on ? '#2f9e6e' : '#1f3128') : (on ? '#e8b84b' : '#3a3320');
+      var toneTx = on ? '#151313' : '#6c6455';
+      box(s, lx, ly, 140, 38, toneBg, '#171b20', 4, 2);
+      var lw = wrap(l.t || '', 16);
+      lw.slice(0, 2).forEach(function (line2, k) {
+        txt(s, line2, lx + 70, ly + (lw.length > 1 ? 16 + k * 14 : 24),
+          { size: 10.5, fill: toneTx, anchor: 'middle', font: MONO, weight: '700', spacing: '.04em' });
+      });
+      if (l.co) co.push({ n: ++nCo, x: lx + 130, y: ly + 8, term: l.co });
+    });
+    legend(s, co, 566, 44);
+    return s;
+  }
+
+  // ---- wiring: two LRUs and the wires between them ---------------------------------------------
+  function drawWiring(f) {
+    var W = 720;
+    var wires = (f.wires || []).slice(0, 5);
+    var H = 96 + wires.length * 44 + 40;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Wiring'));
+    var boxW = 140, ax = 30, bx = 420;
+    var boxH = wires.length * 44 + 52;
+    [[ax, f.a || {}], [bx, f.b || {}]].forEach(function (side) {
+      var x = side[0], u = side[1];
+      box(s, x, 34, boxW, boxH, '#2e343c', '#1e232a', 8, 2);
+      txt(s, u.name || 'LRU', x + boxW / 2, 56, { size: 12.5, fill: '#e8edf2', anchor: 'middle', font: MONO, weight: '700' });
+      txt(s, u.conn || '', x + boxW / 2, 72, { size: 10, fill: '#9aa5b1', anchor: 'middle', font: MONO });
+    });
+    var co = [], nCo = 0;
+    wires.forEach(function (wr, i) {
+      var y = 104 + i * 44;
+      // connector pins
+      [[ax + boxW, 'end'], [bx, 'start']].forEach(function (p) {
+        s.appendChild(el('rect', { x: p[0] - (p[1] === 'end' ? 0 : 10), y: y - 5, width: 10, height: 10, fill: '#565e69' }));
+      });
+      txt(s, wr.pinA || wr.pin || '', ax + boxW - 16, y + 4, { size: 10, fill: '#c9d2dc', anchor: 'end', font: MONO });
+      txt(s, wr.pinB || wr.pin || '', bx + 16, y + 4, { size: 10, fill: '#c9d2dc', font: MONO });
+      // the wire, slightly sagging
+      var mid = (ax + boxW + bx) / 2;
+      s.appendChild(el('path', { d: 'M' + (ax + boxW + 10) + ' ' + y + ' Q' + mid + ' ' + (y + 10) + ' ' + (bx - 10) + ' ' + y,
+        stroke: wr.tone === 'shield' ? '#8b95a1' : BRAND, 'stroke-width': 2.6, fill: 'none',
+        'stroke-dasharray': wr.tone === 'shield' ? '6 4' : 'none' }));
+      // wire label on a small tag
+      var lab = wr.label || '';
+      var tw = Math.min(190, lab.length * 6.6 + 14);
+      box(s, mid - tw / 2, y - 24, tw, 17, '#fff', LINE, 3);
+      txt(s, lab, mid, y - 11.5, { size: 10, fill: '#1f2c46', anchor: 'middle', font: MONO });
+      if (wr.co) co.push({ n: ++nCo, x: mid + tw / 2, y: y - 16, term: wr.co });
+    });
+    legend(s, co, 596, 48);
+    return s;
+  }
+
+  // ---- the quieter diagram types (kept, lightly restyled, capped by authoring rules) -----------
+  function drawFlow(f) {
+    var st = f.steps || [], W = 720, gap = 18;
+    var hs = st.map(function (t) {
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      return Math.max(54, 34 + wrap(note, 74).length * 17);
+    });
+    var H = 28 + hs.reduce(function (a, b) { return a + b + gap; }, 0);
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Process'));
+    var yy = 14;
+    st.forEach(function (t, i) {
+      var bh = hs[i], y = yy;
+      yy += bh + gap;
+      var label = typeof t === 'string' ? t : (t.label || '');
+      var note = typeof t === 'string' ? '' : (t.note || '');
+      var last = i === st.length - 1;
+      box(s, 62, y, W - 130, bh, last ? '#fffdf5' : '#fff', last ? '#f0dfbe' : LINE, 10);
+      s.appendChild(el('path', { d: 'M62 ' + y + ' L62 ' + (y + bh), stroke: last ? AMBER : BRAND, 'stroke-width': 4 }));
+      s.appendChild(el('circle', { cx: 62, cy: y + bh / 2, r: 15, fill: last ? AMBER : BRAND }));
+      txt(s, String(i + 1), 62, y + bh / 2 + 4.5, { size: 13, fill: last ? '#2c1e05' : '#fff', anchor: 'middle', weight: '700' });
+      txt(s, label, 92, y + (note ? 25 : 33), { size: 14, weight: '600', cls: 'figlab' });
+      if (note) textBlock(s, note, 92, y + 43, 74, 12.5, INK2, 17);
+      if (!last) {
+        s.appendChild(el('path', { d: 'M62 ' + (y + bh + 2) + ' L62 ' + (y + bh + gap - 3), stroke: LINE, 'stroke-width': 2 }));
+      }
+    });
+    return s;
+  }
+  function drawTree(f) {
+    var levels = f.levels || [], W = 720, H = 36 + levels.length * 118;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Decision'));
+    levels.forEach(function (lv, i) {
+      var y = 18 + i * 118;
+      box(s, 200, y, 320, 46, '#eef3fa', '#c9d9ee', 10);
+      txt(s, wrap(lv.q || '', 46)[0] || '', 360, y + 28, { size: 13.5, anchor: 'middle', fill: BRAND, weight: '600' });
+      [['yes', 80, '#e6f6ee', '#a9dcc6', GREEN], ['no', 440, '#fdeceb', '#f3c6c2', '#8c2f27']].forEach(function (o) {
+        var t = lv[o[0]];
+        if (!t) return;
+        var x = o[1];
+        box(s, x, y + 66, 280, 40, o[2], o[3], 9);
+        txt(s, o[0].toUpperCase(), x + 12, y + 91, { size: 11.5, fill: o[4], weight: '700' });
+        txt(s, wrap(t, 34)[0] || '', x + 48, y + 91, { size: 12.5, fill: INK });
+        s.appendChild(el('path', { d: 'M360 ' + (y + 46) + ' L360 ' + (y + 56) + ' L' + (x + 140) + ' ' + (y + 56)
+          + ' L' + (x + 140) + ' ' + (y + 64), stroke: LINE, 'stroke-width': 1.6, fill: 'none' }));
+      });
+    });
+    return s;
+  }
+  function drawCompare(f) {
+    var rows = f.rows || [], W = 720, rh = 44, H = 80 + rows.length * rh;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Comparison'));
+    box(s, 20, 18, W - 40, H - 36, '#fff', LINE, 12);
+    box(s, 20, 18, W - 40, 40, '#f4f7fb', LINE, 12);
+    [[250, f.a], [500, f.b]].forEach(function (c) {
+      txt(s, c[1] || '', c[0], 44, { size: 14, weight: '700', fill: BRAND, anchor: 'middle' });
+    });
+    rows.forEach(function (r, i) {
+      var y = 62 + i * rh;
+      if (i) s.appendChild(el('path', { d: 'M40 ' + y + ' L' + (W - 40) + ' ' + y, stroke: '#eef1f5' }));
+      txt(s, wrap(r[0], 22)[0] || '', 44, y + 27, { size: 12.5, fill: INK2 });
+      txt(s, wrap(r[1], 26)[0] || '', 250, y + 27, { size: 13, anchor: 'middle', cls: 'figlab' });
+      txt(s, wrap(r[2], 26)[0] || '', 500, y + 27, { size: 13, anchor: 'middle', cls: 'figlab' });
+    });
+    return s;
+  }
+  function drawTimeline(f) {
+    var ev = f.events || [], W = 720, H = 56 + ev.length * 62;
+    var s = svg(W, H);
+    s.appendChild(el('title', {}, f.title || 'Timeline'));
+    s.appendChild(el('path', { d: 'M120 28 L120 ' + (H - 24), stroke: LINE, 'stroke-width': 2 }));
+    ev.forEach(function (e, i) {
+      var y = 44 + i * 62;
+      s.appendChild(el('circle', { cx: 120, cy: y, r: 8, fill: BRAND }));
+      txt(s, e.t || '', 104, y + 5, { size: 12.5, fill: INK2, anchor: 'end', font: MONO });
+      txt(s, wrap(e.e || '', 58)[0] || '', 146, y - 2, { size: 13.5, weight: '600', cls: 'figlab' });
+      if (e.note) textBlock(s, e.note, 146, y + 16, 62, 12.5, INK2);
+    });
+    return s;
+  }
+
+  var DRAW = { paper: drawPaper, screen: drawScreen, aircraft: drawAircraft, panel: drawPanel,
+    wiring: drawWiring, doc: drawPaper, flow: drawFlow, tree: drawTree, compare: drawCompare,
+    timeline: drawTimeline };
+
+  // Old-spec "doc" figures still exist until every unit is re-authored: adapt them to paper.
+  function adaptLegacy(f) {
+    if (f.type === 'doc' && f.rows && !f.sections) {
+      return { type: 'paper', title: f.title, form: f.docTitle || f.title, caption: f.caption,
+        where: f.where,
+        sections: f.rows.map(function (r) { return { title: r.label, text: r.note, hand: false, co: r.label }; }) };
+    }
+    return f;
+  }
+
+  var ORDER = ['scenario', 'dialogues', 'reading', 'vocabulary', 'grammar', 'exercises',
+    'speaking', 'writing'];
+  var ordered = SPEC.map(adaptLegacy).sort(function (a, b) {
+    return ORDER.indexOf(a.where || 'scenario') - ORDER.indexOf(b.where || 'scenario');
+  });
+
+  ordered.forEach(function (f, idx) {
+    var host = document.getElementById(f.where || 'scenario')
+      || document.getElementById('scenario') || document.querySelector('article') || document.body;
+    var draw = DRAW[f.type];
+    if (!draw) return;
+
+    var fig = document.createElement('figure');
+    fig.className = 'lang-fig';
+    var head = document.createElement('figcaption');
+    head.className = 'fig-head';
+    head.innerHTML = '<b>Figure ' + (idx + 1) + '. ' + (f.title || '') + '</b>';
+    fig.appendChild(head);
+
+    var holder = document.createElement('div');
+    holder.className = 'fig-body';
+    var node;
+    try { node = draw(f); } catch (e) { return; }
+    holder.appendChild(node);
+    fig.appendChild(holder);
+
+    if (f.caption) {
+      var cap = document.createElement('p');
+      cap.className = 'fig-cap';
+      cap.textContent = f.caption;
+      fig.appendChild(cap);
+    }
+
+    // label-it: blank the labels, the learner types them back, checked on blur
+    var labels = [].slice.call(node.querySelectorAll('.figlab'));
+    if (labels.length >= 3) {
+      var bar = document.createElement('div');
+      bar.className = 'fig-bar';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'fig-btn';
+      btn.textContent = 'Hide the labels and test me';
+      var answers = labels.map(function (l) { return l.textContent; });
+      var on = false;
+      btn.addEventListener('click', function () {
+        on = !on;
+        btn.textContent = on ? 'Show the labels again' : 'Hide the labels and test me';
+        labels.forEach(function (l, i) { l.textContent = on ? '?' : answers[i]; });
+        quiz.hidden = !on;
+      });
+      bar.appendChild(btn);
+      fig.appendChild(bar);
+
+      var quiz = document.createElement('div');
+      quiz.className = 'fig-quiz';
+      quiz.hidden = true;
+      answers.forEach(function (a, i) {
+        var row = document.createElement('label');
+        row.innerHTML = '<span>' + (i + 1) + '</span>';
+        var inp = document.createElement('input');
+        inp.placeholder = 'type the label';
+        inp.addEventListener('blur', function () {
+          if (!inp.value.trim()) return;
+          var ok = inp.value.trim().toLowerCase() === a.trim().toLowerCase();
+          inp.className = ok ? 'ok' : 'bad';
+          if (ok) labels[i].textContent = a;
+        });
+        row.appendChild(inp);
+        quiz.appendChild(row);
+      });
+      fig.appendChild(quiz);
+    }
+
+    host.appendChild(fig);
+  });
+})();
+</script><!--/CF-LANG-UI--></body></html>

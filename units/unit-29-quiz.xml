@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English for Aviation Maintenance · Unit 29 · Certifying release to service · CEFR B2
+     Moodle XML. 22 questions across 5 types, split by skill: Listening, Reading,
+     Use of English, Vocabulary. No Cloze. HTML in CDATA. Every question has general
+     feedback; every option has feedback. Correct options are never the longest. -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U29-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 29 — Certifying release to service. Listening, reading, use of English (present perfect passive), and vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ================= LISTENING (7) ================= -->
+
+  <question type="multichoice">
+    <name><text>U29-L1 Dialogue 1 · the old seal</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again (Handing over a landing-gear job).</strong> Why was the old shock strut seal removed?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Jānis says the old seal was <em>unserviceable</em> because it was leaking fluid, so the rectification was needed. A leaking seal is not fit to use and must be replaced.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[It was unserviceable and leaking fluid.]]></text><feedback format="html"><text><![CDATA[Correct. It was leaking, so it was unserviceable and had to be changed.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[It was serviceable but the crew wanted a spare one.]]></text><feedback format="html"><text><![CDATA[No. The seal was unserviceable; it was not a routine swap.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[It was the wrong colour for the landing-gear bay.]]></text><feedback format="html"><text><![CDATA[No. Colour is never mentioned; the seal was leaking.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[It had already been fitted to another aircraft first.]]></text><feedback format="html"><text><![CDATA[No. The reason given is a fluid leak, not previous use.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U29-L2 Dialogue 1 · the open item</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> At the end, one item is still open. What is it, and how is it handled?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The gear-bay light is dead, so Jānis has logged it and it becomes a <em>deferred defect</em> carried under the rules. Everything is written in the technical log before the aircraft is called airworthy.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[The gear-bay light is dead, logged as a deferred defect.]]></text><feedback format="html"><text><![CDATA[Correct. A dead light is logged and carried as a deferred defect.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The new seal is leaking, so the whole job must be repeated.]]></text><feedback format="html"><text><![CDATA[No. The functional test passed with no leak from the new seal.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The functional test failed, so the gear will not move at all.]]></text><feedback format="html"><text><![CDATA[No. The test passed and the gear moved freely.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The work order was lost, so nothing can be recorded now.]]></text><feedback format="html"><text><![CDATA[No. The work is recorded in the technical log.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U29-L3 Dialogue 2 · two people</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again (An independent inspection on a control run).</strong> Decide if this sentence is true or false:</p><p><em>"A control-cable job needs a duplicate inspection carried out by two people."</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. Anna says a control-cable job needs a duplicate inspection by two people: the first person does the work, and the certifying staff does the second, independent check.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[Correct. A critical control is checked by two separate people.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[Incorrect. Anna states it needs a duplicate inspection by two people.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U29-L4 Dialogue 3 · reading light deferral</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again (Justifying the CRS).</strong> Decide if this sentence is true or false:</p><p><em>"The minimum equipment list allows the team to defer one reading light, so the aircraft is still airworthy."</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. Elīna checked the MEL, which lets them defer one reading light. With the item deferred and recorded, the aircraft is still serviceable and airworthy for the flight.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[Correct. The MEL permits deferring one reading light.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[Incorrect. The MEL does allow this deferral, and the aircraft stays airworthy.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U29-L5 Dialogue 2 · people for the duplicate inspection</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> How many people are needed for the duplicate inspection? Write the number as a figure.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A duplicate inspection needs <strong>2</strong> people — the person who did the work and a separate person who does the independent check. Hearing exact figures in speech is a real listening skill.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100" format="moodle_auto_format"><text>2</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — two people.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Listen again: a duplicate inspection is done by two people.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U29-L6 Voicemail · the stand number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to the shift-handover voicemail again.</strong> Which stand is the A320 parked at? Write the number as a figure.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The voicemail opens "the shift-handover message for stand four-two" — stand <strong>42</strong>. Catching a spoken figure like a stand number is a practical listening skill on the line.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100" format="moodle_auto_format"><text>42</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — stand four-two.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[The message says "stand four-two", so the figure is 42.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U29-L7 Dialogue 1 · jobs in the scope of work</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> Jānis states the scope of work: "one seal change, one leak check, and a functional test." How many separate jobs is that in total? Write the number as a figure.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The scope of work is <strong>3</strong> jobs: one seal change, one leak check, and one functional test. The scope of work is the exact description of what a pack covers — no more and no less.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100" format="moodle_auto_format"><text>3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — three jobs.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Count them: seal change, leak check, functional test — three.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= READING (5) ================= -->
+
+  <question type="multichoice">
+    <name><text>U29-R1 Task card · who signs the release</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this task-card extract, then answer.</strong></p>
+<blockquote style="border-left:3px solid #888;padding-left:10px">
+<b>TASK CARD 27-51-08</b> — Aileron control cable, tension check.<br>
+This is a <b>duplicate-inspection</b> item. Work to approved data (AMM 27-51-08).<br>
+<b>Close-up:</b> both the person who did the work and the certifying staff must sign the task card.
+</blockquote>
+<p>According to this card, whose signatures must appear before the work is complete?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The close-up says both the person who did the work and the certifying staff must sign. A duplicate inspection needs two signatures on the task card — one for the work, one for the independent check.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[The worker and the certifying staff both sign.]]></text><feedback format="html"><text><![CDATA[Correct. A duplicate inspection needs both signatures.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Only the flight crew who reported the original snag.]]></text><feedback format="html"><text><![CDATA[No. The crew do not sign the maintenance task card.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Only the stores clerk who issued the new cable.]]></text><feedback format="html"><text><![CDATA[No. Stores do not sign off the inspection.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Nobody signs, because the aircraft is grounded overnight.]]></text><feedback format="html"><text><![CDATA[No. The work is not complete until both people sign.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U29-R2 MEL entry · meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this simplified MEL entry, then answer.</strong></p>
+<blockquote style="border-left:3px solid #888;padding-left:10px">
+<b>MEL 33-51 Passenger Reading Lights</b><br>
+Number installed: many. Number required for dispatch: many minus 1.<br>
+Remarks: One reading light may be inoperative. Fit a placard. Category C, 10 days.
+</blockquote>
+<p>What does this entry tell the certifying staff?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>One reading light may be inoperative for dispatch, provided a placard is fitted and the defect is cleared within 10 days. So a single failed reading light can be deferred and the aircraft still released.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[One reading light may be deferred with a placard.]]></text><feedback format="html"><text><![CDATA[Correct. A placard is fitted and the item is cleared within 10 days.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Every reading light must work before the aircraft may fly.]]></text><feedback format="html"><text><![CDATA[No. The entry allows one light to be inoperative.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The aircraft is grounded for ten days with any light failure.]]></text><feedback format="html"><text><![CDATA[No. 10 days is the limit to fix it, not a grounding.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The reading lights must all be replaced at the next check.]]></text><feedback format="html"><text><![CDATA[No. The entry is about dispatch, not scheduled replacement.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U29-R3 Work order · the traceability label</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this work-order line, then answer.</strong></p>
+<blockquote style="border-left:3px solid #888;padding-left:10px">
+<b>WORK ORDER 4471</b> — Fit new shock strut seal.<br>
+Part: serviceable, with release note and full <b>traceability</b> back to the maker.
+</blockquote>
+<p>What does "full traceability back to the maker" give the certifying staff?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Traceability is a clear history that shows where a part came from. Full traceability back to the maker proves the new seal is a genuine, serviceable part, which the certifying staff needs before release.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[Proof of where the part came from.]]></text><feedback format="html"><text><![CDATA[Correct. Traceability is the documented history of the part.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A guarantee that the part will never fail in service.]]></text><feedback format="html"><text><![CDATA[No. Traceability shows origin; it is not a no-fail guarantee.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Permission to skip the functional test on the gear.]]></text><feedback format="html"><text><![CDATA[No. The functional test is still required.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[A discount on the price of the replacement seal.]]></text><feedback format="html"><text><![CDATA[No. Traceability has nothing to do with price.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U29-R4 CRS statement · basis for release</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this certificate extract, then decide true or false.</strong></p>
+<blockquote style="border-left:3px solid #888;padding-left:10px">
+"The following work has been carried out to approved data. All task cards have been closed. The independent inspection has been completed and signed off. On this basis, the aircraft is airworthy and is released to service."
+</blockquote>
+<p><em>"The certificate names the individual mechanic who did each task."</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. A release records what has been done, not who did it. The statement is written impersonally in the present perfect passive ("has been carried out", "have been closed"), so no individual mechanic is named.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[Incorrect. The release is impersonal and names no individual worker.]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[Correct. It states what was done, in the passive, not who did it.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U29-R5 Tech log · documentation and release</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this tech log line, then decide true or false.</strong></p>
+<blockquote style="border-left:3px solid #888;padding-left:10px">
+Deferred defect: left reading light inoperative. MEL 33-51-01. Placard fitted. <b>Documentation: complete.</b> Release: signed.
+</blockquote>
+<p><em>"Because the documentation is complete and the deferral is recorded, the release can be signed."</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. A release cannot be signed until the documentation is complete. Here the deferral is recorded with its MEL reference and a placard, so the certifying staff can sign the release.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[Correct. Complete documentation is the condition for signing.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[Incorrect. With the paperwork complete, the release can be signed.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= USE OF ENGLISH (6) ================= -->
+
+  <question type="shortanswer">
+    <name><text>U29-U1 Passive · the seal</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Rewrite in the present perfect passive.</strong> Complete the release-style sentence.</p>
+<p>Active: "We have replaced the seal." → "The seal ______."</p>
+<p>Type the missing verb form (three words).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A singular subject takes <strong>has been replaced</strong>: has + been + past participle. Never drop "been" and never use the base verb.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>has been replaced</text><feedback format="html"><text><![CDATA[Correct — has + been + past participle.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[Use "has been replaced" — do not drop "been".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U29-U2 Passive · all checks</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Rewrite in the present perfect passive.</strong> Complete the release-style sentence.</p>
+<p>Active: "We have completed all checks." → "All checks ______."</p>
+<p>Type the missing verb form (three words).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A plural subject takes <strong>have been completed</strong>: have + been + past participle. "All checks have been completed" is the model release sentence.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>have been completed</text><feedback format="html"><text><![CDATA[Correct — have + been + past participle.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[Use "have been completed" (plural subject, plus "been").]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U29-U3 Correct the dropped "been"</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Correct the grammar.</strong> One word is missing.</p>
+<p>Wrong: "All checks have completed."</p>
+<p>Type the one word that must be added, and where it goes — write the corrected two words that replace "have completed".</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The passive always needs <strong>been</strong>: "have <em>been</em> completed". Latvian and Russian have no such helper, so it is easy to lose.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>have been completed</text><feedback format="html"><text><![CDATA[Correct. Add "been": have been completed.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>been completed</text><feedback format="html"><text><![CDATA[Correct. The missing word is "been".]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[Add "been": "have been completed".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U29-U4 Bank term · safe and fit to fly</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the correct bank term (one word).</strong></p>
+<p>The certifying staff must confirm the aircraft is safe and fit to fly. The single word for this is ______.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>Airworthy</strong> means safe and fit to fly. You say "declare it airworthy".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>airworthy</text><feedback format="html"><text><![CDATA[Correct — safe and fit to fly.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[The term is "airworthy".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U29-U5 Bank term · the signed document</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the correct bank term.</strong></p>
+<p>The signed document that returns the aircraft to flight after maintenance is the ______. (The three-letter short form is CRS.)</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The <strong>certificate of release to service</strong> (CRS) is the signed paper that returns the aircraft to flight. You say "issue the CRS".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>certificate of release to service</text><feedback format="html"><text><![CDATA[Correct — the CRS.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>CRS</text><feedback format="html"><text><![CDATA[Correct — the certificate of release to service.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[It is the certificate of release to service (CRS).]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U29-U6 Bank term · two-person check</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the correct bank term (two words).</strong></p>
+<p>A two-person check on a critical control system, such as a control cable, is called a ______.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <strong>duplicate inspection</strong> is a two-person check on a critical control system. It is a specific kind of independent inspection required on control runs.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>duplicate inspection</text><feedback format="html"><text><![CDATA[Correct — a two-person check on a critical control.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>a duplicate inspection</text><feedback format="html"><text><![CDATA[Correct — a two-person check on a critical control.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[The term is "duplicate inspection".]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= VOCABULARY (4) ================= -->
+
+  <question type="matching">
+    <name><text>U29-V1 Match term to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each term to its plain meaning.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>These five terms are the core release vocabulary: airworthy, certifying staff, deferred defect, traceability, rectification.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[airworthy]]></text><answer><text>safe and fit to fly</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[certifying staff]]></text><answer><text>the licensed person allowed to sign the release</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[deferred defect]]></text><answer><text>a fault allowed to wait for a set time</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[traceability]]></text><answer><text>a clear history of where a part came from</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[rectification]]></text><answer><text>the work of correcting a fault</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[]]></text><answer><text>a test to show a system works after the job</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U29-V2 Match document to its use</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each maintenance document to what you use it for.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Work order = the list of jobs; task card = the steps for one job; technical log = the running record; minimum equipment list = what may be inoperative; aircraft maintenance manual = the approved steps.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[work order]]></text><answer><text>the document that lists the jobs to be done</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[task card]]></text><answer><text>the steps for one single job</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[technical log]]></text><answer><text>the running record of faults and actions</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[minimum equipment list]]></text><answer><text>the list of items that may be inoperative</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[aircraft maintenance manual]]></text><answer><text>the maker's approved steps for the job</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[]]></text><answer><text>a passenger boarding document</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U29-V3 Collocation · the certificate</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Choose the natural collocation.</strong> Which verb goes best with "the certificate of release to service"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>We <em>issue</em> the certificate of release to service — "issue the CRS" is the standard workplace collocation for signing and giving out the release.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<b>issue</b> the certificate of release to service]]></text><feedback format="html"><text><![CDATA[Correct. "Issue the CRS" is the natural collocation.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<b>brew</b> the certificate of release to service]]></text><feedback format="html"><text><![CDATA[No. "Brew" is for drinks, not a certificate.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<b>plough</b> the certificate of release to service]]></text><feedback format="html"><text><![CDATA[No. "Plough" is for a field, not a certificate.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<b>polish</b> the certificate of release to service]]></text><feedback format="html"><text><![CDATA[No. "Polish" is for surfaces, not a document.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U29-V4 Collocation · independent inspection</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Choose the natural collocation.</strong> Which verb goes best with "an independent inspection"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>We <em>carry out</em> an independent inspection — "carry out an inspection" is the standard collocation for doing the check.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<b>carry out</b> an independent inspection]]></text><feedback format="html"><text><![CDATA[Correct. "Carry out an inspection" is the natural collocation.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<b>photograph</b> an independent inspection]]></text><feedback format="html"><text><![CDATA[No. "Photograph" does not collocate with an inspection.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<b>refrigerate</b> an independent inspection]]></text><feedback format="html"><text><![CDATA[No. "Refrigerate" is for food, not an inspection.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<b>choreograph</b> an independent inspection]]></text><feedback format="html"><text><![CDATA[No. "Choreograph" is for dance, not an inspection.]]></text></feedback></answer>
+  </question>
+
+</quiz>

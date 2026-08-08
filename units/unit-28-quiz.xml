@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English for Aviation Maintenance · Unit 28 · Unscheduled defect escalation · CEFR B2
+     Moodle XML. 22 questions across 5 types, split by skill: Listening, Reading,
+     Use of English, Vocabulary. No Cloze. HTML in CDATA. Every question has general
+     feedback; every option has feedback. Correct options are never the longest. -->
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U28-r1</text></category>
+    <info format="html"><text><![CDATA[<p>Unit 28 — Simulation: unscheduled defect escalation. Listening, reading, use of English (mixed conditionals), and vocabulary.</p>]]></text></info>
+  </question>
+
+  <!-- ================= LISTENING (7) ================= -->
+
+  <question type="multichoice">
+    <name><text>U28-L1 Dialogue 1 · what Deniss does first</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again (Finding the snag).</strong> After Marta reports the snag, what does Deniss decide to do to get more information?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Deniss says he will <em>run a BITE test on the hydraulic panel and download the fault codes</em>. BITE (built-in test equipment) is the self-test that reads fault codes, so it is the natural first troubleshooting step.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[He runs a BITE test and reads the fault codes.]]></text><feedback format="html"><text><![CDATA[Correct. The BITE self-test gives him the two fault codes to work from.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[He signs the aircraft off and releases it for the flight.]]></text><feedback format="html"><text><![CDATA[No. Nobody can sign off until the fault is fixed and tested.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[He orders a brand-new pump straight from the main base.]]></text><feedback format="html"><text><![CDATA[No. The part is ordered much later, after the fault is confirmed.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[He tells Marta to postpone the whole check until the morning.]]></text><feedback format="html"><text><![CDATA[No. The team acts at once because the flight is at 06:00.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U28-L2 Dialogue 1 · the two fault codes</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> The BITE test returns two separate codes. What do the two codes point to?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Deniss says one code indicates the <em>pressure transducer</em> and the other the <em>pump</em>. Because there are two possible causes, the team cannot yet confirm the root cause — that is why they open the AMM.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[The pressure transducer and the pump.]]></text><feedback format="html"><text><![CDATA[Correct. One sensor code and one pump code, so the cause is still uncertain.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The landing gear and the cabin pressure controller.]]></text><feedback format="html"><text><![CDATA[No. Those systems are not mentioned in the dialogue at all.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The main battery and the standby flight instruments.]]></text><feedback format="html"><text><![CDATA[No. The fault is in the green hydraulic system, not electrical power.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The cargo door and the anti-ice valve on the wing.]]></text><feedback format="html"><text><![CDATA[No. Neither of these is part of the reported snag.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U28-L3 Dialogue 2 · defer under the MEL</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again (Escalating to the supervisor).</strong> Decide if this sentence is true or false:</p><p><em>"Deniss says the green system pump can be deferred under the MEL, so the aircraft may still fly."</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. Deniss reviewed the MEL and reports that the green system pump is a <em>no-go item</em>. A no-go item cannot be deferred, so the aircraft stays AOG until the pump is replaced.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[Incorrect. It is a no-go item, so it cannot be deferred.]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[Correct. The pump is a no-go item and the defect cannot be deferred.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U28-L4 Dialogue 2 · workaround</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> Decide if this sentence is true or false:</p><p><em>"There is no safe workaround for the failed pump, and the team will not bend the regulations."</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. Deniss says clearly that no safe workaround exists for a failed pump and that they never bend the regulations. This is why the case must be escalated.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[Correct. No safe workaround, and no bending of the rules.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[Incorrect. Deniss states there is no safe workaround.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U28-L5 Dialogue 1 · number of fault codes</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> How many separate fault codes does the BITE test return? Write the number as a figure.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The BITE returns <strong>2</strong> separate codes — one for the pressure transducer and one for the pump. Hearing exact figures in speech is a real listening skill.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100" format="moodle_auto_format"><text>2</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — two codes.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Listen again: Deniss says the BITE returns two separate codes.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U28-L6 Dialogue 3 · total downtime</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again (Briefing the duty manager).</strong> About how many hours of total downtime does Ivan estimate (arrival plus install and test)? Write the number as a figure.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Ivan says roughly six hours to arrive, then two hours to install and test — <strong>around eight hours</strong> of downtime in total. That is why the first rotation is lost.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100" format="moodle_auto_format"><text>8</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — about eight hours (six + two).]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Six hours to arrive plus two hours to fit and test is about eight.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>U28-L7 Voicemail · lead time in hours</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Listen to the Maintenance Control voicemail again.</strong> Approximately how many hours is the lead time for the replacement pump? Write the number as a figure.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Maintenance Control says the lead time is approximately <strong>6</strong> hours by road. Lead time is the time to get a part after you order it.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <answer fraction="100" format="moodle_auto_format"><text>6</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — about six hours.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[The voicemail says approximately six hours by road.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= READING (5) ================= -->
+
+  <question type="multichoice">
+    <name><text>U28-R1 Service Bulletin · action</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this Service Bulletin extract, then answer.</strong></p>
+<blockquote style="border-left:3px solid #888;padding-left:10px">
+<b>SERVICE BULLETIN SB-29-0142</b><br>
+ATA 29 Hydraulic Power. Subject: Engine-Driven Pump (EDP) seal, improved design.<br>
+<b>Reason:</b> Field reports of internal leakage at the EDP shaft seal.<br>
+<b>Compliance:</b> Recommended at next pump removal. Not mandatory.<br>
+<b>Action:</b> Replace the old seal with the improved seal, part shown in the IPC.
+</blockquote>
+<p>According to this bulletin, when should operators carry out the action?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The bulletin lists compliance as "recommended at next pump removal" and "not mandatory". A Service Bulletin (SB) is advice from the manufacturer; unlike an Airworthiness Directive (AD), it does not force immediate action.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[At the next pump removal; it is recommended, not mandatory.]]></text><feedback format="html"><text><![CDATA[Correct. An SB is recommended action, done at a convenient point.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Immediately and by law, because every bulletin is compulsory.]]></text><feedback format="html"><text><![CDATA[No. An SB is not mandatory; an AD would be compulsory.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Only after the aircraft has been fully painted and weighed.]]></text><feedback format="html"><text><![CDATA[No. Painting and weighing are unrelated to this bulletin.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[Never, because the bulletin has already been cancelled today.]]></text><feedback format="html"><text><![CDATA[No. The bulletin is active and recommends the seal change.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U28-R2 Work order · part source</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this work order line, then answer.</strong></p>
+<blockquote style="border-left:3px solid #888;padding-left:10px">
+<b>WORK ORDER 4471-A</b><br>
+Task: Remove and replace green system EDP.<br>
+Part No: 29-4471-EDP (from IPC fig. 29-11-41).<br>
+Stores: NIL on station — nearest unit at main base.<br>
+Status: AOG. Transport requested.
+</blockquote>
+<p>Where did the technician get the part number on this work order?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The line reads "from IPC fig. 29-11-41". The IPC (Illustrated Parts Catalogue) is where you look up the correct part number before ordering a spare.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[From the IPC (Illustrated Parts Catalogue).]]></text><feedback format="html"><text><![CDATA[Correct. The IPC gives the part number for the order.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[From the flight crew's spoken report on the radio.]]></text><feedback format="html"><text><![CDATA[No. The crew reports the snag, not the part number.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[From the weather briefing printed for the morning flight.]]></text><feedback format="html"><text><![CDATA[No. The weather briefing has nothing to do with parts.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[From the passenger manifest kept by the boarding gate.]]></text><feedback format="html"><text><![CDATA[No. The manifest lists passengers, not aircraft parts.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U28-R3 MEL entry · meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this simplified MEL entry, then answer.</strong></p>
+<blockquote style="border-left:3px solid #888;padding-left:10px">
+<b>MEL 29-10 Green System Engine-Driven Pump</b><br>
+Number installed: 1. Number required for dispatch: 1.<br>
+Remarks: No relief. Dispatch not allowed with this pump inoperative.
+</blockquote>
+<p>What does "Number required for dispatch: 1" tell the technician?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>One pump is installed and one is required to fly, with "no relief". So if that single pump fails, the aircraft cannot be dispatched — it is a no-go item and cannot be deferred.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[The pump must work for the flight; it is a no-go item.]]></text><feedback format="html"><text><![CDATA[Correct. Required for dispatch with no relief means no-go.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The aircraft may fly for three more days with it failed.]]></text><feedback format="html"><text><![CDATA[No. "No relief" means there is no deferral period at all.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[One spare pump is always kept ready inside the cockpit.]]></text><feedback format="html"><text><![CDATA[No. The entry is about dispatch, not spares storage.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[The crew may choose to fly without the pump if in a hurry.]]></text><feedback format="html"><text><![CDATA[No. The crew cannot overrule a no-go MEL item.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U28-R4 Airworthiness Directive · mandatory</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this Airworthiness Directive extract, then decide true or false.</strong></p>
+<blockquote style="border-left:3px solid #888;padding-left:10px">
+<b>AD 2026-15-03</b> — Applicable to all A320 series.<br>
+Required action: Inspect the EDP mounting bolts within 100 flight hours. Compliance is mandatory.
+</blockquote>
+<p><em>"An Airworthiness Directive (AD) is optional advice that operators may ignore."</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. An AD is a mandatory instruction from the regulator; compliance is required by law. This is the key difference from a Service Bulletin, which is only recommended.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="0" format="html"><text>true</text><feedback format="html"><text><![CDATA[Incorrect. An AD is mandatory, not optional.]]></text></feedback></answer>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[Correct. An AD must be complied with; it is not optional.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>U28-R5 Tech log · sign-off status</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Read this tech log line, then decide true or false.</strong></p>
+<blockquote style="border-left:3px solid #888;padding-left:10px">
+Defect: Green EDP internal leak. Status: AOG, part ordered. <b>Sign-off: pending.</b>
+</blockquote>
+<p><em>"Because the sign-off is pending, the aircraft has not yet been released to service."</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. "Sign-off: pending" means the certifying signature has not been given, so the aircraft is not yet returned to service. Sign-off is the last step before release.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>1</penalty><hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[Correct. Pending sign-off means no release yet.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text><feedback format="html"><text><![CDATA[Incorrect. Without sign-off the aircraft cannot be released.]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= USE OF ENGLISH (6) ================= -->
+
+  <question type="shortanswer">
+    <name><text>U28-U1 Mixed conditional · past to now</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Complete the mixed conditional.</strong> Write the two missing verb forms, separated by a comma.</p>
+<p>"If we ______ (order) the spare last week, we ______ (have) it on the shelf now."</p>
+<p>Example of the format to type: <em>had ordered, would have</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The condition is in the past (we did not order), and the result is now (no spare today): <strong>had ordered, would have</strong>. Never use "would" in the if-clause.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>had ordered, would have</text><feedback format="html"><text><![CDATA[Correct — past condition, present result.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>had ordered would have</text><feedback format="html"><text><![CDATA[Correct — past condition, present result.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[Use "had ordered" in the if-clause and "would have" for the present result.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U28-U2 Mixed conditional · now to past</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Complete the mixed conditional.</strong> Write the two missing verb forms, separated by a comma.</p>
+<p>"If this pump ______ (be) not a no-go item, we ______ (defer) it already."</p>
+<p>Example of the format to type: <em>were, would have deferred</em></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The condition is a state that is true now (it IS a no-go item), and the result is in the past (we did not defer): <strong>were, would have deferred</strong>. Use "were" for every person in this pattern.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>were, would have deferred</text><feedback format="html"><text><![CDATA[Correct — present state, past result.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>were would have deferred</text><feedback format="html"><text><![CDATA[Correct — present state, past result.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[Use "were" (not "was") and "would have deferred" for the past result.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U28-U3 Correct the if-clause error</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Correct the grammar.</strong> Rewrite the if-clause correctly (only the two words that replace "would have ordered").</p>
+<p>Wrong: "If we <em>would have ordered</em> the part, we would have it now."</p>
+<p>Type the two correct words that replace "would have ordered".</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>English never puts "would" in the if-clause. The past condition uses <strong>had ordered</strong>. This "would in both halves" habit comes from Latvian and Russian.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>had ordered</text><feedback format="html"><text><![CDATA[Correct. "If we had ordered the part..."]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[Use "had ordered" — no "would" in the if-clause.]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U28-U4 Bank term · grounded and waiting</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the correct bank term.</strong></p>
+<p>The three-letter term for an aircraft that is grounded and waiting for an urgent part is ______.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>AOG</strong> means "aircraft on ground": grounded and waiting for urgent parts. You say "declare AOG".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>AOG</text><feedback format="html"><text><![CDATA[Correct — aircraft on ground.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>an AOG</text><feedback format="html"><text><![CDATA[Correct — aircraft on ground.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[The term is AOG (aircraft on ground).]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U28-U5 Bank term · pass it up the chain</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the correct bank term (one verb).</strong></p>
+<p>When stores has no spare and you cannot fix the fault at your level, you must ______ the problem to Maintenance Control.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>To <strong>escalate</strong> is to pass a problem up to a higher level for a decision. The noun is "escalation".</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>escalate</text><feedback format="html"><text><![CDATA[Correct — escalate to a higher level.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[The verb is "escalate".]]></text></feedback></answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U28-U6 Bank term · temporary way to keep going</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Write the correct bank term (one word).</strong></p>
+<p>A temporary way to keep going without a full repair is called a ______. For a failed pump, no safe one exists.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <strong>workaround</strong> is a temporary way to keep going without a full repair. In this unit there is no safe workaround for a failed pump.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><usecase>0</usecase>
+    <answer fraction="100" format="moodle_auto_format"><text>workaround</text><feedback format="html"><text><![CDATA[Correct — a temporary way round the problem.]]></text></feedback></answer>
+    <answer fraction="100" format="moodle_auto_format"><text>a workaround</text><feedback format="html"><text><![CDATA[Correct — a temporary way round the problem.]]></text></feedback></answer>
+    <answer fraction="0" format="moodle_auto_format"><text>*</text><feedback format="html"><text><![CDATA[The word is "workaround".]]></text></feedback></answer>
+  </question>
+
+  <!-- ================= VOCABULARY (4) ================= -->
+
+  <question type="matching">
+    <name><text>U28-V1 Match term to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each term to its plain meaning.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>These five terms are the core escalation vocabulary: showstopper, MEL, snag, root cause, sign-off.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[showstopper]]></text><answer><text>a problem that stops all work until it is fixed</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[MEL]]></text><answer><text>the legal list of what may be inoperative</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[snag]]></text><answer><text>an informal word for a fault or defect</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[root cause]]></text><answer><text>the real, underlying reason for a fault</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[sign-off]]></text><answer><text>the certifying signature that releases the work</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[]]></text><answer><text>the time to get a part after you order it</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>U28-V2 Match document to its use</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Match each maintenance document to what you use it for.</strong></p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>AMM = repair procedures; IPC = part numbers; tech log = running defect record; BITE = self-test fault codes.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><shuffleanswers>true</shuffleanswers>
+    <subquestion format="html"><text><![CDATA[AMM]]></text><answer><text>the official step-by-step repair procedures</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[IPC]]></text><answer><text>where you find the correct part number</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[tech log]]></text><answer><text>the aircraft's running record of defects</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[BITE]]></text><answer><text>a self-test that gives fault codes</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[]]></text><answer><text>a passenger boarding document</text></answer></subquestion>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U28-V3 Collocation · recovery plan</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Choose the natural collocation.</strong> Which verb goes best with "a recovery plan"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>We <em>agree</em> a recovery plan — the manager and the team settle on the plan together. "Agree a recovery plan" is the natural workplace collocation.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[We <b>agree</b> a recovery plan with the manager.]]></text><feedback format="html"><text><![CDATA[Correct. "Agree a recovery plan" is the natural collocation.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[We <b>pour</b> a recovery plan before the morning flight.]]></text><feedback format="html"><text><![CDATA[No. "Pour" collocates with liquids, not plans.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[We <b>fasten</b> a recovery plan onto the wing bolts.]]></text><feedback format="html"><text><![CDATA[No. "Fasten" is for physical parts, not a plan.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[We <b>overhaul</b> a recovery plan inside the hangar.]]></text><feedback format="html"><text><![CDATA[No. "Overhaul" is for components, not for plans.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>U28-V4 Collocation · BITE test</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Choose the natural collocation.</strong> Which verb goes best with "a BITE test"?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>We <em>run</em> a BITE test — "run a test" is the standard collocation for a self-test that produces fault codes.</p>]]></text></generalfeedback>
+    <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden>
+    <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<b>run</b> a BITE test on the hydraulic panel]]></text><feedback format="html"><text><![CDATA[Correct. "Run a BITE test" is the standard collocation.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<b>bake</b> a BITE test on the hydraulic panel]]></text><feedback format="html"><text><![CDATA[No. "Bake" is for food, not for a self-test.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<b>harvest</b> a BITE test on the hydraulic panel]]></text><feedback format="html"><text><![CDATA[No. "Harvest" collocates with crops, not tests.]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<b>whistle</b> a BITE test on the hydraulic panel]]></text><feedback format="html"><text><![CDATA[No. "Whistle" does not collocate with a test.]]></text></feedback></answer>
+  </question>
+
+</quiz>
