@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Unit 14 · Assessing an Airworthiness Directive · CEFR B2 · English for Aviation Maintenance
+     22 items across 5 types (multichoice, truefalse, numerical, shortanswer, matching), no cloze.
+     Split by skill: Listening 6 · Reading 5 · Use of English 7 · Vocabulary 4.
+     Anti-bias: the correct MC option is never the longest or most hedged; a distractor is longest. -->
+<quiz>
+
+<question type="category">
+  <category><text>$course$/top/CF/U14-r1</text></category>
+  <info format="html"><text><![CDATA[<p>Unit 14 — Assessing an Airworthiness Directive. Listening, Reading, Use of English and Vocabulary.</p>]]></text></info>
+</question>
+
+<!-- ==================== LISTENING (6) ==================== -->
+
+<question type="multichoice">
+  <name><text>U14-L1 — Dialogue 1: the required action</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> What does the airworthiness directive order the team to do?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>Karlis says the AD "orders a recurring inspection of the landing gear pin". A recurring inspection is a check that must be repeated at set intervals.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[A recurring inspection of the landing gear pin]]></text><feedback format="html"><text><![CDATA[<p>Correct. It repeats at a fixed interval, so it is recurring.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[A software update of the flight management computer system]]></text><feedback format="html"><text><![CDATA[<p>No. The AD is about the landing gear pin, not avionics software.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[A one-time weight check of the forward cargo hold]]></text><feedback format="html"><text><![CDATA[<p>No. It is a recurring pin inspection, and it is not one-time.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[A full replacement of both main landing gears]]></text><feedback format="html"><text><![CDATA[<p>No. The action is an inspection; the improved pin comes later as the terminating action.</p>]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>U14-L2 — Dialogue 1: the grounding risk</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> What does non-compliance mean for the aircraft?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>Karlis says "Non-compliance means grounding, so the aircraft may not fly until we can show compliance."</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[The aircraft is grounded until they show compliance]]></text><feedback format="html"><text><![CDATA[<p>Correct. It may not fly until compliance is shown.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[The airline pays a small fine but keeps flying the route]]></text><feedback format="html"><text><![CDATA[<p>No. The consequence is grounding, not a fine.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[The deadline is moved to the following month]]></text><feedback format="html"><text><![CDATA[<p>No. The deadline does not move; the aircraft is grounded.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[Nothing changes until the next check]]></text><feedback format="html"><text><![CDATA[<p>No. Grounding follows non-compliance.</p>]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>U14-L3 — Dialogue 2: cycles not hours</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> True or false: this directive counts flight cycles, not flight hours.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>True. Karlis says "This directive counts flight cycles only, since one cycle means one takeoff and landing."</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>1</penalty>
+  <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct. Cycles only — one takeoff and landing is one cycle.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Listen again: he says the directive counts cycles, not hours.</p>]]></text></feedback></answer>
+</question>
+
+<question type="numerical">
+  <name><text>U14-L4 — Dialogue 2: the recurring interval</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> What is the recurring interval, in flight cycles? (Write the number of cycles.)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>1500. Karlis says "The interval is fifteen hundred flight cycles, or twelve months, whichever comes first."</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+  <answer fraction="100"><text>1500</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — 1500 flight cycles, or 12 months, whichever comes first.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>500</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>500 is the first threshold, not the recurring interval. Listen again.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>12</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>12 is the number of months. The question asks for cycles: 1500.</p>]]></text></feedback></answer>
+</question>
+
+<question type="numerical">
+  <name><text>U14-L5 — Voicemail: first inspection threshold</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to the voicemail (Dialogue 4) again.</strong> Within how many flight cycles must the first inspection be done?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>500. The voicemail says "The first inspection must be done within five hundred flight cycles."</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty>
+  <answer fraction="100"><text>500</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct — within 500 flight cycles.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>1500</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>1500 is the recurring interval. The first threshold is 500.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>90</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>90 is the number of days in the other limit. The cycle figure is 500.</p>]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>U14-L6 — Dialogue 3: the booked slot</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> Marta chooses the early slot. On which date does it fall?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>The second of September. Marta says "the early slot works well, because it falls on the second of September", safely before the 5 September deadline.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[The second of September]]></text><feedback format="html"><text><![CDATA[<p>Correct — 2 September, inside the deadline.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[The fifth of September, exactly on the compliance deadline]]></text><feedback format="html"><text><![CDATA[<p>No. The 5th is the deadline; the booked slot is the 2nd.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[The twenty-second of August]]></text><feedback format="html"><text><![CDATA[<p>No. That is the effective date, not the slot.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[The first of October]]></text><feedback format="html"><text><![CDATA[<p>No. That would be after the deadline.</p>]]></text></feedback></answer>
+</question>
+
+<!-- ==================== READING (5) ==================== -->
+
+<question type="multichoice">
+  <name><text>U14-R1 — SB header reading</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Read this service-bulletin header.</strong></p>
+  <blockquote>SERVICE BULLETIN SB 24-1180 · ATA 24 Electrical Power · Category: RECOMMENDED · Subject: generator control unit software upgrade. Compliance: at operator discretion.</blockquote>
+  <p>Is compliance with this document mandatory?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>No. The header marks it "RECOMMENDED" and "at operator discretion". A service bulletin is not mandatory unless an airworthiness directive makes it so.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[No — it is recommended, at operator discretion]]></text><feedback format="html"><text><![CDATA[<p>Correct. Only an AD makes an action mandatory.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[Yes — every service bulletin is legally binding on the operator]]></text><feedback format="html"><text><![CDATA[<p>No. A service bulletin is recommended unless an AD mandates it.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[Yes — because it lists an ATA chapter]]></text><feedback format="html"><text><![CDATA[<p>No. An ATA chapter is just a subject code, not an obligation.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[No — because it has a number]]></text><feedback format="html"><text><![CDATA[<p>The number is not the reason; the category "recommended" is.</p>]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>U14-R2 — MEL reading</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Read this MEL line.</strong></p>
+  <blockquote>MEL 32-11: One main-gear position light may be inoperative for up to 3 days (Category C), provided the gear is confirmed down and locked by the standby indicator.</blockquote>
+  <p>True or false: the aircraft may be dispatched with this light inoperative for a limited time, under a condition.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>True. A Minimum Equipment List (MEL) allows dispatch with certain items inoperative for a limited period, if the stated condition is met. This is different from an AD, which is a mandatory fix.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>1</penalty>
+  <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct — up to 3 days, provided the gear is confirmed down and locked.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Read again: the MEL permits limited dispatch under a condition.</p>]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>U14-R3 — AD applicability reading</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Read this AD extract.</strong></p>
+  <blockquote>Applicability: Model A320 aircraft, serial numbers 5100 through 5140. Required action: detailed inspection of the main landing gear pivot pin within 500 flight cycles after the effective date, or 90 days, whichever comes first.</blockquote>
+  <p>An A320 with serial number 5155 — is it affected?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>No. Applicability is 5100 through 5140. Serial 5155 is outside the range, so the AD does not apply to it. Always check the serial number against the applicability.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[No — 5155 is outside the applicability range]]></text><feedback format="html"><text><![CDATA[<p>Correct. The range ends at 5140.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[Yes — every A320 in the world fleet is always affected]]></text><feedback format="html"><text><![CDATA[<p>No. Only the listed serial numbers are affected.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[Yes — because it is an A320]]></text><feedback format="html"><text><![CDATA[<p>Model alone is not enough; the serial must be in range.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[Yes — if it flies daily]]></text><feedback format="html"><text><![CDATA[<p>Flight rate does not change applicability; the serial does.</p>]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>U14-R4 — Tech-log entry reading</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Read this technical-log entry.</strong></p>
+  <blockquote>AD 2026-0147 first inspection of main gear pivot pin carried out. No crack found. Next inspection due at 1500 FC or 12 months. Entry quotes AD number and date. Signed: J. Ozols, Cat B1.</blockquote>
+  <p>What does this entry prove?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>It proves compliance with the AD. A logbook or tech-log entry that quotes the AD number and date is the record an inspector uses to confirm the required action was done.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[That the AD action was done — it proves compliance]]></text><feedback format="html"><text><![CDATA[<p>Correct. The entry proves compliance.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[That the aircraft is now permanently exempt from every future directive]]></text><feedback format="html"><text><![CDATA[<p>No. It only records this action; recurring checks continue.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[That the AD has been cancelled]]></text><feedback format="html"><text><![CDATA[<p>No. The AD is not cancelled; it was complied with.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[That the pin was replaced]]></text><feedback format="html"><text><![CDATA[<p>No. This was an inspection; no crack was found.</p>]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>U14-R5 — superseded document reading</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Read this note.</strong></p>
+  <blockquote>Note: This AD supersedes Service Bulletin 32-0147. Do not use the superseded bulletin.</blockquote>
+  <p>True or false: technicians should still follow the old service bulletin.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>False. "Superseded" means replaced by a newer document. The AD is now the legal order and comes first; the old bulletin must not be used.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>1</penalty>
+  <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No. The bulletin is superseded, so it must not be used.</p>]]></text></feedback></answer>
+  <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct. Follow the AD, not the superseded bulletin.</p>]]></text></feedback></answer>
+</question>
+
+<!-- ==================== USE OF ENGLISH (7) — must/shall + bank terms ==================== -->
+
+<question type="shortanswer">
+  <name><text>U14-U1 — passive obligation</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Complete with the correct modal form (passive obligation). Write two words.</p>
+  <p>The AD is mandatory, so the inspection ______ done on time.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><em>must be</em>. A passive obligation uses <strong>must + be + past participle</strong>: "must be done".</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+  <answer fraction="100"><text>must be</text><feedback format="html"><text><![CDATA[<p>Correct — must be done.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "must be" — the pattern is must + be + past participle.</p>]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U14-U2 — no obligation vs prohibition</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Complete so the sentence means <em>there is no obligation</em> (not a ban). Write two words.</p>
+  <p>After the terminating action, we ______ repeat the inspection.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><em>need not</em> (or "do not have to"). <strong>Must not</strong> is a ban; <strong>need not</strong> means no obligation — you may, but nobody requires it.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+  <answer fraction="100"><text>need not</text><feedback format="html"><text><![CDATA[<p>Correct — need not repeat it.</p>]]></text></feedback></answer>
+  <answer fraction="100"><text>do not have to</text><feedback format="html"><text><![CDATA[<p>Also correct — "do not have to" means the same.</p>]]></text></feedback></answer>
+  <answer fraction="100"><text>don't have to</text><feedback format="html"><text><![CDATA[<p>Also correct.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>must not</text><feedback format="html"><text><![CDATA[<p>That is a prohibition. Here the duty has simply ended: use "need not".</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "need not" (or "do not have to").</p>]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U14-U3 — prohibition</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Complete with a prohibition (a ban). Write two words.</p>
+  <p>You ______ fly the aircraft after the compliance deadline.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><em>must not</em>. A prohibition uses <strong>must not + base verb</strong>.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+  <answer fraction="100"><text>must not</text><feedback format="html"><text><![CDATA[<p>Correct — must not fly.</p>]]></text></feedback></answer>
+  <answer fraction="100"><text>mustn't</text><feedback format="html"><text><![CDATA[<p>Also accepted — the contracted form of must not.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "must not" for a ban.</p>]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U14-U4 — legal written obligation (shall)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Complete with the formal, written-legal modal used in directives. Write one word.</p>
+  <p>The operator ______ report compliance to the authority.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><em>shall</em>. In written legal text — a directive, a work order — <strong>shall</strong> carries the binding obligation. "Must" is also acceptable in speech.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+  <answer fraction="100"><text>shall</text><feedback format="html"><text><![CDATA[<p>Correct — the register of a directive.</p>]]></text></feedback></answer>
+  <answer fraction="100"><text>must</text><feedback format="html"><text><![CDATA[<p>Accepted — "must" also states the obligation, though "shall" is the written-legal form.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "shall" (the written-legal form) or "must".</p>]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U14-U5 — fix the extra "to"</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Rewrite the clause correctly. There is one wrong modal form.</p>
+  <p>"The AD must to be done by Friday." → The AD ______ done by Friday.</p>
+  <p>Write two words for the gap.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><em>must be</em>. After <strong>must</strong> and <strong>shall</strong> never add "to": the base verb follows. Here the passive gives "must be done".</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+  <answer fraction="100"><text>must be</text><feedback format="html"><text><![CDATA[<p>Correct — no "to" after must.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>must to be</text><feedback format="html"><text><![CDATA[<p>Drop the "to": must be done.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Write "must be" — never "must to".</p>]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U14-U6 — term: last date to comply</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which two-word term means <em>the last date to finish the required action</em>?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><em>compliance deadline</em>. It is the last date by which the AD action must be finished.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+  <answer fraction="100"><text>compliance deadline</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="50"><text>deadline</text><feedback format="html"><text><![CDATA[<p>Nearly — the full term is "compliance deadline".</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The term is "compliance deadline".</p>]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U14-U7 — term: first action becomes due</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which one-word term means <em>the point when the very first action becomes due</em>?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><em>threshold</em>. The threshold is the first-time trigger; the <strong>interval</strong> is the gap between repeats after it.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><usecase>0</usecase>
+  <answer fraction="100"><text>threshold</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>interval</text><feedback format="html"><text><![CDATA[<p>The interval is the gap between repeats. The first trigger is the "threshold".</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>The term is "threshold".</p>]]></text></feedback></answer>
+</question>
+
+<!-- ==================== VOCABULARY (4) — matching + collocation ==================== -->
+
+<question type="matching">
+  <name><text>U14-V1 — term to meaning</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Match each airworthiness term to its plain meaning.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>airworthiness directive = legal mandatory order · recurring inspection = a repeated check · terminating action = the final fix that ends the repeats · grounding = the aircraft may not fly · applicability = which aircraft are covered · superseded = replaced by a newer document.</p>]]></text></generalfeedback>
+  <defaultgrade>6</defaultgrade><penalty>0.3333333</penalty><shuffleanswers>true</shuffleanswers>
+  <subquestion format="html"><text><![CDATA[<p>airworthiness directive</p>]]></text><answer><text>a legal order that makes a fix mandatory</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[<p>recurring inspection</p>]]></text><answer><text>a check you must repeat at set intervals</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[<p>terminating action</p>]]></text><answer><text>a final fix that ends the repeat requirement</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[<p>grounding</p>]]></text><answer><text>stopping an aircraft from flying</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[<p>applicability</p>]]></text><answer><text>the list of aircraft the directive applies to</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[<p>superseded</p>]]></text><answer><text>replaced by a newer document</text></answer></subquestion>
+</question>
+
+<question type="matching">
+  <name><text>U14-V2 — term to collocation</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Match each term to the phrase it is used in.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>compliance deadline &rarr; meet the ...; logbook entry &rarr; sign the ...; unsafe condition &rarr; correct an ...; effective date &rarr; on the ... the clock starts; flight cycles &rarr; within 500 ...</p>]]></text></generalfeedback>
+  <defaultgrade>5</defaultgrade><penalty>0.3333333</penalty><shuffleanswers>true</shuffleanswers>
+  <subquestion format="html"><text><![CDATA[<p>compliance deadline</p>]]></text><answer><text>meet the ______</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[<p>logbook entry</p>]]></text><answer><text>sign the ______</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[<p>unsafe condition</p>]]></text><answer><text>correct an ______</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[<p>effective date</p>]]></text><answer><text>the clock starts on the ______</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[<p>flight cycles</p>]]></text><answer><text>within 500 ______</text></answer></subquestion>
+</question>
+
+<question type="multichoice">
+  <name><text>U14-V3 — one flight cycle</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In this AD, what counts as <strong>one flight cycle</strong>?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>One takeoff and landing. That is why a daily-flying aircraft reaches the 500-cycle threshold sooner than one that flies rarely.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[One takeoff and landing]]></text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[One full calendar month of the aircraft being in service]]></text><feedback format="html"><text><![CDATA[<p>No — that is a calendar limit, not a cycle.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[One hour of flight time]]></text><feedback format="html"><text><![CDATA[<p>No — that is a flight hour, not a cycle.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[One engine start]]></text><feedback format="html"><text><![CDATA[<p>No — a cycle is a takeoff and landing.</p>]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>U14-V4 — collocation: issue an AD</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which verb best fits: "The authority ______ an airworthiness directive"?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><em>issues</em>. The authority <strong>issues</strong> (publishes) an AD; operators then <strong>show</strong> or <strong>meet</strong> compliance.</p>]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade><penalty>0.3333333</penalty><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[issues]]></text><feedback format="html"><text><![CDATA[<p>Correct — issue an AD.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[books a maintenance slot for]]></text><feedback format="html"><text><![CDATA[<p>No — the planner books a slot; the authority issues the AD.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[supersedes]]></text><feedback format="html"><text><![CDATA[<p>No — a new document supersedes an old one; the authority issues the AD.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[grounds]]></text><feedback format="html"><text><![CDATA[<p>No — non-compliance grounds an aircraft; the authority issues the AD.</p>]]></text></feedback></answer>
+</question>
+
+</quiz>

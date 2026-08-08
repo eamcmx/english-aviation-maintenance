@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 14 · Assessing an Airworthiness Directive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  article{max-width:980px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:60px 0 32px;border-bottom:1px solid var(--border);margin-bottom:var(--space-8)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 18px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:26ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-6);max-width:66ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:15px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .cando{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius);padding:var(--space-5);margin:var(--space-6) 0 0}
+  .cando h4{margin:0 0 var(--space-3);color:var(--color-primary-dark);font-size:1rem}
+  .cando ul{margin:0;padding-left:1.15em}
+  .cando li{margin:6px 0;color:#3a3f4d}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.14rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:72ch}
+  p.lede{font-size:17.5px;color:#3a3f4d}
+  p.how{background:#eef3fb;border:1px solid #d3e0f1;border-radius:var(--radius-sm);padding:9px 13px;font-size:15.5px;max-width:none}
+  code{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  a{color:var(--color-primary)}
+  /* dialogue */
+  .dlg{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius) var(--radius) 0;padding:var(--space-4) var(--space-5);margin:var(--space-4) 0;box-shadow:var(--shadow-sm)}
+  .dlg h3{margin:0 0 4px}
+  .dlg .scene{font-size:14px;color:var(--ink-muted);margin:0 0 12px}
+  .turn{margin:7px 0;display:flex;gap:10px;align-items:baseline}
+  .turn .spk{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--color-primary);min-width:118px;flex-shrink:0}
+  .turn .said{color:var(--ink)}
+  .lang-audio-slot{margin:12px 0 4px;min-height:38px;border:1px dashed var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:var(--ink-muted)}
+  .lang-audio-slot::before{content:"\1F50A  audio"}
+  details.transcript{margin-top:6px;border-top:1px solid var(--border-soft);padding-top:8px}
+  details.transcript>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;color:var(--color-primary);font-weight:600}
+  /* vocab */
+  table.vocab{border-collapse:collapse;width:100%;margin-top:12px;font-size:14.5px}
+  table.vocab th,table.vocab td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vocab th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+  table.vocab dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  .col{font-family:var(--font-mono);font-size:12.5px;color:var(--accent)}
+  /* grammar */
+  table.dt{border-collapse:collapse;margin-top:12px;font-size:14.5px;width:100%}
+  table.dt th,table.dt td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.dt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  .fix{margin:10px 0;padding:10px 14px;border-radius:var(--radius-sm);background:var(--bg-elevated);border:1px solid var(--border)}
+  .fix .wrong{color:var(--bad);font-weight:600}
+  .fix .right{color:var(--good);font-weight:600}
+  .fix .why{display:block;font-size:13.5px;color:var(--ink-muted);margin-top:3px}
+  /* exercises */
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex h3{margin:0 0 6px;font-size:1.05rem}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+  .bank span{font-size:12.5px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-family:var(--font-mono);color:var(--color-primary-dark)}
+  .q{margin:9px 0}
+  .q .n{font-family:var(--font-mono);color:var(--color-primary);font-weight:700;margin-right:6px}
+  input[type=text]{font-family:var(--font-sans);font-size:15px;padding:5px 9px;border:1px solid var(--border);border-radius:6px;background:#fff;min-width:190px}
+  select{font-family:var(--font-sans);font-size:15px;padding:5px 9px;border:1px solid var(--border);border-radius:6px;background:#fff}
+  input.right,select.right{border-color:var(--good);background:#eaf5ec}
+  input.wrong,select.wrong{border-color:var(--bad);background:#fbecea}
+  .btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:14px;cursor:pointer;font-weight:600;transition:.14s;margin-top:10px}
+  .btn:hover{border-color:var(--color-primary)}
+  .btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  details.ans{margin-top:8px}
+  details.ans>summary{cursor:pointer;font-family:var(--font-mono);font-size:12.5px;color:var(--accent);font-weight:600}
+  details.ans ol{margin:6px 0 0;padding-left:1.3em;font-size:14px;color:#3a3f4d}
+  .reading-text{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 15px;margin:10px 0;font-size:14.5px;white-space:pre-line;line-height:1.55}
+  .genre{font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:6px}
+  /* speaking */
+  .roleplay{background:var(--bg-elevated);border:1px solid var(--border);border-top:4px solid var(--gold);border-radius:var(--radius-sm);padding:14px 17px;margin:12px 0;box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 6px;font-size:1.02rem;color:var(--color-primary-dark)}
+  .roleplay .row{font-size:14.5px;margin:5px 0}
+  .roleplay .lab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-primary);font-weight:700}
+  .roleplay .phr{font-style:italic;color:#3a3f4d}
+  .aibox{background:#f4eefb;border:1px solid #e0d2f1;border-radius:var(--radius);padding:16px 18px;margin:16px 0}
+  .aibox h4{margin:0 0 8px}
+  .prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 13px;margin:9px 0;font-size:14px;color:#33384a}
+  .prompt .lab{font-family:var(--font-mono);font-size:11px;color:var(--accent);font-weight:700;display:block;margin-bottom:3px}
+  /* writing */
+  .checklist{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius-sm);padding:12px 16px;margin:12px 0}
+  .checklist li{margin:4px 0}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 14 of 32 · Assessing an Airworthiness Directive</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 airworthiness — mandatory, compliance deadline, recurring in</span></div></div></header>
+<article>
+
+  <header class="lec-hero">
+    <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · Unit 14 · CEFR B2</p>
+    <h1 class="lecture-title">Assessing an Airworthiness Directive</h1>
+    <p class="subtitle">A new airworthiness directive arrives. Because it is a legal order, the action is mandatory. You must read it, find the required action and the compliance deadline, and brief the planner. This unit gives you the language to do it well.</p>
+    <div class="hero-meta">
+      <span>Course<strong>English for Aviation Maintenance</strong></span>
+      <span>Unit<strong>14 — Airworthiness Directives</strong></span>
+      <span>Focus<strong>Modals must / shall for obligation</strong></span>
+      <span>Class length<strong>90 minutes (self-study ready)</strong></span>
+    </div>
+    <div class="cando">
+      <h4>By the end of this unit you can …</h4>
+      <ul>
+        <li>Can identify the required action and compliance deadline in an AD.</li>
+        <li>Can explain the airworthiness consequence of non-compliance.</li>
+        <li>Can discuss with planning how and when to comply.</li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ============ SCENARIO ============ -->
+  <section class="lecture-section" id="scenario">
+    <h2><span class="secnum">00</span>The situation</h2>
+    <p class="lede">You work at a Part-145 station in Riga. This morning a new airworthiness directive lands in the mailbox, and because it is a legal order, the action is mandatory.</p>
+    <p>An airworthiness directive is not advice; it is a mandatory order from the authority, so you must comply even when the timing is difficult. Your job now is to assess the directive and brief the planner accurately. First you identify the required corrective action. Then you find the compliance deadline, although the wording is often technical. Finally you agree how and when to comply, because the planning department controls the maintenance slots.</p>
+    <p>Why does an accurate assessment matter so much? An airworthiness directive corrects an unsafe condition on the aircraft, so a missed deadline is never trivial. If you miss the deadline, non-compliance follows, and non-compliance normally means grounding. A grounded aircraft cannot earn revenue, and the unsafe condition stays open until the corrective action is complete. A clear, disciplined briefing therefore keeps the whole fleet safe and legal.</p>
+    <p>A good assessment has four short steps, although each demands precision. First, name the directive and its effective date, because the compliance clock starts then. Second, state the required action and say whether it is a one-time task or a recurring inspection. Third, give the compliance deadline in terms the planner can schedule against. Fourth, agree the plan and confirm the next step, so that nothing is left ambiguous.</p>
+    <p class="how">In this unit you listen first, then read. Play each dialogue. Then open the transcript and check your answers.</p>
+  </section>
+
+  <!-- ============ DIALOGUES ============ -->
+  <section class="lecture-section" id="dialogues">
+    <h2><span class="secnum">01</span>Model dialogues</h2>
+    <p class="lede">Three short briefings between an engineer and a planner. Each one performs the same job from a different angle: assess the airworthiness directive, weigh the grounding risk, and agree the compliance plan.</p>
+
+    <div class="dlg">
+      <h3>Dialogue 1 — "A new AD has arrived"</h3>
+      <p class="scene">Scene: Karlis, a base engineer, briefs Marta, the planner, on a newly issued directive.</p>
+      <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u14-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:22 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Hi Marta. A new airworthiness directive arrived this morning, and because it is a legal order, we must plan it now.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Thanks, Karlis. Before I open a slot, tell me which aircraft the applicability actually covers.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">The applicability covers our A320 fleet, although only two aircraft appear on the affected list.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Good to know. So what exactly does the airworthiness directive order us to do?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">It orders a recurring inspection of the landing gear pin, and since an AD is mandatory, we have no choice.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">I understand. As soon as you can, tell me the effective date, because the deadline depends on it.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">The effective date is the twenty-second of August, and the compliance clock starts on that date.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">And what is the compliance deadline for the very first inspection?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">We must do the first inspection within five hundred flight cycles, unless the aircraft reaches ninety days first.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">That is soon for the blue aircraft, because it flies almost every single day.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Exactly, so we must book it early. Whatever happens, we must not miss the compliance deadline.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Understood. In case we are late, what is the real consequence for the aircraft?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Non-compliance means grounding, so the aircraft may not fly until we can show compliance.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Then this is top priority, and I will protect a maintenance slot this month.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Thank you. I will forward the airworthiness directive and the applicability list right now.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Perfect. As soon as I have them, I will build the plan and share it with you today.</span></div>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 2 — "The repeat check and the final fix"</h3>
+      <p class="scene">Scene: the same engineer and planner examine the recurring part and the terminating action.</p>
+      <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u14-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:30 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Marta, let us look at the repeat part of the directive, because it is not a one-time job.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Right. So the recurring inspection comes back again and again, at a fixed interval?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Yes. As soon as we finish the first check, we must repeat it at a set interval.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">What is the interval, exactly? I need the precise figure for the maintenance plan.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">The interval is fifteen hundred flight cycles, or twelve months, whichever comes first.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">And the first threshold — when is the very first inspection actually due?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">The threshold is five hundred flight cycles, counted from the effective date of the directive.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Some airworthiness directives count in flight hours. Does this one use flight hours as well?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">No. This directive counts flight cycles only, since one cycle means one takeoff and landing.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Good. And why did the authority issue this airworthiness directive in the first place?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">They identified an unsafe condition, because the pin can crack under heavy load.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">I see. So the recurring inspection is the corrective action, at least for now?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Exactly. The inspection is the short-term corrective action, although there is also a terminating action.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Tell me about the terminating action, because it sounds important for the long-term plan.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">We fit an improved pin, and once it is installed, we need not repeat the inspection.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">So the terminating action ends the recurring inspection completely. That helps the plan a lot.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">It does, although the terminating action still has its own separate compliance deadline.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Then I will plan both together: the recurring checks and the final terminating fix.</span></div>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 3 — "The plan and the grounding risk"</h3>
+      <p class="scene">Scene: the engineer and planner agree the compliance plan and the required records.</p>
+      <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u14-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:17 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Marta, can we agree the final compliance plan today, because the deadline is getting close?</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Yes. The planning department has two slots, so tell me which one fits the directive best.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">The first inspection must be done before the fifth of September, without exception.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">The early slot works well, because it falls on the second of September.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Good. That keeps us comfortably inside the compliance deadline.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">What about the paperwork? Once the check is finished, what exactly must we record?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">After the check, we must make a logbook entry, since that entry proves compliance.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Understood. Does the logbook entry also need the airworthiness directive number?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Yes. The logbook entry shall quote the AD number and the date of the action.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Noted. And is this airworthiness directive linked to any older document?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">It replaces an old service bulletin, so that bulletin is now formally superseded.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">So we must not use the old bulletin, provided I have understood you correctly?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Correct. The directive is the legal order, and it always comes first.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">And if the planning department cannot find a slot in time?</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Then the aircraft is grounded, because non-compliance is simply not an option.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">Agreed. I will protect this slot, so that nothing else may take it.</span></div>
+        <div class="turn"><span class="spk">A · Engineer</span><span class="said">Thank you. Please send the finished plan to me and to the technical office.</span></div>
+        <div class="turn"><span class="spk">B · Planner</span><span class="said">I will. We stay safe, legal, and on time, which is exactly the goal.</span></div>
+      </details>
+    </div>
+
+    <div class="dlg">
+      <h3>Dialogue 4 — Voicemail from the Airworthiness office</h3>
+      <p class="scene">Scene: a short recorded message for the maintenance planning team.</p>
+      <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u14-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:42 · listen first, then open the transcript</figcaption></figure>
+      <details class="transcript"><summary>Transcript</summary>
+        <div class="turn"><span class="spk">Voicemail</span><span class="said">This is a message from the Continuing Airworthiness office for the maintenance planning team.</span></div>
+        <div class="turn"><span class="spk">Voicemail</span><span class="said">A new airworthiness directive, AD 2026-0147, is now in force, and its effective date is the twenty-second of August.</span></div>
+        <div class="turn"><span class="spk">Voicemail</span><span class="said">Because the directive is mandatory, it orders a recurring inspection of the landing gear pin on two of our A320 aircraft.</span></div>
+        <div class="turn"><span class="spk">Voicemail</span><span class="said">The first inspection must be done within five hundred flight cycles, so please note the compliance deadline and plan the work early.</span></div>
+        <div class="turn"><span class="spk">Voicemail</span><span class="said">If we ignore it, non-compliance will ground the aircraft, so call the airworthiness office as soon as you have any questions. Thank you, and have a good shift.</span></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ VOCABULARY ============ -->
+  <section class="lecture-section" id="vocabulary">
+    <h2><span class="secnum">02</span>Vocabulary bank</h2>
+    <p class="lede">Twenty specialist terms from the world of airworthiness directives. Each has a plain meaning, one example at level, and one common word partner (collocation).</p>
+    <table class="vocab">
+      <thead><tr><th>Term</th><th>Plain meaning</th><th>Example at level</th><th>Collocation</th></tr></thead>
+      <tbody>
+        <tr><td><dfn data-term="airworthiness directive">airworthiness directive</dfn> (AD)</td><td>a legal order from the authority that makes a fix mandatory</td><td>The airworthiness directive orders a check on the pin, so the action is mandatory.</td><td class="col">issue an airworthiness directive</td></tr>
+        <tr><td><dfn data-term="airworthiness">airworthiness</dfn></td><td>the state of being safe and legal to fly</td><td>Because the pin can fail, the airworthiness of the aircraft is at risk.</td><td class="col">continuing airworthiness</td></tr>
+        <tr><td><dfn data-term="mandatory">mandatory</dfn></td><td>you must do it; it is not a choice</td><td>An airworthiness directive makes the corrective action mandatory, without exception.</td><td class="col">mandatory action</td></tr>
+        <tr><td><dfn data-term="compliance">compliance</dfn></td><td>doing what the directive requires</td><td>The logbook entry proves compliance whenever an inspector asks.</td><td class="col">show compliance</td></tr>
+        <tr><td><dfn data-term="compliance deadline">compliance deadline</dfn></td><td>the last date to finish the required action</td><td>We must not miss the compliance deadline, although the slot is very tight.</td><td class="col">meet the compliance deadline</td></tr>
+        <tr><td><dfn data-term="non-compliance">non-compliance</dfn></td><td>failing to do what the directive requires on time</td><td>Non-compliance can ground the aircraft until we finally show compliance.</td><td class="col">risk of non-compliance</td></tr>
+        <tr><td><dfn data-term="recurring inspection">recurring inspection</dfn></td><td>a check you must repeat at set intervals</td><td>The directive orders a recurring inspection that repeats at a fixed interval.</td><td class="col">recurring inspection task</td></tr>
+        <tr><td><dfn data-term="interval">interval</dfn></td><td>the gap between two recurring inspections</td><td>The interval is fifteen hundred flight cycles, unless twelve months come first.</td><td class="col">inspection interval</td></tr>
+        <tr><td><dfn data-term="threshold">threshold</dfn></td><td>the point when the very first action becomes due</td><td>The threshold is the moment when the very first inspection becomes mandatory.</td><td class="col">compliance threshold</td></tr>
+        <tr><td><dfn data-term="effective date">effective date</dfn></td><td>the date the directive starts to apply</td><td>The compliance clock starts on the effective date of the directive.</td><td class="col">effective date of the AD</td></tr>
+        <tr><td><dfn data-term="flight cycles">flight cycles</dfn></td><td>a count of flights; one cycle is one takeoff and landing</td><td>The first inspection is due within five hundred flight cycles.</td><td class="col">accumulated flight cycles</td></tr>
+        <tr><td><dfn data-term="flight hours">flight hours</dfn></td><td>time counted while the aircraft is flying</td><td>Some directives count flight hours, although this one counts cycles instead.</td><td class="col">total flight hours</td></tr>
+        <tr><td><dfn data-term="applicability">applicability</dfn></td><td>the list of aircraft that the directive applies to</td><td>Check the applicability carefully before you plan any maintenance work.</td><td class="col">applicability list</td></tr>
+        <tr><td><dfn data-term="unsafe condition">unsafe condition</dfn></td><td>the safety problem that the directive fixes</td><td>The directive corrects an unsafe condition in the landing gear pin.</td><td class="col">correct an unsafe condition</td></tr>
+        <tr><td><dfn data-term="corrective action">corrective action</dfn></td><td>the fix or check the directive requires</td><td>The recurring inspection is the corrective action, at least for now.</td><td class="col">required corrective action</td></tr>
+        <tr><td><dfn data-term="terminating action">terminating action</dfn></td><td>a final fix that ends the repeat requirement</td><td>Once we fit the improved pin, the terminating action ends the repeat check.</td><td class="col">optional terminating action</td></tr>
+        <tr><td><dfn data-term="grounding">grounding</dfn></td><td>stopping an aircraft from flying</td><td>Non-compliance means grounding, because the aircraft is no longer legal.</td><td class="col">grounding of the fleet</td></tr>
+        <tr><td><dfn data-term="superseded">superseded</dfn></td><td>replaced by a newer document</td><td>The old service bulletin is now superseded by this directive.</td><td class="col">superseded revision</td></tr>
+        <tr><td><dfn data-term="logbook entry">logbook entry</dfn></td><td>a written record in the aircraft log that proves the work</td><td>Make a logbook entry that quotes the airworthiness directive number.</td><td class="col">sign the logbook entry</td></tr>
+        <tr><td><dfn data-term="planning department">planning department</dfn></td><td>the team that schedules the maintenance work</td><td>The planning department schedules the work before the compliance deadline.</td><td class="col">brief the planning department</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ GRAMMAR ============ -->
+  <section class="lecture-section" id="grammar">
+    <h2><span class="secnum">03</span>Grammar in context — must / shall for obligation</h2>
+    <p class="lede">An airworthiness directive is a legal order, so the language of obligation is strong. We use <strong>must</strong> and <strong>shall</strong> to express that obligation clearly.</p>
+    <p>Look at these lines from the dialogues, because each one carries an obligation:</p>
+    <ul>
+      <li>"We <strong>must</strong> do the first inspection within five hundred flight cycles." (Dialogue 1)</li>
+      <li>"The first inspection <strong>must be done</strong> before the fifth of September." (Dialogue 3)</li>
+      <li>"The logbook entry <strong>shall</strong> quote the AD number and the date." (Dialogue 3)</li>
+      <li>"We <strong>must not</strong> use the old bulletin." (Dialogue 3)</li>
+    </ul>
+    <p>The pattern is consistent, although the meanings differ. Use <strong>must</strong> plus the base verb for a strong obligation, as in "we must comply". Use <strong>must + be + past participle</strong> when the action is passive, as in "must be done", because the aircraft does not act on itself. Use <strong>shall</strong> in written, legal text, such as a directive or a work order, since it carries a formal, binding tone. Use <strong>must not</strong> for a prohibition. Importantly, there is never a <code>to</code> after must or shall, and the verb never changes for he, she, or it.</p>
+    <p>Now watch one pair that learners often confuse, because the difference is safety-critical. <strong>Must not</strong> means a prohibition: you are not allowed to do it. <strong>Need not</strong>, or "do not have to", means there is no obligation: you may do it, although nobody requires it. After the terminating action, we <strong>need not</strong> repeat the inspection, since the duty has ended; that is clearly not a prohibition.</p>
+    <p>Why does the correct modal matter so much? An airworthiness directive is legally binding, so the modal effectively carries the weight of the regulation. "The AD must be done" tells the planner that compliance is not negotiable, whereas a vague verb can quietly hide the obligation. A hidden obligation is a genuine safety risk, so strong, precise modals keep the fleet safe and the paperwork honest.</p>
+    <table class="dt">
+      <thead><tr><th>Use</th><th>Structure</th><th>Example at level</th></tr></thead>
+      <tbody>
+        <tr><td>Obligation (active)</td><td>must + base verb</td><td>We must comply before the compliance deadline.</td></tr>
+        <tr><td>Obligation (passive)</td><td>must + be + past participle</td><td>The airworthiness directive must be done on time.</td></tr>
+        <tr><td>Legal / written obligation</td><td>shall + base verb</td><td>The operator shall report compliance to the authority.</td></tr>
+        <tr><td>Prohibition (a ban)</td><td>must not + base verb</td><td>You must not fly the aircraft after the deadline.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Three common mistakes (Latvian / Russian speakers)</h3>
+    <div class="fix">
+      <span class="wrong">✗ The airworthiness directive must <u>to be</u> done by Friday.</span><br>
+      <span class="right">✓ The airworthiness directive must <u>be</u> done by Friday.</span>
+      <span class="why">After must and shall, use the base verb only. Do not add <code>to</code>, because Latvian and Russian speakers often insert it here.</span>
+    </div>
+    <div class="fix">
+      <span class="wrong">✗ The inspection must <u>done</u> before the compliance deadline.</span><br>
+      <span class="right">✓ The inspection must <u>be done</u> before the compliance deadline.</span>
+      <span class="why">A passive obligation always needs <code>be</code>, because the pattern is must + be + past participle.</span>
+    </div>
+    <div class="fix">
+      <span class="wrong">✗ The check is no longer required, so we <u>must not</u> repeat it.</span><br>
+      <span class="right">✓ The check is no longer required, so we <u>need not</u> repeat it.</span>
+      <span class="why"><code>must not</code> is a prohibition, whereas <code>need not</code> or "do not have to" means there is no obligation.</span>
+    </div>
+  </section>
+
+  <!-- ============ EXERCISES ============ -->
+  <section class="lecture-section" id="exercises">
+    <h2><span class="secnum">04</span>Exercises</h2>
+    <p class="how">Type your answer in each gap. Then press Check. Green is right, red is wrong. Open "Answers" to compare.</p>
+
+    <!-- E1 -->
+    <div class="ex" id="e1">
+      <span class="tag">E1 · Gap-fill</span>
+      <h3>E1 · Put the right term in the gap</h3>
+      <p class="how">Use one term from the bank in each sentence.</p>
+      <div class="bank">
+        <span>airworthiness directive</span><span>airworthiness</span><span>mandatory</span><span>compliance</span><span>compliance deadline</span><span>non-compliance</span><span>recurring inspection</span><span>interval</span><span>threshold</span><span>effective date</span><span>flight cycles</span><span>flight hours</span><span>applicability</span><span>unsafe condition</span><span>corrective action</span><span>terminating action</span><span>grounding</span><span>superseded</span><span>logbook entry</span><span>planning department</span>
+      </div>
+      <div class="q"><span class="n">1</span>An <input type="text" data-ans="airworthiness directive"> is a legal order that makes a fix mandatory.</div>
+      <div class="q"><span class="n">2</span>Check the <input type="text" data-ans="applicability"> to see which aircraft the AD covers.</div>
+      <div class="q"><span class="n">3</span>The compliance clock starts on the <input type="text" data-ans="effective date"> of the AD.</div>
+      <div class="q"><span class="n">4</span>We must finish the work before the <input type="text" data-ans="compliance deadline">.</div>
+      <div class="q"><span class="n">5</span>The AD fixes an <input type="text" data-ans="unsafe condition"> in the landing gear pin.</div>
+      <div class="q"><span class="n">6</span>The first check is a <input type="text" data-ans="recurring inspection">, so it comes back at set intervals.</div>
+      <div class="q"><span class="n">7</span>The new pin is the <input type="text" data-ans="terminating action">, and it ends the repeat check.</div>
+      <div class="q"><span class="n">8</span>If we miss the deadline, <input type="text" data-ans="non-compliance"> can cause grounding.</div>
+      <div class="q"><span class="n">9</span>After the inspection, make a <input type="text" data-ans="logbook entry"> that quotes the AD.</div>
+      <div class="q"><span class="n">10</span>The <input type="text" data-ans="planning department"> finds a slot for the work.</div>
+      <button class="btn primary" onclick="checkEx('e1')">Check</button>
+      <details class="ans"><summary>Answers</summary><ol>
+        <li>airworthiness directive</li><li>applicability</li><li>effective date</li><li>compliance deadline</li><li>unsafe condition</li><li>recurring inspection</li><li>terminating action</li><li>non-compliance</li><li>logbook entry</li><li>planning department</li>
+      </ol></details>
+    </div>
+
+    <!-- E2 -->
+    <div class="ex" id="e2">
+      <span class="tag">E2 · Matching</span>
+      <h3>E2 · Match the term to its meaning</h3>
+      <p class="how">Choose the correct term for each meaning.</p>
+      <div class="q"><span class="n">1</span>a legal order that makes a fix mandatory →
+        <select data-ans="airworthiness directive"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+      <div class="q"><span class="n">2</span>the gap between two recurring inspections →
+        <select data-ans="interval"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+      <div class="q"><span class="n">3</span>the point when the very first action is due →
+        <select data-ans="threshold"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+      <div class="q"><span class="n">4</span>stopping an aircraft from flying →
+        <select data-ans="grounding"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+      <div class="q"><span class="n">5</span>replaced by a newer document →
+        <select data-ans="superseded"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+      <div class="q"><span class="n">6</span>the fix or check the AD requires →
+        <select data-ans="corrective action"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+      <div class="q"><span class="n">7</span>time counted while the aircraft is flying →
+        <select data-ans="flight hours"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+      <div class="q"><span class="n">8</span>the list of aircraft the AD applies to →
+        <select data-ans="applicability"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+      <div class="q"><span class="n">9</span>doing what the AD requires →
+        <select data-ans="compliance"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+      <div class="q"><span class="n">10</span>a final fix that ends the repeat requirement →
+        <select data-ans="terminating action"><option value="">—</option><option>airworthiness directive</option><option>interval</option><option>threshold</option><option>grounding</option><option>superseded</option><option>corrective action</option><option>flight hours</option><option>applicability</option><option>compliance</option><option>terminating action</option></select></div>
+      <button class="btn primary" onclick="checkEx('e2')">Check</button>
+    </div>
+
+    <!-- E3 -->
+    <div class="ex" id="e3">
+      <span class="tag">E3 · Dialogue completion</span>
+      <h3>E3 · Complete the briefing</h3>
+      <p class="how">Fill each gap with one term. The briefing is between an engineer (A) and a planner (B).</p>
+      <div class="q"><span class="n">1</span>A: A new airworthiness <input type="text" data-ans="directive"> arrived this morning.</div>
+      <div class="q"><span class="n">2</span>B: Which aircraft does it affect? Check the <input type="text" data-ans="applicability">.</div>
+      <div class="q"><span class="n">3</span>A: It orders a recurring <input type="text" data-ans="inspection"> of the pin. It is mandatory.</div>
+      <div class="q"><span class="n">4</span>B: When is the <input type="text" data-ans="effective date">? The clock starts then.</div>
+      <div class="q"><span class="n">5</span>A: We must do the first check within five hundred flight <input type="text" data-ans="cycles">.</div>
+      <div class="q"><span class="n">6</span>B: And what is the compliance <input type="text" data-ans="deadline"> for that check?</div>
+      <div class="q"><span class="n">7</span>A: If we are late, <input type="text" data-ans="non-compliance"> means grounding.</div>
+      <div class="q"><span class="n">8</span>B: Understood. After the work, make a <input type="text" data-ans="logbook"> entry.</div>
+      <div class="q"><span class="n">9</span>A: Yes. The entry proves <input type="text" data-ans="compliance"> if an inspector asks.</div>
+      <div class="q"><span class="n">10</span>B: Good. The planning <input type="text" data-ans="department"> will protect the slot.</div>
+      <button class="btn primary" onclick="checkEx('e3')">Check</button>
+      <details class="ans"><summary>Answers</summary><ol>
+        <li>directive</li><li>applicability</li><li>inspection</li><li>effective date</li><li>cycles</li><li>deadline</li><li>non-compliance</li><li>logbook</li><li>compliance</li><li>department</li>
+      </ol></details>
+    </div>
+
+    <!-- E4 -->
+    <div class="ex" id="e4">
+      <span class="tag">E4 · Grammar transformation</span>
+      <h3>E4 · Choose the right modal</h3>
+      <p class="how">Write the missing modal. Use <em>must</em>, <em>must be</em>, <em>shall</em>, <em>must not</em>, or <em>need not</em>. Follow the cue in brackets.</p>
+      <div class="q"><span class="n">1</span>The AD is mandatory, so the inspection <input type="text" data-ans="must be"> done on time. (obligation, passive)</div>
+      <div class="q"><span class="n">2</span>We <input type="text" data-ans="must"> comply before the effective date. (obligation)</div>
+      <div class="q"><span class="n">3</span>You <input type="text" data-ans="must not"> fly the aircraft after the deadline. (a ban)</div>
+      <div class="q"><span class="n">4</span>The operator <input type="text" data-ans="shall"> report compliance to the authority. (legal, written)</div>
+      <div class="q"><span class="n">5</span>After the terminating action, we <input type="text" data-ans="need not|do not have to|don't have to"> repeat the check. (no obligation)</div>
+      <div class="q"><span class="n">6</span>The logbook entry <input type="text" data-ans="shall|must"> quote the AD number. (legal, written)</div>
+      <div class="q"><span class="n">7</span>The pin <input type="text" data-ans="must be"> replaced within twenty-four months. (obligation, passive)</div>
+      <div class="q"><span class="n">8</span>Non-compliance is not allowed, so we <input type="text" data-ans="must not"> miss the deadline. (a ban)</div>
+      <div class="q"><span class="n">9</span>This AD counts cycles, so we <input type="text" data-ans="must not"> use flight hours. (a ban)</div>
+      <div class="q"><span class="n">10</span>The plan <input type="text" data-ans="must"> reach the planning department today. (obligation)</div>
+      <button class="btn primary" onclick="checkEx('e4')">Check</button>
+      <details class="ans"><summary>Answers</summary><ol>
+        <li>must be</li><li>must</li><li>must not</li><li>shall</li><li>need not (or: do not have to)</li><li>shall (or: must)</li><li>must be</li><li>must not</li><li>must not</li><li>must</li>
+      </ol></details>
+    </div>
+
+    <!-- E5 -->
+    <div class="ex" id="e5">
+      <span class="tag">E5 · Reading 1</span>
+      <h3>E5 · Read the airworthiness directive</h3>
+      <div class="genre">Authentic genre — Airworthiness Directive excerpt</div>
+      <div class="reading-text">AIRWORTHINESS DIRECTIVE AD 2026-0147
+Effective date: 22 August 2026.
+ATA Chapter: 32 — Landing Gear.
+Subject: Main landing gear pivot pin — cracking.
+Reason: An unsafe condition has been found. Some pivot pins can crack under load. A crack can lead to failure of the landing gear.
+Applicability: Model A320 aircraft, serial numbers 5100 through 5140.
+Required action (corrective action): Do a detailed inspection of the pivot pin.
+Compliance threshold: Within 500 flight cycles after the effective date, or within 90 days, whichever comes first.
+Recurring inspection: Repeat the inspection at intervals not to exceed 1500 flight cycles or 12 months.
+Terminating action: Installation of an improved pin, part number 32-0147-P2, ends the recurring inspection. The pin must be installed within 24 months.
+Records: The operator shall make a logbook entry after each action. The entry shall quote this AD number and the date.
+Note: This AD supersedes Service Bulletin 32-0147. Non-compliance will result in grounding of the aircraft. If in doubt, contact the airworthiness office before you start.</div>
+      <p class="how">Answer from the text.</p>
+      <div class="q"><span class="n">1</span>What must you inspect?
+        <select data-ans="the pivot pin"><option value="">—</option><option>the pivot pin</option><option>the wiring</option><option>the fuel pump</option></select></div>
+      <div class="q"><span class="n">2</span>Is the action mandatory or recommended?
+        <select data-ans="mandatory"><option value="">—</option><option>mandatory</option><option>recommended</option></select></div>
+      <div class="q"><span class="n">3</span>What is the first threshold?
+        <select data-ans="500 flight cycles or 90 days"><option value="">—</option><option>1500 flight cycles</option><option>500 flight cycles or 90 days</option><option>24 months</option></select></div>
+      <div class="q"><span class="n">4</span>What ends the recurring inspection?
+        <select data-ans="the terminating action"><option value="">—</option><option>a logbook entry</option><option>the terminating action</option><option>the effective date</option></select></div>
+      <div class="q"><span class="n">5</span>What does non-compliance cause?
+        <select data-ans="grounding"><option value="">—</option><option>a small fine</option><option>grounding</option><option>nothing</option></select></div>
+      <div class="q"><span class="n">6</span>What must the operator record?
+        <select data-ans="a logbook entry"><option value="">—</option><option>a logbook entry</option><option>a phone call</option><option>a photo</option></select></div>
+      <button class="btn primary" onclick="checkEx('e5')">Check</button>
+    </div>
+
+    <!-- E6 -->
+    <div class="ex" id="e6">
+      <span class="tag">E6 · Error-spotting</span>
+      <h3>E6 · Find and fix the mistakes</h3>
+      <p class="how">Each line has one wrong modal. Write the correct clause in the gap.</p>
+      <div class="q"><span class="n">1</span>The AD must <em>to be</em> done by Friday. → <input type="text" data-ans="the ad must be done by friday"></div>
+      <div class="q"><span class="n">2</span>The inspection must <em>done</em> before the deadline. → <input type="text" data-ans="the inspection must be done before the deadline"></div>
+      <div class="q"><span class="n">3</span>We <em>musted</em> comply last month. → <input type="text" data-ans="we had to comply last month"></div>
+      <div class="q"><span class="n">4</span>You <em>not must</em> fly after the deadline. → <input type="text" data-ans="you must not fly after the deadline"></div>
+      <div class="q"><span class="n">5</span>The operator shall <em>to report</em> compliance. → <input type="text" data-ans="the operator shall report compliance"></div>
+      <div class="q"><span class="n">6</span>The check is no longer required, so we <em>must not</em> repeat it. → <input type="text" data-ans="the check is no longer required so we need not repeat it|the check is no longer required so we do not have to repeat it"></div>
+      <div class="q"><span class="n">7</span>The pin must be <em>replace</em> within two years. → <input type="text" data-ans="the pin must be replaced within two years"></div>
+      <div class="q"><span class="n">8</span>Must we <em>to plan</em> the work today? → <input type="text" data-ans="must we plan the work today"></div>
+      <button class="btn primary" onclick="checkEx('e6')">Check</button>
+      <details class="ans"><summary>Answers</summary><ol>
+        <li>The AD must be done by Friday.</li><li>The inspection must be done before the deadline.</li><li>We had to comply last month.</li><li>You must not fly after the deadline.</li><li>The operator shall report compliance.</li><li>… so we need not repeat it. (or: do not have to repeat it)</li><li>The pin must be replaced within two years.</li><li>Must we plan the work today?</li>
+      </ol></details>
+    </div>
+
+    <!-- E7 -->
+    <div class="ex" id="e7">
+      <span class="tag">E7 · Reading 2</span>
+      <h3>E7 · Read the planning memo</h3>
+      <div class="genre">Authentic genre — Maintenance planning memo</div>
+      <div class="reading-text">MAINTENANCE PLANNING MEMO — RIGA BASE
+To: Line and base teams. From: Planning department.
+Date: 08 August 2026.
+Subject: Compliance plan for AD 2026-0147.
+Aircraft affected: YL-BAK (serial 5127) and YL-BAM (serial 5133). Both are inside the applicability.
+Action required: The AD is mandatory. It orders a recurring inspection of the main landing gear pivot pin.
+Deadlines: The first inspection must be done within 500 flight cycles of the effective date. For YL-BAK this falls on 05 September 2026. Planning has booked the slot on 02 September 2026.
+Recurring task: After the first check, the inspection shall repeat every 1500 flight cycles or 12 months.
+Terminating action: The improved pin must be fitted within 24 months. This ends the recurring inspection.
+Records: The technician shall make a logbook entry and quote the AD number.
+Warning: Do not use Service Bulletin 32-0147. It is superseded by this AD. Non-compliance will ground the aircraft. Protect the booked slots.</div>
+      <p class="how">Answer from the text.</p>
+      <div class="q"><span class="n">1</span>How many aircraft are affected?
+        <select data-ans="two"><option value="">—</option><option>one</option><option>two</option><option>three</option></select></div>
+      <div class="q"><span class="n">2</span>Is the action mandatory?
+        <select data-ans="yes"><option value="">—</option><option>yes</option><option>no</option></select></div>
+      <div class="q"><span class="n">3</span>When is the first inspection booked for YL-BAK?
+        <select data-ans="02 september"><option value="">—</option><option>22 august</option><option>02 september</option><option>05 october</option></select></div>
+      <div class="q"><span class="n">4</span>What ends the recurring inspection?
+        <select data-ans="the improved pin"><option value="">—</option><option>a logbook entry</option><option>the improved pin</option><option>a phone call</option></select></div>
+      <div class="q"><span class="n">5</span>Which document is superseded?
+        <select data-ans="the service bulletin"><option value="">—</option><option>the AD</option><option>the service bulletin</option><option>the memo</option></select></div>
+      <div class="q"><span class="n">6</span>What must the technician record?
+        <select data-ans="a logbook entry"><option value="">—</option><option>a logbook entry</option><option>a new memo</option><option>a photo</option></select></div>
+      <button class="btn primary" onclick="checkEx('e7')">Check</button>
+    </div>
+
+    <!-- E8 -->
+    <div class="ex" id="e8">
+      <span class="tag">E8 · Listening review</span>
+      <h3>E8 · Questions on Dialogue 3 and the voicemail</h3>
+      <p class="how">Replay Dialogue 3 and the voicemail. Then answer.</p>
+      <div class="q"><span class="n">1</span>What do the engineer and planner want to agree in Dialogue 3?
+        <select data-ans="the compliance plan"><option value="">—</option><option>the compliance plan</option><option>the fuel load</option><option>the crew list</option></select></div>
+      <div class="q"><span class="n">2</span>Before which date must the first inspection be done?
+        <select data-ans="the fifth of september"><option value="">—</option><option>the first of august</option><option>the fifth of september</option><option>the first of october</option></select></div>
+      <div class="q"><span class="n">3</span>What must the technician make after the check?
+        <select data-ans="a logbook entry"><option value="">—</option><option>a logbook entry</option><option>a phone call</option><option>a new AD</option></select></div>
+      <div class="q"><span class="n">4</span>What is now superseded?
+        <select data-ans="the old service bulletin"><option value="">—</option><option>the old service bulletin</option><option>the AD</option><option>the logbook</option></select></div>
+      <div class="q"><span class="n">5</span>What happens if planning cannot find a slot in time?
+        <select data-ans="the aircraft is grounded"><option value="">—</option><option>the aircraft is grounded</option><option>the AD is cancelled</option><option>the deadline moves</option></select></div>
+      <div class="q"><span class="n">6</span>In the voicemail, what is the AD number?
+        <select data-ans="ad 2026-0147"><option value="">—</option><option>ad 2026-0147</option><option>sb 34-2189</option><option>ad 2025-0100</option></select></div>
+      <div class="q"><span class="n">7</span>In the voicemail, is the AD mandatory?
+        <select data-ans="yes"><option value="">—</option><option>yes</option><option>no</option></select></div>
+      <div class="q"><span class="n">8</span>Within how many flight cycles is the first inspection due?
+        <select data-ans="500"><option value="">—</option><option>90</option><option>500</option><option>1500</option></select></div>
+      <button class="btn primary" onclick="checkEx('e8')">Check</button>
+    </div>
+  </section>
+
+  <!-- ============ SPEAKING ============ -->
+  <section class="lecture-section" id="speaking">
+    <h2><span class="secnum">05</span>Speaking — role-plays</h2>
+    <p class="lede">Work with a partner or with the AI buddy. Play the briefing. Use must and shall, and the specialist bank terms.</p>
+
+    <div class="roleplay">
+      <h4>Role-play card 1 — Brief the planner on a new AD</h4>
+      <div class="row"><span class="lab">Situation</span> A new airworthiness directive has just arrived.</div>
+      <div class="row"><span class="lab">Your role</span> Base engineer at a Part-145 station.</div>
+      <div class="row"><span class="lab">Your goal</span> Tell the planner the required action and the compliance deadline.</div>
+      <div class="row"><span class="lab">Useful phrases</span> <span class="phr">"The action is mandatory." · "We must do the first inspection within five hundred flight cycles."</span></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 2 — Explain the recurring inspection</h4>
+      <div class="row"><span class="lab">Situation</span> The planner needs the interval and the threshold for the plan.</div>
+      <div class="row"><span class="lab">Your role</span> Base engineer who has read the AD.</div>
+      <div class="row"><span class="lab">Your goal</span> Explain the recurring inspection and the terminating action.</div>
+      <div class="row"><span class="lab">Useful phrases</span> <span class="phr">"The interval is fifteen hundred flight cycles." · "The terminating action ends the recurring inspection."</span></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 3 — Explain the grounding risk</h4>
+      <div class="row"><span class="lab">Situation</span> The planner wants to move the slot to next month.</div>
+      <div class="row"><span class="lab">Your role</span> Base engineer who knows the deadline.</div>
+      <div class="row"><span class="lab">Your goal</span> Explain that non-compliance means grounding, and keep the early slot.</div>
+      <div class="row"><span class="lab">Useful phrases</span> <span class="phr">"We must not miss the deadline." · "Non-compliance will ground the aircraft."</span></div>
+    </div>
+
+    <div class="roleplay">
+      <h4>Role-play card 4 — Confirm the paperwork</h4>
+      <div class="row"><span class="lab">Situation</span> The work is booked. You confirm the records and the status.</div>
+      <div class="row"><span class="lab">Your role</span> Planner in the technical office.</div>
+      <div class="row"><span class="lab">Your goal</span> Confirm the logbook entry and that the old bulletin is superseded.</div>
+      <div class="row"><span class="lab">Useful phrases</span> <span class="phr">"The logbook entry shall quote the AD number." · "The old bulletin is superseded, so we must not use it."</span></div>
+    </div>
+
+    <h3>More useful phrases</h3>
+    <p class="how">Keep these ready for any AD briefing. Say them out loud twice.</p>
+    <ul>
+      <li>Open: "A new airworthiness directive arrived this morning, so we must plan it now."</li>
+      <li>State the action: "It orders a recurring inspection, and the action is mandatory."</li>
+      <li>Give the date: "The effective date is the twenty-second of August, so the clock starts then."</li>
+      <li>Give the deadline: "The first check must be done within five hundred flight cycles."</li>
+      <li>Warn clearly: "We must not miss the compliance deadline, whatever happens."</li>
+      <li>Name the risk: "Non-compliance will ground the aircraft until we can show compliance."</li>
+      <li>Confirm records: "The logbook entry shall quote the airworthiness directive number."</li>
+      <li>Close: "We stay safe, legal, and on time, which is exactly the goal."</li>
+    </ul>
+
+    <div class="aibox">
+      <h4>🤖 AI conversation partner — copy a prompt into the chat buddy</h4>
+      <p class="how">Paste one prompt. Speak the briefing. The buddy will gently correct your modals.</p>
+      <div class="prompt"><span class="lab">Prompt 1 — Planner receiving the brief</span>You are a maintenance planner. I am a base engineer who briefs you on a new airworthiness directive, AD 2026-0147. Ask me what the required action is and what the compliance deadline is. Speak only at CEFR B2. Keep answers short, one to three sentences. If I make an error with must or shall (an extra "to", a missing "be", or "must not" instead of "need not"), repeat my sentence back correctly, then ask one follow-up question.</div>
+      <div class="prompt"><span class="lab">Prompt 2 — Cautious planner who wants to delay</span>You are a busy planner. I am a base engineer. You want to move the inspection slot to next month. I must explain that the action is mandatory and that non-compliance means grounding. Push back gently so I have to use strong modals. Speak only at CEFR B2 and keep it short. Gently recast any modal error in my speech, then ask me one follow-up question.</div>
+      <div class="prompt"><span class="lab">Prompt 3 — Records and status check</span>You are an OEM engineer. I am a planner who confirms the records for AD 2026-0147. Check my understanding of the logbook entry, the recurring inspection, and the superseded bulletin. Speak only at CEFR B2, keep answers short, correct my must and shall softly, and finish each turn with one follow-up question.</div>
+    </div>
+  </section>
+
+  <!-- ============ WRITING ============ -->
+  <section class="lecture-section" id="writing">
+    <h2><span class="secnum">06</span>Writing</h2>
+    <p class="lede">Now write the briefing note you would send to the planning department. Use Simplified Technical English: short sentences, one idea per line, common words.</p>
+    <p class="how"><strong>Task.</strong> Write a short briefing note to the planning department about AD 2026-0147. State the required action, the effective date, and the compliance deadline. Use <em>must</em> and <em>shall</em>. Name the grounding risk of non-compliance. Write 90–120 words.</p>
+
+    <details class="ans"><summary>Model answer</summary>
+      <div class="reading-text">Subject: AD 2026-0147 — compliance plan needed, A320 fleet
+
+To: Planning Department
+
+A new airworthiness directive, AD 2026-0147, is now in force. The effective date is 22 August 2026.
+
+The AD is mandatory. It orders a recurring inspection of the main landing gear pivot pin. Two aircraft are affected: YL-BAK and YL-BAM.
+
+The first inspection must be done within 500 flight cycles. For YL-BAK, this falls on 05 September 2026.
+
+Please book a slot before that date. We must not miss the compliance deadline. Non-compliance will ground the aircraft.
+
+After the check, the technician shall make a logbook entry.
+
+Thank you.
+K. Berzins, Base Engineer</div>
+    </details>
+
+    <div class="checklist">
+      <strong>Self-check — tick each line</strong>
+      <ul>
+        <li>☐ I stated the required action and the effective date.</li>
+        <li>☐ I gave the compliance deadline in clear terms.</li>
+        <li>☐ I used <em>must</em> and <em>shall</em> correctly, with no extra "to".</li>
+        <li>☐ I named the grounding risk of non-compliance.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ RECAP ============ -->
+  <section class="lecture-section" id="recap">
+    <h2><span class="secnum">07</span>Key points to remember</h2>
+    <p class="lede">A short review before you finish. Read each line and check that you can do it.</p>
+    <ul>
+      <li>An airworthiness directive is a legal order, so the required action is always mandatory.</li>
+      <li>Check the applicability first, because it tells you whether your aircraft is affected.</li>
+      <li>Find the effective date, since the compliance clock for the deadline starts on that date.</li>
+      <li>Read the required corrective action and the compliance deadline before you plan any work.</li>
+      <li>Decide whether the check is a one-time task or a recurring inspection that repeats.</li>
+      <li>A recurring inspection repeats at a set interval, counted in flight cycles or flight hours.</li>
+      <li>A terminating action can end the recurring inspection for good, although it has its own deadline.</li>
+      <li>Non-compliance normally means grounding, so we must not miss the deadline.</li>
+      <li>Use must and shall to express obligation, and remember there is never a "to" after them.</li>
+      <li>Record the completed work with a logbook entry that quotes the airworthiness directive number.</li>
+    </ul>
+    <p>These disciplined habits keep the aircraft safe and the paperwork clean, although they take a little time. They also build trust with the planning department, because a clear briefing is easy to schedule. An engineer who assesses an AD accurately gets the work booked on time, which is the goal of this whole unit.</p>
+  </section>
+
+  <footer>
+    English for Aviation Maintenance · Unit 14 · Assessing an Airworthiness Directive · CEFR B2 · self-study language unit.
+  </footer>
+
+</article>
+<script>
+(function(){
+  function norm(s){return (s||'').toString().toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();}
+  window.checkEx=function(id){
+    var root=document.getElementById(id);
+    if(!root)return;
+    var fields=root.querySelectorAll('[data-ans]');
+    fields.forEach(function(f){
+      var val=norm(f.value);
+      var alts=(f.getAttribute('data-ans')||'').split('|').map(norm);
+      var ok=val!=='' && alts.indexOf(val)!==-1;
+      f.classList.remove('right','wrong');
+      f.classList.add(ok?'right':'wrong');
+    });
+  };
+})();
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 14 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body>
+</html>

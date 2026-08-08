@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 14 — Teacher Deck · Assessing an Airworthiness Directive</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:27px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.dw{width:100%;max-width:660px;min-height:340px}
+.dw:empty::before{content:"loading widget…";color:#4a5f78;font-size:15px;display:grid;place-items:center;height:340px;
+  border:1px dashed var(--line);border-radius:14px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:5px 9px;font-size:14px}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:56px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+.gd{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:6px}
+.gd .g{border:1px solid #314865;border-radius:10px;padding:10px 13px;background:#0f1726;border-top:3px solid #566782}
+.gd .g h5{margin:0 0 4px;font-size:13px;font-weight:800;color:#7fd0ff}
+.gd .g p{font-size:14px;margin:0;color:#bcccdd;line-height:1.4}
+table.t{border-collapse:collapse;width:100%;font-size:17px}
+table.t th,table.t td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--line)}
+table.t th{color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em}
+.wrong{color:#ff8a94;font-weight:600}.right{color:#7ff0c0;font-weight:600}
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="Open the class. Welcome the group and set the scene in one line: today they learn to read a newly issued Airworthiness Directive, pull out the two facts a planner needs — WHAT must be done and BY WHEN — and brief planning on the grounding risk if the deadline is missed. Tell them this is a 90-minute class with four listening dialogues, a vocabulary bank of 20 terms, a grammar focus on must/shall, eight exercises, two authentic reading genres (an AD extract and a planning memo), four role-play cards and a Simplified Technical English writing task. Name the level honestly: CEFR B2 — the sentences are short but the vocabulary is real Part-66/145 documentation language. Reassure them: every hard word is glossed on first use. Point out the two live tools on this deck: press P for the presenter window with the speaker notes and a timer, and press L (or the CC button) for the live caption translator, which subtitles your English into Latvian or Russian in real time. TIMING: 3 minutes on this slide, warm and brisk.">
+    <div class="kick">English for Aviation Maintenance · Unit 14 · CEFR B2 · 90 minutes</div>
+    <h1>Assessing an Airworthiness Directive</h1>
+    <p class="big muted">A new AD has just arrived. Read it, find the required action and the compliance deadline, and brief the planner — including the grounding risk if the deadline is missed.</p>
+    <p class="pill">must / shall for obligation &nbsp;·&nbsp; 20 bank terms &nbsp;·&nbsp; 4 dialogues &nbsp;·&nbsp; AD &amp; planning-memo reading &nbsp;·&nbsp; "The AD must be done."</p>
+  </section>
+
+  <!-- 2 · CAN-DO / MAP -->
+  <section class="slide" data-notes="Set the goals and the shape of the lesson, because students work better when they see the finish line. Read the three can-do outcomes aloud and put them in the student's own words: by the end you can (1) point to exactly what an AD orders you to do and by when, (2) explain in plain English what happens to the aircraft if you miss it — grounding, and (3) sit with a planner and agree how and when to comply. Then walk the lesson map on the right so they know the rhythm: listen, build the vocabulary, drill the grammar, practise in exercises, role-play the briefing, and finish by writing the note in Simplified Technical English. Stress the assessment shape: nothing here is graded homework — the quiz at the end is the check. TIMING: 4 minutes. Elicit from the room: 'Who has actually seen an AD at work?' to anchor it in their experience.">
+    <div class="kick">By the end · the shape of the class</div>
+    <h2>Three things you will be able to do</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">1 — Read the order.</b> Identify the required action and the compliance deadline in an AD.</p>
+        <p><b style="color:var(--purple)">2 — Name the risk.</b> Explain the airworthiness consequence of non-compliance — grounding.</p>
+        <p><b style="color:var(--good)">3 — Plan it.</b> Discuss with planning how and when to comply.</p>
+      </div>
+      <div>
+        <p><b>The route:</b> listen &rarr; vocabulary &rarr; grammar (<code>must</code>/<code>shall</code>) &rarr; exercises &rarr; role-play &rarr; write the briefing note.</p>
+        <p class="muted">Four dialogues, two authentic documents, eight exercises. The quiz at the end is the check — everything before it is practice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SCENARIO -->
+  <section class="slide" data-center data-notes="Ground the whole unit in one concrete situation so every later task has a home. Describe it in plain words: this morning an Airworthiness Directive — number AD 2026-0147 — arrived at a Part-145 base. It is a legal order from the authority. It applies to the operator's A320 fleet, but only two aircraft, YL-BAK and YL-BAM, are actually on the affected list. It orders a recurring inspection of the main landing gear pivot pin, because the pin can crack under load — an unsafe condition. The engineer, Karlis, must now brief the planner, Marta, so the work is booked before the deadline. Tell the class: every dialogue, reading and role-play in this unit is a piece of that single briefing. Pre-teach nothing yet — just plant the story. TIMING: 3 minutes. Ask: 'What are the two facts Marta most needs from Karlis?' (the action, and the deadline) to preview the can-do.">
+    <div class="kick">The scenario</div>
+    <h2>One AD, one briefing, one deadline</h2>
+    <p class="big">Karlis, a base engineer, must brief Marta in planning on a directive that arrived this morning: <b>what</b> must be done, <b>by when</b>, and the <b>grounding risk</b> if the slot is missed.</p>
+    <p class="muted" style="max-width:62ch">AD 2026-0147 orders a recurring inspection of the main landing gear pivot pin on two A320 aircraft. The pin can crack under load — an unsafe condition. Everything today is a part of that briefing.</p>
+  </section>
+
+  <!-- 4 · DIALOGUE 1 WORK -->
+  <section class="slide" data-notes="First listening. Play Dialogue 1 (A new AD has arrived) once with books closed and set one listening goal: catch the two key facts — the action and the first deadline. Play it a second time with the transcript open in the body page. Then check comprehension in plain question form: What does the AD order? (a recurring inspection of the landing gear pin). When is the effective date? (22 August). Within how long is the first inspection due? (500 flight cycles, or 90 days, whichever first). What happens if they miss it? (grounding). Draw attention to the connectors doing real B2 work inside short sentences — although, since, as soon as, unless, in case — and to the modal 'we must do the first inspection'. Keep instructions to the learner simpler than the content: 'Listen. Find two facts. Tell your partner.' TIMING: 8 minutes including two plays and pair-check. Use the CC translator on the second play for the two lowest students.">
+    <div class="kick">§1 · Listening · Dialogue 1</div>
+    <h2>"A new AD has arrived" — catch two facts</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Listen twice.</b> First time: books closed. Second time: transcript open.</p>
+        <p>Find and write just two facts:</p>
+        <ul><li>What must be done?</li><li>By when — the first deadline?</li></ul>
+        <p class="muted">Then tell your partner in one sentence each.</p>
+      </div>
+      <div>
+        <p class="muted">Listen for the connectors that carry the meaning: <em>although</em> only two aircraft are affected · <em>as soon as</em> you can, tell me the effective date · <em>unless</em> the aircraft reaches ninety days first.</p>
+        <p><span class="tag">ANSWER</span> Action = recurring inspection of the landing gear pin. Deadline = within 500 flight cycles (or 90 days) from 22 August.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · WIDGET: deadline clock (rAF) -->
+  <section class="slide" data-notes="Interactive centrepiece for the deadline concept, and the hardest idea for planning: the first inspection is due at whichever limit comes FIRST — 500 flight cycles OR 90 days. Explain the widget: the student drags the 'flights per day' slider for the blue aircraft. The bar animates the two clocks racing — the cycle clock and the calendar clock — and the widget shows which limit bites first and on what date. Drive the point: an aircraft that flies almost every day hits 500 cycles well before 90 days, so its real deadline is EARLIER. A rarely-used aircraft is limited by the 90 days instead. This is exactly why Marta says the blue aircraft is urgent. Have two students set different flight rates and read off the two different deadlines. The lesson: 'whichever comes first' means you must check BOTH clocks and plan to the earlier one. TIMING: 7 minutes. This is a student-driven widget — make them move the slider, do not just show it.">
+    <div class="kick">§1 · Interactive · rAF · "whichever comes first"</div>
+    <h2>Two clocks race — plan to the earlier one</h2>
+    <div class="cols">
+      <div class="dw" data-widget="clock"></div>
+      <div><p>The first inspection is due at <b>500 flight cycles</b> OR <b>90 days</b> — whichever comes first.</p>
+        <p class="muted">Drag the flight rate. A daily-flying aircraft hits 500 cycles first, so its deadline is <em>earlier</em>. That is why the blue aircraft is urgent.</p></div>
+    </div>
+  </section>
+
+  <!-- 6 · DIALOGUE 2 + threshold vs interval -->
+  <section class="slide" data-notes="Second listening plus the key vocabulary split. Play Dialogue 2 (The repeat check and the final fix). The comprehension focus is a pair of terms students constantly confuse: THRESHOLD versus INTERVAL. Threshold = the first-time trigger, when the very first inspection becomes due (500 flight cycles from the effective date). Interval = the gap between repeats after that (1500 flight cycles or 12 months). Also surface: this AD counts flight cycles, not flight hours, and one cycle = one takeoff and landing; and the two-stage structure — the recurring inspection is the short-term corrective action, and fitting the improved pin is the terminating action that ends the repeats. Use the widget on the next slide to make threshold-vs-interval physical. Keep the check crisp: 'First check due when?' 'Repeats how often?' TIMING: 7 minutes. Watch for L1 interference — Latvian/Russian speakers may drop the article ('is corrective action').">
+    <div class="kick">§1 · Listening · Dialogue 2</div>
+    <h2>"The repeat check and the final fix"</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Two words people mix up:</b></p>
+        <table class="t"><tr><th>Term</th><th>Plain meaning</th></tr>
+          <tr><td><b>threshold</b></td><td>when the <em>first</em> check is due — 500 FC</td></tr>
+          <tr><td><b>interval</b></td><td>the gap between <em>repeats</em> — 1500 FC / 12 mo</td></tr></table>
+      </div>
+      <div>
+        <p class="muted">Also catch: cycles, not hours — one cycle is one takeoff and landing. The recurring inspection is the short-term <em>corrective action</em>; the improved pin is the <em>terminating action</em> that ends the repeats.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · WIDGET: threshold vs interval timeline (rAF) -->
+  <section class="slide" data-notes="Make the threshold/interval structure visible. In the widget the student presses buttons to place the effective date, the first inspection at the threshold, then each recurring repeat at the interval, and finally the terminating action which stops the repeats. Each press animates a marker sliding onto the timeline. The point they must leave with: the threshold happens ONCE; the interval repeats again and again UNTIL the terminating action ends the whole recurring requirement. Ask a student to 'add repeats until the pin is fitted' and watch the repeats stop. Connect back to the planner's job: she must schedule not one job but a chain — first check, repeats, and the final fix, each with its own limit. TIMING: 6 minutes. Student-driven: they click to build the timeline, they do not watch it play.">
+    <div class="kick">§1 · Interactive · rAF · build the timeline</div>
+    <h2>Threshold once · interval repeats · terminating action ends it</h2>
+    <div class="cols">
+      <div class="dw" data-widget="timeline"></div>
+      <div><p>Press the buttons to place each event. Watch the recurring inspection repeat at the interval.</p>
+        <p class="muted">The <b>terminating action</b> — the improved pin — stops the repeats for good. Planning schedules the whole chain, not one job.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · DIALOGUE 3 + 4 -->
+  <section class="slide" data-notes="Third and fourth listening. Play Dialogue 3 (The plan and the grounding risk): the engineer and planner agree the compliance plan — the first inspection must be done before 5 September, the early slot on 2 September works, the logbook entry must quote the AD number and date, the old service bulletin is superseded, and if no slot is found the aircraft is grounded. Then play Dialogue 4, the voicemail from the Continuing Airworthiness office — a monologue in a different register that repeats the core facts (AD 2026-0147, effective 22 August, recurring inspection, 500 flight cycles, grounding risk). Tell students the voicemail is deliberately harder: no second speaker to help, numbers spoken as words. This sets up the E8 listening review and the numerical quiz items — comprehension of spoken figures is a real skill. Check: 'What date is the booked slot?' (2 September) 'What is the AD number?' (2026-0147). TIMING: 8 minutes across both.">
+    <div class="kick">§1 · Listening · Dialogues 3 &amp; 4</div>
+    <h2>The plan, the paperwork, and the voicemail</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Dialogue 3</b> — they agree the plan: first check before <b>5 September</b>, slot booked <b>2 September</b>, a <b>logbook entry</b> that quotes the AD number, and the old bulletin is <b>superseded</b>.</p>
+      </div>
+      <div>
+        <p><b>Dialogue 4</b> — the voicemail. One voice, numbers spoken as words. Harder, on purpose.</p>
+        <p class="muted">Catch the spoken figures: AD 2026-0147 · effective 22 August · 500 flight cycles · two A320 aircraft. This feeds E8 and the quiz.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · VOCABULARY OVERVIEW -->
+  <section class="slide" data-notes="Consolidate the vocabulary. The bank holds 20 terms; do not read all 20 aloud — cluster them so they stick. Cluster 1, the document: airworthiness directive, applicability, effective date, superseded, service bulletin. Cluster 2, the obligation: mandatory, compliance, non-compliance, compliance deadline. Cluster 3, the action: recurring inspection, threshold, interval, corrective action, terminating action, unsafe condition. Cluster 4, the counting and the consequence: flight cycles, flight hours, grounding, logbook entry, planning department. For each cluster, give one collocation the class repeats: 'issue an airworthiness directive', 'meet the compliance deadline', 'correct an unsafe condition', 'accumulated flight cycles'. Every term is glossed in the body page vocabulary table. Then run the interactive sorter on the next slide. TIMING: 6 minutes. Latvian/Russian note: 'compliance' is abstract and has no clean one-word equivalent — spend a moment on it.">
+    <div class="kick">§2 · Vocabulary · 20 terms</div>
+    <h2>Four clusters, not twenty loose words</h2>
+    <div class="gd">
+      <div class="g"><h5>The document</h5><p>airworthiness directive · applicability · effective date · superseded · service bulletin</p></div>
+      <div class="g"><h5>The obligation</h5><p>mandatory · compliance · non-compliance · compliance deadline</p></div>
+      <div class="g"><h5>The action</h5><p>recurring inspection · threshold · interval · corrective action · terminating action · unsafe condition</p></div>
+      <div class="g"><h5>Counting &amp; consequence</h5><p>flight cycles · flight hours · grounding · logbook entry · planning department</p></div>
+    </div>
+    <p class="muted" style="margin-top:10px">One collocation each: <em>issue</em> an AD · <em>meet</em> the compliance deadline · <em>correct</em> an unsafe condition · accumulated flight <em>cycles</em>.</p>
+  </section>
+
+  <!-- 10 · WIDGET: vocabulary sorter -->
+  <section class="slide" data-notes="Active vocabulary practice. The widget shows a term and four plain-English meanings; the student clicks the meaning they believe is right and gets instant commit-then-reveal feedback, then moves to the next term. Run it as a whole-class game: nominate a student per term, they choose, the room agrees or challenges. Because the distractors are other bank terms' meanings, wrong clicks reveal exactly which two terms a student is confusing — usually threshold/interval and must-not/need-not-adjacent ideas. Keep score lightly. The aim is retrieval, not recognition: they must produce the meaning, not just see it. TIMING: 6 minutes. If the class is strong, cover the meanings and have them define the term from memory first, then use the widget to confirm.">
+    <div class="kick">§2 · Interactive · retrieval practice</div>
+    <h2>Term &rarr; meaning — click and commit</h2>
+    <div class="cols">
+      <div class="dw" data-widget="vocab"></div>
+      <div><p>Read the term. Click the meaning you think is right. The widget shows if you were correct.</p>
+        <p class="muted">Wrong clicks tell you which two terms you are mixing up — usually <em>threshold</em> and <em>interval</em>. Say the right meaning aloud before you move on.</p></div>
+    </div>
+  </section>
+
+  <!-- 11 · GRAMMAR FOCUS -->
+  <section class="slide" data-notes="The grammar heart of the unit: must and shall for obligation, because an AD is legally binding. Teach four patterns clearly and slowly. (1) must + base verb = strong obligation: 'we must comply'. (2) must + be + past participle = passive obligation, used when the aircraft does not act on itself: 'the AD must be done', 'the pin must be replaced'. (3) shall + base verb = the written-legal register of a directive or work order: 'the operator shall report compliance'. (4) must not + base verb = a prohibition, a ban: 'you must not fly after the deadline'. Two absolute rules to hammer: never 'to' after must/shall, and the verb never changes for he/she/it. Then the safety-critical contrast on the next slide. Explain WHY this matters: the modal carries the weight of the regulation — 'must be done' tells the planner compliance is not negotiable, while a vague verb hides the obligation, and a hidden obligation is a real safety risk. TIMING: 7 minutes at the board.">
+    <div class="kick">§3 · Grammar · must / shall for obligation</div>
+    <h2>An AD is a legal order — so the modal is strong</h2>
+    <table class="t">
+      <tr><th>Use</th><th>Structure</th><th>Example</th></tr>
+      <tr><td>Obligation (active)</td><td><code>must</code> + base</td><td>We <b>must comply</b> before the deadline.</td></tr>
+      <tr><td>Obligation (passive)</td><td><code>must be</code> + past participle</td><td>The AD <b>must be done</b> on time.</td></tr>
+      <tr><td>Legal / written</td><td><code>shall</code> + base</td><td>The operator <b>shall report</b> compliance.</td></tr>
+      <tr><td>Prohibition (a ban)</td><td><code>must not</code> + base</td><td>You <b>must not fly</b> after the deadline.</td></tr>
+    </table>
+    <p class="muted" style="margin-top:10px">Two rules, no exceptions: never <code>to</code> after must/shall · the verb never changes for he/she/it.</p>
+  </section>
+
+  <!-- 12 · WIDGET: modal builder + must not vs need not -->
+  <section class="slide" data-notes="Make the modals a working tool and drill the one contrast that is safety-critical: must not versus need not. Must not = a prohibition, you are banned from doing it. Need not (or do not have to) = there is no obligation, you may do it but nobody requires it. The danger: after the terminating action we NEED NOT repeat the inspection — the duty has ended. If a student says 'must not repeat', they have just told a colleague the repeat is BANNED, which is wrong and could confuse a real plan. In the widget the student builds a sentence: pick the subject, pick the modal (must / must be / shall / must not / need not), pick the verb, and the widget shows whether the sentence is grammatical AND whether the meaning matches the intended cue (obligation / ban / no-obligation). Let them deliberately build a wrong one and read what it now means. TIMING: 7 minutes. This directly rehearses E4 and E6 and the Use-of-English quiz items.">
+    <div class="kick">§3 · Interactive · build the obligation</div>
+    <h2>must not (ban) &ne; need not (no obligation)</h2>
+    <div class="cols">
+      <div class="dw" data-widget="modal"></div>
+      <div><p>Build a sentence. The widget checks the <em>form</em> and the <em>meaning</em>.</p>
+        <p class="muted"><b>must not</b> = you are banned. <b>need not</b> = you may, but nobody requires it. After the improved pin is fitted, we <em>need not</em> repeat the check — the duty has ended.</p></div>
+    </div>
+  </section>
+
+  <!-- 13 · L1 INTERFERENCE -->
+  <section class="slide" data-notes="Address the predictable first-language errors directly, because naming them fixes them faster. Three recur for Latvian and Russian speakers. Error 1: the extra 'to' — 'must to be done'. Latvian and Russian express obligation with structures that take an infinitive-like form, so learners transfer a 'to'. Fix: must/shall take the bare base verb. Error 2: dropped 'be' in the passive — 'must done'. Neither L1 builds the English 'must + be + past participle' chain, so the auxiliary 'be' vanishes. Fix: passive obligation always needs 'be'. Error 3: must not for need not — because both L1s often use a single 'not necessary / not allowed' area loosely, and because 'must not' feels like the natural negative of 'must'. Fix: must not is a ban; need not is no obligation — and here it is safety-relevant. Also flag article-dropping ('is corrective action') since neither L1 has articles. Model each correction, have the class repeat the right version twice. TIMING: 6 minutes.">
+    <div class="kick">§3 · First-language interference · LV / RU</div>
+    <h2>Three errors to catch before they set</h2>
+    <table class="t">
+      <tr><th>You may hear</th><th>Correct</th><th>Why</th></tr>
+      <tr><td class="wrong">must <u>to be</u> done</td><td class="right">must be done</td><td>LV/RU obligation takes an infinitive — no <code>to</code> after must.</td></tr>
+      <tr><td class="wrong">must <u>done</u></td><td class="right">must <u>be</u> done</td><td>The passive auxiliary <code>be</code> is dropped; it is required.</td></tr>
+      <tr><td class="wrong"><u>must not</u> repeat (when duty ended)</td><td class="right"><u>need not</u> repeat</td><td>Ban vs no-obligation — and here it is safety-relevant.</td></tr>
+    </table>
+    <p class="muted" style="margin-top:10px">Bonus: neither L1 has articles, so watch for "is <u>the</u> corrective action".</p>
+  </section>
+
+  <!-- 14 · EXERCISE STAGING -->
+  <section class="slide" data-notes="Stage the eight exercises so the class does not stall. Do not simply set 'do all eight'. Group them: E1 gap-fill and E2 matching are vocabulary retrieval — do together, fast, whole class, 6 minutes. E3 dialogue completion rehearses the briefing register — pairs, 4 minutes. E4 modal choice and E6 error-spotting are the grammar core — do E4 as a class then E6 in pairs, 8 minutes, this is where the must/shall learning is tested. E5 and E7 are the two authentic readings — the AD extract and the planning memo — set as silent reading then answer, 8 minutes; these build the reading-skill quiz items. E8 is the listening review on Dialogue 3 and the voicemail — replay both, then answer, 6 minutes. Tell students the body page marks each answer green or red on Check, and the Answers panel reveals the model. Circulate; do not solve for them. TIMING: about 30 minutes total across the exercise block — the spine of the 90 minutes. Keep instructions to learners tiny: 'Type the word. Press Check.'">
+    <div class="kick">§4 · Exercises · staging the 90 minutes</div>
+    <h2>Eight exercises — grouped, not a wall</h2>
+    <div class="gd">
+      <div class="g"><h5>Vocabulary · ~6 min</h5><p>E1 gap-fill + E2 matching — whole class, fast retrieval.</p></div>
+      <div class="g"><h5>Register · ~4 min</h5><p>E3 complete the briefing — in pairs.</p></div>
+      <div class="g"><h5>Grammar core · ~8 min</h5><p>E4 choose the modal + E6 fix the mistakes — the must/shall test.</p></div>
+      <div class="g"><h5>Reading · ~8 min</h5><p>E5 the AD extract + E7 the planning memo — read, then answer.</p></div>
+      <div class="g"><h5>Listening · ~6 min</h5><p>E8 — replay Dialogue 3 and the voicemail, then answer.</p></div>
+      <div class="g"><h5>On the page</h5><p>Press <b>Check</b> for green/red. Open <b>Answers</b> to compare.</p></div>
+    </div>
+  </section>
+
+  <!-- 15 · ROLE-PLAY MANAGEMENT -->
+  <section class="slide" data-notes="Run the speaking as the productive peak of the lesson. There are four role-play cards, each a slice of the briefing. Card 1: brief the planner on the new AD (state action + deadline). Card 2: explain the recurring inspection (interval, threshold, terminating action). Card 3: explain the grounding risk and defend the early slot against a planner who wants to delay. Card 4: confirm the paperwork (logbook entry, superseded bulletin). Manage it: pair students, assign A and B, run card 1 for three minutes, then SWAP roles and run again so both speak. Rotate partners for cards 2-4. Set a hard language target: every turn must use at least one modal (must/shall/must not/need not) and one bank term. Monitor and note errors on a slip — do NOT interrupt the flow; feed corrections back after. For students without a partner, the body page has three AI-buddy prompts that role-play the planner and gently recast modal errors. TIMING: 12-14 minutes. This is where fluency and the can-do 'discuss with planning' are actually built.">
+    <div class="kick">§5 · Speaking · four role-play cards</div>
+    <h2>Brief the planner — then swap and go again</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>1</b> — Brief the planner: the action and the deadline.</p>
+        <p><b>2</b> — Explain the recurring inspection and the terminating action.</p>
+        <p><b>3</b> — Defend the early slot: non-compliance means grounding.</p>
+        <p><b>4</b> — Confirm the paperwork: logbook entry, superseded bulletin.</p>
+      </div>
+      <div>
+        <p><b>Rule for every turn:</b> one modal (<code>must</code>/<code>shall</code>/<code>must not</code>/<code>need not</code>) and one bank term.</p>
+        <p class="muted">Pair up, run the card, then <b>swap roles</b> so both speak. No partner? Use the three AI-buddy prompts on the page — they recast modal errors gently.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · WRITING · STE -->
+  <section class="slide" data-notes="The writing task teaches Simplified Technical English habits on top of the unit content. The task: write a 90-120 word briefing note to the planning department about AD 2026-0147 — state the required action, the effective date and the compliance deadline; use must and shall; name the grounding risk. Teach the STE habits explicitly because they are assessable and professional: short sentences (one idea per line), the active voice where possible, approved simple words over fancy ones, no ambiguous pronouns, and consistent terminology — call the pin 'the pivot pin' every time, never 'it' or 'the part'. Show the contrast: 'It is imperative that the aforementioned component be subjected to inspection' becomes 'The pivot pin must be inspected.' Point them to the model answer and the self-check list on the body page. Remind them the note is a real genre — a planner must act on it in seconds. TIMING: 10-12 minutes to draft; if short on time, set as the take-home and mark the self-check together. Keep the instruction tiny: 'Write the note. Short lines. Use must and shall.'">
+    <div class="kick">§6 · Writing · Simplified Technical English</div>
+    <h2>Write the briefing note — short, plain, exact</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b>Task:</b> a 90–120 word note to planning about AD 2026-0147 — action, effective date, deadline, grounding risk. Use <code>must</code> and <code>shall</code>.</p>
+      </div>
+      <div>
+        <p><b>STE habits:</b> one idea per line · active voice · simple approved words · same name every time (the <em>pivot pin</em>, never "it").</p>
+        <p class="muted"><span class="wrong">"It is imperative the aforementioned component be inspected"</span> &rarr; <span class="right">"The pivot pin must be inspected."</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · WRAP-UP / CHECK -->
+  <section class="slide" data-center data-notes="Close the loop and point at the check. Recap in six one-liners the class repeats after you: an AD is a legal, mandatory order; read it for the action and the compliance deadline; 'whichever comes first' means check both the cycle clock and the calendar clock; threshold is the first check, interval is the repeat, the terminating action ends the repeats; must/shall carry the obligation and there is never a 'to' after them; must not is a ban, need not is no obligation; and non-compliance means grounding. Tell them the quiz has 22 items across four skills — listening (including the spoken numbers from the dialogues and voicemail), reading two new short documents, use of English on must/shall, and vocabulary matching. Remind them the whole point: read the order, name the risk, plan the compliance — safe, legal, and on time. Thank the room. TIMING: 4 minutes, then run the quiz or set it as the exit check.">
+    <div class="kick">Recap · the check</div>
+    <h2>Read the order · name the risk · plan the compliance</h2>
+    <p class="big muted">An AD is a <b>legal, mandatory</b> order · read it for the <b>action</b> and the <b>compliance deadline</b> · "whichever comes first" — check both clocks · <b>threshold</b> once, <b>interval</b> repeats, <b>terminating action</b> ends it · <code>must</code>/<code>shall</code> carry the obligation, never a <code>to</code> · <b>must not</b> = ban, <b>need not</b> = no obligation · non-compliance = <b>grounding</b>.</p>
+    <p>Next: the <b>quiz</b> — 22 items · listening (spoken numbers) · reading · use of English · vocabulary. <span class="muted">Safe, legal, and on time.</span></p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (vanilla JS · canvas + rAF, student-driven) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+
+  /* ---- W1: DEADLINE CLOCK — two clocks race (rAF) ---- */
+  window.DeckW.clock=function(el){
+    el.innerHTML='<div class="wk"><div class="bar">'+
+      '<span class="note" style="font-weight:700;color:#9db0c6">FLIGHTS / DAY</span>'+
+      '<input type="range" data-r min="1" max="12" value="6" step="1" style="max-width:220px">'+
+      '<span data-lab style="font-family:var(--mono);color:#7fd0ff">6</span>'+
+      '<button data-reset>Reset</button></div>'+
+      '<canvas width="620" height="180"></canvas>'+
+      '<div class="info"><h4>Which limit bites first?</h4><div data-out>Drag the slider.</div></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),rng=el.querySelector('[data-r]'),
+        lab=el.querySelector('[data-lab]'),out=el.querySelector('[data-out]');
+    var target=6,disp=6;
+    function calc(fpd){var daysTo500=500/fpd;var limit=Math.min(daysTo500,90);
+      return {daysTo500:daysTo500,limit:limit,byCycles:daysTo500<=90};}
+    function draw(){
+      var W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+      var fpd=disp;var c=calc(fpd);
+      var pad=120,barW=W-pad-30;
+      // cycle clock
+      var cyFrac=clamp(90/c.daysTo500,0,1); // how full at day 90 relative
+      drawBar(20,'Cycle clock',cyFrac,'#38b6ff',Math.round(fpd*90)+' FC by day 90');
+      // calendar clock
+      drawBar(95,'Calendar clock',clamp(90/90,0,1)*(c.limit>=90?1:c.limit/90),'#fbbf24',Math.round(c.limit)+' days to limit');
+      function drawBar(y,name,frac,col,txt){
+        ctx.fillStyle='#7e98ad';ctx.font='13px ui-monospace,Consolas,monospace';ctx.textAlign='left';
+        ctx.fillText(name,20,y-6);
+        ctx.fillStyle='#0a0f18';ctx.strokeStyle='#26384e';ctx.lineWidth=1;
+        ctx.fillRect(pad,y,barW,26);ctx.strokeRect(pad,y,barW,26);
+        ctx.fillStyle=col;ctx.fillRect(pad,y,barW*clamp(frac,0,1),26);
+        ctx.fillStyle='#cfe0ee';ctx.font='12px ui-monospace,Consolas,monospace';
+        ctx.fillText(txt,pad+8,y+42);
+      }
+    }
+    function tick(){var d=target-disp;if(Math.abs(d)>0.02)disp+=d*0.2;else disp=target;draw();
+      var c=calc(disp);
+      out.innerHTML=c.byCycles
+        ? 'At '+Math.round(disp)+' flights/day the aircraft reaches <b>500 cycles in about '+Math.round(c.daysTo500)+' days</b> — the <b style="color:#38b6ff">cycle clock</b> bites first. Deadline is earlier than 90 days.'
+        : 'At '+Math.round(disp)+' flights/day it needs '+Math.round(c.daysTo500)+' days for 500 cycles, so the <b style="color:#fbbf24">90-day calendar clock</b> bites first.';
+      requestAnimationFrame(tick);}
+    rng.addEventListener('input',function(){target=+rng.value;lab.textContent=rng.value;});
+    el.querySelector('[data-reset]').addEventListener('click',function(){rng.value=6;target=6;lab.textContent='6';});
+    requestAnimationFrame(tick);
+  };
+
+  /* ---- W2: TIMELINE builder — threshold / interval / terminating (rAF) ---- */
+  window.DeckW.timeline=function(el){
+    el.innerHTML='<div class="wk"><div class="bar">'+
+      '<button data-add>+ Add recurring check</button>'+
+      '<button data-term>Fit improved pin (terminating)</button>'+
+      '<button data-reset>Reset</button></div>'+
+      '<canvas width="620" height="150"></canvas>'+
+      '<div class="info"><h4>The chain planning must schedule</h4><div data-out>Effective date is set. Add the first check, then repeats.</div></div></div>';
+    var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),out=el.querySelector('[data-out]');
+    var events=[{t:0,type:'eff',label:'Effective\n22 Aug'}],terminated=false;
+    var anim={};
+    function rebuild(){
+      // base: eff at 0, first check (threshold) at 1, repeats each +1
+      events=[{t:0,type:'eff'}];
+    }
+    function positions(){
+      return events.map(function(e,i){return {x:60+i*((cv.width-100)/Math.max(6,events.length-1+1)),e:e};});
+    }
+    function draw(){
+      var W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+      ctx.strokeStyle='#314865';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(40,H/2);ctx.lineTo(W-30,H/2);ctx.stroke();
+      var n=events.length;var step=(W-100)/6;
+      events.forEach(function(e,i){
+        var tx=e.dx===undefined?60+i*step:e.dx;
+        if(e.dx===undefined)e.dx=60+i*step; else e.dx+=((60+i*step)-e.dx)*0.2;
+        var x=e.dx;
+        var col=e.type==='eff'?'#9db0c6':e.type==='thresh'?'#38b6ff':e.type==='rep'?'#34d399':'#fbbf24';
+        ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,H/2,e.type==='eff'?7:9,0,7);ctx.fill();
+        ctx.fillStyle='#cfe0ee';ctx.font='11px ui-monospace,Consolas,monospace';ctx.textAlign='center';
+        var t=e.type==='eff'?'EFF':e.type==='thresh'?'1st check\n(threshold)':e.type==='rep'?'repeat\n(interval)':'PIN\n(ends it)';
+        t.split('\n').forEach(function(s,k){ctx.fillText(s,x,H/2+(i%2?24:-16)+k*12);});
+      });
+      requestAnimationFrame(draw);
+    }
+    function refresh(){
+      var reps=events.filter(function(e){return e.type==='rep';}).length;
+      var hasThresh=events.some(function(e){return e.type==='thresh';});
+      out.innerHTML='Events: '+(hasThresh?'first check at the <b style="color:#38b6ff">threshold</b>':'no first check yet')+
+        (reps? ' &middot; '+reps+' <b style="color:#34d399">repeat(s)</b> at the interval':'')+
+        (terminated? ' &middot; <b style="color:#fbbf24">terminating action fitted — repeats stop.</b>':'');
+    }
+    el.querySelector('[data-add]').addEventListener('click',function(){
+      if(terminated)return;
+      if(!events.some(function(e){return e.type==='thresh';}))events.push({type:'thresh'});
+      else if(events.length<7)events.push({type:'rep'});
+      refresh();});
+    el.querySelector('[data-term]').addEventListener('click',function(){
+      if(terminated||!events.some(function(e){return e.type==='thresh';}))return;
+      if(events.length<7)events.push({type:'term'});terminated=true;refresh();});
+    el.querySelector('[data-reset]').addEventListener('click',function(){
+      events=[{type:'eff'}];terminated=false;refresh();});
+    refresh();requestAnimationFrame(draw);
+  };
+
+  /* ---- W3: VOCAB SORTER — term to meaning (commit-then-reveal) ---- */
+  window.DeckW.vocab=function(el){
+    var items=[
+      {t:'compliance deadline',m:'the last date to finish the required action',
+       d:['the gap between two repeat checks','the date the directive starts to apply','the list of aircraft covered']},
+      {t:'threshold',m:'the point when the very first action is due',
+       d:['the gap between two repeat checks','a written record that proves the work','replaced by a newer document']},
+      {t:'interval',m:'the gap between two recurring inspections',
+       d:['the point when the first action is due','stopping an aircraft from flying','a final fix that ends the repeats']},
+      {t:'terminating action',m:'a final fix that ends the repeat requirement',
+       d:['a check you repeat at set intervals','the date the directive starts to apply','doing what the directive requires']},
+      {t:'grounding',m:'stopping an aircraft from flying',
+       d:['a written record that proves the work','the safety problem the AD fixes','one takeoff and landing']},
+      {t:'applicability',m:'the list of aircraft the directive applies to',
+       d:['the last date to finish the action','replaced by a newer document','the gap between repeats']}
+    ];
+    var idx=0,score=0,answered=0;
+    function opts(it){var o=[{x:it.m,ok:1}];it.d.forEach(function(d){o.push({x:d,ok:0});});
+      for(var i=o.length-1;i>0;i--){var j=(i*7+idx*3)%(i+1);var tmp=o[i];o[i]=o[j];o[j]=tmp;}return o;}
+    function render(){
+      var it=items[idx];var o=opts(it);
+      el.innerHTML='<div class="wk"><div class="bar"><span class="tag">'+(idx+1)+' / '+items.length+'</span>'+
+        '<span class="note" style="font-weight:700;color:#e9f0f7;font-size:16px">'+it.t+'</span>'+
+        '<span class="note" style="margin-left:auto">score '+score+'/'+answered+'</span></div>'+
+        '<div data-opts style="display:grid;gap:8px"></div>'+
+        '<div class="info"><h4>Choose the meaning</h4><div data-out>Click the plain meaning of the term.</div></div></div>';
+      var box=el.querySelector('[data-opts]'),out=el.querySelector('[data-out]');
+      o.forEach(function(op){
+        var b=document.createElement('button');b.textContent=op.x;b.style.textAlign='left';
+        b.addEventListener('click',function(){
+          answered++;
+          if(op.ok){score++;b.classList.add('on');b.style.borderColor='#34d399';b.style.color='#7ff0c0';
+            out.innerHTML='<b style="color:#34d399">Correct.</b> '+it.t+' = '+it.m+'.';}
+          else{b.style.borderColor='#ff5667';b.style.color='#ff8a94';
+            out.innerHTML='<b style="color:#ff5667">Not that one.</b> '+it.t+' = '+it.m+'.';}
+          Array.prototype.forEach.call(box.children,function(c){c.disabled=true;});
+          var nx=document.createElement('button');nx.textContent=idx<items.length-1?'Next term ›':'Start again';
+          nx.classList.add('on');nx.style.marginTop='4px';
+          nx.addEventListener('click',function(){idx=idx<items.length-1?idx+1:0;render();});
+          out.appendChild(document.createElement('br'));out.appendChild(nx);
+        });
+        box.appendChild(b);
+      });
+    }
+    render();
+  };
+
+  /* ---- W4: MODAL BUILDER — form + meaning check ---- */
+  window.DeckW.modal=function(el){
+    var subj=['We','The AD','The operator','You','The pin'];
+    var modals=[{m:'must',type:'oblig'},{m:'must be',type:'oblig-pass'},{m:'shall',type:'legal'},
+                {m:'must not',type:'ban'},{m:'need not',type:'no-oblig'}];
+    var verbs=[{v:'comply',pass:0},{v:'done',pass:1},{v:'report compliance',pass:0},{v:'fly the aircraft',pass:0},
+               {v:'replaced',pass:1},{v:'repeat the check',pass:0}];
+    var cues=[{k:'oblig',t:'a strong obligation'},{k:'oblig-pass',t:'a passive obligation'},
+              {k:'legal',t:'a written-legal obligation'},{k:'ban',t:'a prohibition (ban)'},{k:'no-oblig',t:'no obligation'}];
+    var cueIdx=0;
+    function sel(name,arr,fmt){var s='<select data-'+name+'>';arr.forEach(function(a,i){s+='<option value="'+i+'">'+fmt(a)+'</option>';});return s+'</select>';}
+    function render(){
+      el.innerHTML='<div class="wk"><div class="bar"><span class="note" style="font-weight:700;color:#9db0c6">TARGET MEANING</span>'+
+        '<select data-cue>'+cues.map(function(c,i){return '<option value="'+i+'">'+c.t+'</option>';}).join('')+'</select></div>'+
+        '<div class="bar">'+sel('s',subj,function(a){return a;})+
+        sel('m',modals,function(a){return a.m;})+
+        sel('v',verbs,function(a){return a.v;})+
+        '<button data-check class="on">Check</button></div>'+
+        '<div class="info"><h4>Your sentence</h4><div data-sent style="font-size:16px;color:#e9f0f7"></div><div data-out style="margin-top:6px"></div></div></div>';
+      var S=el.querySelector('[data-s]'),M=el.querySelector('[data-m]'),V=el.querySelector('[data-v]'),
+          C=el.querySelector('[data-cue]'),sent=el.querySelector('[data-sent]'),out=el.querySelector('[data-out]');
+      C.value=cueIdx;
+      function show(){var s=subj[+S.value],m=modals[+M.value].m,v=verbs[+V.value].v;
+        sent.textContent=s+' '+m+' '+v+'.';}
+      [S,M,V].forEach(function(x){x.addEventListener('change',show);});
+      C.addEventListener('change',function(){cueIdx=+C.value;});
+      show();
+      el.querySelector('[data-check]').addEventListener('click',function(){
+        var md=modals[+M.value],vb=verbs[+V.value],cue=cues[+C.value];
+        var formOK=true,msg=[];
+        // form: passive modal needs a pp verb; active modal needs a non-pp verb
+        if(md.type==='oblig-pass' && !vb.pass){formOK=false;msg.push('"must be" needs a passive verb (a past participle like <em>done</em>, <em>replaced</em>).');}
+        if(md.type!=='oblig-pass' && vb.pass){formOK=false;msg.push('a bare past participle (<em>'+vb.v+'</em>) needs "must be" before it.');}
+        var meaningOK=(md.type===cue.k)||(md.type==='oblig'&&cue.k==='legal')||(md.type==='legal'&&cue.k==='oblig');
+        var res='';
+        if(formOK)res+='<b style="color:#34d399">Form OK.</b> ';else res+='<b style="color:#ff5667">Form: </b>'+msg.join(' ')+' ';
+        if(meaningOK)res+='<b style="color:#34d399">Meaning matches "'+cue.t+'".</b>';
+        else res+='<b style="color:#fbbf24">Meaning: </b>this says <em>'+({oblig:'a strong obligation','oblig-pass':'a passive obligation',legal:'a written-legal obligation',ban:'a prohibition',"no-oblig":'no obligation'})[md.type]+'</em>, not "'+cue.t+'".';
+        out.innerHTML=res;
+      });
+    }
+    render();
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u14_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u14_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 14</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:28px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes · timing</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u14_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u14_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u14_deck_state")render();});',
+'render();',
+'<\/script></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u14_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════ LIVE CAPTION TRANSLATOR — speaker's English → live LV/RU subtitle (CC / L) ════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left; pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}
+  .lct-src{ display:none; font-family:system-ui,Arial,sans-serif; font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB; background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto; width:50px; height:50px; border-radius:50%; cursor:pointer; background:#F7C22D; color:#020E27; border:2px solid #F7C22D; font-family:ui-monospace,Consolas,monospace; font-weight:700; font-size:16px; box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051; font-family:ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#020E27; background:#F7C22D; border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto; width:42px; height:42px; border-radius:50%; cursor:pointer; background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4); font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052; display:none; align-items:center; gap:8px; background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px; padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:ui-monospace,Consolas,monospace; font-size:14px; font-weight:700; color:#E8EDF5; background:#162030; border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar=document.getElementById('lctBar'),line=document.getElementById('lctLine'),
+      lineTop=document.getElementById('lctLineTop'),lineBot=document.getElementById('lctLineBot'),
+      srcEl=document.getElementById('lctSrc'),btn=document.getElementById('lctBtn'),gear=document.getElementById('lctGear'),
+      status=document.getElementById('lctStatus'),langBar=document.getElementById('lctLangBar'),
+      srcSel=document.getElementById('lctSrcSel'),tgtSel=document.getElementById('lctTgtSel');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){__micStream=s;}).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{__micStream.getTracks().forEach(function(t){t.stop();});}catch(e){} __micStream=null; } }
+  var spoken='en-US',src='en',target='lv';
+  var rec=null,active=false;
+  var lastInterim='',pending='';var capTopB='',capBotB='',lctIdeaTimer=null;
+  var finalTimer=null,silenceTimer=null;
+  var lastTrAt=0,lastTrText='',lastTrLen=0,netErrors=0;
+  var cache=new Map();var POLL_GAP_MS=700;
+  function setStatus(t){ status.textContent=t; status.classList.toggle('show', active||t==='mic blocked'||t==='use Chrome'); }
+  function tail(text,maxWords){ if(!text)return''; var t=String(text).trim().replace(/\s+/g,' '); if(!t)return''; var parts=t.split(' '); if(parts.length<=maxWords)return t; return parts.slice(-maxWords).join(' '); }
+  async function translateRemote(text){
+    try{
+      if(src===target)return text;
+      var url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+src+'&tl='+target+'&dt=t&q='+encodeURIComponent(text);
+      var ctrl=new AbortController();var tmo=setTimeout(function(){ctrl.abort();},3000);
+      var r=await fetch(url,{signal:ctrl.signal});clearTimeout(tmo);
+      if(!r.ok)return null;var j=await r.json();
+      if(Array.isArray(j)&&Array.isArray(j[0])){var out='';j[0].forEach(function(seg){if(seg&&seg[0])out+=seg[0];});return out||null;}
+      return null;
+    }catch(e){return null;}
+  }
+  async function translate(text){
+    if(!text||!text.trim())return'';
+    var key=src+'|'+target+'|'+text.trim().toLowerCase();
+    if(cache.has(key))return cache.get(key);
+    var out=await translateRemote(text);if(!out)out=text;
+    cache.set(key,out);if(cache.size>250){cache.delete(cache.keys().next().value);}
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.9)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16,Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap)return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0?s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB&&(capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr)return; capBotB=capBotB?(capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)){capTopB=capBotB;capBotB='';} lctDraw(); }
+  function render(){ lctDraw(); if(lctIdeaTimer)clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(function(){ if(capBotB){capTopB=capBotB;capBotB='';} lctDraw(); },1500); }
+  function armSilence(){ cancelSilence(); silenceTimer=setTimeout(function(){ capTopB='';capBotB='';lastInterim='';pending='';render(); },30000); }
+  function cancelSilence(){ if(silenceTimer){clearTimeout(silenceTimer);silenceTimer=null;} }
+  async function commitFinal(chunk){ chunk=chunk.trim(); if(!chunk)return; srcEl.textContent=tail(chunk,18); var tr=await translate(chunk); lctCommit(tr); lastInterim='';lastTrLen=0; render(); }
+  async function translateInterim(text){ var now=performance.now(); if(now-lastTrAt<POLL_GAP_MS)return; if(text.length-lastTrLen<10&&text.length>0)return; if(text===lastTrText)return; lastTrAt=now;lastTrLen=text.length;lastTrText=text; try{ var tr=await translate(text); if(tr&&active){lastInterim=tr;render();} }catch(e){} }
+  function startRec(){
+    rec=new SR();rec.continuous=true;rec.interimResults=true;rec.lang=spoken;
+    if('maxAlternatives' in rec)rec.maxAlternatives=1;
+    rec.onresult=function(e){
+      netErrors=0;cancelSilence();var interim='',fin='';
+      for(var i=e.resultIndex;i<e.results.length;i++){var r=e.results[i];if(r.isFinal)fin+=' '+r[0].transcript;else interim+=' '+r[0].transcript;}
+      if(fin){ pending+=' '+fin; if(finalTimer)clearTimeout(finalTimer); finalTimer=setTimeout(function(){var c=pending;pending='';commitFinal(c).then(armSilence);},120); }
+      if(interim){ srcEl.textContent=tail(interim.trim(),18); translateInterim(interim.trim()); }
+      render();setStatus('live · '+src+'→'+target);
+    };
+    rec.onerror=function(ev){
+      if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){setStatus('mic blocked');btn.classList.add('err');active=false;}
+      else if(ev.error==='no-speech'||ev.error==='aborted'){}
+      else if(ev.error==='network'){netErrors++;if(netErrors>=3){active=false;btn.classList.remove('on');btn.classList.add('err');setStatus('offline');}else setStatus('reconnect '+netErrors+'/3');}
+      else setStatus(ev.error);
+    };
+    rec.onend=function(){ if(active){ try{rec.start();}catch(e){ setTimeout(function(){if(active&&rec){try{rec.start();}catch(_){}}},350); } } };
+    try{rec.start();}catch(e){}
+  }
+  function toggle(){
+    if(!SR){setStatus('use Chrome');btn.classList.add('err');return;}
+    if(active){ active=false;btn.classList.remove('on');bar.classList.remove('on');setStatus('off');__releaseMic(); if(rec){try{rec.onend=null;rec.stop();}catch(e){}rec=null;} capTopB='';capBotB='';lastInterim='';pending='';render(); }
+    else{ active=true;btn.classList.add('on');btn.classList.remove('err');bar.classList.add('on');setStatus('starting…');__holdMic().then(startRec); }
+  }
+  btn.addEventListener('click',function(e){e.stopPropagation();toggle();});
+  gear.addEventListener('click',function(e){e.stopPropagation();var open=langBar.classList.toggle('open');gear.classList.toggle('on',open);});
+  document.addEventListener('keydown',function(e){ if((e.key==='l'||e.key==='L')&&!/^(input|textarea|select)$/i.test((e.target.tagName||'')))toggle(); });
+  srcSel.addEventListener('change',function(e){e.stopPropagation();spoken=srcSel.value;src=spoken.slice(0,2);cache.clear();if(active&&rec){rec.onend=null;try{rec.stop();}catch(_){}rec=null;__holdMic().then(startRec);}if(active)setStatus('live · '+src+'→'+target);});
+  tgtSel.addEventListener('change',function(e){e.stopPropagation();target=tgtSel.value;cache.clear();capTopB='';capBotB='';lastInterim='';lastTrText='';lastTrLen=0;render();if(active)setStatus('live · '+src+'→'+target);});
+  [srcSel,tgtSel].forEach(function(s){s.addEventListener('click',function(e){e.stopPropagation();});});
+})();
+</script>
+
+</body>
+</html>
