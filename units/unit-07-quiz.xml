@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+<!-- ================= CATEGORY ================= -->
+<question type="category">
+  <category><text>$course$/top/CF/U07-r1</text></category>
+  <info format="html"><text><![CDATA[<p>Unit 7 &mdash; Requesting parts from stores. Rich quiz, split by skill: Listening, Reading, Use of English, Vocabulary. CEFR B2.</p>]]></text></info>
+</question>
+
+<!-- ============================================================= -->
+<!-- ================= LISTENING (6) ============================== -->
+<!-- ============================================================= -->
+
+<question type="multichoice">
+  <name><text>L1 · Listening · D1 part number</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> Which part number does the technician give for the hydraulic filter?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>The technician reads it out as "two-six-one-one-four-five-zero-one" &mdash; <strong>26114501</strong>. Reading back digits exactly is a core stores skill.</p>]]></text></generalfeedback>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[26114501]]></text><feedback format="html"><text><![CDATA[<p>Correct &mdash; two-six-one-one-four-five-zero-one.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[26114510]]></text><feedback format="html"><text><![CDATA[<p>The last two digits are wrong &mdash; listen again to the end.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[21164501]]></text><feedback format="html"><text><![CDATA[<p>The middle digits are wrong &mdash; the order is 1-1-4-5.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[26140501]]></text><feedback format="html"><text><![CDATA[<p>Close, but the fourth and fifth digits are 1 and 4, not 4 and 0.</p>]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>L2 · Listening · D1 documents</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> What does stores say will arrive with each filter?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>Stores says each filter "arrives with a serviceable tag and an EASA Form 1". A part is only fit to fit when it carries both.</p>]]></text></generalfeedback>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[A serviceable tag and an EASA Form 1]]></text><feedback format="html"><text><![CDATA[<p>Correct &mdash; the fitness tag plus the release certificate.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[A work order and a requisition number]]></text><feedback format="html"><text><![CDATA[<p>These are job papers, not the papers that ship with the part.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[A batch record and a quarantine label sheet]]></text><feedback format="html"><text><![CDATA[<p>A quarantine label marks a part you must not use &mdash; the opposite here.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[A shelf-life card and a delivery note]]></text><feedback format="html"><text><![CDATA[<p>Not mentioned &mdash; listen for "serviceable tag" and "Form 1".</p>]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>L6 · Listening · D3 reason</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> Why can stores not send the valve at once?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>Stores checks the shortage list and says the valve "is on backorder" &mdash; the stock is zero, so it must be ordered from the supplier.</p>]]></text></generalfeedback>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[It is on backorder.]]></text><feedback format="html"><text><![CDATA[<p>Correct &mdash; the stock is zero and it waits on the supplier.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[It is being held in quarantine.]]></text><feedback format="html"><text><![CDATA[<p>Quarantine is for a rejected part; the backorder is a stock issue.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[It has no valid serviceable tag.]]></text><feedback format="html"><text><![CDATA[<p>The tag is not the problem here &mdash; the problem is zero stock.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[It failed the last leak test on the line.]]></text><feedback format="html"><text><![CDATA[<p>That was the filter in Dialogue 1, not the valve in Dialogue 3.</p>]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>L3 · Listening · D2 superseded</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> Stores says the stores list shows a different number because the original relay was <em>superseded</em> last year.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>True. Stores explains that "the original was superseded last year", which is why the shelf number differs from the work order.</p>]]></text></generalfeedback>
+  <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct &mdash; the original part number was replaced by a newer one.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Listen again: stores says the original number was superseded last year.</p>]]></text></feedback></answer>
+</question>
+
+<question type="numerical">
+  <name><text>L4 · Listening · D1 quantity</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> How many filter units does the technician request? (Write a figure.)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>The technician says "a quantity of two" &mdash; one to fit and one spare. Answer: <strong>2</strong>.</p>]]></text></generalfeedback>
+  <answer fraction="100"><text>2</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct &mdash; two units.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>4</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Four is the number stores <em>holds</em>, not the number requested.</p>]]></text></feedback></answer>
+</question>
+
+<question type="numerical">
+  <name><text>L5 · Listening · D3 lead time</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> What is the supplier's lead time, in days? (Write a figure.)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>Stores says "the lead time from the supplier is ten days". Answer: <strong>10</strong>. (In the Dialogue 4 voicemail it is later cut to three.)</p>]]></text></generalfeedback>
+  <answer fraction="100"><text>10</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Correct &mdash; ten days, which is too long for an AOG.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[<p>Three days is the <em>new</em> lead time in the Dialogue 4 voicemail, not Dialogue 3.</p>]]></text></feedback></answer>
+</question>
+
+<!-- ============================================================= -->
+<!-- ================= READING (4) ================================ -->
+<!-- ============================================================= -->
+
+<question type="multichoice">
+  <name><text>R1 · Reading · MEL entry</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Read this MEL entry.</strong></p>
+  <blockquote><em>MEL 29-11-01: One hydraulic filter may be deferred for up to 10 days, provided the second filter is serviceable and a daily check is carried out.</em></blockquote>
+  <p>What condition allows the filter to be deferred?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>The MEL allows the deferral only <em>provided the second filter is serviceable</em> (and a daily check is done). "Provided" introduces the condition.</p>]]></text></generalfeedback>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[The second filter is serviceable.]]></text><feedback format="html"><text><![CDATA[<p>Correct &mdash; that is the condition after "provided".</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[The supplier lead time is under ten days.]]></text><feedback format="html"><text><![CDATA[<p>The ten days is the deferral limit, not a lead-time condition.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[A new work order has already been raised.]]></text><feedback format="html"><text><![CDATA[<p>The entry says nothing about a work order.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[The aircraft is parked on the ground now.]]></text><feedback format="html"><text><![CDATA[<p>Not stated &mdash; the condition is the second filter's status.</p>]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>R2 · Reading · task card / IPC note</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Read this task-card note.</strong></p>
+  <blockquote><em>Task card 24-31-00: Fit relay P/N 592011. Note: P/N 592011 supersedes P/N 592010. The two relays are interchangeable only when the aircraft is at mod 41 or above.</em></blockquote>
+  <p>When are the two relays interchangeable?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>Interchangeability here depends on mod status: only <em>at mod 41 or above</em>. Below that standard, they are not interchangeable.</p>]]></text></generalfeedback>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[At mod 41 or above on the aircraft.]]></text><feedback format="html"><text><![CDATA[<p>Correct &mdash; the mod status must be 41 or higher.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[When the two batch numbers are identical.]]></text><feedback format="html"><text><![CDATA[<p>The note says nothing about matching batch numbers.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[When the shelf life has not yet expired.]]></text><feedback format="html"><text><![CDATA[<p>Shelf life is a different check; here it is the mod status.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[When stores holds both relays in stock.]]></text><feedback format="html"><text><![CDATA[<p>Stock level does not decide interchangeability.</p>]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>R3 · Reading · Service Bulletin</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Read this Service Bulletin extract.</strong></p>
+  <blockquote><em>SB A320-32-1099: Operators should replace valve P/N 33078 with P/N 33079 at the next scheduled check. The replacement valve carries a valid EASA Form 1.</em></blockquote>
+  <p>True or false: the bulletin states that the replacement valve has a valid EASA Form 1.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>True. The last sentence states the replacement valve "carries a valid EASA Form 1", so its certification status is in order.</p>]]></text></generalfeedback>
+  <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct &mdash; the bulletin confirms a valid Form 1.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[<p>Read the last sentence again &mdash; it confirms a valid Form 1.</p>]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>R4 · Reading · tech log / quarantine</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Read this tech-log entry.</strong></p>
+  <blockquote><em>Tech log: The unserviceable valve has been placed in quarantine. Do not refit. Await disposition from Quality.</em></blockquote>
+  <p>True or false: the technician may refit the quarantined valve at once.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>False. The entry says "Do not refit" and to await disposition from Quality. A quarantined part must not be used.</p>]]></text></generalfeedback>
+  <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[<p>No &mdash; the entry clearly says "Do not refit".</p>]]></text></feedback></answer>
+  <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct &mdash; a quarantined part must not be refitted.</p>]]></text></feedback></answer>
+</question>
+
+<!-- ============================================================= -->
+<!-- ================= USE OF ENGLISH (6) ========================= -->
+<!-- ============================================================= -->
+
+<question type="shortanswer">
+  <name><text>U1 · Use of English · order to request</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Rewrite this bare order as a polite request. Begin with <em>Could you</em> or <em>Would you</em>.</p><p><strong>Check the stock.</strong> &rarr; ______</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>Model: <em>Could you check the stock, please?</em> Use the modal first, then the base verb &mdash; no "to", no "-s".</p>]]></text></generalfeedback>
+  <answer fraction="100"><text>Could you check the stock*</text><feedback format="html"><text><![CDATA[<p>Correct &mdash; a polite request with could.</p>]]></text></feedback></answer>
+  <answer fraction="100"><text>Would you check the stock*</text><feedback format="html"><text><![CDATA[<p>Correct &mdash; would works here too.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Start with "Could you" or "Would you" + the base verb "check".</p>]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U2 · Use of English · order to request</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Rewrite as a polite request with <em>Could you</em> or <em>Would you</em>.</p><p><strong>Send me two filters.</strong> &rarr; ______</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>Model: <em>Could you send me two filters, please?</em> The base verb "send" follows the modal directly.</p>]]></text></generalfeedback>
+  <answer fraction="100"><text>Could you send me two filters*</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="100"><text>Would you send me two filters*</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Use "Could/Would you send me two filters".</p>]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U3 · Use of English · vocabulary gap</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Write the missing term.</p><p>The valve is on ______, because the stock is currently zero.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>backorder</strong> &mdash; an order that waits because the stock is zero.</p>]]></text></generalfeedback>
+  <answer fraction="100"><text>backorder</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="100"><text>on backorder</text><feedback format="html"><text><![CDATA[<p>Correct &mdash; "on backorder".</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Zero stock, so the order waits &mdash; it is on <em>backorder</em>.</p>]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U4 · Use of English · vocabulary gap</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Write the missing term (two words).</p><p>The time you must wait for a part to arrive is the ______.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>lead time</strong> &mdash; the wait for a part to arrive from the supplier.</p>]]></text></generalfeedback>
+  <answer fraction="100"><text>lead time</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="100"><text>the lead time</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>It is the <em>lead time</em>.</p>]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U5 · Use of English · correct the modal</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Correct the grammar mistake and write the whole line.</p><p><strong>Could you to confirm the Form 1?</strong> &rarr; ______</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>Model: <em>Could you confirm the Form 1?</em> There is no "to" after a modal &mdash; use the base verb.</p>]]></text></generalfeedback>
+  <answer fraction="100"><text>Could you confirm the Form 1*</text><feedback format="html"><text><![CDATA[<p>Correct &mdash; the "to" is removed.</p>]]></text></feedback></answer>
+  <answer fraction="100"><text>Would you confirm the Form 1*</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>Remove "to": Could you <em>confirm</em> the Form 1?</p>]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U6 · Use of English · abbreviation</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Write the three-letter code.</p><p>The short code for "aircraft on ground" is ______.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>AOG</strong> &mdash; aircraft on ground; a missing part is stopping a flight, so the request is urgent.</p>]]></text></generalfeedback>
+  <answer fraction="100"><text>AOG</text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[<p>It is <em>AOG</em>.</p>]]></text></feedback></answer>
+</question>
+
+<!-- ============================================================= -->
+<!-- ================= VOCABULARY (4) ============================= -->
+<!-- ============================================================= -->
+
+<question type="matching">
+  <name><text>V1 · Vocabulary · term to meaning</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Match each term to its plain meaning.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>These are the core stores terms: a serviceable tag says a part is fit to fit; a Form 1 is the release certificate; quarantine locks away parts you must not use; interchangeability is whether two parts can swap safely; a requisition authorises you to take a part.</p>]]></text></generalfeedback>
+  <shuffleanswers>true</shuffleanswers>
+  <subquestion format="html"><text><![CDATA[serviceable tag]]></text><answer><text>a label that says a part is fit to fit</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[Form 1]]></text><answer><text>the EASA release certificate for a part</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[quarantine]]></text><answer><text>a locked area for parts you must not use</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[interchangeability]]></text><answer><text>whether two parts can swap safely</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[requisition]]></text><answer><text>a formal request to take a part from stores</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[]]></text><answer><text>the last date you may fit a part</text></answer></subquestion>
+</question>
+
+<question type="matching">
+  <name><text>V2 · Vocabulary · term to collocation</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Match each term to the verb or phrase it goes with.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p>Word partners matter: you <em>quote</em> a part number, <em>confirm</em> a quantity, <em>raise</em> a requisition, <em>check</em> the IPC, and a part goes <em>on</em> backorder.</p>]]></text></generalfeedback>
+  <shuffleanswers>true</shuffleanswers>
+  <subquestion format="html"><text><![CDATA[part number]]></text><answer><text>quote the ...</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[quantity]]></text><answer><text>confirm the ...</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[requisition]]></text><answer><text>raise a ...</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[IPC]]></text><answer><text>check the ...</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[backorder]]></text><answer><text>on ...</text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[]]></text><answer><text>past its ...</text></answer></subquestion>
+</question>
+
+<question type="multichoice">
+  <name><text>V3 · Vocabulary · meaning to term</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which term means "not fit to fit; you must not use it"?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>unserviceable</strong> means a part is not fit to fit. Its opposite, "serviceable", means it is fit.</p>]]></text></generalfeedback>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[unserviceable]]></text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[interchangeable]]></text><feedback format="html"><text><![CDATA[<p>That means two parts can swap safely.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[serviceable]]></text><feedback format="html"><text><![CDATA[<p>That is the opposite &mdash; fit to fit.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[quarantine]]></text><feedback format="html"><text><![CDATA[<p>That is the place for bad parts, not the state of the part.</p>]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>V4 · Vocabulary · meaning to term</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which term means "a locked area for parts you must not use"?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[<p><strong>quarantine</strong> is the restricted area where a rejected part is held until Quality clears it.</p>]]></text></generalfeedback>
+  <single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+  <answer fraction="100"><text><![CDATA[quarantine]]></text><feedback format="html"><text><![CDATA[<p>Correct.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[backorder]]></text><feedback format="html"><text><![CDATA[<p>That is an order waiting on zero stock.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[requisition]]></text><feedback format="html"><text><![CDATA[<p>That is a formal request for a part.</p>]]></text></feedback></answer>
+  <answer fraction="0"><text><![CDATA[cross-reference]]></text><feedback format="html"><text><![CDATA[<p>That is a link from one part number to another.</p>]]></text></feedback></answer>
+</question>
+
+</quiz>

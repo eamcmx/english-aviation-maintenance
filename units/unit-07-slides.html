@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 7 · Teacher Deck — Requesting parts from stores</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--brand:#2F5496;--mono:'JetBrains Mono',ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:40px;margin:.2em 0;line-height:1.12}
+h2{font-size:29px;margin:.1em 0 .5em}
+h3{font-size:20px;margin:.6em 0 .2em;color:#cfe0f2}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.small{font-size:15px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:start}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted);margin:3px 6px 3px 0}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+.good{color:var(--good)}.bad{color:var(--hot)}
+.q{font-family:Georgia,serif;font-size:23px;color:#eaf2fb;border-left:4px solid var(--amber);padding-left:16px;margin:12px 0}
+.turn{margin:7px 0;font-size:19px}.turn .s{font-family:var(--mono);font-weight:700;color:var(--accent);margin-right:8px}.turn.b .s{color:var(--amber)}
+.timing{font-family:var(--mono);font-size:13px;color:var(--amber);border:1px solid var(--line2);border-radius:8px;padding:3px 10px;position:absolute;top:18px;left:7vw}
+.tbl{width:100%;border-collapse:collapse;font-size:16px;margin-top:8px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 11px;text-align:left}
+.tbl th{background:#12203200;color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.mis{display:grid;gap:4px;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0;background:var(--panel)}
+.dw{width:100%;max-width:660px;min-height:150px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:14px}
+.wk .bar{display:flex;align-items:center;gap:8px;margin:8px 0;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:6px 12px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk input[type=range]{accent-color:#38b6ff;flex:1;min-width:140px}
+.wk input[type=text]{background:#0c1622;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:6px 9px;font-size:14px}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%;height:120px}
+.wk .lab{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#7e98ad}
+
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--good));width:0;z-index:60;transition:width .3s}
+.hud{position:fixed;bottom:14px;left:16px;font-family:var(--mono);font-size:13px;color:var(--muted);z-index:60}
+.pbtn{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:#142235;color:var(--accent);
+  border:1px solid var(--line2);border-radius:9px;padding:7px 14px;font-size:13px;cursor:pointer;z-index:60}
+.pbtn:hover{border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;right:150px;font-size:12px;color:#5f7690;z-index:60;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="[0-3 min] Open the unit. This is a 90-minute B2 class for aircraft mechanics and avionics technicians. One sentence to frame it: on the line, most jobs stop until the right part arrives, so phoning stores well is a real safety-and-time skill. Say the plan in a line: listen to three stores calls, build the vocabulary, drill polite requests with could/would, then role-play a backorder. Press L any time to switch on live captions with Latvian or Russian translation for anyone who needs it.">
+    <div class="kick">English for Aviation Maintenance · Unit 7 of 32 · CEFR B2</div>
+    <h1>Requesting parts from stores</h1>
+    <p class="muted">Request a part by number, quantity and reason · confirm interchangeability and certification · handle a backorder.</p>
+    <div style="margin-top:18px">
+      <span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening</span><span class="pill">🗣 speaking</span><span class="pill">✍️ writing</span><span class="pill">🔧 could / would</span>
+    </div>
+  </section>
+
+  <!-- 2 · OUTCOMES + AGENDA -->
+  <section class="slide" data-notes="[3-6 min] Read the three can-do outcomes aloud; these are what learners must be able to DO by the bell. Then walk the agenda so the class knows the shape of the 90 minutes. Stress that stores requests are cooperative, not commanding — that idea drives the whole grammar focus.">
+    <div class="timing">0–06 min</div>
+    <div class="kick">Outcomes &amp; plan</div>
+    <h2>By the end you can…</h2>
+    <div class="cols">
+      <div class="card">
+        <ul>
+          <li>Request a part by <b>part number, quantity and reason</b>, precisely.</li>
+          <li>Confirm the <b>interchangeability</b> and <b>certification status</b> of a component.</li>
+          <li>Handle a <b>shortage</b> by negotiating an alternative or a timescale.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Today's plan</h3>
+        <p class="small">🎧 Three stores calls → 📖 vocabulary → 🔧 could/would → ✏️ exercises → 🗣 role-play a backorder → ✍️ a request note.</p>
+        <p class="small">Grammar spine: <code>Could / Would you + base verb</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SCENARIO -->
+  <section class="slide" data-notes="[6-9 min] Set the scene. A filter has failed on test on the A320 line — the aircraft is AOG (aircraft on ground). Elicit the pressure: the flight cannot depart. Then the twist: the part is on backorder. Ask the class what they would do. Keep it short; this frames the listening.">
+    <div class="kick">The scenario</div>
+    <h2>An AOG on the A320 line</h2>
+    <div class="q">A hydraulic filter has failed on test. The aircraft cannot depart. You telephone stores — you must give the part number, the quantity and the reason, and ask politely. Then the part turns out to be on backorder. Now you must find a safe alternative and agree a time.</div>
+    <p class="small">Key idea: a stores request is <b class="good">teamwork</b>, not an order. That is why English uses <code>could</code> and <code>would</code>.</p>
+  </section>
+
+  <!-- 4 · LISTENING D1 -->
+  <section class="slide" data-notes="[9-14 min] Play Dialogue 1 twice. First play: gist — what does the technician need and does stores have it? Second play: catch the request forms and the parts words. Board these as they come up: Could you confirm the stock? / How many units? / a serviceable tag and an EASA Form 1. Drill the part-number read-back: 2-6-1-1-4-5-0-1.">
+    <div class="timing">06–24 min · Listening</div>
+    <div class="kick">Dialogue 1</div>
+    <h2>Request by number, quantity, reason</h2>
+    <div class="cols">
+      <div>
+        <p class="turn"><span class="s">A</span>Could you confirm the stock for me, please?</p>
+        <p class="turn b"><span class="s">B</span>Could you provide the exact part number first?</p>
+        <p class="turn"><span class="s">A</span>The part number is 2-6-1-1-4-5-0-1.</p>
+        <p class="turn b"><span class="s">B</span>How many units do you require?</p>
+        <p class="turn"><span class="s">A</span>A quantity of two — one to fit, one spare.</p>
+      </div>
+      <div class="card">
+        <h3>Listen for</h3>
+        <ul class="small">
+          <li>the <b>part number</b>, read digit by digit</li>
+          <li>the <b>quantity</b> and the <b>reason</b></li>
+          <li>the papers: <b>serviceable tag</b> + <b>EASA Form 1</b></li>
+          <li>the <b>requisition number</b> R-7742</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · LISTENING D2 -->
+  <section class="slide" data-notes="[Listening cont.] Play Dialogue 2. The shelf number differs from the work order because the part was superseded. Draw out the safety logic: interchangeability is confirmed only when the mod status matches, and only with a valid Form 1. Pre-teach superseded and cross-reference if needed.">
+    <div class="kick">Dialogue 2</div>
+    <h2>Interchangeability &amp; certification</h2>
+    <div class="cols">
+      <div>
+        <p class="turn"><span class="s">A</span>Could you confirm the interchangeability?</p>
+        <p class="turn b"><span class="s">B</span>Let me open the IPC for the cross-reference.</p>
+        <p class="turn b"><span class="s">B</span>Confirmed, provided that the mod status matches.</p>
+        <p class="turn"><span class="s">A</span>Could you confirm the certification status?</p>
+        <p class="turn b"><span class="s">B</span>Valid — it carries a current EASA Form 1.</p>
+      </div>
+      <div class="card">
+        <h3>The chain of proof</h3>
+        <p class="small">IPC <b>cross-reference</b> → mod status matches → valid <b>Form 1</b> → <b>batch number</b> B-228 → <b>shelf life</b> good. Only then is the part safe to fit.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · LISTENING D3 (headline) -->
+  <section class="slide" data-notes="[Listening cont.] Play Dialogue 3 — the headline scenario. AOG + backorder + a ten-day lead time. Highlight the negotiation moves: name the pressure, ask for an alternative, check it is safe, agree a fast time. Note the Dialogue 4 voicemail cuts the lead time to three days — a good gist-listening follow-up.">
+    <div class="kick">Dialogue 3 · headline</div>
+    <h2>Handling a backorder</h2>
+    <div class="cols">
+      <div>
+        <p class="turn b"><span class="s">B</span>I am sorry, but that valve is on backorder.</p>
+        <p class="turn"><span class="s">A</span>The aircraft is AOG — could you offer an alternative?</p>
+        <p class="turn b"><span class="s">B</span>There is an alternative, and interchangeability is confirmed.</p>
+        <p class="turn b"><span class="s">B</span>Could you raise a new requisition?</p>
+      </div>
+      <div class="card">
+        <h3>Negotiation moves</h3>
+        <ol class="small">
+          <li>Name the pressure — <b>AOG</b>.</li>
+          <li>Ask for a way out — <b>an alternative</b>.</li>
+          <li>Check it is <b>safe</b> — interchangeability + Form 1.</li>
+          <li>Agree a <b>fast time</b>.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · VOCABULARY MAP -->
+  <section class="slide" data-notes="[24-36 min] Vocabulary. Do not read all 21 terms aloud — group them. Concept-check the tricky ones with quick questions: What is the difference between a shortage and a backorder? What does a serviceable tag tell you? Which paper makes a part legal to fit? Keep energy high; this is a drill, not a lecture.">
+    <div class="timing">24–36 min · Vocabulary</div>
+    <div class="kick">Parts &amp; logistics</div>
+    <h2>The field in four groups</h2>
+    <div class="cols">
+      <div class="card"><h3>The request</h3><p class="small">part number · quantity · reason · work order · requisition · stores</p></div>
+      <div class="card"><h3>The papers</h3><p class="small">serviceable tag · Form 1 · certification status · batch number · shelf life · expiry date</p></div>
+      <div class="card"><h3>The problem</h3><p class="small">unserviceable · shortage · backorder · lead time · quarantine · AOG</p></div>
+      <div class="card"><h3>The solution</h3><p class="small">alternative · interchangeability · cross-reference · IPC</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · VOCABULARY COLLOCATIONS -->
+  <section class="slide" data-notes="[Vocabulary cont.] Focus on word partners — B2 learners often know the noun but pick the wrong verb. Drill these five as fixed chunks. Then a fast round: teacher says the noun, class shouts the verb.">
+    <div class="kick">Collocations</div>
+    <h2>Say the whole chunk</h2>
+    <table class="tbl">
+      <tr><th>Verb / phrase</th><th>Term</th><th>Example</th></tr>
+      <tr><td>quote</td><td>the part number</td><td>Could you quote the part number?</td></tr>
+      <tr><td>confirm</td><td>the quantity</td><td>Let me confirm the quantity.</td></tr>
+      <tr><td>raise</td><td>a requisition</td><td>I will raise a new requisition.</td></tr>
+      <tr><td>check</td><td>the IPC</td><td>Let me check the IPC.</td></tr>
+      <tr><td>on</td><td>backorder</td><td>The valve is on backorder.</td></tr>
+    </table>
+  </section>
+
+  <!-- 9 · GRAMMAR could/would + WIDGET -->
+  <section class="slide" data-notes="[36-50 min] Grammar focus. Present the formula: Could/Would + you + BASE VERB (+ please). Three rules: no 'to', no '-s', modal first. Use the builder on the right — click an opener, a verb and an object and read the sentence the class builds. Push them to notice that 'Send it!' (an order) turns the lamp red.">
+    <div class="timing">36–50 min · Grammar</div>
+    <div class="kick">Grammar focus</div>
+    <h2>Polite requests: could / would</h2>
+    <div class="cols">
+      <div>
+        <p class="q"><code>Could / Would</code> + you + <b>base verb</b> ( + please )</p>
+        <ul>
+          <li><span class="good">Could you check the stock?</span> — no <code>to</code></li>
+          <li><span class="good">Would you send it to the line?</span> — modal first</li>
+          <li><span class="good">Could you possibly confirm it?</span> — softer still</li>
+        </ul>
+      </div>
+      <div class="dw wk" data-widget="request"></div>
+    </div>
+  </section>
+
+  <!-- 10 · GRAMMAR MISTAKES -->
+  <section class="slide" data-notes="[Grammar cont.] The three predictable L1 errors. For Latvian: the extra 'to' comes from linking verbs with the infinitive; the plural adjective from number agreement. For Russian: the '-s' from verb agreement, the statement word order from intonation questions. Recast, do not lecture — model the right form and move on. Full explanations are in the teacher key.">
+    <div class="kick">Latvian &amp; Russian speakers</div>
+    <h2>Three predictable mistakes</h2>
+    <div class="mis"><span class="bad">✗ Could you <b>to</b> check the stock?</span><span class="good">✓ Could you check the stock?</span><span class="small">No <code>to</code> after a modal — base verb.</span></div>
+    <div class="mis"><span class="bad">✗ Could you <b>confirms</b> the Form 1?</span><span class="good">✓ Could you confirm the Form 1?</span><span class="small">No <code>-s</code> after a modal.</span></div>
+    <div class="mis"><span class="bad">✗ <b>You could</b> send me two, please?</span><span class="good">✓ Could you send me two, please?</span><span class="small">Modal first — not statement order.</span></div>
+  </section>
+
+  <!-- 11 · EXERCISES E1-E4 -->
+  <section class="slide" data-notes="[50-66 min] Exercises. Set E1-E4 first (vocabulary + grammar). Learners type, press Check, then open Answers only after trying. Circulate and log recurring errors for feedback. Pairs compare before the reveal.">
+    <div class="timing">50–66 min · Practice</div>
+    <div class="kick">Exercises · set A</div>
+    <h2>Vocabulary &amp; grammar</h2>
+    <table class="tbl">
+      <tr><th>#</th><th>Exercise</th><th>Focus</th></tr>
+      <tr><td>E1</td><td>Gap-fill</td><td>the 10 core terms in context</td></tr>
+      <tr><td>E2</td><td>Matching</td><td>term ↔ meaning</td></tr>
+      <tr><td>E3</td><td>Dialogue completion</td><td>build a whole stores call</td></tr>
+      <tr><td>E4</td><td>Transformation</td><td>order → polite request</td></tr>
+    </table>
+  </section>
+
+  <!-- 12 · EXERCISES E5-E8 -->
+  <section class="slide" data-notes="[Practice cont.] Set B switches skills: two authentic reading texts, an error hunt, and a listening review. Use these to change pace. E6 (error-spotting) is the best diagnostic for the L1 errors — take feedback from it on the board.">
+    <div class="kick">Exercises · set B</div>
+    <h2>Reading, error hunt, listening</h2>
+    <table class="tbl">
+      <tr><th>#</th><th>Exercise</th><th>Focus</th></tr>
+      <tr><td>E5</td><td>Reading — a requisition</td><td>find the figures &amp; papers</td></tr>
+      <tr><td>E6</td><td>Error-spotting</td><td>fix eight could/would errors</td></tr>
+      <tr><td>E7</td><td>Reading — a backorder notice</td><td>alternative + quarantine</td></tr>
+      <tr><td>E8</td><td>Listening review — D3</td><td>catch the spoken figures</td></tr>
+    </table>
+  </section>
+
+  <!-- 13 · INTERCHANGEABILITY WIDGET -->
+  <section class="slide" data-notes="[Bridge to speaking] Recap the safety check before fitting an alternative. Use the lamp: switch on each of the three checks and show the class the lamp only turns green when all three are true. This is the logic learners must speak in Card 2 and Card 3.">
+    <div class="kick">Before you fit an alternative</div>
+    <h2>Is it safe? All three must be green</h2>
+    <div class="cols">
+      <div>
+        <ul>
+          <li><b>Mod status</b> matches on aircraft and part</li>
+          <li>Valid <b>Form 1</b> (certification status)</li>
+          <li><b>Serviceable tag</b> present on the box</li>
+        </ul>
+        <p class="small">Interchangeability is confirmed in the IPC cross-reference — then, and only then, fit it.</p>
+      </div>
+      <div class="dw wk" data-widget="lamp"></div>
+    </div>
+  </section>
+
+  <!-- 14 · LEAD-TIME WIDGET -->
+  <section class="slide" data-notes="[Bridge to speaking] The negotiation. Drag the lead-time meter: for an AOG, ten days is red, an alternative today is green. This sets up the language of Card 3/4: 'Ten days is too long', 'Could you offer an alternative?', 'as soon as possible'.">
+    <div class="kick">Negotiating time</div>
+    <h2>How long is too long?</h2>
+    <div class="cols">
+      <div>
+        <ul>
+          <li><span class="good">Today / 1 day</span> — acceptable, fit it.</li>
+          <li><span style="color:var(--amber)">2–3 days</span> — OK only with a safe alternative.</li>
+          <li><span class="bad">10 days</span> — far too long for an AOG.</li>
+        </ul>
+        <p class="small">Language: <code>Ten days is too long.</code> · <code>Could you offer an alternative?</code> · <code>as soon as possible</code></p>
+      </div>
+      <div class="dw wk" data-widget="lead"></div>
+    </div>
+  </section>
+
+  <!-- 15 · PART NUMBER READBACK WIDGET -->
+  <section class="slide" data-notes="[Optional drill] Listening for figures. Generate a number, read it aloud at natural speed, and have the class write and read it back. Part numbers, quantities and batch numbers must be heard exactly on the phone. This mirrors the numerical items in the quiz.">
+    <div class="kick">Hearing the figures</div>
+    <h2>Part-number read-back</h2>
+    <div class="cols">
+      <div>
+        <p>On the phone, one wrong digit is the wrong part. Practise until the read-back is automatic.</p>
+        <p class="small">Generate a number, say it as words (two-six-one…), then type the digits.</p>
+      </div>
+      <div class="dw wk" data-widget="readback"></div>
+    </div>
+  </section>
+
+  <!-- 16 · ROLE-PLAY MANAGEMENT -->
+  <section class="slide" data-notes="[66-82 min] Speaking. Four cards. Pair the class: one technician, one stores. Run Card 1 and 2 first (request + check), then Card 3 and 4 together as the headline backorder negotiation. Swap roles after each. Assess with the B2 rubric in the teacher key — score range, accuracy, fluency, interaction, coherence. Remind them: stay polite even when the news is bad.">
+    <div class="timing">66–82 min · Speaking</div>
+    <div class="kick">Role-play · four cards</div>
+    <h2>On the phone to stores</h2>
+    <div class="cols">
+      <div class="card"><h3>Card 1 — Technician</h3><p class="small">Request a filter: part number, quantity, reason. Ask with could/would.</p></div>
+      <div class="card"><h3>Card 2 — Technician</h3><p class="small">Check an alternative: interchangeability, Form 1, batch, shelf life.</p></div>
+      <div class="card"><h3>Card 3 — Technician (AOG)</h3><p class="small">Part on backorder — ask for an alternative or a shorter time.</p></div>
+      <div class="card"><h3>Card 4 — Stores</h3><p class="small">Stock is zero — give the news politely, offer a way out.</p></div>
+    </div>
+    <p class="small">Assess with the CEFR B2 speaking rubric (teacher key, Section 4).</p>
+  </section>
+
+  <!-- 17 · WRITING -->
+  <section class="slide" data-notes="[82-88 min] Writing set-up. Model the request note in Simplified Technical English: short sentences, one idea per line, part number + quantity + reason, a polite request each time. Set the 80-110 word task for homework. Point to the four-line self-check and the annotated model in the solutions file.">
+    <div class="timing">82–90 min · Writing &amp; wrap</div>
+    <div class="kick">Writing · Simplified Technical English</div>
+    <h2>A parts request note</h2>
+    <div class="cols">
+      <div>
+        <p>Write 80–110 words to request a filter for an AOG A320. Give the <b>part number, quantity and reason</b>, then ask stores to check stock and send it.</p>
+        <ul class="small">
+          <li>Short sentences, simple words, one idea per line.</li>
+          <li>Every request with <code>could</code> or <code>would</code>.</li>
+          <li>Modal + base verb — no <code>to</code>, no <code>-s</code>.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>STE habits</h3><p class="small">One instruction per line · active voice · same term every time · a number is a figure · ask, do not order.</p></div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP -->
+  <section class="slide" data-center data-notes="[88-90 min] Wrap. Run the can-do self-check: can they request, confirm and negotiate? Thumbs up/down on each. Preview the quiz (listening, reading, use of English, vocabulary). Encourage the AI conversation partner for extra speaking practice at home. Close.">
+    <div class="kick">Wrap-up</div>
+    <h2>Can you now…</h2>
+    <div class="card" style="max-width:640px">
+      <ul style="text-align:left">
+        <li>request a part by <b>number, quantity and reason</b>?</li>
+        <li>confirm <b>interchangeability</b> and <b>certification status</b>?</li>
+        <li>handle a <b>backorder</b> — negotiate an alternative or a time?</li>
+      </ul>
+    </div>
+    <p class="small" style="margin-top:16px">Homework: the request note · the rich quiz · practise the call with the AI partner. Press <b>L</b> for captions.</p>
+  </section>
+
+</div>
+
+<!-- ===== LIVE CAPTION TRANSLATOR (CC / key L) ===== -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left;
+            pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}.lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}.lct-row:empty{display:none}.lct-row-top{opacity:1}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;
+            font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB;
+            background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto;
+            width:50px; height:50px; border-radius:50%; cursor:pointer;
+            background:#F7C22D; color:#020E27; border:2px solid #F7C22D;
+            font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px;
+            box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051;
+               font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em;
+               text-transform:uppercase; color:#020E27; background:#F7C22D;
+               border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto;
+             width:42px; height:42px; border-radius:50%; cursor:pointer;
+             background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4);
+             font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052;
+                display:none; align-items:center; gap:8px;
+                background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px;
+                padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px;
+                       font-weight:700; color:#E8EDF5; background:#162030;
+                       border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="it-IT">Italiano</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="en">English</option>
+    <option value="ru">Русский</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capQueueB=[], capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } } function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<!-- ===================== DECK WIDGETS ===================== -->
+<script>
+(function(){
+  var GOOD='#34d399',BAD='#ff5667',AMBER='#fbbf24',BLUE='#38b6ff',INK='#e9f0f7',MUT='#9db0c6';
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function cv(holder){var c=el('canvas');c.width=560;c.height=120;holder.appendChild(c);return {c:c,x:c.getContext('2d')};}
+  function clr(g){g.x.clearRect(0,0,g.c.width,g.c.height);g.x.fillStyle='#0a0f18';g.x.fillRect(0,0,g.c.width,g.c.height);}
+  window.DeckW={};
+
+  /* request builder */
+  window.DeckW.request=function(holder){
+    holder.innerHTML='';var g=cv(holder);var st={open:'',verb:'',obj:''},glow=0;
+    function ok(){return st.open==='Could you'||st.open==='Would you';}
+    function draw(){clr(g);var made=(st.open||'…')+' '+(st.verb||'…')+' '+(st.obj||'…')+(ok()?'?':'');
+      g.x.fillStyle=INK;g.x.font='18px Inter,system-ui';g.x.fillText(made.slice(0,52),16,46);
+      var good=ok()&&st.verb&&st.obj;g.x.globalAlpha=0.4+0.6*(glow/16);
+      g.x.fillStyle=good?GOOD:(st.open?BAD:'#3a4a5f');g.x.beginPath();g.x.arc(28,88,12,0,7);g.x.fill();g.x.globalAlpha=1;
+      g.x.fillStyle=good?GOOD:(st.open?BAD:MUT);g.x.font='14px Inter';
+      g.x.fillText(good?'Polite request — good.':(st.open==='Send it!'?'A bare order sounds rude.':'Pick an opener, verb, object.'),50,92);}
+    function pulse(){glow=16;(function l(){if(glow>0){glow--;draw();requestAnimationFrame(l);}})();}
+    [['Opener',['Could you','Would you','Send it!'],'open'],['Verb',['check','confirm','offer'],'verb'],['Object',['the stock','the Form 1','an alternative'],'obj']].forEach(function(grp){
+      var bar=el('div','bar');bar.appendChild(el('span','lab',grp[0]));
+      grp[1].forEach(function(v){var b=el('button',null,v);b.onclick=function(){[].forEach.call(bar.querySelectorAll('button'),function(o){o.classList.remove('on');});b.classList.add('on');st[grp[2]]=v;pulse();};bar.appendChild(b);});
+      holder.appendChild(bar);});
+    draw();
+  };
+
+  /* interchangeability lamp */
+  window.DeckW.lamp=function(holder){
+    holder.innerHTML='';var g=cv(holder);var st={mod:false,form:false,tag:false},glow=0;
+    function all(){return st.mod&&st.form&&st.tag;}
+    function draw(){clr(g);[['mod','Mod'],['form','Form 1'],['tag','S/tag']].forEach(function(k,i){var on=st[k[0]],x=90+i*95;
+      g.x.fillStyle=on?GOOD:'#33455c';g.x.beginPath();g.x.arc(x,46,17,0,7);g.x.fill();
+      g.x.fillStyle=MUT;g.x.font='13px Inter';g.x.textAlign='center';g.x.fillText(k[1],x,84);});
+      g.x.globalAlpha=0.4+0.6*(glow/16);g.x.fillStyle=all()?GOOD:'#33455c';g.x.beginPath();g.x.arc(440,46,22,0,7);g.x.fill();g.x.globalAlpha=1;
+      g.x.fillStyle=all()?GOOD:MUT;g.x.fillText(all()?'SAFE TO FIT':'not yet',440,86);g.x.textAlign='left';}
+    function pulse(){glow=16;(function l(){if(glow>0){glow--;draw();requestAnimationFrame(l);}})();}
+    var bar=el('div','bar');[['mod','Mod status matches'],['form','Valid Form 1'],['tag','Serviceable tag']].forEach(function(k){
+      var b=el('button',null,k[1]);b.onclick=function(){st[k[0]]=!st[k[0]];b.classList.toggle('on',st[k[0]]);pulse();};bar.appendChild(b);});
+    holder.appendChild(bar);draw();
+  };
+
+  /* lead-time meter */
+  window.DeckW.lead=function(holder){
+    holder.innerHTML='';var g=cv(holder);var target=0,shown=0;
+    function band(d){if(d<=1)return[GOOD,'Fit today — acceptable'];if(d<=3)return[AMBER,'OK with a safe alternative'];return[BAD,'Too long for an AOG'];}
+    function draw(){clr(g);g.x.fillStyle='#1b2a3e';g.x.fillRect(20,54,520,16);var b=band(shown);
+      g.x.fillStyle=b[0];g.x.fillRect(20,54,520*(shown/14),16);
+      g.x.fillStyle=INK;g.x.font='16px Inter';g.x.fillText(Math.round(shown)+' day(s)',20,40);
+      g.x.fillStyle=b[0];g.x.font='14px Inter';g.x.fillText(b[1],20,96);}
+    function animate(){(function l(){var d=target-shown;if(Math.abs(d)>0.3){shown+=d*0.25;draw();requestAnimationFrame(l);}else{shown=target;draw();}})();}
+    var bar=el('div','bar');bar.appendChild(el('span','lab','Lead time'));
+    var r=el('input');r.type='range';r.min=0;r.max=14;r.value=0;r.oninput=function(){target=+r.value;animate();};bar.appendChild(r);
+    holder.appendChild(bar);draw();
+  };
+
+  /* part-number readback */
+  window.DeckW.readback=function(holder){
+    holder.innerHTML='';var g=cv(holder);var num='',words='',sweep=0,seed=7;
+    var W=['zero','one','two','three','four','five','six','seven','eight','nine'];
+    function gen(){var len=5+((seed)%4);var s='';for(var i=0;i<len;i++){seed=(seed*1103515245+12345)&0x7fffffff;s+=(seed%10);}num=s;words=s.split('').map(function(d){return W[+d];}).join(' ');draw('Read the digits, then type them.');sweepA();}
+    function draw(msg,col){clr(g);g.x.fillStyle=BLUE;g.x.font='17px JetBrains Mono,monospace';g.x.fillText(words||'press New number',16,42);
+      g.x.fillStyle='#1b2a3e';g.x.fillRect(16,58,528,10);g.x.fillStyle=BLUE;g.x.fillRect(16,58,528*(sweep/100),10);
+      g.x.fillStyle=col||MUT;g.x.font='14px Inter';g.x.fillText(msg||'',16,92);}
+    function sweepA(){sweep=0;(function l(){if(sweep<100){sweep+=6;draw('Read the digits, then type them.');requestAnimationFrame(l);}})();}
+    var bar=el('div','bar');var bn=el('button',null,'New number');var inp=el('input');inp.type='text';inp.placeholder='type digits';var bc=el('button',null,'Check');
+    bn.onclick=gen;bc.onclick=function(){var v=(inp.value||'').replace(/\D/g,'');if(!num){draw('Press New number first.');return;}draw(v===num?('Correct — '+num):('Not yet — it was '+num),v===num?GOOD:BAD);};
+    bar.appendChild(bn);bar.appendChild(inp);bar.appendChild(bc);holder.appendChild(bar);draw('Press New number to begin.');
+  };
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){ try{ localStorage.setItem('u07_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){} }
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u07_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open(); presenter.document.write(PRES_HTML); presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 7</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9;white-space:pre-wrap}',
+'.next{margin-top:24px;color:#9db0c6;font-size:17px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:20px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">&lsaquo; Prev</button><button onclick="post(1)">Next &rsaquo;</button>',
+'<scr'+'ipt>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u07_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u07_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u07_deck_state")render();});',
+'render();',
+'<\/scr'+'ipt></body></html>'
+].join('');
+window.addEventListener('storage',function(e){
+  if(e.key==='u07_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+show(0);
+</script>
+
+</body>
+</html>

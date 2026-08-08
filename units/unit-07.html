@@ -1,0 +1,1097 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Requesting parts from stores</title>
+<style>
+  :root{
+    --color-primary:#2F5496; --color-primary-soft:#4a6fb0; --color-primary-dark:#1f3a6b;
+    --signal:#e53935; --good:#43a047; --bad:#c0392b; --gold:#c8821a; --accent:#b1551f;
+    --bg:#fbfaf6; --bg-elevated:#ffffff; --bg-sunken:#f3f1ea; --bg-margin:#fff8e1;
+    --border:#e7e3d8; --border-soft:#efece4;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.5rem; --space-6:2rem; --space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  article{max-width:1000px;margin:0 auto;padding:0 26px 100px}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 30px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.08;margin:0 0 var(--space-4);max-width:26ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:66ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:14px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:22px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:74ch}
+  code{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  a{color:var(--color-primary)}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .card h4{font-size:.98rem;margin:0 0 var(--space-3);color:var(--color-primary-dark)}
+  .card ul{margin:0;padding-left:1.1em}
+  .card li{margin:6px 0;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .scenario-box{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius);padding:var(--space-4) var(--space-5);font-family:var(--font-serif);font-size:18px;line-height:1.6;color:#33384a}
+  .dialogue{border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-elevated);box-shadow:var(--shadow-sm);margin:var(--space-4) 0 var(--space-5);overflow:hidden}
+  .dialogue h3{margin:0;padding:13px 18px;background:var(--bg-sunken);border-bottom:1px solid var(--border);font-size:1.02rem;display:flex;align-items:center;gap:10px}
+  .dialogue h3 .badge{font-family:var(--font-mono);font-size:11px;font-weight:700;color:#fff;background:var(--color-primary);padding:2px 9px;border-radius:20px;letter-spacing:.04em}
+  .lang-audio-slot{margin:0;padding:14px 18px;background:#eef2f9;border-bottom:1px dashed #cfdcef;font-family:var(--font-mono);font-size:12px;color:var(--color-primary-dark)}
+  .lang-audio-slot:before{content:"AUDIO \25BA track "attr(data-audio)" \2014 press play, listen first"}
+  details.transcript{padding:6px 18px 14px}
+  details.transcript summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary);font-weight:700;padding:8px 0}
+  .turn{margin:6px 0;max-width:76ch}
+  .turn .spk{display:inline-block;min-width:1.4em;font-family:var(--font-mono);font-weight:700;color:var(--color-primary);margin-right:6px}
+  .turn.b .spk{color:var(--accent)}
+  .said{color:#262b38}
+  table.vt{border-collapse:collapse;width:100%;font-size:14px;margin-top:10px}
+  table.vt th,table.vt td{border:1px solid var(--border);padding:8px 11px;text-align:left;vertical-align:top}
+  table.vt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  .vt td.col{color:var(--ink-muted);font-family:var(--font-mono);font-size:12.5px}
+  table.gt{border-collapse:collapse;width:100%;font-size:14.5px;margin:12px 0}
+  table.gt th,table.gt td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.gt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  .quote{border-left:4px solid var(--gold);background:var(--bg-margin);padding:10px 16px;margin:10px 0;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-family:var(--font-serif);font-size:16px}
+  .mistake{display:grid;grid-template-columns:1fr;gap:6px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 15px;margin:10px 0;background:var(--bg-elevated)}
+  .mistake .wrong{color:var(--bad)}.mistake .right{color:var(--good)}
+  .mistake .why{font-size:13.5px;color:var(--ink-muted)}
+  .x{color:var(--bad);font-weight:700}.tick{color:var(--good);font-weight:700}
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex h3{margin:0 0 4px;font-size:1.06rem}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex .instr{font-weight:600;color:var(--ink-soft);margin:2px 0 10px;max-width:72ch}
+  .ex ol{margin:6px 0;padding-left:1.4em}
+  .ex ol li{margin:8px 0}
+  .wordbank{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 12px}
+  .wordbank span{font-family:var(--font-mono);font-size:12.5px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:20px;padding:4px 11px}
+  input.gap,select.gap{font-family:var(--font-sans);font-size:14px;border:1px solid var(--border);border-radius:6px;padding:5px 9px;background:#fff;min-width:120px}
+  input.gap:focus,select.gap:focus{outline:2px solid var(--color-primary-soft);border-color:var(--color-primary)}
+  input.gap.right,select.gap.right{border-color:var(--good);background:#eaf5ec}
+  input.gap.wrong,select.gap.wrong{border-color:var(--bad);background:#fbecea}
+  .reading-text{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;margin:10px 0;font-family:var(--font-mono);font-size:13.5px;line-height:1.6}
+  .reading-text p{max-width:none;margin:6px 0}
+  .reading-text .doc-head{font-weight:700;color:var(--color-primary-dark);letter-spacing:.03em;border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:8px}
+  .btn{font-family:var(--font-sans);background:var(--bg-sunken);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.14s;font-weight:600}
+  .btn:hover{border-color:var(--color-primary)}
+  .btn.primary{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+  .score{font-family:var(--font-mono);font-weight:700;margin-left:12px;color:var(--color-primary-dark)}
+  details.reveal{margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-sunken);padding:0 14px}
+  details.reveal summary{cursor:pointer;font-weight:700;color:var(--color-primary);padding:10px 0;font-size:14px}
+  details.reveal ol{margin:0 0 12px}
+  .roleplay{border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:var(--radius-sm);padding:14px 18px;margin:12px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.02rem}
+  .roleplay .field{margin:7px 0}
+  .roleplay .flab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:700;display:block}
+  .roleplay .phr{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .roleplay .phr span{font-size:13px;background:var(--bg-sunken);border:1px solid var(--border);border-radius:6px;padding:3px 9px}
+  .ai-box{background:linear-gradient(180deg,#f4eefb,#fbfaf6);border:1px solid #e0d2f1;border-radius:var(--radius-lg);padding:20px 22px;margin:var(--space-5) 0}
+  .ai-box h3{margin:0 0 4px}
+  .prompt{background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin:10px 0;font-size:14px;position:relative}
+  .prompt code{background:none;padding:0;display:block;white-space:pre-wrap;line-height:1.55;color:#33384a}
+  .copybtn{position:absolute;top:10px;right:10px}
+  .checklist{list-style:none;padding:0;margin:10px 0}
+  .checklist li{padding:7px 0 7px 30px;position:relative}
+  .checklist li:before{content:"\2610";position:absolute;left:4px;font-size:18px;color:var(--color-primary)}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+<!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head>
+<body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 7 of 32 · Requesting parts from stores</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 parts and logistics — part number, serviceable tag, backorde</span></div></div></header>
+<article>
+
+<header class="lec-hero">
+  <p class="eyebrow"><span class="dot"></span>Unit 7 &middot; English for Aviation Maintenance &middot; EASA Part-66/145 &middot; CEFR B2</p>
+  <h1 class="lecture-title">Requesting parts from stores</h1>
+  <p class="subtitle">On the line and in the hangar, most jobs stop until the correct component arrives, so you must telephone stores, request a part politely and precisely, and keep the job moving whenever the part is unavailable.</p>
+  <div class="hero-meta">
+    <span>Unit<strong>7 &middot; Requesting parts from stores</strong></span>
+    <span>Function<strong>Request, confirm, and negotiate a part</strong></span>
+    <span>Grammar<strong>Polite requests with could / would</strong></span>
+    <span>AI stage<strong>Consultant &middot; conversation partner</strong></span>
+  </div>
+  <div class="card" style="margin-top:22px">
+    <h4>By the end of this unit you can &hellip;</h4>
+    <ul>
+      <li>Can request a part by part number, quantity and reason, precisely.</li>
+      <li>Can confirm the interchangeability and certification status of a component.</li>
+      <li>Can handle a shortage by negotiating an alternative or a timescale.</li>
+    </ul>
+  </div>
+</header>
+
+<section class="lecture-section" id="scenario">
+  <h2><span class="secnum">00</span>The scenario</h2>
+  <div class="scenario-box">
+    <p style="margin:0">You are a technician on the A320 line, and a filter has just failed on test, so the aircraft cannot depart until you replace the component. You telephone stores immediately, because you must provide the part number, the quantity and the reason, and you must request politely. Then the situation deteriorates, because the component you require is on backorder. Now you must confirm a safe alternative, verify its documentation, and negotiate a timescale that you can both accept.</p>
+  </div>
+  <p>Stores requests are cooperative, not commanding, because the colleague in stores is assisting you and is not receiving your orders. For that reason you request with <i>could</i> and <i>would</i>, so the enquiry resembles teamwork rather than pressure. Listen to each recording first, and examine the transcript afterwards, because effective listeners recognise the polite forms before they see them written down.</p>
+</section>
+
+<section class="lecture-section" id="dialogues">
+  <h2><span class="secnum">01</span>Model dialogues &mdash; listen first</h2>
+  <p>Listen to each recording before you examine the transcript, and replay it twice whenever possible. The first occasion, simply follow the situation, and the second occasion, capture the polite request forms and the specialist parts vocabulary that carry the meaning.</p>
+
+  <div class="dialogue">
+    <h3><span class="badge">D1</span>Requesting a part by number, quantity and reason</h3>
+    <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u07-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:36 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">Good morning, stores. This is M&#257;rti&#326;&scaron; on the A320 line, and I require a component urgently.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good morning, M&#257;rti&#326;&scaron;. Certainly, I can assist you, so please explain what you need from stores.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">I require a hydraulic filter, so could you confirm the stock for me, please?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Yes, certainly, but could you provide the exact part number first?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The part number is 2-6-1-1-4-5-0-1, and it appears on my work order.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Thank you. And how many units do you require, because I must record the quantity?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">I require a quantity of two, because I am performing a double filter change.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Two units, excellent. And could you explain the reason, so I can document it?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">One filter is unserviceable, and the second is a spare, in case the first component fails.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">That is clear. Let me examine the system. Yes, we currently hold four in stores.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Excellent news, so would you deliver them to the A320 line, please?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Certainly, and each filter arrives with a serviceable tag and an EASA Form 1.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Perfect, because I must retain the Form 1 for the documentation on the work order.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">No problem. I will attach the certificate to each carton before I dispatch it.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Thank you very much. Could you also confirm the requisition number, please?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Yes, your requisition number is R-7-7-4-2, so I will release the components immediately.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">D2</span>Confirming interchangeability and certification status</h3>
+    <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u07-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:37 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">Hello, stores. This is Anna from the avionics bay, and I have a question about an alternative component.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Hello, Anna. Certainly, go ahead, and tell me which part number you are enquiring about.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">It is the relay 5-9-2-0-1-1, but the stores list displays a different number for it.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">That is the current part number, because the original was superseded last year.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">I see, so could you confirm the interchangeability for me, because I must be certain?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Let me open the IPC, because the illustrated parts catalogue provides a cross-reference here.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Good. Does the cross-reference indicate that the two relays are fully interchangeable?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Yes, the interchangeability is confirmed, provided that the mod status matches on both.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The mod status on the aircraft is mod 4-1, so would that be acceptable?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">That is acceptable, because both relays are approved for mod 4-1 and above.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Thank you. Could you also confirm the certification status of the replacement relay, please?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Yes, the certification status is valid, because it carries a current EASA Form 1.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">And the batch number, please, because I must record the batch number on the work card?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">The batch number is B-2-2-8, and the serviceable tag displays it very clearly.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">One final question: could you confirm the shelf life, because I do not want an old unit?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good question. The shelf life is satisfactory, and the expiry date is March next year.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">D3</span>Handling a backorder &mdash; negotiate an alternative or a time</h3>
+    <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u07-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:32 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">A</span><span class="said">Hello, stores. This is Roberts on the line, and I have an urgent request for you.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Hello, Roberts. Explain what you need, and tell me how urgent the situation is.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">The aircraft is AOG, so I require a valve, part number 3-3-0-7-8, quantity one.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Let me examine the shortage list. I am sorry, but that valve is on backorder.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">On backorder? That is a serious problem, because the aircraft cannot depart without it.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">I understand, but the lead time from the supplier is ten days, unfortunately.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Ten days is far too long for an AOG, so could you offer an alternative?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Possibly. Let me examine the IPC for an interchangeable valve, so please hold the line.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Of course, I will wait, so please locate something that we can install today.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Good news: there is an alternative part number, and the interchangeability is confirmed.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">Excellent. Do we currently hold that alternative valve in stores?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Yes, we have one, and it carries a serviceable tag and a valid Form 1.</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">That is perfect, so could you deliver it to the line as soon as possible?</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">Certainly, but first, could you raise a new requisition for the alternative?</span></p>
+      <p class="turn"><span class="spk">A</span><span class="said">I will raise it immediately, and thank you for resolving my shortage so quickly.</span></p>
+      <p class="turn b"><span class="spk">B</span><span class="said">You are welcome, and unless there is a problem, it will reach you within ten minutes.</span></p>
+    </details>
+  </div>
+
+  <div class="dialogue">
+    <h3><span class="badge">D4</span>Stores voicemail &mdash; a backorder update</h3>
+    <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u07-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:36 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="spk">S</span><span class="said">Hello, this is a message from stores for the entire A320 line team.</span></p>
+      <p class="turn"><span class="spk">S</span><span class="said">This is an update regarding the valve on backorder, part number 3-3-0-7-8.</span></p>
+      <p class="turn"><span class="spk">S</span><span class="said">The supplier has now reduced the lead time, so the new lead time is three days.</span></p>
+      <p class="turn"><span class="spk">S</span><span class="said">Until then, please continue with the alternative valve that we delivered to the line.</span></p>
+      <p class="turn"><span class="spk">S</span><span class="said">The unserviceable valve is now in quarantine, so do not fit it and do not return it yet.</span></p>
+      <p class="turn"><span class="spk">S</span><span class="said">If you have any questions about the shortage, please contact the stores desk. Thank you.</span></p>
+    </details>
+  </div>
+</section>
+
+<section class="lecture-section" id="vocabulary">
+  <h2><span class="secnum">02</span>Vocabulary bank &mdash; parts and logistics</h2>
+  <p>These are the specialist words for this unit, and each entry provides a plain meaning, an example and a common word partner. You will encounter every word in the dialogues, and you will apply every word in the exercises, so study them thoroughly.</p>
+  <table class="vt">
+    <thead><tr><th style="width:150px">Term</th><th>Plain meaning</th><th>Example at level</th><th style="width:150px">Collocation</th></tr></thead>
+    <tbody>
+      <tr><td><dfn data-term="part number">part number</dfn></td><td>The code that identifies one exact component, so stores can locate it immediately.</td><td>Could you provide the part number, because I must confirm the stock?</td><td class="col">quote the part number</td></tr>
+      <tr><td><dfn data-term="quantity">quantity</dfn></td><td>How many units you require, which you must state clearly on every request.</td><td>I require a quantity of two, because I am replacing both filters.</td><td class="col">confirm the quantity</td></tr>
+      <tr><td><dfn data-term="stores">stores</dfn></td><td>The department that keeps the components and issues them when you raise a request.</td><td>I telephoned stores, because the aircraft required a new valve immediately.</td><td class="col">call stores</td></tr>
+      <tr><td><dfn data-term="work order">work order</dfn></td><td>The job document that lists the task and the components you require.</td><td>The part number appears on my work order, so I can quote it easily.</td><td class="col">raise a work order</td></tr>
+      <tr><td><dfn data-term="requisition">requisition</dfn></td><td>A formal request that authorises you to take a component out of stores.</td><td>Your requisition number is R-7742, so I will release the components now.</td><td class="col">raise a requisition</td></tr>
+      <tr><td><dfn data-term="serviceable tag">serviceable tag</dfn></td><td>A label that confirms a component is fit to install on the aircraft.</td><td>Each carton carries a serviceable tag, so you know the component is acceptable.</td><td class="col">attach a serviceable tag</td></tr>
+      <tr><td><dfn data-term="Form 1">Form 1</dfn></td><td>The EASA release certificate that accompanies a component as its documentation.</td><td>I must retain the Form 1, because it is the documentation for the file.</td><td class="col">a valid Form 1</td></tr>
+      <tr><td><dfn data-term="certification status">certification status</dfn></td><td>Whether a component is released and legal to install, or still restricted.</td><td>Could you confirm the certification status, before I install this relay?</td><td class="col">check the certification status</td></tr>
+      <tr><td><dfn data-term="unserviceable">unserviceable</dfn></td><td>Not fit to install, so you must remove it and never use it again.</td><td>The original filter is unserviceable, because it failed on the leak test.</td><td class="col">mark it unserviceable</td></tr>
+      <tr><td><dfn data-term="quarantine">quarantine</dfn></td><td>A restricted area for components you must not use until quality clears them.</td><td>The rejected valve is in quarantine, so nobody can install it by mistake.</td><td class="col">put in quarantine</td></tr>
+      <tr><td><dfn data-term="backorder">backorder</dfn></td><td>An order that waits, because the available stock in stores is already zero.</td><td>The valve is on backorder, so we must wait for the supplier.</td><td class="col">on backorder</td></tr>
+      <tr><td><dfn data-term="shortage">shortage</dfn></td><td>The situation when stores holds too few components, or none, to satisfy requests.</td><td>Thank you for resolving my shortage so quickly on such an urgent job.</td><td class="col">a parts shortage</td></tr>
+      <tr><td><dfn data-term="lead time">lead time</dfn></td><td>The period you must wait for a component to arrive from the supplier.</td><td>The lead time is ten days, which is excessive for an AOG situation.</td><td class="col">a long lead time</td></tr>
+      <tr><td><dfn data-term="alternative">alternative</dfn></td><td>A different component that you may install instead, provided it is interchangeable.</td><td>Could you offer an alternative, because the original valve is on backorder?</td><td class="col">an alternative part</td></tr>
+      <tr><td><dfn data-term="interchangeability">interchangeability</dfn></td><td>Whether two components can substitute safely, which the IPC confirms for you.</td><td>The interchangeability is confirmed, provided that the mod status also matches.</td><td class="col">confirm interchangeability</td></tr>
+      <tr><td><dfn data-term="cross-reference">cross-reference</dfn></td><td>A link in the catalogue from one part number to another number.</td><td>The IPC provides a cross-reference, so you can locate the current number.</td><td class="col">an IPC cross-reference</td></tr>
+      <tr><td><dfn data-term="IPC">IPC</dfn></td><td>The illustrated parts catalogue, the document that displays and lists every component.</td><td>Let me open the IPC, because it provides the cross-reference that we require.</td><td class="col">check the IPC</td></tr>
+      <tr><td><dfn data-term="batch number">batch number</dfn></td><td>The code for one production batch, which you record for traceability.</td><td>Record the batch number on the card, so we can trace the component later.</td><td class="col">record the batch number</td></tr>
+      <tr><td><dfn data-term="shelf life">shelf life</dfn></td><td>The period a component may remain in store, before it is too old to use.</td><td>Please confirm the shelf life, because I do not want an expired unit.</td><td class="col">check the shelf life</td></tr>
+      <tr><td><dfn data-term="expiry date">expiry date</dfn></td><td>The final date on which you may still install the component safely.</td><td>The expiry date is next March, so the unit remains acceptable today.</td><td class="col">past its expiry date</td></tr>
+      <tr><td><dfn data-term="AOG">AOG</dfn></td><td>Aircraft on ground, which means a missing component is preventing a departure.</td><td>The aircraft is AOG, so this request is extremely urgent for us today.</td><td class="col">an AOG request</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="lecture-section" id="grammar">
+  <h2><span class="secnum">03</span>Grammar in context &mdash; polite requests with could / would</h2>
+  <p>Stores requests are cooperative, not commanding, because you are asking a colleague for assistance and not issuing an instruction. In English, <i>could</i> and <i>would</i> perform this softening work, so the request resembles teamwork. Examine these three lines from the dialogues, and notice the identical simple shape in each one.</p>
+  <div class="quote">&ldquo;<b>Could you</b> check the stock for me, please?&rdquo; &mdash; D1</div>
+  <div class="quote">&ldquo;<b>Would you</b> send them to the A320 line, please?&rdquo; &mdash; D1</div>
+  <div class="quote">&ldquo;<b>Could you</b> offer an alternative?&rdquo; &mdash; D3</div>
+  <p>The pattern is simple, although it is easy to get wrong. After <i>could</i> or <i>would</i>, use the base verb, and do not add <i>to</i> or <i>-s</i>. Position the subject after the modal, because that word order produces a question. Add <i>please</i> or <i>possibly</i> whenever you want to sound even more polite.</p>
+  <table class="gt">
+    <thead><tr><th>Function</th><th>Structure</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Ask someone to do something</td><td>Could / Would + you + base verb</td><td>Could you check the stock?</td></tr>
+      <tr><td>Ask to receive something</td><td>Could I have + noun</td><td>Could I have two filters, please?</td></tr>
+      <tr><td>Ask about ability or time</td><td>Would you be able to + base verb</td><td>Would you be able to send it today?</td></tr>
+      <tr><td>Soften even more</td><td>Could you possibly + base verb</td><td>Could you possibly confirm the Form 1?</td></tr>
+    </tbody>
+  </table>
+  <h3>Three common mistakes (Latvian and Russian speakers)</h3>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> Could you <b>to</b> check the stock?</div>
+    <div class="right"><span class="tick">&#10003;</span> Could you check the stock?</div>
+    <div class="why">Why: there is no <i>to</i> after <i>could</i>, so you use the base verb, although Latvian and Russian frequently add the infinitive here.</div>
+  </div>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> Check the stock. (as a request to a colleague)</div>
+    <div class="right"><span class="tick">&#10003;</span> Could you check the stock, please?</div>
+    <div class="why">Why: a bare order sounds impolite in English, so because a stores request is cooperative, you soften it with <i>could</i> or <i>would</i>.</div>
+  </div>
+  <div class="mistake">
+    <div class="wrong"><span class="x">&#10007;</span> You could send me two, please?</div>
+    <div class="right"><span class="tick">&#10003;</span> Could you send me two, please?</div>
+    <div class="why">Why: for a request you position the modal first, so it becomes <i>Could</i> + <i>you</i>, and you avoid statement word order with a question mark.</div>
+  </div>
+</section>
+
+<section class="lecture-section" id="exercises">
+  <h2><span class="secnum">04</span>Exercises</h2>
+  <p>Do the exercises in order, and type your answer before you press <b>Check</b>, because the page then marks each answer green or red. Open the <b>Answers</b> only after you have tried, so that you test yourself honestly.</p>
+
+  <div class="ex" id="e1">
+    <span class="tag">E1 &middot; Gap-fill</span>
+    <h3>Put the right term in the gap</h3>
+    <p class="instr">Read each sentence, and write one term from the bank in the gap.</p>
+    <div class="wordbank"><span>part number</span><span>quantity</span><span>backorder</span><span>lead time</span><span>shortage</span><span>serviceable tag</span><span>requisition</span><span>work order</span><span>AOG</span><span>stores</span></div>
+    <ol>
+      <li>Every request begins with the exact <input class="gap" size="13" data-answer="part number">, so stores can locate the component.</li>
+      <li>You must tell stores how many you require, and that number is the <input class="gap" size="10" data-answer="quantity">.</li>
+      <li>When the available stock is zero, the part goes on <input class="gap" size="11" data-answer="backorder">, so you must wait.</li>
+      <li>The period you wait for a component to arrive is the <input class="gap" size="11" data-answer="lead time">.</li>
+      <li>When stores holds too few components, there is a <input class="gap" size="10" data-answer="shortage"> on the shelf.</li>
+      <li>A green label that confirms a part is fit is a <input class="gap" size="16" data-answer="serviceable tag">.</li>
+      <li>A formal request that authorises you to take a part is a <input class="gap" size="12" data-answer="requisition">.</li>
+      <li>The job document that lists the task and the components is the <input class="gap" size="11" data-answer="work order">.</li>
+      <li>A grounded aircraft that requires a part immediately is <input class="gap" size="6" data-answer="aog|AOG">.</li>
+      <li>The department that keeps and issues the components is <input class="gap" size="8" data-answer="stores">.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>part number</li><li>quantity</li><li>backorder</li><li>lead time</li><li>shortage</li><li>serviceable tag</li><li>requisition</li><li>work order</li><li>AOG</li><li>stores</li></ol></details>
+  </div>
+
+  <div class="ex" id="e2">
+    <span class="tag">E2 &middot; Matching</span>
+    <h3>Match the term to its meaning</h3>
+    <p class="instr">Choose the correct meaning for each term.</p>
+    <ol>
+      <li><dfn>alternative</dfn> &rarr; <select class="gap" data-answer="a different part you can fit instead"><option value="">choose&hellip;</option><option>a different part you can fit instead</option><option>the last date you may fit a part</option><option>a locked area for bad parts</option><option>the code for one production batch</option></select></li>
+      <li><dfn>interchangeability</dfn> &rarr; <select class="gap" data-answer="whether two parts can swap safely"><option value="">choose&hellip;</option><option>whether two parts can swap safely</option><option>the EASA release certificate</option><option>how long a part may wait in store</option><option>a formal request for a part</option></select></li>
+      <li><dfn>cross-reference</dfn> &rarr; <select class="gap" data-answer="a link from one part number to another"><option value="">choose&hellip;</option><option>a link from one part number to another</option><option>a label that says a part is fit</option><option>an order that waits for stock</option><option>the time you wait for a part</option></select></li>
+      <li><dfn>Form 1</dfn> &rarr; <select class="gap" data-answer="the EASA release certificate for a part"><option value="">choose&hellip;</option><option>the EASA release certificate for a part</option><option>a locked area for bad parts</option><option>a different part you can fit instead</option><option>how many units you need</option></select></li>
+      <li><dfn>certification status</dfn> &rarr; <select class="gap" data-answer="whether a part is released and legal to fit"><option value="">choose&hellip;</option><option>whether a part is released and legal to fit</option><option>the time you wait for a part</option><option>the parts book with drawings</option><option>the code for one production batch</option></select></li>
+      <li><dfn>shelf life</dfn> &rarr; <select class="gap" data-answer="how long a part may wait in store"><option value="">choose&hellip;</option><option>how long a part may wait in store</option><option>a formal request for a part</option><option>whether two parts can swap safely</option><option>a label that says a part is fit</option></select></li>
+      <li><dfn>expiry date</dfn> &rarr; <select class="gap" data-answer="the last date you may fit the part"><option value="">choose&hellip;</option><option>the last date you may fit the part</option><option>the parts book with drawings</option><option>an order that waits for stock</option><option>how many units you need</option></select></li>
+      <li><dfn>batch number</dfn> &rarr; <select class="gap" data-answer="the code for one production batch"><option value="">choose&hellip;</option><option>the code for one production batch</option><option>the EASA release certificate</option><option>a locked area for bad parts</option><option>a different part you can fit instead</option></select></li>
+      <li><dfn>unserviceable</dfn> &rarr; <select class="gap" data-answer="not fit to fit; do not use it"><option value="">choose&hellip;</option><option>not fit to fit; do not use it</option><option>whether two parts can swap safely</option><option>the time you wait for a part</option><option>a link between two part numbers</option></select></li>
+      <li><dfn>quarantine</dfn> &rarr; <select class="gap" data-answer="a locked area for parts you must not use"><option value="">choose&hellip;</option><option>a locked area for parts you must not use</option><option>the last date you may fit a part</option><option>the parts book with drawings</option><option>a formal request for a part</option></select></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>a different part you can fit instead</li><li>whether two parts can swap safely</li><li>a link from one part number to another</li><li>the EASA release certificate for a part</li><li>whether a part is released and legal to fit</li><li>how long a part may wait in store</li><li>the last date you may fit the part</li><li>the code for one production batch</li><li>not fit to fit; do not use it</li><li>a locked area for parts you must not use</li></ol></details>
+  </div>
+
+  <div class="ex" id="e3">
+    <span class="tag">E3 &middot; Dialogue completion</span>
+    <h3>Complete the stores call</h3>
+    <p class="instr">Write one term in each gap to finish the phone call.</p>
+    <ol>
+      <li>A: Hello, stores. The aircraft is <input class="gap" size="6" data-answer="aog|AOG">, so I need a valve now.</li>
+      <li>B: I am sorry, but the valve is on <input class="gap" size="11" data-answer="backorder">, because the stock is zero.</li>
+      <li>A: What is the <input class="gap" size="11" data-answer="lead time"> from the supplier, please?</li>
+      <li>B: It is ten days, but could I offer you an <input class="gap" size="12" data-answer="alternative"> instead?</li>
+      <li>A: Yes, please, as long as the <input class="gap" size="18" data-answer="interchangeability"> is confirmed.</li>
+      <li>B: It is confirmed, because the IPC gives a <input class="gap" size="15" data-answer="cross-reference">.</li>
+      <li>A: Good. Does the part have a valid <input class="gap" size="8" data-answer="form 1|Form 1">, so I can fit it?</li>
+      <li>B: Yes, and it also has a serviceable <input class="gap" size="6" data-answer="tag"> on the box.</li>
+      <li>A: Thank you. I will raise a new <input class="gap" size="12" data-answer="requisition"> right away.</li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>AOG</li><li>backorder</li><li>lead time</li><li>alternative</li><li>interchangeability</li><li>cross-reference</li><li>Form 1</li><li>tag</li><li>requisition</li></ol></details>
+  </div>
+
+  <div class="ex" id="e4">
+    <span class="tag">E4 &middot; Grammar transformation</span>
+    <h3>Make each order a polite request</h3>
+    <p class="instr">Begin with <b>Could you</b> and use the base verb, but do not add <i>to</i> and do not write <i>please</i>.</p>
+    <ol>
+      <li>Send me two filters. &rarr; <input class="gap" size="30" data-answer="could you send me two filters|would you send me two filters"></li>
+      <li>Confirm the Form 1. &rarr; <input class="gap" size="26" data-answer="could you confirm the form 1|would you confirm the form 1"></li>
+      <li>Check the interchangeability. &rarr; <input class="gap" size="34" data-answer="could you check the interchangeability|would you check the interchangeability"></li>
+      <li>Give me the part number. &rarr; <input class="gap" size="30" data-answer="could you give me the part number|would you give me the part number"></li>
+      <li>Raise a new requisition. &rarr; <input class="gap" size="30" data-answer="could you raise a new requisition|would you raise a new requisition"></li>
+      <li>Tell me the lead time. &rarr; <input class="gap" size="28" data-answer="could you tell me the lead time|would you tell me the lead time"></li>
+      <li>Offer an alternative. &rarr; <input class="gap" size="28" data-answer="could you offer an alternative|would you offer an alternative"></li>
+      <li>Check the shortage list. &rarr; <input class="gap" size="30" data-answer="could you check the shortage list|would you check the shortage list"></li>
+      <li>Send it to the line. &rarr; <input class="gap" size="28" data-answer="could you send it to the line|would you send it to the line"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>Could you send me two filters?</li><li>Could you confirm the Form 1?</li><li>Could you check the interchangeability?</li><li>Could you give me the part number?</li><li>Could you raise a new requisition?</li><li>Could you tell me the lead time?</li><li>Could you offer an alternative?</li><li>Could you check the shortage list?</li><li>Could you send it to the line?</li></ol></details>
+  </div>
+
+  <div class="ex" id="e5">
+    <span class="tag">E5 &middot; Reading 1</span>
+    <h3>Read a stores requisition</h3>
+    <p class="instr">Read the requisition and the stores note, and then answer the seven questions. Write short answers.</p>
+    <div class="reading-text reading">
+      <p class="doc-head">STORES REQUISITION &mdash; A320 LINE &mdash; WORK ORDER 4471</p>
+      <p>Requisition number: R-7742. Raised by: M. Ozols, A320 line.</p>
+      <p>Part number: 26114501. Description: hydraulic filter. Quantity: two.</p>
+      <p>Reason: one filter is unserviceable following a leak on test, and the second unit is a spare, in case the first component fails.</p>
+      <p>Stores note: four filters are currently available, so there is no shortage today. Each filter carries a serviceable tag and an EASA Form 1, because it must ship with its documentation.</p>
+      <p>Interchangeability: the IPC provides a cross-reference to part number 26114502. Although the number is different, the two filters are fully interchangeable, provided that the mod status matches.</p>
+      <p>Certification status: released. Batch number: B-118. The shelf life is satisfactory, and the expiry date is next year, so the component is acceptable to install immediately.</p>
+      <p>Delivery: dispatch both filters to the A320 line. The technician must retain the Form 1 with the work order, because it is the documentation for the file.</p>
+      <p>Action: release the components now, and close the requisition as soon as they depart stores.</p>
+    </div>
+    <ol>
+      <li>What is the requisition number? <input class="gap" size="10" data-answer="r-7742|r7742|7742"></li>
+      <li>What is the part number requested? <input class="gap" size="12" data-answer="26114501"></li>
+      <li>What quantity is needed? <input class="gap" size="8" data-answer="two|2"></li>
+      <li>Why is the first filter needed? <input class="gap" size="22" data-answer="it is unserviceable|unserviceable|a leak"></li>
+      <li>What certificate comes with each filter? <input class="gap" size="16" data-answer="form 1|an easa form 1|easa form 1|a form 1"></li>
+      <li>Are the two filters interchangeable? <input class="gap" size="6" data-answer="yes"></li>
+      <li>Where must the technician keep the Form 1? <input class="gap" size="20" data-answer="with the work order|the work order|work order"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>R-7742</li><li>26114501</li><li>two</li><li>it is unserviceable (after a leak)</li><li>an EASA Form 1</li><li>yes</li><li>with the work order</li></ol></details>
+  </div>
+
+  <div class="ex" id="e6">
+    <span class="tag">E6 &middot; Error-spotting</span>
+    <h3>Find and fix the errors</h3>
+    <p class="instr">This stores request has eight errors, so read each line and write the correct line in the gap.</p>
+    <div class="reading-text">
+      <p class="doc-head">DRAFT PHONE REQUEST &mdash; FIX EIGHT ERRORS</p>
+      <p>(1) Could you to check the stock?</p>
+      <p>(2) Send me quickly two filters.</p>
+      <p>(3) You could give me the part number?</p>
+      <p>(4) I need quantity of two.</p>
+      <p>(5) The filter is unserviceables.</p>
+      <p>(6) Could you confirms the Form 1?</p>
+      <p>(7) Would you to send it today?</p>
+      <p>(8) Please you raise a requisition.</p>
+    </div>
+    <ol>
+      <li>(1) &rarr; <input class="gap" size="26" data-answer="could you check the stock"></li>
+      <li>(2) &rarr; <input class="gap" size="30" data-answer="could you send me two filters|would you send me two filters"></li>
+      <li>(3) &rarr; <input class="gap" size="30" data-answer="could you give me the part number|would you give me the part number"></li>
+      <li>(4) &rarr; <input class="gap" size="22" data-answer="i need a quantity of two|a quantity of two"></li>
+      <li>(5) &rarr; <input class="gap" size="26" data-answer="the filter is unserviceable|unserviceable"></li>
+      <li>(6) &rarr; <input class="gap" size="26" data-answer="could you confirm the form 1|would you confirm the form 1"></li>
+      <li>(7) &rarr; <input class="gap" size="22" data-answer="would you send it today|could you send it today"></li>
+      <li>(8) &rarr; <input class="gap" size="30" data-answer="could you raise a requisition|would you raise a requisition|please raise a requisition"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>Could you check the stock? (no "to" after could)</li><li>Could you send me two filters? (a request, not an order)</li><li>Could you give me the part number? (modal first, not statement order)</li><li>I need a quantity of two. (add the article "a")</li><li>The filter is unserviceable. (no plural "-s")</li><li>Could you confirm the Form 1? (no "-s" after a modal)</li><li>Would you send it today? (no "to" after would)</li><li>Could you raise a requisition? (a polite request, not "Please you")</li></ol></details>
+  </div>
+
+  <div class="ex" id="e7">
+    <span class="tag">E7 &middot; Reading 2</span>
+    <h3>Read a backorder notice</h3>
+    <p class="instr">Read the stores email, and then answer the seven questions. Write short answers.</p>
+    <div class="reading-text reading">
+      <p class="doc-head">STORES EMAIL &mdash; BACKORDER NOTICE 09/2026</p>
+      <p>To: A320 line team. From: Stores desk. Subject: valve 33078 on backorder.</p>
+      <p>This message concerns the valve, part number 33078, which is on backorder, because the stock is currently zero.</p>
+      <p>Lead time: the supplier requires ten days, which is excessive for an AOG aircraft.</p>
+      <p>Alternative: the IPC provides an interchangeable valve, part number 33079, and we currently hold one in stores. It carries a serviceable tag and a valid Form 1, so the interchangeability is confirmed.</p>
+      <p>Action: please raise a new requisition for the alternative valve, and we will dispatch it to the line as soon as you raise it.</p>
+      <p>Quarantine: the unserviceable valve remains in quarantine, so do not install it. Unless quality clears it, it stays there.</p>
+      <p>Update: we will issue a new message as soon as the lead time changes, so please contact us regarding any shortage.</p>
+    </div>
+    <ol>
+      <li>Which valve is on backorder? <input class="gap" size="16" data-answer="33078|valve 33078|part number 33078"></li>
+      <li>What is the lead time from the supplier? <input class="gap" size="12" data-answer="ten days|10 days|ten"></li>
+      <li>Why is the lead time a problem? <input class="gap" size="24" data-answer="the aircraft is aog|aog|too long for an aog|it is an aog"></li>
+      <li>What is the alternative part number? <input class="gap" size="10" data-answer="33079"></li>
+      <li>What must the technician raise for the alternative? <input class="gap" size="20" data-answer="a new requisition|requisition|a requisition|new requisition"></li>
+      <li>Where is the unserviceable valve? <input class="gap" size="16" data-answer="in quarantine|quarantine"></li>
+      <li>When will stores send the alternative? <input class="gap" size="28" data-answer="as soon as you raise it|as soon as you raise the requisition|when you raise it"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>33078</li><li>ten days</li><li>the aircraft is AOG</li><li>33079</li><li>a new requisition</li><li>in quarantine</li><li>as soon as you raise the requisition</li></ol></details>
+  </div>
+
+  <div class="ex" id="e8">
+    <span class="tag">E8 &middot; Listening review</span>
+    <h3>Questions on Dialogue 3</h3>
+    <p class="instr">Play Dialogue 3 again, and then answer. Write short answers.</p>
+    <ol>
+      <li>What is the aircraft status? <input class="gap" size="18" data-answer="aog|the aircraft is aog|it is aog"></li>
+      <li>What is the part number of the valve? <input class="gap" size="10" data-answer="33078"></li>
+      <li>Why can stores not send it at once? <input class="gap" size="20" data-answer="it is on backorder|on backorder|backorder"></li>
+      <li>What is the lead time from the supplier? <input class="gap" size="12" data-answer="ten days|10 days|ten"></li>
+      <li>What does stores offer instead? <input class="gap" size="26" data-answer="an alternative|alternative|an alternative valve|an interchangeable valve"></li>
+      <li>What must the technician raise for the alternative? <input class="gap" size="20" data-answer="a new requisition|requisition|a requisition|new requisition"></li>
+    </ol>
+    <button class="btn primary check-btn">Check</button><span class="score"></span>
+    <details class="reveal"><summary>Answers</summary><ol><li>AOG (the aircraft is on ground)</li><li>33078</li><li>it is on backorder</li><li>ten days</li><li>an alternative valve</li><li>a new requisition</li></ol></details>
+  </div>
+</section>
+
+<section class="lecture-section" id="speaking">
+  <h2><span class="secnum">05</span>Speaking: request a part on the phone</h2>
+  <p>Work in pairs, so that one person is the technician and the other represents stores. Use the useful phrases, and remain polite even when the news is bad, because a calm request produces a faster answer. Swap roles after each card.</p>
+
+  <div class="roleplay">
+    <h4>Role-play card 1 &mdash; Request a filter by number, quantity and reason</h4>
+    <div class="field"><span class="flab">Situation</span> A filter has failed on the A320 line, so you telephone stores immediately.</div>
+    <div class="field"><span class="flab">Your role</span> Technician making the first request.</div>
+    <div class="field"><span class="flab">Your goal</span> Give the part number, the quantity and the reason, and ask politely with <i>could</i> or <i>would</i>.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>Could you check the stock?</span><span>The part number is&hellip;</span><span>I need a quantity of&hellip;</span><span>The reason is&hellip;</span><span>Would you send it to the line?</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 2 &mdash; Confirm interchangeability and certification status</h4>
+    <div class="field"><span class="flab">Situation</span> The number on the shelf is different from the number on your work order.</div>
+    <div class="field"><span class="flab">Your role</span> Technician checking a possible alternative.</div>
+    <div class="field"><span class="flab">Your goal</span> Confirm the interchangeability from the IPC, and check the Form 1, the batch number and the shelf life.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>Could you check the interchangeability?</span><span>Does the IPC give a cross-reference?</span><span>Is the certification status good?</span><span>Could you confirm the Form 1?</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 3 &mdash; Handle a backorder (technician)</h4>
+    <div class="field"><span class="flab">Situation</span> The aircraft is AOG, and the part you need is on backorder.</div>
+    <div class="field"><span class="flab">Your role</span> Technician under time pressure.</div>
+    <div class="field"><span class="flab">Your goal</span> Explain the AOG, ask for an alternative or a shorter lead time, and agree a time you can accept.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>The aircraft is AOG.</span><span>Ten days is too long.</span><span>Could you offer an alternative?</span><span>When can you send it?</span><span>Would you be able to&hellip;?</span></div>
+    </div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 4 &mdash; Handle a backorder (stores)</h4>
+    <div class="field"><span class="flab">Situation</span> A technician calls with an AOG, but your stock of the part is zero.</div>
+    <div class="field"><span class="flab">Your role</span> Stores clerk trying to help.</div>
+    <div class="field"><span class="flab">Your goal</span> Give the bad news politely, check the IPC for an alternative, and offer a time or a solution.</div>
+    <div class="field"><span class="flab">Useful phrases</span>
+      <div class="phr"><span>I am sorry, it is on backorder.</span><span>The lead time is&hellip;</span><span>Let me check the IPC.</span><span>There is an alternative.</span><span>Could you raise a new requisition?</span></div>
+    </div>
+  </div>
+
+  <div class="ai-box">
+    <h3>AI conversation partner</h3>
+    <p>Copy one prompt into the chat buddy, and speak your part out loud, because the AI plays stores and gently corrects your English.</p>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are a stores clerk at a Part-145 hangar, and I am a technician on the A320 line. I will phone you to request a hydraulic filter. Make me give the part number, the quantity and the reason before you release it. Speak only at CEFR B2, with short sentences. Ask me one follow-up question each turn. If I make an English mistake, especially with a polite request (for example "Could you to check the stock"), gently repeat my sentence the correct way, then continue. Stay in the stores scenario. You may add one Latvian gloss in brackets for a hard term.</code></div>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are a stores clerk, and I am a technician checking an alternative part. The number on the shelf is different from my work order. Help me confirm the interchangeability from the IPC, and the certification status and Form 1. Speak only at CEFR B2 and keep answers short. Ask me one question each turn about the part or its papers. If I use "could" or "would" wrongly (for example "Could you confirms" or "You could send me two, please?"), recast my sentence correctly, then carry on. Stay in the stores scenario.</code></div>
+    <div class="prompt"><button class="btn copybtn copy-btn">Copy</button><code>You are a stores clerk, and I am a technician with an AOG aircraft. The valve I need is on backorder with a ten-day lead time. Play it as a negotiation: I must ask for an alternative or a shorter time, and we agree a solution. Speak only at CEFR B2 with short sentences. After each of my turns, ask one follow-up question. Gently correct any polite-request or vocabulary error by repeating it the right way. Do not lecture me. Ask exactly one question each turn. Stay in the stores scenario.</code></div>
+  </div>
+</section>
+
+<section class="lecture-section" id="writing">
+  <h2><span class="secnum">06</span>Writing: a parts request note</h2>
+  <p>Write a short parts request note for stores, and use Simplified Technical English, because short sentences and simple words are easier to read on the line. Give the part number, the quantity and the reason, and then request the part with a polite form. Follow the checklist below.</p>
+  <div class="callout">
+    <h4>Your task</h4>
+    <p>Write 80&ndash;110 words to request a hydraulic filter for an AOG A320. Give the part number, the quantity and the reason, and ask stores to check the stock and to send the part. Then ask them to confirm the Form 1 and the interchangeability of any alternative. Use <i>could</i> or <i>would</i> for every request, and keep every sentence short and clear.</p>
+  </div>
+  <details class="reveal"><summary>Show model answer</summary>
+    <div class="reading-text">
+      <p class="doc-head">PARTS REQUEST &mdash; A320 LINE &mdash; AOG</p>
+      <p>To: stores. From: line technician. Work order: 4471.</p>
+      <p>The aircraft is AOG, because one hydraulic filter is unserviceable after a leak.</p>
+      <p>Part number: 26114501. Quantity: two, because I need one to fit and one spare.</p>
+      <p>Could you check the stock, please? Would you send both filters to the A320 line?</p>
+      <p>Each filter must have a serviceable tag and a valid Form 1, so could you confirm the certification status?</p>
+      <p>If the part is on backorder, could you offer an alternative, as long as the interchangeability is confirmed in the IPC? I will raise the requisition now.</p>
+    </div>
+  </details>
+  <h3>Self-check</h3>
+  <ul class="checklist">
+    <li>Did I use short sentences and simple words (Simplified Technical English)?</li>
+    <li>Did I give the part number, the quantity and the reason?</li>
+    <li>Did I ask every request with <i>could</i> or <i>would</i>, and not with an order?</li>
+    <li>Did I write the modal plus the base verb, with no "to" and no "-s"?</li>
+  </ul>
+</section>
+
+<style>
+  .wk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin:14px 0}
+  .widget{border:1px solid var(--line,#e2e6ec);border-radius:14px;background:#fff;padding:14px 16px;box-shadow:var(--shadow-sm)}
+  .widget h4{margin:0 0 4px;font-size:1rem;color:var(--color-primary-dark,#1f3a6b)}
+  .widget p.wc{font-size:13px;color:var(--ink-muted,#707582);margin:0 0 10px}
+  canvas.viz{display:block;width:100%;height:112px;border:1px solid var(--border,#e7e3d8);border-radius:10px;background:#fbfdff}
+  .wrow{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+  .wbtn{font:inherit;font-size:13px;font-weight:600;background:var(--bg-sunken,#f3f1ea);color:var(--ink,#1f2230);
+    border:1px solid var(--border,#e7e3d8);border-radius:8px;padding:6px 11px;cursor:pointer;transition:.14s}
+  .wbtn:hover{border-color:var(--color-primary,#2F5496)}
+  .wbtn.on{background:var(--color-primary,#2F5496);border-color:var(--color-primary,#2F5496);color:#fff}
+  .wlab{font-family:var(--font-mono,monospace);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-muted,#707582);width:100%;margin-top:6px}
+  .widget input.wtext{font:inherit;font-size:14px;border:1px solid var(--border,#e7e3d8);border-radius:8px;padding:6px 9px;min-width:130px}
+  .widget input[type=range]{width:100%;accent-color:var(--color-primary,#2F5496)}
+  pre.worked{background:var(--bg-sunken,#f3f1ea);border:1px solid var(--border,#e7e3d8);border-left:4px solid var(--gold,#c8821a);
+    border-radius:0 var(--radius-sm,6px) var(--radius-sm,6px) 0;padding:12px 16px;margin:12px 0;overflow-x:auto;
+    font-family:var(--font-mono,monospace);font-size:13px;line-height:1.55;color:#33384a;white-space:pre-wrap}
+  pre.worked b{color:var(--color-primary-dark,#1f3a6b)}
+</style>
+
+<section class="lecture-section" id="workshop">
+  <h2><span class="secnum">07</span>Interactive workshop &mdash; build the request</h2>
+  <p>These small tools let you practise the language of the unit on your own. You drive each one: you press a button, drag a slider or type a number, and the tool shows you at once whether the request is polite, whether an alternative is safe to fit, and whether a lead time is acceptable for an aircraft on ground. Try each tool two or three times, and say the finished sentence out loud before you move on.</p>
+
+  <div class="wk-grid">
+    <div class="widget" id="w1">
+      <h4>1 &middot; Polite request builder</h4>
+      <p class="wc">Choose an opener, a verb and an object. A request must begin with <i>could</i> or <i>would</i>, not with a bare order.</p>
+      <canvas class="viz" id="w1c" width="520" height="112"></canvas>
+      <div class="wrow" data-grp="open"><span class="wlab">Opener</span>
+        <button class="wbtn" data-v="Could you">Could you</button>
+        <button class="wbtn" data-v="Would you">Would you</button>
+        <button class="wbtn" data-v="(order)">Send it! (order)</button></div>
+      <div class="wrow" data-grp="verb"><span class="wlab">Verb</span>
+        <button class="wbtn" data-v="check">check</button>
+        <button class="wbtn" data-v="confirm">confirm</button>
+        <button class="wbtn" data-v="offer">offer</button></div>
+      <div class="wrow" data-grp="obj"><span class="wlab">Object</span>
+        <button class="wbtn" data-v="the stock">the stock</button>
+        <button class="wbtn" data-v="the Form 1">the Form 1</button>
+        <button class="wbtn" data-v="an alternative">an alternative</button></div>
+    </div>
+
+    <div class="widget" id="w2">
+      <h4>2 &middot; Interchangeability lamp</h4>
+      <p class="wc">An alternative part is safe to fit only when all three checks are green. Press each check to switch it on.</p>
+      <canvas class="viz" id="w2c" width="520" height="112"></canvas>
+      <div class="wrow">
+        <button class="wbtn" data-k="mod">Mod status matches</button>
+        <button class="wbtn" data-k="form">Valid Form 1</button>
+        <button class="wbtn" data-k="tag">Serviceable tag</button></div>
+    </div>
+
+    <div class="widget" id="w3">
+      <h4>3 &middot; Lead-time meter</h4>
+      <p class="wc">Drag the slider to a lead time. For an AOG aircraft, only a short time is acceptable.</p>
+      <canvas class="viz" id="w3c" width="520" height="112"></canvas>
+      <div class="wrow"><span class="wlab">Lead time: <b id="w3v">0</b> day(s)</span>
+        <input type="range" id="w3r" min="0" max="14" value="0"></div>
+    </div>
+
+    <div class="widget" id="w4">
+      <h4>4 &middot; Part-number readback</h4>
+      <p class="wc">Read the spoken digits, then type the part number. On the phone you must hear each figure exactly.</p>
+      <canvas class="viz" id="w4c" width="520" height="112"></canvas>
+      <div class="wrow">
+        <button class="wbtn" id="w4new">New number</button>
+        <input class="wtext" id="w4in" placeholder="type the digits" inputmode="numeric">
+        <button class="wbtn" id="w4chk">Check</button></div>
+    </div>
+
+    <div class="widget" id="w5">
+      <h4>5 &middot; Requisition order</h4>
+      <p class="wc">A good request gives three things in order. Press the three tiles in the correct order.</p>
+      <canvas class="viz" id="w5c" width="520" height="112"></canvas>
+      <div class="wrow">
+        <button class="wbtn" data-o="reason">reason</button>
+        <button class="wbtn" data-o="part number">part number</button>
+        <button class="wbtn" data-o="quantity">quantity</button>
+        <button class="wbtn" id="w5reset">reset</button></div>
+    </div>
+
+    <div class="widget" id="w6">
+      <h4>6 &middot; Find the error</h4>
+      <p class="wc">Each draft request has one mistake. Press the wrong word to correct the line.</p>
+      <canvas class="viz" id="w6c" width="520" height="112"></canvas>
+      <div class="wrow" id="w6row"></div>
+      <div class="wrow"><button class="wbtn" id="w6next">Next sentence</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="lecture-section" id="ste">
+  <h2><span class="secnum">08</span>Reference &mdash; Simplified Technical English for stores</h2>
+  <p>Stores requests are read fast, often on a noisy line or a busy hangar floor, so you write them in Simplified Technical English. You use short sentences, one instruction per line, and simple words. You keep the specialist terms of this unit, because they are precise, but you cut every word that does not carry meaning. The worked examples below show the shape of a clear request, and how to rewrite a wordy line into a clean one.</p>
+
+  <h3>The five habits that keep a request clear</h3>
+  <p>Write one idea in each sentence, and keep each sentence short. Use the active voice, so the reader knows who does what. Use a term the same way every time; do not call it a <i>filter</i> on one line and a <i>unit</i> on the next. Give a number when you mean a number, so a quantity is a figure, not a phrase. Ask with <i>could</i> or <i>would</i>, because a bare order sounds rude and slows the answer.</p>
+
+  <pre class="worked"><b>WORKED 1 &mdash; the shape of a stores call</b>
+1  Say who you are and where.   "This is Anna, avionics bay."
+2  Give the part number.        "Part number 5-9-2-0-1-1."
+3  Give the quantity.           "Quantity: one."
+4  Give the reason.             "The relay is unserviceable."
+5  Ask politely.                "Could you check the stock, please?"</pre>
+
+  <pre class="worked"><b>WORKED 2 &mdash; rewrite wordy into Simplified Technical English</b>
+BEFORE:  I was wondering whether it might perhaps be possible for you
+         to have a look and see if there are any of these in stock.
+AFTER:   Could you check the stock, please?
+Why:     one idea, one short sentence, a clear polite request.</pre>
+
+  <pre class="worked"><b>WORKED 3 &mdash; a clean requisition note</b>
+PART NUMBER : 26114501
+DESCRIPTION : hydraulic filter
+QUANTITY    : 2
+REASON      : one unserviceable, one spare
+PAPERS      : serviceable tag + EASA Form 1 required
+DELIVER TO  : A320 line</pre>
+
+  <pre class="worked"><b>WORKED 4 &mdash; handle a backorder, step by step</b>
+1  Hear the bad news.   "The valve is on backorder."
+2  State the pressure.  "The aircraft is AOG."
+3  Ask for a way out.   "Could you offer an alternative?"
+4  Check it is safe.    "Is the interchangeability confirmed?"
+5  Agree a time.        "Could you deliver it as soon as possible?"</pre>
+
+  <pre class="worked"><b>WORKED 5 &mdash; before you fit an alternative, confirm</b>
+[ ] Interchangeability confirmed in the IPC cross-reference
+[ ] Mod status matches on aircraft and part
+[ ] Certification status valid (current EASA Form 1)
+[ ] Serviceable tag and batch number present
+[ ] Shelf life good; expiry date not passed</pre>
+
+  <pre class="worked"><b>WORKED 6 &mdash; the polite-request formula</b>
+Could / Would + you + BASE VERB + object ( + please )
+  Could you check the stock?          &lt;- no "to", no "-s"
+  Would you send it to the line?      &lt;- modal first, then you
+  Could you possibly confirm it?      &lt;- softer still</pre>
+
+  <p>Read your finished note once more before you send it. Ask yourself the four questions in the self-check at the end of the unit: short sentences, the part number and quantity and reason, a polite request each time, and the base verb after the modal. When all four are true, the request is ready for stores.</p>
+</section>
+
+<script>
+(function(){
+  "use strict";
+  function ctx(id){ var c=document.getElementById(id); return c?{c:c,x:c.getContext('2d'),w:c.width,h:c.height}:null; }
+  function clear(g,bg){ g.x.clearRect(0,0,g.w,g.h); g.x.fillStyle=bg||'#fbfdff'; g.x.fillRect(0,0,g.w,g.h); }
+  var NAVY='#1f3a6b', BLUE='#2F5496', GOOD='#2e9e6b', BAD='#c0392b', AMBER='#c8821a', INK='#33384a';
+
+  /* ---- W1 polite request builder ---- */
+  (function(){
+    var g=ctx('w1c'); if(!g) return;
+    var st={open:'',verb:'',obj:''}, glow=0;
+    function ok(){ return st.open==='Could you'||st.open==='Would you'; }
+    function draw(){
+      clear(g);
+      var made=(st.open&&st.open!=='(order)'?st.open:(st.open==='(order)'?'Send it!':'...'))+
+               ' '+(st.verb||'...')+' '+(st.obj||'...')+(ok()?'?':'');
+      g.x.fillStyle=INK; g.x.font='16px Inter,system-ui,sans-serif';
+      g.x.fillText(made.slice(0,60),16,42);
+      var good=ok()&&st.verb&&st.obj;
+      g.x.globalAlpha=0.35+0.65*(glow/16);
+      g.x.fillStyle=good?GOOD:(st.open?BAD:'#9db0c6');
+      g.x.beginPath(); g.x.arc(30,84,12,0,7); g.x.fill(); g.x.globalAlpha=1;
+      g.x.fillStyle=good?GOOD:(st.open?BAD:'#707582'); g.x.font='13px Inter,system-ui,sans-serif';
+      g.x.fillText(good?'Polite request — good.':(st.open==='(order)'?'A bare order sounds rude. Use could / would.':'Choose an opener, a verb and an object.'),52,88);
+    }
+    function pulse(){ glow=16; (function loop(){ if(glow>0){glow--; draw(); requestAnimationFrame(loop);} })(); }
+    document.querySelectorAll('#w1 .wrow').forEach(function(row){
+      var grp=row.getAttribute('data-grp');
+      row.querySelectorAll('.wbtn').forEach(function(b){
+        b.addEventListener('click',function(){
+          row.querySelectorAll('.wbtn').forEach(function(o){o.classList.remove('on');});
+          b.classList.add('on'); st[grp]=b.getAttribute('data-v'); pulse();
+        });
+      });
+    });
+    draw();
+  })();
+
+  /* ---- W2 interchangeability lamp ---- */
+  (function(){
+    var g=ctx('w2c'); if(!g) return; var st={mod:false,form:false,tag:false}, glow=0;
+    function all(){ return st.mod&&st.form&&st.tag; }
+    function draw(){
+      clear(g);
+      var keys=[['mod','Mod'],['form','Form 1'],['tag','S/tag']];
+      keys.forEach(function(k,i){
+        var on=st[k[0]], cx=90+i*90;
+        g.x.fillStyle=on?GOOD:'#d7dee8'; g.x.beginPath(); g.x.arc(cx,44,16,0,7); g.x.fill();
+        g.x.fillStyle=INK; g.x.font='12px Inter,system-ui,sans-serif'; g.x.textAlign='center';
+        g.x.fillText(k[1],cx,80);
+      });
+      g.x.textAlign='left';
+      g.x.globalAlpha=0.4+0.6*(glow/16);
+      g.x.fillStyle=all()?GOOD:'#9db0c6'; g.x.beginPath(); g.x.arc(400,44,20,0,7); g.x.fill(); g.x.globalAlpha=1;
+      g.x.fillStyle=all()?GOOD:'#707582'; g.x.font='13px Inter,system-ui,sans-serif'; g.x.textAlign='center';
+      g.x.fillText(all()?'SAFE TO FIT':'not yet',400,82); g.x.textAlign='left';
+    }
+    function pulse(){ glow=16; (function loop(){ if(glow>0){glow--; draw(); requestAnimationFrame(loop);} })(); }
+    document.querySelectorAll('#w2 .wbtn').forEach(function(b){
+      b.addEventListener('click',function(){ var k=b.getAttribute('data-k'); st[k]=!st[k]; b.classList.toggle('on',st[k]); pulse(); });
+    });
+    draw();
+  })();
+
+  /* ---- W3 lead-time meter ---- */
+  (function(){
+    var g=ctx('w3c'); if(!g) return; var target=0, shown=0;
+    function band(d){ if(d<=1) return[GOOD,'Fit today — acceptable']; if(d<=3) return[AMBER,'OK with an alternative']; return[BAD,'Too long for an AOG']; }
+    function draw(){
+      clear(g);
+      g.x.fillStyle='#e7ebf1'; g.x.fillRect(20,50,480,14);
+      var frac=shown/14, b=band(shown);
+      g.x.fillStyle=b[0]; g.x.fillRect(20,50,480*frac,14);
+      g.x.fillStyle=INK; g.x.font='14px Inter,system-ui,sans-serif';
+      g.x.fillText(Math.round(shown)+' day(s)',20,36);
+      g.x.fillStyle=b[0]; g.x.font='13px Inter,system-ui,sans-serif'; g.x.fillText(b[1],20,88);
+    }
+    function animate(){ (function loop(){ var d=target-shown; if(Math.abs(d)>0.3){ shown+=d*0.25; draw(); requestAnimationFrame(loop);} else { shown=target; draw(); } })(); }
+    var r=document.getElementById('w3r'), v=document.getElementById('w3v');
+    r.addEventListener('input',function(){ target=+r.value; v.textContent=r.value; animate(); });
+    draw();
+  })();
+
+  /* ---- W4 part-number readback ---- */
+  (function(){
+    var g=ctx('w4c'); if(!g) return; var num='', words='', sweep=0;
+    var W=['zero','one','two','three','four','five','six','seven','eight','nine'];
+    function gen(){
+      var len=5+Math.floor((num.length%3)+ (Date? 0:0)); // deterministic-ish varies by state
+      len=5+((num.length+3)%4); var s=''; var seed=(num.length*7+13);
+      for(var i=0;i<len;i++){ seed=(seed*1103515245+12345)&0x7fffffff; s+=(seed%10); }
+      num=s; words=s.split('').map(function(d){return W[+d];}).join(' ');
+      draw('Read the digits, then type them.'); sweepAnim();
+    }
+    function draw(msg,col){
+      clear(g);
+      g.x.fillStyle=NAVY; g.x.font='15px "JetBrains Mono",monospace';
+      g.x.fillText(words||'press "New number"',16,40);
+      g.x.fillStyle='#e7ebf1'; g.x.fillRect(16,58,488,10);
+      g.x.fillStyle=BLUE; g.x.fillRect(16,58,488*(sweep/100),10);
+      g.x.fillStyle=col||'#707582'; g.x.font='13px Inter,system-ui,sans-serif';
+      g.x.fillText(msg||'',16,90);
+    }
+    function sweepAnim(){ sweep=0; (function loop(){ if(sweep<100){ sweep+=6; draw('Read the digits, then type them.'); requestAnimationFrame(loop);} })(); }
+    document.getElementById('w4new').addEventListener('click',gen);
+    document.getElementById('w4chk').addEventListener('click',function(){
+      var val=(document.getElementById('w4in').value||'').replace(/\D/g,'');
+      if(!num){ draw('Press "New number" first.'); return; }
+      draw(val===num?('Correct — '+num):('Not yet. It was '+num), val===num?GOOD:BAD);
+    });
+    draw('Press "New number" to begin.');
+  })();
+
+  /* ---- W5 requisition order ---- */
+  (function(){
+    var g=ctx('w5c'); if(!g) return; var seq=[], target=['part number','quantity','reason'], grow=0;
+    function draw(){
+      clear(g); var slots=['1','2','3'];
+      for(var i=0;i<3;i++){
+        var x=20+i*168; var filled=seq[i];
+        g.x.strokeStyle='#c9d4e2'; g.x.strokeRect(x,32,150,44);
+        g.x.fillStyle=filled?(filled===target[i]?GOOD:BAD):'#9db0c6';
+        g.x.font='13px Inter,system-ui,sans-serif';
+        g.x.fillText(filled||('slot '+slots[i]),x+10,58);
+      }
+      var done=seq.length===3;
+      g.x.fillStyle=done?(seq.join()===target.join()?GOOD:BAD):'#707582'; g.x.font='13px Inter,system-ui,sans-serif';
+      g.x.fillText(done?(seq.join()===target.join()?'Correct order — part number, quantity, reason.':'Wrong order — try reset.'):'Press the tiles in order.',20,100);
+    }
+    function gras(){ grow=1;(function loop(){ if(grow<8){grow++; draw(); requestAnimationFrame(loop);} })(); }
+    document.querySelectorAll('#w5 .wbtn[data-o]').forEach(function(b){
+      b.addEventListener('click',function(){ if(seq.length<3){ seq.push(b.getAttribute('data-o')); gras(); } });
+    });
+    document.getElementById('w5reset').addEventListener('click',function(){ seq=[]; draw(); });
+    draw();
+  })();
+
+  /* ---- W6 find the error ---- */
+  (function(){
+    var g=ctx('w6c'); if(!g) return;
+    var items=[
+      {toks:['Could','you','to','check','the','stock'],bad:2,fix:'no "to" after could'},
+      {toks:['Could','you','confirms','the','Form 1'],bad:2,fix:'no "-s" after a modal'},
+      {toks:['Please','you','raise','a','requisition'],bad:0,fix:'start with Could you'},
+      {toks:['Would','you','to','send','it','today'],bad:2,fix:'no "to" after would'}
+    ];
+    var idx=0, glow=0, solved=false;
+    function row(){
+      var r=document.getElementById('w6row'); r.innerHTML='';
+      items[idx].toks.forEach(function(tok,i){
+        var b=document.createElement('button'); b.className='wbtn'; b.textContent=tok;
+        b.addEventListener('click',function(){
+          solved=(i===items[idx].bad);
+          draw(solved?('Correct — '+items[idx].fix):'Not that word — try again.', solved?GOOD:BAD); glowAnim();
+        });
+        r.appendChild(b);
+      });
+    }
+    function draw(msg,col){
+      clear(g);
+      g.x.fillStyle=INK; g.x.font='15px Inter,system-ui,sans-serif';
+      g.x.fillText(items[idx].toks.join(' '),16,42);
+      g.x.globalAlpha=0.4+0.6*(glow/12); g.x.fillStyle=col||'#9db0c6';
+      g.x.beginPath(); g.x.arc(28,84,11,0,7); g.x.fill(); g.x.globalAlpha=1;
+      g.x.fillStyle=col||'#707582'; g.x.font='13px Inter,system-ui,sans-serif';
+      g.x.fillText(msg||'Press the wrong word.',48,88);
+    }
+    function glowAnim(){ glow=12;(function loop(){ if(glow>0){glow--; var last=g.x; draw(document.__w6msg,document.__w6col); requestAnimationFrame(loop);} })(); }
+    // store last message for glow redraw
+    var _draw=draw; draw=function(m,c){ document.__w6msg=m; document.__w6col=c; _draw(m,c); };
+    document.getElementById('w6next').addEventListener('click',function(){ idx=(idx+1)%items.length; row(); draw('Press the wrong word.'); });
+    row(); draw('Press the wrong word.');
+  })();
+})();
+</script>
+
+<script src="tsi-buddy.js"></script>
+<script>
+(function(){
+  if(!window.TSIBuddy) return;
+  TSIBuddy.mount({
+    temperature: 0.4,
+    contextLabel: "Unit 7 · Requesting parts from stores",
+    openingLine: "I want to practise phoning stores to request a part. Please play the stores clerk.",
+    systemPrompt: "You are a conversation partner for a CEFR B2 English lesson for aircraft maintenance technicians (EASA Part-66/145). The unit is 'Requesting parts from stores'. Stay inside the unit's scenarios: a technician on the A320 line phones stores to request a part, to confirm the interchangeability and certification status of an alternative, and to handle a part that is on backorder. Play the role the learner assigns (a stores clerk or a stores supervisor). When you play stores, make the learner give the part number, the quantity and the reason before you release a part, and when stock is zero offer an alternative or a lead time so the learner must negotiate. Speak ONLY at CEFR B2: short sentences, common words plus the unit's specialist terms (part number, quantity, stores, work order, requisition, serviceable tag, Form 1, certification status, unserviceable, quarantine, backorder, shortage, lead time, alternative, interchangeability, cross-reference, IPC, batch number, shelf life, expiry date, AOG). Keep every answer short, two or three sentences at most, and ask exactly ONE follow-up question each turn. When the learner makes an English error, gently recast their sentence the correct way and then continue; never lecture. Pay special attention to polite requests with could/would: if they say 'Could you to check the stock?', reply naturally with the correct form; if they give a bare order like 'Check the stock.', model it back as 'Could you check the stock, please?'. Use English only. You may add one Latvian gloss in brackets for a single hard term if the learner seems stuck. Never write the learner's request for them; instead prompt them with one guiding question."
+  });
+})();
+</script>
+
+
+</article>
+<script>
+(function(){
+  // gap-fill and matching check
+  document.querySelectorAll('.check-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var ex=btn.closest('.ex');
+      var fields=ex.querySelectorAll('[data-answer]');
+      var ok=0,tot=0;
+      fields.forEach(function(f){
+        tot++;
+        var val=(f.value||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[?.!,]+$/,'');
+        var answers=f.getAttribute('data-answer').toLowerCase().split('|').map(function(s){return s.trim();});
+        if(val!=='' && answers.indexOf(val)!==-1){f.classList.add('right');f.classList.remove('wrong');ok++;}
+        else{f.classList.add('wrong');f.classList.remove('right');}
+      });
+      var sc=ex.querySelector('.score');
+      if(sc){sc.textContent=ok+' / '+tot+' correct';}
+    });
+  });
+  // copy prompt
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var code=btn.parentElement.querySelector('code');
+      var text=code?code.textContent:'';
+      if(navigator.clipboard){navigator.clipboard.writeText(text);}
+      var old=btn.textContent;btn.textContent='Copied';
+      setTimeout(function(){btn.textContent=old;},1200);
+    });
+  });
+})();
+</script>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 7 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body></html>
