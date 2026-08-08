@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+  <question type="category">
+    <category><text>$course$/top/CF/U11-r1</text></category>
+    <info format="html"><text><![CDATA[Unit 11 — Reading a wiring diagram and connector/pin talk. Skills-split item bank: listening, reading, use of English, vocabulary.]]></text></info>
+  </question>
+
+  <!-- ============================ LISTENING (7) ============================ -->
+
+  <question type="multichoice">
+    <name><text>L1 · Dialogue 1 — where W241 terminates</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Where does wire W241 finally terminate?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The conductor runs from pin 3 on P1, through the harness, and lands on socket B inside connector J12. Pin 3 on P1 is the start, not the end.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[socket B on connector J12]]></text><feedback format="html"><text><![CDATA[Correct — the conductor lands on socket B inside J12.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[pin 3 on connector P1]]></text><feedback format="html"><text><![CDATA[That is where W241 starts, not where it ends.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[terminal block TB2 near J12]]></text><feedback format="html"><text><![CDATA[TB2 belongs to Dialogue 2's run, not W241 in Dialogue 1.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the bonding strap on pin 4]]></text><feedback format="html"><text><![CDATA[Pin 4 is the ground/return, not the termination of the signal.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>L2 · Dialogue 3 — open, not short</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 3 again.</b> How does Technician A know the fault is an open circuit and not a short?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>An open reads no continuity and an <i>infinite</i> resistance. A short would read near <i>zero</i> resistance to ground — the opposite reading.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[resistance reads infinite, not near zero]]></text><feedback format="html"><text><![CDATA[Correct — infinite resistance points to a break, i.e. an open.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the circuit breaker keeps tripping to ground]]></text><feedback format="html"><text><![CDATA[A tripping breaker suggests a short, not an open.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the chafed insulation is touching the airframe]]></text><feedback format="html"><text><![CDATA[That describes a short circuit to ground, the opposite fault.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the braided shield is grounding the inner core]]></text><feedback format="html"><text><![CDATA[That is a short-circuit mechanism, not evidence of an open.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L3 · Dialogue 1 — ground on pin 4</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> Technician A says the ground is on pin 4, connected by a bonding strap to the airframe structure.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. A states: "The ground is on pin 4, connected by a bonding strap to the airframe structure."</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — pin 4, via a bonding strap to structure.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Listen again: the ground is on pin 4, bonded to the airframe.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>L4 · Dialogue 2 — conductor intact</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> Technician B reports that the conductor itself is broken.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. B says the insulation "looks chafed near the clamp, although the conductor itself appears intact." The damage is to the cover, not the wire.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[Not quite — the conductor appears intact; only the insulation is chafed.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — the insulation is chafed, but the conductor is intact.]]></text></feedback></answer>
+  </question>
+
+  <question type="numerical">
+    <name><text>L5 · Dialogue 1 — origin pin number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> On which <b>pin number</b> at connector P1 does wire W241 originate? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>W241 "originates at pin 3 on connector P1". The answer is 3.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>3</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — pin 3 on P1.]]></text></feedback></answer>
+    <answer fraction="0"><text>4</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Pin 4 is the ground/bonding pin, not the origin.]]></text></feedback></answer>
+    <defaultgrade>1</defaultgrade>
+  </question>
+
+  <question type="numerical">
+    <name><text>L6 · Dialogue 2 — pin located</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 2 again.</b> Which <b>pin number</b> does Technician B locate — the one he must not confuse with pin 1? Write the number only.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A asks B to "find pin 7 specifically, and be careful not to confuse it with pin 1." The answer is 7.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>7</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — pin 7, top row of the socket.]]></text></feedback></answer>
+    <answer fraction="0"><text>1</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Pin 1 is the one B is warned NOT to confuse it with.]]></text></feedback></answer>
+    <defaultgrade>1</defaultgrade>
+  </question>
+
+  <question type="numerical">
+    <name><text>L7 · Dialogue 1 — end connector number</text></name>
+    <questiontext format="html"><text><![CDATA[<p><b>Listen to Dialogue 1 again.</b> The conductor ends at connector J__. Write the connector <b>number</b> only (for J12, write 12).</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The conductor "continues onward to connector J12", and socket B is inside J12. The number is 12.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>12</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[Correct — connector J12.]]></text></feedback></answer>
+    <answer fraction="0"><text>1</text><tolerance>0</tolerance><feedback format="html"><text><![CDATA[P1 is the start connector; the end connector is J12.]]></text></feedback></answer>
+    <defaultgrade>1</defaultgrade>
+  </question>
+
+  <!-- ============================ READING (5) ============================ -->
+
+  <question type="multichoice">
+    <name><text>R1 · BITE readout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this built-in test (BITE) readout, then answer.</p>
+<pre>BITE  L/GEAR WARN  CH-A
+TEST: CONTINUITY P1(3) - J12(B)
+RESULT: NO CONTINUITY
+RESISTANCE: OL</pre>
+<p>What does the reading <code>OL</code> most likely indicate on this run?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><code>OL</code> means over-limit (off the scale) — an infinite resistance. With "no continuity" reported, the path between P1 and J12 is broken: an open circuit.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[an open circuit on the run]]></text><feedback format="html"><text><![CDATA[Correct — OL plus "no continuity" means an open circuit.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a short circuit to the airframe]]></text><feedback format="html"><text><![CDATA[A short would read near zero, not OL (infinite).]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a healthy, serviceable conductor]]></text><feedback format="html"><text><![CDATA[A good conductor reads a low resistance, not OL.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[a normal ground reference reading]]></text><feedback format="html"><text><![CDATA[OL is not a ground reading; it signals no path at all.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R2 · MEL entry</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this MEL (Minimum Equipment List) entry, then decide if the statement is true.</p>
+<pre>MEL 32-61  Gear-down warning lamp (one)
+May be inoperative provided the gear-position
+indication is confirmed by an alternate means
+before each flight. Placard and log required.</pre>
+<p><b>Statement:</b> The MEL allows the aircraft to depart with the gear-down warning lamp inoperative, if an alternate means confirms gear position and the defect is placarded and logged.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>True. The MEL permits dispatch with the lamp inoperative under the stated conditions: alternate confirmation of gear position, a placard, and a log entry.</p>]]></text></generalfeedback>
+    <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — dispatch is allowed under the listed provisions.]]></text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Re-read: the entry allows it, provided the conditions are met.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R3 · IPC connector note</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this note from the Illustrated Parts Catalogue (IPC), then answer.</p>
+<pre>ITEM 40  CONNECTOR, RECEPTACLE, J12
+  Mounts on the equipment rack. Mates with
+  plug P/N 812-6 (item 45). Do not order the
+  socket contacts separately; see item 50.</pre>
+<p>According to the note, which part is fixed to the equipment rack?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The receptacle (J12) mounts on the rack. The plug is the moving half that mates with it; the socket contacts sit inside the connector.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[the receptacle, J12]]></text><feedback format="html"><text><![CDATA[Correct — the receptacle is the fixed half on the rack.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the mating plug, P/N 812-6]]></text><feedback format="html"><text><![CDATA[The plug is the moving half; it mates with the fixed receptacle.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the socket contacts, item 50]]></text><feedback format="html"><text><![CDATA[The socket contacts sit inside the connector, not on the rack.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[the bonding strap to structure]]></text><feedback format="html"><text><![CDATA[No bonding strap is mentioned in this IPC note.]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>R4 · Service Bulletin</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this Service Bulletin extract, then decide if the statement is true.</p>
+<pre>SB 32-118  Reason: reports of chafed insulation
+on harness W2 near the forward clamp, which may
+cause an intermittent short to ground. Action:
+inspect the routing; add a protective sleeve.</pre>
+<p><b>Statement:</b> The bulletin says the chafed insulation may cause an open circuit at the connector.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>False. The bulletin warns of an intermittent <i>short to ground</i> from chafed insulation, not an open circuit at the connector.</p>]]></text></generalfeedback>
+    <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[Not quite — the risk stated is a short to ground, not an open.]]></text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — the risk is an intermittent short to ground.]]></text></feedback></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>R5 · Work order</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Read this work-order step, then answer.</p>
+<pre>WO 4471  Step 3: Back-probe the mating plug at
+P1. Measure continuity from pin 3 through to
+socket B at J12. Do not pull on the conductor.</pre>
+<p>Which action does the step tell the technician to avoid?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The step says "Do not pull on the conductor." Pulling can back out a contact or damage a splice, giving a false open reading.</p>]]></text></generalfeedback>
+    <single>true</single><shuffleanswers>1</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><![CDATA[pulling on the conductor]]></text><feedback format="html"><text><![CDATA[Correct — the step warns against pulling the conductor.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[back-probing the mating plug]]></text><feedback format="html"><text><![CDATA[Back-probing the plug is exactly what the step asks for.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[measuring continuity to socket B]]></text><feedback format="html"><text><![CDATA[Measuring continuity to socket B is the required test.]]></text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[starting the probe at pin 3]]></text><feedback format="html"><text><![CDATA[Starting at pin 3 is correct; the warning is about pulling.]]></text></feedback></answer>
+  </question>
+
+  <!-- ======================= USE OF ENGLISH (7) ======================= -->
+
+  <question type="shortanswer">
+    <name><text>U1 · from (start of path)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the one missing preposition.</p><p>"The conductor runs ______ pin 3 on P1 to socket B on J12."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A described path needs <b>from</b> at the start and <b>to</b> at the end. The start is marked by <b>from</b>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>from</text><feedback format="html"><text><![CDATA[Correct — "from" marks the start of the path.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The start of a path is marked by "from" (from … to …).]]></text></feedback></answer>
+    <defaultgrade>1</defaultgrade>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U2 · through (path inside)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the one missing preposition.</p><p>"It travels ______ the harness behind the instrument panel."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Passing inside something long uses <b>through</b>. Watch the spelling: <i>through</i>, not "trough".</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>through</text><feedback format="html"><text><![CDATA[Correct — "through" for passing inside the harness.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use "through" for passing inside the harness.]]></text></feedback></answer>
+    <defaultgrade>1</defaultgrade>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U3 · on/at (fixed position)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the one missing preposition.</p><p>"The bonding strap is secured ______ pin 4 of the connector."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A contact or strap sits <b>on</b> or <b>at</b> a pin — never "in" a pin.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>on</text><feedback format="html"><text><![CDATA[Correct — "on pin 4" (or "at pin 4").]]></text></feedback></answer>
+    <answer fraction="100"><text>at</text><feedback format="html"><text><![CDATA[Correct — "at pin 4" (or "on pin 4").]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use "on" or "at" a pin, never "in".]]></text></feedback></answer>
+    <defaultgrade>1</defaultgrade>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U4 · out of (leaving)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the missing two-word phrase.</p><p>"Trace the conductor ______ the plug and follow it downstream."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Leaving the inside of a connector uses <b>out of</b> — the opposite of <i>into</i>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>out of</text><feedback format="html"><text><![CDATA[Correct — "out of the plug".]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use "out of" for leaving the plug (opposite of "into").]]></text></feedback></answer>
+    <defaultgrade>1</defaultgrade>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U5 · term — complete break</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the two-word term that means: <i>a complete break in the path, so no current flows</i>.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>An <b>open circuit</b> is a complete break. Contrast a <i>short circuit</i>, an unwanted path to ground.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>open circuit</text><feedback format="html"><text><![CDATA[Correct — an open circuit.]]></text></feedback></answer>
+    <answer fraction="100"><text>an open circuit</text><feedback format="html"><text><![CDATA[Correct — an open circuit.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The term is "open circuit" — a complete break in the path.]]></text></feedback></answer>
+    <defaultgrade>1</defaultgrade>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U6 · along (following length)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the one missing preposition.</p><p>"Run your finger ______ the harness until you reach the clamp."</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Following the length of something uses <b>along</b>.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>along</text><feedback format="html"><text><![CDATA[Correct — "along the harness".]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[Use "along" to follow the length of the harness.]]></text></feedback></answer>
+    <defaultgrade>1</defaultgrade>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>U7 · term — the test tool</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Write the one word: the hand tool that reads voltage, resistance and continuity.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A <b>multimeter</b> reads voltage, resistance and continuity. You set it to the continuity range before probing.</p>]]></text></generalfeedback>
+    <usecase>0</usecase>
+    <answer fraction="100"><text>multimeter</text><feedback format="html"><text><![CDATA[Correct — a multimeter.]]></text></feedback></answer>
+    <answer fraction="0"><text>*</text><feedback format="html"><text><![CDATA[The tool is a "multimeter".]]></text></feedback></answer>
+    <defaultgrade>1</defaultgrade>
+  </question>
+
+  <!-- ========================= VOCABULARY (4) ========================= -->
+
+  <question type="matching">
+    <name><text>V1 · connection anatomy — term to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>A pin is male, a socket is female, a connector is the whole fitting, and a harness is the bundle of conductors.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[All correct — the anatomy of a connection.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some pairs are wrong — check male vs female contact.]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Re-check: pin = male, socket = female, connector = the whole fitting.]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[pin]]></text><answer><text>the small male contact inside a connector</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[socket]]></text><answer><text>the female cavity that receives a pin</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[connector]]></text><answer><text>the fitting that joins two sets of conductors</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[harness]]></text><answer><text>a bundle of conductors tied together</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V2 · fault and test terms — term to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Continuity is an unbroken path; an open is a complete break; a short is an unwanted path to ground; resistance is opposition to current, in ohms.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[All correct — the fault-and-test family.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some pairs are wrong — open and short are opposites.]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Re-check: open = a break; short = an unwanted path to ground.]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[continuity]]></text><answer><text>an unbroken electrical path end to end</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[open circuit]]></text><answer><text>a complete break, so no current flows</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[short circuit]]></text><answer><text>an unwanted path, usually to ground</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[resistance]]></text><answer><text>how strongly a path opposes the current</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V3 · collocations — term to its usual word pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to the word it usually pairs with in maintenance documents.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>Learn the collocation with the word: a continuity <i>test</i>, a bonding <i>strap</i>, a shield <i>braid</i>, wire <i>routing</i>.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[All correct — these are the pairs used in the AMM and tech log.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some pairs are wrong — recall "continuity test" and "bonding strap".]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Re-check the usual pairs: continuity + test, bonding + strap.]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[continuity]]></text><answer><text>test</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[bonding]]></text><answer><text>strap</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[shield]]></text><answer><text>braid</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[wire]]></text><answer><text>routing</text></answer></subquestion>
+  </question>
+
+  <question type="matching">
+    <name><text>V4 · structure terms — term to meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match each term to its meaning.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p>The receptacle is the fixed half; the plug is the half you push in; a splice is a permanent joint; a terminal is a fixed connection point.</p>]]></text></generalfeedback>
+    <shuffleanswers>true</shuffleanswers>
+    <correctfeedback format="html"><text><![CDATA[All correct — the structure terms.]]></text></correctfeedback>
+    <partiallycorrectfeedback format="html"><text><![CDATA[Some pairs are wrong — plug vs receptacle is the key contrast.]]></text></partiallycorrectfeedback>
+    <incorrectfeedback format="html"><text><![CDATA[Re-check: receptacle = fixed half; plug = the half you push in.]]></text></incorrectfeedback>
+    <subquestion format="html"><text><![CDATA[receptacle]]></text><answer><text>the fixed connector half, mounted on a unit</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[plug]]></text><answer><text>the connector half you push into the other</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[splice]]></text><answer><text>a joint where two conductors are joined</text></answer></subquestion>
+    <subquestion format="html"><text><![CDATA[terminal]]></text><answer><text>a point where a conductor is fixed</text></answer></subquestion>
+  </question>
+
+</quiz>

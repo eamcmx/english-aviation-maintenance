@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 11 — Teacher Deck · Reading a wiring diagram and connector/pin talk</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--wire:#f2b134;--gnd:#8fb4ff;
+  --mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1}
+h2{font-size:31px;margin:.1em 0 .5em}
+p,li{font-size:21px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:27px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+.card h4{margin:0 0 8px;color:var(--accent);font-size:16px;letter-spacing:.02em}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}
+small{font-size:15px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:900px){.grid2,.grid3{grid-template-columns:1fr}}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px;letter-spacing:.03em}
+.time{font-family:var(--mono);font-size:13px;color:var(--good);font-weight:700}
+.term{font-family:var(--mono);color:#ffd98a;font-weight:700}
+.x{color:#ff9aa2;font-weight:700}.c{color:#9af0c8;font-weight:700}
+table.mini{border-collapse:collapse;width:100%;font-size:16px;margin-top:8px}
+table.mini th,table.mini td{border:1px solid var(--line);padding:7px 11px;text-align:left}
+table.mini th{background:#0c1622;color:#9ec9ff;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+.dw{width:100%;max-width:680px;margin:2px auto 0}
+/* deck widget skin (dark) */
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}
+.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:5px 9px;font-size:14px}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%;border:1px solid #1d2c40}
+.wk .note{color:#7e98ad;font-size:13.5px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:56px;font-size:14.5px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="Open the class. This is a 90-minute B2 lesson for aircraft mechanics and avionics technicians working under EASA Part-66/145. The whole lesson turns on one job: reading a wiring diagram (the WDM) and talking about a wire, a connector and a pin with zero ambiguity, then explaining a suspected open or short circuit. Name the safety point at once — one wrong digit and the pair disconnects the wrong wire, so precise connector-and-pin talk is a genuine safety task, not small talk. Tell the room the shape of the lesson: three model dialogues, a vocabulary bank of 20 taught terms, prepositions of position and path, eight exercises, four role-play cards and one Simplified Technical English writing task. Point out the three keys: press P for the presenter window with these notes and a clock; press L (or the CC button) for live translated captions if any learner needs support in Latvian or Russian; arrow keys move the slides. Set the target outcome in the learner's own words: by the end they can find a wire on the diagram, call every reference clearly, and explain a fault to a colleague.">
+    <div class="kick">English for Aviation Maintenance · CEFR B2 · Unit 11 of 32 · Teacher deck</div>
+    <h1>Reading a wiring diagram &amp; connector/pin talk</h1>
+    <p class="big muted">Find a wire, a connector and a pin on the WDM · call every reference with no ambiguity · explain a suspected open or short circuit to a colleague.</p>
+    <p class="pill">90-minute class &nbsp;·&nbsp; listening · vocabulary · grammar · speaking · writing &nbsp;·&nbsp; P = presenter · L = live captions</p>
+  </section>
+
+  <!-- 2 · OUTCOMES + LESSON MAP -->
+  <section class="slide" data-notes="Share the destination and the route before any content, because learners work harder when they can see where the 90 minutes go. Read the three can-do outcomes aloud — locate and describe a path, call references without ambiguity, explain an open or short. Then walk the timing map on the right so the class knows the rhythm: a short warm-up, listening to the three dialogues, vocabulary, grammar, controlled practice, the pair role-play at the harness, and the tech-log writing task started in class. Stress that the writing is begun here and finished for homework. Keep this slide brief — about two minutes — it is a contract with the room, not teaching.">
+    <div class="kick">By the end · and how the 90 minutes run</div>
+    <h2>Three outcomes — one lesson map</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b style="color:var(--accent)">1 · Locate &amp; describe.</b> Find a wire, connector and pin on the WDM and describe the whole path out loud.</p>
+        <p><b style="color:var(--purple)">2 · Call it clearly.</b> Communicate pin and connector references with no ambiguity, and hear them read back.</p>
+        <p><b style="color:var(--good)">3 · Explain the fault.</b> Explain a suspected open or short circuit to a colleague, and say the next step.</p>
+      </div>
+      <div>
+        <table class="mini">
+          <tr><th>Stage</th><th>Time</th></tr>
+          <tr><td>Warm-up · the situation</td><td class="time">6′</td></tr>
+          <tr><td>Listening · Dialogues 1–3 + voicemail</td><td class="time">22′</td></tr>
+          <tr><td>Vocabulary bank</td><td class="time">12′</td></tr>
+          <tr><td>Grammar · position &amp; path</td><td class="time">12′</td></tr>
+          <tr><td>Exercises E1–E8</td><td class="time">18′</td></tr>
+          <tr><td>Speaking · role-play at the harness</td><td class="time">14′</td></tr>
+          <tr><td>Writing · tech-log entry (start)</td><td class="time">6′</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE SITUATION -->
+  <section class="slide" data-notes="Set the scene the way it happens on the line. The flight crew wrote a snag in the tech log: during the gear-extension check the gear-down warning lamp stays off. This afternoon, at a Part-145 line station, the pair must trace the affected conductor on the wiring diagram — remind the class the WDM is the master drawing of every wire in the aircraft — then find the right connector and pin on a mock harness and describe the route out loud. One technician reads the diagram, the other locates the parts and repeats every reference back. Push the safety line hard: unless both people use identical words, they will disconnect the wrong wire. Ask the room a quick eliciting question — 'What could make a warning lamp stay dark?' — and collect two or three ideas (no power, broken wire, bad ground, blown lamp) to prime the listening. Keep to about three minutes.">
+    <div class="kick">01 · The situation</div>
+    <h2>The gear-down lamp stays off</h2>
+    <div class="cols">
+      <div>
+        <p class="big">A landing-gear warning snag, written in the tech log by the crew. Your job this shift: trace the conductor on the <b>WDM</b>, find the connector and pin on the mock harness, and describe the route so your partner locates it.</p>
+        <p class="muted">One reads the diagram. One locates the parts and reads every reference back. Unless the words match exactly, the wrong wire gets disconnected.</p>
+      </div>
+      <div class="card">
+        <h4>Elicit before you play the audio</h4>
+        <ul>
+          <li>What could make a warning lamp stay dark?</li>
+          <li>Where does a wire begin and end on a diagram?</li>
+          <li>How do we name a connector so nobody confuses it?</li>
+        </ul>
+        <p class="note">Collect answers on the board; you will return to them after Dialogue 1.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · WARM-UP VOCAB ELICIT -->
+  <section class="slide" data-center data-notes="A fast schema-builder before the listening. Show the picture words and ask the class to match the everyday idea to the maintenance term — a fitting that joins two sets of wires is a connector, the male contact is a pin, the female hole is a socket, the bundle of wires is a harness, an unbroken path is continuity. Do it as whole-class call-out, sixty to ninety seconds, no writing yet. The point is only to wake up prior knowledge and pre-teach just enough that the first dialogue is not a wall of new words. If the class is strong, ask for the L1 word too (Latvian or Russian) so bilingual learners anchor the term. Then move straight into Dialogue 1.">
+    <div class="kick">Warm-up · activate the words</div>
+    <h2>Match the idea to the term</h2>
+    <div class="grid3" style="max-width:900px">
+      <div class="card"><p>A fitting that joins two sets of wires →<br><span class="term">connector</span></p></div>
+      <div class="card"><p>The small male contact inside it →<br><span class="term">pin</span></p></div>
+      <div class="card"><p>The female hole that receives it →<br><span class="term">socket</span></p></div>
+      <div class="card"><p>A bundle of wires tied together →<br><span class="term">harness</span></p></div>
+      <div class="card"><p>An unbroken path end-to-end →<br><span class="term">continuity</span></p></div>
+      <div class="card"><p>A complete break, no current →<br><span class="term">open circuit</span></p></div>
+    </div>
+    <p class="muted" style="margin-top:14px">Whole-class call-out only — no writing yet. Add the Latvian / Russian word if it helps.</p>
+  </section>
+
+  <!-- 5 · DIALOGUE 1 + TRACER WIDGET -->
+  <section class="slide" data-notes="Dialogue 1 — tracing a conductor on the WDM. Procedure: play the audio once with books closed and set one gist task on the board — 'Where does wire W241 start and where does it end?' (start: pin 3 on P1; end: socket B on J12). Play a second time, then let the class open the transcript to check. Use the tracer widget as you check: click Good, Open and Short to show the class the physical picture behind the words — the current runs from P1 pin 3, along the loom, into J12 socket B, and the ground returns on pin 4 to the airframe. Press Trace to animate the path so the learners see 'from … along … into … to' as movement, not grammar. Then drill three lines chorally for the natural rhythm: 'It originates at pin 3 on connector P1', 'It travels through the harness to J12', 'Read me the socket number.' Keep the register natural — note the connectors 'although the drawing is crowded' and 'as soon as continuity breaks' for later.">
+    <div class="kick">02 · Listening · Dialogue 1</div>
+    <h2>Tracing a conductor on the WDM</h2>
+    <div class="cols">
+      <div>
+        <p><b>Gist task (books closed):</b> Where does wire <b>W241</b> start, and where does it end?</p>
+        <table class="mini">
+          <tr><th>Reference</th><th>Says</th></tr>
+          <tr><td>Start</td><td>pin 3 on connector P1</td></tr>
+          <tr><td>Path</td><td>through the harness → J12</td></tr>
+          <tr><td>End</td><td>socket B on J12</td></tr>
+          <tr><td>Ground</td><td>pin 4 → bonding strap → airframe</td></tr>
+        </table>
+        <p class="note muted">Play once for gist, once for detail, then open the transcript to check.</p>
+      </div>
+      <div class="dw" data-widget="trace"></div>
+    </div>
+  </section>
+
+  <!-- 6 · DIALOGUE 2 -->
+  <section class="slide" data-notes="Dialogue 2 — calling references on a mock harness. This is the heart of the speaking outcome, so treat the listening as a rehearsal for the role-play. Play once for gist: 'What does Technician B find wrong?' (chafed insulation near the clamp). Play again and focus the class on the read-back routine — A calls a reference, B locates it and says the whole reference back: 'Connector P4, pin 7, top row of the socket, next to the shielded conductor.' Make the class notice why: one digit wrong and the splice ends up in the wrong position. Drill the read-back frame chorally and in pairs — 'Say the whole reference back to me' / 'Connector …, pin …, … row, next to …'. Flag the useful hedges 'be careful not to confuse it with pin 1' and 'the conductor itself appears intact'. This is your set-up for role-play card 1.">
+    <div class="kick">02 · Listening · Dialogue 2</div>
+    <h2>Calling references on a mock harness</h2>
+    <div class="cols">
+      <div class="card">
+        <h4>The read-back routine</h4>
+        <p>A calls a reference → B locates it → <b>B reads the whole reference back</b>.</p>
+        <p class="term" style="color:#ffd98a">"Connector P4, pin 7, top row of the socket, next to the shielded conductor."</p>
+        <p class="muted">Why: one digit wrong and the splice ends up in the wrong position.</p>
+      </div>
+      <div>
+        <p><b>Gist task:</b> What does Technician B find wrong on the run? <span class="muted">(chafed insulation near the clamp)</span></p>
+        <p><b>Drill this frame</b> chorally, then in pairs:</p>
+        <p class="term" style="color:#9af0c8">"Say the whole reference back to me."<br>"Connector ___, pin ___, ___ row, next to ___."</p>
+        <p class="note muted">This dialogue is the rehearsal for role-play card 1.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · DIALOGUE 3 + METER WIDGET -->
+  <section class="slide" data-notes="Dialogue 3 — explaining an open or short circuit. This carries the third outcome. Play once: 'Which fault does A suspect, and how does he know?' (an open circuit; the meter reads no continuity, resistance infinite between P1 and J12). Use the meter widget to make the readings concrete: click Good conductor (a very low resistance, continuity confirmed), Open circuit (infinite, OL — the break), and Short to ground (near zero ohms to the airframe). The language target is the contrast: an open reads infinite; a short reads near zero to ground. Draw out the reasoning verbs the learners will reuse — 'I suspect', 'that confirms', 'it interrupts continuity', 'it reads near zero'. Give the class the three-move explanation frame: name the symptom, give the meter evidence, state the next step. This frame is exactly what role-play card 2 and the writing task need.">
+    <div class="kick">02 · Listening · Dialogue 3</div>
+    <h2>Explaining an open or short circuit</h2>
+    <div class="cols">
+      <div>
+        <p><b>Gist task:</b> Which fault does A suspect, and how does he know?</p>
+        <table class="mini">
+          <tr><th>Fault</th><th>Meter reads</th></tr>
+          <tr><td>Open circuit</td><td>no continuity · resistance <b>infinite</b></td></tr>
+          <tr><td>Short to ground</td><td>near <b>zero</b> resistance to airframe</td></tr>
+        </table>
+        <p class="note muted">Explanation frame: symptom → meter evidence → next step.</p>
+      </div>
+      <div class="dw" data-widget="meter"></div>
+    </div>
+  </section>
+
+  <!-- 8 · LISTENING EXTRA — VOICEMAIL / NUMBERS -->
+  <section class="slide" data-notes="The shift-handover voicemail is a focused listening for spoken figures and codes — a real language skill technicians need on the phone and over the intercom. Play it twice with a note-taking grid: who is calling (Māris, late shift), the wire (W241), the references (pin 3 on P1, socket B on J12), the meter result (no continuity, suspected open), the damage (chafed insulation near the clamp, no short found yet), and the two jobs for the next shift (check the splice at terminal block TB2, confirm the bonding on pin 4). Insist on exact codes read back — W241, P1, J12, pin 3, pin 4, TB2 — because the quiz has numerical items on precisely these figures. If time is short, run this as a dictation of the six references only. This models the shift-handover role-play card 4.">
+    <div class="kick">02 · Listening extra · voicemail</div>
+    <h2>Shift-handover — catch the figures</h2>
+    <div class="cols">
+      <div>
+        <p class="big">Numbers and codes said naturally, at speed. Play twice; learners note the exact references.</p>
+        <p class="muted">A real skill: reading spoken figures back correctly the first time.</p>
+      </div>
+      <div class="card">
+        <h4>Note-taking grid</h4>
+        <table class="mini">
+          <tr><th>Item</th><th>Heard</th></tr>
+          <tr><td>Wire</td><td>W241</td></tr>
+          <tr><td>From</td><td>pin 3 · P1</td></tr>
+          <tr><td>To</td><td>socket B · J12</td></tr>
+          <tr><td>Meter</td><td>no continuity</td></tr>
+          <tr><td>Next shift</td><td>splice at TB2 · bonding pin 4</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · VOCAB — CONNECTOR ANATOMY -->
+  <section class="slide" data-notes="Vocabulary bank, part one: the anatomy of a connection, because these five words are the ones learners confuse. Teach the pairs by contrast, not in a list. A connector is the whole fitting that joins two sets of wires; it has two halves. The plug is the half you push in; the receptacle is the fixed half mounted on the unit or structure. Inside, a pin is the male contact and a socket is the female cavity that receives it; contact is the general word for either metal part that carries the current. Draw it on the board as a simple mating pair. Give one crisp check question — 'Which half is fixed to the structure?' (the receptacle). Then point learners to the collocations in the bank on the page: mate the connector, socket contact, mating plug, receptacle end. Every term here is glossed on the page and reused in the exercises, so keep the teaching tight — about four minutes.">
+    <div class="kick">03 · Vocabulary · anatomy of a connection</div>
+    <h2>Connector, plug, receptacle, pin, socket, contact</h2>
+    <div class="grid2">
+      <div class="card"><h4>The whole fitting</h4><p><span class="term">connector</span> — joins two sets of wires; has two halves.<br><span class="term">plug</span> — the half you push in · <span class="term">receptacle</span> — the fixed half on the unit.</p></div>
+      <div class="card"><h4>The contacts inside</h4><p><span class="term">pin</span> — the male contact · <span class="term">socket</span> — the female cavity that receives it.<br><span class="term">contact</span> — the general word for the metal part that carries current.</p></div>
+    </div>
+    <table class="mini" style="margin-top:12px">
+      <tr><th>mate the connector</th><th>mating plug</th><th>receptacle end</th><th>socket contact</th><th>backed-out contact</th></tr>
+    </table>
+    <p class="note muted">Check: which half is fixed to the structure? → the receptacle.</p>
+  </section>
+
+  <!-- 10 · VOCAB — FAULT & TEST WORDS -->
+  <section class="slide" data-notes="Vocabulary bank, part two: the fault-and-test family. Group them so the meaning holds together. Continuity is an unbroken path; an open circuit is a complete break so no current flows; a short circuit is an unwanted path, usually to ground. Resistance is how strongly a path opposes current, in ohms; the multimeter reads voltage, resistance and continuity. Insulation is the protective cover; when it is chafed it can cause a short. Ground is the return path to the airframe at zero volts; bonding is a low-resistance link to the structure; a shield is the braid that blocks interference; a splice is a permanent joint; routing is the path the wire takes. Teach the collocations because that is how the words appear in the AMM and the tech log: continuity test, short circuit to ground, measure resistance, bonding strap, shield braid, wire routing. Then run a rapid nine-item meaning check as a class before the exercises. Keep it to about four minutes.">
+    <div class="kick">03 · Vocabulary · fault &amp; test words</div>
+    <h2>Continuity, open, short, resistance, ground</h2>
+    <div class="grid3">
+      <div class="card"><h4>The path</h4><p><span class="term">continuity</span> unbroken path<br><span class="term">open circuit</span> complete break<br><span class="term">short circuit</span> unwanted path to ground</p></div>
+      <div class="card"><h4>Measuring</h4><p><span class="term">resistance</span> opposition, in ohms<br><span class="term">multimeter</span> reads V, Ω, continuity<br><span class="term">insulation</span> the protective cover</p></div>
+      <div class="card"><h4>Structure return</h4><p><span class="term">ground</span> return to airframe<br><span class="term">bonding</span> low-resistance link<br><span class="term">shield · splice · routing</span></p></div>
+    </div>
+    <p class="note muted">Learn the collocation with the word: <b>continuity test · short circuit to ground · measure resistance · bonding strap · shield braid · wire routing</b>.</p>
+  </section>
+
+  <!-- 11 · GRAMMAR + PREP WIDGET -->
+  <section class="slide" data-notes="Grammar in context: prepositions of position and path. Frame the why first — pin routing must be spatially exact, so a single wrong preposition sends the colleague to the wrong place. Teach the three-part model of every conductor: a start, a path, an end. Use from for the start, a path word for the middle (through, along, into, out of), and to for the end. For a fixed position on a part, English prefers at or on, never in. Use the path-builder widget live: build 'from P1 — through the harness — to J12' and watch the wire draw itself; then deliberately build a wrong version so the class sees the widget flag it. Take the four example lines straight from the dialogues on screen. The next slide handles the specific Latvian and Russian errors, so here just establish the correct system and drill two or three transformations orally — 'It runs ___ P4, ___ the loom, ___ TB2.'">
+    <div class="kick">04 · Grammar · position &amp; path</div>
+    <h2>from … through … to — and on/at a pin</h2>
+    <div class="cols">
+      <div>
+        <p>Every conductor has three parts to describe:</p>
+        <p class="big"><b class="c">from</b> the start &nbsp;→&nbsp; a <b class="c">path word</b> for the middle &nbsp;→&nbsp; <b class="c">to</b> the end.</p>
+        <table class="mini">
+          <tr><th>Word</th><th>Use</th></tr>
+          <tr><td>from</td><td>the start of the path</td></tr>
+          <tr><td>to</td><td>the end of the path</td></tr>
+          <tr><td>through / along / into / out of</td><td>the middle</td></tr>
+          <tr><td>at / on</td><td>a fixed position on a part</td></tr>
+        </table>
+      </div>
+      <div class="dw" data-widget="prep"></div>
+    </div>
+  </section>
+
+  <!-- 12 · GRAMMAR — L1 INTERFERENCE -->
+  <section class="slide" data-notes="Address the first-language interference directly, because these three errors will recur all lesson. First: the doubled 'to' — learners say 'runs to P1 to J12' because Latvian and Russian mark start and end with the same directional case rather than two different prepositions; drill the fix, from for the start. Second: 'in pin 3' — the Russian preposition в pulls learners to 'in', but a contact sits on or at a pin; a small physical gesture, on the surface, helps it stick. Third: 'trough' for 'through' plus a missing article — 'goes trough harness'; both Latvian and Russian have no articles, so 'the' is routinely dropped, and 'through' is hard to spell and say. Correct by recasting, not by long explanation — say the right form once, have the learner repeat, move on. Tell the class these exact three are in the error-spotting exercise E6, so they will meet them again in two minutes.">
+    <div class="kick">04 · Grammar · Latvian &amp; Russian slips</div>
+    <h2>Three errors to pre-empt</h2>
+    <div class="grid3">
+      <div class="card"><h4>Doubled "to"</h4><p><span class="x">runs to P1 to J12</span><br><span class="c">runs from P1 to J12</span></p><p class="note">LV/RU mark start &amp; end the same way — English needs <b>from … to</b>.</p></div>
+      <div class="card"><h4>"in" a pin</h4><p><span class="x">the contact is in pin 3</span><br><span class="c">on pin 3 / at pin 3</span></p><p class="note">Russian «в» pulls to <b>in</b>; a contact sits <b>on/at</b>.</p></div>
+      <div class="card"><h4>"trough" + no "the"</h4><p><span class="x">goes trough harness</span><br><span class="c">through the harness</span></p><p class="note">No articles in LV/RU → <b>the</b> dropped; spelling of <b>through</b>.</p></div>
+    </div>
+    <p class="note muted">Recast, don't lecture: say the right form, learner repeats, move on. These three return in exercise E6.</p>
+  </section>
+
+  <!-- 13 · EXERCISES E1-E4 -->
+  <section class="slide" data-notes="Controlled practice, first block. Learners work on the page; you manage pace and feedback. E1 gap-fill puts ten bank terms into context — set it silently, then check by nominating. E2 matching pairs each term with its meaning — good for pair-checking. E3 completes a troubleshooting dialogue with one word per gap, which recycles open, short, continuity, resistance, pin, plug, insulation, ground. E4 is the grammar transformation — add the correct preposition of position or path; watch for the doubled-to and in-a-pin slips from the previous slide. Give a firm time box — about eight minutes for E1 to E4 — and circulate. The page marks each answer green or red on Check, so use your time for the learners who need a recast, not for marking. Full answers with a one-line why sit in the solutions file if a learner disputes a key.">
+    <div class="kick">05 · Exercises · controlled practice (1)</div>
+    <h2>E1–E4 · on the page</h2>
+    <div class="grid2">
+      <div class="card"><h4>E1 · Gap-fill <span class="tag">8′ block</span></h4><p>Ten bank terms into context. Set silently, check by nomination.</p></div>
+      <div class="card"><h4>E2 · Matching</h4><p>Term ↔ meaning. Pair-check, then whole-class.</p></div>
+      <div class="card"><h4>E3 · Dialogue completion</h4><p>One word per gap: open · short · continuity · resistance · pin · plug · insulation · ground.</p></div>
+      <div class="card"><h4>E4 · Grammar transformation</h4><p>Add the preposition. Watch the doubled-<i>to</i> and <i>in</i>-a-pin slips.</p></div>
+    </div>
+    <p class="note muted">The page self-marks green/red on <b>Check</b>. Circulate and recast; keys are in solutions.html.</p>
+  </section>
+
+  <!-- 14 · EXERCISES E5-E8 -->
+  <section class="slide" data-notes="Controlled practice, second block — reading and listening review. E5 is a short AMM task card; learners read and answer six questions, isolating wire W241 and its references. E6 is the error-spotting work-order note — eight lines, one error each, mixing prepositions, terms and spelling; this is where the Latvian and Russian slips are trained deliberately. E7 is a tech-log snag-and-corrective-action entry with six comprehension questions, and it doubles as the model for the writing task. E8 is a listening review — replay Dialogue 3 and answer six questions about the open circuit. Manage this as another eight-to-ten-minute block; you can split the class so half do the reading pair E5/E7 while half do E6/E8, then swap. Point out that E5 and E7 are the two required reading texts and E8 rehearses the quiz's listening items.">
+    <div class="kick">05 · Exercises · reading &amp; listening (2)</div>
+    <h2>E5–E8 · documents &amp; replay</h2>
+    <div class="grid2">
+      <div class="card"><h4>E5 · Reading 1 — AMM task card</h4><p>Fault-isolation card for W241; six questions.</p></div>
+      <div class="card"><h4>E6 · Error-spotting</h4><p>Work-order note, eight lines, one error each — the LV/RU slips, trained.</p></div>
+      <div class="card"><h4>E7 · Reading 2 — tech log</h4><p>Snag &amp; corrective action; six questions. Model for the writing.</p></div>
+      <div class="card"><h4>E8 · Listening review</h4><p>Replay Dialogue 3; six questions on the open circuit.</p></div>
+    </div>
+    <p class="note muted">E5 &amp; E7 are the two reading texts; E8 rehearses the quiz listening items. Split-and-swap if time is tight.</p>
+  </section>
+
+  <!-- 15 · SPEAKING — ROLE-PLAY MANAGEMENT -->
+  <section class="slide" data-notes="Now the headline task — the pair speaking at the mock harness. This is where the whole lesson is assessed informally. Set the pairs and the physical layout: one learner holds the diagram (or this deck), the other stands at the harness or a printed harness card. Run the four cards in order, swapping roles after each so everyone both reads the diagram and locates the parts. Card 1 is reader-and-locator, the core task with the read-back routine. Card 2 explains a suspected open; card 3 a suspected short; card 4 is the shift handover. Give the useful phrases on screen as scaffolding and insist on the read-back every time. Circulate with the speaking rubric from the key — listen for range, accuracy of the prepositions and references, fluency, interaction (the read-back and follow-up questions) and coherence of the path description. Give one piece of feedback per pair, not a running commentary. Budget about fourteen minutes.">
+    <div class="kick">06 · Speaking · role-play at the harness</div>
+    <h2>Four cards · swap roles each time</h2>
+    <div class="grid2">
+      <div class="card"><h4>Card 1 · Reader &amp; locator</h4><p>A reads the diagram; B locates W241 and reads every reference back.</p></div>
+      <div class="card"><h4>Card 2 · A suspected open</h4><p>Explain why it is an open, not a short; give the next step.</p></div>
+      <div class="card"><h4>Card 3 · A suspected short</h4><p>Chafed insulation near a clamp; explain the reading to ground.</p></div>
+      <div class="card"><h4>Card 4 · Shift handover</h4><p>Describe the route traced; the splice at TB2 and bonding on pin 4.</p></div>
+    </div>
+    <p class="note muted">Insist on the read-back. Circulate with the B2 speaking rubric (key.html); one focused piece of feedback per pair.</p>
+  </section>
+
+  <!-- 16 · SPEAKING — AI PARTNER + PHRASES -->
+  <section class="slide" data-notes="If a learner has no partner, or you want extra rehearsal, the page carries three AI conversation-partner prompts they can paste into the chat buddy — one for the locate task, one for explaining an open, one for the shift handover. The buddy stays in the scenario, speaks at B2, keeps answers short, recasts errors gently and asks one follow-up each turn. Use this for early finishers or as differentiated support while you work with a weaker pair. On this slide, drill the useful phrases one more time as a whole class so every learner leaves with the frames in their mouth: 'It runs from P1 pin 3 …', 'It travels through the harness to J12', 'Say the whole reference back to me', 'The meter reads no continuity', 'A short reads near zero to ground'. Keep it short — this is consolidation, not new input.">
+    <div class="kick">06 · Speaking · AI partner &amp; phrases</div>
+    <h2>Rehearse the frames</h2>
+    <div class="cols">
+      <div class="card">
+        <h4>Say these fluently</h4>
+        <p class="term" style="color:#ffd98a">"It runs from P1 pin 3, through the harness, to J12."</p>
+        <p class="term" style="color:#ffd98a">"Say the whole reference back to me."</p>
+        <p class="term" style="color:#ffd98a">"The meter reads no continuity — resistance is infinite."</p>
+        <p class="term" style="color:#ffd98a">"A short reads near zero resistance to ground."</p>
+      </div>
+      <div>
+        <p>No partner? The page has <b>three AI-partner prompts</b> — locate a reference, explain an open, hand over the shift.</p>
+        <p class="muted">The buddy stays in scenario, speaks at B2, recasts gently, asks one follow-up each turn. Use it for early finishers or extra support.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · WRITING — STE TECH LOG -->
+  <section class="slide" data-notes="Writing — a tech-log corrective-action entry in Simplified Technical English. Start it in class and finish for homework. Set the task from the page: the snag is that the gear-down warning lamp does not illuminate; describe how you traced the conductor, what the continuity test showed, and the corrective action, in about seventy to one hundred words. Teach the three STE habits on screen before they write: short sentences, one idea in each sentence, one clear action verb to start each step (Traced …, Set …, Inspected …, Re-seated …, Confirmed …). Contrast a heavy sentence with the STE version once. The model answer on the page is deliberately clipped and step-like; do not show it until they have drafted. Run the four-line self-check with them — short sentences, named connector-pin-path, from … to for the path, test result plus next action. The annotated model is in the solutions file.">
+    <div class="kick">07 · Writing · tech-log entry (STE)</div>
+    <h2>Corrective action in Simplified Technical English</h2>
+    <div class="cols">
+      <div>
+        <p><b>Task:</b> a corrective-action entry, ~70–100 words. How you traced the conductor, what the continuity test showed, the action you took.</p>
+        <p><b>STE habits:</b></p>
+        <ul>
+          <li>Short sentences — one idea each.</li>
+          <li>Start each step with an action verb: <i>Traced… Set… Inspected… Re-seated… Confirmed…</i></li>
+          <li>Name the connector, the pin and the path.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Self-check (4 lines)</h4>
+        <ul>
+          <li>Every sentence short, one idea.</li>
+          <li>Connector, pin and path named.</li>
+          <li><i>from … to</i> for the conductor path.</li>
+          <li>Test result + what I did next.</li>
+        </ul>
+        <p class="note muted">Draft in class, finish for homework. Annotated model in solutions.html.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP-UP -->
+  <section class="slide" data-center data-notes="Close the lesson. Recap the three outcomes as one-liners: they can trace a wire on the WDM and describe its path; they can call a connector and pin reference with no ambiguity and read one back; they can explain an open versus a short from the meter reading. Reinforce the single safety message — identical words prevent the wrong wire being disconnected. Homework: finish the tech-log entry to the four-line self-check, and take the unit quiz, which is split by skill — listening to the dialogues, reading a new document, use of English on the prepositions and terms, and vocabulary matching. Tell them the listening items include numbers and codes, so they should replay the voicemail. Remind the class the CC button and the L key give live translated captions for revision at home if the deck is shared. Thank the room and end.">
+    <div class="kick">Wrap-up</div>
+    <h2>You can now …</h2>
+    <p class="big">Trace a wire on the WDM and describe its path · call a connector and pin with no ambiguity and read one back · explain an open versus a short from the meter.</p>
+    <p class="pill">Homework: finish the tech-log entry · take the skills quiz (listening · reading · use of English · vocabulary)</p>
+    <p class="muted" style="margin-top:16px">One wrong digit disconnects the wrong wire. Identical words are the safety task. &nbsp;·&nbsp; CC / L = captions for home revision.</p>
+  </section>
+
+</div>
+
+<!-- ===================== DECK WIDGETS (canvas + rAF, teacher-driven) ===================== -->
+<script>
+window.DeckW = {};
+(function(){
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+
+  /* ---- W: WIRE-PATH TRACER — from P1 pin3, through the harness, into J12 socket B ---- */
+  window.DeckW.trace = function(el){
+    el.innerHTML =
+      '<div class="wk"><div class="bar">'+
+      '<span class="note" style="font-weight:700;color:#9db0c6">FAULT</span>'+
+      '<button data-f="good" class="on">Good</button>'+
+      '<button data-f="open">Open circuit</button>'+
+      '<button data-f="short">Short to ground</button>'+
+      '<button data-go style="margin-left:auto" class="on">▶ Trace W241</button>'+
+      '</div><canvas width="660" height="240"></canvas>'+
+      '<div class="info" data-why></div></div>';
+    var cv = el.querySelector('canvas'), ctx = cv.getContext('2d'),
+        why = el.querySelector('[data-why]'), btns = el.querySelectorAll('[data-f]'),
+        go = el.querySelector('[data-go]');
+    var fault = 'good', t = 0, running = true, raf = null;
+    // polyline path P1(pin3) -> loom -> J12(socket B)
+    var P = [[120,96],[210,96],[300,150],[420,150],[510,96],[560,96]];
+    var breakAt = 0.5, chafeAt = 0.62;
+    function ptAt(u){
+      var seg = u*(P.length-1), i = Math.min(P.length-2, Math.floor(seg)), f = seg-i;
+      return [P[i][0]+(P[i+1][0]-P[i][0])*f, P[i][1]+(P[i+1][1]-P[i][1])*f];
+    }
+    function box(x,y,w,h,label){
+      ctx.fillStyle='#12233a';ctx.strokeStyle='#2a557e';ctx.lineWidth=2;
+      ctx.beginPath();ctx.rect(x,y,w,h);ctx.fill();ctx.stroke();
+      ctx.fillStyle='#7fd0ff';ctx.font='13px ui-monospace,Consolas,monospace';ctx.textAlign='center';
+      ctx.fillText(label,x+w/2,y-8);
+    }
+    function draw(){
+      ctx.clearRect(0,0,660,240);
+      ctx.fillStyle='#0a0f18';ctx.fillRect(0,0,660,240);
+      // connector boxes + pins
+      box(70,66,60,110,'P1'); box(530,66,60,110,'J12');
+      ctx.font='11px ui-monospace,Consolas,monospace';ctx.textAlign='left';
+      for(var k=0;k<4;k++){ ctx.fillStyle=(k===2)?'#f2b134':'#5b6b86'; ctx.fillText('p'+(k+1), 74, 86+k*26); }
+      var socks=['A','B','C']; for(var s=0;s<3;s++){ ctx.fillStyle=(s===1)?'#f2b134':'#5b6b86'; ctx.textAlign='right'; ctx.fillText(socks[s], 592, 92+s*30); }
+      ctx.textAlign='left';
+      // loom label + ground
+      ctx.strokeStyle='#33475f';ctx.setLineDash([4,4]);
+      ctx.beginPath();ctx.moveTo(300,150);ctx.lineTo(300,214);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='#8fb4ff';ctx.font='12px ui-monospace';ctx.fillText('airframe / ground (pin 4)',232,230);
+      // base wire
+      ctx.strokeStyle='#3a4a60';ctx.lineWidth=6;ctx.beginPath();
+      ctx.moveTo(P[0][0],P[0][1]); for(var i=1;i<P.length;i++)ctx.lineTo(P[i][0],P[i][1]); ctx.stroke();
+      // chafe / break markers
+      if(fault==='open'){ var b=ptAt(breakAt); ctx.strokeStyle='#ff5667';ctx.lineWidth=3;
+        ctx.beginPath();ctx.moveTo(b[0]-8,b[1]-8);ctx.lineTo(b[0]+8,b[1]+8);ctx.moveTo(b[0]+8,b[1]-8);ctx.lineTo(b[0]-8,b[1]+8);ctx.stroke(); }
+      if(fault==='short'){ var c=ptAt(chafeAt); ctx.strokeStyle='#ff5667';ctx.lineWidth=3;
+        ctx.beginPath();ctx.moveTo(c[0],c[1]);ctx.lineTo(c[0],214);ctx.stroke();
+        ctx.fillStyle='#ff5667';ctx.fillText('chafe → ground',c[0]+6,205); }
+      // energised portion
+      var end = t;
+      if(fault==='open') end = Math.min(t,breakAt);
+      if(fault==='short') end = Math.min(t,chafeAt);
+      var col = fault==='good' ? '#34d399' : (fault==='short' ? '#fbbf24' : '#ff5667');
+      ctx.strokeStyle=col;ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(P[0][0],P[0][1]);
+      var steps=Math.max(1,Math.floor(end*60));
+      for(var q=1;q<=steps;q++){ var pp=ptAt(end*q/steps); ctx.lineTo(pp[0],pp[1]); }
+      ctx.stroke();
+      // travelling dot
+      var d = ptAt(end); ctx.fillStyle=col; ctx.beginPath(); ctx.arc(d[0],d[1],6,0,7); ctx.fill();
+      if(fault==='short'){ var c2=ptAt(chafeAt); ctx.beginPath();ctx.moveTo(c2[0],c2[1]);ctx.lineTo(c2[0],214);ctx.strokeStyle='#fbbf24';ctx.lineWidth=4;ctx.stroke(); }
+    }
+    function tick(){
+      if(running){ t += 0.010; if(t>1){ t=1; running=false; } }
+      draw();
+      raf = requestAnimationFrame(tick);
+    }
+    function setFault(f){ fault=f; t=0; running=true;
+      btns.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-f')===f); });
+      why.innerHTML = f==='good'
+        ? '<h4>Good conductor — continuity confirmed</h4>The current runs <b>from</b> pin 3 on P1, <b>along</b> the loom, <b>into</b> socket B on J12, and returns on pin 4 <b>to</b> the airframe. The path is unbroken.'
+        : f==='open'
+        ? '<h4>Open circuit — the break stops the path</h4>The conductor is broken part-way along the run. No current reaches J12, so the gear-down lamp stays dark. The meter reads no continuity.'
+        : '<h4>Short to ground — the path diverts</h4>Chafed insulation lets the conductor touch the airframe. Current leaks <b>to ground</b> before it reaches J12. The meter reads near zero resistance to the structure.';
+    }
+    btns.forEach(function(b){ b.addEventListener('click',function(){ setFault(b.getAttribute('data-f')); }); });
+    go.addEventListener('click',function(){ t=0; running=true; });
+    setFault('good');
+    raf = requestAnimationFrame(tick);
+  };
+
+  /* ---- W: CONTINUITY / RESISTANCE METER ---- */
+  window.DeckW.meter = function(el){
+    el.innerHTML =
+      '<div class="wk"><div class="bar">'+
+      '<span class="note" style="font-weight:700;color:#9db0c6">READING</span>'+
+      '<button data-m="good" class="on">Good conductor</button>'+
+      '<button data-m="open">Open circuit</button>'+
+      '<button data-m="short">Short to ground</button>'+
+      '</div><canvas width="660" height="230"></canvas>'+
+      '<div class="info" data-why></div></div>';
+    var cv=el.querySelector('canvas'), ctx=cv.getContext('2d'),
+        why=el.querySelector('[data-why]'), btns=el.querySelectorAll('[data-m]');
+    var mode='good', ang=-0.9, target=-0.9, label='0.3 Ω';
+    var TARG={good:{a:-0.75,t:'0.3 Ω',c:'#34d399'},open:{a:0.9,t:'O·L  (∞)',c:'#ff5667'},short:{a:-0.9,t:'0.1 Ω → gnd',c:'#fbbf24'}};
+    function draw(){
+      ctx.clearRect(0,0,660,230);ctx.fillStyle='#0a0f18';ctx.fillRect(0,0,660,230);
+      var cx=330,cy=180,r=120;
+      // arc
+      ctx.strokeStyle='#33475f';ctx.lineWidth=10;ctx.beginPath();ctx.arc(cx,cy,r,Math.PI,2*Math.PI);ctx.stroke();
+      // ticks
+      ctx.strokeStyle='#5b6b86';ctx.lineWidth=2;
+      for(var k=0;k<=10;k++){ var a=Math.PI+k/10*Math.PI; ctx.beginPath();
+        ctx.moveTo(cx+Math.cos(a)*(r-8),cy+Math.sin(a)*(r-8)); ctx.lineTo(cx+Math.cos(a)*(r+6),cy+Math.sin(a)*(r+6)); ctx.stroke(); }
+      ctx.fillStyle='#7e98ad';ctx.font='12px ui-monospace';ctx.textAlign='center';
+      ctx.fillText('0 Ω',cx-r,cy+22); ctx.fillText('∞',cx+r,cy+22); ctx.fillText('Ω',cx,cy-r-6);
+      // needle (map ang -1.0..1.0 to PI..2PI)
+      var na=Math.PI+(clamp(ang,-1,1)+1)/2*Math.PI;
+      var col=TARG[mode].c;
+      ctx.strokeStyle=col;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(cx,cy);
+      ctx.lineTo(cx+Math.cos(na)*(r-16),cy+Math.sin(na)*(r-16));ctx.stroke();
+      ctx.fillStyle=col;ctx.beginPath();ctx.arc(cx,cy,7,0,7);ctx.fill();
+      // digital readout
+      ctx.fillStyle='#0c1622';ctx.strokeStyle='#26384e';ctx.lineWidth=1;
+      ctx.beginPath();ctx.rect(250,196,160,26);ctx.fill();ctx.stroke();
+      ctx.fillStyle=col;ctx.font='700 17px ui-monospace';ctx.fillText(label,330,214);
+    }
+    function tick(){ ang += (target-ang)*0.12; draw(); requestAnimationFrame(tick); }
+    function set(m){ mode=m; target=TARG[m].a; label=TARG[m].t;
+      btns.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-m')===m); });
+      why.innerHTML = m==='good'
+        ? '<h4>Very low resistance — continuity</h4>An unbroken path reads a few ohms. The lamp will light. This is the serviceable result.'
+        : m==='open'
+        ? '<h4>Infinite — an open circuit</h4>The meter shows <code>O·L</code> (over-limit): no path at all between P1 and J12. Resistance is infinite. The lamp stays dark.'
+        : '<h4>Near zero to ground — a short</h4>The conductor touches the airframe. Resistance to <b>ground</b> is almost nothing. Often the breaker trips.';
+    }
+    btns.forEach(function(b){ b.addEventListener('click',function(){ set(b.getAttribute('data-m')); }); });
+    set('good'); requestAnimationFrame(tick);
+  };
+
+  /* ---- W: PREPOSITION PATH BUILDER ---- */
+  window.DeckW.prep = function(el){
+    el.innerHTML =
+      '<div class="wk"><div class="bar">'+
+      '<span class="note" style="font-weight:700;color:#9db0c6">BUILD THE PATH</span>'+
+      '<select data-a><option value="from">from</option><option value="to">to</option><option value="at">at</option></select>'+
+      '<span class="note">P1</span>'+
+      '<select data-b><option value="through">through</option><option value="along">along</option><option value="into">into</option></select>'+
+      '<span class="note">the harness</span>'+
+      '<select data-c><option value="to">to</option><option value="from">from</option><option value="at">at</option></select>'+
+      '<span class="note">J12</span>'+
+      '<button data-go style="margin-left:auto">Check path</button>'+
+      '</div><canvas width="660" height="150"></canvas>'+
+      '<div class="info" data-why></div></div>';
+    var cv=el.querySelector('canvas'), ctx=cv.getContext('2d'),
+        A=el.querySelector('[data-a]'),B=el.querySelector('[data-b]'),C=el.querySelector('[data-c]'),
+        go=el.querySelector('[data-go]'), why=el.querySelector('[data-why]');
+    var prog=0, ok=false, running=false;
+    function draw(){
+      ctx.clearRect(0,0,660,150);ctx.fillStyle='#0a0f18';ctx.fillRect(0,0,660,150);
+      // endpoints
+      ctx.fillStyle='#12233a';ctx.strokeStyle='#2a557e';ctx.lineWidth=2;
+      ctx.beginPath();ctx.rect(60,50,50,60);ctx.fill();ctx.stroke();
+      ctx.beginPath();ctx.rect(550,50,50,60);ctx.fill();ctx.stroke();
+      ctx.fillStyle='#7fd0ff';ctx.font='13px ui-monospace';ctx.textAlign='center';
+      ctx.fillText('P1',85,42);ctx.fillText('J12',575,42);ctx.fillStyle='#7e98ad';ctx.fillText('the harness',330,42);
+      // base wire
+      ctx.strokeStyle='#3a4a60';ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(110,80);ctx.lineTo(550,80);ctx.stroke();
+      // energised portion
+      var col= ok? '#34d399' : '#ff5667';
+      ctx.strokeStyle=col;ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(110,80);ctx.lineTo(110+(550-110)*prog,80);ctx.stroke();
+      ctx.fillStyle=col;ctx.beginPath();ctx.arc(110+(550-110)*prog,80,6,0,7);ctx.fill();
+    }
+    function tick(){ if(running){ prog+=0.02; if(prog>=1){prog=1;running=false;} } draw(); requestAnimationFrame(tick); }
+    function check(){
+      var valid = (A.value==='from' && (B.value==='through'||B.value==='along'||B.value==='into') && C.value==='to');
+      ok=valid; prog=0; running=true;
+      why.innerHTML = valid
+        ? '<h4>✓ Valid path</h4>"It runs <b>from</b> P1, <b>'+B.value+'</b> the harness, <b>to</b> J12." A start, a middle and an end — exactly what a colleague needs.'
+        : '<h4>✗ Not yet</h4>A described path needs <b>from</b> at the start and <b>to</b> at the end. You have "'+A.value+' … '+C.value+'". Use <b>from … to</b> and a path word in the middle.';
+      if(!valid) running=false;
+    }
+    go.addEventListener('click',check);
+    [A,B,C].forEach(function(s){ s.addEventListener('change',function(){ ok=false; prog=0; running=false; draw(); }); });
+    why.innerHTML='<h4>Build it</h4>Pick a preposition for the start, the middle and the end, then press <b>Check path</b>.';
+    requestAnimationFrame(tick);
+  };
+
+  window.DeckWReady = true;
+})();
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('cfu11_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','cfu11_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 11</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:28px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("cfu11_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("cfu11_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="cfu11_deck_state")render();});',
+'render();',
+'<\/script></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='cfu11_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,80); }
+if(document.readyState!=='loading') init(); else window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left;
+            pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}.lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}.lct-row:empty{display:none}.lct-row-top{opacity:1}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;
+            font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB;
+            background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto;
+            width:50px; height:50px; border-radius:50%; cursor:pointer;
+            background:#F7C22D; color:#020E27; border:2px solid #F7C22D;
+            font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px;
+            box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051;
+               font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em;
+               text-transform:uppercase; color:#020E27; background:#F7C22D;
+               border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto;
+             width:42px; height:42px; border-radius:50%; cursor:pointer;
+             background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4);
+             font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052;
+                display:none; align-items:center; gap:8px;
+                background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px;
+                padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px;
+                       font-weight:700; color:#E8EDF5; background:#162030;
+                       border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="it-IT">Italiano</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capQueueB=[], capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } } function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capQueueB.length=0; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<script>(function(){try{
+  var KEY='tsiCapScale', root=document.documentElement;
+  function apply(v){ root.style.setProperty('--cap-scale', v); }
+  var saved=parseFloat(localStorage.getItem(KEY))||1; saved=Math.max(0.6,Math.min(1.9,saved)); apply(saved);
+  var st=document.createElement('style'); st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}.cap-fs-slider::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:#FFD24D;cursor:pointer}'; document.head.appendChild(st);
+  function mount(){ var lb=document.getElementById('lctLangBar'); if(!lb||lb.querySelector('.cap-fs-slider')) return;
+    var w=document.createElement('span'); w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w); var sl=w.querySelector('.cap-fs-slider'); sl.value=saved;
+    var stop=function(e){ e.stopPropagation(); };
+    sl.addEventListener('input',function(){ var v=parseFloat(sl.value)||1; apply(v); try{ localStorage.setItem(KEY,v); }catch(e){} });
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){ sl.addEventListener(ev,stop); });
+  }
+  if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>

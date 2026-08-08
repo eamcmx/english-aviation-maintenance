@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 11 — Solutions · E1–E8 + model writing (teacher, gated)</title>
+<style>
+:root{--navy:#0f2942;--brand:#2F5496;--ink:#1b2733;--ink2:#5a6b7d;--line:#e2e6ec;--paper:#fbfaf7;--card:#fff;
+  --ok:#2e9e6b;--bad:#c0392b;--amber:#e0a53d;--amber-soft:#fdf3e0;--radius:14px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 'Inter','Segoe UI',system-ui,sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px 90px}
+header.mast{background:linear-gradient(135deg,var(--navy),var(--brand));color:#fff;padding:40px 0 34px;margin-bottom:26px}
+header.mast .in{max-width:920px;margin:0 auto;padding:0 24px}
+header.mast .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.85;font-weight:700}
+header.mast h1{font-family:Georgia,serif;font-size:32px;margin:8px 0 6px}
+.gate{display:inline-block;background:var(--amber);color:#3a2a05;font-size:12px;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-top:8px}
+section.ex{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:var(--radius);
+  padding:20px 24px;margin:18px 0;box-shadow:0 1px 2px rgba(16,32,54,.05),0 8px 24px rgba(16,32,54,.05)}
+h2{font-family:Georgia,serif;color:var(--navy);font-size:22px;margin:0 0 4px}
+.sub{color:var(--ink2);font-size:14px;margin:0 0 12px}
+ol.ans{padding-left:22px;margin:8px 0}
+ol.ans li{margin:9px 0}
+.a{font-weight:700;color:var(--ok)}
+.alt{color:var(--ink2);font-weight:600}
+.why{color:var(--ink2);font-size:15px}
+.why::before{content:"WHY ";font-family:ui-monospace,Consolas,monospace;font-size:11px;font-weight:800;color:var(--brand);
+  letter-spacing:.06em;margin-right:4px}
+table{width:100%;border-collapse:collapse;margin:6px 0;font-size:15.5px}
+th,td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+th{background:#f1f5fa;color:var(--navy);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.model{background:var(--amber-soft);border:1px solid #f0dfbe;border-radius:var(--radius);padding:18px 22px;margin:14px 0}
+.model .doc{font-family:ui-monospace,Consolas,monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--brand);font-weight:700;margin-bottom:8px}
+.ste{font-size:15px;color:var(--ink2)}
+.ann{border-left:3px solid var(--amber);padding:6px 0 6px 14px;margin:8px 0;font-size:15px}
+mark{background:#fff2cc;padding:0 3px;border-radius:3px}
+.note{background:#f4f8ff;border:1px solid #d7e4f7;border-radius:10px;padding:12px 16px;font-size:15px;color:#3a4a63;margin:14px 0}
+code{font-family:ui-monospace,Consolas,monospace;background:#eef2f7;border-radius:4px;padding:1px 5px;font-size:.92em}
+</style>
+</head>
+<body>
+<header class="mast"><div class="in">
+  <div class="eyebrow">English for Aviation Maintenance · CEFR B2 · Unit 11</div>
+  <h1>Solutions — Reading a wiring diagram &amp; connector/pin talk</h1>
+  <div class="gate">Teacher · gated · full model answers</div>
+</div></header>
+
+<div class="wrap">
+<p class="note">Full answers for <b>E1–E8</b> with a one-line reason for each, then the annotated model writing answer. Accepted variants are shown in grey. The page in <code>body.html</code> self-marks on <b>Check</b>; use these keys for disputes and for feedback.</p>
+
+<!-- E1 -->
+<section class="ex" id="E1">
+  <h2>E1 · Gap-fill</h2>
+  <p class="sub">Put the correct bank term into each gap.</p>
+  <ol class="ans">
+    <li><span class="a">wiring diagram</span> — <span class="why">it is the master drawing you open before tracing any conductor.</span></li>
+    <li><span class="a">connector</span> — <span class="why">each one carries a unique code (P1, J12) so nobody confuses them.</span></li>
+    <li><span class="a">pin</span> — <span class="why">a pin is a numbered male contact; W241 lands on pin 3.</span></li>
+    <li><span class="a">socket</span> — <span class="why">the female cavity that receives a male pin when the halves mate.</span></li>
+    <li><span class="a">continuity</span> — <span class="why">the test confirms an unbroken path between both ends.</span></li>
+    <li><span class="a">harness</span> — <span class="why">the bundle of conductors routed together behind the panel.</span></li>
+    <li><span class="a">plug</span> — <span class="why">technicians back-probe the mating plug, not the socket contacts.</span></li>
+    <li><span class="a">resistance</span> — <span class="why">infinite resistance on the meter signals an open circuit.</span></li>
+    <li><span class="a">multimeter</span> — <span class="why">the tool set to the continuity range before probing.</span></li>
+    <li><span class="a">routing</span> — <span class="why">the path the conductor takes along the loom past the clamps.</span></li>
+  </ol>
+</section>
+
+<!-- E2 -->
+<section class="ex" id="E2">
+  <h2>E2 · Matching</h2>
+  <p class="sub">Match each term to its correct meaning.</p>
+  <ol class="ans">
+    <li><b>contact</b> → <span class="a">the metal part that carries the current</span> <span class="why">general word for the pin or socket that conducts.</span></li>
+    <li><b>open circuit</b> → <span class="a">a complete break, so no current can flow</span> <span class="why">"open" = the path is broken end-to-end.</span></li>
+    <li><b>short circuit</b> → <span class="a">an unwanted path, usually to ground</span> <span class="why">current takes a wrong route, normally to the airframe.</span></li>
+    <li><b>terminal</b> → <span class="a">a point where a conductor is fixed and connected</span> <span class="why">e.g. a terminal block where wires are secured.</span></li>
+    <li><b>receptacle</b> → <span class="a">the fixed connector half, mounted on a unit</span> <span class="why">the half that stays on the equipment; the plug enters it.</span></li>
+    <li><b>insulation</b> → <span class="a">the protective cover around a conductor</span> <span class="why">when chafed it can cause a short to ground.</span></li>
+    <li><b>ground</b> → <span class="a">the return path to the airframe, at zero volts</span> <span class="why">the reference the current returns to.</span></li>
+    <li><b>bonding</b> → <span class="a">a low-resistance link between equipment and airframe</span> <span class="why">a bonding strap keeps resistance to structure very low.</span></li>
+    <li><b>shield</b> → <span class="a">a metal braid that blocks interference</span> <span class="why">surrounds a conductor to protect the signal.</span></li>
+    <li><b>splice</b> → <span class="a">a joint where two conductors are joined</span> <span class="why">a permanent join, re-made if it goes loose.</span></li>
+  </ol>
+</section>
+
+<!-- E3 -->
+<section class="ex" id="E3">
+  <h2>E3 · Dialogue completion</h2>
+  <p class="sub">One word in each gap.</p>
+  <ol class="ans">
+    <li><span class="a">open</span> <span class="why">no continuity + lamp off = a suspected open circuit.</span></li>
+    <li><span class="a">short</span> <span class="why">a conductor touching the airframe is a short, not an open.</span></li>
+    <li><span class="a">resistance</span> <span class="why">a short reads near zero resistance to ground.</span></li>
+    <li><span class="a">pin</span> <span class="why">a backed-out pin interrupts the electrical path.</span></li>
+    <li><span class="a">plug</span> <span class="why">you re-seat the contacts inside the plug.</span></li>
+    <li><span class="a">insulation</span> <span class="why">you inspect the insulation for chafing.</span></li>
+    <li><span class="a">ground</span> <span class="why">chafing near the structure causes a short to ground.</span></li>
+    <li><span class="a">continuity</span> <span class="why">first test continuity from P1 to J12.</span></li>
+  </ol>
+</section>
+
+<!-- E4 -->
+<section class="ex" id="E4">
+  <h2>E4 · Grammar transformation — prepositions of position and path</h2>
+  <p class="sub">Add the correct preposition.</p>
+  <ol class="ans">
+    <li><span class="a">from</span> <span class="why">"from" marks the start of the path.</span></li>
+    <li><span class="a">to</span> <span class="why">"to" marks the end of the path.</span></li>
+    <li><span class="a">through</span> <span class="why">passing inside the panel = "through".</span></li>
+    <li><span class="a">on</span> <span class="alt">(or at)</span> <span class="why">a contact sits on/at a pin, never "in".</span></li>
+    <li><span class="a">out of</span> <span class="why">leaving the plug = "out of".</span></li>
+    <li><span class="a">into</span> <span class="why">entering the connector = "into".</span></li>
+    <li><span class="a">along</span> <span class="why">following the length of the harness = "along".</span></li>
+    <li><span class="a">on</span> <span class="alt">(or at)</span> <span class="why">the bonding strap is fixed on/at pin 4.</span></li>
+  </ol>
+</section>
+
+<!-- E5 -->
+<section class="ex" id="E5">
+  <h2>E5 · Reading 1 — AMM task card</h2>
+  <p class="sub">AMM 32-61-00 · Task card 4 · gear-down warning fault isolation.</p>
+  <ol class="ans">
+    <li><span class="a">W241</span> <span class="why">the card isolates that single conductor.</span></li>
+    <li><span class="a">pin 3</span> <span class="alt">(3)</span> <span class="why">W241 originates at pin 3 on P1.</span></li>
+    <li><span class="a">continuity</span> <span class="why">the multimeter must be set to the continuity range.</span></li>
+    <li><span class="a">no continuity</span> <span class="why">an open circuit reads no continuity whatsoever.</span></li>
+    <li><span class="a">the insulation</span> <span class="alt">(insulation)</span> <span class="why">you inspect insulation for chafing near clamps/brackets.</span></li>
+    <li><span class="a">the tech log</span> <span class="alt">(tech log)</span> <span class="why">the complete result is recorded in the aircraft tech log.</span></li>
+  </ol>
+</section>
+
+<!-- E6 -->
+<section class="ex" id="E6">
+  <h2>E6 · Error-spotting — work-order note</h2>
+  <p class="sub">One error per line: a preposition, a term, or a spelling.</p>
+  <table>
+    <tr><th>#</th><th>Error</th><th>Correction</th><th>Why</th></tr>
+    <tr><td>1</td><td>runs <b>to</b> P1 to J12</td><td class="a">from</td><td class="why">a path needs "from" at the start, not two "to".</td></tr>
+    <tr><td>2</td><td>is <b>in</b> pin 3</td><td class="a">on <span class="alt">(or at)</span></td><td class="why">a contact sits on/at a pin, not "in".</td></tr>
+    <tr><td>3</td><td>goes <b>trough</b></td><td class="a">through</td><td class="why">spelling: "through", never "trough".</td></tr>
+    <tr><td>4</td><td><b>continuty</b></td><td class="a">continuity</td><td class="why">spelling: con-tin-u-i-ty.</td></tr>
+    <tr><td>5</td><td><b>resistence</b></td><td class="a">resistance</td><td class="why">spelling: resist-ance.</td></tr>
+    <tr><td>6</td><td>a <b>open</b> circuit to ground</td><td class="a">short</td><td class="why">chafing to the airframe is a short, not an open.</td></tr>
+    <tr><td>7</td><td>the <b>plag</b></td><td class="a">plug</td><td class="why">spelling: plug.</td></tr>
+    <tr><td>8</td><td>ends <b>on</b> TB2</td><td class="a">at</td><td class="why">a conductor ends "at" a terminal block.</td></tr>
+  </table>
+</section>
+
+<!-- E7 -->
+<section class="ex" id="E7">
+  <h2>E7 · Reading 2 — tech log entry</h2>
+  <p class="sub">Snag &amp; corrective action, page 118.</p>
+  <ol class="ans">
+    <li><span class="a">the gear-down warning lamp does not illuminate</span> <span class="why">the crew's reported snag during the extension check.</span></li>
+    <li><span class="a">an open circuit</span> <span class="why">the continuity test found no path P1→J12.</span></li>
+    <li><span class="a">infinite</span> <span class="why">infinite resistance confirmed the open.</span></li>
+    <li><span class="a">near the (forward) clamp</span> <span class="alt">(clamp)</span> <span class="why">the chafed insulation was found at the forward clamp.</span></li>
+    <li><span class="a">the splice</span> <span class="alt">(splice)</span> <span class="why">the technician re-made the splice at TB2.</span></li>
+    <li><span class="a">it illuminated correctly</span> <span class="alt">(the lamp lit)</span> <span class="why">after the re-test continuity was good and the lamp lit.</span></li>
+  </ol>
+</section>
+
+<!-- E8 -->
+<section class="ex" id="E8">
+  <h2>E8 · Listening review — Dialogue 3</h2>
+  <p class="sub">Replay Dialogue 3, then answer.</p>
+  <ol class="ans">
+    <li><span class="a">an open circuit</span> <span class="why">A suspects an open because the lamp is dead.</span></li>
+    <li><span class="a">no continuity</span> <span class="why">the meter reads no continuity between P1 and J12.</span></li>
+    <li><span class="a">an open circuit</span> <span class="why">infinite resistance normally confirms an open.</span></li>
+    <li><span class="a">continuity</span> <span class="why">a backed-out contact interrupts continuity.</span></li>
+    <li><span class="a">ground</span> <span class="why">a short reads near zero resistance to ground.</span></li>
+    <li><span class="a">the tech log</span> <span class="why">B will write the investigation up in the tech log.</span></li>
+  </ol>
+</section>
+
+<!-- MODEL WRITING -->
+<section class="ex" id="writing">
+  <h2>Model writing answer — tech-log corrective action (annotated)</h2>
+  <p class="sub">ASD-STE100 Simplified Technical English · ~90 words. The learner's version may differ; grade against the four self-check lines, not this wording.</p>
+  <div class="model">
+    <div class="doc">Model — Corrective action</div>
+    <p>Traced wire W241 on the wiring diagram. The conductor runs from pin 3 on connector P1 to socket B on connector J12. Did a continuity test with the multimeter. The test showed an open circuit. The resistance read infinite from P1 to J12. Inspected the harness. Found chafed insulation near the clamp. Found no short circuit to ground. Re-seated the pins in the plug. Re-made the splice at terminal block TB2. Confirmed the bonding on pin 4. Re-tested the system. Continuity is now good. The lamp illuminates. Returned the aircraft to service.</p>
+  </div>
+  <p><b>Why this is a strong STE answer:</b></p>
+  <div class="ann"><b>Short sentences, one idea each.</b> Every sentence is under 14 words. <mark>"Inspected the harness."</mark> and <mark>"Re-tested the system."</mark> each carry a single action — easy to read under pressure.</div>
+  <div class="ann"><b>An action verb starts each step.</b> <mark>Traced… Did… Inspected… Re-seated… Re-made… Confirmed… Returned…</mark> The reader sees the sequence at a glance.</div>
+  <div class="ann"><b>The path is exact.</b> <mark>from pin 3 on connector P1 to socket B on connector J12</mark> — connector, pin, socket and "from … to" leave no ambiguity about the route.</div>
+  <div class="ann"><b>Result then next action.</b> The entry states what the test showed (<mark>an open circuit</mark>, <mark>resistance … infinite</mark>) before each corrective step, so the logic is traceable.</div>
+  <div class="ann"><b>No hedging, no long clauses.</b> STE avoids "which", "although" chains and passive padding here. Numbers and codes (W241, P1, J12, TB2, pin 4) are written exactly.</div>
+  <p class="note"><b>Common learner slips to correct on the draft:</b> "runs to P1 to J12" → <b>from</b> P1 to J12 · "on pin 3" is fine, "in pin 3" is not · "trough" → <b>through</b> · long sentences joined with "and … and …" → split into single-idea steps.</p>
+</section>
+
+</div>
+</body>
+</html>

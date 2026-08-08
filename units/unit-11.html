@@ -1,0 +1,727 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reading a wiring diagram and connector/pin talk</title><!--CF-LANG-UI--><style>/* CourseForge LANG — the unit design system. Injected deterministically into every unit page
+   AFTER authoring, so all units look identical and premium regardless of what the agent wrote. */
+:root{
+  --navy:#0f2942; --brand:#2F5496; --brand-2:#4a7bc4; --amber:#e0a53d; --amber-soft:#fdf3e0;
+  --ink:#1b2733; --ink-2:#5a6b7d; --line:#e2e6ec; --paper:#fbfaf7; --card:#ffffff;
+  --ok:#2e9e6b; --shadow:0 1px 2px rgba(16,32,54,.06), 0 8px 28px rgba(16,32,54,.07);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.65 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased}
+article,main{max-width:920px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.lang-mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+  color:#fff;padding:48px 0 40px;margin-bottom:34px;position:relative;overflow:hidden}
+.lang-mast::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(680px 300px at 82% -8%,rgba(255,255,255,.16),transparent 70%)}
+.lang-mast .in{max-width:920px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+.lang-mast h1{font-family:Georgia,'Source Serif 4',serif;font-size:40px;line-height:1.18;margin:10px 0 14px;font-weight:700}
+.lang-mast .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.lang-mast .pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 14px;font-size:13px;letter-spacing:.02em;backdrop-filter:blur(4px)}
+
+/* ---------- sections ---------- */
+section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;margin:22px 0;box-shadow:var(--shadow)}
+section>h2{font-family:Georgia,'Source Serif 4',serif;font-size:26px;color:var(--navy);
+  margin:0 0 6px;display:flex;align-items:center;gap:12px}
+section>h2::before{content:"";width:5px;height:26px;border-radius:3px;background:var(--amber);flex:none}
+h3{font-size:18.5px;color:var(--navy);margin:26px 0 8px}
+p{margin:12px 0}
+a{color:var(--brand)}
+
+/* section icons by id */
+#scenario>h2::after,#dialogues>h2::after,#vocabulary>h2::after,#grammar>h2::after,
+#exercises>h2::after,#speaking>h2::after,#writing>h2::after{margin-left:auto;font-size:22px;opacity:.5}
+#scenario>h2::after{content:"📍"} #dialogues>h2::after{content:"🎧"}
+#vocabulary>h2::after{content:"📖"} #grammar>h2::after{content:"🔧"}
+#exercises>h2::after{content:"✏️"} #speaking>h2::after{content:"🗣"} #writing>h2::after{content:"✍️"}
+
+/* ---------- outcomes card ---------- */
+.cando,.outcomes{background:linear-gradient(180deg,#f4f8ff,#eef4fd);border:1px solid #d7e4f7;
+  border-left:5px solid var(--brand);border-radius:12px;padding:20px 24px;margin:18px 0}
+.cando li,.outcomes li{margin:7px 0}
+
+/* ---------- audio ---------- */
+figure.lang-audio{margin:20px 0;padding:16px 18px;background:linear-gradient(180deg,#f7fafe,#eef3fa);
+  border:1px solid #dbe6f4;border-radius:14px}
+figure.lang-audio audio{width:100%;height:40px;filter:saturate(.9)}
+figure.lang-audio figcaption{margin-top:8px;font-size:13px;color:var(--ink-2)}
+details.transcript{margin:10px 0 4px;border:1px dashed #cfd8e4;border-radius:12px;
+  background:#fcfdff;padding:0 16px}
+details.transcript>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand);font-size:15px;list-style:none}
+details.transcript>summary::before{content:"▸ ";transition:.2s}
+details[open].transcript>summary::before{content:"▾ "}
+details.transcript[open]{padding-bottom:14px}
+
+/* ---------- dialogue ---------- */
+.dialogue{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.turn{display:flex;gap:12px;align-items:flex-start;max-width:92%}
+.turn.b{align-self:flex-end;flex-direction:row-reverse;text-align:right}
+.turn .who{flex:none;min-width:58px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand);padding-top:9px}
+.turn.b .who{color:var(--amber)}
+.turn .said{background:#f2f6fb;border:1px solid #e2eaf4;border-radius:14px 14px 14px 4px;
+  padding:10px 15px;display:inline-block}
+.turn.b .said{background:var(--amber-soft);border-color:#f0dfbe;border-radius:14px 14px 4px 14px}
+
+/* ---------- vocabulary ---------- */
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15.5px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+thead th{background:#f1f5fa;color:var(--navy);text-align:left;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+dfn{font-style:normal;font-weight:700;color:var(--navy);border-bottom:2px solid var(--amber);padding-bottom:1px}
+
+/* ---------- grammar ---------- */
+.wrong,.error{color:#c0392b} .right,.correct{color:var(--ok)}
+.wrong::before{content:"✗ ";font-weight:700} .right::before{content:"✓ ";font-weight:700}
+
+/* ---------- exercises ---------- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--brand-2);border-radius:12px;
+  padding:20px 22px;margin:18px 0;background:#fdfefe}
+.ex h3{margin-top:0;display:flex;align-items:center;gap:10px}
+.ex h3::before{content:"";width:26px;height:26px;border-radius:8px;background:var(--brand);
+  color:#fff;font-size:13px;display:none}
+.ex ol,.ex ul{padding-left:22px} .ex li{margin:9px 0}
+input[type=text],select{font:inherit;font-size:15px;padding:7px 11px;border:1px solid #c9d4e2;
+  border-radius:9px;background:#fff;min-width:150px;transition:.15s}
+input[type=text]:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,84,150,.14)}
+input.correct{border-color:var(--ok);background:#f2fbf6}
+input.wrong{border-color:#e0a0a0;background:#fdf5f5}
+button{font:inherit;font-weight:600;font-size:14.5px;padding:9px 18px;border-radius:10px;
+  border:1px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;transition:.15s}
+button:hover{background:#26456f;border-color:#26456f}
+button.ghost,button.secondary{background:#fff;color:var(--brand)}
+button.ghost:hover,button.secondary:hover{background:#f2f6fb}
+details.answers{margin-top:14px;border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:0 16px}
+details.answers>summary{cursor:pointer;padding:11px 0;font-weight:600;color:var(--brand);font-size:14.5px}
+
+/* ---------- speaking ---------- */
+.roleplay{border:1px solid #f0dfbe;background:linear-gradient(180deg,#fffdf8,var(--amber-soft));
+  border-radius:14px;padding:20px 22px;margin:16px 0;position:relative}
+.roleplay::before{content:"ROLE-PLAY";position:absolute;top:-9px;left:18px;background:var(--amber);
+  color:#2c1e05;font-size:10.5px;font-weight:800;letter-spacing:.12em;padding:3px 10px;border-radius:6px}
+.roleplay h3{margin-top:6px}
+.ai-partner{border:1px solid #cfe0f5;background:linear-gradient(180deg,#f7fbff,#eef5ff);
+  border-radius:14px;padding:20px 22px;margin:18px 0}
+.ai-partner pre,.ai-partner code{white-space:pre-wrap;background:#fff;border:1px solid #dbe6f4;
+  border-radius:10px;padding:12px 14px;display:block;font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;margin:8px 0}
+
+/* ---------- writing ---------- */
+#writing .model,details.model{border:1px solid #d7e4f7;background:#f7faff;border-radius:12px;padding:0 16px;margin-top:14px}
+details.model>summary{cursor:pointer;padding:12px 0;font-weight:600;color:var(--brand)}
+
+/* ---------- footer / print ---------- */
+.lang-foot{max-width:920px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{.lang-mast{background:var(--brand)!important;-webkit-print-color-adjust:exact}
+  section{break-inside:avoid;box-shadow:none}}
+@media (max-width:720px){
+  article,main{padding:0 16px 60px} section{padding:22px 18px}
+  .lang-mast h1{font-size:29px} .turn{max-width:100%}
+}
+
+.cf-nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;
+  gap:4px;z-index:40;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:12px;
+  padding:10px 8px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.cf-nav a{font-size:12px;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-radius:7px;
+  letter-spacing:.02em;white-space:nowrap;transition:.15s}
+.cf-nav a:hover{background:#f1f5fa;color:var(--brand)}
+.cf-nav a.on{background:var(--brand);color:#fff;font-weight:600}
+.cf-prog{display:flex;align-items:center;gap:12px;margin:14px 0 6px;font-size:13px;color:var(--ink-2)}
+.cf-prog i{display:block;height:6px;width:0;background:var(--amber);border-radius:99px;transition:width .3s}
+.cf-prog{position:relative;padding-left:0}
+.cf-prog::before{content:"";position:absolute;left:0;right:150px;height:6px;background:#eceff3;border-radius:99px;z-index:0}
+.cf-prog i{position:relative;z-index:1;flex:none}
+@media (max-width:1180px){.cf-nav{display:none}}
+</style><!--/CF-LANG-UI--></head><body><header class="lang-mast"><div class="in"><div class="eyebrow">English for Aviation Maintenance · CEFR B2</div><h1>Unit 11 of 32 · Reading a wiring diagram and connector/pin talk</h1><div class="meta"><span class="pill">🕐 90-minute class</span><span class="pill">🎧 listening · 🗣 speaking · ✍️ writing</span><span class="pill">🔑 wiring — pin, connector, continuity, open circuit</span></div></div></header><article>
+<style>
+  :root{
+    --color-primary:#2F5496;--color-primary-soft:#4a6fb0;--color-primary-dark:#1f3a6b;
+    --signal:#e53935;--good:#43a047;--bad:#c0392b;--gold:#c8821a;--accent:#b1551f;
+    --bg:#fbfaf6;--bg-elevated:#ffffff;--bg-sunken:#f3f1ea;--bg-margin:#fff8e1;
+    --border:#e7e3d8;--border-soft:#efece4;
+    --ink:#1f2230;--ink-soft:#4a4f5c;--ink-muted:#707582;
+    --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono','SF Mono',Consolas,Menlo,monospace;
+    --radius-sm:6px;--radius:10px;--radius-lg:16px;
+    --shadow-sm:0 1px 2px rgba(31,35,48,.06),0 1px 1px rgba(31,35,48,.04);
+    --shadow:0 4px 14px rgba(31,35,48,.08),0 1px 2px rgba(31,35,48,.05);
+    --space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-5:1.5rem;--space-6:2rem;--space-8:3rem;
+  }
+  *{box-sizing:border-box}
+  article{max-width:1000px;margin:0 auto;padding:0 26px 100px;font-family:var(--font-sans);
+    background:var(--bg);color:var(--ink);font-size:17px;line-height:1.65}
+  h1,h2,h3,h4{font-family:var(--font-serif);font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.2;margin:0 0 var(--space-4)}
+  .lec-hero{padding:56px 0 30px;border-bottom:1px solid var(--border);margin-bottom:var(--space-6)}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-primary);margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary)}
+  .lecture-title{font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.1;margin:0 0 var(--space-4);max-width:26ch}
+  .subtitle{font-size:18px;color:var(--ink-soft);margin:0 0 var(--space-5);max-width:66ch;font-weight:450}
+  .hero-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 26px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+  .hero-meta span{display:flex;flex-direction:column;gap:3px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted)}
+  .hero-meta strong{font-family:var(--font-sans);font-size:15px;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:600}
+  .lecture-section{margin:0 0 var(--space-8);scroll-margin-top:20px}
+  .lecture-section>h2{font-size:clamp(1.4rem,3vw,1.9rem);padding-bottom:var(--space-3);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+  .lecture-section>h2 .secnum{font-family:var(--font-mono);font-size:1rem;color:var(--color-primary);font-weight:600}
+  h3{font-size:1.16rem;margin:var(--space-6) 0 var(--space-2)}
+  p{max-width:74ch}
+  p.lede{font-size:18px;color:#3a3f4d}
+  code{font-family:var(--font-mono);font-size:.88em;background:var(--bg-sunken);padding:1px 5px;border-radius:4px}
+  a{color:var(--color-primary)}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4) var(--space-5);box-shadow:var(--shadow-sm)}
+  .card h4{font-size:.98rem;margin:0 0 var(--space-3);color:var(--color-primary-dark)}
+  .card ul{margin:0;padding-left:1.1em}
+  .card li{margin:6px 0;color:#3a3f4d}
+  .callout{background:var(--bg-elevated);border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:var(--space-4) var(--space-5);margin:var(--space-5) 0;box-shadow:var(--shadow-sm)}
+  .callout h4{margin:0 0 8px}
+  .callout.warm{border-left-color:var(--accent);background:#fbf2ef}
+  .dwrap{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin:16px 0;box-shadow:var(--shadow-sm)}
+  .dwrap h3{margin-top:0}
+  .lang-audio-slot{display:block;background:var(--bg-sunken);border:1px dashed var(--color-primary-soft);border-radius:var(--radius-sm);padding:12px 16px;margin:10px 0;font-family:var(--font-mono);font-size:12px;color:var(--color-primary-dark);text-align:center}
+  .lang-audio-slot:before{content:"\25B6  audio — listen first, then open the transcript"}
+  details.transcript{margin-top:8px;border-top:1px solid var(--border-soft);padding-top:8px}
+  details.transcript>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--color-primary);font-weight:700}
+  .turn{display:grid;grid-template-columns:26px 1fr;gap:10px;margin:5px 0;max-width:74ch}
+  .turn .sp{font-family:var(--font-mono);font-weight:700;color:var(--color-primary-dark)}
+  .said{color:#2c313f}
+  .mono .said{display:block;margin:5px 0;max-width:74ch}
+  table.vocab{border-collapse:collapse;width:100%;margin-top:12px;font-size:14.5px}
+  table.vocab th,table.vocab td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.vocab th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+  table.vocab dfn{font-style:normal;font-weight:700;color:var(--color-primary-dark);font-family:var(--font-mono);font-size:13.5px}
+  .coll{font-family:var(--font-mono);font-size:12.5px;color:var(--accent)}
+  table.gt{border-collapse:collapse;width:100%;margin-top:10px;font-size:14.5px}
+  table.gt th,table.gt td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+  table.gt th{background:var(--bg-sunken);font-weight:600;color:var(--ink-soft)}
+  .fix{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius-sm);padding:10px 14px;margin:8px 0}
+  .fix .x{color:var(--bad);font-weight:700}.fix .c{color:var(--good);font-weight:700}
+  .ex{border:1px solid var(--border);border-left:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:14px 0;background:var(--bg-elevated);box-shadow:var(--shadow-sm)}
+  .ex .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--color-primary);font-weight:700;font-family:var(--font-mono)}
+  .ex h3{margin-top:4px}
+  .ex ol{margin:8px 0;padding-left:1.4em}
+  .ex ol.plain{list-style:decimal}
+  .ex li{margin:8px 0;max-width:74ch}
+  .ex input[type=text]{font-family:var(--font-mono);font-size:14px;border:1px solid var(--border);border-radius:5px;padding:4px 8px;min-width:120px;background:#fff}
+  .ex select{font-family:var(--font-sans);font-size:14px;border:1px solid var(--border);border-radius:5px;padding:4px 8px;background:#fff}
+  .ex input.right,.ex select.right{border-color:var(--good);background:#eaf5ec}
+  .ex input.wrong,.ex select.wrong{border-color:var(--bad);background:#fbecea}
+  .btn{font-family:var(--font-sans);background:var(--color-primary);color:#fff;border:1px solid var(--color-primary);border-radius:8px;padding:7px 15px;font-size:14px;font-weight:600;cursor:pointer;transition:.14s}
+  .btn:hover{background:var(--color-primary-dark)}
+  .score{font-family:var(--font-mono);font-weight:700;margin-left:12px;color:var(--color-primary-dark)}
+  .reading{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;margin:10px 0;font-size:15px}
+  .reading .doc-h{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--color-primary);font-weight:700;margin-bottom:6px}
+  details.ans{margin-top:10px}
+  details.ans>summary{cursor:pointer;font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700}
+  details.ans ol{font-size:14px;color:#3a3f4d}
+  .hint{font-size:13.5px;color:var(--ink-muted);margin-top:6px}
+  .roleplay{background:var(--bg-elevated);border:1px solid var(--border);border-top:4px solid var(--color-primary);border-radius:var(--radius-sm);padding:14px 18px;margin:12px 0;box-shadow:var(--shadow-sm)}
+  .roleplay h4{margin:0 0 8px;font-size:1.05rem}
+  .roleplay .lab{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--color-primary);font-weight:700}
+  .rp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+  @media(max-width:620px){.rp-grid{grid-template-columns:1fr}}
+  .phrases{font-family:var(--font-mono);font-size:13px;color:#3a3f4d;background:var(--bg-sunken);border-radius:var(--radius-sm);padding:8px 12px;margin-top:8px}
+  .ai-box{background:linear-gradient(180deg,#f7f5ef,#fbfaf6);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;margin:18px 0;box-shadow:var(--shadow)}
+  .ai-box h3{margin-top:0;color:var(--accent)}
+  .prompt{position:relative;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 40px 12px 14px;margin:10px 0;font-size:14px}
+  .prompt .cp{position:absolute;top:8px;right:8px;font-family:var(--font-mono);font-size:11px;padding:3px 9px;border-radius:6px;border:1px solid var(--border);background:var(--bg-sunken);cursor:pointer}
+  .prompt .cp.done{background:#eaf5ec;border-color:var(--good);color:#256d36}
+  .selfcheck-list{background:var(--bg-margin);border:1px solid #f0e6c8;border-radius:var(--radius-sm);padding:12px 18px}
+  .selfcheck-list li{margin:5px 0}
+  footer{margin-top:var(--space-8);color:var(--ink-muted);font-size:13px;border-top:1px solid var(--border);padding-top:var(--space-5)}
+</style>
+
+<header class="lec-hero">
+  <p class="eyebrow"><span class="dot"></span>English for Aviation Maintenance · CEFR B2 · Unit 11</p>
+  <h1 class="lecture-title">Reading a wiring diagram and connector/pin talk</h1>
+  <p class="subtitle">A conductor is only useful if you can find it again. In this unit you learn to read a wiring diagram, name a connector and a pin with no ambiguity, describe the exact path of a wire, and explain a suspected open or short circuit to a colleague — the way a Part-66 avionics technician does it on the line.</p>
+  <div class="hero-meta">
+    <span>Specialism<strong>Avionics &amp; electrical, EASA Part-66/145</strong></span>
+    <span>Level<strong>CEFR B2 · self-study, 90 minutes</strong></span>
+    <span>Grammar focus<strong>Prepositions of position and path</strong></span>
+    <span>Writing habit<strong>ASD-STE100 Simplified Technical English</strong></span>
+  </div>
+</header>
+
+<div class="card" style="margin-bottom:var(--space-6)">
+  <h4>By the end of this unit you can …</h4>
+  <ul>
+    <li>Can locate a wire, connector and pin on a WDM and describe the path.</li>
+    <li>Can communicate pin and connector references without ambiguity.</li>
+    <li>Can explain a suspected open or short circuit to a colleague.</li>
+  </ul>
+</div>
+
+<section class="lecture-section" id="scenario">
+  <h2><span class="secnum">01</span>The situation</h2>
+  <p class="lede">You are working a landing-gear warning fault at a Part-145 line station this afternoon. The gear-down lamp stays off during the extension check, so the flight crew has written the snag into the tech log. Your task is to trace the affected conductor on the wiring diagram, which is the master drawing of every wire in the aircraft. You must then locate the correct connector and pin on a mock harness, and describe the route out loud to your partner. One technician reads the diagram while the other locates the parts and repeats each reference back. Unless both people use identical words, they inevitably disconnect the wrong wire, so precise connector and pin talk is a genuine safety task rather than casual conversation.</p>
+</section>
+
+<section class="lecture-section" id="dialogues">
+  <h2><span class="secnum">02</span>Model dialogues</h2>
+  <p>Here are three short conversations between two technicians, called A and B, who are working the same landing-gear snag from different angles. Listen to each recording first, without reading, so your ear adjusts to the natural workplace rhythm. Afterwards, open the transcript and check the specialist words against the vocabulary bank below.</p>
+
+  <div class="dwrap">
+    <h3>Dialogue 1 — Tracing a conductor on the WDM</h3>
+    <figure class="lang-audio" data-audio="1" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u11-1.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:21 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="sp">A</span><span class="said">Right, pull up the wiring diagram for the landing-gear warning, because the gear-down lamp stays off.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">It is on the screen now, although the drawing is crowded here; which conductor are we chasing?</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Wire W241, which originates at pin 3 on connector P1, near the avionics rack.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">Understood, but from P1 the route splits, so where exactly does the conductor terminate?</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">It travels through the harness behind the instrument panel, and then continues onward to connector J12.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">So the routing is P1 pin 3, along the loom, and finally into connector J12.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Exactly right; now read me the socket number where the conductor lands inside J12.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">The diagram clearly indicates socket B on J12, immediately beside the shielded pair.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Good, because that particular contact feeds the gear-down warning lamp in the cockpit.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">And the return path? I still need to know where the ground reference actually sits.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">The ground is on pin 4, connected by a bonding strap to the airframe structure.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">Understood, so unless the ground connection is broken, the warning lamp should illuminate normally.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Correct, although as soon as continuity breaks anywhere, the lamp immediately goes dark.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">In that case we should test continuity from P1 through to J12 before anything else.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Agreed; grab the multimeter, select the continuity range, and back-probe the plug carefully.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">On it, and I will also read the receptacle end so that we compare both connectors.</span></p>
+    </details>
+  </div>
+
+  <div class="dwrap">
+    <h3>Dialogue 2 — Calling references on a mock harness</h3>
+    <figure class="lang-audio" data-audio="2" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u11-2.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:17 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="sp">A</span><span class="said">I will call the references from the diagram while you locate each item on the harness.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">Ready when you are; give me the first connector, and please say the code slowly.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Connector P4, which is the round plug positioned near the forward frame.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">Found P4 already, and it has a woven metal shield surrounding the conductors.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Good, now find pin 7 specifically, and be careful not to confuse it with pin 1.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">Pin 7 located; it is a socket contact sitting in the top row of the connector.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Excellent, but say the whole reference back to me, exactly as you understood it.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">Connector P4, pin 7, top row of the socket, next to the shielded conductor.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Perfect, because clear references stop us from disturbing the wrong terminal entirely.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">Agreed; one digit wrong and the splice ends up in completely the wrong position.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Right, now trace the conductor out of P4 and follow it downstream for me.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">It runs from P4, down the loom, and terminates at terminal block TB2.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">While you are there, inspect the insulation carefully along that entire run.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">The insulation looks chafed near the clamp, although the conductor itself appears intact.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Note that carefully, because chafing can easily cause a short circuit to ground.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">Logged already, and I will also measure the resistance across the shield braid.</span></p>
+    </details>
+  </div>
+
+  <div class="dwrap">
+    <h3>Dialogue 3 — Explaining an open or short circuit</h3>
+    <figure class="lang-audio" data-audio="3" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u11-3.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 1:15 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p class="turn"><span class="sp">A</span><span class="said">The gear lamp stays completely off, so I strongly suspect we have an open circuit.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">What exactly makes you say it is open, rather than a short somewhere?</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">The multimeter reads no continuity at all between connector P1 and connector J12.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">So the electrical path is broken somewhere along the conductor between those points.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Precisely; the resistance reads infinite, which normally confirms an open circuit.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">Could a backed-out pin inside the connector realistically cause a reading like that?</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">It certainly could, because a loose contact interrupts continuity just as effectively.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">And a short circuit instead? How would that appear differently on the meter?</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">A short reads near zero resistance to ground, rather than the infinite reading we see.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">Because the exposed conductor touches the airframe through damaged insulation somewhere.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Exactly, and in that situation the shield itself may be grounding the inner core.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">So first we inspect the whole harness carefully for any chafing or damage.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Then we methodically re-seat every pin inside the plug, one contact at a time.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">And if the splice at the terminal block feels loose, we carefully re-make it.</span></p>
+      <p class="turn"><span class="sp">A</span><span class="said">Right, because unless we actually locate the open, the warning lamp stays dead.</span></p>
+      <p class="turn"><span class="sp">B</span><span class="said">Understood; I will write the whole investigation up in the tech log immediately.</span></p>
+    </details>
+  </div>
+
+  <div class="dwrap mono">
+    <h3>Listening extra — Shift-handover voicemail</h3>
+    <figure class="lang-audio" data-audio="4" style="margin:18px 0"><audio controls preload="metadata" style="width:100%" src="audio/u11-4.mp3"></audio><figcaption style="font-size:13px;color:#666">🎧 0:44 · listen first, then open the transcript</figcaption></figure>
+    <details class="transcript"><summary>Transcript</summary>
+      <p><span class="said">Hi, this is Māris on the late shift, handing over the gear-warning snag to you.</span>
+      <span class="said">I traced wire W241 from pin 3 on connector P1, through the harness, to socket B on J12.</span>
+      <span class="said">The multimeter shows no continuity along that run, so I strongly suspect an open circuit.</span>
+      <span class="said">The insulation near the clamp looks chafed, although I found no short circuit to ground yet.</span>
+      <span class="said">I re-seated the pins inside the plug, but unfortunately the warning lamp is still dead.</span>
+      <span class="said">Please check the splice at terminal block TB2 and confirm the bonding on pin 4.</span>
+      <span class="said">Bring a multimeter and the wiring diagram to the bay, and call me if the routing is unclear.</span></p>
+    </details>
+  </div>
+</section>
+
+<section class="lecture-section" id="vocabulary">
+  <h2><span class="secnum">03</span>Vocabulary bank</h2>
+  <p>These are the taught specialist terms for this unit. Each entry gives a plain meaning, one example sentence at your level, and one common word pair, called a collocation. Learn the collocation together with the term, because that is how the words actually appear in real maintenance documentation.</p>
+  <table class="vocab">
+    <thead><tr><th>Term</th><th>Plain meaning</th><th>Example sentence</th><th>Collocation</th></tr></thead>
+    <tbody>
+      <tr><td><dfn data-term="wiring diagram">wiring diagram</dfn></td><td>The master drawing that shows how the conductors link the parts.</td><td>Always open the wiring diagram for the relevant system before you trace any conductor.</td><td class="coll">read the wiring diagram</td></tr>
+      <tr><td><dfn data-term="connector">connector</dfn></td><td>A fitting that joins two separate sets of conductors.</td><td>Every connector carries a unique code, such as P1 or J12, so nobody confuses them.</td><td class="coll">mate the connector</td></tr>
+      <tr><td><dfn data-term="pin">pin</dfn></td><td>A small male metal contact inside a connector.</td><td>Wire W241 terminates on pin 3, which is the third contact inside connector P1.</td><td class="coll">pin number</td></tr>
+      <tr><td><dfn data-term="socket">socket</dfn></td><td>The female cavity that receives a pin.</td><td>The socket receives a pin whenever the two connector halves mate together.</td><td class="coll">socket contact</td></tr>
+      <tr><td><dfn data-term="contact">contact</dfn></td><td>The metal part inside a connector that carries the current.</td><td>A backed-out contact interrupts the current, although the connector still looks correct outside.</td><td class="coll">backed-out contact</td></tr>
+      <tr><td><dfn data-term="continuity">continuity</dfn></td><td>An unbroken electrical path from one end to the other.</td><td>We perform a continuity test to confirm an unbroken path between the two connectors.</td><td class="coll">continuity test</td></tr>
+      <tr><td><dfn data-term="open circuit">open circuit</dfn></td><td>A complete break in the path, so no current flows.</td><td>An open circuit is a complete break, so no current can flow through the conductor.</td><td class="coll">find the open circuit</td></tr>
+      <tr><td><dfn data-term="short circuit">short circuit</dfn></td><td>An unwanted path, usually to ground.</td><td>Chafed insulation frequently causes a short circuit, because the conductor touches the airframe.</td><td class="coll">short circuit to ground</td></tr>
+      <tr><td><dfn data-term="harness">harness</dfn></td><td>A bundle of conductors tied or taped together.</td><td>The wiring harness is a bundle of conductors routed together behind the instrument panel.</td><td class="coll">wiring harness</td></tr>
+      <tr><td><dfn data-term="terminal">terminal</dfn></td><td>A point where a conductor is fixed and connected.</td><td>The conductor terminates at a terminal block, where several wires are mechanically secured.</td><td class="coll">terminal block</td></tr>
+      <tr><td><dfn data-term="receptacle">receptacle</dfn></td><td>The fixed connector half, mounted on a unit or structure.</td><td>The receptacle is the fixed connector half, mounted permanently on the equipment.</td><td class="coll">receptacle end</td></tr>
+      <tr><td><dfn data-term="plug">plug</dfn></td><td>The connector half that you push into the receptacle.</td><td>Technicians usually back-probe the mating plug rather than disturbing the socket contacts.</td><td class="coll">mating plug</td></tr>
+      <tr><td><dfn data-term="insulation">insulation</dfn></td><td>The protective cover around a conductor.</td><td>Damaged insulation near a clamp is a common cause of intermittent electrical faults.</td><td class="coll">damaged insulation</td></tr>
+      <tr><td><dfn data-term="resistance">resistance</dfn></td><td>How strongly a path opposes the current, measured in ohms.</td><td>Infinite resistance on the multimeter normally indicates an open circuit along the run.</td><td class="coll">measure resistance</td></tr>
+      <tr><td><dfn data-term="multimeter">multimeter</dfn></td><td>A tool that reads voltage, resistance and continuity.</td><td>Set the multimeter to the continuity range before you back-probe either connector.</td><td class="coll">set the multimeter</td></tr>
+      <tr><td><dfn data-term="ground">ground</dfn></td><td>The return path to the airframe, normally at zero volts.</td><td>The ground provides the return path to the airframe, and it normally reads zero volts.</td><td class="coll">ground point</td></tr>
+      <tr><td><dfn data-term="bonding">bonding</dfn></td><td>A low-resistance link between equipment and the airframe.</td><td>A bonding strap creates a low-resistance connection between the equipment and the structure.</td><td class="coll">bonding strap</td></tr>
+      <tr><td><dfn data-term="shield">shield</dfn></td><td>A metal braid around a conductor that blocks interference.</td><td>The metallic shield surrounds the conductor and protects the signal from interference.</td><td class="coll">shield braid</td></tr>
+      <tr><td><dfn data-term="splice">splice</dfn></td><td>A joint where two conductors are permanently joined.</td><td>If the splice between two conductors becomes loose, the technician must carefully re-make it.</td><td class="coll">make a splice</td></tr>
+      <tr><td><dfn data-term="routing">routing</dfn></td><td>The path a conductor takes through the aircraft.</td><td>Always verify the routing of a conductor along the loom, especially near clamps and brackets.</td><td class="coll">wire routing</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="lecture-section" id="grammar">
+  <h2><span class="secnum">04</span>Grammar in context — prepositions of position and path</h2>
+  <p class="lede">Pin routing must be spatially exact, because a single wrong preposition sends your colleague to entirely the wrong place. For that reason we describe the position of a contact and the path of a conductor with real precision.</p>
+  <p>Look carefully at these lines taken directly from the dialogues you have just heard:</p>
+  <ul>
+    <li>"Wire W241 originates <strong>from</strong> pin 3 <strong>on</strong> connector P1." (this gives the start point and the position)</li>
+    <li>"It travels <strong>through</strong> the harness, and then continues <strong>to</strong> J12." (this gives the path and the end point)</li>
+    <li>"It runs <strong>from</strong> P4, <strong>down</strong> the loom, <strong>to</strong> terminal block TB2." (this describes the complete path)</li>
+    <li>"The ground reference sits <strong>on</strong> pin 4." (this gives a fixed position)</li>
+  </ul>
+  <p>Every conductor has three parts you must describe: a start, a path, and an end. Use <em>from</em> for the start, a path word for the middle section, and <em>to</em> for the end. For a fixed position on a component, English prefers <em>at</em> or <em>on</em> rather than <em>in</em>.</p>
+  <table class="gt">
+    <thead><tr><th>Preposition</th><th>Use</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>from</strong></td><td>the start of the path</td><td>The conductor runs <strong>from</strong> connector P1.</td></tr>
+      <tr><td><strong>to</strong></td><td>the end of the path</td><td>It continues <strong>to</strong> connector J12.</td></tr>
+      <tr><td><strong>through</strong></td><td>passing inside something</td><td>It travels <strong>through</strong> the harness.</td></tr>
+      <tr><td><strong>at / on</strong></td><td>a fixed position on a part</td><td>The contact sits <strong>at</strong> pin 3, <strong>on</strong> the terminal block.</td></tr>
+    </tbody>
+  </table>
+  <p class="hint">Other path words you will frequently need include: <em>along</em> the loom, <em>into</em> the connector, <em>out of</em> the plug, <em>between</em> pin 3 and pin 4, <em>behind</em> the panel, and <em>next to</em> the clamp.</p>
+
+  <h3>Three common mistakes made by Latvian and Russian speakers</h3>
+  <div class="fix"><span class="x">✗ "The conductor runs to P1 to J12."</span><br><span class="c">✓ "The conductor runs from P1 to J12."</span><br>A described path needs a start and an end, so use <em>from</em> for the start rather than repeating <em>to</em>.</div>
+  <div class="fix"><span class="x">✗ "The contact is in pin 3."</span><br><span class="c">✓ "The contact is on pin 3."</span> (or "at pin 3")<br>The Russian preposition "в" pulls learners towards <em>in</em>, but a contact sits <em>on</em> or <em>at</em> a pin.</div>
+  <div class="fix"><span class="x">✗ "It goes trough harness to J12."</span><br><span class="c">✓ "It goes through the harness to J12."</span><br>The correct word is <em>through</em>, never "trough", and English needs the article <em>the</em> before <em>harness</em>.</div>
+</section>
+
+<section class="lecture-section" id="exercises">
+  <h2><span class="secnum">05</span>Exercises</h2>
+  <p>Complete each exercise carefully, and then press the <em>Check</em> button to see your score. A green box means your answer is correct, while a red box means you should try again. Open <em>Show answers</em> whenever you want to compare your work with the model.</p>
+
+  <div class="ex" id="e1">
+    <span class="tag">E1 · Gap-fill</span>
+    <h3>Put the correct bank term into each gap</h3>
+    <p class="hint">Choose from: wiring diagram · connector · pin · socket · continuity · harness · plug · resistance · multimeter · routing</p>
+    <ol class="plain">
+      <li>Before you trace any conductor on the aircraft, always open the <input type="text" data-answer="wiring diagram"> for the relevant system.</li>
+      <li>Every <input type="text" data-answer="connector"> carries a unique code, such as P1 or J12, so nobody confuses them.</li>
+      <li>Wire W241 terminates on <input type="text" data-answer="pin"> 3, the third contact inside connector P1.</li>
+      <li>A male pin fits precisely into the female <input type="text" data-answer="socket"> on the opposite connector.</li>
+      <li>We perform a <input type="text" data-answer="continuity"> test to confirm an unbroken path between both ends.</li>
+      <li>The bundle of conductors routed behind the instrument panel is called the <input type="text" data-answer="harness">.</li>
+      <li>Technicians normally back-probe the mating <input type="text" data-answer="plug"> rather than disturbing the socket contacts.</li>
+      <li>Infinite <input type="text" data-answer="resistance"> on the meter usually indicates an open circuit along the run.</li>
+      <li>Set the <input type="text" data-answer="multimeter"> to the continuity range before you begin probing the connectors.</li>
+      <li>Always verify the <input type="text" data-answer="routing"> of the conductor along the loom, especially near the clamps.</li>
+    </ol>
+    <button class="btn" onclick="checkEx('e1')">Check</button><span class="score" id="e1-score"></span>
+    <details class="ans"><summary>Show answers</summary>
+      <ol class="plain"><li>wiring diagram</li><li>connector</li><li>pin</li><li>socket</li><li>continuity</li><li>harness</li><li>plug</li><li>resistance</li><li>multimeter</li><li>routing</li></ol>
+    </details>
+  </div>
+
+  <div class="ex" id="e2">
+    <span class="tag">E2 · Matching</span>
+    <h3>Match each term to its correct meaning</h3>
+    <ol class="plain">
+      <li><b>contact</b> — <select data-answer="a"><option value="">choose…</option><option value="a">the metal part inside a connector that carries the current</option><option value="b">a joint where two conductors are permanently joined</option><option value="c">a low-resistance link to the airframe</option></select></li>
+      <li><b>open circuit</b> — <select data-answer="a"><option value="">choose…</option><option value="a">a complete break, so no current can flow</option><option value="b">an unwanted path to ground</option><option value="c">the fixed connector half on a unit</option></select></li>
+      <li><b>short circuit</b> — <select data-answer="b"><option value="">choose…</option><option value="a">a bundle of conductors routed together</option><option value="b">an unwanted path, usually to ground</option><option value="c">the protective cover around a conductor</option></select></li>
+      <li><b>terminal</b> — <select data-answer="c"><option value="">choose…</option><option value="a">a tool that reads voltage and resistance</option><option value="b">a metal braid around a conductor</option><option value="c">a point where a conductor is fixed and connected</option></select></li>
+      <li><b>receptacle</b> — <select data-answer="a"><option value="">choose…</option><option value="a">the fixed connector half, mounted on a unit</option><option value="b">the return path to the airframe</option><option value="c">an unbroken electrical path</option></select></li>
+      <li><b>insulation</b> — <select data-answer="c"><option value="">choose…</option><option value="a">a small male metal contact</option><option value="b">a joint between two conductors</option><option value="c">the protective cover around a conductor</option></select></li>
+      <li><b>ground</b> — <select data-answer="b"><option value="">choose…</option><option value="a">the master drawing of the conductors</option><option value="b">the return path to the airframe, at zero volts</option><option value="c">a female cavity for a pin</option></select></li>
+      <li><b>bonding</b> — <select data-answer="a"><option value="">choose…</option><option value="a">a low-resistance link between equipment and airframe</option><option value="b">a complete break in the path</option><option value="c">the path a conductor takes</option></select></li>
+      <li><b>shield</b> — <select data-answer="c"><option value="">choose…</option><option value="a">a fitting that joins two sets of conductors</option><option value="b">a fixed connection point for a conductor</option><option value="c">a metal braid that blocks interference</option></select></li>
+      <li><b>splice</b> — <select data-answer="b"><option value="">choose…</option><option value="a">a female cavity that receives a pin</option><option value="b">a joint where two conductors are joined</option><option value="c">how strongly a path opposes the current</option></select></li>
+    </ol>
+    <button class="btn" onclick="checkEx('e2')">Check</button><span class="score" id="e2-score"></span>
+    <details class="ans"><summary>Show answers</summary>
+      <p>1 the metal part that carries the current · 2 a complete break · 3 an unwanted path to ground · 4 a fixed connection point · 5 the fixed connector half · 6 the protective cover · 7 the return path to the airframe · 8 a low-resistance link · 9 a metal braid that blocks interference · 10 a joint between two conductors.</p>
+    </details>
+  </div>
+
+  <div class="ex" id="e3">
+    <span class="tag">E3 · Dialogue completion</span>
+    <h3>Complete this troubleshooting conversation</h3>
+    <p class="hint">Type one word in each gap. The terms you may need are: open · short · continuity · ground · pin · plug · insulation · resistance.</p>
+    <ol class="plain">
+      <li>A: The lamp is off and the meter shows no continuity, so I suspect an <input type="text" data-answer="open"> circuit.</li>
+      <li>B: However, if the conductor touched the airframe, it would instead be a <input type="text" data-answer="short"> circuit.</li>
+      <li>A: True, and a short circuit typically reads near zero <input type="text" data-answer="resistance"> to ground.</li>
+      <li>B: A backed-out <input type="text" data-answer="pin"> inside the connector could also interrupt the electrical path.</li>
+      <li>A: Therefore, let us carefully re-seat every contact inside the <input type="text" data-answer="plug"> first.</li>
+      <li>B: In addition, I will inspect the <input type="text" data-answer="insulation"> along the run for any signs of chafing.</li>
+      <li>A: Chafing close to the structure can very easily cause a short to <input type="text" data-answer="ground">.</li>
+      <li>B: First, though, we should test <input type="text" data-answer="continuity"> all the way from P1 to J12.</li>
+    </ol>
+    <button class="btn" onclick="checkEx('e3')">Check</button><span class="score" id="e3-score"></span>
+    <details class="ans"><summary>Show answers</summary>
+      <p>1 open · 2 short · 3 resistance · 4 pin · 5 plug · 6 insulation · 7 ground · 8 continuity.</p>
+    </details>
+  </div>
+
+  <div class="ex" id="e4">
+    <span class="tag">E4 · Grammar transformation</span>
+    <h3>Add the correct preposition of position or path</h3>
+    <p class="hint">Choose from: from · to · through · on · at · along · into · out of.</p>
+    <ol class="plain">
+      <li>The conductor originates <input type="text" data-answer="from"> connector P1 near the avionics rack.</li>
+      <li>It then continues <input type="text" data-answer="to"> connector J12 at the far end of the loom.</li>
+      <li>The whole loom passes <input type="text" data-answer="through"> the panel behind the instruments.</li>
+      <li>The gear-warning contact sits precisely <input type="text" data-answer="on|at"> pin 3 of the connector.</li>
+      <li>Carefully trace the conductor <input type="text" data-answer="out of"> the plug and follow it downstream.</li>
+      <li>The signal wire feeds directly <input type="text" data-answer="into"> the shielded connector at that point.</li>
+      <li>Run your finger <input type="text" data-answer="along"> the harness until you reach the clamp.</li>
+      <li>The bonding strap is secured <input type="text" data-answer="on|at"> pin 4 of the same connector.</li>
+    </ol>
+    <button class="btn" onclick="checkEx('e4')">Check</button><span class="score" id="e4-score"></span>
+    <details class="ans"><summary>Show answers</summary>
+      <p>1 from · 2 to · 3 through · 4 on (or at) · 5 out of · 6 into · 7 along · 8 on (or at).</p>
+    </details>
+  </div>
+
+  <div class="ex" id="e5">
+    <span class="tag">E5 · Reading 1 (AMM task card)</span>
+    <h3>Read the maintenance task card, then answer the questions</h3>
+    <div class="reading">
+      <div class="doc-h">AMM 32-61-00 · Task card 4 · Gear-down warning — fault isolation</div>
+      <p>The purpose of this task is to isolate the gear-down warning fault systematically. First, open the wiring diagram for the landing-gear warning system and locate wire W241. This conductor originates at pin 3 on connector P1 and terminates at socket B on connector J12. Set the multimeter to the continuity range, and then disconnect both P1 and J12 before probing. Back-probe the plug at connector P1, and measure the continuity carefully from pin 3 through to socket B. A serviceable conductor reads a very low resistance, whereas an open circuit reads no continuity whatsoever. If the reading indicates an open, inspect the harness thoroughly for physical damage along its routing. Check the insulation for chafing wherever the conductor passes near a clamp or a bracket. Afterwards, re-seat each pin inside the connector, and confirm the splice at terminal block TB2. Finally, verify the bonding on pin 4, and record the complete result in the aircraft tech log. Note that you must never pull directly on the conductor during this continuity test.</p>
+    </div>
+    <ol class="plain">
+      <li>According to the task card, which single conductor does the procedure isolate? <input type="text" data-answer="w241"></li>
+      <li>On which pin does wire W241 originate at connector P1? <input type="text" data-answer="3|pin 3"></li>
+      <li>Which range must you select on the multimeter before probing? <input type="text" data-answer="continuity"></li>
+      <li>What reading does an open circuit produce during the test? <input type="text" data-answer="no continuity"></li>
+      <li>What should you inspect for chafing along the conductor routing? <input type="text" data-answer="insulation|the insulation"></li>
+      <li>Where must the complete result finally be recorded? <input type="text" data-answer="tech log|the tech log"></li>
+    </ol>
+    <button class="btn" onclick="checkEx('e5')">Check</button><span class="score" id="e5-score"></span>
+    <details class="ans"><summary>Show answers</summary>
+      <p>1 W241 · 2 pin 3 · 3 continuity · 4 no continuity · 5 the insulation · 6 the tech log.</p>
+    </details>
+  </div>
+
+  <div class="ex" id="e6">
+    <span class="tag">E6 · Error-spotting</span>
+    <h3>Find and fix the eight errors in this work-order note</h3>
+    <p class="hint">Each numbered line contains exactly one error, which may be a preposition, a term, or a spelling mistake. Type the correct word into the box.</p>
+    <ol class="plain">
+      <li>The conductor runs to P1 to J12 behind the panel. → <input type="text" data-answer="from"> (replace the first "to")</li>
+      <li>The gear-warning contact is in pin 3 of the connector. → <input type="text" data-answer="on|at"> (replace "in")</li>
+      <li>The complete loom goes trough the instrument panel. → <input type="text" data-answer="through"> (fix the spelling)</li>
+      <li>We tested continuty carefully with the multimeter. → <input type="text" data-answer="continuity"> (fix the spelling)</li>
+      <li>Infinite resistence normally indicates an open circuit. → <input type="text" data-answer="resistance"> (fix the spelling)</li>
+      <li>Chafed insulation can easily cause a open circuit to ground. → <input type="text" data-answer="short"> (replace "open" with the right term)</li>
+      <li>Remember to back-probe the plag, not the socket. → <input type="text" data-answer="plug"> (fix the spelling)</li>
+      <li>The conductor finally ends on terminal block TB2. → <input type="text" data-answer="at"> (replace "on")</li>
+    </ol>
+    <button class="btn" onclick="checkEx('e6')">Check</button><span class="score" id="e6-score"></span>
+    <details class="ans"><summary>Show answers</summary>
+      <p>1 from · 2 on (or at) · 3 through · 4 continuity · 5 resistance · 6 short · 7 plug · 8 at.</p>
+    </details>
+  </div>
+
+  <div class="ex" id="e7">
+    <span class="tag">E7 · Reading 2 (Tech log entry)</span>
+    <h3>Read the aircraft tech log, then answer the questions</h3>
+    <div class="reading">
+      <div class="doc-h">Aircraft tech log · Page 118 · Snag &amp; corrective action</div>
+      <p><b>Snag reported by crew:</b> The gear-down warning lamp does not illuminate during the gear extension check at the gate.</p>
+      <p><b>Corrective action:</b> Traced wire W241 on the wiring diagram for the landing-gear warning system. The conductor routes from pin 3 on connector P1, through the harness, to socket B on connector J12. A continuity test with the multimeter revealed an open circuit along that run. The resistance read infinite between P1 and J12, which confirmed the diagnosis. Inspected the entire harness thoroughly and found chafed insulation near the forward clamp, although there was no short circuit to ground. Re-seated all the pins inside the plug and re-made the splice at terminal block TB2. Confirmed the bonding on pin 4 was serviceable. Re-tested the system: continuity was now good and the warning lamp illuminated correctly. The ground check was normal, so the aircraft was returned to service.</p>
+    </div>
+    <ol class="plain">
+      <li>What exactly was the snag reported by the crew? <input type="text" data-answer="lamp does not illuminate|no lamp|lamp does not light"></li>
+      <li>Which fault did the continuity test reveal? <input type="text" data-answer="open circuit|an open circuit"></li>
+      <li>What did the resistance read between P1 and J12? <input type="text" data-answer="infinite"></li>
+      <li>Where exactly was the insulation chafed? <input type="text" data-answer="near the clamp|the forward clamp|clamp"></li>
+      <li>Which joint did the technician re-make at TB2? <input type="text" data-answer="splice|the splice"></li>
+      <li>What happened to the warning lamp after the re-test? <input type="text" data-answer="illuminated|it illuminated|lamp lights|it lights"></li>
+    </ol>
+    <button class="btn" onclick="checkEx('e7')">Check</button><span class="score" id="e7-score"></span>
+    <details class="ans"><summary>Show answers</summary>
+      <p>1 the lamp does not illuminate · 2 an open circuit · 3 infinite · 4 near the forward clamp · 5 the splice · 6 it illuminated correctly.</p>
+    </details>
+  </div>
+
+  <div class="ex" id="e8">
+    <span class="tag">E8 · Listening review</span>
+    <h3>Replay Dialogue 3, then answer the questions</h3>
+    <p class="hint">Play the recording for Dialogue 3 again, and then answer each question with a short word or phrase.</p>
+    <ol class="plain">
+      <li>Which fault does Technician A strongly suspect at the start? <input type="text" data-answer="open|open circuit|an open circuit"></li>
+      <li>What does the multimeter read between connectors P1 and J12? <input type="text" data-answer="no continuity"></li>
+      <li>What does the infinite resistance reading normally confirm? <input type="text" data-answer="an open|open|open circuit"></li>
+      <li>What does a backed-out contact interrupt inside the connector? <input type="text" data-answer="continuity|the continuity"></li>
+      <li>A short circuit reads near zero resistance to what? <input type="text" data-answer="ground"></li>
+      <li>Where does Technician B say he will write it up? <input type="text" data-answer="tech log|the tech log"></li>
+    </ol>
+    <button class="btn" onclick="checkEx('e8')">Check</button><span class="score" id="e8-score"></span>
+    <details class="ans"><summary>Show answers</summary>
+      <p>1 an open circuit · 2 no continuity · 3 an open circuit · 4 continuity · 5 ground · 6 the tech log.</p>
+    </details>
+  </div>
+</section>
+
+<section class="lecture-section" id="speaking">
+  <h2><span class="secnum">06</span>Speaking — role-play cards</h2>
+  <p>Work through these cards with a partner, or practise with the AI conversation partner described below. Swap roles after each card, so that you rehearse both reading the diagram and locating the parts on the harness.</p>
+
+  <div class="roleplay">
+    <h4>Role-play card 1 — Reader and locator</h4>
+    <div class="rp-grid">
+      <div><span class="lab">Situation</span><p>You are standing at a mock harness with the wiring diagram open on the screen.</p></div>
+      <div><span class="lab">Your role</span><p>You are Technician A, and you read the diagram aloud.</p></div>
+      <div><span class="lab">Your goal</span><p>Guide your partner to wire W241 by giving the connector, the pin and the full path.</p></div>
+      <div><span class="lab">Partner's goal</span><p>Your partner locates the parts and calls every reference clearly back to you.</p></div>
+    </div>
+    <div class="phrases">Useful phrases: "It runs from P1 pin 3 …" · "It travels through the harness to J12." · "Say the whole reference back to me."</div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 2 — Explaining a suspected open circuit</h4>
+    <div class="rp-grid">
+      <div><span class="lab">Situation</span><p>The gear-down lamp stays off, and you have just completed a continuity test.</p></div>
+      <div><span class="lab">Your role</span><p>You are the technician who probed the conductor with the multimeter.</p></div>
+      <div><span class="lab">Your goal</span><p>Explain clearly why you suspect an open circuit, and describe the next step.</p></div>
+      <div><span class="lab">Partner's goal</span><p>Your colleague asks how you know it is open rather than a short circuit.</p></div>
+    </div>
+    <div class="phrases">Useful phrases: "The meter reads no continuity." · "Resistance is infinite, so it is an open." · "We re-seat the pins inside the plug."</div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 3 — Explaining a suspected short circuit</h4>
+    <div class="rp-grid">
+      <div><span class="lab">Situation</span><p>A circuit breaker trips, and you suspect a conductor is touching the airframe.</p></div>
+      <div><span class="lab">Your role</span><p>You inspected the harness and found chafed insulation near a clamp.</p></div>
+      <div><span class="lab">Your goal</span><p>Explain a suspected short circuit to ground and describe its likely cause.</p></div>
+      <div><span class="lab">Partner's goal</span><p>Your colleague asks what reading a short circuit gives on the meter.</p></div>
+    </div>
+    <div class="phrases">Useful phrases: "A short reads near zero resistance to ground." · "The insulation is chafed near the clamp." · "The shield may be grounding the core."</div>
+  </div>
+
+  <div class="roleplay">
+    <h4>Role-play card 4 — Shift handover</h4>
+    <div class="rp-grid">
+      <div><span class="lab">Situation</span><p>Your shift is ending, but the wiring job on the aircraft is not yet finished.</p></div>
+      <div><span class="lab">Your role</span><p>You hand the open snag over to the next technician on duty.</p></div>
+      <div><span class="lab">Your goal</span><p>Describe the route you traced and explain clearly what still remains to be done.</p></div>
+      <div><span class="lab">Partner's goal</span><p>The next technician asks specifically about the splice and the bonding.</p></div>
+    </div>
+    <div class="phrases">Useful phrases: "I traced W241 from P1 pin 3 to J12." · "Please check the splice at TB2." · "The bonding on pin 4 is still open."</div>
+  </div>
+
+  <div class="ai-box">
+    <h3>AI conversation partner</h3>
+    <p>Paste one of these prompts into the chat buddy. The AI partner will stay in the scenario, speak at your level, and gently recast any errors you make.</p>
+    <div class="prompt"><span class="cp" onclick="copyPrompt(this)">copy</span>You are Technician A on a Part-145 line station, and I am Technician B standing at a mock harness. Give me one wire, connector and pin to locate at a time, using the landing-gear warning system. Ask me to say each reference back to you. Speak at CEFR B2, keep your answers short, and gently recast my errors without lecturing. Ask one follow-up question in every turn.</div>
+    <div class="prompt"><span class="cp" onclick="copyPrompt(this)">copy</span>You are a senior avionics technician, and I will explain a suspected open circuit on a gear-warning conductor. Question me on how I know it is an open rather than a short circuit. Speak at CEFR B2, keep your answers short, and correct my prepositions of position and path by simply repeating the right form. Ask one follow-up question in every turn.</div>
+    <div class="prompt"><span class="cp" onclick="copyPrompt(this)">copy</span>You are the technician taking over my shift, and I will hand over an unfinished wiring snag. Ask me about the routing of the conductor, the splice at TB2 and the bonding on pin 4. Speak at CEFR B2, keep your answers short, gently recast any incorrect wiring terms, and finish each turn with exactly one question.</div>
+  </div>
+</section>
+
+<section class="lecture-section" id="writing">
+  <h2><span class="secnum">07</span>Writing — a tech log corrective-action entry</h2>
+  <p><strong>The task.</strong> Write a corrective-action entry for the aircraft tech log. The reported snag is that the gear-down warning lamp does not illuminate during the extension check. Describe how you traced the conductor, what the continuity test showed, and the corrective action you carried out. Write in ASD-STE100 Simplified Technical English, which means short sentences, one idea in each sentence, and one clear action verb in each step. Aim for roughly seventy to one hundred words.</p>
+  <details class="ans"><summary>Show a model answer</summary>
+    <div class="reading" style="margin-top:8px">
+      <div class="doc-h">Model — Corrective action</div>
+      <p>Traced wire W241 on the wiring diagram. The conductor runs from pin 3 on connector P1 to socket B on connector J12. Did a continuity test with the multimeter. The test showed an open circuit. The resistance read infinite from P1 to J12. Inspected the harness. Found chafed insulation near the clamp. Found no short circuit to ground. Re-seated the pins in the plug. Re-made the splice at terminal block TB2. Confirmed the bonding on pin 4. Re-tested the system. Continuity is now good. The lamp illuminates. Returned the aircraft to service.</p>
+    </div>
+  </details>
+  <p style="margin-top:14px"><strong>Self-check.</strong> Tick each line before you submit your entry:</p>
+  <ul class="selfcheck-list">
+    <li>Every sentence is short and contains only one idea.</li>
+    <li>I named the connector, the pin and the path clearly.</li>
+    <li>I used <em>from</em> … <em>to</em> to describe the conductor path.</li>
+    <li>I stated what the test showed and what I did next.</li>
+  </ul>
+</section>
+
+<footer>
+  English for Aviation Maintenance · Unit 11 — Reading a wiring diagram and connector/pin talk · CEFR B2 · self-study.
+</footer>
+
+<script>
+function checkEx(id){
+  var ex=document.getElementById(id);
+  if(!ex)return;
+  var fields=ex.querySelectorAll('[data-answer]');
+  var ok=0,tot=0;
+  fields.forEach(function(f){
+    tot++;
+    var wants=(f.getAttribute('data-answer')||'').toLowerCase().split('|').map(function(s){return s.trim();});
+    var got=(f.value||'').trim().toLowerCase().replace(/\s+/g,' ');
+    f.classList.remove('right','wrong');
+    if(wants.indexOf(got)>-1){f.classList.add('right');ok++;}
+    else{f.classList.add('wrong');}
+  });
+  var sc=document.getElementById(id+'-score');
+  if(sc)sc.textContent=ok+' / '+tot+' correct';
+}
+function copyPrompt(el){
+  var txt=el.parentNode.textContent.replace('copy','').trim();
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){el.textContent='copied';el.classList.add('done');
+      setTimeout(function(){el.textContent='copy';el.classList.remove('done');},1500);});
+  }else{
+    el.textContent='copied';el.classList.add('done');
+    setTimeout(function(){el.textContent='copy';el.classList.remove('done');},1500);
+  }
+}
+</script>
+</article>
+<!--CF-LANG-UI--><footer class="lang-foot"><span>English for Aviation Maintenance · Unit 11 of 32</span><span>Made with CourseForge LANG</span></footer><script>
+(function(){
+  // section nav: built from the sections that exist, highlights on scroll
+  var ids=[['scenario','Scenario'],['dialogues','Listening'],['vocabulary','Vocabulary'],
+           ['grammar','Grammar'],['exercises','Practice'],['speaking','Speaking'],['writing','Writing']];
+  var nav=document.createElement('nav'); nav.className='cf-nav';
+  var found=[];
+  ids.forEach(function(p){ if(document.getElementById(p[0])){ found.push(p);
+    var a=document.createElement('a'); a.href='#'+p[0]; a.textContent=p[1]; a.dataset.t=p[0]; nav.appendChild(a); }});
+  if(found.length>2){ document.body.appendChild(nav);
+    var links=[].slice.call(nav.querySelectorAll('a'));
+    var onScroll=function(){ var y=window.scrollY+150, cur=null;
+      found.forEach(function(p){ var el=document.getElementById(p[0]); if(el&&el.offsetTop<=y) cur=p[0]; });
+      links.forEach(function(l){ l.classList.toggle('on', l.dataset.t===cur); }); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
+  // self-check: any input with data-answer gets checked against its answer on blur/Check
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9' ]/g,'').replace(/\s+/g,' ').trim(); }
+  var checkables=[].slice.call(document.querySelectorAll('input[data-answer]'));
+  checkables.forEach(function(inp){
+    inp.addEventListener('blur',function(){ if(!inp.value.trim()) return;
+      var ok=norm(inp.value)===norm(inp.dataset.answer)
+        || (inp.dataset.answer||'').split('|').some(function(a){return norm(a)===norm(inp.value);});
+      inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok); }); });
+  // progress bar over the exercises
+  var exs=[].slice.call(document.querySelectorAll('.ex'));
+  if(exs.length){ var bar=document.createElement('div'); bar.className='cf-prog';
+    bar.innerHTML='<i></i><span>0 / '+exs.length+' sections opened</span>';
+    var exSec=document.getElementById('exercises'); if(exSec) exSec.insertBefore(bar,exSec.children[1]||null);
+    var seen={};
+    var upd=function(){ var n=Object.keys(seen).length;
+      bar.querySelector('i').style.width=(100*n/exs.length)+'%';
+      bar.querySelector('span').textContent=n+' / '+exs.length+' sections opened'; };
+    exs.forEach(function(ex,i){ ex.addEventListener('click',function(){ seen[i]=1; upd(); }); });
+  }
+})();
+</script><!--/CF-LANG-UI--></body></html>
