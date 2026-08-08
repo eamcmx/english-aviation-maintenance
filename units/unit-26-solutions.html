@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 26 · Solutions — Handling ground damage and the damage report</title>
+<style>
+  :root{
+    --brand:#2F5496; --brand-dark:#1f3a6b; --navy:#0f2942; --amber:#c8821a;
+    --amber-soft:#fdf3e0; --good:#2e9e6b; --bad:#c0392b;
+    --bg:#fbfaf6; --card:#ffffff; --sunken:#f3f1ea; --line:#e7e3d8;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --serif:Georgia,'Source Serif 4','Times New Roman',serif;
+    --sans:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+    --mono:'JetBrains Mono','SF Mono',Consolas,monospace;
+    --radius:14px; --shadow:0 1px 2px rgba(16,32,54,.06),0 8px 28px rgba(16,32,54,.07);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+  article{max-width:900px;margin:0 auto;padding:0 24px 90px}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.2}
+  .mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+    color:#fff;padding:44px 0 36px;margin-bottom:28px}
+  .mast .in{max-width:900px;margin:0 auto;padding:0 24px}
+  .mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+  .mast h1{font-size:34px;margin:8px 0 12px}
+  .mast .pill{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+    border-radius:999px;padding:5px 14px;font-size:13px;margin-right:8px}
+  .gate{background:var(--amber-soft);border:1px solid #f0e6c8;border-left:5px solid var(--amber);
+    border-radius:12px;padding:14px 20px;margin:18px 0;font-size:15px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 30px;margin:20px 0;box-shadow:var(--shadow)}
+  section>h2{font-size:24px;color:var(--navy);margin:0 0 6px;display:flex;align-items:center;gap:12px}
+  section>h2::before{content:"";width:5px;height:24px;border-radius:3px;background:var(--amber);flex:none}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+    color:#fff;background:var(--brand);border-radius:5px;padding:2px 8px;font-weight:700}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+  th{background:var(--sunken);color:var(--navy);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+  td.a{font-weight:700;color:var(--brand-dark);white-space:nowrap}
+  td.why{color:var(--ink-soft);font-size:14px}
+  .doc{font-family:var(--mono);font-size:13.5px;line-height:1.7;background:#fbfcff;border:1px solid #dbe6f4;
+    border-radius:10px;padding:14px 16px;margin:12px 0;white-space:pre-wrap}
+  .doc .dh{color:var(--brand-dark);font-weight:700}
+  .ann{border:1px solid #d7e4f7;background:#f7faff;border-radius:10px;padding:6px 16px;margin:10px 0}
+  .ann li{margin:6px 0;font-size:14.5px;color:var(--ink-soft)}
+  .ann b{color:var(--brand-dark)}
+  .ste{background:var(--sunken);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:14px;margin:6px 0}
+  code{font-family:var(--mono);background:#eef2f8;border-radius:5px;padding:1px 6px;font-size:13.5px}
+  .good{color:var(--good);font-weight:700}
+  footer{max-width:900px;margin:20px auto 0;padding:16px 24px;color:var(--ink-muted);font-size:13px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<header class="mast"><div class="in">
+  <div class="eyebrow">English for Aviation Maintenance · CEFR B2 · Teacher / gated file</div>
+  <h1>Unit 26 · Solutions — Handling ground damage and the damage report</h1>
+  <span class="pill">Full answers E1–E8</span><span class="pill">One-line reason per item</span><span class="pill">Annotated writing model</span>
+</div></header>
+
+<article>
+
+  <div class="gate">This file holds complete model answers for every exercise, plus an annotated writing model. It is a gated teacher file — hand out single answers as feedback, and keep the full set for marking and self-check.</div>
+
+  <!-- E1 -->
+  <section id="e1">
+    <h2><span class="tag">E1</span> Gap-fill: use a bank word</h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="a">dent</td><td class="why">A dent is the smooth hollow an impact pushes into the skin — no split, no sharp edge.</td></tr>
+        <tr><td>2</td><td class="a">stringer</td><td class="why">A stringer runs lengthwise and stiffens the skin from the inside.</td></tr>
+        <tr><td>3</td><td class="a">allowable damage limit</td><td class="why">This is the largest damage the manual permits before a repair becomes necessary.</td></tr>
+        <tr><td>4</td><td class="a">referral</td><td class="why">When damage is too big to fix locally, a referral sends the case to engineering.</td></tr>
+        <tr><td>5</td><td class="a">corrosion</td><td class="why">Corrosion is chemical, rust-like metal damage — the only bank word for a chemical process.</td></tr>
+        <tr><td>6</td><td class="a">blend out</td><td class="why">To blend out is to sand away light surface damage gently; "blend it out" is also accepted.</td></tr>
+        <tr><td>7</td><td class="a">within limits</td><td class="why">If depth stays under the maximum, the damage is within limits, so no repair is needed.</td></tr>
+        <tr><td>8</td><td class="a">dent depth</td><td class="why">The depth gauge measures the dent depth — how far the hollow goes into the skin.</td></tr>
+        <tr><td>9</td><td class="a">zone</td><td class="why">A zone is a numbered area that locates the work; it answers "which area?".</td></tr>
+        <tr><td>10</td><td class="a">station</td><td class="why">A station is a numbered position measured along the fuselage length.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- E2 -->
+  <section id="e2">
+    <h2><span class="tag">E2</span> Matching: term and meaning</h2>
+    <table>
+      <thead><tr><th>Term</th><th>Letter</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>skin</td><td class="a">A</td><td class="why">The outer metal panel that covers the structure.</td></tr>
+        <tr><td>frame</td><td class="a">B</td><td class="why">A curved ring that gives the fuselage its round shape.</td></tr>
+        <tr><td>SRM</td><td class="a">C</td><td class="why">The Structural Repair Manual — the book of approved structural repairs.</td></tr>
+        <tr><td>depth gauge</td><td class="a">D</td><td class="why">The tool that measures how deep a dent is.</td></tr>
+        <tr><td>scratch</td><td class="a">E</td><td class="why">A thin surface mark that removes only a little material.</td></tr>
+        <tr><td>gouge</td><td class="a">F</td><td class="why">A deeper mark than a scratch; it removes more metal.</td></tr>
+        <tr><td>crack</td><td class="a">G</td><td class="why">A line where the metal has actually split or separated.</td></tr>
+        <tr><td>repair scheme</td><td class="a">H</td><td class="why">The approved engineering plan that says exactly how to fix the damage.</td></tr>
+        <tr><td>adjacent</td><td class="a">I</td><td class="why">Positioned directly next to, or immediately beside, something.</td></tr>
+        <tr><td>ground damage</td><td class="a">J</td><td class="why">Damage caused on the ground during handling, not in flight.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- E3 -->
+  <section id="e3">
+    <h2><span class="tag">E3</span> Complete the report dialogue</h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="a">ground damage</td><td class="why">The vehicle struck the aircraft on the ground, so it is ground damage.</td></tr>
+        <tr><td>2</td><td class="a">dent</td><td class="why">The lead asks dent-or-crack; a smooth hollow is a dent.</td></tr>
+        <tr><td>3</td><td class="a">stringer</td><td class="why">The internal lengthwise stiffener beside the dent is the stringer.</td></tr>
+        <tr><td>4</td><td class="a">zone</td><td class="why">The lead needs the numbered area — the zone — before the station.</td></tr>
+        <tr><td>5</td><td class="a">skin</td><td class="why">The dent is in the outer metal panel, the skin.</td></tr>
+        <tr><td>6</td><td class="a">dent depth</td><td class="why">The depth gauge measures the dent depth.</td></tr>
+        <tr><td>7</td><td class="a">within limits</td><td class="why">1.4 mm is under the 2 mm flat-skin limit, so it is within limits.</td></tr>
+        <tr><td>8</td><td class="a">referral</td><td class="why">Because the dent is within limits, no referral to engineering is needed.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- E4 -->
+  <section id="e4">
+    <h2><span class="tag">E4</span> Grammar: choose the relative word</h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="a">who</td><td class="why">A mechanic is a person, so the relative word is "who".</td></tr>
+        <tr><td>2</td><td class="a">which</td><td class="why">Extra information after a comma about a thing uses "which".</td></tr>
+        <tr><td>3</td><td class="a">where</td><td class="why">A zone is a place, so use "where".</td></tr>
+        <tr><td>4</td><td class="a">that <span style="font-weight:400">(or which)</span></td><td class="why">Defining clause, no comma, about a thing — "that" or "which" both work.</td></tr>
+        <tr><td>5</td><td class="a">who</td><td class="why">An engineer is a person, so use "who".</td></tr>
+        <tr><td>6</td><td class="a">which</td><td class="why">Non-defining clause after a comma about a thing — "which".</td></tr>
+        <tr><td>7</td><td class="a">where</td><td class="why">A stand is a place, so use "where".</td></tr>
+        <tr><td>8</td><td class="a">that <span style="font-weight:400">(or which)</span></td><td class="why">Defining clause, no comma, about a thing — "that" or "which".</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- E5 -->
+  <section id="e5">
+    <h2><span class="tag">E5</span> Reading 1: an SRM allowable-damage page</h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="a">2.0 mm</td><td class="why">Limit 5(a): maximum depth on flat skin is 2.0 millimetres.</td></tr>
+        <tr><td>2</td><td class="a">1.0 mm</td><td class="why">Limit 5(b): over a stringer or a frame the maximum is only 1.0 mm.</td></tr>
+        <tr><td>3</td><td class="a">depth gauge</td><td class="why">Step 4 says to measure the depth with a depth gauge at the deepest point.</td></tr>
+        <tr><td>4</td><td class="a">clean the area</td><td class="why">Step 3: before measuring, clean the area and remove any dirt.</td></tr>
+        <tr><td>5</td><td class="a">the tech log</td><td class="why">Step 6: a dent within limits needs no repair; record it in the tech log.</td></tr>
+        <tr><td>6</td><td class="a">a referral</td><td class="why">Step 8: for a dent over a frame, raise a referral.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- E6 -->
+  <section id="e6">
+    <h2><span class="tag">E6</span> Error-spotting: fix the report lines</h2>
+    <table>
+      <thead><tr><th>#</th><th>Wrong → Right</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="a">which → who</td><td class="why">A mechanic is a person; "which" is only for things.</td></tr>
+        <tr><td>2</td><td class="a">who → which <span style="font-weight:400">(or that)</span></td><td class="why">A dent is a thing, so it takes "which" or "that", never "who".</td></tr>
+        <tr><td>3</td><td class="a">gouge → gauge</td><td class="why">The tool is a depth <em>gauge</em>; a <em>gouge</em> is a deep mark — near-homophones.</td></tr>
+        <tr><td>4</td><td class="a">with → within</td><td class="why">The fixed phrase is "within limits"; "with limits" is not English here.</td></tr>
+        <tr><td>5</td><td class="a">scratsh → scratch</td><td class="why">Spelling: "scratch" ends in <code>-tch</code>.</td></tr>
+        <tr><td>6</td><td class="a">which → where</td><td class="why">A zone is a place, so the relative word is "where".</td></tr>
+        <tr><td>7</td><td class="a">that → which</td><td class="why">After a comma (non-defining) you cannot use "that"; use "which".</td></tr>
+        <tr><td>8</td><td class="a">lock → log</td><td class="why">Measurements go in the tech <em>log</em>, the record book, not a "lock".</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- E7 -->
+  <section id="e7">
+    <h2><span class="tag">E7</span> Reading 2: a ground damage report</h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="a">a belt loader</td><td class="why">Line 1: a belt loader struck the fuselage during pushback.</td></tr>
+        <tr><td>2</td><td class="a">zone 127</td><td class="why">Line 3 gives the location as zone 127, station 480.</td></tr>
+        <tr><td>3</td><td class="a">1.4 mm</td><td class="why">Line 4: measured depth is 1.4 mm.</td></tr>
+        <tr><td>4</td><td class="a">out of limits</td><td class="why">Line 7: over a stringer the limit is 1.0 mm, so 1.4 mm is out of limits.</td></tr>
+        <tr><td>5</td><td class="a">a referral to engineering</td><td class="why">Line 8: a referral was raised to engineering for a repair scheme.</td></tr>
+        <tr><td>6</td><td class="a">the cargo panel</td><td class="why">Line 9: do not fit the cargo panel until engineering answers.</td></tr>
+      </tbody>
+    </table>
+    <div class="ste"><b>Teaching note:</b> the trap is depth vs location. On flat skin 1.4 mm would be within limits, but this dent is over a stringer, where the limit drops to 1.0 mm — so the same number becomes out of limits. Location decides which limit applies.</div>
+  </section>
+
+  <!-- E8 -->
+  <section id="e8">
+    <h2><span class="tag">E8</span> Listening review: Dialogue 3</h2>
+    <table>
+      <thead><tr><th>#</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="a">2.6 mm</td><td class="why">The mechanic reads the second dent at 2.6 mm.</td></tr>
+        <tr><td>2</td><td class="a">2 mm</td><td class="why">The allowable limit here is 2 millimetres.</td></tr>
+        <tr><td>3</td><td class="a">over a frame</td><td class="why">The dent sits directly over a frame, in zone 300.</td></tr>
+        <tr><td>4</td><td class="a">no, it does not</td><td class="why">The SRM covers flat skin, but not this frame area.</td></tr>
+        <tr><td>5</td><td class="a">a referral</td><td class="why">Because the SRM does not cover it, they raise a referral to engineering.</td></tr>
+        <tr><td>6</td><td class="a">over a frame and out of limits</td><td class="why">The mechanic's justification joins both facts: the dent is over a frame and clearly out of limits.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- WRITING MODEL -->
+  <section id="writing-model">
+    <h2><span class="tag">WRITE</span> Model answer — Ground Damage Report (annotated)</h2>
+    <p>An 80–120 word Simplified Technical English report for the Dialogue 3 dent. It is deliberately plain: short sentences, one idea per line, the active voice, and only common words plus this unit's specialist terms.</p>
+    <div class="doc"><span class="dh">GROUND DAMAGE REPORT</span>
+1. What happened: A tug struck the upper fuselage during towing.
+2. Damage: one dent in the skin. No crack. No corrosion.
+3. Location: zone 300, station 720, over a frame.
+4. Measurements: depth 2.6 mm, length 35 mm, width 25 mm.
+5. SRM check: the allowable damage limit over a frame is 1.0 mm.
+6. Result: the dent depth is 2.6 mm. The dent is out of limits.
+7. Recommendation: raise a referral to engineering. Engineering must design a repair scheme.
+8. Action: the aircraft is on hold. Do not fit the panel.
+Reported by: [name].  Date: 08 AUG 2026.  <span class="good">(96 words)</span></div>
+    <h3>Why this answer scores well</h3>
+    <ul class="ann">
+      <li><b>Location before extent.</b> Line 3 fixes the damage by zone and station <em>and</em> notes it is over a frame — the reader knows which limit applies before any number appears.</li>
+      <li><b>The comparison is explicit.</b> Line 5 states the limit (1.0 mm) and line 6 states the measurement (2.6 mm), so the "out of limits" verdict is visibly justified, not asserted.</li>
+      <li><b>Recommendation with a reason.</b> Line 7 recommends a referral and gives the reason in the next clause: engineering must design the scheme because the SRM does not cover a frame.</li>
+      <li><b>STE discipline.</b> One idea per numbered line; active voice ("A tug struck…", "raise a referral"); no long words. This is exactly what the writing task asks for.</li>
+      <li><b>Safe close.</b> The last action line puts the aircraft on hold and blocks the panel fit — the safety instruction the next shift needs first.</li>
+    </ul>
+    <div class="ste"><b>Common learner slips to correct:</b> writing "it is out of limit" (fixed phrase = <em>out of limits</em>); passive drift ("the fuselage was struck by a tug" — STE prefers the active "a tug struck the fuselage"); and giving the depth without the limit, which hides the reason for the verdict.</div>
+  </section>
+
+</article>
+<footer>English for Aviation Maintenance · Unit 26 of 32 · Solutions (gated). Model answers accept the alternatives marked in brackets.</footer>
+</body>
+</html>

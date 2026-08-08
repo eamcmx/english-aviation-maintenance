@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English for Aviation Maintenance · Unit 26 — Handling ground damage and the damage report
+     Moodle question-bank import. 24 items across 5 types, split by skill:
+     LISTENING (7) · READING (5) · USE OF ENGLISH (8) · VOCABULARY (4).
+     Anti-bias: correct option is never the longest/most-hedged; distractors are length-matched;
+     no "all of the above". Every question carries general feedback; every option carries feedback. -->
+<quiz>
+
+<question type="category">
+  <category><text>$course$/top/CF/U26-r1</text></category>
+  <info format="html"><text><![CDATA[Unit 26 — Handling ground damage and the damage report. Listening, reading, use of English, and vocabulary items keyed to the four dialogues and the taught bank terms.]]></text></info>
+</question>
+
+<!-- ==================== LISTENING (7) ==================== -->
+
+<question type="multichoice">
+  <name><text>L1 · Dialogue 1 — where is the dent</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> Where does the mechanic say the dent is located?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The mechanic gives the precise location: "zone 127, near station 480, directly below the forward cargo door." A professional report always fixes the damage by zone and station, never by a vague phrase like "lower left".]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <single>true</single>
+  <shuffleanswers>true</shuffleanswers>
+  <answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[In zone 127, near station 480.]]></text><feedback format="html"><text><![CDATA[Correct — this is the exact zone and station the mechanic reports.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[In zone 300, near station 720.]]></text><feedback format="html"><text><![CDATA[That is the location of the second dent, in Dialogue 3, not the first.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[In zone 217, near station 840.]]></text><feedback format="html"><text><![CDATA[No zone 217 is mentioned. Listen again for the two numbers together.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[In zone 172, near station 408.]]></text><feedback format="html"><text><![CDATA[The digits are close, but the mechanic says 127 and 480. Numbers must be caught exactly.]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>L2 · Dialogue 1 — injuries</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 1 again.</strong> The mechanic reports that nobody is injured.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The mechanic says, "Nobody is injured, although a belt loader struck the fuselage." Checking for injuries is the first thing the lead asks, and the answer is that there are none.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>1</penalty>
+  <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — the mechanic confirms nobody is injured.]]></text></feedback></answer>
+  <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Listen again: the mechanic clearly says nobody is injured.]]></text></feedback></answer>
+</question>
+
+<question type="numerical">
+  <name><text>L3 · Dialogue 2 — measured depth</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> What dent depth, in millimetres, does the mechanic measure at the centre of the damage? (Write the number only.)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The mechanic reads 1.4 millimetres at the centre. Because the flat-skin limit is 2.0 mm, this depth is within limits.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <answer fraction="100"><text>1.4</text><feedback format="html"><text><![CDATA[Correct — 1.4 mm, which is within the 2.0 mm flat-skin limit.]]></text></feedback><tolerance>0.05</tolerance></answer>
+</question>
+
+<question type="numerical">
+  <name><text>L4 · Dialogue 2 — the limit</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 2 again.</strong> The SRM states the depth for this flat panel must remain under how many millimetres? (Write the number only.)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The lead reads the allowable damage limit: the depth must remain under 2 millimetres on this flat skin. The measured 1.4 mm is therefore within limits.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <answer fraction="100"><text>2</text><feedback format="html"><text><![CDATA[Correct — the flat-skin limit is 2 millimetres.]]></text></feedback><tolerance>0.05</tolerance></answer>
+  <answer fraction="0"><text>1</text><feedback format="html"><text><![CDATA[1 mm is the stricter limit that applies over a stringer or a frame, not on this flat panel.]]></text></feedback><tolerance>0.05</tolerance></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>L5 · Dialogue 3 — why a referral</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> Why does the second dent need a referral, not a simple blend out?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The dent is 2.6 mm against a 2 mm limit and it sits over a frame, in an area the SRM does not cover. Both facts — over a frame and out of limits — drive the referral to engineering.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <single>true</single>
+  <shuffleanswers>true</shuffleanswers>
+  <answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[It sits over a frame and exceeds the limit.]]></text><feedback format="html"><text><![CDATA[Correct — over a frame and out of limits, so engineering must design the repair.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[It sits on flat skin and stays within the limit.]]></text><feedback format="html"><text><![CDATA[That describes the first dent in Dialogue 2, which was within limits.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[It is only a light scratch beside the stringer.]]></text><feedback format="html"><text><![CDATA[A light scratch can be blended out; this is a deep dent over a frame.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[It is a small dent that the SRM already covers.]]></text><feedback format="html"><text><![CDATA[The opposite is true: the SRM does not cover this frame area, so a referral is needed.]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>L6 · Dialogue 3 — SRM coverage</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> The SRM provides a ready repair scheme for this frame area.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The lead says the SRM has a scheme "for flat skin, but not for this frame area." Because the manual does not cover it, the damage must go to engineering as a referral.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>1</penalty>
+  <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[Listen again: the SRM covers flat skin, but not this frame area.]]></text></feedback></answer>
+  <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — the SRM does not cover the frame area, so a referral is raised.]]></text></feedback></answer>
+</question>
+
+<question type="numerical">
+  <name><text>L7 · Dialogue 3 — out-of-limits depth</text></name>
+  <questiontext format="html"><text><![CDATA[<p><strong>Listen to Dialogue 3 again.</strong> What is the dent depth, in millimetres, of the second dent? (Write the number only.)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The second dent is 2.6 mm deep against a 2 mm limit, so it is out of limits. That figure, plus the frame location, is why the mechanic recommends a referral.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <answer fraction="100"><text>2.6</text><feedback format="html"><text><![CDATA[Correct — 2.6 mm, which is above the 2 mm limit.]]></text></feedback><tolerance>0.05</tolerance></answer>
+</question>
+
+<!-- ==================== READING (5) ==================== -->
+
+<question type="multichoice">
+  <name><text>R1 · Task card — stringer limit</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Read this task-card extract, then answer.</p>
+<pre>TASK CARD 53-10-11 — FUSELAGE SKIN DENT INSPECTION
+1. Clean the damaged area before you measure.
+2. Measure the dent with a depth gauge at the deepest point.
+3. Allowable dent depth on flat skin: 2.0 mm.
+4. Allowable dent depth over a frame or a stringer: 1.0 mm.
+5. Within limits: record it in the tech log and close the task.
+6. Out of limits: raise a referral to Engineering. Do not blend out.</pre>
+<p>What is the allowable dent depth over a stringer?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Line 4 sets the stricter limit of 1.0 mm over a frame or a stringer. The 2.0 mm figure in line 3 is for flat skin only.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <single>true</single>
+  <shuffleanswers>true</shuffleanswers>
+  <answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[1.0 mm]]></text><feedback format="html"><text><![CDATA[Correct — line 4 gives 1.0 mm over a frame or a stringer.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[2.0 mm]]></text><feedback format="html"><text><![CDATA[2.0 mm is the flat-skin limit in line 3, not the stringer limit.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[2.6 mm]]></text><feedback format="html"><text><![CDATA[2.6 mm is a measured out-of-limits depth from the dialogues, not a card limit.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[0.5 mm]]></text><feedback format="html"><text><![CDATA[No 0.5 mm limit appears on the card. Re-read line 4.]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>R2 · Task card — blend out</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Using the same TASK CARD 53-10-11 above: the card allows you to blend out a dent that is out of limits.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Line 6 says: out of limits — raise a referral, and "Do not blend out." Blending out is only for light, in-limits damage.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>1</penalty>
+  <answer fraction="0"><text>true</text><feedback format="html"><text><![CDATA[The card forbids it: "Do not blend out" an out-of-limits dent.]]></text></feedback></answer>
+  <answer fraction="100"><text>false</text><feedback format="html"><text><![CDATA[Correct — an out-of-limits dent must never be blended out; raise a referral.]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>R3 · Tech log — why out of limits</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Read this tech-log entry, then answer.</p>
+<pre>TECH LOG — YL-AAB
+Belt loader contact during pushback, Stand 5.
+Dent in fuselage skin: zone 127, station 480, over a stringer.
+Depth 1.4 mm, length 40 mm. No crack, no corrosion.
+Stringer limit 1.0 mm — dent is OUT OF LIMITS. Aircraft on hold.
+Referral raised to Engineering. Do not fit the cargo door panel.</pre>
+<p>Why is this dent out of limits?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The dent is 1.4 mm deep but it sits over a stringer, where the limit is only 1.0 mm. The stricter stringer limit, not the 2.0 mm flat-skin limit, is what makes it out of limits.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <single>true</single>
+  <shuffleanswers>true</shuffleanswers>
+  <answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[The depth is above the 1.0 mm stringer limit.]]></text><feedback format="html"><text><![CDATA[Correct — over a stringer the limit is 1.0 mm, and 1.4 mm exceeds it.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[The depth is below the 2.0 mm flat-skin limit.]]></text><feedback format="html"><text><![CDATA[Being below the flat-skin limit does not help: over a stringer the limit is stricter.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[There is fresh corrosion beside the damaged skin.]]></text><feedback format="html"><text><![CDATA[The entry states "No crack, no corrosion." The depth is the reason.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[The dent is longer than forty millimetres across.]]></text><feedback format="html"><text><![CDATA[Length is 40 mm and is not the limiting factor; depth over a stringer is.]]></text></feedback></answer>
+</question>
+
+<question type="truefalse">
+  <name><text>R4 · Tech log — cargo panel</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Using the same TECH LOG — YL-AAB entry above: staff are told not to fit the cargo door panel.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The last line reads: "Do not fit the cargo door panel." The aircraft is on hold until engineering answers the referral.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>1</penalty>
+  <answer fraction="100"><text>true</text><feedback format="html"><text><![CDATA[Correct — the entry says the cargo door panel must not be fitted yet.]]></text></feedback></answer>
+  <answer fraction="0"><text>false</text><feedback format="html"><text><![CDATA[Re-read the last line: the cargo door panel must not be fitted.]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>R5 · Tech log — the action taken</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Using the same TECH LOG — YL-AAB entry above: what does the crew do because the dent is out of limits?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Because the dent is out of limits, the crew raise a referral to engineering and place the aircraft on hold. They do not repair or close the entry themselves.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <single>true</single>
+  <shuffleanswers>true</shuffleanswers>
+  <answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[They raise a referral to Engineering.]]></text><feedback format="html"><text><![CDATA[Correct — an out-of-limits dent goes to engineering as a referral.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[They blend out the dent and close the log.]]></text><feedback format="html"><text><![CDATA[You must never blend out an out-of-limits dent.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[They fit the cargo door panel straight away.]]></text><feedback format="html"><text><![CDATA[The entry forbids fitting the cargo door panel while on hold.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[They lower the allowable damage limit value.]]></text><feedback format="html"><text><![CDATA[Limits come from the SRM; a mechanic cannot lower them.]]></text></feedback></answer>
+</question>
+
+<!-- ==================== USE OF ENGLISH (8) ==================== -->
+
+<question type="shortanswer">
+  <name><text>U1 · Relative word — people</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Write one word in the gap.</p><p>The mechanic ______ found the dent wrote the report.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Use "who" for people. Latvian and Russian often use one relative word for people and things, so English "who" for a person needs care.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <usecase>0</usecase>
+  <answer fraction="100"><text>who</text><feedback format="html"><text><![CDATA[Correct — "who" is used for people.]]></text></feedback></answer>
+  <answer fraction="0"><text>which</text><feedback format="html"><text><![CDATA["Which" is for things. A mechanic is a person, so use "who".]]></text></feedback></answer>
+  <answer fraction="0"><text>that</text><feedback format="html"><text><![CDATA["That" is possible in speech, but the target here is "who" for a person.]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U2 · Relative word — non-defining</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Write one word in the gap.</p><p>The dent, ______ exceeds the limit, needs a referral.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[After a comma, adding extra information about one known dent, use "which" (never "that"). The commas signal a non-defining clause.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <usecase>0</usecase>
+  <answer fraction="100"><text>which</text><feedback format="html"><text><![CDATA[Correct — a non-defining clause after a comma uses "which".]]></text></feedback></answer>
+  <answer fraction="0"><text>that</text><feedback format="html"><text><![CDATA["That" cannot follow a comma in a non-defining clause. Use "which".]]></text></feedback></answer>
+  <answer fraction="0"><text>who</text><feedback format="html"><text><![CDATA["Who" is for people; a dent is a thing, so use "which".]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U3 · Relative word — place</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Write one word in the gap.</p><p>This is the zone ______ the belt loader hit the skin.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Use "where" for a place or a location, such as a zone or a stand.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <usecase>0</usecase>
+  <answer fraction="100"><text>where</text><feedback format="html"><text><![CDATA[Correct — "where" points to a place, here the zone.]]></text></feedback></answer>
+  <answer fraction="0"><text>which</text><feedback format="html"><text><![CDATA["Which" is possible with a preposition, but the single-word target for a place is "where".]]></text></feedback></answer>
+  <answer fraction="0"><text>who</text><feedback format="html"><text><![CDATA["Who" is for people, not a location. Use "where".]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U4 · Combine with a relative clause</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Join the two sentences. Write the one relative word that fills the gap.</p><p><em>The dent sits over a frame. It needs a referral.</em></p><p>The dent ______ sits over a frame needs a referral.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Here the clause identifies which dent you mean, with no commas — a defining clause. Both "that" and "which" are acceptable for a thing in a defining clause.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <usecase>0</usecase>
+  <answer fraction="100"><text>that</text><feedback format="html"><text><![CDATA[Correct — a defining clause about a thing takes "that" (or "which").]]></text></feedback></answer>
+  <answer fraction="100"><text>which</text><feedback format="html"><text><![CDATA[Also correct — "which" works in a defining clause with no comma.]]></text></feedback></answer>
+  <answer fraction="0"><text>who</text><feedback format="html"><text><![CDATA["Who" is for people; a dent is a thing, so use "that" or "which".]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U5 · Bank term — referral</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Write the one bank word for the meaning in brackets.</p><p>We send a difficult case to engineering for a decision. This action is a ______. (one word)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[A referral is the action of sending a difficult case to engineering for a decision, used when the SRM does not cover the damage.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <usecase>0</usecase>
+  <answer fraction="100"><text>referral</text><feedback format="html"><text><![CDATA[Correct — a referral goes to engineering for a decision.]]></text></feedback></answer>
+  <answer fraction="100"><text>a referral</text><feedback format="html"><text><![CDATA[Correct — "referral" is the term.]]></text></feedback></answer>
+  <answer fraction="0"><text>repair scheme</text><feedback format="html"><text><![CDATA[A repair scheme is the approved plan to fix damage; the action of sending it is a referral.]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U6 · Bank term — corrosion</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Write the one bank word for the meaning in brackets.</p><p>Metal damage from a chemical reaction, similar to rust, is called ______. (one word)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Corrosion is chemical metal damage, like rust. Corrosion near a dent changes the whole repair scheme, so inspectors always check for it.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <usecase>0</usecase>
+  <answer fraction="100"><text>corrosion</text><feedback format="html"><text><![CDATA[Correct — corrosion is chemical, rust-like metal damage.]]></text></feedback></answer>
+  <answer fraction="0"><text>crack</text><feedback format="html"><text><![CDATA[A crack is a split in the metal, not chemical damage. The word here is corrosion.]]></text></feedback></answer>
+  <answer fraction="0"><text>scratch</text><feedback format="html"><text><![CDATA[A scratch is a thin surface mark, not chemical damage. The word here is corrosion.]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U7 · STE — plain verb</text></name>
+  <questiontext format="html"><text><![CDATA[<p>In Simplified Technical English (STE) we choose a common, approved word. Replace the long word with the approved everyday verb.</p><p>"Commence the inspection" → "______ the inspection." (one word)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[STE prefers plain, approved verbs: "start" (or "begin") instead of "commence". Short approved words reduce misunderstanding between readers from different countries.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <usecase>0</usecase>
+  <answer fraction="100"><text>start</text><feedback format="html"><text><![CDATA[Correct — STE uses the plain verb "start".]]></text></feedback></answer>
+  <answer fraction="100"><text>begin</text><feedback format="html"><text><![CDATA[Also accepted — "begin" is a plain, approved verb.]]></text></feedback></answer>
+  <answer fraction="0"><text>initiate</text><feedback format="html"><text><![CDATA["Initiate" is another long word STE avoids. Use "start".]]></text></feedback></answer>
+</question>
+
+<question type="shortanswer">
+  <name><text>U8 · Bank phrase — within limits</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Write the two-word bank phrase for the meaning in brackets.</p><p>A dent whose depth is inside the maximum the manual allows is ______ ______. (two words)</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA["Within limits" means the damage is inside the maximum the SRM allows, so no repair is needed and the aircraft can return to service.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <usecase>0</usecase>
+  <answer fraction="100"><text>within limits</text><feedback format="html"><text><![CDATA[Correct — "within limits" means inside the allowed maximum.]]></text></feedback></answer>
+  <answer fraction="0"><text>out of limits</text><feedback format="html"><text><![CDATA[That is the opposite: "out of limits" means the damage exceeds the allowed maximum.]]></text></feedback></answer>
+</question>
+
+<!-- ==================== VOCABULARY (4) ==================== -->
+
+<question type="matching">
+  <name><text>V1 · Match term to meaning (structure)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Match each structural term with its plain meaning.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Dent = a smooth hollow from an impact; stringer = a lengthwise stiffener; frame = a curved ring giving the fuselage its shape; referral = sending a case to engineering; corrosion = rust-like chemical damage.]]></text></generalfeedback>
+  <defaultgrade>5</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <shuffleanswers>true</shuffleanswers>
+  <subquestion format="html"><text><![CDATA[dent]]></text><answer><text><![CDATA[a smooth hollow pushed into the metal skin]]></text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[stringer]]></text><answer><text><![CDATA[a long strip that stiffens the skin from inside]]></text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[frame]]></text><answer><text><![CDATA[a curved ring that shapes the fuselage]]></text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[referral]]></text><answer><text><![CDATA[sending a difficult case to engineering]]></text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[corrosion]]></text><answer><text><![CDATA[rust-like chemical damage to metal]]></text></answer></subquestion>
+</question>
+
+<question type="matching">
+  <name><text>V2 · Match term to meaning (damage and tools)</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Match each term with its plain meaning.</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[Skin = the outer metal panels; gouge = a deeper mark removing more metal; scratch = a thin surface mark; blend out = smooth away light damage by sanding; depth gauge = the tool that measures how deep a dent is.]]></text></generalfeedback>
+  <defaultgrade>5</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <shuffleanswers>true</shuffleanswers>
+  <subquestion format="html"><text><![CDATA[skin]]></text><answer><text><![CDATA[the outer metal panels of the aircraft]]></text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[gouge]]></text><answer><text><![CDATA[a deeper mark that removes more metal]]></text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[scratch]]></text><answer><text><![CDATA[a thin mark on the surface]]></text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[blend out]]></text><answer><text><![CDATA[smooth away light damage by sanding]]></text></answer></subquestion>
+  <subquestion format="html"><text><![CDATA[depth gauge]]></text><answer><text><![CDATA[the tool that measures how deep a dent is]]></text></answer></subquestion>
+</question>
+
+<question type="multichoice">
+  <name><text>V3 · Collocation — the SRM rule</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which is the correct English name for the manual's maximum permitted damage?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA[The fixed collocation is "allowable damage limit" — singular "damage", singular "limit", with the adjective "allowable". The other forms mix up plurals and word forms.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <single>true</single>
+  <shuffleanswers>true</shuffleanswers>
+  <answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[allowable damage limit]]></text><feedback format="html"><text><![CDATA[Correct — this is the fixed technical collocation.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[allowance damage limits]]></text><feedback format="html"><text><![CDATA["Allowance" is a noun; the term needs the adjective "allowable" and singular "limit".]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[allowed damages limits]]></text><feedback format="html"><text><![CDATA["Damage" is uncountable here and "limit" is singular in this collocation.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[allowing damaged limit]]></text><feedback format="html"><text><![CDATA["Allowing" and "damaged" are the wrong word forms for this fixed term.]]></text></feedback></answer>
+</question>
+
+<question type="multichoice">
+  <name><text>V4 · Meaning — adjacent</text></name>
+  <questiontext format="html"><text><![CDATA[<p>Which word means "directly next to; right beside"?</p>]]></text></questiontext>
+  <generalfeedback format="html"><text><![CDATA["Adjacent" means directly next to something. In the dialogues a stringer runs adjacent to the dent, so it must be inspected too.]]></text></generalfeedback>
+  <defaultgrade>1</defaultgrade>
+  <penalty>0.3333333</penalty>
+  <single>true</single>
+  <shuffleanswers>true</shuffleanswers>
+  <answernumbering>abc</answernumbering>
+  <answer fraction="100" format="html"><text><![CDATA[adjacent]]></text><feedback format="html"><text><![CDATA[Correct — "adjacent" means right beside.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[ascending]]></text><feedback format="html"><text><![CDATA["Ascending" means rising or going up, not next to.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[adequate]]></text><feedback format="html"><text><![CDATA["Adequate" means good enough, not next to.]]></text></feedback></answer>
+  <answer fraction="0" format="html"><text><![CDATA[abundant]]></text><feedback format="html"><text><![CDATA["Abundant" means plentiful, not next to.]]></text></feedback></answer>
+</question>
+
+</quiz>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 26 · Teacher Key — Handling ground damage and the damage report</title>
+<style>
+  :root{
+    --brand:#2F5496; --brand-dark:#1f3a6b; --navy:#0f2942; --amber:#c8821a;
+    --amber-soft:#fdf3e0; --good:#2e9e6b; --bad:#c0392b;
+    --bg:#fbfaf6; --card:#ffffff; --sunken:#f3f1ea; --line:#e7e3d8;
+    --ink:#1f2230; --ink-soft:#4a4f5c; --ink-muted:#707582;
+    --serif:Georgia,'Source Serif 4','Times New Roman',serif;
+    --sans:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+    --mono:'JetBrains Mono','SF Mono',Consolas,monospace;
+    --radius:14px; --shadow:0 1px 2px rgba(16,32,54,.06),0 8px 28px rgba(16,32,54,.07);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+  article{max-width:960px;margin:0 auto;padding:0 24px 90px}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.2}
+  .mast{background:linear-gradient(135deg,var(--navy) 0%,var(--brand) 62%,#3c66a8 100%);
+    color:#fff;padding:44px 0 36px;margin-bottom:28px}
+  .mast .in{max-width:960px;margin:0 auto;padding:0 24px}
+  .mast .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.86;font-weight:600}
+  .mast h1{font-size:33px;margin:8px 0 12px}
+  .mast .pill{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);
+    border-radius:999px;padding:5px 14px;font-size:13px;margin:3px 8px 3px 0}
+  section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 30px;margin:20px 0;box-shadow:var(--shadow)}
+  section>h2{font-size:24px;color:var(--navy);margin:0 0 10px;display:flex;align-items:center;gap:12px}
+  section>h2::before{content:"";width:5px;height:24px;border-radius:3px;background:var(--amber);flex:none}
+  h3{font-size:18px;color:var(--navy);margin:22px 0 6px}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+  th{background:var(--sunken);color:var(--navy);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
+  td.a{font-weight:700;color:var(--brand-dark)}
+  .flag{font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px;color:#fff}
+  .lv{background:#7e3b8f}.ru{background:#b5522a}
+  .box{border:1px solid var(--line);border-left:4px solid var(--brand);background:#f7faff;border-radius:10px;padding:12px 16px;margin:10px 0}
+  .box.amber{border-left-color:var(--amber);background:var(--amber-soft)}
+  .box.good{border-left-color:var(--good);background:#f2fbf6}
+  ul{margin:.3em 0}
+  li{margin:5px 0}
+  code{font-family:var(--mono);background:#eef2f8;border-radius:5px;padding:1px 6px;font-size:13px}
+  .rubric td{font-size:13.5px}
+  .band{font-weight:700;color:var(--brand-dark);white-space:nowrap}
+  .totrow td{background:var(--sunken);font-weight:700}
+  .skill{font-family:var(--mono);font-size:10.5px;font-weight:700;color:#fff;background:var(--navy);border-radius:5px;padding:2px 7px}
+  footer{max-width:960px;margin:20px auto 0;padding:16px 24px;color:var(--ink-muted);font-size:13px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<header class="mast"><div class="in">
+  <div class="eyebrow">English for Aviation Maintenance · CEFR B2 · Teacher key (gated)</div>
+  <h1>Unit 26 · Teacher Key — Handling ground damage and the damage report</h1>
+  <span class="pill">90-minute staging</span><span class="pill">Latvian &amp; Russian interference</span>
+  <span class="pill">B2 speaking rubric</span><span class="pill">Full quiz key</span>
+</div></header>
+
+<article>
+
+  <!-- STAGING -->
+  <section id="staging">
+    <h2>Unit staging &amp; timing (90 minutes)</h2>
+    <p>The unit runs three tasks in professional order: <b>locate</b> the damage, <b>measure</b> it against the SRM, then <b>decide</b> repair or referral and justify it. The timings below fill a 90-minute double period; the audio is about five minutes total, listened to twice.</p>
+    <table>
+      <thead><tr><th>Min</th><th>Stage</th><th>Skill</th><th>What the class does</th><th>Teacher focus</th></tr></thead>
+      <tbody>
+        <tr><td>0–5</td><td>Warm-up: the situation</td><td><span class="skill">SPEAK</span></td><td>Look at the scenario; predict what the mechanic must report first.</td><td>Elicit "location, measurement, decision" as the three jobs.</td></tr>
+        <tr><td>5–20</td><td>Listening 1–2</td><td><span class="skill">LISTEN</span></td><td>Play Dialogues 1 and 2 twice; catch the numbers (zone 127 / station 480 / 1.4 mm / 2 mm).</td><td>First listen books closed; second listen with the number-catch grid.</td></tr>
+        <tr><td>20–28</td><td>Listening 3 + PA notice</td><td><span class="skill">LISTEN</span></td><td>Play Dialogue 3 and the hangar PA; contrast within limits vs out of limits.</td><td>Draw out "over a frame" as the reason the SRM stops covering it.</td></tr>
+        <tr><td>28–40</td><td>Vocabulary bank</td><td><span class="skill">VOCAB</span></td><td>Read the bank; drill the near-pairs (scratch / gouge, gauge / gouge, frame / stringer).</td><td>Model stress and the silent letters; check the plain glosses.</td></tr>
+        <tr><td>40–52</td><td>Grammar in context</td><td><span class="skill">USE</span></td><td>Study the relative-clause quotes; comma vs no comma; who / which / that / where.</td><td>Anchor on defining vs non-defining and the "no <em>which</em> after a comma... use commas for which" rule.</td></tr>
+        <tr><td>52–68</td><td>Controlled practice E1–E4, E6</td><td><span class="skill">USE</span></td><td>Gap-fill, matching, report dialogue, relative words, error-spotting.</td><td>Circulate; feed single answers from the Solutions file as corrections.</td></tr>
+        <tr><td>68–78</td><td>Reading E5 &amp; E7 + review E8</td><td><span class="skill">READ</span></td><td>Read the SRM page and the completed report; answer; replay Dialogue 3 for E8.</td><td>Highlight the location-changes-the-limit trap in E7.</td></tr>
+        <tr><td>78–86</td><td>Speaking role-plays (4 cards)</td><td><span class="skill">SPEAK</span></td><td>Pairs run cards 1–4, then swap roles; the AI partner for fast finishers.</td><td>Mark against the B2 rubric below; note two praise points, one fix.</td></tr>
+        <tr><td>86–90</td><td>Writing set-up + exit</td><td><span class="skill">WRITE</span></td><td>Begin the STE ground-damage report; finish for homework.</td><td>Give the self-check list; collect one exit sentence per pair.</td></tr>
+      </tbody>
+    </table>
+    <div class="box amber"><b>If time is short:</b> cut E6 and the AI-partner turn, and set E7 for homework. Protect the two listenings and one full role-play — those carry the can-do outcomes.</div>
+  </section>
+
+  <!-- INTERFERENCE -->
+  <section id="interference">
+    <h2>Latvian &amp; Russian interference — why each error happens</h2>
+    <p>These are predictable, not careless. Naming the first-language cause helps learners self-correct, so give the reason, not only the fix.</p>
+
+    <h3>Grammar (the unit's focus)</h3>
+    <table>
+      <thead><tr><th>L1</th><th>Typical error</th><th>Correct</th><th>Why it happens</th></tr></thead>
+      <tbody>
+        <tr><td><span class="flag lv">LV</span> <span class="flag ru">RU</span></td><td>"The mechanic <b>which</b> found the dent…"</td><td>The mechanic <b>who</b> found the dent…</td><td>Latvian <em>kas</em> and Russian <em>который</em> serve for both people and things, so learners under-use "who".</td></tr>
+        <tr><td><span class="flag lv">LV</span> <span class="flag ru">RU</span></td><td>"The dent<b>,</b> that exceeds the limit<b>,</b>…"</td><td>The dent that exceeds the limit… <em>(no commas)</em></td><td>Neither L1 marks the defining / non-defining split with the same comma logic, so commas are placed by feel.</td></tr>
+        <tr><td><span class="flag ru">RU</span></td><td>"The dent, which <b>it</b> exceeds the limit…"</td><td>The dent, which exceeds the limit…</td><td>Russian relative clauses can keep a resumptive pronoun; learners copy the extra "it".</td></tr>
+        <tr><td><span class="flag lv">LV</span> <span class="flag ru">RU</span></td><td>"This is the zone <b>which</b> the loader hit the skin."</td><td>…the zone <b>where</b> the loader hit the skin.</td><td>Both L1s often use the general relative word for places too, so "where" is skipped.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Articles, aspect &amp; prepositions</h3>
+    <table>
+      <thead><tr><th>L1</th><th>Typical error</th><th>Correct</th><th>Why it happens</th></tr></thead>
+      <tbody>
+        <tr><td><span class="flag lv">LV</span> <span class="flag ru">RU</span></td><td>"There is dent in skin."</td><td>There is <b>a</b> dent in <b>the</b> skin.</td><td>Neither Latvian nor Russian has articles, so a/the are dropped or added at random.</td></tr>
+        <tr><td><span class="flag ru">RU</span></td><td>"I <b>measure</b> the dent already." (for a done action)</td><td>I <b>have measured</b> the dent already.</td><td>Russian marks completion with aspect, not a perfect tense, so the present perfect is under-used.</td></tr>
+        <tr><td><span class="flag lv">LV</span> <span class="flag ru">RU</span></td><td>"It is out <b>of</b> limit." / "with limits"</td><td>It is <b>out of limits</b> / <b>within limits</b>.</td><td>The fixed English plurals and prepositions do not map one-to-one from L1.</td></tr>
+        <tr><td><span class="flag ru">RU</span></td><td>"depth <b>1,4</b> mm" (comma decimal)</td><td>depth <b>1.4</b> mm (point decimal, said "one point four")</td><td>LV/RU write the decimal comma; English maintenance uses the point and says "point".</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Pronunciation &amp; near-pairs</h3>
+    <table>
+      <thead><tr><th>Sound</th><th>Watch for</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><b>gauge</b> vs <b>gouge</b></td><td>/ɡeɪdʒ/ (tool) vs /ɡaʊdʒ/ (deep mark)</td><td>Near-homophones with opposite jobs; drill in minimal pairs and in the E6 spelling item.</td></tr>
+        <tr><td>/θ/ in <b>depth</b>, <b>thorough</b></td><td>Substituted with /t/ or /s/ (no /θ/ in LV/RU)</td><td>Practise "depth" and "the deepest point" slowly; it recurs in every measurement.</td></tr>
+        <tr><td>word stress</td><td><b>COR</b>rosion → often <em>corROsion</em>; <b>REF</b>erral → <em>refERRal</em> is correct</td><td>Stress patterns differ; mark the stressed syllable on the board.</td></tr>
+        <tr><td>final consonant clusters</td><td><b>stringer</b>, <b>cracks</b>, <b>limits</b></td><td>LV/RU simplify clusters; over-articulate the endings that carry meaning (plural, tense).</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- EXTENSION -->
+  <section id="extension">
+    <h2>Extension activities</h2>
+    <div class="box"><b>1 · Number dictation (fast, 4 min).</b> Read ten mixed figures at speaking pace — <em>zone 127, station 480, 1.4 mm, 2.6 mm, 40 mm, station 720, zone 300, 1.0 mm, 2.0 mm, stand 5</em>. Learners write them, then read them back. Targets the real skill of catching spoken figures.</div>
+    <div class="box"><b>2 · Turn the report into a PA notice.</b> Give pairs the E7 report form; they rewrite it as a 6-line hangar PA like Dialogue 4. Bridges written STE and spoken register.</div>
+    <div class="box"><b>3 · Defining vs non-defining sort.</b> Ten sentences on cards; learners sort into "identifies which one" (no commas, that/which) vs "adds extra detail" (commas, which). Then they add or remove the commas.</div>
+    <div class="box"><b>4 · Referral or repair? decision cards.</b> Six mini-cases (depth + location + corrosion yes/no). Pairs decide within limits / out of limits and repair / referral, and must state the reason in one relative-clause sentence.</div>
+    <div class="box"><b>5 · Genre swap (stronger groups).</b> Compare the SRM page (E5) with the report (E7): which is instructions, which is a record? Learners label the verbs (imperatives vs past facts) — a light AMM-vs-tech-log genre awareness task.</div>
+    <div class="box good"><b>Homework:</b> finish the STE Ground Damage Report (writing task) and complete the Moodle quiz. Bring one real or invented ground-damage case to describe next lesson.</div>
+  </section>
+
+  <!-- RUBRIC -->
+  <section id="rubric">
+    <h2>CEFR B2 speaking rubric — the role-plays</h2>
+    <p>Mark each learner across five criteria (0–4). B2 sits at band 3. Use it live during cards 1–4; give two praise points and one fix per learner.</p>
+    <table class="rubric">
+      <thead><tr><th>Criterion</th><th>4 · Above B2</th><th>3 · B2 (target)</th><th>2 · Approaching</th><th>1 · Below</th></tr></thead>
+      <tbody>
+        <tr><td class="band">Range</td>
+          <td>Uses bank terms and relative clauses flexibly; precise, varied phrasing.</td>
+          <td>Uses the unit's specialist terms and relative clauses correctly to specify damage and location.</td>
+          <td>Some bank terms; leans on a few fixed phrases; little subordination.</td>
+          <td>Very limited vocabulary; cannot describe location or extent.</td></tr>
+        <tr><td class="band">Accuracy</td>
+          <td>Errors rare and self-repaired; who/which/that and commas controlled.</td>
+          <td>Good control; relative words mostly right; slips do not block meaning.</td>
+          <td>Frequent article/relative errors that sometimes obscure which dent is meant.</td>
+          <td>Errors dense; the report cannot be trusted.</td></tr>
+        <tr><td class="band">Fluency</td>
+          <td>Smooth, near-natural pace; hesitation only for real thought.</td>
+          <td>Keeps going at a steady pace; some pausing to plan, but sustained.</td>
+          <td>Halting; long pauses; needs prompting to continue.</td>
+          <td>Cannot maintain the exchange.</td></tr>
+        <tr><td class="band">Interaction</td>
+          <td>Manages the exchange; asks for and gives the exact zone/station/depth without prompting.</td>
+          <td>Initiates and responds; checks the number and location; hands over clearly.</td>
+          <td>Mostly responds; waits to be asked for details.</td>
+          <td>Does not sustain turn-taking.</td></tr>
+        <tr><td class="band">Coherence</td>
+          <td>Logical build: location → measurement → decision → reason, well linked.</td>
+          <td>Clear order; uses connectors (because, although, unless) to justify the decision.</td>
+          <td>Some sequencing; the justification is thin or missing.</td>
+          <td>Ideas disconnected; no line of reasoning.</td></tr>
+      </tbody>
+      <tr class="totrow"><td>Total</td><td colspan="4">/20 &nbsp;·&nbsp; 15 = solid B2 &nbsp;·&nbsp; a card is "passed" when the learner locates by zone/station, compares to a limit, and gives a reason.</td></tr>
+    </table>
+  </section>
+
+  <!-- QUIZ KEY -->
+  <section id="quizkey">
+    <h2>Quiz key — <code>quiz-rich.xml</code> (24 items, per-item rationale)</h2>
+    <p>Answers and the reason each is correct. The bank imports under <code>$course$/top/CF/U26-r1</code>. Types: multichoice, truefalse, numerical, shortanswer, matching.</p>
+
+    <h3>Listening (7)</h3>
+    <table>
+      <thead><tr><th>Item</th><th>Answer</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td>L1 (MC)</td><td class="a">In zone 127, near station 480.</td><td>Dialogue 1: the mechanic gives exactly this zone and station. Zone 300/720 is the second dent.</td></tr>
+        <tr><td>L2 (TF)</td><td class="a">True</td><td>Dialogue 1: "Nobody is injured…" is stated plainly.</td></tr>
+        <tr><td>L3 (NUM)</td><td class="a">1.4 (±0.05)</td><td>Dialogue 2: measured depth at the centre is 1.4 mm.</td></tr>
+        <tr><td>L4 (NUM)</td><td class="a">2 (±0.05)</td><td>Dialogue 2: the flat-panel depth must stay under 2 mm. 1 mm is the stringer/frame value.</td></tr>
+        <tr><td>L5 (MC)</td><td class="a">It sits over a frame and exceeds the limit.</td><td>Dialogue 3: both facts drive the referral. The flat-skin/within-limits option describes dent 1.</td></tr>
+        <tr><td>L6 (TF)</td><td class="a">False</td><td>Dialogue 3: the SRM covers flat skin "but not this frame area".</td></tr>
+        <tr><td>L7 (NUM)</td><td class="a">2.6 (±0.05)</td><td>Dialogue 3: the out-of-limits dent is 2.6 mm against a 2 mm limit.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Reading (5)</h3>
+    <table>
+      <thead><tr><th>Item</th><th>Answer</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td>R1 (MC)</td><td class="a">1.0 mm</td><td>Task card line 4: over a frame or stringer the limit is 1.0 mm; 2.0 mm is flat skin.</td></tr>
+        <tr><td>R2 (TF)</td><td class="a">False</td><td>Task card line 6: "Do not blend out" an out-of-limits dent.</td></tr>
+        <tr><td>R3 (MC)</td><td class="a">The depth is above the 1.0 mm stringer limit.</td><td>Tech log: 1.4 mm over a stringer exceeds the 1.0 mm limit. "No crack, no corrosion" is stated.</td></tr>
+        <tr><td>R4 (TF)</td><td class="a">True</td><td>Tech log last line: do not fit the cargo door panel.</td></tr>
+        <tr><td>R5 (MC)</td><td class="a">They raise a referral to Engineering.</td><td>Tech log: out of limits → referral + on hold; blending out and fitting the panel are both forbidden.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Use of English (8)</h3>
+    <table>
+      <thead><tr><th>Item</th><th>Answer</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td>U1 (SA)</td><td class="a">who</td><td>"Who" for a person (the mechanic).</td></tr>
+        <tr><td>U2 (SA)</td><td class="a">which</td><td>Non-defining clause after a comma about a thing → "which", never "that".</td></tr>
+        <tr><td>U3 (SA)</td><td class="a">where</td><td>"Where" for a place (the zone).</td></tr>
+        <tr><td>U4 (SA)</td><td class="a">that / which</td><td>Defining clause, no comma, about a thing — both accepted.</td></tr>
+        <tr><td>U5 (SA)</td><td class="a">referral (a referral)</td><td>Sending a case to engineering for a decision.</td></tr>
+        <tr><td>U6 (SA)</td><td class="a">corrosion</td><td>Rust-like chemical metal damage.</td></tr>
+        <tr><td>U7 (SA)</td><td class="a">start / begin</td><td>STE replaces "commence" with a plain, approved verb.</td></tr>
+        <tr><td>U8 (SA)</td><td class="a">within limits</td><td>Inside the maximum the manual allows.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Vocabulary (4)</h3>
+    <table>
+      <thead><tr><th>Item</th><th>Answer</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td>V1 (MATCH)</td><td class="a">dent→hollow · stringer→lengthwise stiffener · frame→curved ring · referral→to engineering · corrosion→rust-like</td><td>Structural set; distinguishes stringer (lengthwise) from frame (ring).</td></tr>
+        <tr><td>V2 (MATCH)</td><td class="a">skin→outer panels · gouge→deeper mark · scratch→thin mark · blend out→sand away · depth gauge→measures depth</td><td>Damage-and-tools set; separates scratch (light) from gouge (deep) and the gauge tool.</td></tr>
+        <tr><td>V3 (MC)</td><td class="a">allowable damage limit</td><td>Fixed collocation: adjective "allowable" + singular "damage" + singular "limit".</td></tr>
+        <tr><td>V4 (MC)</td><td class="a">adjacent</td><td>"Adjacent" = directly next to; the distractors are similar-looking but unrelated in meaning.</td></tr>
+      </tbody>
+    </table>
+    <div class="box amber"><b>Anti-bias note for markers:</b> in every multichoice the correct option is deliberately not the longest or most-hedged, and distractors are length-matched — so length is not a clue. Shuffling is on; read options in full.</div>
+  </section>
+
+</article>
+<footer>English for Aviation Maintenance · Unit 26 of 32 · Teacher key (gated). Pair with the Solutions file for full exercise model answers.</footer>
+</body>
+</html>

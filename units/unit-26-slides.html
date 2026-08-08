@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 26 · Teacher Deck — Handling ground damage and the damage report</title>
+<style>
+:root{--bg:#0b111b;--panel:#142235;--panel2:#18293f;--ink:#e9f0f7;--muted:#9db0c6;--line:#26384e;--line2:#314865;
+  --accent:#38b6ff;--hot:#ff5667;--good:#34d399;--amber:#fbbf24;--purple:#a78bfa;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#070b11;color:var(--ink);font-family:'Inter',-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:6vh 7vw;
+  background:radial-gradient(120% 100% at 50% 0%,#0f1a2a,#080d15)}
+.slide.active{display:flex;animation:in .35s ease}
+.slide[data-center]{align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{letter-spacing:.16em;text-transform:uppercase;font-size:13px;font-weight:800;color:var(--accent)}
+h1{font-size:42px;margin:.2em 0;line-height:1.1;font-family:Georgia,serif}
+h2{font-size:30px;margin:.1em 0 .5em;font-family:Georgia,serif}
+p,li{font-size:20px;line-height:1.5;color:#d6e3f1}
+.muted{color:var(--muted)}
+.big{font-size:26px}
+.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:5px 14px;font-size:15px;color:var(--muted)}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:#020E27;background:var(--amber);border-radius:5px;padding:2px 8px}
+code{font-family:var(--mono);background:#0c1622;border:1px solid var(--line);border-radius:6px;padding:.05em .4em;color:#cfe5ff}
+ul{margin:.2em 0}small{font-size:15px;color:var(--muted)}
+b.acc{color:var(--accent)}b.am{color:var(--amber)}b.gd{color:var(--good)}b.pu{color:var(--purple)}
+table.mini{border-collapse:collapse;font-size:15px;width:100%}
+table.mini th,table.mini td{border:1px solid var(--line);padding:6px 10px;text-align:left;color:#d6e3f1}
+table.mini th{background:#0f1726;color:#9ec9ff;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.dlg{font-size:17px;line-height:1.45}.dlg .sp{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:700;margin-right:8px}
+.qz{border-left:3px solid var(--amber);padding-left:12px;color:#f3ead9;font-size:18px;margin:8px 0}
+/* deck widget skin (dark) */
+.dw{width:100%;max-width:680px}
+.wk{background:#0f1726;border:1px solid #314865;border-radius:14px;padding:16px}
+.wk .bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk button{background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:7px 13px;cursor:pointer;font-size:14px}
+.wk button:hover{border-color:#38b6ff}.wk button.on{background:#16324c;color:#fff;border-color:#38b6ff}
+.wk select{background:#162030;color:#e8edf5;border:1px solid #314865;border-radius:7px;padding:5px 9px;font-size:14px}
+.wk input[type=range]{accent-color:#38b6ff;width:100%}
+.wk canvas{display:block;border-radius:10px;background:#0a0f18;width:100%}
+.wk .note{color:#7e98ad;font-size:13px;margin:6px 0 0}
+.wk .info{margin-top:12px;background:#0c1622;border:1px solid #26384e;border-radius:11px;padding:11px 14px;min-height:58px;font-size:15px;color:#cfe0ee}
+.wk .info h4{margin:0 0 4px;color:#38b6ff;font-size:15px}
+.verdict{font-weight:800}.verdict.in{color:var(--good)}.verdict.out{color:var(--hot)}
+/* chrome */
+.prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width .3s;z-index:6}
+.hud{position:fixed;top:12px;right:16px;font-family:var(--mono);font-size:13px;color:#54708c;z-index:6}
+.pbtn{position:fixed;bottom:46px;left:16px;z-index:6;background:#10202f;border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+.pbtn:hover{color:var(--ink);border-color:var(--accent)}
+.helphint{position:fixed;bottom:16px;left:16px;z-index:6;color:#3f566e;font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="hud" id="hud"></div>
+<button class="pbtn" id="pbtn" title="Open the private presenter window">🎤 Presenter view (P)</button>
+<div class="helphint">→ / Space · ← back · F fullscreen · P presenter · L captions</div>
+
+<div id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide" data-center data-notes="Open the unit. This is a 90-minute B2 class for aircraft mechanics and avionics technicians. The headline scenario: a belt loader has clipped a parked aircraft and left a dent. By the end the class can do three things — locate ground damage by zone and station, compare it against the SRM's allowable-limits language, and recommend a repair or a referral with a reason. Say the shape of the lesson out loud: listen first, then vocabulary, then the grammar that makes a report precise (relative clauses), then controlled practice, reading, a role-play and a short written report in Simplified Technical English. The whole audio is about five minutes and the class hears it twice. Keep instructions to learners very simple; keep the professional content dense but in short sentences.">
+    <div class="kick">English for Aviation Maintenance · CEFR B2 · Unit 26 of 32 · Teacher deck</div>
+    <h1>Handling ground damage and the damage report</h1>
+    <p class="big muted">Locate the dent by zone and station · measure it against the SRM · recommend repair or referral — and justify it.</p>
+    <p class="pill">90-minute class &nbsp;·&nbsp; listening · vocabulary · grammar · reading · speaking · writing &nbsp;·&nbsp; press <b>P</b> for notes, <b>L</b> for live captions</p>
+  </section>
+
+  <!-- 2 · MAP + TIMING -->
+  <section class="slide" data-notes="Set the map and the timing so the room knows the pace. Five minutes of audio, listened to twice, anchors the first third. The grammar focus is narrow on purpose — relative clauses to specify which damage exceeds limits — because a report must pin that down. Tell the class the assessment shape: the practice exercises and the role-plays are formative; the Moodle quiz and the written report are where they show the outcomes. Point at the can-do line and promise they will hit all three by the wrap-up. Remind yourself: the specialist terms are the only hard words allowed; everything else stays plain.">
+    <div class="kick">Lesson map · 90 minutes</div>
+    <h2>What we do, and when</h2>
+    <div class="cols">
+      <div class="card">
+        <table class="mini">
+          <tr><th>Min</th><th>Stage</th></tr>
+          <tr><td>0–5</td><td>The situation — predict the three jobs</td></tr>
+          <tr><td>5–28</td><td>Listening: Dialogues 1–3 + hangar PA (×2)</td></tr>
+          <tr><td>28–40</td><td>Vocabulary bank + near-pairs</td></tr>
+          <tr><td>40–52</td><td>Grammar: relative clauses to specify</td></tr>
+          <tr><td>52–68</td><td>Controlled practice E1–E4, E6</td></tr>
+          <tr><td>68–78</td><td>Reading E5 &amp; E7 + review E8</td></tr>
+          <tr><td>78–86</td><td>Role-plays (4 cards)</td></tr>
+          <tr><td>86–90</td><td>Writing set-up + exit ticket</td></tr>
+        </table>
+      </div>
+      <div>
+        <p><b class="acc">By the end you can…</b></p>
+        <ul>
+          <li>describe damage location and extent by <b>zone</b> and <b>station</b>;</li>
+          <li>compare a measurement against the <b>allowable damage limit</b>;</li>
+          <li>recommend a <b>repair scheme</b> or a <b>referral</b>, and say why.</li>
+        </ul>
+        <p class="muted">Formative: the exercises and role-plays. Show what you can do: the quiz and the written report.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · SCENARIO -->
+  <section class="slide" data-center data-notes="Warm up on the situation, four minutes, books open. Busy morning in Hangar 2. A belt loader is driven away and clips the fuselage — this is ground damage, damage that happens on the ground during handling, not in flight. Nobody is hurt, but the aircraft goes on hold. Elicit from the room the three jobs in order: locate it precisely, measure it against the manual, then decide and justify. Push the why: a wrong location sends the wrong technician to the wrong panel; a missing measurement makes engineering ask again and delays the aircraft. So the report is part of the maintenance, not extra paperwork. Keep this quick and get them talking.">
+    <div class="kick">§0 · the situation</div>
+    <h2>A belt loader clips the fuselage</h2>
+    <p class="big">It is a busy morning on the ramp. A belt loader is driven away and clips a parked aircraft. There is a smooth dent in the skin, low on the left side.</p>
+    <p class="muted" style="max-width:64ch">Nobody is injured, but the aircraft goes <b class="am">on hold</b>. Three jobs, in order: <b class="acc">locate</b> the damage by zone and station · <b class="acc">measure</b> it against the SRM · <b class="acc">decide</b> repair or referral, and justify it.</p>
+    <p class="pill">Ask the room: what must the mechanic report <em>first</em> — and why is "lower left" not enough?</p>
+  </section>
+
+  <!-- 4 · LISTENING 1 -->
+  <section class="slide" data-notes="Listening 1, Dialogue 1 — reporting the dent. First play books closed: the class just catches the gist and any numbers. Second play with the number-catch grid on the board (zone, station, on flat skin or over a stringer, injuries, scratch or crack). Draw out the key move: the lead refuses 'lower left' and demands zone and station, because the precise location decides which allowable limit applies. Highlight the natural connectors the speakers use — although, while, because — inside short sentences; that density is the B2 target. Then open the transcript in the student page to confirm.">
+    <div class="kick">§1 · listening · Dialogue 1</div>
+    <h2>Reporting the ground-handling dent</h2>
+    <div class="cols">
+      <div class="card dlg">
+        <p><span class="sp">MECH</span>There is a visible dent in the skin, on the lower left side of the fuselage.</p>
+        <p><span class="sp">LEAD</span>I need the precise location by zone and station, and not simply 'lower left'.</p>
+        <p><span class="sp">MECH</span>It is in <b class="am">zone 127</b>, near <b class="am">station 480</b>, below the forward cargo door.</p>
+      </div>
+      <div>
+        <p><b class="acc">Listen twice.</b> First for gist, then catch:</p>
+        <ul><li>zone &amp; station numbers,</li><li>flat skin or over a stringer,</li><li>injuries · scratch or crack.</li></ul>
+        <p class="qz">Why does the lead reject "lower left"? Because the exact spot decides the limit.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · LISTENING 2 -->
+  <section class="slide" data-notes="Listening 2, Dialogue 2 — measuring against the SRM. The numbers matter here: depth 1.4 mm at the centre, 40 mm long, 30 mm wide, oval. The flat-skin limit is under 2 mm, so this dent is within limits. But the lead still insists on inspecting the stringer and checking for crack and corrosion, because corrosion near a dent would change the whole repair scheme. Point out 'unless' and 'as long as' — the conditional language of limits. This is the calm, in-limits case; the next dialogue is the out-of-limits contrast.">
+    <div class="kick">§1 · listening · Dialogue 2</div>
+    <h2>Measuring the dent against the SRM</h2>
+    <div class="cols">
+      <div class="card dlg">
+        <p><span class="sp">MECH</span>The dent depth is approximately <b class="am">1.4 mm</b> at the centre of the damage.</p>
+        <p><span class="sp">LEAD</span>The allowable damage limit states the depth must remain under <b class="am">2 mm</b>.</p>
+        <p><span class="sp">MECH</span>So our measured depth is 1.4 mm, which means it is <b class="gd">within limits</b>.</p>
+      </div>
+      <div>
+        <p>Catch every figure: <b>1.4 mm</b> deep · <b>40 mm</b> long · <b>30 mm</b> wide.</p>
+        <p class="muted">Within limits — but still inspect the stringer, and check for any <b>crack</b> or <b>corrosion</b>.</p>
+        <p class="qz">Conditional language: "<em>unless</em> it is deeper…", "<em>as long as</em> it stays within limits…".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · LISTENING 3 + PA -->
+  <section class="slide" data-notes="Listening 3, Dialogue 3 — repair or referral — plus the hangar PA notice. This is the out-of-limits case: a second dent, depth 2.6 mm against a 2 mm limit, sitting over a frame in zone 300, station 720. The SRM has a scheme for flat skin but not for this frame area, so the damage must go to engineering as a referral. Model the professional order the lead teaches: report the facts first, then recommend, and always give a reason. The mechanic's justification joins two facts — over a frame AND out of limits. Finish with the PA notice (Dialogue 4) as a spoken-register version of the same information: on hold, bring the SRM and depth gauge, record everything in the tech log.">
+    <div class="kick">§1 · listening · Dialogue 3 + hangar PA</div>
+    <h2>Repair or referral</h2>
+    <div class="cols">
+      <div class="card dlg">
+        <p><span class="sp">MECH</span>The dent depth is <b class="hot">2.6 mm</b>, although the allowable limit here is only 2 mm.</p>
+        <p><span class="sp">LEAD</span>So this dent, <b class="pu">which exceeds the allowable damage limit</b>, needs more than a blend out.</p>
+        <p><span class="sp">MECH</span>The damage, <b class="pu">which the SRM does not cover</b>, needs a referral to engineering.</p>
+      </div>
+      <div>
+        <p><b class="hot">Out of limits</b> · over a <b>frame</b> · zone 300, station 720.</p>
+        <p class="muted">Report the facts → recommend → give a reason. Reason = over a frame <em>and</em> out of limits.</p>
+        <p class="qz">The PA notice repeats it for the whole hangar: on hold, bring the SRM &amp; gauge, log it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · WIDGET locate -->
+  <section class="slide" data-notes="Interactive: locate by zone and station. Use this to make 'zone and station' concrete. Pick a dialogue case and the marker moves along the fuselage; the panel names the zone, the station and whether the spot is flat skin, near a stringer or over a frame. Drag the station slider and let a learner read out the position in a full sentence — 'The dent is in zone 127, near station 480, on flat skin.' Stress that the station number runs along the length and the zone names the area; together they are unambiguous. This is the drilling ground for the role-play language.">
+    <div class="kick">§1 · interactive · locate the damage</div>
+    <h2>Zone + station — say exactly where</h2>
+    <div class="cols">
+      <div class="dw" data-widget="locate"></div>
+      <div><p>Pick a case, then drag the station slider. Read the position aloud as a full sentence.</p>
+        <p class="muted">Zone = which area · station = position along the length. Together they leave no doubt which panel to inspect.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · WIDGET gauge -->
+  <section class="slide" data-notes="Interactive: depth against the limit. This is the heart of the unit's decision. Choose the location — flat skin sets the limit at 2.0 mm, over a stringer or a frame it drops to 1.0 mm — then drag the depth. The meter turns green for within limits and red for out of limits, and the verdict sentence updates. Run the three real cases: 1.4 mm on flat skin is within limits; 1.4 mm over a stringer is OUT of limits (same number, stricter limit — this is the classic trap in E7); 2.6 mm over a frame is clearly out. Make the class say the reason each time, in one relative-clause sentence.">
+    <div class="kick">§1 · interactive · measure vs the limit</div>
+    <h2>Within limits or out of limits?</h2>
+    <div class="cols">
+      <div class="dw" data-widget="gauge"></div>
+      <div><p>Set the location, then the depth. Watch the verdict change — and notice the same depth can flip when the location changes.</p>
+        <p class="muted">Flat skin → 2.0 mm · over a stringer or frame → 1.0 mm. Location decides the limit.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · VOCABULARY -->
+  <section class="slide" data-notes="Vocabulary, twelve minutes. The bank has nineteen specialist terms, each with a plain gloss on the student page. Drill the dangerous near-pairs on the board: gauge (the tool, /geɪdʒ/) vs gouge (a deep mark, /gaʊdʒ/); scratch (light) vs gouge (deeper) vs crack (a split); frame (a curved ring) vs stringer (a lengthwise strip). Practise the /θ/ in depth and the stress on corrosion and referral — all predictable trouble for Latvian and Russian speakers. Keep the glosses plain; the only hard words allowed today are these taught terms.">
+    <div class="kick">§2 · vocabulary bank</div>
+    <h2>The words a report needs</h2>
+    <div class="cols">
+      <div class="card">
+        <table class="mini">
+          <tr><th>Term</th><th>Plain meaning</th></tr>
+          <tr><td>dent</td><td>a smooth hollow from an impact</td></tr>
+          <tr><td>stringer</td><td>a lengthwise strip stiffening the skin</td></tr>
+          <tr><td>frame</td><td>a curved ring shaping the fuselage</td></tr>
+          <tr><td>allowable damage limit</td><td>the largest damage the manual permits</td></tr>
+          <tr><td>referral</td><td>sending a case to engineering</td></tr>
+          <tr><td>within limits</td><td>inside the allowed maximum</td></tr>
+        </table>
+      </div>
+      <div>
+        <p><b class="acc">Drill the near-pairs:</b></p>
+        <ul>
+          <li><b>gauge</b> (tool) vs <b>gouge</b> (deep mark)</li>
+          <li><b>scratch</b> &lt; <b>gouge</b> &lt; <b>crack</b> (severity)</li>
+          <li><b>frame</b> (ring) vs <b>stringer</b> (strip)</li>
+        </ul>
+        <p class="muted">Watch /θ/ in <em>depth</em>; stress <em>cor-RO-sion</em>, <em>re-FER-ral</em>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · WIDGET severity -->
+  <section class="slide" data-notes="Interactive: the severity scale. Click each mark and the panel explains it. The point is that these four words are not interchangeable — a report that calls a crack a scratch is dangerously wrong. Line them up: a scratch removes a little material; a gouge removes more; a dent is a hollow with no split; a crack is a split in the metal and is the most serious. Ask the room which of these you may blend out (a light scratch) and which forces a referral (a crack, or anything out of limits). Good quick check before the grammar.">
+    <div class="kick">§2 · interactive · damage vocabulary</div>
+    <h2>Scratch · dent · gouge · crack</h2>
+    <div class="cols">
+      <div class="dw" data-widget="severity"></div>
+      <div><p>Click each term. These four are not interchangeable — calling a crack a scratch is a safety error.</p>
+        <p class="muted">You may blend out a light scratch. A crack, or anything out of limits, forces a referral.</p></div>
+    </div>
+  </section>
+
+  <!-- 11 · GRAMMAR -->
+  <section class="slide" data-notes="Grammar in context, the unit focus: relative clauses to specify. Twelve minutes. Start from the report problem — when several dents are on one aircraft, a colleague must know which one you mean and what its condition is. Relative clauses do exactly that. Teach the split clearly: a defining clause with no commas picks out which dent ('the dent that sits over a frame'); a non-defining clause with commas adds extra detail about one known dent ('the dent, which exceeds the limit, needs a referral'). Rule of thumb: no 'that' after a comma; use 'which'. 'Who' for people, 'where' for places. Keep the sentences short — precision, not length.">
+    <div class="kick">§3 · grammar · relative clauses to specify</div>
+    <h2>Pin down <em>which</em> damage exceeds limits</h2>
+    <div class="cols">
+      <div class="card">
+        <p class="dlg">"The dent <b class="acc">that sits over a frame</b> is the case we must never rush." <small>— identifies which dent · no commas</small></p>
+        <p class="dlg">"So this dent, <b class="pu">which exceeds the limit</b>, needs a referral." <small>— adds extra detail · commas</small></p>
+      </div>
+      <div>
+        <table class="mini">
+          <tr><th>Word</th><th>For</th><th>Commas?</th></tr>
+          <tr><td>that</td><td>things, pick one out</td><td>no</td></tr>
+          <tr><td>which</td><td>things, extra detail</td><td>yes</td></tr>
+          <tr><td>who</td><td>people</td><td>depends</td></tr>
+          <tr><td>where</td><td>a place</td><td>depends</td></tr>
+        </table>
+        <p class="muted">Rule of thumb: never "that" after a comma — use "which".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · WIDGET relclause -->
+  <section class="slide" data-notes="Interactive: build the relative clause. Three dents are drawn; only one exceeds the limit. Choose a relative word and toggle the commas, and the widget builds the sentence and shows what it means on the diagram. Defining ('the dent that exceeds the limit') highlights the single dangerous dent — that is the sentence a report needs. Non-defining with commas ('the dent, which exceeds the limit, …') assumes we already know which dent, and just adds detail. Let learners feel that the commas change the meaning, not just the punctuation. Then correct the classic errors live: no 'which' for people, no resumptive 'it' after 'which'.">
+    <div class="kick">§3 · interactive · defining vs non-defining</div>
+    <h2>Commas change the meaning</h2>
+    <div class="cols">
+      <div class="dw" data-widget="relclause"></div>
+      <div><p>Pick the relative word and toggle the commas. Watch which dent the sentence points to.</p>
+        <p class="muted">Defining = "which one?" (no commas). Non-defining = "extra detail about the one we mean" (commas).</p></div>
+    </div>
+  </section>
+
+  <!-- 13 · INTERFERENCE -->
+  <section class="slide" data-notes="Anticipate the first-language errors before the practice, so learners self-correct. Latvian kas and Russian kotoryj cover both people and things, so 'the mechanic which' is common — insist on 'who' for people. Russian relative clauses can keep a resumptive pronoun, giving 'the dent, which it exceeds' — delete the extra 'it'. Neither language has articles, so a/the drift; neither marks the defining/non-defining comma split the English way. And the decimal is a point, not a comma — 1.4 is said 'one point four'. Put two or three of these on the board and have the class fix them fast.">
+    <div class="kick">§3 · Latvian &amp; Russian interference</div>
+    <h2>Errors to head off now</h2>
+    <div class="cols">
+      <div class="card">
+        <table class="mini">
+          <tr><th>Instead of…</th><th>Say / write</th></tr>
+          <tr><td>the mechanic <b class="hot">which</b> found it</td><td>the mechanic <b class="gd">who</b> found it</td></tr>
+          <tr><td>the dent, which <b class="hot">it</b> exceeds…</td><td>the dent, which exceeds…</td></tr>
+          <tr><td>there is <b class="hot">dent in skin</b></td><td>there is <b class="gd">a</b> dent in <b class="gd">the</b> skin</td></tr>
+          <tr><td>depth <b class="hot">1,4</b> mm</td><td>depth <b class="gd">1.4</b> mm ("one point four")</td></tr>
+        </table>
+      </div>
+      <div><p>These are predictable, not careless. Name the cause and the learner fixes it.</p>
+        <p class="muted">Both L1s lack articles and share one relative word for people and things; Russian allows a resumptive pronoun; the decimal is written with a comma.</p></div>
+    </div>
+  </section>
+
+  <!-- 14 · EXERCISES -->
+  <section class="slide" data-notes="Controlled practice, about sixteen minutes, E1 to E4 and E6. E1 gap-fill and E2 matching drill the bank; E3 rebuilds a report dialogue; E4 is the relative-word choice; E6 is error-spotting that folds in the near-pairs (gauge/gouge, within/with) and the tech-log spelling. Learners work first without the transcripts to test real recall, then check. Circulate and feed single answers as corrections from the Solutions file — do not read the whole key aloud. Green means correct, red means try again; the page marks each exercise on Check.">
+    <div class="kick">§4 · controlled practice</div>
+    <h2>Exercises E1–E4, E6</h2>
+    <div class="cols">
+      <div class="card">
+        <table class="mini">
+          <tr><th>Ex</th><th>Type</th><th>Target</th></tr>
+          <tr><td>E1</td><td>gap-fill</td><td>bank words</td></tr>
+          <tr><td>E2</td><td>matching</td><td>term ↔ meaning</td></tr>
+          <tr><td>E3</td><td>report dialogue</td><td>bank in context</td></tr>
+          <tr><td>E4</td><td>relative words</td><td>who/which/that/where</td></tr>
+          <tr><td>E6</td><td>error-spotting</td><td>near-pairs + grammar</td></tr>
+        </table>
+      </div>
+      <div>
+        <p><b class="acc">Instruction to learners:</b> "Do it first without the transcript. Then press Check."</p>
+        <p class="muted">Circulate. Give single answers as feedback; keep the full key for marking. Green = correct, red = try again.</p>
+        <p class="qz">Watch E6: gauge vs gouge, "with" vs "within", tech "lock" vs "log".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · READING + REVIEW -->
+  <section class="slide" data-notes="Reading and listening review, about ten minutes. E5 is an SRM allowable-damage page — instructions and limits; E7 is a completed ground-damage report — past facts and a decision. Draw the genre contrast: the SRM tells you what to do (imperatives, limits), the report records what happened (past tense, measurements, action). The trap in E7 is the location-changes-the-limit point: 1.4 mm would pass on flat skin but fails over a stringer, where the limit is 1.0 mm. Finish by replaying Dialogue 3 for E8, the numbers-focused listening review.">
+    <div class="kick">§4 · reading + listening review</div>
+    <h2>SRM page · report form · replay</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="acc">E5 — SRM page.</b> Instructions + limits: flat 2.0 mm, stringer/frame 1.0 mm, min 25 mm to a crack.</p>
+        <p><b class="acc">E7 — report form.</b> Past facts + a decision. The trap: 1.4 mm over a stringer is <b class="hot">out of limits</b>.</p>
+        <p><b class="acc">E8 — replay Dialogue 3.</b> Numbers: 2.6 mm vs 2 mm, over a frame, SRM does not cover.</p>
+      </div>
+      <div><p>Genre contrast: the SRM <em>tells you what to do</em>; the report <em>records what happened</em>.</p>
+        <p class="muted">Label the verbs — imperatives on the SRM page, past facts on the report.</p></div>
+    </div>
+  </section>
+
+  <!-- 16 · SPEAKING -->
+  <section class="slide" data-notes="Speaking, about eight minutes. Four role-play cards: report the dent, measure against the SRM, repair or referral, and hand over to the next shift. Pairs take one card each, then swap so both practise both roles. Give the useful phrases on the cards and hold them to the professional order — locate, measure, decide, justify. Mark against the B2 rubric in the teacher key: range, accuracy, fluency, interaction, coherence. Give two praise points and one fix per learner. Fast finishers use the AI conversation partner prompts on the student page. A card is passed when the learner locates by zone and station, compares to a limit, and gives a reason.">
+    <div class="kick">§5 · speaking · role-plays</div>
+    <h2>Four cards — take one each, then swap</h2>
+    <div class="cols">
+      <div class="card">
+        <table class="mini">
+          <tr><th>Card</th><th>Role &amp; goal</th></tr>
+          <tr><td>1</td><td>Mechanic — report the dent by zone &amp; station</td></tr>
+          <tr><td>2</td><td>Inspector — measure vs the SRM, decide within limits</td></tr>
+          <tr><td>3</td><td>Mechanic — recommend repair or referral, justify it</td></tr>
+          <tr><td>4</td><td>Day mechanic — hand over: location + on-hold status</td></tr>
+        </table>
+      </div>
+      <div><p>Hold the order: <b class="acc">locate → measure → decide → justify</b>.</p>
+        <p class="muted">Mark with the B2 rubric (range · accuracy · fluency · interaction · coherence). Two praise points, one fix.</p>
+        <p class="qz">Passed = locates by zone/station, compares to a limit, gives a reason.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 · WRITING -->
+  <section class="slide" data-notes="Writing, set up in the last minutes and finish for homework. Learners write an 80 to 120 word Ground Damage Report for the Dialogue 3 dent in Simplified Technical English: short sentences, one idea per line, active voice, common words plus the taught terms. Give the required content — what happened, damage type, location by zone and station, measurements, the SRM check, the result (within or out of limits), and a recommendation with a reason. Show the STE habits on the board: 'A tug struck the fuselage' not 'the fuselage was struck by a tug'; 'start' not 'commence'. The model answer is on the student page and annotated in the Solutions file. Hand out the four-line self-check.">
+    <div class="kick">§6 · writing · Simplified Technical English</div>
+    <h2>The Ground Damage Report</h2>
+    <div class="cols">
+      <div class="card">
+        <p><b class="acc">STE habits:</b></p>
+        <ul>
+          <li>short sentences, one idea per line;</li>
+          <li>active voice — "A tug struck the fuselage";</li>
+          <li>plain verbs — "start", not "commence";</li>
+          <li>only common words + today's terms.</li>
+        </ul>
+      </div>
+      <div>
+        <p>Include, in order: what happened · damage type · location (zone + station) · measurements · SRM check · result · recommendation <b>with a reason</b>. 80–120 words.</p>
+        <p class="muted">Self-check: short sentences? location by zone/station? depth vs limit? repair or referral, and why?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 · WRAP -->
+  <section class="slide" data-center data-notes="Wrap up and check the outcomes. Ask three quick questions round the room: give me a location by zone and station; is 1.4 mm over a stringer within limits or out; when do we raise a referral and why. That maps straight onto the three can-do statements. Exit ticket: each pair says or writes one sentence describing a dent using a relative clause. Homework: finish the STE report and complete the Moodle quiz. Praise precise numbers and correct relative clauses — those are the unit's win.">
+    <div class="kick">§ wrap-up</div>
+    <h2>Three checks, then out</h2>
+    <p class="big">Locate by zone &amp; station · compare against the limit · recommend repair or referral, and say why.</p>
+    <p class="muted" style="max-width:62ch">Exit ticket: one sentence describing a dent with a relative clause — "The dent, which is 2.6 mm over a frame, needs a referral." Homework: finish the report, do the quiz.</p>
+    <p class="pill">Praise the win: exact numbers + correct relative clauses = a report a colleague can trust.</p>
+  </section>
+
+</div>
+
+<!-- ===================== WIDGETS ===================== -->
+<script>
+window.DeckW = window.DeckW || {};
+
+/* ---- W: LOCATE — zone/station along the fuselage ---- */
+window.DeckW.locate=function(el){
+  el.innerHTML='<div class="wk"><div class="bar">'+
+    '<button data-c0 class="on">Dialogue 1 · zone 127 / stn 480</button>'+
+    '<button data-c1>Dialogue 3 · zone 300 / stn 720</button></div>'+
+    '<canvas width="680" height="220"></canvas>'+
+    '<div class="bar" style="margin-top:8px"><span class="note">station</span>'+
+    '<input type="range" min="400" max="760" step="10" value="480" data-st style="max-width:280px"></div>'+
+    '<div class="info" data-info></div></div>';
+  var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  var st=el.querySelector('[data-st]'),info=el.querySelector('[data-info]');
+  var b0=el.querySelector('[data-c0]'),b1=el.querySelector('[data-c1]');
+  var target=480, cur=480, zone='127', place='flat skin, one stringer near';
+  function setCase(station,z,pl,btn){ target=station; st.value=station; zone=z; place=pl;
+    b0.classList.toggle('on',btn===0); b1.classList.toggle('on',btn===1); }
+  b0.addEventListener('click',function(){setCase(480,'127','flat skin, one stringer near',0);});
+  b1.addEventListener('click',function(){setCase(720,'300','over a frame',1);});
+  st.addEventListener('input',function(){ target=+st.value;
+    if(+st.value<=560){zone='127';place='flat skin, one stringer near';b0.classList.add('on');b1.classList.remove('on');}
+    else{zone='300';place='over a frame';b1.classList.add('on');b0.classList.remove('on');} });
+  function xOf(s){ return 70 + (s-400)/(760-400)*(W-140); }
+  function draw(){
+    cur += (target-cur)*0.18;
+    ctx.clearRect(0,0,W,H);
+    // fuselage side
+    ctx.strokeStyle='#33507a';ctx.lineWidth=2;ctx.fillStyle='#0e1a2b';
+    ctx.beginPath();ctx.moveTo(60,70);ctx.lineTo(W-90,70);
+    ctx.quadraticCurveTo(W-40,110,W-90,150);ctx.lineTo(60,150);
+    ctx.quadraticCurveTo(30,110,60,70);ctx.closePath();ctx.fill();ctx.stroke();
+    // nose marker + tail
+    ctx.fillStyle='#54708c';ctx.font='11px Inter';ctx.fillText('nose',W-96,64);ctx.fillText('tail',56,64);
+    // station ruler
+    ctx.strokeStyle='#22344c';ctx.lineWidth=1;ctx.fillStyle='#54708c';ctx.font='10px Inter';
+    for(var s=400;s<=760;s+=60){var x=xOf(s);ctx.beginPath();ctx.moveTo(x,160);ctx.lineTo(x,172);ctx.stroke();ctx.fillText('STA '+s,x-16,186);}
+    // marker
+    var mx=xOf(cur);
+    ctx.strokeStyle='#38b6ff';ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(mx,60);ctx.lineTo(mx,172);ctx.stroke();ctx.setLineDash([]);
+    var pulse=6+Math.sin(Date.now()/260)*1.6;
+    ctx.fillStyle='#ff5667';ctx.beginPath();ctx.arc(mx,110,pulse,0,7);ctx.fill();
+    ctx.fillStyle='#e9f0f7';ctx.font='700 13px Inter';ctx.fillText('DENT',mx-16,100);
+    info.innerHTML='<h4>Zone '+zone+' · Station '+Math.round(cur)+'</h4>The dent is in <b>zone '+zone+'</b>, near <b>station '+Math.round(cur)+'</b>, on <b>'+place+'</b>.';
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+};
+
+/* ---- W: GAUGE — depth vs allowable limit ---- */
+window.DeckW.gauge=function(el){
+  el.innerHTML='<div class="wk"><div class="bar"><span class="note">location</span>'+
+    '<select data-loc><option value="2">flat skin (limit 2.0 mm)</option><option value="1">over a stringer / frame (limit 1.0 mm)</option></select></div>'+
+    '<canvas width="680" height="200"></canvas>'+
+    '<div class="bar" style="margin-top:8px"><span class="note">depth&nbsp;(mm)</span>'+
+    '<input type="range" min="0" max="3.5" step="0.1" value="1.4" data-d style="max-width:320px"><span data-dv class="note" style="min-width:48px;color:#cfe0ee">1.4</span></div>'+
+    '<div class="info" data-info></div></div>';
+  var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  var loc=el.querySelector('[data-loc]'),d=el.querySelector('[data-d]'),dv=el.querySelector('[data-dv]'),info=el.querySelector('[data-info]');
+  var cur=1.4;
+  d.addEventListener('input',function(){dv.textContent=(+d.value).toFixed(1);});
+  function draw(){
+    var target=+d.value; cur += (target-cur)*0.2;
+    var lim=+loc.value, maxD=3.5;
+    ctx.clearRect(0,0,W,H);
+    var x0=60,x1=W-60,y=110,barH=44;
+    // scale
+    ctx.fillStyle='#54708c';ctx.font='10px Inter';
+    for(var v=0;v<=maxD;v+=0.5){var x=x0+(v/maxD)*(x1-x0);ctx.fillText(v.toFixed(1),x-8,y+barH+22);ctx.strokeStyle='#22344c';ctx.beginPath();ctx.moveTo(x,y+barH+2);ctx.lineTo(x,y+barH+8);ctx.stroke();}
+    // track
+    ctx.fillStyle='#0a0f18';ctx.strokeStyle='#26384e';ctx.lineWidth=1;
+    ctx.fillRect(x0,y,x1-x0,barH);ctx.strokeRect(x0,y,x1-x0,barH);
+    // fill by depth
+    var within = cur<=lim+1e-9;
+    var fillW=(Math.min(cur,maxD)/maxD)*(x1-x0);
+    ctx.fillStyle= within? 'rgba(52,211,153,.55)':'rgba(255,86,103,.55)';
+    ctx.fillRect(x0,y,fillW,barH);
+    // limit line
+    var lx=x0+(lim/maxD)*(x1-x0);
+    ctx.strokeStyle='#fbbf24';ctx.lineWidth=2;ctx.setLineDash([5,4]);
+    ctx.beginPath();ctx.moveTo(lx,y-16);ctx.lineTo(lx,y+barH+2);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#fbbf24';ctx.font='700 12px Inter';ctx.fillText('limit '+lim.toFixed(1)+' mm',lx-30,y-22);
+    // depth readout
+    ctx.fillStyle='#e9f0f7';ctx.font='700 15px Inter';ctx.fillText(cur.toFixed(1)+' mm',x0+fillW+8>x1-70?x1-70:x0+fillW+8,y+28);
+    info.innerHTML='<h4>Verdict</h4>Depth <b>'+cur.toFixed(1)+' mm</b> against a <b>'+lim.toFixed(1)+' mm</b> limit → <span class="verdict '+(within?'in':'out')+'">'+(within?'WITHIN LIMITS':'OUT OF LIMITS')+'</span>. '+(within?'Record it in the tech log.':'Do not blend out — raise a referral.');
+    requestAnimationFrame(draw);
+  }
+  loc.addEventListener('change',function(){});
+  requestAnimationFrame(draw);
+};
+
+/* ---- W: SEVERITY — scratch/dent/gouge/crack ---- */
+window.DeckW.severity=function(el){
+  el.innerHTML='<div class="wk"><div class="bar" data-bar></div>'+
+    '<canvas width="680" height="150"></canvas><div class="info" data-info></div></div>';
+  var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  var bar=el.querySelector('[data-bar]'),info=el.querySelector('[data-info]');
+  var D=[['scratch',0.18,'#34d399','a thin surface mark that removes only a little material. A light one may be blended out.'],
+         ['dent',0.42,'#38b6ff','a smooth hollow from an impact, with no split. Measure the depth; compare to the limit.'],
+         ['gouge',0.66,'#fbbf24','a deeper mark that removes more material than a scratch. More serious.'],
+         ['crack',0.9,'#ff5667','a line where the metal has actually split. The most serious — always refer.']];
+  var cur=1,tx=D[1][1],curx=D[1][1];
+  D.forEach(function(dd,i){var b=document.createElement('button');b.textContent=dd[0];b.className=(i===1?'on':'');
+    b.addEventListener('click',function(){cur=i;tx=dd[1];Array.prototype.forEach.call(bar.children,function(c,k){c.classList.toggle('on',k===i);});});bar.appendChild(b);});
+  function draw(){
+    curx+=(tx-curx)*0.2;
+    ctx.clearRect(0,0,W,H);
+    var x0=50,x1=W-50,y=70;
+    ctx.strokeStyle='#33507a';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.stroke();
+    ctx.fillStyle='#54708c';ctx.font='11px Inter';ctx.fillText('less serious',x0,y+34);ctx.fillText('more serious',x1-72,y+34);
+    D.forEach(function(dd){var x=x0+dd[1]*(x1-x0);ctx.fillStyle=dd[2];ctx.beginPath();ctx.arc(x,y,6,0,7);ctx.fill();
+      ctx.fillStyle='#cfe0ee';ctx.font='700 13px Inter';ctx.fillText(dd[0],x-18,y-16);});
+    var mx=x0+curx*(x1-x0),pulse=9+Math.sin(Date.now()/240)*2;
+    ctx.strokeStyle=D[cur][2];ctx.lineWidth=2;ctx.beginPath();ctx.arc(mx,y,pulse,0,7);ctx.stroke();
+    info.innerHTML='<h4>'+D[cur][0]+'</h4>'+D[cur][3];
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+};
+
+/* ---- W: RELCLAUSE — defining vs non-defining ---- */
+window.DeckW.relclause=function(el){
+  el.innerHTML='<div class="wk"><div class="bar">'+
+    '<button data-def class="on">defining (no commas)</button>'+
+    '<button data-non>non-defining (commas)</button></div>'+
+    '<canvas width="680" height="150"></canvas>'+
+    '<div class="info" data-info></div></div>';
+  var cv=el.querySelector('canvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  var info=el.querySelector('[data-info]');
+  var bDef=el.querySelector('[data-def]'),bNon=el.querySelector('[data-non]');
+  var mode='def';
+  bDef.addEventListener('click',function(){mode='def';bDef.classList.add('on');bNon.classList.remove('on');});
+  bNon.addEventListener('click',function(){mode='non';bNon.classList.add('on');bDef.classList.remove('on');});
+  // three dents; index 1 exceeds the limit
+  var dents=[{x:0.22,bad:false},{x:0.5,bad:true},{x:0.78,bad:false}];
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var x0=40,x1=W-40,y=64;
+    ctx.strokeStyle='#33507a';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.stroke();
+    ctx.fillStyle='#54708c';ctx.font='11px Inter';ctx.fillText('three dents on one panel',x0,y-26);
+    dents.forEach(function(dn,i){
+      var x=x0+dn.x*(x1-x0);
+      var highlight = (mode==='def' && dn.bad);
+      ctx.fillStyle= dn.bad? '#ff5667':'#4a6b8f';
+      ctx.beginPath();ctx.arc(x,y,9,0,7);ctx.fill();
+      if(highlight){var pulse=13+Math.sin(Date.now()/220)*2.5;ctx.strokeStyle='#38b6ff';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,pulse,0,7);ctx.stroke();}
+      if(mode==='non'){var pulse2=13+Math.sin(Date.now()/220)*2.5;if(dn.bad){ctx.strokeStyle='#a78bfa';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,pulse2,0,7);ctx.stroke();}}
+      ctx.fillStyle='#7e98ad';ctx.font='10px Inter';ctx.fillText(dn.bad?'2.6 mm':'ok',x-12,y+26);
+    });
+    requestAnimationFrame(draw);
+  }
+  function setInfo(){
+    if(mode==='def') info.innerHTML='<h4>Defining — no commas</h4>"The dent <b style=color:#38b6ff>that exceeds the limit</b> needs a referral." → picks out <b>which</b> dent among the three. This is what a report needs.';
+    else info.innerHTML='<h4>Non-defining — commas</h4>"The dent, <b style=color:#a78bfa>which exceeds the limit</b>, needs a referral." → we already know which dent; the clause just <b>adds detail</b>. Never use "that" here.';
+  }
+  bDef.addEventListener('click',setInfo);bNon.addEventListener('click',setInfo);
+  setInfo();requestAnimationFrame(draw);
+};
+window.DeckWReady = true;
+</script>
+
+<!-- ===================== SLIDE ENGINE + PRESENTER ===================== -->
+<script>
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var notes=slides.map(function(s){return s.getAttribute('data-notes')||'';});
+var titles=slides.map(function(s){var h=s.querySelector('h1,h2');return h?h.textContent:'';});
+var i=0, presenter=null;
+
+function mountWidget(slide){
+  var holder=slide.querySelector('[data-widget]');
+  if(holder && !holder.dataset.mounted && window.DeckW){
+    var n=holder.getAttribute('data-widget');
+    if(window.DeckW[n]){ try{ window.DeckW[n](holder); holder.dataset.mounted='1'; }catch(e){ console.error('widget '+n,e); } }
+  }
+}
+function syncPresenter(){
+  try{ localStorage.setItem('u26_deck_state', JSON.stringify({i:i,total:slides.length,notes:notes,titles:titles})); }catch(e){}
+}
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,k){ s.classList.toggle('active',k===i); });
+  mountWidget(slides[i]);
+  document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+  document.getElementById('hud').textContent=(i+1)+' / '+slides.length;
+  syncPresenter();
+}
+document.addEventListener('keydown',function(e){
+  if(/^(input|textarea|select)$/i.test((e.target.tagName||''))) return;
+  if(e.key==='ArrowRight'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'){show(i-1);}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen(); }
+  else if(e.key==='p'||e.key==='P'){ openPresenter(); }
+});
+document.getElementById('deck').addEventListener('click',function(e){
+  if(e.target.closest('[data-widget]')||e.target.closest('button')||e.target.closest('input')||e.target.closest('select')||e.target.closest('label')) return;
+  if(e.clientX>window.innerWidth*0.35) show(i+1); else show(i-1);
+});
+document.getElementById('pbtn').addEventListener('click',openPresenter);
+
+function openPresenter(){
+  syncPresenter();
+  presenter=window.open('','u26_presenter','width=560,height=720');
+  if(!presenter){ alert('Allow pop-ups to open the presenter window.'); return; }
+  presenter.document.open();
+  presenter.document.write(PRES_HTML);
+  presenter.document.close();
+}
+var PRES_HTML = [
+'<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter — Unit 26</title>',
+'<style>body{margin:0;background:#0a0f16;color:#e9f0f7;font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:22px}',
+'.hud{display:flex;justify-content:space-between;align-items:center;color:#9db0c6;font-family:monospace;font-size:15px}',
+'.clk{font-size:30px;color:#cfe5ff}.cur{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd0ff;font-weight:800}',
+'.title{font-size:24px;font-weight:700;margin:4px 0 10px}',
+'.notes{font-size:20px;line-height:1.5;border-left:4px solid #fbbf24;padding-left:16px;color:#f3ead9}',
+'.next{margin-top:28px;color:#9db0c6;font-size:18px;border-top:1px solid #26384e;padding-top:14px}',
+'button{margin-top:22px;background:#16263a;color:#38b6ff;border:1px solid #314865;border-radius:9px;padding:9px 14px;font-size:15px;cursor:pointer;margin-right:8px}</style></head>',
+'<body><div class="hud"><span id="cnt"></span><span class="clk" id="clk">00:00</span></div>',
+'<div class="cur">Now presenting</div><div class="title" id="title"></div>',
+'<div class="cur">Speaker notes</div><div class="notes" id="notes"></div>',
+'<div class="next" id="next"></div>',
+'<button onclick="post(-1)">‹ Prev</button><button onclick="post(1)">Next ›</button>',
+'<script>',
+'var start=Date.now();function fmt(ms){var s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}',
+'setInterval(function(){document.getElementById("clk").textContent=fmt(Date.now()-start);},500);',
+'function st(){try{return JSON.parse(localStorage.getItem("u26_deck_state")||"{}");}catch(e){return {};}}',
+'function render(){var s=st();if(!s.notes)return;var i=s.i;',
+'document.getElementById("cnt").textContent="Slide "+(i+1)+" / "+s.total;',
+'document.getElementById("title").textContent=s.titles[i]||"";',
+'document.getElementById("notes").textContent=s.notes[i]||"(no notes)";',
+'document.getElementById("next").textContent=i+1<s.total?("▶ Next: "+(s.titles[i+1]||"")):"— end of deck —";}',
+'function post(d){localStorage.setItem("u26_deck_cmd",JSON.stringify({d:d,t:Date.now()}));}',
+'window.addEventListener("storage",function(e){if(e.key==="u26_deck_state")render();});',
+'render();setInterval(render,700);',
+'<\/script></body></html>'
+].join('');
+
+window.addEventListener('storage',function(e){
+  if(e.key==='u26_deck_cmd'){ try{ var c=JSON.parse(e.newValue); show(i+(c.d>0?1:-1)); }catch(err){} }
+});
+
+function init(){ if(window.DeckWReady){ show(0); } else setTimeout(init,120); }
+window.addEventListener('DOMContentLoaded',init);
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     LIVE CAPTION TRANSLATOR — speaker's speech → live translated subtitle.
+     Serve over https:// or http://localhost; Chrome/Edge. Toggle: CC button or "L" key.
+     ════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .lct-bar{ position:fixed; left:180px; right:145px; bottom:18px; z-index:9050; text-align:left;
+            pointer-events:none; display:none; }
+  .lct-bar.on{ display:block; animation:lct-in .35s both; }
+  @keyframes lct-in{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+  .lct-line{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;max-width:100%;margin:0}
+  .lct-row{font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;font-weight:500;font-size:calc(clamp(18px,2.7vw,38px) * var(--cap-scale,1));line-height:1.18;letter-spacing:.005em;color:#FFD24D;background:rgba(8,12,22,.7);border-radius:7px;padding:2px 12px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.55)}
+  .lct-row:empty{display:none}.lct-row-top{opacity:1}
+  .lct-line:empty{ display:none; }
+  .lct-src{ display:none; font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;
+            font-weight:400; font-size:clamp(14px,1.6vw,22px); line-height:1.3; color:#FFFCEB;
+            background:rgba(24,20,16,.78); padding:4px 14px; border-radius:6px; margin:0 auto 8px; max-width:90%; }
+  body.lct-show-src .lct-src:not(:empty){ display:inline-block; }
+  .lct-btn{ position:fixed; bottom:22px; right:20px; z-index:9051; pointer-events:auto;
+            width:50px; height:50px; border-radius:50%; cursor:pointer;
+            background:#F7C22D; color:#020E27; border:2px solid #F7C22D;
+            font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-weight:700; font-size:16px;
+            box-shadow:0 8px 22px -8px rgba(247,194,45,.7); transition:.15s; }
+  .lct-btn:hover{ transform:translateY(-2px); }
+  .lct-btn.on{ background:#EF4444; color:#fff; border-color:#EF4444; box-shadow:0 8px 22px -8px rgba(239,68,68,.8); }
+  .lct-btn.err{ background:#5b6b86; color:#fff; border-color:#5b6b86; }
+  .lct-status{ position:fixed; bottom:80px; right:20px; z-index:9051;
+               font-family:'JetBrains Mono',system-ui,Arial,sans-serif; font-size:11px; letter-spacing:.12em;
+               text-transform:uppercase; color:#020E27; background:#F7C22D;
+               border-radius:6px; padding:4px 9px; display:none; }
+  .lct-status.show{ display:block; }
+  .lct-gear{ position:fixed; bottom:22px; right:80px; z-index:9051; pointer-events:auto;
+             width:42px; height:42px; border-radius:50%; cursor:pointer;
+             background:rgba(13,27,53,.85); color:#E8EDF5; border:1.5px solid rgba(122,150,184,.4);
+             font-size:17px; line-height:1; box-shadow:0 8px 20px -10px rgba(0,0,0,.7); transition:.15s; backdrop-filter:blur(8px); }
+  .lct-gear:hover{ transform:translateY(-2px); color:#F7C22D; border-color:#F7C22D; }
+  .lct-gear.on{ background:#0A2040; color:#F7C22D; border-color:#F7C22D; }
+  .lct-langbar{ position:fixed; bottom:84px; right:80px; z-index:9052;
+                display:none; align-items:center; gap:8px;
+                background:#0D1B35; border:1px solid rgba(122,150,184,.35); border-radius:10px;
+                padding:8px 12px; box-shadow:0 14px 34px -14px rgba(0,0,0,.8); pointer-events:auto; }
+  .lct-langbar.open{ display:flex; }
+  .lct-langbar select{ font-family:'JetBrains Mono',system-ui,sans-serif; font-size:14px;
+                       font-weight:700; color:#E8EDF5; background:#162030;
+                       border:1px solid rgba(122,150,184,.4); border-radius:6px; padding:4px 7px; cursor:pointer; outline:none; }
+  .lct-langbar .lct-arrow{ font-weight:700; color:#F7C22D; font-size:17px; }
+</style>
+
+<div class="lct-status" id="lctStatus">off</div>
+<div class="lct-bar" id="lctBar">
+  <div class="lct-src"  id="lctSrc"></div>
+  <div class="lct-line" id="lctLine"><span class="lct-row lct-row-top" id="lctLineTop"></span><span class="lct-row lct-row-bot" id="lctLineBot"></span></div>
+</div>
+<button class="lct-btn"  id="lctBtn"  title="Toggle live captions + translation (L)">CC</button>
+<button class="lct-gear" id="lctGear" title="Caption languages" aria-label="Caption languages">⚙</button>
+<div class="lct-langbar" id="lctLangBar">
+  <span aria-hidden="true">🎙</span>
+  <select id="lctSrcSel" title="spoken language">
+    <option value="en-US">English</option>
+    <option value="lv-LV">Latviešu</option>
+    <option value="ru-RU">Русский</option>
+    <option value="es-ES">Español</option>
+    <option value="de-DE">Deutsch</option>
+    <option value="fr-FR">Français</option>
+    <option value="uk-UA">Українська</option>
+  </select>
+  <span class="lct-arrow" aria-hidden="true">→</span>
+  <select id="lctTgtSel" title="translate to">
+    <option value="lv">Latviešu</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="uk">Українська</option>
+    <option value="pl">Polski</option>
+    <option value="lt">Lietuvių</option>
+    <option value="et">Eesti</option>
+  </select>
+</div>
+
+<script id="caption-script">
+(function(){
+  "use strict";
+  var bar   = document.getElementById('lctBar');
+  var line  = document.getElementById('lctLine');
+  var lineTop = document.getElementById('lctLineTop');
+  var lineBot = document.getElementById('lctLineBot');
+  var srcEl = document.getElementById('lctSrc');
+  var btn   = document.getElementById('lctBtn');
+  var gear  = document.getElementById('lctGear');
+  var status= document.getElementById('lctStatus');
+  var langBar = document.getElementById('lctLangBar');
+  var srcSel  = document.getElementById('lctSrcSel');
+  var tgtSel  = document.getElementById('lctTgtSel');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var __micStream=null;
+  function __holdMic(){ if(__micStream) return Promise.resolve(); if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ return navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){ __micStream=s; }).catch(function(){}); } return Promise.resolve(); }
+  function __releaseMic(){ if(__micStream){ try{ __micStream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} __micStream=null; } }
+  var spoken = 'en-US', src = 'en', target = 'lv';
+  var rec = null, active = false;
+  var committed = [], lastInterim = '', pending = ''; var capTopB='', capBotB='', lctIdeaTimer=null, capTopAtB=0, lctAdvTimer=null;
+  var finalTimer = null, silenceTimer = null;
+  var lastTrAt = 0, lastTrText = '', lastTrLen = 0;
+  var netErrors = 0;
+  var cache = new Map();
+  var POLL_GAP_MS = 700;
+  function setStatus(t){ status.textContent = t; status.classList.toggle('show', active || t === 'mic blocked' || t === 'use Chrome'); }
+  function tail(text, maxWords){
+    if(!text) return '';
+    var t = String(text).trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    var parts = t.split(' ');
+    if(parts.length <= maxWords) return t;
+    var s = parts.slice(-maxWords).join(' ');
+    var m = s.match(/[.!?…]\s+(.+)$/) || s.match(/[,;:]\s+(.+)$/);
+    return m ? m[1] : s;
+  }
+  async function translateRemote(text){
+    try{
+      if(src === target) return text;
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+                src + '&tl=' + target + '&dt=t&q=' + encodeURIComponent(text);
+      var ctrl = new AbortController(); var tmo = setTimeout(function(){ ctrl.abort(); }, 3000);
+      var r = await fetch(url, { signal: ctrl.signal }); clearTimeout(tmo);
+      if(!r.ok) return null;
+      var j = await r.json();
+      if(Array.isArray(j) && Array.isArray(j[0])){
+        var out = ''; j[0].forEach(function(seg){ if(seg && seg[0]) out += seg[0]; });
+        return out || null;
+      }
+      return null;
+    }catch(e){ return null; }
+  }
+  async function translate(text){
+    if(!text || !text.trim()) return '';
+    var key = src + '|' + target + '|' + text.trim().toLowerCase();
+    if(cache.has(key)) return cache.get(key);
+    var out = await translateRemote(text);
+    if(!out) out = text;
+    cache.set(key, out);
+    if(cache.size > 250){ cache.delete(cache.keys().next().value); }
+    return out;
+  }
+  function lctRowCap(){ var el=lineBot||line; var box=(el&&el.parentElement&&el.parentElement.clientWidth)||(window.innerWidth*0.90)||1000; var fs=parseFloat(getComputedStyle(el).fontSize)||26; return Math.max(16, Math.floor(box/(fs*0.52))); }
+  function lctTrim(t){ t=(t||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(t.length<=cap) return t; var s=t.slice(t.length-cap); var i=s.indexOf(' '); return i>0? s.slice(i+1):s; }
+  function lctWrap(){ var cap=lctRowCap(); while(capBotB.length>cap){ var head=capBotB.slice(0,cap); var sp=head.lastIndexOf(' '); var cut=sp>0?sp:cap; capTopB=capBotB.slice(0,cut).trim(); capTopAtB=Date.now(); capBotB=capBotB.slice(cut).trim(); } }
+  function lctDraw(){ var iv=(lastInterim||'').replace(/\s+/g,' ').trim(); var cap=lctRowCap(); if(capBotB && (capBotB.length+(iv?iv.length+1:0))>cap){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lineTop.textContent=lctTrim(capTopB); lineBot.textContent=lctTrim((capBotB+(capBotB&&iv?' ':'')+iv).trim()); srcEl.textContent=tail((pending||'')?pending:'',16); }
+  function lctCommit(tr){ tr=(tr||'').replace(/\s+/g,' ').trim(); if(!tr) return; capBotB = capBotB? (capBotB+' '+tr):tr; lctWrap(); if(/[.!?…]$/.test(capBotB)) lctEndIdea(); lctDraw(); }
+  function lctEndIdea(){ if(capBotB){ capTopB=capBotB; capTopAtB=Date.now(); capBotB=''; } lctDraw(); }
+  function lctPushIdea(){ lctEndIdea(); }
+  function render(){ lctDraw(); if(lctIdeaTimer) clearTimeout(lctIdeaTimer); lctIdeaTimer=setTimeout(lctPushIdea,1500); }
+  function armSilence(){ cancelSilence(); silenceTimer = setTimeout(function(){
+    committed.length = 0; capTopB=''; capBotB=''; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+  }, 30000); }
+  function cancelSilence(){ if(silenceTimer){ clearTimeout(silenceTimer); silenceTimer = null; } }
+  async function commitFinal(chunk){
+    chunk = chunk.trim(); if(!chunk) return;
+    srcEl.textContent = tail(chunk, 18);
+    var tr = await translate(chunk);
+    lctCommit(tr); lastInterim = ''; lastTrLen = 0; render();
+  }
+  async function translateInterim(text){
+    var now = performance.now();
+    if(now - lastTrAt < POLL_GAP_MS) return;
+    if(text.length - lastTrLen < 10 && text.length > 0) return;
+    if(text === lastTrText) return;
+    lastTrAt = now; lastTrLen = text.length; lastTrText = text;
+    try{ var tr = await translate(text); if(tr && active){ lastInterim = tr; render(); } }catch(e){}
+  }
+  function startRec(){
+    rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = spoken;
+    if('maxAlternatives' in rec) rec.maxAlternatives = 1;
+    rec.onresult = function(e){
+      netErrors = 0; cancelSilence();
+      var interim = '', fin = '';
+      for(var i = e.resultIndex; i < e.results.length; i++){
+        var r = e.results[i];
+        if(r.isFinal) fin += ' ' + r[0].transcript; else interim += ' ' + r[0].transcript;
+      }
+      if(fin){ pending += ' ' + fin; if(finalTimer) clearTimeout(finalTimer);
+        finalTimer = setTimeout(function(){ var c = pending; pending = ''; commitFinal(c).then(armSilence); }, 120); }
+      if(interim){ srcEl.textContent = tail(interim.trim(), 18); translateInterim(interim.trim()); }
+      render(); setStatus('live · ' + src + '→' + target);
+    };
+    rec.onerror = function(ev){
+      if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){ setStatus('mic blocked'); btn.classList.add('err'); active = false; }
+      else if(ev.error === 'no-speech' || ev.error === 'aborted'){ /* ignore */ }
+      else if(ev.error === 'network'){ netErrors++; if(netErrors >= 3){ active = false; btn.classList.remove('on'); btn.classList.add('err'); setStatus('offline'); } else setStatus('reconnect ' + netErrors + '/3'); }
+      else setStatus(ev.error);
+    };
+    rec.onend = function(){ if(active){ try{ rec.start(); }catch(e){ setTimeout(function(){ if(active && rec){ try{ rec.start(); }catch(_){} } }, 350); } } };
+    try{ rec.start(); }catch(e){}
+  }
+  function toggle(){
+    if(!SR){ setStatus('use Chrome'); btn.classList.add('err'); return; }
+    if(active){
+      active = false; btn.classList.remove('on'); bar.classList.remove('on'); setStatus('off'); __releaseMic();
+      if(rec){ try{ rec.onend = null; rec.stop(); }catch(e){} rec = null; }
+      committed.length = 0; capTopB=''; capBotB=''; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; pending = ''; render();
+    } else {
+      active = true; btn.classList.add('on'); btn.classList.remove('err'); bar.classList.add('on');
+      setStatus('starting…'); __holdMic().then(startRec);
+    }
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+  gear.addEventListener('click', function(e){ e.stopPropagation();
+    var open = langBar.classList.toggle('open'); gear.classList.toggle('on', open); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'l' || e.key === 'L') && !/^(input|textarea|select)$/i.test((e.target.tagName||''))) toggle();
+  });
+  srcSel.addEventListener('change', function(e){ e.stopPropagation();
+    spoken = srcSel.value; src = spoken.slice(0,2); cache.clear();
+    if(active && rec){ rec.onend = null; try{ rec.stop(); }catch(_){} rec = null; __holdMic().then(startRec); }
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  tgtSel.addEventListener('change', function(e){ e.stopPropagation();
+    target = tgtSel.value; cache.clear();
+    committed.length = 0; capTopB=''; capBotB=''; capTopAtB=0; if(lctAdvTimer){clearTimeout(lctAdvTimer);lctAdvTimer=null;} lastInterim = ''; lastTrText = ''; lastTrLen = 0; render();
+    if(active) setStatus('live · ' + src + '→' + target);
+  });
+  [srcSel, tgtSel].forEach(function(s){ s.addEventListener('click', function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+<script>(function(){try{
+  var KEY='tsiCapScale', root=document.documentElement;
+  function apply(v){ root.style.setProperty('--cap-scale', v); }
+  var saved=parseFloat(localStorage.getItem(KEY))||1; saved=Math.max(0.6,Math.min(1.9,saved)); apply(saved);
+  var st=document.createElement('style'); st.textContent='.cap-fs-slider{-webkit-appearance:none;appearance:none;width:88px;height:5px;border-radius:4px;background:rgba(150,175,225,.45);cursor:pointer;vertical-align:middle}.cap-fs-slider::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#FFD24D;cursor:pointer}.cap-fs-slider::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:#FFD24D;cursor:pointer}'; document.head.appendChild(st);
+  function mount(){ var lb=document.getElementById('lctLangBar'); if(!lb||lb.querySelector('.cap-fs-slider')) return;
+    var w=document.createElement('span'); w.style.cssText='display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:#FFD24D;font-weight:700';
+    w.innerHTML='<span style="font-size:11px" title="caption size">A</span><input type="range" class="cap-fs-slider" min="0.6" max="1.9" step="0.05" title="Caption font size" aria-label="Caption font size"><span style="font-size:19px">A</span>';
+    lb.appendChild(w); var sl=w.querySelector('.cap-fs-slider'); sl.value=saved;
+    var stop=function(e){ e.stopPropagation(); };
+    sl.addEventListener('input',function(){ var v=parseFloat(sl.value)||1; apply(v); try{ localStorage.setItem(KEY,v); }catch(e){} });
+    ['click','mousedown','pointerdown','keydown'].forEach(function(ev){ sl.addEventListener(ev,stop); });
+  }
+  if(document.readyState!=='loading') mount(); else document.addEventListener('DOMContentLoaded',mount);
+}catch(e){}})();</script>
+</body>
+</html>
